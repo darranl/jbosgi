@@ -1,0 +1,20 @@
+<profilesXml xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/profiles-1.0.0.xsd">
+  <profiles>
+
+    <!-- This profile can also be defined in ~/.m2/settings.xml -->   
+    <profile>
+      <id>jboss-home-profile</id>
+
+      <activation>
+        <property>
+          <name>user.name</name>
+        </property>
+      </activation>
+      <properties>
+        <jboss501.home>${user.home}/svn/jbossas/tags/JBoss_5_0_1_GA/build/output/jboss-5.0.1.GA</jboss501.home>
+      </properties>
+    </profile>
+
+  </profiles>
+</profilesXml>

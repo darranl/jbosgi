@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  $Id$
+-->
+
+<deployment xmlns="urn:jboss:bean-deployer:2.0">
+
+  <!-- 
+  ********************************
+  *                              *  
+  *  Framework                   *
+  *                              *
+  ********************************
+  -->
+
+  <!-- The OSGiFramework -->
+  <bean name="jboss.osgi:service=Framework" class="org.jboss.osgi.felix.FelixIntegration">
+    <property name="properties">
+      <map keyClass="java.lang.String" valueClass="java.lang.String">
+        <entry><key>org.osgi.framework.storage</key><value>${jboss.server.data.dir}/osgi-store</value></entry>
+        <entry><key>org.osgi.framework.storage.clean</key><value>onFirstInit</value></entry>
+        <entry><key>org.osgi.service.http.port</key><value>8090</value></entry>
+        <entry><key>felix.bootdelegation.implicit</key><value>false</value></entry>
+        <entry><key>org.osgi.framework.bootdelegation</key><value>sun.reflect</value></entry>
+        <entry>
+          <key>org.osgi.framework.system.packages.extra</key>
+          <value>
+            <!-- system -->
+            javax.transaction;version=1.0,
+            javax.xml.bind.annotation;version=2.1,
+            org.apache.xerces.dom;version=2.9,
+            org.jnp.interfaces;version=5.0,
+            
+            <!-- log4j -->
+            org.apache.log4j;version=1.2,
+            
+            <!-- jboss-osgi -->
+            org.jboss.osgi.deployment.deployer;version=1.0,
+            org.jboss.osgi.deployment.interceptor;version=1.0,
+            org.jboss.osgi.microcontainer;version=1.0,
+            org.jboss.osgi.spi;version=1.0,
+            org.jboss.osgi.spi.capability;version=1.0,
+            org.jboss.osgi.spi.management;version=1.0,
+            org.jboss.osgi.spi.service;version=1.0,
+            org.jboss.osgi.spi.util;version=1.0, 
+            
+            <!-- jboss -->
+            org.jboss.beans.metadata.plugins;version=2.0,
+            org.jboss.beans.metadata.plugins.builder;version=2.0,
+            org.jboss.beans.metadata.spi.builder;version=2.0,
+            org.jboss.beans.metadata.spi;version=2.0,
+            org.jboss.dependency.spi;version=2.0,
+            org.jboss.kernel.spi.dependency;version=2.0,
+            org.jboss.logging,
+            org.jboss.reflect.spi;version=2.0,
+            org.jboss.util.xml;version=2.2,
+            org.jboss.virtual;version=2.1, 
+            org.jboss.virtual.plugins.registry;version=2.1, 
+            org.jboss.virtual.plugins.context.jar;version=2.1, 
+            org.jboss.virtual.plugins.vfs.helpers;version=2.1, 
+            org.jboss.virtual.protocol;version=2.1, 
+          </value>
+        </entry>
+        <!-- 
+          If set to 'true' bundles can be deployed in any order. Deployed bundle will get started when their dependencies can be resolved.
+          If set to 'false' bundles must be deployed in the order that is required to start them. 
+        -->
+        <entry><key>org.jboss.osgi.deferred.start</key><value>true</value></entry>
+        <!-- Husky socket connector properties -->
+        <entry><key>org.jboss.osgi.husky.runtime.connector.host</key><value>${jboss.bind.address}</value></entry>
+        <entry><key>org.jboss.osgi.husky.runtime.connector.port</key><value>5401</value></entry>
+        <!-- HTTP Service Port -->
+        <entry><key>org.osgi.service.http.port</key><value>8090</value></entry>
+        <!-- Config Admin Service -->
+        <entry><key>felix.cm.dir</key><value>${jboss.server.data.dir}/osgi-configadmin</value></entry>
+        <!-- JMX bundle properties -->
+        <entry><key>org.jboss.osgi.jmx.host</key><value>${jboss.bind.address}</value></entry>
+        <entry><key>org.jboss.osgi.jmx.port</key><value>1098</value></entry>
+        <!-- JNDI bundle properties -->
+        <entry><key>org.jboss.osgi.jndi.host</key><value>${jboss.bind.address}</value></entry>
+        <entry><key>org.jboss.osgi.jndi.rmi.port</key><value>1098</value></entry>
+        <entry><key>org.jboss.osgi.jndi.port</key><value>1099</value></entry>
+        <!-- JTA Object Store -->
+        <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${jboss.server.data.dir}/tx-object-store</value></entry>
+      </map>
+    </property>
+    <property name="autoInstall">
+     <list elementClass="java.net.URL">
+      <value>${jboss.server.home.url}/deploy/osgi/org.osgi.compendium.jar</value>
+     </list>
+    </property>
+    <property name="autoStart">
+     <list elementClass="java.net.URL">
+      <value>${jboss.server.home.url}/deploy/osgi/org.apache.felix.log.jar</value>
+      <value>${jboss.server.home.url}/deploy/osgi/jboss-osgi-common.jar</value>
+     </list>
+    </property>
+  </bean>
+
+  <!-- 
+  ********************************
+  *                              *  
+  *  Deployers                   *
+  *                              *
+  ********************************
+  -->
+
+  <!-- The OSGi MetaData Deployer -->
+  <bean name="jboss.osgi:service=BundleMetaDataDeployer" class="org.jboss.osgi.deployer.BundleMetaDataDeployer" />
+  
+  <!-- The OSGi Bundle Structure Deployer -->
+  <bean name="jboss.osgi:service=BundleStructureDeployer" class="org.jboss.osgi.deployer.BundleStructureDeployer" />
+  
+  <!-- The OSGi Bundle Deployer -->
+  <bean name="jboss.osgi:service=BundleRealDeployer" class="org.jboss.osgi.deployer.BundleRealDeployer">
+    <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
+    <property name="skipBundles"><inject bean="jboss.osgi:service=Framework" property="autoInstall" /></property>
+  </bean>
+
+  <!-- The Bundle ClassLoader Deployer -->
+  <bean name="jboss.osgi:service=BundleClassLoaderDeployer" class="org.jboss.osgi.deployer.BundleClassLoaderDeployer">
+    <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
+  </bean>
+
+  <!-- The Bundle Start/Stop Deployer -->
+  <bean name="jboss.osgi:service=BundleStartStopDeployer" class="org.jboss.osgi.deployer.BundleStartStopDeployer">
+    <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
+  </bean>
+
+  <!-- The Bundle Management Deployer -->
+  <bean name="jboss.osgi:service=BundleManagementDeployer" class="org.jboss.osgi.deployer.BundleManagementDeployer">
+    <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
+    <property name="mbeanServer"><inject bean="JMXKernel" property="mbeanServer"/></property>
+  </bean>
+
+</deployment>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ====================================================================== -->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ====================================================================== -->
+
+  <!-- $Id: pom.xml 91197 2009-07-14 09:48:24Z thomas.diesler@jboss.com $ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossOSGi</name>
+
+  <groupId>org.jboss.osgi</groupId>
+  <artifactId>jboss-osgi</artifactId>
+  <packaging>pom</packaging>
+
+  <version>1.0.0.Beta6</version>
+
+  <parent>
+    <groupId>org.jboss.osgi</groupId>
+    <artifactId>jboss-osgi-parent</artifactId>
+    <version>1.0.4</version>
+  </parent>
+
+  <!-- Subversion -->
+  <scm>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/jboss-osgi/trunk</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/jboss-osgi/trunk</developerConnection>
+    <url>http://fisheye.jboss.com/qsearch/JBossOSGi</url>
+  </scm>
+
+  <!-- Modules -->
+  <modules>
+    <module>reactor</module>
+    <module>testsuite</module>
+  </modules>
+
+  <!-- Properties -->
+  <properties>
+    <version.apache.ant>1.7.0</version.apache.ant>
+    <version.apache.aries.blueprint>1.0.0.20100120</version.apache.aries.blueprint>
+    <version.apache.aries.util>1.0.0.20100120</version.apache.aries.util>
+    <version.apache.felix.configadmin>1.2.4</version.apache.felix.configadmin>
+    <version.apache.felix.core>1.4.0</version.apache.felix.core>
+    <version.apache.felix.eventadmin>1.0.0</version.apache.felix.eventadmin>
+    <version.apache.felix.log>1.0.0</version.apache.felix.log>
+    <version.apache.felix.metatype>1.0.2</version.apache.felix.metatype>
+    <version.izpack>4.3.1</version.izpack>
+    <version.javax.servlet>2.5</version.javax.servlet>
+    <version.jboss.osgi.apache.xerces>2.9.1.SP3</version.jboss.osgi.apache.xerces>
+    <version.jboss.osgi.blueprint>1.0.0.Beta1</version.jboss.osgi.blueprint>
+    <version.jboss.osgi.common>1.0.3</version.jboss.osgi.common>
+    <version.jboss.osgi.common.core>2.2.13.GA</version.jboss.osgi.common.core>
+    <version.jboss.osgi.deployment>1.0.1</version.jboss.osgi.deployment>
+    <version.jboss.osgi.framework>1.0.0.Alpha3</version.jboss.osgi.framework>
+    <version.jboss.osgi.hotdeploy>1.0.4</version.jboss.osgi.hotdeploy>
+    <version.jboss.osgi.husky>1.0.3</version.jboss.osgi.husky>
+    <version.jboss.osgi.jaxb>2.1.10.SP3</version.jboss.osgi.jaxb>
+    <version.jboss.osgi.jmx>1.0.3</version.jboss.osgi.jmx>
+    <version.jboss.osgi.jndi>1.0.2</version.jboss.osgi.jndi>
+    <version.jboss.osgi.jta>1.0.0</version.jboss.osgi.jta>
+    <version.jboss.osgi.reflect>2.2.0</version.jboss.osgi.reflect>
+    <version.jboss.osgi.runtime.deployers>1.0.4</version.jboss.osgi.runtime.deployers>
+    <version.jboss.osgi.runtime.equinox>3.5.1</version.jboss.osgi.runtime.equinox>
+    <version.jboss.osgi.runtime.felix>2.0.2</version.jboss.osgi.runtime.felix>
+    <version.jboss.osgi.runtime.jbossas>1.0.2</version.jboss.osgi.runtime.jbossas>
+    <version.jboss.osgi.serviceloader>1.0.0</version.jboss.osgi.serviceloader>
+    <version.jboss.osgi.spi>1.0.4</version.jboss.osgi.spi>
+    <version.jboss.osgi.webapp>0.7.2.SP1</version.jboss.osgi.webapp>
+    <version.jboss.osgi.webconsole>1.0.2</version.jboss.osgi.webconsole>
+    <version.jboss.osgi.xml.binding>2.0.2.Beta4</version.jboss.osgi.xml.binding>
+    <version.ops4j.pax.web>0.7.2</version.ops4j.pax.web>
+    <version.osgi>4.2.0</version.osgi>
+
+    <surefire.memory.args>-Xmx512m</surefire.memory.args>
+    <surefire.jpda.args></surefire.jpda.args>
+    <surefire.profiler.args></surefire.profiler.args>
+  </properties>
+
+  <!-- DependencyManagement -->
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- apache ant -->
+      <dependency>
+        <groupId>org.apache.ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>${version.apache.ant}</version>
+      </dependency>
+
+      <!-- apache aries -->
+      <dependency>
+        <groupId>org.apache.aries.blueprint</groupId>
+        <artifactId>org.apache.aries.blueprint</artifactId>
+        <version>${version.apache.aries.blueprint}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.aries</groupId>
+        <artifactId>org.apache.aries.util</artifactId>
+        <version>${version.apache.aries.util}</version>
+      </dependency>
+
+      <!-- jboss.osgi -->
+      <dependency>
+        <groupId>org.jboss.osgi</groupId>
+        <artifactId>jboss-osgi-spi</artifactId>
+        <version>${version.jboss.osgi.spi}</version>
+      </dependency>
+
+      <!-- jboss.osgi.bundles -->
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-apache-xerces</artifactId>
+        <version>${version.jboss.osgi.apache.xerces}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-blueprint</artifactId>
+        <version>${version.jboss.osgi.blueprint}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-common</artifactId>
+        <version>${version.jboss.osgi.common}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-common-core</artifactId>
+        <version>${version.jboss.osgi.common.core}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-hotdeploy</artifactId>
+        <version>${version.jboss.osgi.hotdeploy}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-husky</artifactId>
+        <version>${version.jboss.osgi.husky}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-jaxb</artifactId>
+        <version>${version.jboss.osgi.jaxb}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-jmx</artifactId>
+        <version>${version.jboss.osgi.jmx}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-jndi</artifactId>
+        <version>${version.jboss.osgi.jndi}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-jta</artifactId>
+        <version>${version.jboss.osgi.jta}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-reflect</artifactId>
+        <version>${version.jboss.osgi.reflect}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-serviceloader</artifactId>
+        <version>${version.jboss.osgi.serviceloader}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-webapp</artifactId>
+        <version>${version.jboss.osgi.webapp}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-webconsole</artifactId>
+        <version>${version.jboss.osgi.webconsole}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.bundles</groupId>
+        <artifactId>jboss-osgi-xml-binding</artifactId>
+        <version>${version.jboss.osgi.xml.binding}</version>
+      </dependency>
+
+      <!-- jboss.osgi.runtime -->
+      <dependency>
+        <groupId>org.jboss.osgi.runtime</groupId>
+        <artifactId>jboss-osgi-deployers</artifactId>
+        <version>${version.jboss.osgi.runtime.deployers}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.runtime</groupId>
+        <artifactId>jboss-osgi-deployment</artifactId>
+        <version>${version.jboss.osgi.deployment}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.runtime</groupId>
+        <artifactId>jboss-osgi-runtime-jbossas</artifactId>
+        <version>${version.jboss.osgi.runtime.jbossas}</version>
+      </dependency>
+
+      <!-- Equinox Dependencies -->
+      <dependency>
+        <groupId>org.jboss.osgi.runtime</groupId>
+        <artifactId>jboss-osgi-runtime-equinox</artifactId>
+        <version>${version.jboss.osgi.runtime.equinox}</version>
+      </dependency>
+
+      <!-- Felix Dependencies -->
+      <dependency>
+        <groupId>org.jboss.osgi.runtime</groupId>
+        <artifactId>jboss-osgi-runtime-felix</artifactId>
+        <version>${version.jboss.osgi.runtime.felix}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.configadmin</artifactId>
+        <version>${version.apache.felix.configadmin}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.eventadmin</artifactId>
+        <version>${version.apache.felix.eventadmin}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.log</artifactId>
+        <version>${version.apache.felix.log}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.metatype</artifactId>
+        <version>${version.apache.felix.metatype}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.osgi.core</artifactId>
+        <version>${version.apache.felix.core}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <version>${version.apache.felix.core}</version>
+      </dependency>
+
+      <!-- JBossMC Dependencies -->
+      <dependency>
+        <groupId>org.jboss.osgi.runtime</groupId>
+        <artifactId>jboss-osgi-framework</artifactId>
+        <version>${version.jboss.osgi.framework}</version>
+      </dependency>
+
+      <!-- OPS4J -->
+      <dependency>
+        <groupId>org.ops4j.pax.web</groupId>
+        <artifactId>pax-web-extender-war</artifactId>
+        <version>${version.ops4j.pax.web}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ops4j.pax.web</groupId>
+        <artifactId>pax-web-jetty-bundle</artifactId>
+        <version>${version.ops4j.pax.web}</version>
+      </dependency>
+
+      <!-- javax.* -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>${version.javax.servlet}</version>
+      </dependency>
+      
+      <!-- org.osgi -->
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.core</artifactId>
+        <version>${version.osgi}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.compendium</artifactId>
+        <version>${version.osgi}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- Dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging-log4j</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- Repositories -->
+  <repositories>
+    <repository>
+      <id>repository.jboss.org</id>
+      <name>JBoss Repository</name>
+      <url>http://repository.jboss.org/maven2/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>snapshots.jboss.org</id>
+      <name>JBoss Snapshots Repository</name>
+      <url>http://snapshots.jboss.org/maven2/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <!-- Profiles -->
+  <profiles>
+
+    <!--
+      Name: distro
+      Desc: Build the distribution
+    -->
+    <profile>
+      <id>distro</id>
+      <modules>
+        <module>distribution</module>
+      </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <skipTests>true</skipTests>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Name: jpda
+      Descr: Enable JPDA remote debuging
+    -->
+    <profile>
+      <id>jpda</id>
+      <activation>
+        <property>
+          <name>jpda</name>
+        </property>
+      </activation>
+      <properties>
+        <surefire.jpda.args>-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</surefire.jpda.args>
+      </properties>
+    </profile>
+
+    <!--
+      Name: yourkit
+      Descr: Enable YourKit remote profiling
+    -->
+    <profile>
+      <id>yourkit</id>
+      <activation>
+        <property>
+          <name>yourkit</name>
+        </property>
+      </activation>
+      <properties>
+        <surefire.profiler.args>-agentlib:yjpagent=onexit=memory</surefire.profiler.args>
+      </properties>
+    </profile>
+
+    <!--
+      Name: embedded-testing 
+      Descr: Setup for embedded integration testing
+    -->
+    <profile>
+      <id>embedded-testing</id>
+      <activation>
+        <property>
+          <name>!target.container</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <property>
+                  <name>framework</name>
+                  <value>${framework}</value>
+                </property>
+                <property>
+                  <name>java.protocol.handler.pkgs</name>
+                  <value>org.jboss.net.protocol|org.jboss.virtual.protocol</value>
+                </property>
+                <property>
+                  <name>jndi.server.port</name>
+                  <value>1199</value>
+                </property>
+                <property>
+                  <name>log4j.output.dir</name>
+                  <value>${project.build.directory}</value>
+                </property>
+                <property>
+                  <name>jboss.osgi.framework.properties</name>
+                  <value>${jboss.osgi.framework.properties}</value>
+                </property>
+                <property>
+                  <name>org.jboss.osgi.husky.Invoker</name>
+                  <value>org.jboss.osgi.husky.internal.OSGiInvoker</value>
+                </property>
+                <property>
+                  <name>test.archive.directory</name>
+                  <value>${project.build.directory}/test-libs</value>
+                </property>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Name: remote-testing 
+      Descr: Setup for remote integration testing
+    -->
+    <profile>
+      <id>remote-testing</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <property>
+                  <name>framework</name>
+                  <value>${framework}</value>
+                </property>
+                <property>
+                  <name>java.protocol.handler.pkgs</name>
+                  <value>org.jboss.net.protocol|org.jboss.virtual.protocol</value>
+                </property>
+                <property>
+                  <name>jboss.bind.address</name>
+                  <value>${jboss.bind.address}</value>
+                </property>
+                <property>
+                  <name>jboss.osgi.framework.properties</name>
+                  <value>${jboss.osgi.framework.properties}</value>
+                </property>
+                <property>
+                  <name>org.jboss.osgi.husky.Invoker</name>
+                  <value>org.jboss.osgi.husky.internal.OSGiInvoker</value>
+                </property>
+                <property>
+                  <name>org.jboss.osgi.husky.runtime.connector.host</name>
+                  <value>${jboss.bind.address}</value>
+                </property>
+                <property>
+                  <name>org.jboss.osgi.husky.runtime.connector.port</name>
+                  <value>5401</value>
+                </property>
+                <property>
+                  <name>jndi.server.port</name>
+                  <value>1099</value>
+                </property>
+                <property>
+                  <name>log4j.output.dir</name>
+                  <value>${project.build.directory}</value>
+                </property>
+                <property>
+                  <name>org.apache.xerces.xni.parser.XMLParserConfiguration</name>
+                  <value>org.apache.xerces.parsers.XIncludeAwareParserConfiguration</value>
+                </property>
+                <property>
+                  <name>target.container</name>
+                  <value>${target.container}</value>
+                </property>
+                <property>
+                  <name>test.archive.directory</name>
+                  <value>${project.build.directory}/test-libs</value>
+                </property>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>

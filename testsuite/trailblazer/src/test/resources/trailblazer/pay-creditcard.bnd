@@ -1,0 +1,12 @@
+# bnd build -classpath target/test-classes -output target/test-libs/trailblazer-payment-creditcard.jar src/test/resources/trailblazer/payment-creditcard.bnd
+
+Bundle-SymbolicName: trailblazer-payment-creditcard
+Bundle-Activator: org.jboss.test.osgi.trailblazer.pay.creditcard.CreditCardServiceActivator
+
+Private-Package: org.jboss.test.osgi.trailblazer.pay.creditcard
+
+Import-Package: \
+	org.osgi.framework, \
+	org.osgi.service.log, \
+	org.jboss.osgi.common.log, \
+	org.jboss.test.osgi.trailblazer

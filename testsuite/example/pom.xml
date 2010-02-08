@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ====================================================================== -->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ====================================================================== -->
+
+  <!-- $Id: pom.xml 91197 2009-07-14 09:48:24Z thomas.diesler@jboss.com $ -->
+
+  <!--
+    Set these VM properties in your IDE debugger
+     
+      -Dlog4j.output.dir=${workspace_loc:jboss-osgi-testsuite-example/target}
+      -Dorg.jboss.osgi.husky.Invoker=org.jboss.osgi.husky.internal.OSGiInvoker
+      -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-example/target}/test-libs
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossOSGi Testsuite - Examples</name>
+
+  <groupId>org.jboss.osgi.testsuite</groupId>
+  <artifactId>jboss-osgi-testsuite-example</artifactId>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>org.jboss.osgi.testsuite</groupId>
+    <artifactId>jboss-osgi-testsuite</artifactId>
+    <version>1.0.0.Beta6</version>
+  </parent>
+
+  <!-- Properties -->
+  <properties>
+  </properties>
+
+  <!-- Dependencies -->
+  <dependencies>
+  </dependencies>
+
+  <!-- Build -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>bundles</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>directory-single</goal>
+            </goals>
+            <configuration>
+              <finalName>test-libs</finalName>
+              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>scripts/assembly-bundles.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+          <execution>
+            <id>examples</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>scripts/assembly-examples-zip.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>build-test-jars</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
+                <property name="tests.output.dir" value="${project.build.directory}" />
+                <ant antfile="scripts/antrun-test-jars.xml" />
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/${project.artifactId}-${project.version}.zip</file>
+                  <type>zip</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Repositories -->
+  <repositories>
+    <!-- 
+      Also define the JBoss Repository here because 
+      the examples are distributed standalone 
+    -->
+    <repository>
+      <id>repository.jboss.org</id>
+      <name>JBoss Repository</name>
+      <url>http://repository.jboss.org/maven2</url>
+    </repository>
+  </repositories>
+
+  <!-- Profiles -->
+  <profiles>
+
+    <!--
+      Name: framework-equinox
+      Descr: Setup for Equinox framework integration testing
+    -->
+    <profile>
+      <id>framework-equinox</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>equinox</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compendium</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>directory-single</goal>
+                </goals>
+                <configuration>
+                  <finalName>test-libs</finalName>
+                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptors>
+                    <descriptor>scripts/assembly-compendium-equinox.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-145] JAXB classes are loaded from the system classpath -->
+                <exclude>org/jboss/test/osgi/example/xml/jaxb/**</exclude>
+                <!-- [JBOSGI-236] XML Binding example fails in JBossAS -->
+                <exclude>org/jboss/test/osgi/example/xml/jbossxb/**</exclude>
+                <!-- Functionality not supported in Equinox -->                
+                <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
+                <exclude>org/jboss/test/osgi/example/microcontainer/**</exclude>
+                <exclude>org/jboss/test/osgi/example/serviceloader/**</exclude>
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppInterceptorTestCase.class</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Name: framework-felix
+      Descr: Setup for Felix framework integration testing
+    -->
+    <profile>
+      <id>framework-felix</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>felix</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compendium</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>directory-single</goal>
+                </goals>
+                <configuration>
+                  <finalName>test-libs</finalName>
+                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptors>
+                    <descriptor>scripts/assembly-compendium.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <!-- Functionality not supported in Felix -->                
+                <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
+                <exclude>org/jboss/test/osgi/example/microcontainer/**</exclude>
+                <exclude>org/jboss/test/osgi/example/serviceloader/**</exclude>
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppInterceptorTestCase.class</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!--
+      Name: framework-jbossmc
+      Descr: Setup for JBossMC framework integration testing
+    -->
+    <profile>
+      <id>framework-jbossmc</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>jbossmc</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compendium</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>directory-single</goal>
+                </goals>
+                <configuration>
+                  <finalName>test-libs</finalName>
+                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptors>
+                    <descriptor>scripts/assembly-compendium.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-204] Failure in Bundle.start() uninstalls the bundle -->
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
+                <!-- Functionality not supported in JBossMC -->                
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppExtenderTestCase.class</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>framework-default</id>
+      <activation>
+        <property>
+          <name>!framework</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compendium</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>directory-single</goal>
+                </goals>
+                <configuration>
+                  <finalName>test-libs</finalName>
+                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptors>
+                    <descriptor>scripts/assembly-compendium.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-204] Failure in Bundle.start() uninstalls the bundle -->
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
+                <!-- Functionality not supported in JBossMC -->                
+                <exclude>org/jboss/test/osgi/example/webapp/WebAppExtenderTestCase.class</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>

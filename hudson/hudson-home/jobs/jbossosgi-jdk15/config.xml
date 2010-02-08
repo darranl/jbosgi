@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions class="vector" />
+  <description>Build and test JBossOSGi @version.id@ on JDK1.5</description>
+  <logRotator>
+    <daysToKeep>60</daysToKeep>
+    <numToKeep>-1</numToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>FRAMEWORK</name>
+          <optional>false</optional>
+          <defaultValue>jbossmc</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CONTAINER</name>
+          <optional>false</optional>
+          <defaultValue>runtime</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.security.AuthorizationMatrixProperty />
+  </properties>
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>@hudson.osgi.url@</remote>
+        <local>jboss-osgi</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <useUpdate>true</useUpdate>
+    <browser class="hudson.scm.browsers.FishEyeSVN">
+      <url>http://fisheye.jboss.com/browse/JBossOSGi</url>
+      <rootModule></rootModule>
+    </browser>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <jdk>jdk1.5</jdk>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>
+OSGIDIR=$WORKSPACE/jboss-osgi
+HUDSONDIR=$OSGIDIR/hudson
+
+export JBOSS_BINDADDR=@jboss.bind.address@
+
+# copy the maven profile
+cp @hudson.maven.profile@ $OSGIDIR/profiles.xml
+
+#
+# call command.sh 
+#
+/bin/sh $HUDSONDIR/hudson-home/command.sh
+      </command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers class="vector">
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>jboss-osgi/**/target/surefire-reports/TEST-*.xml</testResults>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers/>
+</project>

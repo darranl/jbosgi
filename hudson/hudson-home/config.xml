@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <numExecutors>2</numExecutors>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Hudson.Read:@hudson.username@</permission>
+    <permission>hudson.model.Item.Build:@hudson.username@</permission>
+    <permission>hudson.model.Item.Workspace:@hudson.username@</permission>
+    <permission>hudson.model.Item.Delete:@hudson.username@</permission>
+    <permission>hudson.model.View.Configure:@hudson.username@</permission>
+    <permission>hudson.model.Computer.Configure:@hudson.username@</permission>
+    <permission>hudson.model.Computer.Delete:@hudson.username@</permission>
+    <permission>hudson.model.Run.Update:@hudson.username@</permission>
+    <permission>hudson.model.Item.Create:@hudson.username@</permission>
+    <permission>hudson.model.Item.Configure:@hudson.username@</permission>
+    <permission>hudson.model.View.Delete:@hudson.username@</permission>
+    <permission>hudson.model.View.Create:@hudson.username@</permission>
+    <permission>hudson.scm.SCM.Tag:@hudson.username@</permission>
+    <permission>hudson.model.Run.Delete:@hudson.username@</permission>
+    <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>false</disableSignup>
+  </securityRealm>
+  <systemMessage>
+    <![CDATA[
+<h2>JBossOSGi QA Environment</h2>
+  
+<table>
+<tr align="left"><th>Bind Addr</th><td>@jboss.bind.address@</td></tr>
+<tr align="left"><th>Documentation</th><td>
+<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
+</td></tr>
+</table>
+]]>
+  </systemMessage>
+  <jdks>
+    <jdk>
+      <name>jdk1.5</name>
+      <javaHome>@java.home.jdk15@</javaHome>
+    </jdk>
+    <jdk>
+      <name>jdk1.6</name>
+      <javaHome>@java.home.jdk16@</javaHome>
+    </jdk>
+  </jdks>
+  <clouds/>
+  <slaves/>
+  <quietPeriod>5</quietPeriod>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties/>
+  <disabledAdministrativeMonitors/>
+</hudson>

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project>
+  <actions class="java.util.concurrent.CopyOnWriteArrayList"/>
+  <description>Build and test the JBossOSGi @version.id@ Matrix</description>
+  <logRotator>
+    <daysToKeep>60</daysToKeep>
+    <numToKeep>-1</numToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty/>
+  </properties>
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>@hudson.osgi.url@</remote>
+        <local>jboss-osgi</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <useUpdate>true</useUpdate>
+    <browser class="hudson.scm.browsers.FishEyeSVN">
+      <url>http://fisheye.jboss.com/browse/JBossOSGi</url>
+      <rootModule></rootModule>
+    </browser>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <triggers class="vector">
+    <hudson.triggers.TimerTrigger>
+      <spec>0 0 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <axes>
+    <axis>
+      <name>framework</name>
+      <values>
+        <string>felix</string>
+        <string>equinox</string>
+        <string>jbossmc</string>
+      </values>
+    </axis>
+    <axis>
+      <name>jdk</name>
+      <values>
+        <!-- [JBOSGI-152] Cannot shutdown RMI registry on jdk1.5
+        <string>jdk1.5</string>
+        -->
+        <string>jdk1.6</string>
+      </values>
+    </axis>
+  </axes>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>-U -fae clean install</targets>
+      <mavenName>@hudson.maven.name@</mavenName>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers class="vector">
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>jboss-osgi/**/target/surefire-reports/TEST-*.xml</testResults>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers/>
+</matrix-project>

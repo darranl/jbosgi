@@ -1,0 +1,13 @@
+# bnd build -classpath target/test-classes -output target/test-libs/example-simple-husky.jar src/test/resources/example/simple/example-simple-husky.bnd
+
+Bundle-SymbolicName: example-simple-husky
+
+Bundle-Activator: org.jboss.test.osgi.example.simple.bundle.SimpleActivator
+
+Private-Package: org.jboss.test.osgi.example.simple.bundle
+
+# Export the package that contains the test case
+Export-Package: org.jboss.test.osgi.example.simple
+
+# Tell Husky that there are test cases in this package
+Test-Package: org.jboss.test.osgi.example.simple

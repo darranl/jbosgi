@@ -1,0 +1,6 @@
+# bnd build -classpath target/test-classes -output target/test-libs/jbosgi39-bundleB.jar src/test/resources/jbosgi39/bundleB.bnd
+
+Bundle-SymbolicName: jbosgi39-bundleB
+Bundle-Activator: org.jboss.test.osgi.jbosgi39.bundleB.OSGi39ActivatorB
+Export-Package: org.jboss.test.osgi.jbosgi39.bundleB
+

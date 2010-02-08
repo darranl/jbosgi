@@ -1,0 +1,204 @@
+<!-- 
+  $Id$ 
+-->
+<chapter xml:id="ChapHuskyTesting">
+
+  <title>Husky Test Framework</title>
+  
+  <sect1 xml:id="SecHuskyOverview">  
+    <title>Overview</title>
+    
+    <para>JBoss OSGi Husky is a OSGi Test Framework that allows you to run plain JUnit4 test cases from within an OSGi Framework.
+    That the test is actually executed in the the OSGi Framework is transparent to your test case. There is no requirement to extend 
+    a specific base class nor do you need a special test runner. Your OSGi tests execute along side with all your other (non OSGi specific)
+    test cases in Maven, Ant, or Eclipse.</para>
+    
+    <para>Some time ago I was looking for ways to test bundles that are deployed to a remote instance of the 
+    <link linkend="ChapRuntime">JBoss OSGi Runtime</link>. I wanted the solution to also work with an OSGi Framework 
+    that is bootstrapped from within a JUnit test case.</para>
+
+    <para>The basic problem is of course that you cannot access the artefacts that you deploy in a bundle directly from your test case, 
+    because they are loaded from different classloaders.</para>
+   
+    <mediaobject>
+      <imageobject>
+        <imagedata  align="center" fileref="images/husky-problem.png"/> 
+      </imageobject>
+    </mediaobject>
+    
+    <para>Former releases of JBoss OSGi used an approach which is documented in 
+    <ulink url="http://jbossosgi.blogspot.com/2009/04/non-intrusive-osgi-bundle-testing.html">Non intrusive OSGi Bundle Testing</ulink> and 
+    is still available. Although the remote logging approach worked for simple scenarios, it does not allow for fine grained interaction with 
+    the OSGi Framework (i.e. access to the registry). An additional problem was the asynchronous nature of LogEntry delivery.</para>
+    
+    <para>For this release however, I revisited the problem and added a few more requirements.</para>
+    
+    <itemizedlist>
+      <listitem>Test cases SHOULD be plain JUnit4 POJOs</listitem>
+      <listitem>There SHOULD be no requirement to extend a specific test base class</listitem>
+      <listitem>There MUST be no requirement on a specific test runner (i.e. MUST run with Maven)</listitem>
+      <listitem>There SHOULD be a minimum test framework leakage into the test case</listitem>
+      <listitem>The test framework MUST support embedded and remote OSGi runtimes with no change required to the test</listitem>
+      <listitem>The same test case MUST be executable from outside as well as from within the OSGi Framework</listitem>
+      <listitem>There SHOULD be a pluggable communication layer from the test runner to the OSGi Framework</listitem>
+      <listitem>The test framework MUST NOT depend on OSGi Framework specific features</listitem>
+      <listitem>There MUST be no automated creation of test bundles required by the test framework</listitem>
+    </itemizedlist>
+    
+    <para>The next section explains the solution that now comes as JBoss OSGi Husky</para>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecHuskyArchitecture">  
+    <title>Architecture</title>
+    
+    <para>JBoss OSGi Husky has client side interceptor that fields the test request to an embedded/remote OSGi Framework where the 
+    test case is then actually executed.</para>
+   
+    <mediaobject>
+      <imageobject>
+        <imagedata  align="center" width="90%" fileref="images/husky-design.png"/> 
+      </imageobject>
+    </mediaobject>
+    
+    <para>Here is how it works </para>
+    
+    <orderedlist>
+      <listitem>A <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/Bridge.html">Bridge</ulink> 
+      intercepts a test and determines the FQN of the test case and the test method from the call stack. It then delegates the execution to the same 
+      (or another) test in and isolated test environment. An isolated test environment is one that does not have the same class loading space as 
+      the test itself.</listitem>
+      
+      <listitem>A Bridge is associated with an <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/Invoker.html">
+      Invoker</ulink>. Invokers may be arbitarily complex. Local 'in proccess' invokers are possible just as well as remote invokers. </listitem>
+      
+      <listitem>The Invoker sends the <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/Request.html">
+      Request</ulink> to a <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/Connector.html">
+      Connector</ulink> in the isolated test environment.</listitem>
+      
+      <listitem>A Connector has associated <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/PackageListener.html">
+      PackageListeners</ulink> that are responsible for processing test cases for their respective test packages.</listitem>
+      
+      <listitem>A PackageListeners delegates the Request to a test <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/Runner.html">
+      Runner</ulink>, typicaly this would be a <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/junit/JUnitRunner.html">
+      JUnitRunner</ulink>.</listitem>
+      
+      <listitem>The Runner injects the <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/Context.html">
+      Context</ulink> into the test case and returns a <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/Response.html">
+      Response</ulink>, which the Connector returns to the Invoker.</listitem>
+      
+      <listitem>The Bridge finally translates potential <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/Failure.html">
+      Failures</ulink> that may be contained in the Result, to test failures on the client side.</listitem>
+    </orderedlist>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-husky.jar</emphasis> bundle registers the Connectors. 
+    The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/osgi/JMXConnector.html">
+    JMXConnector</ulink> is always registered. 
+    The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/osgi/SocketConnector.html">
+    SocketConnector</ulink> is registered when the appropriate configuration options are set. It then registers the 
+    <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/husky/runtime/osgi/HuskyExtender.html">HuskyExtender</ulink>, 
+    which is a <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/framework/BundleListener.html">BundleListener</ulink> that inspects every
+    incomming bundle for the <emphasis role="bold">Test-Package</emphasis> manifest header. The Extender creates a PackageListener
+    for every package in the 'Test-Package' manifest header and registers them with the available Connectors.</para>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecHuskyConfiguration">  
+    <title>Configuration</title>
+    
+    <para>In the target OSGi Framework, which is the one that has the <emphasis role="bold">jboss-osgi-husky.jar</emphasis> bundle installed,
+    you set these properties</para>
+   
+    <table>
+      <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.husky.runtime.connector.host</td>
+        <td>localhost</td>
+        <td>The Husky socket connector host poperty</td>
+      </tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.husky.runtime.connector.port</td>
+        <td>5401</td>
+        <td>The Husky socket connector port poperty</td>
+      </tr>
+    </table>
+    
+    <para>Both properties must be set for the SocketConnector to be available.</para>
+    
+    <para>On the client side, you must configure the Invoker you want to use.</para>
+   
+    <table>
+      <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.husky.Invoker</td>
+        <td>org.jboss.osgi.husky.internal.OSGiInvoker</td>
+        <td>The client side Husky Invoker</td>
+      </tr>
+    </table>
+    
+    <para>This particular invoker will also look for the 'org.jboss.osgi.husky.runtime.connector.host' and 
+    'org.jboss.osgi.husky.runtime.connector.port' properties and if available will use a socket invocation.</para>
+  </sect1>
+  
+  <sect1 xml:id="SecHuskyWritingTests">  
+    <title>Writing Husky Tests</title>
+    
+    <para>In a typical Husky test you have</para>
+   
+    <itemizedlist>
+      <listitem>A <emphasis role="bold">descriminator</emphasis> to distinguish between client and 'in container' execution</listitem>
+      <listitem>An <emphasis role="bold">interceptor</emphasis> that delegates the call to an Invoker (i.e. Bridge.run())</listitem>
+    </itemizedlist>
+    
+    <para>For OSGi, the descriminator would be the <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/framework/BundleContext.html">
+    BundleContext</ulink> that gets injected by the 'in container' test Runner</para>
+    
+    <para>The interceptor would be a call to one of the Bridge.run() variants.</para>
+    
+    <programlisting role="JAVA">
+public class SimpleHuskyTestCase
+{
+   @ProvideContext
+   public BundleContext context;
+   ...
+   @Test
+   public void testSimpleBundle() throws Exception
+   {
+      // Tell Husky to run this test method within the OSGi Runtime
+      if (context == null)
+         BridgeFactory.getBridge().run();
+      
+      // Stop here if the context is not injected
+      assumeNotNull(context);
+      
+      // Get the SimpleService reference
+      ServiceReference sref = context.getServiceReference(SimpleService.class.getName());
+      assertNotNull("SimpleService Not Null", sref);
+      
+      // Access the SimpleService 
+      SimpleService service = (SimpleService)context.getService(sref);
+      assertEquals("hello", service.echo("hello"));
+   }
+}
+    </programlisting>
+    
+    <para>The bundle that contains the test case must have the <emphasis role="bold">Test-Package</emphasis> manifest header
+    configured. Here is the <ulink url="http://www.aqute.biz/Code/Bnd">aQute Bnd Tool</ulink> configuration for doing so.</para>
+
+    <programlisting>
+Bundle-SymbolicName: example-simple-husky
+
+Bundle-Activator: org.jboss.test.osgi.example.simple.bundle.SimpleActivator
+
+Private-Package: org.jboss.test.osgi.example.simple.bundle
+
+# Export the package that contains tthe test case
+Export-Package: org.jboss.test.osgi.example.simple
+
+# Tell Husky that there are test cases in this package
+Test-Package: org.jboss.test.osgi.example.simple
+    </programlisting>
+    
+  </sect1>
+  
+</chapter>

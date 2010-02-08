@@ -1,0 +1,245 @@
+<!-- 
+  $Id$ 
+-->
+<chapter xml:id="ChapProvidedBundles">
+
+  <title>Provided Bundles and Services</title>
+  
+  <sect1 xml:id="SecBundleBlueprint">  
+    <title>Blueprint Container Service</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-blueprint.jar</emphasis> bundle provides 
+    together with <emphasis role="bold">org.apache.aries.blueprint.jar</emphasis> access to the Blueprint extender service.</para> 
+    
+    <para>The <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</ulink> 
+    service allows bundles to contain standard blueprint descriptors, which can be used for component wiring 
+    and injection of blueprint components. The idea is to use a plain POJO programming model and let 
+    Blueprint do the wiring for you. There should be no need for OSGi API to "pollute" your application logic.</para>
+    
+    <para>The Blueprint API is divided into the <emphasis role="bold">Blueprint Container</emphasis> and 
+    <emphasis role="bold">Blueprint Reflection</emphasis> packages.</para> 
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/service/blueprint/container/package-summary.html">org.osgi.service.blueprint.container</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/service/blueprint/reflect/package-summary.html">org.osgi.service.blueprint.reflect</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecHttpService">  
+    <title>HttpService</title>
+    
+    <para>The <emphasis role="bold">pax-web-jetty-bundle.jar</emphasis> bundle from the OPS4J 
+    <ulink url="http://wiki.ops4j.org/display/paxweb/Pax+Web">Pax Web</ulink> project provides access to the 
+    <ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/service/http/package-frame.html">HttpService</ulink>.</para> 
+    
+    <para>An example of how a bundle uses the HttpService to register servlet and resources is given in 
+    <link linkend="SecHTTPServiceExample">HttpService Example</link>.</para>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecBundleJAXB">  
+    <title>JAXB Service</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-jaxb.jar</emphasis> bundle provides a service 
+    to create <ulink url="http://java.sun.com/javase/6/docs/api/javax/xml/bind/JAXBContext.html">JAXBContext</ulink>
+    instances.</para>
+
+    <para>The service is registered with the Framework under the name</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/jaxb/JAXBService.html">org.jboss.osgi.jaxb.JAXBService</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+  </sect1>
+
+  <sect1 xml:id="SecBundleJMX">  
+    <title>JMX Service</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-jmx.jar</emphasis> bundle activator discovers and registers the 
+    <ulink url="http://java.sun.com/javase/6/docs/api/javax/management/MBeanServer.html">MBeanServer</ulink> with the framework.
+    It also tracks the naming service and binds the RMIAdaptor into JNDI for remote JMX access</para>
+
+    <para>The JMX Service is configured with these properties.</para>
+    
+    <table>
+      <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.jmx.host</td>
+        <td>localhost</td>
+        <td>The property that sets the host that the RMIAdaptor binds to</td>
+      </tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.jmx.port</td>
+        <td>1098</td>
+        <td>The property that sets the port that the RMIAdaptor binds to</td>
+      </tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.jmx.rmi.adaptor</td>
+        <td>jmx/invoker/RMIAdaptor</td>
+        <td>The property that sets the JNDI name the RMIAdaptor binds to</td>
+      </tr>
+    </table>
+    
+    <para>Here is the complete list of services that this bundle provides</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javase/6/docs/api/javax/management/MBeanServer.html">javax.management.MBeanServer</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/management/ManagedBundleService.html">org.jboss.osgi.spi.management.ManagedBundleService</ulink></emphasis></listitem>
+      <!-- https://jira.jboss.org/jira/browse/JBOSGI-125 -->
+    </itemizedlist>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecBundleJNDI">  
+    <title>JNDI Service</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-jndi.jar</emphasis> bundle activator creates and registers the 
+    <ulink url="http://java.sun.com/javase/6/docs/api/javax/naming/InitialContext.html">InitialContext</ulink> with the framework.</para>
+
+    <para>The JNDI Service is configured with these properties.</para>
+    
+    <table>
+      <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.jndi.host</td>
+        <td>localhost</td>
+        <td>The property that sets the naming server host</td>
+      </tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.jndi.rmi.port</td>
+        <td>1098</td>
+        <td>The property that sets the naming server RMI port</td>
+      </tr>
+      <tr valign="top">
+        <td>org.jboss.osgi.jndi.port</td>
+        <td>1099</td>
+        <td>The property that sets the naming server port</td>
+      </tr>
+    </table>
+    
+    <para>Here is the complete list of services that this bundle provides</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javase/6/docs/api/javax/naming/InitialContext.html">javax.naming.InitialContext</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecBundleJTA">  
+    <title>JTA Service</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-jta.jar</emphasis> bundle registers two services with framework.</para>
+
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javaee/5/docs/api/javax/transaction/TransactionManager.html">javax.transaction.TransactionManager</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javaee/5/docs/api/javax/transaction/UserTransaction.html">javax.transaction.UserTransaction</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+    <para>Among others the JTA Service can be configured with these properties.</para>
+    
+    <table>
+      <tr><th>Key</th><th>Value</th><th>Description</th></tr>
+      <tr valign="top">
+        <td>com.arjuna.ats.arjuna.objectstore.objectStoreDir</td>
+        <td>${server.data.dir}/tx-object-store</td>
+        <td>The property that sets the transaction object store directory</td>
+      </tr>
+    </table>
+    
+    <para>For details please refer to the <ulink url="http://www.jboss.org/jbosstm/docs/index.html">JBossTM documentation</ulink>.</para>
+  </sect1>
+  
+  <sect1 xml:id="SecBundleMicrocontainer">  
+    <title>Microcontainer Service</title>
+    
+    <para>The JBoss OSGi Microcontainer Service gives access to the <ulink url="http://www.jboss.org/jbossmc">JBoss Microcontainer</ulink> Kernel. 
+    The service is registered with the Framework under the name.</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/service/MicrocontainerService.html">org.jboss.osgi.spi.service.MicrocontainerService</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+    <para>Here is an example of how an OSGi component can access an arbitrary MC bean.</para>
+    
+    <programlisting role="JAVA">
+public class SomeService
+{
+   public String callSomeBean(String msg)
+   {
+      ServiceReference sref = context.getServiceReference(MicrocontainerService.class.getName());
+      MicrocontainerService mcService = (MicrocontainerService)context.getService(sref);
+      SomeBean bean = (SomeBean)mcService.getRegisteredBean("SomeBean");
+      return bean.echo(msg);
+   }
+}
+    </programlisting>
+  </sect1>
+  
+  <sect1 xml:id="SecServiceLoader">  
+    <title>ServiceLoader Interceptor</title>
+    
+    <para>The ServiceLoader, deployed as <emphasis role="bold">jboss-osgi-serviceloader.jar</emphasis> bundle, is a 
+    <link linkend="SecLifecycleInterceptors">Lifecycle Interceptor</link> that automatically registers services 
+    declared in META-INF/services.</para>
+    
+    <para>For more information, please hava a look at <ulink url="http://jbossosgi.blogspot.com/2010/01/suns-serviceloader-and-how-it-relates.html">
+    ServiceLoader and how it relates to OSGi</ulink>.</para>
+  </sect1>
+  
+  <sect1 xml:id="SecWebAppExtender">  
+    <title>WebApp Extender</title>
+    
+    <para>The <emphasis role="bold">pax-web-extender-war.jar</emphasis> bundle from the OPS4J 
+    <ulink url="http://wiki.ops4j.org/display/paxweb/WAR+Extender">Pax Web</ulink> project provides WAR processing functionality.</para> 
+    
+    <emphasis role="bold">Deploying a WAR onto JBoss OSGi</emphasis>
+    
+    <para>You should have a war file compliant with Servlet specs. Additionally, the war file must have the necessary OSGi manifest headers.</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold">Bundle-ManifestVersion: 2</emphasis> - This header defines that the bundle follows the rules of R4 specification.</listitem>
+      <listitem><emphasis role="bold">Bundle-SymbolicName</emphasis> - This header specifies a unique, non-localizable name for this bundle.</listitem>
+    </itemizedlist>
+
+    <para>There are also a number of other OSGi manifest headers that are processed by the WAR Extender. 
+    Please have a look at <ulink url="http://wiki.ops4j.org/display/paxweb/OSGi-fy+your+WAR">OSGify your WAR</ulink> for details.</para>
+    
+    <para>An example of how a bundle uses the WAR Extender to register servlet and resources is given in 
+    <link linkend="SecWebAppExample">WebApp Example</link>.</para>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecBundleXerces">  
+    <title>XML Parser Services</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-apache-xerces.jar</emphasis> bundle provides services 
+    for DOM and SAX parsing.</para>
+
+    <para>The services are registered with the Framework under the name</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javase/6/docs/api/javax/xml/parsers/SAXParserFactory.html">javax.xml.parsers.SAXParserFactory</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javase/6/docs/api/javax/xml/parsers/DocumentBuilderFactory.html">javax.xml.parsers.DocumentBuilderFactory</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+    <para>Please see <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/util/xml/XMLParserActivator.html">XMLParserActivator</ulink>
+    for details.</para>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecBundleXMLBinding">  
+    <title>XML Binding Services</title>
+    
+    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-xml-binding.jar</emphasis> bundle provides an 
+    <ulink url="http://www.jboss.org/community/wiki/JBossXB">JBossXB</ulink> unmarshaller service.</para>
+
+    <para>The service is registered with the Framework under the name</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/jbossxb/UnmarshallerService.html">org.jboss.osgi.jbossxb.UnmarshallerService</ulink></emphasis></listitem>
+    </itemizedlist>
+    
+  </sect1>
+  
+</chapter>

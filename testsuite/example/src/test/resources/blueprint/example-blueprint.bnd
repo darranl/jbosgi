@@ -1,0 +1,23 @@
+# bnd build -classpath target/test-classes -output target/test-libs/example-blueprint.jar src/test/resources/blueprint/example-blueprint.bnd
+
+Bundle-SymbolicName: example-blueprint
+
+Export-Package: org.jboss.test.osgi.example.blueprint, org.jboss.test.osgi.example.blueprint.bundle
+
+Import-Package: \
+	javax.management, \
+	org.jboss.osgi.blueprint, \
+	org.jboss.osgi.husky, \
+	org.jboss.osgi.jmx, \
+	org.jboss.osgi.spi.capability, \
+	org.jboss.osgi.testing, \
+	org.junit, \
+	org.osgi.framework, \
+	org.osgi.service.blueprint.* 
+
+Include-Resource: \
+	OSGI-INF/blueprint/blueprint-example.xml=blueprint-example.xml
+
+Test-Package: org.jboss.test.osgi.example.blueprint
+
+-removeheaders: Include-Resource

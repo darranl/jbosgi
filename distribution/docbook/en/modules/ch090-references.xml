@@ -1,0 +1,27 @@
+<!-- 
+  $Id$ 
+-->
+<chapter xml:id="ChapReferences">
+
+  <title>References</title>
+  
+  <para><emphasis role="bold">Resources</emphasis></para>
+  
+  <itemizedlist>
+    <listitem><ulink url="http://www.jboss.org/community/wiki/JBoss OSGi">JBoss OSGi Wiki</ulink></listitem> 
+    <listitem><ulink url="http://jbossosgi.blogspot.com">JBoss OSGi Diary</ulink></listitem>
+    <listitem><ulink url="https://jira.jboss.org/jira/browse/JBOSGI">Issue Tracking</ulink></listitem> 
+    <listitem><ulink url="http://jbmuc.dyndns.org:8280/hudson">Hudson QA</ulink></listitem>
+    <listitem><ulink url="https://anonsvn.jboss.org/repos/jbossas/projects/jboss-osgi">Subversion</ulink></listitem> 
+    <listitem><ulink url="http://fisheye.jboss.com/browse/JBoss OSGi">Fisheye</ulink></listitem>
+    <listitem><ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=257">User Forum</ulink></listitem> 
+    <listitem><ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=256">Design Forum</ulink></listitem>
+  </itemizedlist>
+  
+  <para><emphasis role="bold">Authors</emphasis></para>
+   
+  <itemizedlist>
+    <listitem><ulink url="email:thomas.diesler@jboss.com">Thomas Diesler</ulink></listitem>
+  </itemizedlist>
+  
+</chapter>

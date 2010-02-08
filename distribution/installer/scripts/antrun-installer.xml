@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<!-- $Id$ -->
+<project>
+
+  <!-- ================================================================== -->
+  <!-- Setup                                                              -->
+  <!-- ================================================================== -->
+  
+  <property name="output.dir" value="${basedir}/target" />
+  <property name="resources.dir" value="${basedir}/src/main/resources" />
+  <property name="filtered.resources.dir" value="${output.dir}/resources" />
+  <property name="deploy.artifacts.dir" value="${output.dir}/deploy-artifacts" />
+  <property name="deploy.artifacts.lib" value="${deploy.artifacts.dir}/lib" />
+  <property name="deploy.artifacts.resources" value="${deploy.artifacts.dir}/resources" />
+  <property name="runtime.dir" value="${resources.dir}/runtime" />
+
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+  <target name="init">
+    <echo message="jboss.home=${jboss.home}"/>
+    <echo message="jboss501.home=${jboss501.home}"/>
+    <echo message="jboss510.home=${jboss510.home}"/>
+    <echo message="jboss600.home=${jboss600.home}"/>
+    <echo message="jboss601.home=${jboss601.home}"/>
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- Distribution                                                       -->
+  <!-- ================================================================== -->
+  <target name="build-installer" depends="init">
+
+    <!-- Unselect JBossOSGi Integration pack if ${target.container} == 'runtime' -->
+    <condition property="jboss.integration" value="false" else="true">
+      <equals arg1="${target.container}" arg2="runtime"/>
+    </condition>
+    
+  	<!-- Filter the installer scripts -->
+    <copy todir="${filtered.resources.dir}" filtering="true" overwrite="true">
+      <fileset dir="${resources.dir}/installer" />
+      <filterset>
+        <filter token="framework" value="${framework}" />
+        <filter token="jboss.home" value="${jboss.home}" />
+        <filter token="jboss.integration" value="${jboss.integration}" />
+        <filter token="product.version" value="${product.version}" />
+        <filter token="target.container" value="${target.container}" />
+        <filter token="installpath" value="${output.dir}/auto-install-dest" />
+      </filterset>
+    </copy>
+  	
+    <!-- Define the IzPack Ant task -->
+    <taskdef name="izpack" classname="com.izforge.izpack.ant.IzPackTask">
+      <classpath>
+        <pathelement path="${maven.runtime.classpath}" />
+      </classpath>
+    </taskdef>
+    <property name="izpack.temp.dir" value="${output.dir}/izpack-temp" />
+    <mkdir dir="${izpack.temp.dir}" />
+
+    <!-- 
+    	Installed target artefact not compatible with dependency-plugin
+    	https://jira.jboss.org/jira/browse/MPJDOCBOOK-31 
+    -->
+    <unzip src="${deploy.artifacts.dir}/docs/jboss-osgi-userguide-${product.version}.jdocbook" dest="${deploy.artifacts.dir}/docs/userguide">
+      <patternset>
+        <exclude name="META-INF/**"/>
+      </patternset>
+    </unzip>
+    
+    <!-- Run installer build -->
+    <echo message="Running IzPack to build the installer..." />
+    <izpack input="${resources.dir}/installer/install-definition.xml" output="${output.dir}/jboss-osgi-installer-${product.version}.jar"
+      installerType="standard" inheritAll="true" basedir="${izpack.temp.dir}" />
+
+    <!-- Clean working directory -->
+    <delete dir="${izpack.temp.dir}" quiet="true" includeemptydirs="true" />
+  </target>
+</project>

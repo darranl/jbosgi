@@ -1,0 +1,20 @@
+# bnd build -classpath target/test-classes -output target/test-libs/example-xml-binding.jar src/test/resources/simple/example-xml-binding.bnd
+
+Bundle-SymbolicName: example-xml-binding
+Export-Package: org.jboss.test.osgi.example.xml.jbossxb
+
+Import-Package: \
+    javax.xml.bind.annotation, \
+    javax.xml.datatype, \
+	org.jboss.osgi.husky, \
+    org.jboss.osgi.jbossxb, \
+	org.jboss.osgi.spi.capability, \
+	org.jboss.osgi.testing, \
+	org.jboss.xb.annotations, \
+	org.junit, \
+	org.osgi.framework
+
+Include-Resource: booking.xml, booking.xsd
+
+# Tell Husky that there are test cases in this package
+Test-Package: org.jboss.test.osgi.example.xml.jbossxb

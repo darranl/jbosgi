@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ====================================================================== -->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ====================================================================== -->
+
+  <!-- $Id: pom.xml 91576 2009-07-22 19:42:25Z thomas.diesler@jboss.com $ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossMC Javadoc</name>
+
+  <groupId>org.jboss.microcontainer</groupId>
+  <artifactId>jboss-microcontainer-javadoc</artifactId>
+  <packaging>jar</packaging>
+
+  <version>2.2.0-SNAPSHOT</version>
+  
+  <!-- Parent -->
+  <parent>
+    <groupId>org.jboss.osgi</groupId>
+    <artifactId>jboss-osgi-parent</artifactId>
+    <version>1.0.4</version>
+  </parent>
+  
+  <!-- Properties -->
+  <properties>
+    <version.jboss.classloading>2.2.0-SNAPSHOT</version.jboss.classloading>
+    <version.jboss.deployers>2.2.0-SNAPSHOT</version.jboss.deployers>
+    <version.jboss.kernel>2.2.0-SNAPSHOT</version.jboss.kernel>
+  </properties>
+
+  <!-- Dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.cl</groupId>
+      <artifactId>jboss-classloader</artifactId>
+      <version>${version.jboss.classloading}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.cl</groupId>
+      <artifactId>jboss-classloader</artifactId>
+      <version>${version.jboss.classloading}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.cl</groupId>
+      <artifactId>jboss-classloading</artifactId>
+      <version>${version.jboss.classloading}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.cl</groupId>
+      <artifactId>jboss-classloading</artifactId>
+      <version>${version.jboss.classloading}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.cl</groupId>
+      <artifactId>jboss-classloading-vfs</artifactId>
+      <version>${version.jboss.classloading}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.cl</groupId>
+      <artifactId>jboss-classloading-vfs</artifactId>
+      <version>${version.jboss.classloading}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-client-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-client-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-core-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-core-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-structure-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-structure-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-vfs</artifactId>
+      <version>${version.jboss.deployers}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-vfs</artifactId>
+      <version>${version.jboss.deployers}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-vfs-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.deployers</groupId>
+      <artifactId>jboss-deployers-vfs-spi</artifactId>
+      <version>${version.jboss.deployers}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.kernel</groupId>
+      <artifactId>jboss-kernel</artifactId>
+      <version>${version.jboss.kernel}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.kernel</groupId>
+      <artifactId>jboss-kernel</artifactId>
+      <version>${version.jboss.kernel}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.kernel</groupId>
+      <artifactId>jboss-dependency</artifactId>
+      <version>${version.jboss.kernel}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.kernel</groupId>
+      <artifactId>jboss-dependency</artifactId>
+      <version>${version.jboss.kernel}</version>
+      <classifier>sources</classifier>
+    </dependency>
+  </dependencies>
+  
+  <!-- Plugins -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>javadoc-src</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>directory-single</goal>
+            </goals>
+            <configuration>
+              <finalName>javadoc-src</finalName>
+              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>scripts/assembly-javadoc-src.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <quiet>true</quiet>
+          <sourcepath>target/javadoc-src</sourcepath>
+          <excludePackageNames>*.internal:*.plugins:*.test</excludePackageNames>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>

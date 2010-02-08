@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ====================================================================== -->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ====================================================================== -->
+
+  <!-- $Id: pom.xml 91197 2009-07-14 09:48:24Z thomas.diesler@jboss.com $ -->
+  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossOSGi Testsuite - Trailblazer</name>
+
+  <groupId>org.jboss.osgi.testsuite</groupId>
+  <artifactId>jboss-osgi-testsuite-trailblazer</artifactId>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>org.jboss.osgi.testsuite</groupId>
+    <artifactId>jboss-osgi-testsuite</artifactId>
+    <version>1.0.0.Beta7</version>
+  </parent>
+
+  <!-- Properties -->
+  <properties>
+    <trailblazer.java.path>https://anonsvn.jboss.org/repos/jbossas/projects/jboss-osgi/trunk/testsuite/trailblazer/src/test/java/org/jboss/test/osgi/trailblazer</trailblazer.java.path>
+    <userguide.html>http://jbmuc.dyndns.org/jboss-osgi-${version}/userguide/html</userguide.html>
+  </properties>
+
+  <!-- Build -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>bundles</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>directory-single</goal>
+            </goals>
+            <configuration>
+              <finalName>test-libs</finalName>
+              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>scripts/assembly-bundles.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>build-test-jars</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
+                <property name="tests.output.dir" value="${project.build.directory}" />
+                <ant antfile="scripts/antrun-test-jars.xml" />
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Profiles -->
+  <profiles>
+  </profiles>
+
+</project>

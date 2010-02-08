@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ====================================================================== -->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ====================================================================== -->
+
+  <!-- $Id$ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossOSGi Distribution - Installer</name>
+
+  <groupId>org.jboss.osgi.distribution</groupId>
+  <artifactId>jboss-osgi-installer</artifactId>
+  <packaging>pom</packaging>
+
+  <!-- Parent -->
+  <parent>
+    <groupId>org.jboss.osgi.distribution</groupId>
+    <artifactId>jboss-osgi-distribution</artifactId>
+    <version>1.0.0.Beta7</version>
+  </parent>
+
+  <!-- Dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.distribution</groupId>
+      <artifactId>jboss-osgi-javadoc</artifactId>
+      <version>${version}</version>
+      <classifier>javadoc</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.distribution</groupId>
+      <artifactId>jboss-osgi-userguide</artifactId>
+      <version>${version}</version>
+      <type>jdocbook</type>
+    </dependency>
+  </dependencies>
+  
+  <!-- Plugins -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>directory-single</goal>
+            </goals>
+            <configuration>
+              <finalName>deploy-artifacts</finalName>
+              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+          <execution>
+            <id>src</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>scripts/assembly-src-distro.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>izpack</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
+                <property name="framework" value="${framework}" />
+                <!-- ${jboss.home} is available in the hudson run  -->
+                <property name="jboss.home" value="${jboss.home}" />
+                <property name="jboss501.home" value="${jboss501.home}" />
+                <property name="jboss510.home" value="${jboss510.home}" />
+                <property name="jboss600.home" value="${jboss600.home}" />
+                <property name="jboss601.home" value="${jboss601.home}" />
+                <property name="product.name" value="${project.name}" />
+                <property name="product.short.name" value="${artifactId}" />
+                <property name="product.version" value="${project.version}" />
+                <property name="target.container" value="${target.container}" />
+                <property name="user.home" value="${user.home}" />
+                <ant antfile="scripts/antrun-installer.xml" target="build-installer" />
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/jboss-osgi-installer-${version}.jar</file>
+                  <classifier>installer</classifier>
+                  <type>jar</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

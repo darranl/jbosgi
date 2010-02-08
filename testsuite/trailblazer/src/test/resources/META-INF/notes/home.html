@@ -1,0 +1,47 @@
+<b>This is the home page of the OSGi Trailblazer application.</b>
+<p/>
+
+It uses an imaginary shopping mall to demonstrate usage and best practices 
+in <a href='http://www.osgi.org'>OSGi</a> general and of some of it's more advanced features
+defined by the <a href='http://www.osgi.org/EEG/HomePage'>OSGi Enterprise Expert Group</a>.
+<p/>
+
+In this version it covers the usage of 
+<ul>
+	<li>Service registration</li> 
+	<li>Access to the naming and directory service (JNDI)</li> 
+	<li>Access to the managment service (JMX)</li> 
+</ul>
+ 
+Future versions will be expanded to cover 
+<ul>
+	<li>Component wiring and injection (Blueprint Service)</li> 
+	<li>Access to the persistence service (JPA)</li> 
+	<li>Distributed OSGi</li> 
+</ul> 
+
+The <a href='${trailblazer.java.path}/ShoppingMall.java'>ShoppingMall</a> application dynamically discovers
+<a href='${trailblazer.java.path}/Shop.java'>Shop</a> instance from the OSGi Registry. 
+
+Each shop is associated with a <a href='${trailblazer.java.path}/PaymentService.java'>PaymentService</a>. Shops define specific 
+requirements on payment services. The ShoppingMall itself is rendered in HTML through the OSGi 
+compendium provided <a href='http://www.osgi.org/javadoc/r4v41/org/osgi/service/http/HttpService.html'>HttpService</a>.
+<p/>
+ 
+Successful product purchases are passed through the <a href='${trailblazer.java.path}/AuditService.java'>AuditService</a> that is 
+exposed through <a href='http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement'>JMX</a>.
+<p/>
+
+The individual Shops maintain their respective product lists using various technics available 
+in <a href='http://www.osgi.org/EEG/HomePage'>OSGi EE</a>.
+<p/>
+
+For comments, bugs or suggestion please go to the <a href='http://www.jboss.org/community/wiki/JBossOSGi'>JBossOSGi</a> 
+<a href='http://www.jboss.org/index.html?module=bb&op=viewforum&f=257'>User Forum</a>
+or file an issue in <a href='https://jira.jboss.org/jira/browse/JBOSGI'>JIRA</a>.  
+<p/>
+
+Please click on the individual shops to read more.
+<p/>
+
+-enjoy

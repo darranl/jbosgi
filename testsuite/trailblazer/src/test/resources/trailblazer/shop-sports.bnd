@@ -1,0 +1,13 @@
+# bnd build -classpath target/test-classes -output target/test-libs/trailblazer-shop-sports.jar src/test/resources/trailblazer/shop-sports.bnd
+
+Bundle-SymbolicName: trailblazer-shop-sports
+Bundle-Activator: org.jboss.test.osgi.trailblazer.shop.sports.ClimbingStoreActivator
+
+Private-Package: org.jboss.test.osgi.trailblazer.shop.sports
+
+Import-Package: \
+	javax.naming, \
+	org.osgi.framework, \
+	org.osgi.service.log, \
+	org.jboss.osgi.common.log, \
+	org.jboss.test.osgi.trailblazer

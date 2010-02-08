@@ -1,0 +1,4 @@
+org.jboss.osgi.plugins.facade.launch.OSGiFrameworkBootstrapProvider  # The MC Facade bootstrap provider
+org.jboss.osgi.jbossmc.framework.launch.FrameworkBootstrapProvider   # The legacy MC based framework bootstrap provider
+org.jboss.osgi.equinox.EquinoxBootstrapProvider                      # The Equinox bootstrap provider  
+org.jboss.osgi.felix.FelixBootstrapProvider                          # The Felix bootstrap provider

@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ======================================================================
+-->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ======================================================================
+-->
+
+  <!-- $Id$
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossOSGi Testsuite</name>
+
+  <groupId>org.jboss.osgi.testsuite</groupId>
+  <artifactId>jboss-osgi-testsuite</artifactId>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>org.jboss.osgi</groupId>
+    <artifactId>jboss-osgi</artifactId>
+    <version>1.0.0.Beta7</version>
+  </parent>
+
+  <modules>
+    <module>example</module>
+    <module>functional</module>
+  </modules>
+
+  <!-- Properties -->
+  <properties>
+    <version.jmx.invoker.adaptor.client>5.0.1.GA</version.jmx.invoker.adaptor.client>
+    <version.jnp.client>5.0.1.GA</version.jnp.client>
+    <surefire.system.args>${surefire.memory.args} ${surefire.jpda.args} ${surefire.profiler.args}</surefire.system.args>
+  </properties>
+
+  <!-- Dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>biz.aQute</groupId>
+      <artifactId>bnd</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi</groupId>
+      <artifactId>jboss-osgi-spi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.runtime</groupId>
+      <artifactId>jboss-osgi-deployment</artifactId>
+    </dependency>
+
+    <!-- Bundle Dependencies -->
+    <dependency>
+      <groupId>org.apache.aries.blueprint</groupId>
+      <artifactId>org.apache.aries.blueprint</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.log</artifactId>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.osgi.core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.osgi.compendium</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!--
+    Contains classes from org.osgi.util.tracker that must come after
+    the framework provided ones. Equinox chokes with SecurityException.
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.configadmin</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.eventadmin</artifactId>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.osgi.core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.osgi.compendium</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.metatype</artifactId>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.osgi.core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.osgi.compendium</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-apache-xerces</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-blueprint</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-common</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-common-core</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-husky</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-jaxb</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-jmx</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-jndi</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-jta</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-reflect</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-serviceloader</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-webapp</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.bundles</groupId>
+      <artifactId>jboss-osgi-xml-binding</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- javax.* -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+      
+    <!-- OPS4J -->
+    <dependency>
+      <groupId>org.ops4j.pax.web</groupId>
+      <artifactId>pax-web-extender-war</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.web</groupId>
+      <artifactId>pax-web-jetty-bundle</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Test Dependencies -->
+    <dependency>
+      <groupId>org.jboss.naming</groupId>
+      <artifactId>jnp-client</artifactId>
+      <version>${version.jnp.client}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss</groupId>
+          <artifactId>jboss-common-core</artifactId>
+        </exclusion>
+      </exclusions>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- Build -->
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>${surefire.system.args}</argLine>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Profiles -->
+  <profiles>
+
+    <!--
+      Name: framework-equinox
+      Descr: Setup for Equinox framework integration testing
+    -->
+    <profile>
+      <id>framework-equinox</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>equinox</value>
+        </property>
+      </activation>
+      <properties>
+        <jboss.osgi.framework.properties>jboss-osgi-equinox.properties</jboss.osgi.framework.properties>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jboss-osgi-runtime-equinox</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!--
+      Name: framework-felix 
+      Descr: Setup for Felix framework integration testing
+    -->
+    <profile>
+      <id>framework-felix</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>felix</value>
+        </property>
+      </activation>
+      <properties>
+        <jboss.osgi.framework.properties>jboss-osgi-felix.properties</jboss.osgi.framework.properties>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jboss-osgi-runtime-felix</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!--
+      Name: framework-jbossmc
+      Descr: Setup for JBossMC framework integration testing
+    -->
+    <profile>
+      <id>framework-jbossmc</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>jbossmc</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jboss-osgi-framework</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging-log4j</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>framework-jbossmc-default</id>
+      <activation>
+        <property>
+          <name>!framework</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jboss-osgi-framework</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging-log4j</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>config-admin</id>
+      <activation>
+        <!-- activeByDefault>true</activeByDefault -->
+        <property>
+          <name>user.home</name>
+        </property>
+      </activation>
+      <dependencies>
+        <!-- 
+          Contains classes from org.osgi.util.tracker that must come after
+          the framework provided ones. Equinox chokes with SecurityException.  
+        -->
+        <dependency>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.apache.felix.configadmin</artifactId>
+          <scope>provided</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.apache.felix</groupId>
+              <artifactId>org.osgi.core</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.felix</groupId>
+              <artifactId>org.osgi.compendium</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+      </dependencies>
+    </profile>
+    
+    <!--
+      Name: embedded-testing 
+      Descr: Setup for embedded integration testing
+    -->
+    <profile>
+      <id>embedded-testing</id>
+      <activation>
+        <property>
+          <name>!target.container</name>
+        </property>
+      </activation>
+      <properties>
+        <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
+      </properties>
+    </profile>
+
+    <!--
+      Name: runtime-testing 
+      Descr: Setup for runtime integration testing
+    -->
+    <profile>
+      <id>runtime-testing</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>runtime</value>
+        </property>
+      </activation>
+      <properties>
+        <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jmx-invoker-adaptor-client</artifactId>
+          <version>${version.jmx.invoker.adaptor.client}</version>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!--
+      Name: jboss501
+      Descr: Setup for jboss501 integration testing
+    -->
+    <profile>
+      <id>jboss501</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss501</value>
+        </property>
+      </activation>
+      <properties>
+        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jmx-invoker-adaptor-client</artifactId>
+          <version>${version.jmx.invoker.adaptor.client}</version>
+          <scope>provided</scope>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!--
+      Name: jboss510
+      Descr: Setup for jboss510 integration testing
+    -->
+    <profile>
+      <id>jboss510</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss510</value>
+        </property>
+      </activation>
+      <properties>
+        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.runtime</groupId>
+          <artifactId>jmx-invoker-adaptor-client</artifactId>
+          <version>${version.jmx.invoker.adaptor.client}</version>
+          <scope>provided</scope>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!--
+      Name: jboss600
+      Descr: Setup for jboss600 integration testing
+    -->
+    <profile>
+      <id>jboss600</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss600</value>
+        </property>
+      </activation>
+      <properties>
+        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.jbossas</groupId>
+          <artifactId>jboss-as-client</artifactId>
+          <version>6.0.0.M1</version>
+          <scope>provided</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.slf4j</groupId>
+              <artifactId>slf4j-jboss-logging</artifactId>
+            </exclusion>
+          </exclusions>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <!--
+      Name: jboss601
+      Descr: Setup for jboss601 integration testing
+    -->
+    <profile>
+      <id>jboss601</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss601</value>
+        </property>
+      </activation>
+      <properties>
+        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.jbossas</groupId>
+          <artifactId>jboss-as-client</artifactId>
+          <version>6.0.0.M1</version>
+          <scope>provided</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.slf4j</groupId>
+              <artifactId>slf4j-jboss-logging</artifactId>
+            </exclusion>
+          </exclusions>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
+    </profile>
+
+  </profiles>
+
+</project>

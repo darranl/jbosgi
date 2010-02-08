@@ -1,0 +1,14 @@
+# bnd build -classpath target/test-classes -output target/test-libs/trailblazer-mall.jar src/test/resources/trailblazer/mall.bnd
+
+Bundle-SymbolicName: trailblazer-mall
+
+Bundle-Activator: org.jboss.test.osgi.trailblazer.mall.ServiceActivator
+
+Private-Package: org.jboss.test.osgi.trailblazer.mall
+
+Import-Package: \
+	org.osgi.framework, \
+	org.osgi.service.log, \
+	org.jboss.osgi.common.log, \
+	org.jboss.test.osgi.trailblazer
+	

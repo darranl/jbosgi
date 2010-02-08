@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  $Id$
+-->
+
+<deployment xmlns="urn:jboss:bean-deployer:2.0">
+
+  <!-- 
+    A bean that registers
+    
+      javax.transaction.TransactionManager
+      javax.transaction.UserTransaction
+   
+    as OSGi services. Please see the OSGi Enterprise JTA spec for details. 
+  -->
+  <bean name="jboss.osgi:service=Transaction" class="org.jboss.osgi.integration.jbossas.TransactionServiceBean">
+   <property name="bundleContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext"/></property>
+   <property name="transactionManager"><inject bean="RealTransactionManager"/></property>
+   <property name="userTransaction"><inject bean="DefaultUserTransactionprovider"/></property>
+  </bean>
+
+</deployment>

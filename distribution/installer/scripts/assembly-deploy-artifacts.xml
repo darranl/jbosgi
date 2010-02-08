@@ -1,0 +1,76 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+  <id>deploy-artifacts</id>
+  <formats>
+    <format>dir</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+
+  <!-- Dependency Sets -->
+  <dependencySets>
+  
+    <!-- docs -->
+    <dependencySet>
+      <outputDirectory>docs</outputDirectory>
+      <useStrictFiltering>true</useStrictFiltering>
+      <includes>
+        <include>*:jboss-osgi-userguide:jdocbook</include>
+      </includes>
+    </dependencySet>
+    
+    <!-- lib -->
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      <useStrictFiltering>true</useStrictFiltering>
+      <excludes>
+        <exclude>*:org.osgi.compendium:jar</exclude>
+        <exclude>*:org.osgi.core:jar</exclude>
+      </excludes>
+      <scope>compile</scope>
+      <unpack>false</unpack>
+    </dependencySet>
+    <dependencySet>
+      <outputDirectory>lib/org.osgi</outputDirectory>
+      <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      <useStrictFiltering>true</useStrictFiltering>
+      <includes>
+        <include>org.osgi:org.osgi.compendium:jar</include>
+        <include>org.osgi:org.osgi.core:jar</include>
+      </includes>
+      <scope>compile</scope>
+      <unpack>false</unpack>
+    </dependencySet>
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      <useStrictFiltering>true</useStrictFiltering>
+      <includes>
+        <include>*:jboss-logging-log4j:jar</include>
+        <include>*:log4j:jar</include>
+      </includes>
+      <scope>test</scope>
+      <unpack>false</unpack>
+    </dependencySet>
+    
+  </dependencySets>
+
+  <fileSets>
+    <!-- etc -->
+    <fileSet>
+      <directory>src/main/etc</directory>
+      <outputDirectory>/etc</outputDirectory>
+      <includes>
+        <include>JBossORG-EULA.txt</include>
+        <include>ReleaseNotes.html</include>
+        <include>jboss501/**</include>
+      </includes>
+    </fileSet>
+    <!-- jbossas -->
+    <fileSet>
+      <directory>src/main/resources/jbossas</directory>
+      <outputDirectory>resources/jbossas</outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>

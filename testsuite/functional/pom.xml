@@ -15,7 +15,7 @@
      Set these VM properties in your IDE debugger 
     
       -Dlog4j.output.dir=${workspace_loc:jboss-osgi-testsuite-functional/target}
-      -Dorg.jboss.osgi.husky.Invoker=org.jboss.osgi.husky.internal.OSGiInvoker
+      -Dorg.jboss.osgi.husky.Invoker=org.jboss.osgi.husky.internal.AbstractInvoker
       -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-functional/target}/test-libs
   -->
   

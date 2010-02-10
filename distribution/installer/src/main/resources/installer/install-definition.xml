@@ -412,7 +412,7 @@
         <include name="jboss-osgi-jndi.jar" />
         <include name="jboss-osgi-webconsole.jar" />
         <include name="jboss-osgi-reflect.jar" />
-        <include name="jboss-osgi-serviceloader.jar" />
+        <!-- include name="jboss-osgi-serviceloader.jar" / -->
         <include name="jboss-osgi-xml-binding.jar" />
         <include name="org.apache.aries.blueprint.jar" />
         <include name="org.apache.aries.util.jar" />
@@ -489,5 +489,26 @@
 
     </pack>
 
+    <!--
+      ********************************* 
+      *                               *
+      * JBossAS Overwrites            *
+      *                               *
+      *********************************
+    -->
+
+    <!-- 
+       This pack MUST NOT be part of an JBoss OSGi release 
+    - ->
+    <pack name="JBossMC SNAPSHOT overwrites" required="no" preselected="yes">
+      <description>Temporarily overwrite AS provided jars with SNAPSHOT versions</description>
+      
+      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/lib"
+        override="true">
+        <include name="jboss-jmx-mc-int.jar" />
+      </fileset>
+    </pack>
+    -->
+    
   </packs>
 </installation>

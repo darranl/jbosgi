@@ -61,6 +61,12 @@
       <groupId>org.apache.aries.blueprint</groupId>
       <artifactId>org.apache.aries.blueprint</artifactId>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>

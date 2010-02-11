@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.jboss.logging.Logger;
 import org.jboss.osgi.spi.util.ConstantsHelper;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
@@ -41,8 +42,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * [JBOSGI-99] No explicit control over bundle.start()
@@ -55,7 +54,7 @@ import org.slf4j.LoggerFactory;
 public class OSGi99TestCase extends OSGiTest
 {
    // Provide logging
-   private static Logger log = LoggerFactory.getLogger(OSGi99TestCase.class);
+   private static final Logger log = Logger.getLogger(OSGi99TestCase.class);
 
    private static OSGiRuntime runtime;
 

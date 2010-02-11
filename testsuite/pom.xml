@@ -213,11 +213,6 @@
       </exclusions>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <!-- Build -->
@@ -474,12 +469,6 @@
           <artifactId>jboss-as-client</artifactId>
           <version>6.0.0.M1</version>
           <scope>provided</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.jboss.slf4j</groupId>
-              <artifactId>slf4j-jboss-logging</artifactId>
-            </exclusion>
-          </exclusions>
           <type>pom</type>
         </dependency>
       </dependencies>
@@ -506,12 +495,6 @@
           <artifactId>jboss-as-client</artifactId>
           <version>6.0.0.M1</version>
           <scope>provided</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.jboss.slf4j</groupId>
-              <artifactId>slf4j-jboss-logging</artifactId>
-            </exclusion>
-          </exclusions>
           <type>pom</type>
         </dependency>
       </dependencies>

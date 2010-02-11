@@ -25,6 +25,7 @@ package org.jboss.test.osgi.example.interceptor.processor;
 
 import javax.servlet.http.HttpServlet;
 
+import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.AbstractLifecycleInterceptor;
 import org.jboss.osgi.deployment.interceptor.InvocationContext;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
@@ -32,8 +33,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An interceptor that publishes HttpMetadata.
@@ -44,7 +43,7 @@ import org.slf4j.LoggerFactory;
 public class PublisherInterceptor extends AbstractLifecycleInterceptor
 {
    // Provide logging
-   private Logger log = LoggerFactory.getLogger(PublisherInterceptor.class);
+   private static final Logger log = Logger.getLogger(PublisherInterceptor.class);
 
    PublisherInterceptor()
    {

@@ -26,13 +26,12 @@ package org.jboss.test.osgi.example.interceptor.processor;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.AbstractLifecycleInterceptor;
 import org.jboss.osgi.deployment.interceptor.InvocationContext;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
 import org.jboss.virtual.VirtualFile;
 import org.osgi.framework.Bundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An interceptor that creates and attaches HttpMetadata.
@@ -43,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class ParserInterceptor extends AbstractLifecycleInterceptor
 {
    // Provide logging
-   private Logger log = LoggerFactory.getLogger(ParserInterceptor.class);
+   private static final Logger log = Logger.getLogger(ParserInterceptor.class);
 
    ParserInterceptor()
    {

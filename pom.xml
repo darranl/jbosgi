@@ -54,8 +54,8 @@
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
     <version.jboss.osgi.apache.xerces>2.9.1.SP4-SNAPSHOT</version.jboss.osgi.apache.xerces>
-    <version.jboss.osgi.blueprint>1.0.0.Beta1</version.jboss.osgi.blueprint>
-    <version.jboss.osgi.common>1.0.3</version.jboss.osgi.common>
+    <version.jboss.osgi.blueprint>1.0.0.Beta2-SNAPSHOT</version.jboss.osgi.blueprint>
+    <version.jboss.osgi.common>1.0.4-SNAPSHOT</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.13.GA</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.2-SNAPSHOT</version.jboss.osgi.deployment>
     <version.jboss.osgi.framework>1.0.0.Alpha4-SNAPSHOT</version.jboss.osgi.framework>

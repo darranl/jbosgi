@@ -63,7 +63,7 @@
   <bean name="OSGiControllerContextPlugin" class="org.jboss.osgi.framework.bundle.ControllerContextPluginImpl">
     <constructor>
       <parameter><inject bean="OSGiBundleManager" /></parameter>
-      <parameter><inject bean="DeploymentRegistry" /></parameter>
+      <parameter><inject bean="OSGiDeploymentRegistry" /></parameter>
     </constructor>
   </bean>
   <bean name="OSGiFrameworkEventsPlugin" class="org.jboss.osgi.framework.plugins.internal.FrameworkEventsPluginImpl">
@@ -121,7 +121,7 @@
   </bean>
 
   <!-- The deployment registry -->
-  <bean name="DeploymentRegistry" class="org.jboss.deployers.structure.spi.helpers.AbstractDeploymentRegistry"/>
+  <bean name="OSGiDeploymentRegistry" class="org.jboss.deployers.structure.spi.helpers.AbstractDeploymentRegistry"/>
 
   <!-- The holder for deployers that determine structure -->
   <bean name="StructuralDeployers" class="org.jboss.deployers.vfs.plugins.structure.VFSStructuralDeployersImpl">
@@ -156,7 +156,7 @@
     <constructor>
       <parameter class="org.jboss.dependency.spi.Controller"><inject bean="jboss.kernel:service=KernelController" /></parameter>
     </constructor>
-    <property name="deploymentRegistry"><inject bean="DeploymentRegistry"/></property>
+    <property name="deploymentRegistry"><inject bean="OSGiDeploymentRegistry"/></property>
   </bean>
 
   <!-- OSGI Deployment -->

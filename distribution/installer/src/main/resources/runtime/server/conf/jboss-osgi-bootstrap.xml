@@ -41,7 +41,7 @@
           org.jboss.osgi.spi.management;version=1.0,
           org.jboss.osgi.spi.service;version=1.0,
           org.jboss.osgi.spi.util;version=1.0,
-          org.jboss.osgi.testing;version=1.0
+          org.jboss.osgi.testing
         </value></entry>
         <!-- Hot Deployment -->
         <entry><key>org.jboss.osgi.hotdeploy.scandir</key><value>${osgi.server.home}/deploy</value></entry>

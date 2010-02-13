@@ -53,8 +53,7 @@
             org.jboss.osgi.spi.framework;version=1.0,
             org.jboss.osgi.spi.management;version=1.0,
             org.jboss.osgi.spi.service;version=1.0,
-            org.jboss.osgi.spi.util;version=1.0,
-            org.jboss.osgi.testing,
+            org.jboss.osgi.spi.util;version=1.0
             
         	org.osgi.framework;version=1.5
           </value>

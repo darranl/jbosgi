@@ -219,6 +219,11 @@
       </exclusions>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging-log4j</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <!-- Build -->
@@ -305,10 +310,6 @@
           <groupId>org.jboss.osgi.runtime</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
         </dependency>
-        <dependency>
-          <groupId>org.jboss.logging</groupId>
-          <artifactId>jboss-logging-log4j</artifactId>
-        </dependency>
       </dependencies>
     </profile>
     <profile>
@@ -322,10 +323,6 @@
         <dependency>
           <groupId>org.jboss.osgi.runtime</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.logging</groupId>
-          <artifactId>jboss-logging-log4j</artifactId>
         </dependency>
       </dependencies>
     </profile>

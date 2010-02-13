@@ -150,7 +150,6 @@
         <include name="jboss-osgi-runtime-equinox-sources.jar" />
         <include name="jboss-osgi-runtime-felix-sources.jar" />
         <include name="jboss-osgi-runtime-jbossas-sources.jar" />
-        <include name="jboss-osgi-serviceloader-sources.jar" />
         <include name="jboss-osgi-spi-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
         <include name="jboss-osgi-webconsole-sources.jar" />
@@ -247,9 +246,7 @@
         <include name="jboss-osgi-jaxb.jar" />
         <include name="jboss-osgi-jta.jar" />
         <include name="jboss-osgi-reflect.jar" />
-        <include name="jboss-osgi-serviceloader.jar" />
         <include name="jboss-osgi-xml-binding.jar" />
-        <include name="org.apache.aries.blueprint.jar" />
         <include name="org.apache.aries.util.jar" />
       </fileset>
 
@@ -412,9 +409,7 @@
         <include name="jboss-osgi-jndi.jar" />
         <include name="jboss-osgi-webconsole.jar" />
         <include name="jboss-osgi-reflect.jar" />
-        <!-- include name="jboss-osgi-serviceloader.jar" / -->
         <include name="jboss-osgi-xml-binding.jar" />
-        <include name="org.apache.aries.blueprint.jar" />
         <include name="org.apache.aries.util.jar" />
         <include name="org.apache.felix.log.jar" />
         <include name="pax-web-jetty-bundle.jar" />

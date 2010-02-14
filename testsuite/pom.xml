@@ -473,6 +473,12 @@
           <version>6.0.0.M1</version>
           <scope>provided</scope>
           <type>pom</type>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.slf4j</groupId>
+              <artifactId>slf4j-jboss-logging</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
       </dependencies>
     </profile>
@@ -499,6 +505,12 @@
           <version>6.0.0.M1</version>
           <scope>provided</scope>
           <type>pom</type>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.slf4j</groupId>
+              <artifactId>slf4j-jboss-logging</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
       </dependencies>
     </profile>

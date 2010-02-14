@@ -53,7 +53,9 @@ public class WebAppExtenderTestCase extends AbstractWebAppTestCase
 
       runtime = osgiTestHelper.getDefaultRuntime();
       runtime.addCapability(new HttpServiceCapability());
-      
+
+      // Conditionally install the webapp extender in case we test against
+      // a runtime where it is not installed already
       if (runtime.getBundle("org.ops4j.pax.web.pax-web-extender-war", null) == null)
          runtime.installBundle("bundles/pax-web-extender-war.jar").start();
       
@@ -68,13 +70,6 @@ public class WebAppExtenderTestCase extends AbstractWebAppTestCase
    }
 
    @Test
-   public void testResourceAccess() throws Exception
-   {
-      String line = getHttpResponse("/message.txt", 5000);
-      assertEquals("Hello from Resource", line);
-   }
-
-   @Test
    public void testServletAccess() throws Exception
    {
       String line = getHttpResponse("/servlet?test=plain", 5000);
@@ -86,5 +81,12 @@ public class WebAppExtenderTestCase extends AbstractWebAppTestCase
    {
       String line = getHttpResponse("/servlet?test=initProp", 5000);
       assertEquals("initProp=SomeValue", line);
+   }
+
+   @Test
+   public void testResourceAccess() throws Exception
+   {
+      String line = getHttpResponse("/message.txt", 5000);
+      assertEquals("Hello from Resource", line);
    }
 }

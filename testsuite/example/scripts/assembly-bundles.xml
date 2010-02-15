@@ -29,6 +29,8 @@
         <include>*:jboss-osgi-webapp:jar</include>
         <include>*:jboss-osgi-xml-binding:jar</include>
         <include>*:org.apache.aries.blueprint:jar</include>
+        <include>*:org.apache.aries.jmx:jar</include>
+        <include>*:org.apache.aries.jndi:jar</include>
         <include>*:org.apache.aries.util:jar</include>
         <include>*:org.apache.felix.configadmin:jar</include>
         <include>*:org.apache.felix.eventadmin:jar</include>

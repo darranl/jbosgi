@@ -106,7 +106,7 @@ public class OSGi36TestCase extends OSGiTest
 
    private FooMBean getFooMBean() throws MBeanProxyException
    {
-      FooMBean foo = (FooMBean)MBeanProxy.get(FooMBean.class, FooMBean.OBJECT_NAME, runtime.getMBeanServer());
+      FooMBean foo = (FooMBean)MBeanProxy.get(runtime.getMBeanServer(), FooMBean.OBJECT_NAME, FooMBean.class);
       return foo;
    }
 }

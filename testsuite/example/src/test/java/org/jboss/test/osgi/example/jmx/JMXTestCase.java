@@ -68,7 +68,7 @@ public class JMXTestCase
       OSGiBundle bundle = runtime.installBundle("example-jmx.jar");
       bundle.start();
 
-      FooMBean foo = (FooMBean)MBeanProxy.get(FooMBean.class, MBEAN_NAME, runtime.getMBeanServer());
+      FooMBean foo = (FooMBean)MBeanProxy.get(runtime.getMBeanServer(), MBEAN_NAME, FooMBean.class);
       assertEquals("hello", foo.echo("hello"));
    }
 }

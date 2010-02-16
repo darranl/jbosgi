@@ -94,7 +94,7 @@ public class JMXEnterpriseTestCase extends OSGiTest
          {
             if (mbeanServer.isRegistered(objectName))
             {
-               bundleState = MBeanProxy.get(BundleStateMBean.class, objectName, mbeanServer);
+               bundleState = MBeanProxy.get(mbeanServer, objectName, BundleStateMBean.class);
                break;
             }
             Thread.sleep(200);

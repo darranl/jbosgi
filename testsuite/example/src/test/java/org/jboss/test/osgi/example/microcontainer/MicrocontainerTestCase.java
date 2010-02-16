@@ -68,14 +68,14 @@ public class MicrocontainerTestCase
    @Test
    public void testBeanAccess() throws Exception
    {
-      SomeBeanMBean someBean = MBeanProxy.get(SomeBeanMBean.class, MBEAN_NAME, runtime.getMBeanServer());
+      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), MBEAN_NAME, SomeBeanMBean.class);
       assertEquals("hello", someBean.echo("hello"));
    }
 
    @Test
    public void testServiceAccess() throws Exception
    {
-      SomeBeanMBean someBean = MBeanProxy.get(SomeBeanMBean.class, MBEAN_NAME, runtime.getMBeanServer());
+      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), MBEAN_NAME, SomeBeanMBean.class);
       assertEquals("hello", someBean.callSomeService("hello"));
    }
 }

@@ -83,7 +83,7 @@ public class OSGi108TestCase
 
       bundleA.start();
 
-      SomeBeanMBean someBean = MBeanProxy.get(SomeBeanMBean.class, SomeBeanMBean.MBEAN_NAME, runtime.getMBeanServer());
+      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 1, messages.size());
 
@@ -110,7 +110,7 @@ public class OSGi108TestCase
       bundleA.start();
       bundleB.start();
 
-      SomeBeanMBean someBean = MBeanProxy.get(SomeBeanMBean.class, SomeBeanMBean.MBEAN_NAME, runtime.getMBeanServer());
+      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 2, messages.size());
 
@@ -141,7 +141,7 @@ public class OSGi108TestCase
       bundleA.start();
       bundleB.start();
 
-      SomeBeanMBean someBean = MBeanProxy.get(SomeBeanMBean.class, SomeBeanMBean.MBEAN_NAME, runtime.getMBeanServer());
+      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 2, messages.size());
 

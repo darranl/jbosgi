@@ -56,7 +56,7 @@ public class OSGi58TestCase extends OSGiTest
       try
       {
          StatelessBean bean = getRemoteBean(StatelessBean.class);
-         String symbolicName = bean.getFraemworkSymbolicName();
+         String symbolicName = bean.getFrameworkSymbolicName();
          assertEquals("foo", symbolicName);
       }
       finally

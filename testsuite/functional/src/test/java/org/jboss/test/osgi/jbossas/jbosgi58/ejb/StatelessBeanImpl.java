@@ -23,24 +23,30 @@ package org.jboss.test.osgi.jbossas.jbosgi58.ejb;
 
 //$Id$
 
+import java.io.IOException;
+
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.management.ObjectName;
 
 import org.jboss.ejb3.annotation.Depends;
-import org.jboss.osgi.spi.management.ManagedBundle;
-import org.jboss.osgi.spi.management.ManagedFrameworkMBean;
+import org.osgi.jmx.framework.BundleStateMBean;
 
 @Remote
 @Stateless(name="StatelessBean")
 public class StatelessBeanImpl implements StatelessBean
 {
-   @Depends("jboss.osgi:service=ManagedFramework")
-   ManagedFrameworkMBean framework;
+   @Depends(BundleStateMBean.OBJECTNAME)
+   BundleStateMBean framework;
    
-   public String getFraemworkSymbolicName()
+   public String getFrameworkSymbolicName()
    {
-      ObjectName bundle = framework.getBundle(0);
-      return bundle.getKeyProperty(ManagedBundle.PROPERTY_SYMBOLIC_NAME);
+      try
+      {
+         return framework.getSymbolicName(0);
+      }
+      catch (IOException ex)
+      {
+         throw new IllegalStateException(ex);
+      }
    }
 }

@@ -28,7 +28,6 @@ import static org.junit.Assert.fail;
 
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.management.MBeanProxy;
-import org.jboss.osgi.spi.management.MBeanProxyException;
 import org.jboss.osgi.testing.OSGiTest;
 import org.jboss.osgi.testing.OSGiTestHelper;
 import org.jboss.osgi.testing.internal.RemoteRuntime;
@@ -104,7 +103,7 @@ public class OSGi36TestCase extends OSGiTest
       }
    }
 
-   private FooMBean getFooMBean() throws MBeanProxyException
+   private FooMBean getFooMBean() 
    {
       FooMBean foo = (FooMBean)MBeanProxy.get(runtime.getMBeanServer(), FooMBean.OBJECT_NAME, FooMBean.class);
       return foo;

@@ -59,10 +59,6 @@ public class JMXEnterpriseTestCase extends OSGiTest
       OSGiTestHelper helper = new OSGiTestHelper();
       runtime = helper.getDefaultRuntime();
       runtime.addCapability(new JMXCapability());
-      
-      // Optionally install/start the Apache Aries JMX bundle
-      if (runtime.getBundle("org.apache.aries.jmx", null) == null)
-         runtime.installBundle("bundles/org.apache.aries.jmx.jar").start();
    }
 
    @AfterClass

@@ -209,6 +209,8 @@
         <include name="jboss-osgi-jmx.jar" />
         <include name="jboss-osgi-jndi.jar" />
         <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.util.jar" />
       </fileset>
 
       <!-- Server Web -->
@@ -219,6 +221,8 @@
         <include name="jboss-osgi-jmx.jar" />
         <include name="jboss-osgi-jndi.jar" />
         <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.util.jar" />
         <!-- web -->
         <include name="org.apache.felix.configadmin.jar" />
         <include name="org.apache.felix.metatype.jar" />
@@ -234,6 +238,8 @@
         <include name="jboss-osgi-jmx.jar" />
         <include name="jboss-osgi-jndi.jar" />
         <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.util.jar" />
         <!-- web -->
         <include name="jboss-osgi-webconsole.jar" />
         <include name="org.apache.felix.configadmin.jar" />
@@ -247,7 +253,6 @@
         <include name="jboss-osgi-jta.jar" />
         <include name="jboss-osgi-reflect.jar" />
         <include name="jboss-osgi-xml-binding.jar" />
-        <include name="org.apache.aries.util.jar" />
       </fileset>
 
       <!-- Felix Integration -->
@@ -410,6 +415,7 @@
         <include name="jboss-osgi-webconsole.jar" />
         <include name="jboss-osgi-reflect.jar" />
         <include name="jboss-osgi-xml-binding.jar" />
+        <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
         <include name="org.apache.felix.log.jar" />
         <include name="pax-web-jetty-bundle.jar" />

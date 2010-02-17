@@ -26,5 +26,5 @@ package org.jboss.test.osgi.jbossas.jbosgi58.ejb;
 
 public interface StatelessBean
 {
-   String getFraemworkSymbolicName();
+   String getFrameworkSymbolicName();
 }

@@ -22,8 +22,7 @@
         <entry><key>org.osgi.framework.system.packages.extra</key><value>
           
           <!-- jnp naming -->
-          org.jnp.interfaces,
-          org.jnp.server,
+          org.jnp.interfaces;version=5.0,
           
           <!-- logging -->
           org.apache.log4j;version=1.2,

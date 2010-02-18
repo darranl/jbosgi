@@ -37,7 +37,7 @@
             org.jboss.logging;version=2.1,
 
             <!-- jboss -->          
-            org.jboss.net.protocol,
+            org.jboss.net.protocol;version=2.2,
             org.jboss.virtual;version=2.1,
             org.jboss.virtual.plugins.registry;version=2.1,
             org.jboss.virtual.plugins.context.jar;version=2.1,

@@ -232,6 +232,8 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-293] Cannot start example-jndi on Felix -->
+                <exclude>org/jboss/test/osgi/example/jndi/**</exclude>
                 <!-- Functionality not supported in Felix -->                
                 <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
                 <exclude>org/jboss/test/osgi/example/microcontainer/**</exclude>

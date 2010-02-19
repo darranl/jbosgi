@@ -198,33 +198,33 @@
       <classifier>javadoc</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
       <version>${version.jboss.osgi.jmx}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
       <version>${version.jboss.osgi.jmx}</version>
       <classifier>javadoc</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jndi</groupId>
       <artifactId>jboss-osgi-jndi</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jndi</groupId>
       <artifactId>jboss-osgi-jndi</artifactId>
       <version>${version.jboss.osgi.jndi}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jndi</groupId>
       <artifactId>jboss-osgi-jndi</artifactId>
       <version>${version.jboss.osgi.jndi}</version>
       <classifier>javadoc</classifier>

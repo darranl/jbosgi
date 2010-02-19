@@ -72,6 +72,22 @@
       <classifier>javadoc</classifier>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi</groupId>
+      <artifactId>jboss-osgi-testing</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi</groupId>
+      <artifactId>jboss-osgi-testing</artifactId>
+      <version>${version.jboss.osgi.testing}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi</groupId>
+      <artifactId>jboss-osgi-testing</artifactId>
+      <version>${version.jboss.osgi.testing}</version>
+      <classifier>javadoc</classifier>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.testsuite</groupId>
       <artifactId>jboss-osgi-testsuite-example</artifactId>
       <version>${version}</version>

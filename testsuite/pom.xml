@@ -169,12 +169,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.jndi</groupId>
       <artifactId>jboss-osgi-jndi</artifactId>
       <scope>provided</scope>
     </dependency>

@@ -42,7 +42,8 @@
           org.jboss.osgi.spi.framework;version=1.0,
           org.jboss.osgi.spi.management;version=1.0,
           org.jboss.osgi.spi.service;version=1.0,
-          org.jboss.osgi.spi.util;version=1.0
+          org.jboss.osgi.spi.util;version=1.0,
+          org.jboss.osgi.testing;version=1.0
         </value></entry>
         <!-- Husky socket connector properties -->
         <entry><key>org.jboss.osgi.husky.runtime.connector.host</key><value>${jboss.bind.address}</value></entry>

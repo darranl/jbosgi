@@ -52,6 +52,10 @@
       <artifactId>jboss-osgi-spi</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi</groupId>
+      <artifactId>jboss-osgi-testing</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
       <artifactId>jboss-osgi-deployment</artifactId>
     </dependency>

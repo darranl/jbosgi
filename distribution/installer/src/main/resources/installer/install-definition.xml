@@ -151,6 +151,7 @@
         <include name="jboss-osgi-runtime-felix-sources.jar" />
         <include name="jboss-osgi-runtime-jbossas-sources.jar" />
         <include name="jboss-osgi-spi-sources.jar" />
+        <include name="jboss-osgi-testing-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
         <include name="jboss-osgi-webconsole-sources.jar" />
         <include name="jboss-osgi-xml-binding-sources.jar" />
@@ -187,6 +188,7 @@
         <include name="jboss-logging-log4j.jar" />
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-spi.jar" />
+        <include name="jboss-osgi-testing.jar" />
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
         <include name="slf4j-api.jar" />
@@ -400,6 +402,7 @@
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-runtime-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
+        <include name="jboss-osgi-testing.jar" />
       </fileset>
 
       <!-- deploy/osgi -->

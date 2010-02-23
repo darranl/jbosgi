@@ -32,12 +32,6 @@
   </triggers>
   <axes>
     <axis>
-      <name>framework</name>
-      <values>
-        <string>equinox</string>
-      </values>
-    </axis>
-    <axis>
       <name>container</name>
       <values>
         <string>runtime</string>

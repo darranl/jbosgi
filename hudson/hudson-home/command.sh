@@ -33,7 +33,7 @@ case "$CONTAINER" in
     SERVER_NAME=default
     JBOSS_BUILD=jboss-6.0.0.M2
     JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-	RUNTIME_HOME=$WORKSPACE/$JBOSS_BUILD
+	RUNTIME_HOME=$WORKSPACE/jboss-6.0.0.20100216-M2
 	RUNTIME_LOG=$RUNTIME_HOME/server/$SERVER_NAME/log/server.log
     rm -rf $RUNTIME_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE  
     cp --backup $HUDSONBIN/run-with-pid.sh $RUNTIME_HOME/bin/run.sh

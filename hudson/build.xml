@@ -82,7 +82,7 @@
     <available property="sun.hudson.available" file="${thirdparty.dir}/hudson.war"/>
     <available property="jboss501.available" file="${thirdparty.dir}/jboss-5.0.1.GA.zip"/>
     <available property="jboss510.available" file="${thirdparty.dir}/jboss-5.1.0.GA.zip"/>
-    <available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M1.zip"/>
+    <available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M2.zip"/>
   </target>
 	
   <!-- 
@@ -91,7 +91,7 @@
   <target name="thirdparty" depends="init-thirdparty,get-tomcat,get-hudson,get-jboss501,get-jboss510,get-jboss600">
     <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-5.0.1.GA.zip"/>
     <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-5.1.0.GA.zip"/>
-    <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-6.0.0.M1.zip"/>
+    <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-6.0.0.M2.zip"/>
   </target>
   <target name="get-tomcat" depends="init-thirdparty" unless="apache.tomcat.available">
     <get src="http://www.apache.org/dist/tomcat/tomcat-5/v${apache-tomcat}/bin/apache-tomcat-${apache-tomcat}.zip" dest="${thirdparty.dir}/apache-tomcat.zip" usetimestamp="true" verbose="true"/>
@@ -108,8 +108,8 @@
     <get src="${hudson.jboss510.zip}" dest="${thirdparty.dir}/jboss-5.1.0.GA.zip" usetimestamp="true" verbose="true"/>
   </target>
   <target name="get-jboss600" depends="init-thirdparty" unless="jboss600.available">
-    <property name="hudson.jboss600.zip" value="http://downloads.sourceforge.net/jboss/jboss-6.0.0.M1.zip"/>
-    <get src="${hudson.jboss600.zip}" dest="${thirdparty.dir}/jboss-6.0.0.M1.zip" usetimestamp="true" verbose="true"/>
+    <property name="hudson.jboss600.zip" value="http://downloads.sourceforge.net/jboss/jboss-6.0.0.M2.zip"/>
+    <get src="${hudson.jboss600.zip}" dest="${thirdparty.dir}/jboss-6.0.0.M2.zip" usetimestamp="true" verbose="true"/>
   </target>
   
   <!-- 

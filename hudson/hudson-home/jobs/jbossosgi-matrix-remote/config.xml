@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <matrix-project>
   <actions class="java.util.concurrent.CopyOnWriteArrayList"/>
-  <description>Build and test the JBossOSGi @version.id@ Matrix with Apache Felix</description>
+  <description>Build and test the JBossOSGi @version.id@ Remote Matrix</description>
   <logRotator>
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
@@ -27,14 +27,14 @@
   <disabled>false</disabled>
   <triggers class="vector">
     <hudson.triggers.TimerTrigger>
-      <spec>0 4 * * *</spec>
+      <spec>0 2 * * *</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
   <axes>
     <axis>
       <name>framework</name>
       <values>
-        <string>felix</string>
+        <string>equinox</string>
       </values>
     </axis>
     <axis>
@@ -48,14 +48,16 @@
       </values>
     </axis>
     <axis>
-      <name>jdk</name>
+      <name>framework</name>
       <values>
-        <string>jdk1.6</string>
-        <string>jdk1.5</string>
+        <string>equinox</string>
+        <string>felix</string>
+        <string>jbossmc</string>
       </values>
     </axis>
   </axes>
-  <combinationFilter>!((container=='jboss600' || container=='jboss601') &amp;&amp; jdk=='jdk1.5')</combinationFilter>
+  <combinationFilter>!((container=='jboss501' || container=='jboss510') &amp;&amp; framework=='jbossmc')</combinationFilter>
+  <jdk>jdk1.6</jdk>
   <builders>
     <hudson.tasks.Shell>
       <command>

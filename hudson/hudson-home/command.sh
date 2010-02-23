@@ -31,7 +31,7 @@ case "$CONTAINER" in
   ;;
   'jboss600')
     SERVER_NAME=default
-    JBOSS_BUILD=jboss-6.0.0.M1
+    JBOSS_BUILD=jboss-6.0.0.M2
     JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
 	RUNTIME_HOME=$WORKSPACE/$JBOSS_BUILD
 	RUNTIME_LOG=$RUNTIME_HOME/server/$SERVER_NAME/log/server.log

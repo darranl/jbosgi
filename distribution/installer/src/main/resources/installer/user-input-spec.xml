@@ -16,7 +16,7 @@
       <spec>
         <choice txt="JBoss-5.0.1" value="jboss501"/>
         <choice txt="JBoss-5.1.0" value="jboss510"/>
-        <choice txt="JBoss-6.0.0.M1" value="jboss600" set="true"/>
+        <choice txt="JBoss-6.0.0.M2" value="jboss600" set="true"/>
         <choice txt="JBoss-6.0.0-SNAPSHOT" value="jboss601"/>
       </spec>
     </field>
@@ -29,7 +29,7 @@
     <field type="radio" variable="jbossSelection">
       <description align="left" txt="Please choose your target container" />
       <spec>
-        <!-- choice txt="JBoss-6.0.0.M2" value="jboss600" set="true"/ -->
+        <choice txt="JBoss-6.0.0.M2" value="jboss600" set="true"/>
         <choice txt="JBoss-6.0.0-SNAPSHOT" value="jboss601" set="true"/>
       </spec>
     </field>

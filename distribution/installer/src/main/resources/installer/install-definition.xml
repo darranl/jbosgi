@@ -147,9 +147,9 @@
         <include name="jboss-osgi-jndi-sources.jar" />
         <include name="jboss-osgi-jta-sources.jar" />
         <include name="jboss-osgi-reflect-sources.jar" />
-        <include name="jboss-osgi-runtime-equinox-sources.jar" />
-        <include name="jboss-osgi-runtime-felix-sources.jar" />
-        <include name="jboss-osgi-runtime-jbossas-sources.jar" />
+        <include name="jboss-osgi-equinox-sources.jar" />
+        <include name="jboss-osgi-felix-sources.jar" />
+        <include name="jboss-osgi-jbossas-sources.jar" />
         <include name="jboss-osgi-spi-sources.jar" />
         <include name="jboss-osgi-testing-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
@@ -270,7 +270,7 @@
       <singlefile condition="isFelix" src="@{runtime.dir}/server/conf/jboss-osgi-extra-all.properties" target="$INSTALL_PATH/runtime/server/all/conf/jboss-osgi-extra.properties"
         override="true" />
       <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
-        <include name="jboss-osgi-runtime-felix.jar" />
+        <include name="jboss-osgi-felix.jar" />
         <include name="org.apache.felix.framework.jar" />
       </fileset>
       <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
@@ -296,7 +296,7 @@
       <singlefile condition="isEquinox" src="@{runtime.dir}/server/conf/jboss-osgi-extra-all.properties" target="$INSTALL_PATH/runtime/server/all/conf/jboss-osgi-extra.properties"
         override="true" />
       <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
-        <include name="jboss-osgi-runtime-equinox.jar" />
+        <include name="jboss-osgi-equinox.jar" />
         <include name="org.eclipse.osgi.jar" />
       </fileset>
       <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
@@ -400,7 +400,7 @@
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
         <include name="jboss-osgi-deployers.jar" />
         <include name="jboss-osgi-deployment.jar" />
-        <include name="jboss-osgi-runtime-jbossas.jar" />
+        <include name="jboss-osgi-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-testing.jar" />
       </fileset>
@@ -431,7 +431,7 @@
 
       <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
-        <include name="jboss-osgi-runtime-felix.jar" />
+        <include name="jboss-osgi-felix.jar" />
         <include name="org.apache.felix.framework.jar" />
       </fileset>
       <singlefile condition="isFelix" src="@{deploy.artifacts.dir}/resources/jbossas/jboss-beans-felix.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/jboss-osgi-jboss-beans.xml"
@@ -450,7 +450,7 @@
 
       <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
-        <include name="jboss-osgi-runtime-equinox.jar" />
+        <include name="jboss-osgi-equinox.jar" />
         <include name="org.apache.equinox.framework.jar" />
         <include name="org.eclipse.osgi.jar" />
       </fileset>

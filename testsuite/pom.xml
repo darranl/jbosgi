@@ -281,7 +281,7 @@
       <dependencies>
         <dependency>
           <groupId>org.jboss.osgi.runtime</groupId>
-          <artifactId>jboss-osgi-runtime-equinox</artifactId>
+          <artifactId>jboss-osgi-equinox</artifactId>
         </dependency>
       </dependencies>
     </profile>
@@ -304,7 +304,7 @@
       <dependencies>
         <dependency>
           <groupId>org.jboss.osgi.runtime</groupId>
-          <artifactId>jboss-osgi-runtime-felix</artifactId>
+          <artifactId>jboss-osgi-felix</artifactId>
         </dependency>
       </dependencies>
     </profile>

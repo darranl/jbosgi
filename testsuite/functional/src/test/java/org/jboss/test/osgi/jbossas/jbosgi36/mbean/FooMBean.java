@@ -25,7 +25,7 @@ package org.jboss.test.osgi.jbossas.jbosgi36.mbean;
 
 import javax.management.ObjectName;
 
-import org.jboss.osgi.spi.management.ObjectNameFactory;
+import org.jboss.osgi.jmx.ObjectNameFactory;
 
 public interface FooMBean 
 {

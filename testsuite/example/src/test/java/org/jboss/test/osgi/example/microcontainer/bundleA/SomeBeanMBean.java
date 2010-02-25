@@ -23,7 +23,7 @@ package org.jboss.test.osgi.example.microcontainer.bundleA;
 
 import javax.management.ObjectName;
 
-import org.jboss.osgi.spi.management.ObjectNameFactory;
+import org.jboss.osgi.jmx.ObjectNameFactory;
 
 //$Id$
 

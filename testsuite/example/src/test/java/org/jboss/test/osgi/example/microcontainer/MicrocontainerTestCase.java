@@ -27,7 +27,7 @@ import static org.jboss.test.osgi.example.microcontainer.bundleA.SomeBeanMBean.M
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.spi.management.MBeanProxy;
+import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiTestHelper;

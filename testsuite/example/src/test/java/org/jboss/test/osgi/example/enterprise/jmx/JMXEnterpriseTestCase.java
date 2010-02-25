@@ -31,8 +31,8 @@ import javax.management.ObjectName;
 import javax.management.openmbean.TabularData;
 
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.spi.management.MBeanProxy;
-import org.jboss.osgi.spi.management.ObjectNameFactory;
+import org.jboss.osgi.jmx.MBeanProxy;
+import org.jboss.osgi.jmx.ObjectNameFactory;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiTest;
 import org.jboss.osgi.testing.OSGiTestHelper;

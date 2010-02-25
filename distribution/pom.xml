@@ -333,7 +333,7 @@
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
       <artifactId>jboss-osgi-deployers</artifactId>
-      <version>${version.jboss.osgi.runtime.deployers}</version>
+      <version>${version.jboss.osgi.deployers}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>
@@ -359,7 +359,7 @@
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
       <artifactId>jboss-osgi-jbossas</artifactId>
-      <version>${version.jboss.osgi.runtime.jbossas}</version>
+      <version>${version.jboss.osgi.jbossas}</version>
       <classifier>sources</classifier>
     </dependency>
     <!-- jboss-osgi-jbossas: no javadoc -->
@@ -386,7 +386,7 @@
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
       <artifactId>jboss-osgi-equinox</artifactId>
-      <version>${version.jboss.osgi.runtime.equinox}</version>
+      <version>${version.jboss.osgi.equinox}</version>
       <classifier>sources</classifier>
     </dependency>
 
@@ -398,7 +398,7 @@
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
       <artifactId>jboss-osgi-felix</artifactId>
-      <version>${version.jboss.osgi.runtime.felix}</version>
+      <version>${version.jboss.osgi.felix}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>

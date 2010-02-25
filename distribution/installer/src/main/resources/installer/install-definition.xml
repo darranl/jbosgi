@@ -445,9 +445,6 @@
         override="true">
         <include name="org.osgi.compendium.jar" />
       </fileset>
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="microcontainer-service-jboss-beans.xml" />
-      </fileset>
 
       <!-- Equinox Integration -->
 
@@ -465,9 +462,6 @@
         <include name="org.eclipse.osgi.services.jar" />
         <include name="org.eclipse.osgi.util.jar" />
         <include name="pax-web-extender-war.jar" />
-      </fileset>
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="microcontainer-service-jboss-beans.xml" />
       </fileset>
 
       <!-- JBossMC Integration -->

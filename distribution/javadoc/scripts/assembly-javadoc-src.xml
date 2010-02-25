@@ -19,10 +19,11 @@
         <include>*:jboss-osgi-hotdeploy:jar:sources</include>
         <include>*:jboss-osgi-husky:jar:sources</include>
         <include>*:jboss-osgi-jaxb:jar:sources</include>
-        <include>*:jboss-osgi-jmx:jar:sources</include>
-        <include>*:jboss-osgi-jndi:jar:sources</include>
+        <include>*:jboss-osgi-jmx-api:jar:sources</include>
+        <include>*:jboss-osgi-jndi-api:jar:sources</include>
         <include>*:jboss-osgi-jta:jar:sources</include>
         <include>*:jboss-osgi-spi:jar:sources</include>
+        <include>*:jboss-osgi-testing:jar:sources</include>
         <include>*:jboss-osgi-webapp:jar:sources</include>
         <include>*:jboss-osgi-xml-binding:jar:sources</include>
       </includes>

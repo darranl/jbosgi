@@ -126,10 +126,4 @@
     <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
   </bean>
 
-  <!-- The Bundle Management Deployer -->
-  <bean name="jboss.osgi:service=BundleManagementDeployer" class="org.jboss.osgi.deployer.BundleManagementDeployer">
-    <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
-    <property name="mbeanServer"><inject bean="JMXKernel" property="mbeanServer"/></property>
-  </bean>
-
 </deployment>

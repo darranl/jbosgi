@@ -354,15 +354,15 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
-      <artifactId>jboss-osgi-runtime-jbossas</artifactId>
+      <artifactId>jboss-osgi-jbossas</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
-      <artifactId>jboss-osgi-runtime-jbossas</artifactId>
+      <artifactId>jboss-osgi-jbossas</artifactId>
       <version>${version.jboss.osgi.runtime.jbossas}</version>
       <classifier>sources</classifier>
     </dependency>
-    <!-- jboss-osgi-runtime-jbossas: no javadoc -->
+    <!-- jboss-osgi-jbossas: no javadoc -->
     
     <!-- Aries Dependencies -->
     <dependency>
@@ -381,11 +381,11 @@
     <!-- Equinox Dependencies -->
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
-      <artifactId>jboss-osgi-runtime-equinox</artifactId>
+      <artifactId>jboss-osgi-equinox</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
-      <artifactId>jboss-osgi-runtime-equinox</artifactId>
+      <artifactId>jboss-osgi-equinox</artifactId>
       <version>${version.jboss.osgi.runtime.equinox}</version>
       <classifier>sources</classifier>
     </dependency>
@@ -393,11 +393,11 @@
     <!-- Felix Dependencies -->
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
-      <artifactId>jboss-osgi-runtime-felix</artifactId>
+      <artifactId>jboss-osgi-felix</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.runtime</groupId>
-      <artifactId>jboss-osgi-runtime-felix</artifactId>
+      <artifactId>jboss-osgi-felix</artifactId>
       <version>${version.jboss.osgi.runtime.felix}</version>
       <classifier>sources</classifier>
     </dependency>

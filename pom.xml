@@ -71,7 +71,7 @@
     <version.jboss.osgi.runtime.deployers>1.0.5-SNAPSHOT</version.jboss.osgi.runtime.deployers>
     <version.jboss.osgi.runtime.equinox>3.5.1.SP1-SNAPSHOT</version.jboss.osgi.runtime.equinox>
     <version.jboss.osgi.runtime.felix>2.0.2.SP1-SNAPSHOT</version.jboss.osgi.runtime.felix>
-    <version.jboss.osgi.runtime.jbossas>1.0.2</version.jboss.osgi.runtime.jbossas>
+    <version.jboss.osgi.runtime.jbossas>1.0.3-SNAPSHOT</version.jboss.osgi.runtime.jbossas>
     <version.jboss.osgi.serviceloader>1.0.0</version.jboss.osgi.serviceloader>
     <version.jboss.osgi.spi>1.0.5-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.testing>1.0.0-SNAPSHOT</version.jboss.osgi.testing>
@@ -221,21 +221,21 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.runtime</groupId>
-        <artifactId>jboss-osgi-runtime-jbossas</artifactId>
+        <artifactId>jboss-osgijbossas</artifactId>
         <version>${version.jboss.osgi.runtime.jbossas}</version>
       </dependency>
 
       <!-- Equinox Dependencies -->
       <dependency>
         <groupId>org.jboss.osgi.runtime</groupId>
-        <artifactId>jboss-osgi-runtime-equinox</artifactId>
+        <artifactId>jboss-osgi-equinox</artifactId>
         <version>${version.jboss.osgi.runtime.equinox}</version>
       </dependency>
 
       <!-- Felix Dependencies -->
       <dependency>
         <groupId>org.jboss.osgi.runtime</groupId>
-        <artifactId>jboss-osgi-runtime-felix</artifactId>
+        <artifactId>jboss-osgi-felix</artifactId>
         <version>${version.jboss.osgi.runtime.felix}</version>
       </dependency>
       <dependency>

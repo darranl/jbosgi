@@ -3,6 +3,6 @@
 Bundle-SymbolicName: example-mcservice-bundleA
 Bundle-Activator: org.jboss.test.osgi.example.microcontainer.bundleA.SomeServiceActivator
 Export-Package: org.jboss.test.osgi.example.microcontainer.bundleA
-Import-Package: javax.management, org.jboss.osgi.spi.management, org.jboss.osgi.spi.service, org.osgi.framework
+Import-Package: javax.management, org.jboss.osgi.jmx, org.jboss.osgi.spi.service, org.osgi.framework
 Include-Resource: META-INF/mcservice-jboss-beans.xml=META-INF/mcservice-jboss-beans.xml
 -removeheaders: Include-Resource

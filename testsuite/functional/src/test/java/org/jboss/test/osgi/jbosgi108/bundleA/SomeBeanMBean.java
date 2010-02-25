@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.management.ObjectName;
 
-import org.jboss.osgi.spi.management.ObjectNameFactory;
+import org.jboss.osgi.jmx.ObjectNameFactory;
 
 //$Id$
 

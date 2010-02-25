@@ -68,7 +68,7 @@
     <version.jboss.osgi.jndi>1.0.3-SNAPSHOT</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>1.0.1-SNAPSHOT</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0</version.jboss.osgi.reflect>
-    <version.jboss.osgi.runtime.deployers>1.0.4</version.jboss.osgi.runtime.deployers>
+    <version.jboss.osgi.runtime.deployers>1.0.5-SNAPSHOT</version.jboss.osgi.runtime.deployers>
     <version.jboss.osgi.runtime.equinox>3.5.1.SP1-SNAPSHOT</version.jboss.osgi.runtime.equinox>
     <version.jboss.osgi.runtime.felix>2.0.2.SP1-SNAPSHOT</version.jboss.osgi.runtime.felix>
     <version.jboss.osgi.runtime.jbossas>1.0.2</version.jboss.osgi.runtime.jbossas>

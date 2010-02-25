@@ -3,22 +3,23 @@
   <numExecutors>2</numExecutors>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
-    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
     <permission>hudson.model.Hudson.Read:@hudson.username@</permission>
-    <permission>hudson.model.Item.Build:@hudson.username@</permission>
-    <permission>hudson.model.Item.Workspace:@hudson.username@</permission>
-    <permission>hudson.model.Item.Delete:@hudson.username@</permission>
-    <permission>hudson.model.View.Configure:@hudson.username@</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
     <permission>hudson.model.Computer.Configure:@hudson.username@</permission>
     <permission>hudson.model.Computer.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Run.Update:@hudson.username@</permission>
-    <permission>hudson.model.Item.Create:@hudson.username@</permission>
+    <permission>hudson.model.Item.Build:@hudson.username@</permission>
     <permission>hudson.model.Item.Configure:@hudson.username@</permission>
-    <permission>hudson.model.View.Delete:@hudson.username@</permission>
+    <permission>hudson.model.Item.Create:@hudson.username@</permission>
+    <permission>hudson.model.Item.Delete:@hudson.username@</permission>
+    <permission>hudson.model.Item.Workspace:@hudson.username@</permission>
+    <permission>hudson.model.Item.Workspace:anonymous</permission>
+    <permission>hudson.model.View.Configure:@hudson.username@</permission>
     <permission>hudson.model.View.Create:@hudson.username@</permission>
-    <permission>hudson.scm.SCM.Tag:@hudson.username@</permission>
+    <permission>hudson.model.View.Delete:@hudson.username@</permission>
     <permission>hudson.model.Run.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
+    <permission>hudson.model.Run.Update:@hudson.username@</permission>
+    <permission>hudson.scm.SCM.Tag:@hudson.username@</permission>
   </authorizationStrategy>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>false</disableSignup>

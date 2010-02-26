@@ -25,13 +25,14 @@ package org.jboss.test.osgi.jbosgi108;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.jboss.osgi.jmx.FrameworkMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiPackageAdmin;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiTestHelper;
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
@@ -72,10 +73,10 @@ public class OSGi108TestCase
    }
 
    @Before
-   public void setUp()
+   public void setUp() throws IOException
    {
-      OSGiPackageAdmin packageAdmin = runtime.getPackageAdmin();
-      packageAdmin.refreshPackages(null);
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      frameworkMBean.refreshBundles(null);
    }
 
    @Test
@@ -153,8 +154,8 @@ public class OSGi108TestCase
       // bundleA.SomeBean
 
       // Refresh all packages
-      OSGiPackageAdmin packageAdmin = runtime.getPackageAdmin();
-      packageAdmin.refreshPackages(null);
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      frameworkMBean.refreshBundles(null);
 
       // Reinstall bundleA
       bundleA = runtime.installBundle("jbosgi108-bundleA.jar");

@@ -30,8 +30,10 @@ import static org.junit.Assert.fail;
 
 import java.net.URL;
 
+import org.jboss.osgi.jmx.FrameworkMBeanExt;
+import org.jboss.osgi.jmx.JMXCapability;
+import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiPackageAdmin;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiTest;
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
@@ -56,6 +58,8 @@ public class FragmentTestCase extends OSGiTest
    public void setUp() throws Exception
    {
       runtime = getDefaultRuntime();
+      runtime.addCapability(new LogServiceCapability());
+      runtime.addCapability(new JMXCapability());
    }
 
    @After
@@ -260,8 +264,8 @@ public class FragmentTestCase extends OSGiTest
       }
 
       // Refreshing HostA causes the FragA to get attached
-      OSGiPackageAdmin packageAdmin = runtime.getPackageAdmin();
-      packageAdmin.refreshPackages(new OSGiBundle[] { hostA });
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      frameworkMBean.refreshBundle(hostA.getBundleId());
 
       // Wait for the fragment to get attached
       int timeout = 2000;

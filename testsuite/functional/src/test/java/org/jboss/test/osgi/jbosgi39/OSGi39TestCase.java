@@ -25,8 +25,10 @@ package org.jboss.test.osgi.jbosgi39;
 
 import static org.junit.Assert.fail;
 
+import org.jboss.osgi.jmx.FrameworkMBeanExt;
+import org.jboss.osgi.jmx.JMXCapability;
+import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiPackageAdmin;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiTest;
 import org.junit.After;
@@ -52,12 +54,14 @@ public class OSGi39TestCase extends OSGiTest
    private OSGiRuntime runtime;
 
    @Before
-   public void setUp()
+   public void setUp() throws Exception
    {
       runtime = getDefaultRuntime();
+      runtime.addCapability(new LogServiceCapability());
+      runtime.addCapability(new JMXCapability());
       
-      OSGiPackageAdmin packageAdmin = runtime.getPackageAdmin();
-      packageAdmin.refreshPackages(null);
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      frameworkMBean.refreshBundles(null);
    }
 
    @After
@@ -145,8 +149,8 @@ public class OSGi39TestCase extends OSGiTest
       bundleB.uninstall();
 
       // Forces the update (replacement) or removal of packages exported by the specified bundles.
-      OSGiPackageAdmin packAdmin = runtime.getPackageAdmin();
-      packAdmin.refreshPackages(null);
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      frameworkMBean.refreshBundles(null);
 
       // Install B without X
       bundleB = runtime.installBundle("jbosgi39-bundleB.jar");

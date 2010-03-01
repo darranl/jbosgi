@@ -233,7 +233,7 @@ public class OSGi38TestCase extends OSGiTest
    {
       if ("jbossmc".equals(getFrameworkName()))
       {
-         System.out.println("FIXME [JBOSGI-213] Unexpected dependee state changes");
+         System.out.println("FIXME [JBDEPLOY-245] Unexpected dependee state changes");
          return;
       }
          

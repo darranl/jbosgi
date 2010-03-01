@@ -169,7 +169,7 @@ public class FragmentTestCase extends OSGiTest
    {
       if ("jbossmc".equals(getFrameworkName()))
       {
-         System.out.println("FIXME [JBOSGI-245] Framework fragments");
+         System.out.println("FIXME [JBCL-137] Add support for OSGi Fragments");
          return;
       }
       
@@ -215,7 +215,7 @@ public class FragmentTestCase extends OSGiTest
    {
       if ("jbossmc".equals(getFrameworkName()))
       {
-         System.out.println("FIXME [JBOSGI-245] Framework fragments");
+         System.out.println("FIXME [JBCL-137] Add support for OSGi Fragments");
          return;
       }
       
@@ -294,7 +294,7 @@ public class FragmentTestCase extends OSGiTest
    {
       if ("jbossmc".equals(getFrameworkName()))
       {
-         System.out.println("FIXME [JBOSGI-245] Framework fragments");
+         System.out.println("FIXME [JBCL-137] Add support for OSGi Fragments");
          return;
       }
       

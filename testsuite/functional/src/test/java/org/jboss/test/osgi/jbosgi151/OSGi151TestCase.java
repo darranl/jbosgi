@@ -88,7 +88,7 @@ public class OSGi151TestCase extends OSGiTest
    {
       if ("jbossmc".equals(getFrameworkName()))
       {
-         System.out.println("FIXME [JBOSGI-151] Cannot resolve circular dependencies");
+         System.out.println("FIXME [JBKERNEL-54] Cannot resolve circular dependencies");
          return;
       }
       

@@ -44,17 +44,6 @@
   <!-- Dependencies -->
   <dependencies>
     <dependency>
-      <groupId>org.jboss.kernel</groupId>
-      <artifactId>jboss-aop-mc-int</artifactId>
-      <version>${version.jboss.aop.mc.int}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss</groupId>
-          <artifactId>jboss-mdr</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb-api</artifactId>
       <version>${version.javax.ejb}</version>

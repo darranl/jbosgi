@@ -271,7 +271,7 @@
 
       <!-- JBossMC Dependencies -->
       <dependency>
-        <groupId>org.jboss.osgi.runtime</groupId>
+        <groupId>org.jboss.osgi.framework</groupId>
         <artifactId>jboss-osgi-framework</artifactId>
         <version>${version.jboss.osgi.framework}</version>
       </dependency>

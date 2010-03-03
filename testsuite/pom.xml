@@ -323,7 +323,7 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>org.jboss.osgi.runtime</groupId>
+          <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
         </dependency>
       </dependencies>
@@ -337,7 +337,7 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>org.jboss.osgi.runtime</groupId>
+          <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
         </dependency>
       </dependencies>

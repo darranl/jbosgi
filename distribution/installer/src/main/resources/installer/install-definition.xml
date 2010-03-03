@@ -140,6 +140,8 @@
         <include name="jboss-osgi-deployment-sources.jar" />
         <include name="jboss-osgi-deployers-sources.jar" />
         <include name="jboss-osgi-framework-sources.jar" />
+        <include name="jboss-osgi-framework-core-sources.jar" />
+        <include name="jboss-osgi-framework-metadata-sources.jar" />
         <include name="jboss-osgi-hotdeploy-sources.jar" />
         <include name="jboss-osgi-husky-harness-sources.jar" />
         <include name="jboss-osgi-jaxb-sources.jar" />
@@ -189,6 +191,8 @@
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-testing.jar" />
+        <include name="jboss-osgi-vfs.jar" />
+        <include name="jboss-osgi-vfs21.jar" />
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
         <include name="slf4j-api.jar" />
@@ -343,6 +347,9 @@
         <include name="jboss-metatype.jar" />
         <include name="jboss-osgi-deployers.jar" />
         <include name="jboss-osgi-framework.jar" />
+        <include name="jboss-osgi-framework-core.jar" />
+        <include name="jboss-osgi-framework-metadata.jar" />
+        <include name="jboss-osgi-framework-vfs21.jar" />
         <include name="jboss-reflect.jar" />
         <include name="jbossxb.jar" />
         <include name="mcann-core.jar" />
@@ -403,6 +410,8 @@
         <include name="jboss-osgi-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-testing.jar" />
+        <include name="jboss-osgi-vfs.jar" />
+        <include name="jboss-osgi-vfs21.jar" />
       </fileset>
 
       <!-- deploy/osgi -->
@@ -469,6 +478,9 @@
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
         <include name="jboss-osgi-framework.jar" />
+        <include name="jboss-osgi-framework-core.jar" />
+        <include name="jboss-osgi-framework-metadata.jar" />
+        <include name="jboss-osgi-framework-vfs21.jar" />
       </fileset>
       <singlefile condition="isJBossMC" src="@{deploy.artifacts.dir}/resources/jbossas/jboss-beans-jbossmc.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/jboss-osgi-jboss-beans.xml"
         override="true" />

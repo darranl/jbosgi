@@ -49,10 +49,6 @@
       <version>${version.jboss.aop.mc.int}</version>
       <exclusions>
         <exclusion>
-          <groupId>org.jboss.aop</groupId>
-          <artifactId>jboss-aop</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.jboss.kernel</groupId>
           <artifactId>jboss-kernel</artifactId>
         </exclusion>

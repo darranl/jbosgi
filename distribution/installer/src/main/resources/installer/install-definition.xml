@@ -411,7 +411,12 @@
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-testing.jar" />
         <include name="jboss-osgi-vfs.jar" />
+      </fileset>
+      <fileset condition="!isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
         <include name="jboss-osgi-vfs21.jar" />
+      </fileset>
+      <fileset condition="isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
+        <include name="jboss-osgi-vfs30.jar" />
       </fileset>
 
       <!-- deploy/osgi -->

@@ -65,7 +65,7 @@ public class OSGi39TestCase extends OSGiTest
    }
 
    @After
-   public void tearDown()
+   public void tearDown() throws Exception
    {
       runtime.shutdown();
    }

@@ -285,7 +285,7 @@
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs30</artifactId>
+          <artifactId>jboss-osgi-vfs21</artifactId>
         </dependency>
       </dependencies>
     </profile>
@@ -312,7 +312,7 @@
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs30</artifactId>
+          <artifactId>jboss-osgi-vfs21</artifactId>
         </dependency>
       </dependencies>
     </profile>

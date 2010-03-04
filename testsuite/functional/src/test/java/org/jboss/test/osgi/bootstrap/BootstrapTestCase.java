@@ -46,10 +46,18 @@ public class BootstrapTestCase extends OSGiTest
    {
       OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
       Framework framework = bootProvider.getFramework();
-      assertNotNull("Framework not null", framework);
+      try
+      {
+         assertNotNull("Framework not null", framework);
 
-      assertEquals("BundleId == 0", 0, framework.getBundleId());
-      assertNotNull("SymbolicName not null", framework.getSymbolicName());
+         assertEquals("BundleId == 0", 0, framework.getBundleId());
+         assertNotNull("SymbolicName not null", framework.getSymbolicName());
+      }
+      finally
+      {
+         framework.stop();
+         framework.waitForStop(2000);
+      }
    }
 
    @Test

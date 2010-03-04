@@ -240,6 +240,11 @@
       <artifactId>jboss-logging-log4j</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs21</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <!-- Build -->

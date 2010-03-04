@@ -104,26 +104,20 @@
   ********************************
   -->
 
-  <!-- The OSGi MetaData Deployer -->
-  <bean name="jboss.osgi:service=BundleMetaDataDeployer" class="org.jboss.osgi.deployer.BundleMetaDataDeployer" />
-  
-  <!-- The OSGi Bundle Structure Deployer -->
-  <bean name="jboss.osgi:service=BundleStructureDeployer" class="org.jboss.osgi.deployer.BundleStructureDeployer" />
-  
-  <!-- The OSGi Bundle Deployer -->
-  <bean name="jboss.osgi:service=BundleRealDeployer" class="org.jboss.osgi.deployer.BundleRealDeployer">
+  <bean name="BundleClassLoaderDeployer" class="org.jboss.osgi.deployer.BundleClassLoaderDeployer">
+    <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
+  </bean>
+  <bean name="BundleMetaDataDeployer" class="org.jboss.osgi.deployer.BundleMetaDataDeployer" />
+  <bean name="BundleRealDeployer" class="org.jboss.osgi.deployer.BundleRealDeployer">
     <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
     <property name="skipBundles"><inject bean="jboss.osgi:service=Framework" property="autoInstall" /></property>
   </bean>
-
-  <!-- The Bundle ClassLoader Deployer -->
-  <bean name="jboss.osgi:service=BundleClassLoaderDeployer" class="org.jboss.osgi.deployer.BundleClassLoaderDeployer">
+  <bean name="BundleStartLevelDeployer" class="org.jboss.osgi.deployer.BundleStartLevelDeployer">
     <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
   </bean>
-
-  <!-- The Bundle Start/Stop Deployer -->
-  <bean name="jboss.osgi:service=BundleStartStopDeployer" class="org.jboss.osgi.deployer.BundleStartStopDeployer">
+  <bean name="BundleStartStopDeployer" class="org.jboss.osgi.deployer.BundleStartStopDeployer">
     <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
   </bean>
+  <bean name="BundleStructureDeployer" class="org.jboss.osgi.deployer.BundleStructureDeployer" />
 
 </deployment>

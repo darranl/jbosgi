@@ -132,6 +132,26 @@
         <version>${version.jboss.osgi.testing}</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.osgi.deployers</groupId>
+        <artifactId>jboss-osgi-deployers-vfs21</artifactId>
+        <version>${version.jboss.osgi.deployers}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.deployers</groupId>
+        <artifactId>jboss-osgi-deployers-vfs30</artifactId>
+        <version>${version.jboss.osgi.deployers}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.jmx</groupId>
+        <artifactId>jboss-osgi-jmx</artifactId>
+        <version>${version.jboss.osgi.jmx}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.jndi</groupId>
+        <artifactId>jboss-osgi-jndi</artifactId>
+        <version>${version.jboss.osgi.jndi}</version>
+      </dependency>
+      <dependency>
         <groupId>org.jboss.osgi.vfs</groupId>
         <artifactId>jboss-osgi-vfs</artifactId>
         <version>${version.jboss.osgi.vfs}</version>
@@ -184,16 +204,6 @@
         <version>${version.jboss.osgi.jaxb}</version>
       </dependency>
       <dependency>
-        <groupId>org.jboss.osgi.jmx</groupId>
-        <artifactId>jboss-osgi-jmx</artifactId>
-        <version>${version.jboss.osgi.jmx}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.jndi</groupId>
-        <artifactId>jboss-osgi-jndi</artifactId>
-        <version>${version.jboss.osgi.jndi}</version>
-      </dependency>
-      <dependency>
         <groupId>org.jboss.osgi.bundles</groupId>
         <artifactId>jboss-osgi-jta</artifactId>
         <version>${version.jboss.osgi.jta}</version>
@@ -225,11 +235,6 @@
       </dependency>
 
       <!-- jboss.osgi.runtime -->
-      <dependency>
-        <groupId>org.jboss.osgi.runtime</groupId>
-        <artifactId>jboss-osgi-deployers</artifactId>
-        <version>${version.jboss.osgi.deployers}</version>
-      </dependency>
       <dependency>
         <groupId>org.jboss.osgi.runtime</groupId>
         <artifactId>jboss-osgi-deployment</artifactId>

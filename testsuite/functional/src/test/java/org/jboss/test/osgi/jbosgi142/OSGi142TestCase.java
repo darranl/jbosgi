@@ -88,7 +88,7 @@ public class OSGi142TestCase extends OSGiTest
       finally
       {
          framework.stop();
-         framework.waitForStop(1000);
+         framework.waitForStop(2000);
       }
    }
 }

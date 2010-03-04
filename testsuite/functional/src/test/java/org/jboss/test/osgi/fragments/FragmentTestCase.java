@@ -66,7 +66,10 @@ public class FragmentTestCase extends OSGiTest
    public void tearDown()
    {
       if (runtime != null)
+      {
          runtime.shutdown();
+         runtime = null;
+      }
    }
 
    @Test

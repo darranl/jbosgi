@@ -56,10 +56,10 @@ public class OSGi143TestCase extends OSGiTest
    {
       OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
       Framework framework = bootProvider.getFramework();
-      framework.start();
-      
       try
       {
+         framework.start();
+         
          BundleContext sysContext = framework.getBundleContext();
          Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
          bundleX.start();
@@ -77,7 +77,7 @@ public class OSGi143TestCase extends OSGiTest
       finally
       {
          framework.stop();
-         framework.waitForStop(1000);
+         framework.waitForStop(2000);
       }
    }
 

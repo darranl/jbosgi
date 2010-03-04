@@ -138,7 +138,6 @@
         <include name="jboss-osgi-common-core-sources.jar" />
         <include name="jboss-osgi-common-sources.jar" />
         <include name="jboss-osgi-deployment-sources.jar" />
-        <include name="jboss-osgi-deployers-sources.jar" />
         <include name="jboss-osgi-framework-sources.jar" />
         <include name="jboss-osgi-framework-core-sources.jar" />
         <include name="jboss-osgi-framework-metadata-sources.jar" />
@@ -345,7 +344,7 @@
         <include name="jboss-managed.jar" />
         <include name="jboss-mdr.jar" />
         <include name="jboss-metatype.jar" />
-        <include name="jboss-osgi-deployers.jar" />
+        <include name="jboss-osgi-deployers-vfs21.jar" />
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />
         <include name="jboss-osgi-framework-metadata.jar" />
@@ -405,7 +404,6 @@
       
       <!-- deployers/osgi.deployer -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
-        <include name="jboss-osgi-deployers.jar" />
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
@@ -413,9 +411,11 @@
         <include name="jboss-osgi-vfs.jar" />
       </fileset>
       <fileset condition="!isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
+        <include name="jboss-osgi-deployers-vfs21.jar" />
         <include name="jboss-osgi-vfs21.jar" />
       </fileset>
       <fileset condition="isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
+        <include name="jboss-osgi-deployers-vfs30.jar" />
         <include name="jboss-osgi-vfs30.jar" />
       </fileset>
 

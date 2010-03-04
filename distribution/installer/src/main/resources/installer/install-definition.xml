@@ -486,11 +486,11 @@
         <include name="jboss-osgi-framework-core.jar" />
         <include name="jboss-osgi-framework-metadata.jar" />
       </fileset>
-      <fileset condition="isJBossMC && !isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
+      <fileset condition="isJBossMC+!isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
         <include name="jboss-osgi-framework-vfs21.jar" />
       </fileset>
-      <fileset condition="isJBossMC && isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
+      <fileset condition="isJBossMC+isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
         <include name="jboss-osgi-framework-vfs30.jar" />
       </fileset>

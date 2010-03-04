@@ -63,7 +63,7 @@ public class FragmentTestCase extends OSGiTest
    }
 
    @After
-   public void tearDown()
+   public void tearDown() throws Exception
    {
       if (runtime != null)
       {

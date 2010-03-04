@@ -40,7 +40,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.osgi.framework.BundleException;
 
 /**
  * [JBOSGI-108] Investigate statics on PackageAdmin.refresh
@@ -63,7 +62,7 @@ public class OSGi108TestCase
    }
 
    @AfterClass
-   public static void afterClass() throws BundleException
+   public static void afterClass() throws Exception
    {
       if (runtime != null)
       {

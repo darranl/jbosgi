@@ -130,12 +130,12 @@ public class OSGi99TestCase extends OSGiTest
    }
 
    @Test
-   // [JBOSGI-210] Bundle installed but not started with hot deploy
    public void testHotDeploy() throws Exception
    {
       if (runtime.isRemoteRuntime() == false)
          return;
 
+      // [JBOSGI-210] Bundle installed but not started with hot deploy
       File inFile = getTestArchiveFile("jbosgi99-allgood.jar");
 
       // Copy the bundle to the data directory
@@ -148,7 +148,7 @@ public class OSGi99TestCase extends OSGiTest
       File deployFile = new File(outPath + "deploy/jbosgi99-allgood.jar");
       outFile.renameTo(deployFile);
 
-      int timeout = 5000;
+      int timeout = 8000;
       OSGiBundle bundle = null;
       while (timeout > 0)
       {
@@ -166,7 +166,7 @@ public class OSGi99TestCase extends OSGiTest
       // Delete the bundle from the deploy directory
       deployFile.delete();
 
-      timeout = 5000;
+      timeout = 8000;
       while (timeout > 0)
       {
          if (bundle.getState() == Bundle.UNINSTALLED)

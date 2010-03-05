@@ -330,6 +330,12 @@
         </property>
       </activation>
       <dependencies>
+        <!-- Promote the framework core dependencies -->
+        <dependency>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jboss-osgi-framework-core</artifactId>
+          <version>${version.jboss.osgi.framework}</version>
+        </dependency>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
@@ -348,6 +354,12 @@
         </property>
       </activation>
       <dependencies>
+        <!-- Promote the framework core dependencies -->
+        <dependency>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jboss-osgi-framework-core</artifactId>
+          <version>${version.jboss.osgi.framework}</version>
+        </dependency>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
@@ -453,7 +465,7 @@
           <groupId>org.jboss.osgi.runtime</groupId>
           <artifactId>jmx-invoker-adaptor-client</artifactId>
           <version>${version.jmx.invoker.adaptor.client}</version>
-          <scope>provided</scope>
+          <scope>test</scope>
           <type>pom</type>
         </dependency>
       </dependencies>
@@ -479,7 +491,7 @@
           <groupId>org.jboss.osgi.runtime</groupId>
           <artifactId>jmx-invoker-adaptor-client</artifactId>
           <version>${version.jmx.invoker.adaptor.client}</version>
-          <scope>provided</scope>
+          <scope>test</scope>
           <type>pom</type>
         </dependency>
       </dependencies>
@@ -504,8 +516,8 @@
         <dependency>
           <groupId>org.jboss.jbossas</groupId>
           <artifactId>jboss-as-client</artifactId>
-          <version>6.0.0.M1</version>
-          <scope>provided</scope>
+          <version>6.0.0.20100216-M2</version>
+          <scope>test</scope>
           <type>pom</type>
           <exclusions>
             <exclusion>
@@ -536,8 +548,8 @@
         <dependency>
           <groupId>org.jboss.jbossas</groupId>
           <artifactId>jboss-as-client</artifactId>
-          <version>6.0.0.M1</version>
-          <scope>provided</scope>
+          <version>6.0.0.20100216-M2</version>
+          <scope>test</scope>
           <type>pom</type>
           <exclusions>
             <exclusion>

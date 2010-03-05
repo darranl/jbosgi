@@ -39,6 +39,7 @@ import org.jboss.osgi.jbossxb.UnmarshallerService;
 import org.jboss.osgi.jbossxb.XMLBindingCapability;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jndi.JNDICapability;
+import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
@@ -106,8 +107,8 @@ public class CapabilityTestCase extends OSGiTest
          
          runtime.addCapability(new JAXBCapability());
          
-         OSGiServiceReference saxRef = runtime.getServiceReference(JAXBService.class.getName());
-         assertNotNull("JAXBService registered", saxRef);
+         OSGiServiceReference sref = runtime.getServiceReference(JAXBService.class.getName());
+         assertNotNull("JAXBService registered", sref);
       }
       finally
       {
@@ -128,8 +129,8 @@ public class CapabilityTestCase extends OSGiTest
          
          runtime.addCapability(new XMLBindingCapability());
          
-         OSGiServiceReference saxRef = runtime.getServiceReference(UnmarshallerService.class.getName());
-         assertNotNull("UnmarshallerService registered", saxRef);
+         OSGiServiceReference sref = runtime.getServiceReference(UnmarshallerService.class.getName());
+         assertNotNull("UnmarshallerService registered", sref);
       }
       finally
       {
@@ -150,8 +151,8 @@ public class CapabilityTestCase extends OSGiTest
          
          runtime.addCapability(new JNDICapability());
          
-         OSGiServiceReference saxRef = runtime.getServiceReference(InitialContext.class.getName());
-         assertNotNull("InitialContext registered", saxRef);
+         OSGiServiceReference sref = runtime.getServiceReference(InitialContext.class.getName());
+         assertNotNull("InitialContext registered", sref);
       }
       finally
       {
@@ -165,15 +166,15 @@ public class CapabilityTestCase extends OSGiTest
       OSGiRuntime runtime = getEmbeddedRuntime();
       try
       {
-         runtime.addCapability(new LogServiceCapability());
+         runtime.addCapability(new CompendiumCapability());
          
          OSGiBundle bundle = runtime.getBundle("jboss-osgi-jmx", null);
          assertNull("Test bundle null", bundle);
          
          runtime.addCapability(new JMXCapability());
          
-         OSGiServiceReference saxRef = runtime.getServiceReference(MBeanServer.class.getName());
-         assertNotNull("MBeanServer registered", saxRef);
+         OSGiServiceReference sref = runtime.getServiceReference(MBeanServer.class.getName());
+         assertNotNull("MBeanServer registered", sref);
       }
       finally
       {

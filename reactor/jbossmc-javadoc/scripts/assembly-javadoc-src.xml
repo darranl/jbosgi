@@ -23,6 +23,7 @@
         <include>*:jboss-deployers-vfs:jar:sources</include>
         <include>*:jboss-deployers-vfs-spi:jar:sources</include>
         <include>*:jboss-kernel:jar:sources</include>
+        <include>*:jboss-vfs:jar:sources</include>
       </includes>
       <unpack>true</unpack>
     </dependencySet>

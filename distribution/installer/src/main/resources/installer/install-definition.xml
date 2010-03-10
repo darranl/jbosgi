@@ -191,7 +191,7 @@
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-testing.jar" />
         <include name="jboss-osgi-vfs.jar" />
-        <include name="jboss-osgi-vfs21.jar" />
+        <include name="jboss-osgi-vfs30.jar" />
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
         <include name="slf4j-api.jar" />
@@ -344,11 +344,11 @@
         <include name="jboss-managed.jar" />
         <include name="jboss-mdr.jar" />
         <include name="jboss-metatype.jar" />
-        <include name="jboss-osgi-deployers-vfs21.jar" />
+        <include name="jboss-osgi-deployers-vfs30.jar" />
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />
         <include name="jboss-osgi-framework-metadata.jar" />
-        <include name="jboss-osgi-framework-vfs21.jar" />
+        <include name="jboss-osgi-framework-vfs30.jar" />
         <include name="jboss-reflect.jar" />
         <include name="jbossxb.jar" />
         <include name="mcann-core.jar" />

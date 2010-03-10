@@ -64,26 +64,26 @@ public class OSGi142TestCase extends OSGiTest
          Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleX.jar").toExternalForm());
          bundleX.start();
          
-         assertBundleLoadClass(bundleX, BeanX.class.getName(), true);
+         assertLoadClass(bundleX, BeanX.class.getName());
          
          Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleA.jar").toExternalForm());
          bundleA.start();
          
-         assertBundleLoadClass(bundleA, BeanA.class.getName(), true);
+         assertLoadClass(bundleA, BeanA.class.getName());
          
          Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleB.jar").toExternalForm());
          bundleB.start();
          
-         assertBundleLoadClass(bundleB, BeanB.class.getName(), true);
+         assertLoadClass(bundleB, BeanB.class.getName());
          
-         assertBundleLoadClass(bundleA, BeanX.class.getName(), true);
-         assertBundleLoadClass(bundleB, BeanX.class.getName(), true);
+         assertLoadClass(bundleA, BeanX.class.getName());
+         assertLoadClass(bundleB, BeanX.class.getName());
     
-         assertBundleLoadClass(bundleX, BeanA.class.getName(), false);
-         assertBundleLoadClass(bundleX, BeanB.class.getName(), false);
+         assertLoadClassFail(bundleX, BeanA.class.getName());
+         assertLoadClassFail(bundleX, BeanB.class.getName());
          
-         assertBundleLoadClass(bundleA, BeanB.class.getName(), false);
-         assertBundleLoadClass(bundleB, BeanA.class.getName(), false);
+         assertLoadClassFail(bundleA, BeanB.class.getName());
+         assertLoadClassFail(bundleB, BeanA.class.getName());
       }
       finally
       {

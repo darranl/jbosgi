@@ -89,13 +89,13 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.deployers</groupId>
-      <artifactId>jboss-osgi-deployers-vfs21</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.deployers</groupId>
       <artifactId>jboss-osgi-deployers-vfs30</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.deployers</groupId>
+      <artifactId>jboss-osgi-deployers-vfs21</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
     </dependency>
@@ -167,21 +167,21 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs21</artifactId>
+      <artifactId>jboss-osgi-vfs30</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs21</artifactId>
+      <artifactId>jboss-osgi-vfs30</artifactId>
       <version>${version.jboss.osgi.vfs}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs30</artifactId>
+      <artifactId>jboss-osgi-vfs21</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs30</artifactId>
+      <artifactId>jboss-osgi-vfs21</artifactId>
       <version>${version.jboss.osgi.vfs}</version>
       <classifier>sources</classifier>
     </dependency>
@@ -491,12 +491,12 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.framework</groupId>
-      <artifactId>jboss-osgi-framework-vfs21</artifactId>
+      <artifactId>jboss-osgi-framework-vfs30</artifactId>
       <version>${version.jboss.osgi.framework}</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.framework</groupId>
-      <artifactId>jboss-osgi-framework-vfs30</artifactId>
+      <artifactId>jboss-osgi-framework-vfs21</artifactId>
       <version>${version.jboss.osgi.framework}</version>
     </dependency>
     <dependency>

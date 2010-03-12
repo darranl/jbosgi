@@ -25,7 +25,7 @@ package org.jboss.test.osgi.example.simple;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -35,7 +35,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class SimpleTestCase extends OSGiTest
+public class SimpleTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testSimpleBundle() throws Exception

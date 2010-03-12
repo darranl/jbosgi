@@ -25,8 +25,8 @@ package org.jboss.test.osgi.jbosgi112;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,14 +42,14 @@ import org.osgi.framework.SynchronousBundleListener;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
-public class OSGi112TestCase extends OSGiTest
+public class OSGi112TestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
    @BeforeClass
    public static void beforeClass() throws BundleException
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
    }
 
    @AfterClass

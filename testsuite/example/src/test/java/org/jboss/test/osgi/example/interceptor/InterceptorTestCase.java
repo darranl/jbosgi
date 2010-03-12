@@ -33,7 +33,7 @@ import java.net.URL;
 import org.jboss.osgi.spi.capability.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class InterceptorTestCase
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       runtime.addCapability(new HttpServiceCapability());
 
       // Allow 10s for the HttpService to become available

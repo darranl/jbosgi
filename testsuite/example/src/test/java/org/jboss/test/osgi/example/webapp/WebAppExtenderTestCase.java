@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.osgi.spi.capability.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class WebAppExtenderTestCase extends AbstractWebAppTestCase
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      OSGiTestHelper osgiTestHelper = new OSGiTestHelper();
+      OSGiRuntimeHelper osgiTestHelper = new OSGiRuntimeHelper();
 
       runtime = osgiTestHelper.getDefaultRuntime();
       runtime.addCapability(new HttpServiceCapability());

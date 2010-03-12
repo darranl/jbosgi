@@ -31,7 +31,7 @@ import java.util.List;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -43,7 +43,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 09-Apr-2009
  */
-public class OSGi37TestCase extends OSGiTest
+public class OSGi37TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testNestedBundle() throws Exception

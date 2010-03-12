@@ -31,7 +31,7 @@ import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -50,7 +50,7 @@ public class JMXTestCase
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       runtime.addCapability(new JNDICapability());
       runtime.addCapability(new JMXCapability());
    }

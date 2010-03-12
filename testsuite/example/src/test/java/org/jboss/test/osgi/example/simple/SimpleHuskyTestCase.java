@@ -32,7 +32,7 @@ import org.jboss.osgi.husky.HuskyCapability;
 import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.example.simple.bundle.SimpleService;
 import org.junit.After;
 import org.junit.Before;
@@ -49,7 +49,7 @@ import org.osgi.framework.ServiceReference;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class SimpleHuskyTestCase extends OSGiTest
+public class SimpleHuskyTestCase extends OSGiRuntimeTest
 {
    @RuntimeContext
    public BundleContext context;

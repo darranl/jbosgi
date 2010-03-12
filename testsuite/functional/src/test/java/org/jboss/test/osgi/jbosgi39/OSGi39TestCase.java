@@ -30,7 +30,7 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +49,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 04-Mar-2009
  */
-public class OSGi39TestCase extends OSGiTest
+public class OSGi39TestCase extends OSGiRuntimeTest
 {
    private OSGiRuntime runtime;
 

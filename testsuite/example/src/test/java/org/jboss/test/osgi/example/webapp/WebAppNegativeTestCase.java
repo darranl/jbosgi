@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.webapp.WebAppCapability;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -50,7 +50,7 @@ public class WebAppNegativeTestCase extends AbstractWebAppTestCase
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      OSGiTestHelper osgiTestHelper = new OSGiTestHelper();
+      OSGiRuntimeHelper osgiTestHelper = new OSGiRuntimeHelper();
 
       runtime = osgiTestHelper.getDefaultRuntime();
       runtime.addCapability(new WebAppCapability());

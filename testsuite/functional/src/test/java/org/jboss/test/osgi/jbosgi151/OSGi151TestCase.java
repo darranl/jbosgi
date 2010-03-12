@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi151.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi151.bundleB.BeanB;
 import org.junit.After;
@@ -60,7 +60,7 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 07-Sep-2009
  */
-public class OSGi151TestCase extends OSGiTest
+public class OSGi151TestCase extends OSGiRuntimeTest
 {
    private Framework framework;
    

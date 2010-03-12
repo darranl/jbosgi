@@ -41,7 +41,7 @@ import org.jboss.osgi.jaxb.JAXBCapability;
 import org.jboss.osgi.jaxb.JAXBService;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,7 +68,7 @@ public class JAXBTestCase
       // Only do this if we are not within the OSGi Runtime
       if (context == null)
       {
-         runtime = new OSGiTestHelper().getDefaultRuntime();
+         runtime = new OSGiRuntimeHelper().getDefaultRuntime();
          runtime.addCapability(new JAXBCapability());
          runtime.addCapability(new HuskyCapability());
 

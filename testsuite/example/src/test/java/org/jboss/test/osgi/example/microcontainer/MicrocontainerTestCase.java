@@ -30,7 +30,7 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.test.osgi.example.microcontainer.bundleA.SomeBeanMBean;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -50,7 +50,7 @@ public class MicrocontainerTestCase
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       runtime.addCapability(new JMXCapability());
 
       bundleA = runtime.installBundle("example-mcservice-bundleA.jar");

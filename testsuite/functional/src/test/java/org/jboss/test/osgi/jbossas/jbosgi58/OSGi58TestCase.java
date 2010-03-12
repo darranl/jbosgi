@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.internal.RemoteRuntime;
 import org.jboss.test.osgi.jbossas.jbosgi58.ejb.StatelessBean;
 import org.junit.Ignore;
@@ -43,7 +43,7 @@ import org.junit.Test;
  * @since 07-Dec-2009
  */
 @Ignore
-public class OSGi58TestCase extends OSGiTest
+public class OSGi58TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testEJB() throws Exception

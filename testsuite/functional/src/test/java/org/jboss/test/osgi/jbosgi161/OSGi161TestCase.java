@@ -26,7 +26,7 @@ package org.jboss.test.osgi.jbosgi161;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi161.bundle.LoggingDelegate;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -39,7 +39,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 07-Oct-2009
  */
-public class OSGi161TestCase extends OSGiTest
+public class OSGi161TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testClientLogging() throws Exception

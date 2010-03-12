@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi287.bundleA.OSGi287BeanA;
 import org.jboss.test.osgi.jbosgi287.bundleB.OSGi287BeanB;
 import org.junit.Test;
@@ -42,7 +42,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */
-public class OSGi287TestCase extends OSGiTest
+public class OSGi287TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testUnresolvedOptionalImport() throws Exception

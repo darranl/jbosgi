@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jboss.osgi.spi.util.ServiceLoader;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -48,7 +48,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 03-Dec-2009
  */
-public class OSGi214TestCase extends OSGiTest
+public class OSGi214TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testFirstRun() throws Exception

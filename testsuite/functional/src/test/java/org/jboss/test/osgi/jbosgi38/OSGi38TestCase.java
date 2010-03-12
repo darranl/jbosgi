@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -48,7 +48,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 02-Mar-2009
  */
-public class OSGi38TestCase extends OSGiTest
+public class OSGi38TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testInstallStartX() throws Exception

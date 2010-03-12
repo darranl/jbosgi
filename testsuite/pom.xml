@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ======================================================================
--->
+  <!-- ====================================================================== -->
   <!--                                                                        -->
   <!--  JBoss, the OpenSource J2EE webOS                                      -->
   <!--                                                                        -->
   <!--  Distributable under LGPL license.                                     -->
   <!--  See terms of license at http://www.gnu.org.                           -->
   <!--                                                                        -->
-  <!-- ======================================================================
--->
+  <!-- ====================================================================== -->
 
-  <!-- $Id$
--->
+  <!-- $Id$ -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -282,6 +279,12 @@
         <dependency>
           <groupId>org.jboss.osgi.runtime</groupId>
           <artifactId>jboss-osgi-equinox</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.vfs</groupId>
+          <artifactId>jboss-osgi-vfs30</artifactId>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -305,6 +308,12 @@
         <dependency>
           <groupId>org.jboss.osgi.runtime</groupId>
           <artifactId>jboss-osgi-felix</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.vfs</groupId>
+          <artifactId>jboss-osgi-vfs30</artifactId>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -322,15 +331,16 @@
         </property>
       </activation>
       <dependencies>
-        <!-- Promote the framework core dependencies -->
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-core</artifactId>
+          <artifactId>jboss-osgi-framework-vfs30</artifactId>
           <version>${version.jboss.osgi.framework}</version>
+          <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -342,15 +352,16 @@
         </property>
       </activation>
       <dependencies>
-        <!-- Promote the framework core dependencies -->
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-core</artifactId>
+          <artifactId>jboss-osgi-framework-vfs30</artifactId>
           <version>${version.jboss.osgi.framework}</version>
+          <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework</artifactId>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -400,12 +411,6 @@
       <properties>
         <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
       </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs30</artifactId>
-        </dependency>
-      </dependencies>
     </profile>
 
     <!--
@@ -429,10 +434,6 @@
           <artifactId>jmx-invoker-adaptor-client</artifactId>
           <version>${version.jmx.invoker.adaptor.client}</version>
           <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs30</artifactId>
         </dependency>
       </dependencies>
     </profile>
@@ -460,10 +461,6 @@
           <scope>test</scope>
           <type>pom</type>
         </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs21</artifactId>
-        </dependency>
       </dependencies>
     </profile>
 
@@ -489,10 +486,6 @@
           <version>${version.jmx.invoker.adaptor.client}</version>
           <scope>test</scope>
           <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs21</artifactId>
         </dependency>
       </dependencies>
     </profile>
@@ -526,10 +519,6 @@
             </exclusion>
           </exclusions>
         </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs21</artifactId>
-        </dependency>
       </dependencies>
     </profile>
 
@@ -561,10 +550,6 @@
               <artifactId>slf4j-jboss-logging</artifactId>
             </exclusion>
           </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jboss-osgi-vfs30</artifactId>
         </dependency>
       </dependencies>
     </profile>

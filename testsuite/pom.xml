@@ -333,13 +333,17 @@
       <dependencies>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-vfs30</artifactId>
-          <version>${version.jboss.osgi.framework}</version>
+          <artifactId>jboss-osgi-framework-core</artifactId>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework</artifactId>
+          <artifactId>jboss-osgi-framework-metadata</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jboss-osgi-framework-vfs30</artifactId>
           <scope>provided</scope>
         </dependency>
       </dependencies>
@@ -354,13 +358,17 @@
       <dependencies>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-vfs30</artifactId>
-          <version>${version.jboss.osgi.framework}</version>
+          <artifactId>jboss-osgi-framework-core</artifactId>
           <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework</artifactId>
+          <artifactId>jboss-osgi-framework-metadata</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jboss-osgi-framework-vfs30</artifactId>
           <scope>provided</scope>
         </dependency>
       </dependencies>

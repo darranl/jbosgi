@@ -30,6 +30,7 @@ import static org.junit.Assert.fail;
 
 import java.net.URL;
 
+import org.jboss.osgi.jmx.BundleStateMBeanExt;
 import org.jboss.osgi.jmx.FrameworkMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
@@ -107,10 +108,14 @@ public class FragmentTestCase extends OSGiRuntimeTest
       OSGiBundle fragA = runtime.installBundle("fragments-simple-fragA.jar");
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
-      URL entryURL = fragA.getEntry("resources/resource.txt");
+      // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
+      // to normalize the differences in VFS protocols when running against a VFS21 target container.
+      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getBundleStateMBean();
+      
+      String entryURL = bundleState.getEntry(fragA.getBundleId(), "resources/resource.txt");
       assertNotNull("Entry URL not null", entryURL);
 
-      URL resourceURL = fragA.getResource("resources/resource.txt");
+      String resourceURL = bundleState.getResource(fragA.getBundleId(), "resources/resource.txt");
       assertNull("Resource URL null", resourceURL);
 
       try
@@ -146,10 +151,14 @@ public class FragmentTestCase extends OSGiRuntimeTest
       assertBundleState(Bundle.ACTIVE, hostA.getState());
       assertBundleState(Bundle.RESOLVED, fragA.getState());
 
-      URL entryURL = hostA.getEntry("resources/resource.txt");
+      // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
+      // to normalize the differences in VFS protocols when running against a VFS21 target container.
+      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getBundleStateMBean();
+      
+      String entryURL = bundleState.getEntry(hostA.getBundleId(), "resources/resource.txt");
       assertNull("Entry URL null", entryURL);
 
-      URL resourceURL = hostA.getResource("resources/resource.txt");
+      String resourceURL = bundleState.getResource(hostA.getBundleId(), "resources/resource.txt");
       assertNotNull("Resource URL not null", resourceURL);
 
       OSGiBundle fragBeanProvider = hostA.loadClass(FragBeanA.class.getName());

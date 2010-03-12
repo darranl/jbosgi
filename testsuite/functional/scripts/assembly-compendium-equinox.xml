@@ -18,6 +18,7 @@
         <include>org.eclipse.equinox:org.eclipse.osgi.util:jar</include>
       </includes>
       <useStrictFiltering>false</useStrictFiltering>
+      <scope>provided</scope>
       <unpack>false</unpack>
     </dependencySet>
     

@@ -18,6 +18,7 @@
         <include>org.osgi:org.osgi.compendium:jar</include>
       </includes>
       <useStrictFiltering>false</useStrictFiltering>
+      <scope>provided</scope>
       <unpack>false</unpack>
     </dependencySet>
     

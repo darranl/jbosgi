@@ -34,7 +34,7 @@ import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -56,7 +56,7 @@ public class OSGi108TestCase
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
    }

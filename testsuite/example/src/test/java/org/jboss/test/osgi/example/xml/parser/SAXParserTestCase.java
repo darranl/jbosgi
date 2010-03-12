@@ -37,7 +37,7 @@ import org.jboss.osgi.husky.HuskyCapability;
 import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.xml.XMLParserCapability;
 import org.junit.After;
 import org.junit.Before;
@@ -68,7 +68,7 @@ public class SAXParserTestCase
       // Only do this if we are not within the OSGi Runtime
       if (context == null)
       {
-         runtime = new OSGiTestHelper().getDefaultRuntime();
+         runtime = new OSGiRuntimeHelper().getDefaultRuntime();
          runtime.addCapability(new XMLParserCapability());
          runtime.addCapability(new HuskyCapability());
 

@@ -33,7 +33,7 @@ import org.jboss.osgi.spi.util.ServiceLoader;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.example.serviceloader.service.AccountService;
 import org.jboss.test.osgi.example.serviceloader.service.internal.AccountServiceImpl;
 import org.junit.Test;
@@ -45,7 +45,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 26-Jan-2010
  */
-public class ServiceLoaderTestCase extends OSGiTest
+public class ServiceLoaderTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testTraditionalServiceLoaderAPI() throws Exception

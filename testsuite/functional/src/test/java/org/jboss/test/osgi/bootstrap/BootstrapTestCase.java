@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNotSame;
 
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.launch.Framework;
 
@@ -39,7 +39,7 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 25-Feb-2009
  */
-public class BootstrapTestCase extends OSGiTest
+public class BootstrapTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testFrameworkBootstrap() throws Exception

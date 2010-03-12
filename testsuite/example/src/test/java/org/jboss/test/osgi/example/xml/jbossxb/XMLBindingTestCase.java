@@ -35,7 +35,7 @@ import org.jboss.osgi.jbossxb.UnmarshallerService;
 import org.jboss.osgi.jbossxb.XMLBindingCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +50,7 @@ import org.osgi.framework.ServiceReference;
  * @author thomas.diesler@jboss.com
  * @since 26-Nov-2009
  */
-public class XMLBindingTestCase extends OSGiTest
+public class XMLBindingTestCase extends OSGiRuntimeTest
 {
    @RuntimeContext
    public BundleContext context;

@@ -37,7 +37,7 @@ import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.spi.capability.EventAdminCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +55,7 @@ import org.osgi.service.event.EventHandler;
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
-public class EventAdminTestCase extends OSGiTest
+public class EventAdminTestCase extends OSGiRuntimeTest
 {
    static String TOPIC = "org/jboss/test/osgi/example/event";
    

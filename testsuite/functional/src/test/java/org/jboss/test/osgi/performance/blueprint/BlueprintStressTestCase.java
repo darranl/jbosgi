@@ -29,7 +29,7 @@ import org.jboss.osgi.blueprint.BlueprintCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.test.osgi.performance.blueprint.bundle.ServiceA;
 import org.jboss.test.osgi.performance.blueprint.bundle.ServiceB;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class BlueprintStressTestCase
    @Test
    public void testBlueprintBundleInstall() throws Exception
    {
-      OSGiRuntime runtime = new OSGiTestHelper().getDefaultRuntime();
+      OSGiRuntime runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       BlueprintCapability blueprintCapability = new BlueprintCapability();
       try
       {

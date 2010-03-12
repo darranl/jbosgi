@@ -26,7 +26,7 @@ package org.jboss.test.osgi.jbosgi286;
 import org.jboss.osgi.jaxb.JAXBCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -38,7 +38,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */
-public class OSGi286TestCase extends OSGiTest
+public class OSGi286TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testJAXBContextWiring() throws Exception

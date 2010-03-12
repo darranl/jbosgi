@@ -34,8 +34,8 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.jmx.ObjectNameFactory;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,7 +47,7 @@ import org.osgi.jmx.framework.BundleStateMBean;
  * @author thomas.diesler@jboss.com
  * @since 15-Feb-2010
  */
-public class JMXEnterpriseTestCase extends OSGiTest
+public class JMXEnterpriseTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
    
@@ -56,7 +56,7 @@ public class JMXEnterpriseTestCase extends OSGiTest
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      OSGiTestHelper helper = new OSGiTestHelper();
+      OSGiRuntimeHelper helper = new OSGiRuntimeHelper();
       runtime = helper.getDefaultRuntime();
       runtime.addCapability(new JMXCapability());
    }

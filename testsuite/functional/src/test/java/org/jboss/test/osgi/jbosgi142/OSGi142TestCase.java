@@ -26,7 +26,7 @@ package org.jboss.test.osgi.jbosgi142;
 
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi142.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi142.bundleB.BeanB;
 import org.jboss.test.osgi.jbosgi142.bundleX.BeanX;
@@ -49,7 +49,7 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2009
  */
-public class OSGi142TestCase extends OSGiTest
+public class OSGi142TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testLoadClass() throws Exception

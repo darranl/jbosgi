@@ -30,8 +30,8 @@ import java.util.Locale;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -44,14 +44,14 @@ import org.osgi.framework.Constants;
  * @author thomas.diesler@jboss.com
  * @since 25-Jan-2010
  */
-public class LocalizationTestCase extends OSGiTest
+public class LocalizationTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
    @BeforeClass
    public static void beforeClass()
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
    }
 
    @AfterClass

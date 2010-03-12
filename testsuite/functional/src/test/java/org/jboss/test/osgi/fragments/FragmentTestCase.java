@@ -35,7 +35,7 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.junit.After;
@@ -50,7 +50,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
-public class FragmentTestCase extends OSGiTest
+public class FragmentTestCase extends OSGiRuntimeTest
 {
    private OSGiRuntime runtime;
 

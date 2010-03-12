@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -43,7 +43,7 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */
-public class OSGi284TestCase extends OSGiTest
+public class OSGi284TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testVersionParser() throws Exception

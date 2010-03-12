@@ -34,7 +34,7 @@ import java.io.FileReader;
 import org.jboss.osgi.spi.capability.ConfigAdminCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -46,7 +46,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 05-Mar-2009
  */
-public class OSGi41TestCase extends OSGiTest
+public class OSGi41TestCase extends OSGiRuntimeTest
 {
    @Test
    public void testFirstRun() throws Exception

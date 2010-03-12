@@ -35,8 +35,8 @@ import org.jboss.logging.Logger;
 import org.jboss.osgi.spi.util.ConstantsHelper;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -51,7 +51,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 08-Jul-2009
  */
-public class OSGi99TestCase extends OSGiTest
+public class OSGi99TestCase extends OSGiRuntimeTest
 {
    // Provide logging
    private static final Logger log = Logger.getLogger(OSGi99TestCase.class);
@@ -61,7 +61,7 @@ public class OSGi99TestCase extends OSGiTest
    @BeforeClass
    public static void beforeClass()
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
    }
 
    @AfterClass

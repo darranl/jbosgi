@@ -32,8 +32,8 @@ import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.jboss.osgi.testing.OSGiTest;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,14 +48,14 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 21-Jul-2009
  */
-public class OSGi92TestCase extends OSGiTest
+public class OSGi92TestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      runtime = new OSGiTestHelper().getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       runtime.addCapability(new CompendiumCapability());
    }
 

@@ -33,7 +33,7 @@ import javax.management.ObjectName;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -51,7 +51,7 @@ import org.osgi.jmx.framework.ServiceStateMBean;
  * @since 05-Mar-2010
  */
 @Ignore
-public class OSGi298TestCase extends OSGiTest
+public class OSGi298TestCase extends OSGiRuntimeTest
 {
    private OSGiRuntime runtime;
 

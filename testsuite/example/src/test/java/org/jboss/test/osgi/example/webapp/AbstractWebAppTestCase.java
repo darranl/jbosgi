@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 
 /**
  * Abstract base class for webapp example. 
@@ -36,7 +36,7 @@ import org.jboss.osgi.testing.OSGiTest;
  * @author thomas.diesler@jboss.com
  * @since 06-Oct-2009
  */
-public abstract class AbstractWebAppTestCase extends OSGiTest
+public abstract class AbstractWebAppTestCase extends OSGiRuntimeTest
 {
    protected String getHttpResponse(String reqPath) throws Exception
    {

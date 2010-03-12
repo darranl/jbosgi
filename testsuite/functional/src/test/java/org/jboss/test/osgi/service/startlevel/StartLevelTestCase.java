@@ -26,7 +26,7 @@ package org.jboss.test.osgi.service.startlevel;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 
@@ -36,7 +36,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 04-Mar-2009
  */
-public class StartLevelTestCase extends OSGiTest
+public class StartLevelTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testStartLevel() throws Exception

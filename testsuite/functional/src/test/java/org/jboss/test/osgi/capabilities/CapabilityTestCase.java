@@ -44,7 +44,7 @@ import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.xml.XMLParserCapability;
 import org.junit.Test;
 
@@ -54,7 +54,7 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 23-Jan-2009
  */
-public class CapabilityTestCase extends OSGiTest
+public class CapabilityTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testXMLParserCapability() throws Exception

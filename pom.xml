@@ -248,14 +248,14 @@
 
       <!-- Equinox Dependencies -->
       <dependency>
-        <groupId>org.jboss.osgi.runtime</groupId>
+        <groupId>org.jboss.osgi.equinox</groupId>
         <artifactId>jboss-osgi-equinox</artifactId>
         <version>${version.jboss.osgi.equinox}</version>
       </dependency>
 
       <!-- Felix Dependencies -->
       <dependency>
-        <groupId>org.jboss.osgi.runtime</groupId>
+        <groupId>org.jboss.osgi.felix</groupId>
         <artifactId>jboss-osgi-felix</artifactId>
         <version>${version.jboss.osgi.felix}</version>
       </dependency>

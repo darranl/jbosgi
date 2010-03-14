@@ -107,7 +107,7 @@
   <bean name="BundleClassLoaderDeployer" class="org.jboss.osgi.deployer.BundleClassLoaderDeployer">
     <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
   </bean>
-  <bean name="BundleMetaDataDeployer" class="org.jboss.osgi.deployer.BundleMetaDataDeployer" />
+  <bean name="BundleManifestParsingDeployer" class="org.jboss.osgi.deployer.BundleManifestParsingDeployer" />
   <bean name="BundleRealDeployer" class="org.jboss.osgi.deployer.BundleRealDeployer">
     <property name="systemContext"><inject bean="jboss.osgi:service=Framework" property="bundleContext" /></property>
     <property name="skipBundles"><inject bean="jboss.osgi:service=Framework" property="autoInstall" /></property>

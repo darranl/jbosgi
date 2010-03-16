@@ -461,7 +461,7 @@
                 </property>
                 <property>
                   <name>java.protocol.handler.pkgs</name>
-                  <value>org.jboss.net.protocol|org.jboss.virtual.protocol</value>
+                  <value>org.jboss.vfs.protocol</value>
                 </property>
                 <property>
                   <name>jndi.server.port</name>

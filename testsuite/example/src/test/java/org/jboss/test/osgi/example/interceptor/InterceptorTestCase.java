@@ -32,8 +32,8 @@ import java.net.URL;
 
 import org.jboss.osgi.spi.capability.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiServiceReference;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiServiceReference;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

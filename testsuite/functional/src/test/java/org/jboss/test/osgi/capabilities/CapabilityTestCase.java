@@ -43,8 +43,8 @@ import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiServiceReference;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiServiceReference;
 import org.jboss.osgi.xml.XMLParserCapability;
 import org.junit.Test;
 

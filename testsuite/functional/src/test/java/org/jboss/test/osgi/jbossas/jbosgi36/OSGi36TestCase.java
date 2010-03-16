@@ -28,8 +28,8 @@ import static org.junit.Assert.fail;
 
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jmx.MBeanProxy;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.internal.RemoteRuntime;
 import org.jboss.test.osgi.jbossas.jbosgi36.mbean.FooMBean;
 import org.junit.AfterClass;

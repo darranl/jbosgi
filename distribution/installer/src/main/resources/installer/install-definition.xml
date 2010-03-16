@@ -152,7 +152,6 @@
         <include name="jboss-osgi-felix-sources.jar" />
         <include name="jboss-osgi-jbossas-sources.jar" />
         <include name="jboss-osgi-spi-sources.jar" />
-        <include name="jboss-osgi-testing-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
         <include name="jboss-osgi-webconsole-sources.jar" />
         <include name="jboss-osgi-xml-binding-sources.jar" />
@@ -189,7 +188,6 @@
         <include name="jboss-logging-log4j.jar" />
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-spi.jar" />
-        <include name="jboss-osgi-testing.jar" />
         <include name="jboss-osgi-vfs.jar" />
         <include name="jboss-osgi-vfs30.jar" />
         <include name="jboss-vfs.jar" />
@@ -407,7 +405,6 @@
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
-        <include name="jboss-osgi-testing.jar" />
         <include name="jboss-osgi-vfs.jar" />
       </fileset>
       <fileset condition="!isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">

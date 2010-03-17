@@ -36,7 +36,6 @@ import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.jmx.framework.FrameworkMBean;
@@ -50,7 +49,6 @@ import org.osgi.jmx.framework.ServiceStateMBean;
  * @author thomas.diesler@jboss.com
  * @since 05-Mar-2010
  */
-@Ignore
 public class OSGi298TestCase extends OSGiRuntimeTest
 {
    private OSGiRuntime runtime;
@@ -72,21 +70,17 @@ public class OSGi298TestCase extends OSGiRuntimeTest
    public void testJMXCapability() throws Exception
    {
       JMXCapability capability = new JMXCapability();
+      runtime.addCapability(capability);
 
-      for (int i = 0; i < 10; i++)
-      {
-         runtime.addCapability(capability);
+      assertTrue("FrameworkMBean registered", isRegistered(FrameworkMBean.OBJECTNAME));
+      assertTrue("BundleStateMBean registered", isRegistered(BundleStateMBean.OBJECTNAME));
+      assertTrue("ServiceStateMBean registered", isRegistered(ServiceStateMBean.OBJECTNAME));
 
-         assertTrue("FrameworkMBean registered", isRegistered(FrameworkMBean.OBJECTNAME));
-         assertTrue("BundleStateMBean registered", isRegistered(BundleStateMBean.OBJECTNAME));
-         assertTrue("ServiceStateMBean registered", isRegistered(ServiceStateMBean.OBJECTNAME));
+      runtime.removeCapability(capability);
 
-         runtime.removeCapability(capability);
-
-         assertFalse("FrameworkMBean registered", isRegistered(FrameworkMBean.OBJECTNAME));
-         assertFalse("BundleStateMBean registered", isRegistered(BundleStateMBean.OBJECTNAME));
-         assertFalse("ServiceStateMBean registered", isRegistered(ServiceStateMBean.OBJECTNAME));
-      }
+      assertFalse("FrameworkMBean registered", isRegistered(FrameworkMBean.OBJECTNAME));
+      assertFalse("BundleStateMBean registered", isRegistered(BundleStateMBean.OBJECTNAME));
+      assertFalse("ServiceStateMBean registered", isRegistered(ServiceStateMBean.OBJECTNAME));
    }
 
    private boolean isRegistered(String oname) throws MalformedObjectNameException

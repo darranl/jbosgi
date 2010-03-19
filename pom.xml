@@ -44,7 +44,7 @@
   <!-- Properties -->
   <properties>
     <version.apache.ant>1.7.0</version.apache.ant>
-    <version.apache.aries.blueprint>1.0.0-incubating-SNAPSHOT</version.apache.aries.blueprint>
+    <version.apache.aries.blueprint>0.1-incubating-SNAPSHOT</version.apache.aries.blueprint>
     <version.apache.aries.jmx>0.1-incubating-SNAPSHOT</version.apache.aries.jmx>
     <version.apache.aries.util>0.1-incubating-SNAPSHOT</version.apache.aries.util>
     <version.apache.felix.configadmin>1.2.4</version.apache.felix.configadmin>

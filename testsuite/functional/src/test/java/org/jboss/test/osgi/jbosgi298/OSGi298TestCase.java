@@ -30,12 +30,15 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
+import org.jboss.logging.Logger;
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.spi.capability.CompendiumCapability;
+import org.jboss.osgi.spi.capability.LogServiceCapability;
+import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.jmx.framework.FrameworkMBean;
@@ -51,19 +54,24 @@ import org.osgi.jmx.framework.ServiceStateMBean;
  */
 public class OSGi298TestCase extends OSGiRuntimeTest
 {
+   // Provide logging
+   private static final Logger log = Logger.getLogger(OSGi298TestCase.class);
+   
    private OSGiRuntime runtime;
 
    @Before
    public void setUp() throws Exception
    {
+      super.setUp();
       runtime = getEmbeddedRuntime();
-      runtime.addCapability(new CompendiumCapability());
+      runtime.addCapability(new LogServiceCapability());
    }
 
    @After
-   public void tearDown()
+   public void tearDown() throws Exception
    {
       runtime.shutdown();
+      super.tearDown();
    }
 
    @Test
@@ -78,14 +86,34 @@ public class OSGi298TestCase extends OSGiRuntimeTest
 
       runtime.removeCapability(capability);
 
-      assertFalse("FrameworkMBean registered", isRegistered(FrameworkMBean.OBJECTNAME));
-      assertFalse("BundleStateMBean registered", isRegistered(BundleStateMBean.OBJECTNAME));
-      assertFalse("ServiceStateMBean registered", isRegistered(ServiceStateMBean.OBJECTNAME));
+      assertFalse("FrameworkMBean not registered", isRegistered(FrameworkMBean.OBJECTNAME));
+      assertFalse("BundleStateMBean not registered", isRegistered(BundleStateMBean.OBJECTNAME));
+      assertFalse("ServiceStateMBean not registered", isRegistered(ServiceStateMBean.OBJECTNAME));
    }
 
+/*   
+   @Test
+   public void testJMXBundles() throws Exception
+   {
+      OSGiBundle jbossJMX = runtime.installBundle("bundles/jboss-osgi-jmx.jar");
+      OSGiBundle ariesJMX = runtime.installBundle("bundles/org.apache.aries.jmx.jar");
+      
+      jbossJMX.start();
+      ariesJMX.start();
+      
+      Thread.sleep(2000);
+      
+      ariesJMX.stop();
+      
+      Thread.sleep(2000);
+   }
+*/
+   
    private boolean isRegistered(String oname) throws MalformedObjectNameException
    {
       MBeanServer server = (MBeanServer)runtime.getMBeanServer();
-      return server.isRegistered(ObjectName.getInstance(oname));
+      boolean registered = server.isRegistered(ObjectName.getInstance(oname));
+      log.debug(oname + " registered: " + registered);
+      return registered;
    }
 }

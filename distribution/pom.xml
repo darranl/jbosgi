@@ -406,10 +406,6 @@
       <artifactId>org.apache.aries.jmx</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.aries.jndi</groupId>
-      <artifactId>org.apache.aries.jndi</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.aries</groupId>
       <artifactId>org.apache.aries.util</artifactId>
     </dependency>

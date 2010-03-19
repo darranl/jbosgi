@@ -70,11 +70,6 @@
       <artifactId>org.apache.aries.jmx</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.aries.jndi</groupId>
-      <artifactId>org.apache.aries.jndi</artifactId>
-      <scope>provided</scope>
-    </dependency>
     
     <!-- Bundle Dependencies -->
     <dependency>

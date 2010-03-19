@@ -45,9 +45,8 @@
   <properties>
     <version.apache.ant>1.7.0</version.apache.ant>
     <version.apache.aries.blueprint>1.0.0-incubating-SNAPSHOT</version.apache.aries.blueprint>
-    <version.apache.aries.jmx>1.0.0-incubating-SNAPSHOT</version.apache.aries.jmx>
-    <version.apache.aries.jndi>1.0.0-incubating-SNAPSHOT</version.apache.aries.jndi>
-    <version.apache.aries.util>1.0.0-incubating-SNAPSHOT</version.apache.aries.util>
+    <version.apache.aries.jmx>0.1-incubating-SNAPSHOT</version.apache.aries.jmx>
+    <version.apache.aries.util>0.1-incubating-SNAPSHOT</version.apache.aries.util>
     <version.apache.felix.configadmin>1.2.4</version.apache.felix.configadmin>
     <version.apache.felix.core>1.4.0</version.apache.felix.core>
     <version.apache.felix.eventadmin>1.0.0</version.apache.felix.eventadmin>
@@ -107,11 +106,6 @@
         <groupId>org.apache.aries.jmx</groupId>
         <artifactId>org.apache.aries.jmx</artifactId>
         <version>${version.apache.aries.jmx}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.aries.jndi</groupId>
-        <artifactId>org.apache.aries.jndi</artifactId>
-        <version>${version.apache.aries.jndi}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.aries</groupId>

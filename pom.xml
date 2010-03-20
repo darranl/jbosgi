@@ -221,15 +221,13 @@
         <artifactId>jboss-osgi-xml-binding</artifactId>
         <version>${version.jboss.osgi.xml.binding}</version>
       </dependency>
-
-      <!-- jboss.osgi.runtime -->
       <dependency>
-        <groupId>org.jboss.osgi.runtime</groupId>
+        <groupId>org.jboss.osgi.deployment</groupId>
         <artifactId>jboss-osgi-deployment</artifactId>
         <version>${version.jboss.osgi.deployment}</version>
       </dependency>
       <dependency>
-        <groupId>org.jboss.osgi.runtime</groupId>
+        <groupId>org.jboss.osgi.jbossas</groupId>
         <artifactId>jboss-osgi-jbossas</artifactId>
         <version>${version.jboss.osgi.jbossas}</version>
       </dependency>

@@ -23,18 +23,13 @@ package org.jboss.test.osgi.jbosgi151;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.osgi.spi.framework.OSGiBootstrap;
-import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.test.osgi.jbosgi151.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi151.bundleB.BeanB;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.launch.Framework;
 
 /**
  * [JBOSGI-151] Cannot resolve circular dependencies
@@ -60,29 +55,8 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 07-Sep-2009
  */
-public class OSGi151TestCase extends OSGiRuntimeTest
+public class OSGi151TestCase extends OSGiFrameworkTest
 {
-   private Framework framework;
-   
-   @Before
-   public void setUp() throws Exception
-   {
-      OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
-      framework = bootProvider.getFramework();
-      framework.start();
-   }
-   
-   @After
-   public void tearDown() throws Exception
-   {
-      if (framework != null)
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-         framework = null;
-      }
-   }
-   
    @Test
    public void testCircularNoSelfDependency() throws Exception
    {

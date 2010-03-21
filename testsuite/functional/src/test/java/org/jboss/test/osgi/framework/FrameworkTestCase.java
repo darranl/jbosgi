@@ -27,14 +27,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.jboss.osgi.spi.framework.OSGiBootstrap;
-import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.launch.Framework;
 
 /**
  * Test the Framework functionality
@@ -42,29 +38,8 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 29-Jul-2009
  */
-public class FrameworkTestCase
+public class FrameworkTestCase extends OSGiFrameworkTest
 {
-   public static Framework framework;
-
-   @BeforeClass
-   public static void beforeClass() throws BundleException
-   {
-      OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
-      framework = bootProvider.getFramework();
-      framework.start();
-   }
-
-   @AfterClass
-   public static void afterClass() throws Exception
-   {
-      if (framework != null)
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-         framework = null;
-      }
-   }
-   
    @Test
    public void testGetBundleId()
    {

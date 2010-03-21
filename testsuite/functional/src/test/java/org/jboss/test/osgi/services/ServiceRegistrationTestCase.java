@@ -27,20 +27,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
-import org.jboss.osgi.spi.framework.OSGiBootstrap;
-import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
-import org.jboss.osgi.testing.OSGiTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
-import org.osgi.framework.launch.Framework;
 
 /**
  * Test service related functionality.
@@ -48,29 +43,8 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 20-Mar-2010
  */
-public class ServiceRegistrationTestCase extends OSGiTest
+public class ServiceRegistrationTestCase extends OSGiFrameworkTest
 {
-   public static Framework framework;
-
-   @BeforeClass
-   public static void beforeClass() throws BundleException
-   {
-      OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
-      framework = bootProvider.getFramework();
-      framework.start();
-   }
-
-   @AfterClass
-   public static void afterClass() throws Exception
-   {
-      if (framework != null)
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-         framework = null;
-      }
-   }
-
    @Test
    public void testUsingBundles() throws Exception
    {
@@ -104,6 +78,7 @@ public class ServiceRegistrationTestCase extends OSGiTest
    @Test
    public void testServiceFactoryUsingBundles() throws Exception
    {
+      final boolean[] allGood = new boolean[2];
       ServiceFactory factory = new ServiceFactory()
       {
          @Override
@@ -111,9 +86,10 @@ public class ServiceRegistrationTestCase extends OSGiTest
          {
             ServiceReference sref = sreg.getReference();
             Bundle[] users = sref.getUsingBundles();
+            assertNotNull("Users not null", users);
             assertEquals(1, users.length);
             assertEquals(bundle, users[0]);
-            
+            allGood[0] = true;
             return new Runnable()
             {
                public void run()
@@ -123,9 +99,14 @@ public class ServiceRegistrationTestCase extends OSGiTest
          }
 
          @Override
-         public void ungetService(Bundle bundle, ServiceRegistration registration, Object service)
+         public void ungetService(Bundle bundle, ServiceRegistration sreg, Object service)
          {
-            // nothing to do
+            ServiceReference sref = sreg.getReference();
+            Bundle[] users = sref.getUsingBundles();
+            assertNotNull("Users not null", users);
+            assertEquals(1, users.length);
+            assertEquals(bundle, users[0]);
+            allGood[1] = true;
          }
       };
       BundleContext context = framework.getBundleContext();
@@ -135,16 +116,18 @@ public class ServiceRegistrationTestCase extends OSGiTest
       Bundle[] users = sref.getUsingBundles();
       assertNull("Null users", users);
 
-      Runnable was1 = (Runnable)context.getService(sref);
+      Runnable was = (Runnable)context.getService(sref);
+      assertNotNull("Service not null", was);
       users = sref.getUsingBundles();
-      assertNotNull("Service not null", was1);
+      assertNotNull("Users not null", users);
       assertEquals(1, users.length);
       assertEquals(context.getBundle(), users[0]);
-
-      Runnable was2 = (Runnable)context.getService(sref);
-      users = sref.getUsingBundles();
-      assertSame(was1, was2);
-      assertEquals(1, users.length);
-      assertEquals(context.getBundle(), users[0]);
+      assertTrue("getService good", allGood[0]);
+      
+      sreg.unregister();
+      
+      was = (Runnable)context.getService(sref);
+      assertNull("Service null", was);
+      assertTrue("ungetService good", allGood[1]);
    }
 }

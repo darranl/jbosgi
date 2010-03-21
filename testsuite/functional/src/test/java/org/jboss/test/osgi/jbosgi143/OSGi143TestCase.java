@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
+import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi143.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi143.bundleX.BeanX;
@@ -49,42 +50,30 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2009
  */
-public class OSGi143TestCase extends OSGiRuntimeTest
+public class OSGi143TestCase extends OSGiFrameworkTest
 {
    @Test
    public void testLoadClass() throws Exception
    {
-      OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
-      Framework framework = bootProvider.getFramework();
-      try
-      {
-         framework.start();
-         
-         BundleContext sysContext = framework.getBundleContext();
-         Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
-         bundleX.start();
-         
-         assertBundleLoadClass(bundleX, BeanX.class, true);
-         
-         Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleA.jar").toExternalForm());
-         bundleA.start();
-         
-         assertBundleLoadClass(bundleA, BeanA.class, true);
-         
-         assertBundleLoadClass(bundleA, BeanX.class, true);
-         assertBundleLoadClass(bundleX, BeanA.class, true);
-      }
-      finally
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-      }
+      BundleContext sysContext = framework.getBundleContext();
+      Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
+      bundleX.start();
+
+      assertBundleLoadClass(bundleX, BeanX.class, true);
+
+      Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleA.jar").toExternalForm());
+      bundleA.start();
+
+      assertBundleLoadClass(bundleA, BeanA.class, true);
+
+      assertBundleLoadClass(bundleA, BeanX.class, true);
+      assertBundleLoadClass(bundleX, BeanA.class, true);
    }
 
-   private void assertBundleLoadClass(Bundle bundle, Class<?> expClazz, boolean success) 
+   private void assertBundleLoadClass(Bundle bundle, Class<?> expClazz, boolean success)
    {
       String message = bundle.getSymbolicName() + " loads " + expClazz.getName();
-      
+
       Class<?> wasClass;
       try
       {

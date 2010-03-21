@@ -23,9 +23,9 @@ package org.jboss.test.osgi.jbosgi142;
 
 //$Id: OSGI142TestCase.java 87103 2009-04-09 22:18:31Z thomas.diesler@jboss.com $
 
-
 import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
+import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi142.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi142.bundleB.BeanB;
@@ -49,46 +49,34 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2009
  */
-public class OSGi142TestCase extends OSGiRuntimeTest
+public class OSGi142TestCase extends OSGiFrameworkTest
 {
    @Test
    public void testLoadClass() throws Exception
    {
-      OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
-      Framework framework = bootProvider.getFramework();
-      try
-      {
-         framework.start();
-         
-         BundleContext sysContext = framework.getBundleContext();
-         Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleX.jar").toExternalForm());
-         bundleX.start();
-         
-         assertLoadClass(bundleX, BeanX.class.getName());
-         
-         Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleA.jar").toExternalForm());
-         bundleA.start();
-         
-         assertLoadClass(bundleA, BeanA.class.getName());
-         
-         Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleB.jar").toExternalForm());
-         bundleB.start();
-         
-         assertLoadClass(bundleB, BeanB.class.getName());
-         
-         assertLoadClass(bundleA, BeanX.class.getName());
-         assertLoadClass(bundleB, BeanX.class.getName());
-    
-         assertLoadClassFail(bundleX, BeanA.class.getName());
-         assertLoadClassFail(bundleX, BeanB.class.getName());
-         
-         assertLoadClassFail(bundleA, BeanB.class.getName());
-         assertLoadClassFail(bundleB, BeanA.class.getName());
-      }
-      finally
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-      }
+      BundleContext sysContext = framework.getBundleContext();
+      Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleX.jar").toExternalForm());
+      bundleX.start();
+
+      assertLoadClass(bundleX, BeanX.class.getName());
+
+      Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleA.jar").toExternalForm());
+      bundleA.start();
+
+      assertLoadClass(bundleA, BeanA.class.getName());
+
+      Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleB.jar").toExternalForm());
+      bundleB.start();
+
+      assertLoadClass(bundleB, BeanB.class.getName());
+
+      assertLoadClass(bundleA, BeanX.class.getName());
+      assertLoadClass(bundleB, BeanX.class.getName());
+
+      assertLoadClassFail(bundleX, BeanA.class.getName());
+      assertLoadClassFail(bundleX, BeanB.class.getName());
+
+      assertLoadClassFail(bundleA, BeanB.class.getName());
+      assertLoadClassFail(bundleB, BeanA.class.getName());
    }
 }

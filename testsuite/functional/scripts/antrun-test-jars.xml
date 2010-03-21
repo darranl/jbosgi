@@ -167,12 +167,12 @@
 
     <!-- jbosgi286 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi286-bundle.jar" files="${tests.resources.dir}/jbosgi286/jbosgi286-bundle.bnd" />
-    
+
     <!-- jbosgi287 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi287-bundleA.jar" files="${tests.resources.dir}/jbosgi287/jbosgi287-bundleA.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi287-bundleB.jar" files="${tests.resources.dir}/jbosgi287/jbosgi287-bundleB.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi287-bundleC.jar" files="${tests.resources.dir}/jbosgi287/jbosgi287-bundleC.bnd" />
-    
+
     <!-- localization -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/localization-simple-host.jar" files="${tests.resources.dir}/localization/localization-simple-host.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/localization-simple-frag.jar" files="${tests.resources.dir}/localization/localization-simple-frag.bnd" />
@@ -181,7 +181,7 @@
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/performance-blueprint.jar" files="${tests.resources.dir}/performance/blueprint/performance-blueprint.bnd" />
 
     <!-- startlevel -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/service/startlevel.jar" files="${tests.resources.dir}/service/startlevel/startlevel.bnd" />
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/service-startlevel.jar" files="${tests.resources.dir}/services/startlevel/startlevel.bnd" />
 
     <!-- Please add alphabetically -->
 

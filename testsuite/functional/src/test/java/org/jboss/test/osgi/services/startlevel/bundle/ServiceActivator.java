@@ -19,43 +19,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.service.startlevel;
+package org.jboss.test.osgi.services.startlevel.bundle;
 
-//$Id: StartLevelRemoteTestCase.java 87336 2009-04-15 11:31:26Z thomas.diesler@jboss.com $
+//$Id: ServiceActivator.java 87336 2009-04-15 11:31:26Z thomas.diesler@jboss.com $
 
-import org.jboss.osgi.spi.capability.CompendiumCapability;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.Test;
-import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.service.startlevel.StartLevel;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
- * Deploy a bundle that accesses the StartLevel service
+ * Try to access the StartLevel service 
  * 
  * @author thomas.diesler@jboss.com
- * @since 04-Mar-2009
+ * @since 04-Feb-2009
  */
-public class StartLevelTestCase extends OSGiRuntimeTest
+public class ServiceActivator implements BundleActivator
 {
-   @Test
-   public void testStartLevel() throws Exception
+   public void start(BundleContext context)
    {
-      OSGiRuntime runtime = getDefaultRuntime();
-      try
-      {
-         runtime.addCapability(new CompendiumCapability());
-         
-         OSGiBundle bundle = runtime.installBundle("service/startlevel.jar");
-         bundle.start();
-         
-         assertBundleState(Bundle.ACTIVE, bundle.getState());
-         
-         bundle.uninstall();
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
+      ServiceTracker tracker = new ServiceTracker(context, StartLevel.class.getName(), null);
+      tracker.open();
+      
+      StartLevel service = (StartLevel)tracker.getService();
+      if (service == null)
+         throw new IllegalStateException("Cannot get StartLevel. Loaded with: " + StartLevel.class.getClassLoader());
+   }
+
+   /*
+    * Implements BundleActivator.stop().
+    */
+   public void stop(BundleContext context)
+   {
    }
 }

@@ -60,8 +60,8 @@
     <version.jboss.osgi.common.core>2.2.13.GA</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployers>1.0.5-SNAPSHOT</version.jboss.osgi.deployers>
     <version.jboss.osgi.deployment>1.0.2-SNAPSHOT</version.jboss.osgi.deployment>
-    <version.jboss.osgi.equinox>3.5.1.SP1-SNAPSHOT</version.jboss.osgi.equinox>
-    <version.jboss.osgi.felix>2.0.2.SP1-SNAPSHOT</version.jboss.osgi.felix>
+    <version.jboss.osgi.equinox>3.5.2-SNAPSHOT</version.jboss.osgi.equinox>
+    <version.jboss.osgi.felix>2.0.4-SNAPSHOT</version.jboss.osgi.felix>
     <version.jboss.osgi.framework>1.0.0.Alpha4-SNAPSHOT</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.5-SNAPSHOT</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.husky>1.0.4-SNAPSHOT</version.jboss.osgi.husky>

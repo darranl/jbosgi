@@ -105,9 +105,12 @@ public class ServiceRegistrationTestCase extends OSGiFrameworkTest
             Bundle[] users = sref.getUsingBundles();
             
             System.out.println("FIXME [JBOSGI-305] Clarify ServiceReference.getUsingBundles() in ServiceFactory.ungetService()");
-            //assertNotNull("Users not null", users);
-            //assertEquals(1, users.length);
-            //assertEquals(bundle, users[0]);
+            if ("equinox".equals(getFrameworkName()) == false)
+            {
+               assertNotNull("Users not null", users);
+               assertEquals(1, users.length);
+               assertEquals(bundle, users[0]);
+            }
             
             allGood[1] = true;
          }

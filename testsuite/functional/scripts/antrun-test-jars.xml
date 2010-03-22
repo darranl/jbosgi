@@ -28,6 +28,7 @@
  [JBOSGI-284] Investigate version numbering scheme
  [JBOSGI-286] Investigate classloading of javax.* classes
  [JBOSGI-287] Optional import loaded from system classloader
+ [JBOSGI-298] InstanceAlreadyExistsException: osgi.core:type=framework,version=1.5
 
 -->
 

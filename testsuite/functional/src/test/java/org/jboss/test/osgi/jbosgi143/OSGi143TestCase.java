@@ -26,16 +26,12 @@ package org.jboss.test.osgi.jbosgi143;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.jboss.osgi.spi.framework.OSGiBootstrap;
-import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
 import org.jboss.osgi.testing.OSGiFrameworkTest;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi143.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi143.bundleX.BeanX;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.launch.Framework;
 
 /**
  * [JBOSGI-143] Add initial support for DynamicImport-Package

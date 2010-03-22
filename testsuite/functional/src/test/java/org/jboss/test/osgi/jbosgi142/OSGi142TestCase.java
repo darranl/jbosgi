@@ -23,17 +23,13 @@ package org.jboss.test.osgi.jbosgi142;
 
 //$Id: OSGI142TestCase.java 87103 2009-04-09 22:18:31Z thomas.diesler@jboss.com $
 
-import org.jboss.osgi.spi.framework.OSGiBootstrap;
-import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
 import org.jboss.osgi.testing.OSGiFrameworkTest;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi142.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi142.bundleB.BeanB;
 import org.jboss.test.osgi.jbosgi142.bundleX.BeanX;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.launch.Framework;
 
 /**
  * [JBOSGI-142] Investigate classloading space

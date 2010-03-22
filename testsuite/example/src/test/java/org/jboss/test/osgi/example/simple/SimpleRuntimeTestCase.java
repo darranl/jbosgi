@@ -35,7 +35,7 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class SimpleTestCase extends OSGiRuntimeTest
+public class SimpleRuntimeTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testSimpleBundle() throws Exception

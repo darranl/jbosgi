@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<!-- $Id: build.xml 93515 2009-09-15 07:18:21Z thomas.diesler@jboss.com $ -->
+
+<project default="setup.vi">
+
+  <property name="target.dir" value="${basedir}/target" />
+  <property name="reports.dir" value="${target.dir}/test-reports" />
+
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+
+  <target name="init">
+
+    <!-- Check if ant.properties is available -->
+    <available property="ant.properties.available" file="${basedir}/ant.properties" />
+    <fail message="Cannot find ant.properties. Did you copy/edit ant.properties.example?" unless="ant.properties.available" />
+
+    <property file="${basedir}/ant.properties" />
+
+    <!-- Setup property defaults -->
+    <property environment="env" />
+    <property name="hudson.username" value="${env.USER}" />
+    <property name="osgitck.dir" value="${basedir}/../osgitck.dir" />
+    <property name="maven.local.repository" value="/home/${hudson.username}/.m2/repository" />
+    <property name="hudson.root" value="/home/${hudson.username}/workspace/osgitck" />
+
+    <echo>************************************************</echo>
+    <echo message="hudson.username=${hudson.username}" />
+    <echo message="aQute.bnd.version=${aQute.bnd.version}" />
+    <echo message="framework.version=${framework.version}" />
+    <echo message="osgitck.dir=${osgitck.dir}" />
+    <echo>************************************************</echo>
+
+    <!-- Check if the osgitck dir is available -->
+    <available property="osgitck.dir.available" file="${osgitck.dir}" />
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+
+    <!-- Check if the aQute.bnd jar is available -->
+    <property name="aQute.bnd.jar" value="${maven.local.repository}/biz/aQute/aQute.bnd/${aQute.bnd.version}/aQute.bnd-${aQute.bnd.version}.jar" />
+    <available property="aQute.bnd.available" file="${aQute.bnd.jar}" />
+    <fail message="Cannot find: ${aQute.bnd.jar}" unless="aQute.bnd.available" />
+
+    <!-- Check if the jboss.osgi.framework jar is available -->
+    <property name="jboss.osgi.framework.jar" value="${maven.local.repository}/org/jboss/osgi/framework/jboss-osgi-framework/${framework.version}/jboss-osgi-framework-${framework.version}-all.jar" />
+    <available property="jboss.osgi.framework.available" file="${jboss.osgi.framework.jar}" />
+    <fail message="Cannot find: ${jboss.osgi.framework.jar}" unless="jboss.osgi.framework.available" />
+
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- Setup                                                              -->
+  <!-- ================================================================== -->
+
+  <!-- Setup the TCK to use the RI (equinox) -->
+  <target name="setup.ri" description="Setup the TCK using the RI (Equinox)" depends="init">
+
+    <!-- Copy the aQute.bnd -->
+    <copy file="${aQute.bnd.jar}" tofile="${osgitck.dir}/licensed/repo/biz.aQute.bnd/biz.aQute.bnd-latest.jar" overwrite="true" />
+
+    <!-- Build the TCK -->
+    <ant dir="${osgitck.dir}" target="build-clean" />
+  </target>
+
+  <!-- Setup the TCK to use the Vendor Implemenation -->
+  <target name="setup.vi" description="Setup the TCK using the Vendor Implemenation" depends="init,update-framework">
+
+    <!-- Copy the aQute.bnd -->
+    <copy file="${aQute.bnd.jar}" tofile="${osgitck.dir}/licensed/repo/biz.aQute.bnd/biz.aQute.bnd-latest.jar" overwrite="true" />
+
+    <!-- Overlay the TCK setup -->
+    <copy todir="${osgitck.dir}" overwrite="true">
+      <fileset dir="${basedir}/overlay" />
+    </copy>
+
+    <!-- Build the TCK -->
+    <ant dir="${osgitck.dir}" target="build-clean" />
+  </target>
+
+  <!-- Update the JBoss OSGi Framework -->
+  <target name="update-framework" description="Update the JBoss OSGi Framework" depends="init">
+    <!-- Copy the OSGi Framework -->
+    <mkdir dir="${osgitck.dir}/licensed/repo/org.jboss.osgi.framework" />
+  	<echo message="jboss.osgi.framework.jar=${jboss.osgi.framework.jar}"/>
+    <copy file="${jboss.osgi.framework.jar}" tofile="${osgitck.dir}/licensed/repo/org.jboss.osgi.framework/org.jboss.osgi.framework-1.0.0.jar"
+      overwrite="true" />
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- Hudson                                                             -->
+  <!-- ================================================================== -->
+
+  <target name="hudson-setup" description="Setup the TCK Hudson instance" depends="init">
+    <ant dir="${basedir}/hudson" target="hudson-setup" />
+  </target>
+
+  <target name="hudson-start" description="Start the TCK Hudson instance" depends="init">
+    <ant dir="${basedir}/hudson" target="hudson-start" />
+  </target>
+
+  <target name="hudson-stop" description="Stop the TCK Hudson instance" depends="init">
+    <ant dir="${basedir}/hudson" target="hudson-stop" />
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- TCK Tests                                                          -->
+  <!-- ================================================================== -->
+
+  <target name="run-core-tests" description="Run the TCK core tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/osgi.ct" target="osgi.core.tests" />
+  </target>
+
+  <target name="run-blueprint-tests" description="Run the TCK blueprint tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.blueprint" target="test" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.blueprint.secure" target="test" />
+  </target>
+
+  <target name="run-jdbc-tests" description="Run the TCK jdbc tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.jdbc" target="test" />
+  </target>
+
+  <target name="run-jmx-tests" description="Run the TCK jmx tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.jmx" target="test" />
+  </target>
+
+  <target name="run-jndi-tests" description="Run the TCK jndi tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.jndi" target="test" />
+  </target>
+
+  <target name="run-jpa-tests" description="Run the TCK jpa tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.jpa" target="test" />
+  </target>
+
+  <target name="run-jta-tests" description="Run the TCK jta tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.transaction" target="test" />
+  </target>
+
+  <target name="run-webapp-tests" description="Run the TCK webapp tests" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <ant dir="${osgitck.dir}/org.osgi.test.cases.webcontainer" target="test" />
+  </target>
+
+  <target name="test-reports" description="Generate the TCK test reports" depends="init">
+    <fail message="Cannot find: ${osgitck.dir}" unless="osgitck.dir.available" />
+    <mkdir dir="${reports.dir}" />
+    <junitreport todir="${reports.dir}">
+      <fileset dir="${osgitck.dir}">
+        <include name="**/test-reports/TEST-*.xml" />
+      </fileset>
+      <report format="frames" todir="${reports.dir}/html" />
+    </junitreport>
+
+    <echo />
+    <echo message="Generated test reports: ${reports.dir}" />
+    <echo />
+  </target>
+
+  <!-- ================================================================== -->
+  <!-- Clean                                                              -->
+  <!-- ================================================================== -->
+
+  <target name="clean" description="Clean the TCK setup">
+    <delete dir="${target.dir}" />
+  </target>
+
+</project>

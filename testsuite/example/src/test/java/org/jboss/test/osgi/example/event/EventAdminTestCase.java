@@ -50,7 +50,7 @@ import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
 /**
- * A test that deployes a bundle that containes a HttpServlet which is registered through the OSGi HttpService
+ * A test that deployes the EventAdmin and sends/receives messages on a topic. 
  * 
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009

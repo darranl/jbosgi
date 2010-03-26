@@ -192,6 +192,7 @@
         <include name="jboss-osgi-vfs30.jar" />
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
+        <include name="shrinkwrap-api.jar" />
         <include name="slf4j-api.jar" />
         <include name="slf4j-log4j12.jar" />
       </fileset>
@@ -311,7 +312,7 @@
         <include name="pax-web-extender-war.jar" />
       </fileset>
 
-      <!-- JBossMC Integration -->
+      <!-- Native Integration -->
 
       <singlefile condition="isJBossMC" src="@{runtime.dir}/server/conf/jboss-osgi-bootstrap.xml" target="$INSTALL_PATH/runtime/server/minimal/conf/jboss-osgi-bootstrap.xml"
         override="true" />
@@ -354,6 +355,7 @@
       </fileset>
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="org.osgi.core.jar" />
+        <include name="org.osgi.compendium.jar" /> <!-- Used for org.osgi.service.tracker delegation -->
       </fileset>
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
         <include name="org.osgi.compendium.jar" />
@@ -406,6 +408,7 @@
         <include name="jboss-osgi-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-vfs.jar" />
+        <include name="shrinkwrap-api.jar" />
       </fileset>
       <fileset condition="!isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
         <include name="jboss-osgi-deployers-vfs21.jar" />
@@ -475,7 +478,7 @@
         <include name="pax-web-extender-war.jar" />
       </fileset>
 
-      <!-- JBossMC Integration -->
+      <!-- Native Integration -->
 
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
@@ -496,6 +499,7 @@
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
         <include name="org.osgi.core.jar" />
+        <include name="org.osgi.compendium.jar" /> <!-- Used for org.osgi.service.tracker delegation -->
       </fileset>
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi"
         override="true">

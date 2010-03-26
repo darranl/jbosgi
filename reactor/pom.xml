@@ -46,7 +46,7 @@
     <!--
       Name: framework-jbossmc
       Descr: Build the JBossMC Framework
-    -->
+    - ->
     <profile>
       <id>framework-jbossmc</id>
       <activation>
@@ -70,6 +70,7 @@
         <module>framework</module>
       </modules>
     </profile>
+    -->
 
     <!--
       Name: jbossmc-javadoc

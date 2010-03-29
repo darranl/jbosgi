@@ -44,35 +44,6 @@
   <profiles>
 
     <!--
-      Name: framework-jbossmc
-      Descr: Build the JBossMC Framework
-    - ->
-    <profile>
-      <id>framework-jbossmc</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>jbossmc</value>
-        </property>
-      </activation>
-      <modules>
-        <module>framework</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>framework-default</id>
-      <activation>
-        <property>
-          <name>!framework</name>
-        </property>
-      </activation>
-      <modules>
-        <module>framework</module>
-      </modules>
-    </profile>
-    -->
-
-    <!--
       Name: jbossmc-javadoc
       Descr: Build the jbossmc javadocs
     -->

@@ -161,9 +161,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
          }
 
          OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
-         
-         System.out.println("FIXME [JBDEPLOY-245] Unexpected dependee state changes");
-         // assertBundleState(Bundle.INSTALLED, bundleX.getState());
+         assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
          bundleB.start();
          assertBundleState(Bundle.RESOLVED, bundleX.getState());
@@ -206,9 +204,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
          }
 
          OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
-         
-         System.out.println("FIXME [JBDEPLOY-245] Unexpected dependee state changes");
-         //assertBundleState(Bundle.INSTALLED, bundleX.getState());
+         assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
          bundleB.start();
          assertBundleState(Bundle.RESOLVED, bundleX.getState());

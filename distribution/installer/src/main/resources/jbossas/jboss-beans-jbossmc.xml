@@ -179,6 +179,7 @@
   <bean name="OSGiBundleStateResolveDeployer" class="org.jboss.osgi.framework.deployers.OSGiBundleStateResolveDeployer"/>
   <bean name="OSGiBundleStructure" class="org.jboss.osgi.deployer.BundleStructureDeployer" />
   <bean name="OSGiContextTrackerDeployer" class="org.jboss.osgi.framework.deployers.OSGiContextTrackerDeployer" />
+  <bean name="OSGiDeploymentMetaDataDeployer" class="org.jboss.osgi.framework.deployers.OSGiDeploymentMetaDataDeployer" />
   <bean name="OSGiManifestParsingDeployer" class="org.jboss.osgi.framework.deployers.OSGiManifestParsingDeployer" />
   <bean name="OSGiNativeCodeMetaDataDeployer" class="org.jboss.osgi.framework.deployers.OSGiNativeCodeMetaDataDeployer" />
 

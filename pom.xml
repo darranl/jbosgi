@@ -58,11 +58,11 @@
     <version.jboss.osgi.blueprint>1.0.0.Beta2</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.4</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.13.GA</version.jboss.osgi.common.core>
-    <version.jboss.osgi.deployers>1.0.6-SNAPSHOT</version.jboss.osgi.deployers>
+    <version.jboss.osgi.deployers>1.0.6</version.jboss.osgi.deployers>
     <version.jboss.osgi.deployment>1.0.2</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>2.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.Alpha5-SNAPSHOT</version.jboss.osgi.framework>
+    <version.jboss.osgi.framework>1.0.0.Alpha4</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.5</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.husky>1.0.4</version.jboss.osgi.husky>
     <version.jboss.osgi.jaxb>2.1.10.SP4</version.jboss.osgi.jaxb>
@@ -75,7 +75,7 @@
     <version.jboss.osgi.spi>1.0.5.SP1</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.0</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>0.7.2.SP2</version.jboss.osgi.webapp>
-    <version.jboss.osgi.webconsole>1.0.3-SNAPSHOT</version.jboss.osgi.webconsole>
+    <version.jboss.osgi.webconsole>1.0.3</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xml.binding>2.0.2.Beta4.SP1</version.jboss.osgi.xml.binding>
     <version.ops4j.pax.web>0.7.2</version.ops4j.pax.web>
     <version.osgi>4.2.0</version.osgi>

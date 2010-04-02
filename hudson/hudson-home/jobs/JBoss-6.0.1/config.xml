@@ -38,7 +38,7 @@ HUDSONDIR=$OSGIDIR/hudson
 HUDSONBIN=$HUDSONDIR/hudson-home/bin
       
 JBOSS_VERSION=jboss-6.0.0-SNAPSHOT
-SERVER_NAME=default
+SERVER_NAME=osgi
 
 JBOSS_HOME=$WORKSPACE/jbossas/build/target/$JBOSS_VERSION
 JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_VERSION.zip
@@ -59,7 +59,7 @@ $HUDSONBIN/startup.sh $JBOSS_HOME start $SERVER_NAME $JBOSS_BINDADDR
 # 
 # Was it successfully started?
 #
-$HUDSONBIN/http-spider.sh $JBOSS_BINDADDR:8080 $WORKSPACE
+$HUDSONBIN/http-spider.sh $JBOSS_BINDADDR:8090/jboss-osgi $WORKSPACE
 if [ -e $WORKSPACE/spider.failed ]; then
   tail -n 200 $JBOSS_HOME/server/default/log/server.log
   $HUDSONBIN/startup.sh $JBOSS_HOME stop

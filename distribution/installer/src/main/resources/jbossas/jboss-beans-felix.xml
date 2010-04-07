@@ -74,11 +74,8 @@
         <entry><key>felix.cm.dir</key><value>${jboss.server.data.dir}/osgi-configadmin</value></entry>
         <!-- JMX bundle properties -->
         <entry><key>org.jboss.osgi.jmx.host</key><value>${jboss.bind.address}</value></entry>
-        <entry><key>org.jboss.osgi.jmx.port</key><value>1098</value></entry>
         <!-- JNDI bundle properties -->
         <entry><key>org.jboss.osgi.jndi.host</key><value>${jboss.bind.address}</value></entry>
-        <entry><key>org.jboss.osgi.jndi.rmi.port</key><value>1098</value></entry>
-        <entry><key>org.jboss.osgi.jndi.port</key><value>1099</value></entry>
         <!-- JTA Object Store -->
         <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${jboss.server.data.dir}/tx-object-store</value></entry>
       </map>

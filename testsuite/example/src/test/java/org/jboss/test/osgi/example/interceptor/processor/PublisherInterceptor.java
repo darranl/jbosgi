@@ -96,12 +96,12 @@ public class PublisherInterceptor extends AbstractLifecycleInterceptor
 
    private HttpService getHttpService(InvocationContext context, boolean required)
    {
-      BundleContext syscontext = context.getSystemContext();
-      ServiceReference sref = syscontext.getServiceReference(HttpService.class.getName());
+      BundleContext bndContext = context.getBundle().getBundleContext();
+      ServiceReference sref = bndContext.getServiceReference(HttpService.class.getName());
       if (sref == null && required == true)
          throw new IllegalStateException("Required HttpService not available");
 
-      HttpService httpService = (HttpService)syscontext.getService(sref);
+      HttpService httpService = (HttpService)bndContext.getService(sref);
       return httpService;
    }
 }

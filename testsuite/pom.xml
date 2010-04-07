@@ -427,14 +427,6 @@
       <properties>
         <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
       </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.osgi.runtime</groupId>
-          <artifactId>jmx-invoker-adaptor-client</artifactId>
-          <version>${version.jmx.invoker.adaptor.client}</version>
-          <type>pom</type>
-        </dependency>
-      </dependencies>
     </profile>
 
     <!--

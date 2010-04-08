@@ -8,7 +8,7 @@
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
         <remote>@tcksetup.svn.url@</remote>
-        <local>osgitck-setup</local>
+        <local>osgitck</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
       <hudson.scm.SubversionSCM_-ModuleLocation>
         <remote>@osgitck.core.svn.url@</remote>
@@ -16,7 +16,7 @@
       </hudson.scm.SubversionSCM_-ModuleLocation>
       <hudson.scm.SubversionSCM_-ModuleLocation>
         <remote>@framework.svn.url@</remote>
-        <local>jboss-osgi-framework</local>
+        <local>framework</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
     <useUpdate>true</useUpdate>
@@ -41,8 +41,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>
-TCKSETUPDIR=$WORKSPACE/osgitck-setup
-FRAMEWORKDIR=$WORKSPACE/jboss-osgi-framework
+TCKSETUPDIR=$WORKSPACE/osgitck
+FRAMEWORKDIR=$WORKSPACE/framework
 
 # Build and Install the Framework
 cd $FRAMEWORKDIR

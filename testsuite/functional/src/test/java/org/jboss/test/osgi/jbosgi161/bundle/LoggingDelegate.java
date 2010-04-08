@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi161.bundle;
 
-// $Id:$
+// $Id$
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ public class LoggingDelegate
       
       List<String> expected = new ArrayList<String>();
       expected.add("org.jboss.logging.Logger");
+      expected.add("org.jboss.logging.JBossLogManagerLogger");
       
       if (expected.contains(loggerClass) == false)
          throw new IllegalStateException("Unexpected logger: " + loggerClass);

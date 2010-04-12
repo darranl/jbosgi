@@ -21,7 +21,7 @@
     <para>To run the installer execute the following command:</para>
     
     <programlisting>
-    java -jar jboss-osgi-installer-1.0.0.Beta6.jar
+    java -jar jboss-osgi-installer-1.0.0.Beta7.jar
     </programlisting>
       
     <para>The installer first shows a welcome screen</para>
@@ -132,7 +132,7 @@ $ bin/run.sh
 
   JBossOSGi Bootstrap Environment
 
-  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta6/runtime
+  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta7/runtime
 
   JAVA: /usr/java/jdk1.6/bin/java
 
@@ -312,7 +312,7 @@ $ ant hudson-setup
 Buildfile: build.xml
 
 init:
-     [echo] V1.0.0.Beta6
+     [echo] V1.0.0.Beta7
 
 init-hudson:
      [echo] 
@@ -340,7 +340,7 @@ $ ant hudson-start
 Buildfile: build.xml
 
 init:
-     [echo] V1.0.0.Beta6
+     [echo] V1.0.0.Beta7
 
 init-hudson:
      [echo] 
@@ -366,7 +366,7 @@ $ ant hudson-stop
 Buildfile: build.xml
 
 init:
-     [echo] V1.0.0.Beta6
+     [echo] V1.0.0.Beta7
 
 init-hudson:
      [echo] 

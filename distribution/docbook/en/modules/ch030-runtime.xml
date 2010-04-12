@@ -143,7 +143,7 @@ $ bin/run.sh -c minimal
 
   JBossOSGi Bootstrap Environment
 
-  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta6/runtime
+  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta7/runtime
 
   JAVA: /usr/java/jdk1.6/bin/java
 

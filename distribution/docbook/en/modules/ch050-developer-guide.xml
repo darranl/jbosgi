@@ -23,15 +23,15 @@
       </imageobject>
     </mediaobject>
     
-    <para>The latest version of the <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs">JBoss OSGi SPI</ulink>.</para>
+    <para>The latest version of the <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs">JBoss OSGi SPI</ulink>.</para>
 
     <itemizedlist>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/package-summary.html">org.jboss.osgi.spi</ulink> - Common classes and interfaces.</listitem>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/capability/package-summary.html">org.jboss.osgi.spi.capability</ulink> - Capabilities that can be installed in the OSGi framework.</listitem>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/framework/package-summary.html">org.jboss.osgi.spi.framework</ulink> - Framework integration and bootstrap.</listitem>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/management/package-summary.html">org.jboss.osgi.spi.management</ulink> -  Management view on deployed bundles.</listitem>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/service/package-summary.html">org.jboss.osgi.spi.service</ulink> -  A collection of SPI provided services.</listitem>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/util/package-summary.html">org.jboss.osgi.spi.util</ulink> -  A collection of SPI provided utilities.</listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/package-summary.html">org.jboss.osgi.spi</ulink> - Common classes and interfaces.</listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/capability/package-summary.html">org.jboss.osgi.spi.capability</ulink> - Capabilities that can be installed in the OSGi framework.</listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/framework/package-summary.html">org.jboss.osgi.spi.framework</ulink> - Framework integration and bootstrap.</listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/management/package-summary.html">org.jboss.osgi.spi.management</ulink> -  Management view on deployed bundles.</listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/service/package-summary.html">org.jboss.osgi.spi.service</ulink> -  A collection of SPI provided services.</listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/util/package-summary.html">org.jboss.osgi.spi.util</ulink> -  A collection of SPI provided utilities.</listitem>
     </itemizedlist>
     
     <emphasis role="bold">Bootstrapping JBoss OSGi</emphasis>
@@ -69,7 +69,7 @@
     <para>The JBoss OSGi SPI comes with a default bootstrap provider:</para>
     
     <itemizedlist>
-      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/framework/PropertiesBootstrapProvider.html">PropertiesBootstrapProvider</ulink></listitem>
+      <listitem><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/framework/PropertiesBootstrapProvider.html">PropertiesBootstrapProvider</ulink></listitem>
     </itemizedlist>
     
     <para>OSGiBootstrapProvider implementations that read their configurtation from some other source are possible, but currently not
@@ -90,7 +90,7 @@
     
     <emphasis role="bold">The ManagedFramework</emphasis>
     
-    <para>The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/management/ManagedFrameworkMBean.html">
+    <para>The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/management/ManagedFrameworkMBean.html">
     ManagedFramework</ulink> gives you access to the MBean views of the deployed Bundles. It is registerd under the name:</para>
     
     <itemizedlist>
@@ -99,7 +99,7 @@
     
     <emphasis role="bold">The ManagedBundle</emphasis>
 
-    <para>The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/management/ManagedBundle.html">
+    <para>The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/management/ManagedBundle.html">
     ManagedBundle</ulink> gives you access to the MBean views of a deployed Bundle. It is registerd under the name:</para>
     
     <itemizedlist>
@@ -109,7 +109,7 @@
     <emphasis role="bold">Accessing the Management Objects</emphasis>
     
     <para>If you work with the JBoss OSGi Testsuite you get access to these managed objects through the  
-    <ulink url="http://junit.sourceforge.net/">JUnit</ulink> support package <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/testing/package-summary.html">org.jboss.osgi.testing</ulink>.
+    <ulink url="http://junit.sourceforge.net/">JUnit</ulink> support package <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/testing/package-summary.html">org.jboss.osgi.testing</ulink>.
     </para> 
     
     <para>If you install JBoss OSGi in an already existing JBossAS instance you also get access to the Managed Objects through the JBoss provided
@@ -130,7 +130,7 @@
     <title>Writing Test Cases</title>
     
     <para>JBoss OSGi comes with <ulink url="http://www.junit.org">JUnit</ulink> test support as part of the SPI provided 
-    <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/testing/package-summary.html">org.jboss.osgi.testing</ulink>
+    <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/testing/package-summary.html">org.jboss.osgi.testing</ulink>
     package. There are two distinct test scenarios that we support:</para>
     
     <itemizedlist>

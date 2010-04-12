@@ -265,7 +265,7 @@ public void testMBeanAccess() throws Exception
     
     <note>
       <para>Please note that access to the MBeanServer from the test case is part of the 
-      <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
+      <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
       OSGiRuntime</ulink> abstraction.</para>
     </note>
     
@@ -311,7 +311,7 @@ public void testJNDIAccess() throws Exception
     
     <note>
       <para>Please note that access to the InitialContext from the test case is part of the 
-      <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
+      <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
       OSGiRuntime</ulink> abstraction.</para>
     </note>
     

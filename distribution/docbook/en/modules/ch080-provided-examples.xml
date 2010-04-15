@@ -13,8 +13,8 @@
     integrated in our <ulink url="http://www.jboss.org/community/docs/DOC-13275">Maven Build Process</ulink> 
     and <ulink url="http://www.jboss.org/community/docs/DOC-13420">Hudson QA Environment</ulink>.</para>
     
-    <para>The examples can be either run against an embedded OSGi runtime or against
-    a remote OSGi runtime. Here is how you build and run the against the embedded runtime.</para>
+    <para>The examples can be either run against an embedded OSGi framework or against
+    the remote OSGi Runtime. Here is how you build and run the against the embedded framework.</para>
     
     <programlisting>
 [tdiesler@tddell example]$ mvn test
@@ -51,8 +51,8 @@ Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
       <listitem>runtime</listitem>
       <listitem>jboss501</listitem>
       <listitem>jboss510</listitem>
-      <listitem>jboss520</listitem>
       <listitem>jboss600</listitem>
+      <listitem>jboss601</listitem>
     </itemizedlist>
 
     <para>To run the examples against a different OSGi Framework, you need to define the

@@ -19,20 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.enterprise.jmx;
+package org.jboss.test.osgi.example.jmx;
 
 //$Id: JMXTestCase.java 95465 2009-10-23 05:59:57Z thomas.diesler@jboss.com $
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
 import javax.management.openmbean.TabularData;
 
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.jmx.MBeanProxy;
-import org.jboss.osgi.jmx.ObjectNameFactory;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
@@ -47,17 +43,14 @@ import org.osgi.jmx.framework.BundleStateMBean;
  * @author thomas.diesler@jboss.com
  * @since 15-Feb-2010
  */
-public class JMXEnterpriseTestCase extends OSGiRuntimeTest
+public class JMXStandardTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
    
-   private BundleStateMBean bundleState;
-
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      OSGiRuntimeHelper helper = new OSGiRuntimeHelper();
-      runtime = helper.getDefaultRuntime();
+      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
       runtime.addCapability(new JMXCapability());
    }
 
@@ -71,31 +64,11 @@ public class JMXEnterpriseTestCase extends OSGiRuntimeTest
    @Test
    public void testBundleStateMBean() throws Exception
    {
-      BundleStateMBean bundleState = getBundleStateMBean();
+      BundleStateMBean bundleState = runtime.getBundleStateMBean();
       assertNotNull("BundleStateMBean not null", bundleState);
       
       TabularData bundleData = bundleState.listBundles();
       assertNotNull("TabularData not null", bundleData);
       assertFalse("TabularData not empty", bundleData.isEmpty());
-   }
-
-   private BundleStateMBean getBundleStateMBean() throws Exception
-   {
-      if (bundleState == null)
-      {
-         int timeout = 5000;
-         MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-         ObjectName objectName = ObjectNameFactory.create(BundleStateMBean.OBJECTNAME);
-         while (bundleState == null && 0 < (timeout -= 200))
-         {
-            if (mbeanServer.isRegistered(objectName))
-            {
-               bundleState = MBeanProxy.get(mbeanServer, objectName, BundleStateMBean.class);
-               break;
-            }
-            Thread.sleep(200);
-         }
-      }
-      return bundleState;
    }
 }

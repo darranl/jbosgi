@@ -43,7 +43,7 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class JMXTestCase
+public class JMXMBeanServerTestCase
 {
    private static OSGiRuntime runtime;
 

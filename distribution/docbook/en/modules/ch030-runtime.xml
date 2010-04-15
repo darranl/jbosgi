@@ -72,8 +72,7 @@
       </listitem>
       
       <listitem><emphasis role="bold">Local and Remote JMX Support</emphasis> - 
-      There is local as well as remote support for JMX. Similar to <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> 
-      the JMXAdaptor (which provides the MBeanServerConnection) is bound to JNDI.
+      There is local as well as remote JSR160 support for JMX. 
       </listitem>
       
       <listitem><emphasis role="bold">JNDI Support</emphasis> -
@@ -151,7 +150,7 @@ $ bin/run.sh -c minimal
 
 =========================================================================
 
-12:10:48,713 INFO  JBossOSGi Core Framework - 1.0.0.Alpha3
+12:10:48,713 INFO  JBossOSGi Core Framework - 1.0.0.Alpha4
 12:10:49,089 INFO  Bundle INSTALLED: Bundle{osgi.cmpn:4.2.0.200908310645}
 12:10:49,188 INFO  Bundle INSTALLED: Bundle{org.apache.felix.log:1.0.0}
 12:10:49,282 INFO  Bundle INSTALLED: Bundle{jboss-osgi-common:1.0.2}
@@ -181,6 +180,7 @@ $ bin/run.sh -c minimal
     <para>These additional bundles are installed:</para>
   
     <itemizedlist>
+      <listitem><emphasis role="bold">org.apache.aries.jmx.jar</emphasis> - Apache Aries JMX services</listitem>
       <listitem><emphasis role="bold">org.apache.felix.eventadmin.jar</emphasis> - Apache Event Admin service</listitem>
       <listitem><emphasis role="bold">jboss-osgi-common-core.jar</emphasis> - JBoss Common Core functionality</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jmx.jar</emphasis> - JBoss OSGi JMX service</listitem>

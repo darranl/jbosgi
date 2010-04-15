@@ -140,7 +140,7 @@ $ bin/run.sh
 
 =========================================================================
 
-13:10:35,143 INFO  [OSGiBundleManager] JBossOSGi Core Framework - 1.0.0.Alpha3
+13:10:35,143 INFO  [OSGiBundleManager] JBossOSGi Core Framework - 1.0.0.Alpha4
 ...
 13:10:36,405 INFO  Start DeploymentScanner: [scandir=.../server/default/deploy,interval=2000ms]
 13:10:36,416 INFO  Bundle STARTED: Bundle{system.bundle-0.0.0}
@@ -165,20 +165,20 @@ $ bin/run.sh
     deployment is verified by an accompaning test case</para>
 
     <itemizedlist>
-      <listitem><emphasis role="bold">BlueprintTestCase</emphasis> - A simple Blueprint Container test</listitem>
-      <listitem><emphasis role="bold">DOMParserTestCase</emphasis> - A test that uses a DOM parser to read an XML document</listitem>
-      <listitem><emphasis role="bold">HttpServiceTestCase</emphasis> - Register servlets and resources with the HTTP Service</listitem>
-      <listitem><emphasis role="bold">InterceptorTestCase</emphasis> - Intercept and process bundle metadata</listitem>
-      <listitem><emphasis role="bold">JAXBTestCase</emphasis> - A test that uses JAXB to read an XML document</listitem>
-      <listitem><emphasis role="bold">JMXTestCase</emphasis> - Register an MBean through the JMX Service</listitem>
-      <listitem><emphasis role="bold">JNDITestCase</emphasis> - Bind objects to the Naming Service</listitem>
-      <listitem><emphasis role="bold">MicrocontainerTestCase</emphasis> - Call a service from an MC bean and vica versa</listitem>
-      <listitem><emphasis role="bold">SAXParserTestCase</emphasis> - A test that uses a SAX parser to read an XML document</listitem>
-      <listitem><emphasis role="bold">ServiceLoaderTestCase</emphasis> - Autoregister META-INF/services</listitem>
-      <listitem><emphasis role="bold">SimpleHuskyTestCase</emphasis> - Accesses a service from within the test case</listitem>
-      <listitem><emphasis role="bold">SimpleTestCase</emphasis> - A simple bundle lifecycle test</listitem>
-      <listitem><emphasis role="bold">TransactionTestCase</emphasis> - A simple transaction test</listitem>
-      <listitem><emphasis role="bold">WebAppTestCase</emphasis> - A web application (WAR) test</listitem>
+      <listitem><emphasis role="bold">blueprint</emphasis> - Basic Blueprint Container examples</listitem>
+      <listitem><emphasis role="bold">event</emphasis> - EventAdmin examples</listitem>
+      <listitem><emphasis role="bold">http</emphasis> - HttpService examples</listitem>
+      <listitem><emphasis role="bold">interceptor</emphasis> - Examples that intercept and process bundle metadata</listitem>
+      <listitem><emphasis role="bold">jmx</emphasis> - Standard and extended JMX examples</listitem>
+      <listitem><emphasis role="bold">jndi</emphasis> - Bind objects to the Naming Service</listitem>
+      <listitem><emphasis role="bold">jta</emphasis> - Transaction examples</listitem>
+      <listitem><emphasis role="bold">microcontainer</emphasis> - JBossMC/OSGi integration examples</listitem>
+      <listitem><emphasis role="bold">serviceloader</emphasis> - Autoregister META-INF/services</listitem>
+      <listitem><emphasis role="bold">simple</emphasis> - Simple OSGi examples (start here)</listitem>
+      <listitem><emphasis role="bold">webapp</emphasis> - WebApplication (WAR) examples</listitem>
+      <listitem><emphasis role="bold">xml binding</emphasis> - JBoss XML Binding examples</listitem>
+      <listitem><emphasis role="bold">xml jaxb</emphasis> - JAXB examples</listitem>
+      <listitem><emphasis role="bold">xml parser</emphasis> - SAX/DOM parser examples</listitem>
     </itemizedlist>
     
   </sect1>
@@ -234,23 +234,11 @@ $ cp .../test-libs/example/example-http.jar .../runtime/server/web/deploy
     <para>If in future we should discover a problem with a previous JBoss OSGi release, it will be possible to provide a patch and verify that change using 
     the original QA environment for that release.</para>
      
-    <para>With every release we test the matrix of supported target containers, frameworks and JDKs.</para>
+    <para>With every release we test the matrix of supported target containers and frameworks</para>
     
     <mediaobject>
       <imageobject>
-        <imagedata fileref="images/hudson-matrix-felix.png"/> 
-      </imageobject>
-    </mediaobject>
-  
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/hudson-matrix-equinox.png"/> 
-      </imageobject>
-    </mediaobject>
-  
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/hudson-matrix-jbossmc.png"/> 
+        <imagedata fileref="images/hudson-matrix.png"/> 
       </imageobject>
     </mediaobject>
   
@@ -278,7 +266,7 @@ $ vi ant.properties
 
 #hudson.jboss501.zip=file:///home/username/Download/java/jboss/jboss-5.0.1.GA.zip
 #hudson.jboss510.zip=file:///home/username/Download/java/jboss/jboss-5.1.0.GA.zip
-#hudson.jboss600.zip=file:///home/username/Download/java/jboss/jboss-6.0.0.M1.zip
+#hudson.jboss600.zip=file:///home/username/Download/java/jboss/jboss-6.0.0.M2.zip
 
 # JDK settings
 java.home.jdk15=/usr/java/jdk1.5.0_22

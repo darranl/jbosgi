@@ -1,62 +1,55 @@
 <body>
 
-<h2>Release Notes - JBossOSGi-1.0.0.Beta6</h2>
+<h2>Release Notes - JBossOSGi-1.0.0.Beta7</h2>
 
-<p>I am happy to announce the release of JBossOSGi-1.0.0.Beta6.</p>
+<p>I am happy to announce the release of JBossOSGi-1.0.0.Beta7.</p>
 <p/>
 
-<p>You can download the binary here: <a href="http://sourceforge.net/projects/jboss/files/JBossOSGi/1.0.0.Beta6/jboss-osgi-installer-1.0.0.Beta5.jar/download">jboss-osgi-installer-1.0.0.Beta6.jar</a></p>
+<p>You can download the binary here: <a href="http://sourceforge.net/projects/jboss/files/JBossOSGi/1.0.0.Beta7/jboss-osgi-installer-1.0.0.Beta7.jar/download">jboss-osgi-installer-1.0.0.Beta7.jar</a></p>
 <p/>
 
 <p>The release comes with improvements in the following areas</p>
 <p/>
 
 <ul>
-<li>Initial support for fragments.</li>
-<li>Initial support for Bundle.update().</li>
-<li>Initial support for native code libraries.</li>
-<li>Support for R3 bundles.</li>
-<li>Support for bundle header localization.</li>
-<li>Improved Blueprint support, using Apache Aries Blueprint.</li>
+<li>Enterprise OSGi bundle management (JMX)</li>
+<li>JSR160 compliant JMXConnector</li>
+<li>Integrate JBoss OSGi with AS 6.0.0.M3</li>
+<li>Framework service hooks</li>
+<li>OSGi core TCK compliant at 40%</li>
 </ul>
 <p/>
 
-<p>For details please have a look at the latest version of our <a href="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta6/userguide/html/">User Guide</a>.</p>
+<p>For details please have a look at the latest version of our <a href="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/userguide/html/">User Guide</a>.</p>
 <p/>
 
 <p>Here are the change log details</p>
 <p/>
 
 <h2>Bug</h2>
-<ul>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-210'>JBOSGI-210</a>] -         Bundle installed but not started with hot deploy</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-283'>JBOSGI-283</a>] -         WebApp extender not installed by default</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-145'>JBOSGI-145</a>] -         JAXB classes are loaded from the system classpath</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-204'>JBOSGI-204</a>] -         Failure in Bundle.start() uninstalls the bundle</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-286'>JBOSGI-286</a>] -         Investigate classloading of javax.* classes</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-287'>JBOSGI-287</a>] -         Optional import loaded from system classloader</li>
+<ul><li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-292'>JBOSGI-292</a>] -     PackageAdmin cannot obtain classloading metadata</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-295'>JBOSGI-295</a>] -         NullPointerException in ExportedPackageHelper constructor</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-297'>JBOSGI-297</a>] -         OSGiBootstrapBean spinning on System.in read</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-299'>JBOSGI-299</a>] -         WebConsole does not display on jbossas/trunk</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-300'>JBOSGI-300</a>] -         Felix integration breaks jbossas/trunk bootstrap</li>
 </ul>
-                            
+        
 <h2>Feature Request</h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-269'>JBOSGI-269</a>] -         Add initial support for Bundle.update()</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-271'>JBOSGI-271</a>] -         Initial support for R3 bundles</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-272'>JBOSGI-272</a>] -         Implement bundle header localization</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-273'>JBOSGI-273</a>] -         Differenciate R3/R4 bundle validation</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-274'>JBOSGI-274</a>] -         Cache bundle header for default locale</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-275'>JBOSGI-275</a>] -         Add support for Bundle.update() from original location</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-276'>JBOSGI-276</a>] -         Add initial support for native code libraries</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-277'>JBOSGI-277</a>] -         Add initial bundle fragment support</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-126'>JBOSGI-126</a>] -         Replace the SPI JMX functionality  by RFC-139 API</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-307'>JBOSGI-307</a>] -         JSR160 compliant JMXConnector</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-267'>JBOSGI-267</a>] -         Allow multiple bundles to change state at once
 </ul>
                     
 <h2>Task</h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-263'>JBOSGI-263</a>] -         Integrate Aries Blueprint implementation</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-265'>JBOSGI-265</a>] -         Update to jboss-osgi-framework-1.0.0.Alpha3</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-281'>JBOSGI-281</a>] -         Release JBoss OSGi 1.0.0.Beta6</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-264'>JBOSGI-264</a>] -         Update to jboss-kernel-2.2.x stable release</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-279'>JBOSGI-279</a>] -         Update to jboss-cl-2.2.x stable release</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-284'>JBOSGI-284</a>] -         Investigate version numbering scheme</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-83'>JBOSGI-83</a>] -           Enterprise OSGi JMX</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-289'>JBOSGI-289</a>] -         Migrate all components to jboss-logging</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-290'>JBOSGI-290</a>] -         Use LifecycleInterceptor with Aries Blueprint</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-303'>JBOSGI-303</a>] -         Upgrade to equinox-3.5.2</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-304'>JBOSGI-304</a>] -         Upgrade to felix-2.0.4</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-302'>JBOSGI-302</a>] -         Add support for service hooks</li>
+<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-312'>JBOSGI-312</a>] -         Integrate JBoss OSGi with AS 6.0.0.M3</li>
 </ul>
 
 <p/>

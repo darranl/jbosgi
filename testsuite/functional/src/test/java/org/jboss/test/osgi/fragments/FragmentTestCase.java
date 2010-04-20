@@ -110,7 +110,7 @@ public class FragmentTestCase extends OSGiRuntimeTest
 
       // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
       // to normalize the differences in VFS protocols when running against a VFS21 target container.
-      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getBundleStateMBean();
+      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getJMXSupport().getBundleStateMBean();
       
       String entryURL = bundleState.getEntry(fragA.getBundleId(), "resources/resource.txt");
       assertNotNull("Entry URL not null", entryURL);
@@ -153,7 +153,7 @@ public class FragmentTestCase extends OSGiRuntimeTest
 
       // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
       // to normalize the differences in VFS protocols when running against a VFS21 target container.
-      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getBundleStateMBean();
+      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getJMXSupport().getBundleStateMBean();
       
       String entryURL = bundleState.getEntry(hostA.getBundleId(), "resources/resource.txt");
       assertNull("Entry URL null", entryURL);
@@ -276,7 +276,7 @@ public class FragmentTestCase extends OSGiRuntimeTest
       }
 
       // Refreshing HostA causes the FragA to get attached
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getJMXSupport().getFrameworkMBean();
       frameworkMBean.refreshBundle(hostA.getBundleId());
 
       // Wait for the fragment to get attached

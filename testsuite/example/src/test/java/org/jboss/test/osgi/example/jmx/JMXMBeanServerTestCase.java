@@ -27,8 +27,8 @@ import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.jndi.JNDICapability;
+import org.jboss.osgi.testing.JMXSupport;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
@@ -68,7 +68,8 @@ public class JMXMBeanServerTestCase
       OSGiBundle bundle = runtime.installBundle("example-jmx.jar");
       bundle.start();
 
-      FooMBean foo = (FooMBean)MBeanProxy.get(runtime.getMBeanServer(), MBEAN_NAME, FooMBean.class);
+      JMXSupport jmxSupport = runtime.getJMXSupport();
+      FooMBean foo = jmxSupport.getProxy(MBEAN_NAME, FooMBean.class);
       assertEquals("hello", foo.echo("hello"));
    }
 }

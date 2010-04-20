@@ -30,8 +30,8 @@ import java.util.List;
 
 import org.jboss.osgi.jmx.FrameworkMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
+import org.jboss.osgi.testing.JMXSupport;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
@@ -74,7 +74,8 @@ public class OSGi108TestCase
    @Before
    public void setUp() throws IOException
    {
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      JMXSupport jmxSupport = runtime.getJMXSupport();
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)jmxSupport.getFrameworkMBean();
       frameworkMBean.refreshBundles(null);
    }
 
@@ -85,7 +86,8 @@ public class OSGi108TestCase
 
       bundleA.start();
 
-      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+      JMXSupport jmxSupport = runtime.getJMXSupport();
+      SomeBeanMBean someBean = jmxSupport.getProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 1, messages.size());
 
@@ -112,7 +114,8 @@ public class OSGi108TestCase
       bundleA.start();
       bundleB.start();
 
-      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+      JMXSupport jmxSupport = runtime.getJMXSupport();
+      SomeBeanMBean someBean = jmxSupport.getProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 2, messages.size());
 
@@ -143,7 +146,8 @@ public class OSGi108TestCase
       bundleA.start();
       bundleB.start();
 
-      SomeBeanMBean someBean = MBeanProxy.get(runtime.getMBeanServer(), SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+      JMXSupport jmxSupport = runtime.getJMXSupport();
+      SomeBeanMBean someBean = jmxSupport.getProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 2, messages.size());
 
@@ -153,7 +157,7 @@ public class OSGi108TestCase
       // bundleA.SomeBean
 
       // Refresh all packages
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)jmxSupport.getFrameworkMBean();
       frameworkMBean.refreshBundles(null);
 
       // Reinstall bundleA

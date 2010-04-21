@@ -27,7 +27,6 @@ import static org.jboss.test.osgi.example.microcontainer.bundleA.SomeBeanMBean.M
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.testing.JMXSupport;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
@@ -68,16 +67,14 @@ public class MicrocontainerTestCase
    @Test
    public void testBeanAccess() throws Exception
    {
-      JMXSupport jmxSupport = runtime.getJMXSupport();
-      SomeBeanMBean someBean = jmxSupport.getProxy(MBEAN_NAME, SomeBeanMBean.class);
+      SomeBeanMBean someBean = runtime.getMBeanProxy(MBEAN_NAME, SomeBeanMBean.class);
       assertEquals("hello", someBean.echo("hello"));
    }
 
    @Test
    public void testServiceAccess() throws Exception
    {
-      JMXSupport jmxSupport = runtime.getJMXSupport();
-      SomeBeanMBean someBean = jmxSupport.getProxy(MBEAN_NAME, SomeBeanMBean.class);
+      SomeBeanMBean someBean = runtime.getMBeanProxy(MBEAN_NAME, SomeBeanMBean.class);
       assertEquals("hello", someBean.callSomeService("hello"));
    }
 }

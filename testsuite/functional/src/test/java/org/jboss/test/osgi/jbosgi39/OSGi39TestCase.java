@@ -60,7 +60,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
       
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getJMXSupport().getFrameworkMBean();
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
       frameworkMBean.refreshBundles(null);
    }
 
@@ -149,7 +149,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest
       bundleB.uninstall();
 
       // Forces the update (replacement) or removal of packages exported by the specified bundles.
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getJMXSupport().getFrameworkMBean();
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
       frameworkMBean.refreshBundles(null);
 
       // Install B without X

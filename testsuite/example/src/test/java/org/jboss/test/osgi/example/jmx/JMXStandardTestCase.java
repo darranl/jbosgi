@@ -64,7 +64,7 @@ public class JMXStandardTestCase extends OSGiRuntimeTest
    @Test
    public void testBundleStateMBean() throws Exception
    {
-      BundleStateMBean bundleState = runtime.getJMXSupport().getBundleStateMBean();
+      BundleStateMBean bundleState = runtime.getBundleStateMBean();
       assertNotNull("BundleStateMBean not null", bundleState);
       
       TabularData bundleData = bundleState.listBundles();

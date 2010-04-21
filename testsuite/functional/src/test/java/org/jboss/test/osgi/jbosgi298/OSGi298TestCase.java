@@ -109,7 +109,7 @@ public class OSGi298TestCase extends OSGiRuntimeTest
    
    private boolean isRegistered(String oname) throws MalformedObjectNameException
    {
-      MBeanServer server = (MBeanServer)runtime.getJMXSupport().getMBeanServer();
+      MBeanServer server = (MBeanServer)runtime.getMBeanServer();
       boolean registered = server.isRegistered(ObjectName.getInstance(oname));
       log.debug(oname + " registered: " + registered);
       return registered;

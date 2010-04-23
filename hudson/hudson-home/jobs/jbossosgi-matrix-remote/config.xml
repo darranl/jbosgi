@@ -13,7 +13,7 @@
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@hudson.osgi.url@</remote>
+        <remote>@scm.url.jbosgi@</remote>
         <local>jboss-osgi</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
@@ -64,7 +64,7 @@ export CONTAINER=$container
 export JBOSS_BINDADDR=@jboss.bind.address@
 
 # copy the maven profile
-cp @hudson.maven.profile@ $OSGIDIR/profiles.xml
+cp @maven.profile@ $OSGIDIR/profiles.xml
 
 #
 # call command.sh 

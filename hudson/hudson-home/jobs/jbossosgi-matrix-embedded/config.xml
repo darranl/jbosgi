@@ -13,7 +13,7 @@
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@hudson.osgi.url@</remote>
+        <remote>@scm.url.jbosgi@</remote>
         <local>jboss-osgi</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
@@ -52,7 +52,7 @@
   <builders>
     <hudson.tasks.Maven>
       <targets>-U -fae clean install</targets>
-      <mavenName>@hudson.maven.name@</mavenName>
+      <mavenName>@maven.name@</mavenName>
     </hudson.tasks.Maven>
   </builders>
   <publishers class="vector">

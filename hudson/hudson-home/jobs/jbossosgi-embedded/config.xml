@@ -5,6 +5,8 @@
   <logRotator>
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -12,38 +14,58 @@
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>framework</name>
-          <optional>false</optional>
+          <description></description>
           <defaultValue>jbossmc</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
-    <hudson.security.AuthorizationMatrixProperty />
   </properties>
-  <scm class="hudson.scm.SubversionSCM">
-    <locations>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@hudson.osgi.url@</remote>
-        <local>jboss-osgi</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-    </locations>
-    <useUpdate>true</useUpdate>
-    <browser class="hudson.scm.browsers.FishEyeSVN">
-      <url>http://fisheye.jboss.com/browse/JBossOSGi</url>
-      <rootModule></rootModule>
-    </browser>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>1</configVersion>
+    <remoteRepositories>
+      <org.spearce.jgit.transport.RemoteConfig>
+        <string>origin</string>
+        <int>5</int>
+        <string>fetch</string>
+        <string>+refs/heads/*:refs/remotes/origin/*</string>
+        <string>receivepack</string>
+        <string>git-upload-pack</string>
+        <string>uploadpack</string>
+        <string>git-upload-pack</string>
+        <string>url</string>
+        <string>@scm.url.jbosgi@</string>
+        <string>tagopt</string>
+        <string></string>
+      </org.spearce.jgit.transport.RemoteConfig>
+    </remoteRepositories>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <mergeOptions/>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <clean>false</clean>
+    <choosingStrategy>Default</choosingStrategy>
+    <submoduleCfg class="list"/>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>jdk1.6</jdk>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
       <targets>-U -fae clean install</targets>
-      <mavenName>@hudson.maven.name@</mavenName>
+      <mavenName>@maven.name@</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
   </builders>
-  <publishers class="vector">
+  <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>jboss-osgi/**/target/surefire-reports/TEST-*.xml</testResults>
+      <testResults>jbosgi/**/target/surefire-reports/TEST-*.xml</testResults>
+      <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
   </publishers>
   <buildWrappers/>

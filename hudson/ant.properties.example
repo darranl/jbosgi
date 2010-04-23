@@ -3,37 +3,34 @@
 #
 # $Id: ant.properties.example 3995 2007-07-26 08:52:45Z thomas.diesler@jboss.com $
 
-# Hudson Workspace Root
-# hudson.root=/home/username/workspace/hudson/jboss-osgi
-
-# Hudson QA Environment
-# hudson.username=username
-
-#hudson.jboss501.zip=file:///home/username/Download/java/jboss/jboss-5.0.1.GA.zip
-#hudson.jboss510.zip=file:///home/username/Download/java/jboss/jboss-5.1.0.GA.zip
-#hudson.jboss600.zip=file:///home/username/Download/java/jboss/jboss-6.0.0.M1.zip
+# SCM settings
+# ------------
+scm.url.jbosgi=git://github.com/jbosgi/jbosgi.git
 
 # JDK settings
+# ------------
 java.home.jdk15=/usr/java/jdk1.5.0_22
 java.home.jdk16=/usr/java/jdk1.6.0_17
 
 # Maven settings
+# --------------
 hudson.maven.name=apache-maven-2.2.1
 hudson.maven.path=/usr/java/apache-maven-2.2.1
 hudson.maven.profile=$HUDSONDIR/profiles.xml.local.qa
 
 # The JBoss settings
+# ------------------
 jboss.server.instance=default
 jboss.bind.address=127.0.0.1
 
-hudson.host=localhost
-hudson.admin.port=8250
-hudson.http.port=8280
+# Hudson Default settings
+# -----------------------
+# hudson.root=/home/username/workspace/hudson/jboss-osgi
+# hudson.username=username
+# hudson.version=1.355
 
-hudson.mail.recipients=
-hudson.mail.admin=yourname@yourdomain.com
-hudson.smtp.host=localhost
+# hudson.jboss501.zip=file:///home/username/Download/java/jboss/jboss-5.0.1.GA.zip
+# hudson.jboss510.zip=file:///home/username/Download/java/jboss/jboss-5.1.0.GA.zip
+# hudson.jboss600.zip=file:///home/username/Download/java/jboss/jboss-6.0.0.M2.zip
 
-apache-tomcat=5.5.27
-sun-hudson=1.336
-
+# tomcat.base=/usr/share/tomcat6

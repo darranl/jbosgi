@@ -10,10 +10,6 @@
         <remote>https://svn.jboss.org/repos/jbossas/trunk</remote>
         <local>jbossas</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@hudson.osgi.url@</remote>
-        <local>jboss-osgi</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
     <useUpdate>true</useUpdate>
     <browser class="hudson.scm.browsers.FishEyeSVN">

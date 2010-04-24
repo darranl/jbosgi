@@ -5,7 +5,7 @@
 #
 # $Id$
 
-OSGIDIR=$WORKSPACE/jboss-osgi
+OSGIDIR=$WORKSPACE
 DISTRODIR=$OSGIDIR/distribution/installer/target
 HUDSONDIR=$OSGIDIR/hudson
 HUDSONBIN=$HUDSONDIR/hudson-home/bin

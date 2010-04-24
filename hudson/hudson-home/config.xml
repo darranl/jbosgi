@@ -1,8 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
+  <version>1.355</version>
   <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+  <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
     <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
     <permission>hudson.model.Hudson.Read:@hudson.username@</permission>
     <permission>hudson.model.Hudson.Read:anonymous</permission>
@@ -31,10 +33,10 @@
 <table>
 <tr align="left"><th>Bind Addr</th><td>@jboss.bind.address@</td></tr>
 <tr align="left"><th>Documentation</th><td>
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
 </td></tr>
 </table>
 ]]>
@@ -42,20 +44,25 @@
   <jdks>
     <jdk>
       <name>jdk1.5</name>
-      <javaHome>@java.home.jdk15@</javaHome>
+      <home>@java.home.jdk15@</home>
+      <properties/>
     </jdk>
     <jdk>
       <name>jdk1.6</name>
-      <javaHome>@java.home.jdk16@</javaHome>
+      <home>@java.home.jdk16@</home>
+      <properties/>
     </jdk>
   </jdks>
   <clouds/>
   <slaves/>
   <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
     <hudson.model.AllView>
       <owner class="hudson" reference="../../.."/>
       <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
     </hudson.model.AllView>
   </views>
   <primaryView>All</primaryView>

@@ -3,68 +3,70 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
-  <scm class="hudson.scm.SubversionSCM">
-    <locations>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>https://svn.jboss.org/repos/jbossas/trunk</remote>
-        <local>jbossas</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@hudson.osgi.url@</remote>
-        <local>jboss-osgi</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-    </locations>
-    <useUpdate>true</useUpdate>
-    <browser class="hudson.scm.browsers.FishEyeSVN">
-      <url>http://fisheye.jboss.com/browse/JBossAS/</url>
-      <rootModule></rootModule>
-    </browser>
-    <excludedRegions></excludedRegions>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl>git://github.com/jbosgi/jbossas.git/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>1</configVersion>
+    <remoteRepositories>
+      <org.spearce.jgit.transport.RemoteConfig>
+        <string>origin</string>
+        <int>5</int>
+        <string>fetch</string>
+        <string>+refs/heads/*:refs/remotes/origin/*</string>
+        <string>receivepack</string>
+        <string>git-upload-pack</string>
+        <string>uploadpack</string>
+        <string>git-upload-pack</string>
+        <string>url</string>
+        <string>git://github.com/jbosgi/jbossas.git</string>
+        <string>tagopt</string>
+        <string></string>
+      </org.spearce.jgit.transport.RemoteConfig>
+    </remoteRepositories>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <mergeOptions/>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <clean>false</clean>
+    <choosingStrategy>Default</choosingStrategy>
+    <submoduleCfg class="list"/>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>jdk1.6</jdk>
   <triggers class="vector">
     <hudson.triggers.TimerTrigger>
       <spec>0 22 * * *</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>
-OSGIDIR=$WORKSPACE/jboss-osgi
-HUDSONDIR=$OSGIDIR/hudson
-HUDSONBIN=$HUDSONDIR/hudson-home/bin
-      
 JBOSS_VERSION=jboss-6.0.0-SNAPSHOT
 SERVER_NAME=osgi
 
-JBOSS_HOME=$WORKSPACE/jbossas/build/target/$JBOSS_VERSION
+JBOSS_HOME=$WORKSPACE/build/target/$JBOSS_VERSION
 JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_VERSION.zip
 JBOSS_BINDADDR=@jboss.bind.address@
 
 # 
 # Build JBoss
 # 
-cd jbossas
 mvn clean install
 
-#
-# Start JBossAS
-#
-cp --backup $HUDSONBIN/run-with-pid.sh $JBOSS_HOME/bin/run.sh
-$HUDSONBIN/startup.sh $JBOSS_HOME start $SERVER_NAME $JBOSS_BINDADDR
-
 # 
-# Was it successfully started?
-#
-$HUDSONBIN/http-spider.sh $JBOSS_BINDADDR:8090/jboss-osgi $WORKSPACE
-if [ -e $WORKSPACE/spider.failed ]; then
-  tail -n 200 $JBOSS_HOME/server/default/log/server.log
-  $HUDSONBIN/startup.sh $JBOSS_HOME stop
-  exit 1
-fi
+# Build the Testsuite 
+cd $WORKSPACE/testsuite
+./build.sh clean jars smoke-tests
+./build.sh tests-osgi
 
 # 
 # Remove existing jboss.zip
@@ -75,11 +77,14 @@ rm -f $JBOSS_ZIP
 # Create new jboss.zip
 # 
 cd $JBOSS_HOME/..
-zip -r $JBOSS_ZIP $JBOSS_VERSION/*
-
-      </command>
+zip -r $JBOSS_ZIP $JBOSS_VERSION/*</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>testsuite/output/reports/TEST-*.xml</testResults>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
   <buildWrappers/>
 </project>

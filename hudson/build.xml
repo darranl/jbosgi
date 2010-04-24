@@ -18,24 +18,6 @@
   <property name="project.root.dir" value="${basedir}/.."/>
 
   <!-- ================================================================== -->
-  <!-- Hudson Jobs                                                        -->
-  <!-- ================================================================== -->
-  <macrodef name="copyjobs">
-    <sequential>
-      <copy todir="${hudson.home}/jobs" overwrite="true">
-        <fileset dir="${hudson.dir}/hudson-home/jobs">
-          <include name="*/config.xml"/>
-        </fileset>
-        <filterset>
-          <filter token="hudson.osgi.url" value="${hudson.osgi.url}"/>
-          <filter token="version.id" value="${version.id}"/>
-          <filtersfile file="${hudson.dir}/ant.properties"/>
-        </filterset>
-      </copy>
-    </sequential>
-  </macrodef>
-  
-  <!-- ================================================================== -->
   <!-- Initialization                                                     -->
   <!-- ================================================================== -->
   
@@ -57,9 +39,9 @@
   </target>
   
   <target name="init-hudson" depends="init">
-    <property name="hudson.tomcat" value="${hudson.root}/apache-tomcat"/>
     <property name="hudson.home" value="${hudson.root}/hudson-home"/>
     <property name="hudson.jboss" value="${hudson.root}/jboss"/>
+    <property name="hudson.version" value="1.355"/>
     
     <echo/>
     <echo message="hudson.user = ${hudson.username}"/>
@@ -68,8 +50,11 @@
     <echo/>
     
     <available file="${hudson.root}" property="hudson.root.available"/>
-    <available file="${hudson.tomcat}" property="hudson.tomcat.available"/>
     <fail message="Hudson root not available: ${hudson.root}" unless="hudson.root.available"/>
+    <available file="${tomcat.base}" property="tomcat.base.available"/>
+    <fail message="Tomcat base not available: ${tomcat.base}" unless="tomcat.base.available"/>
+    <available file="${tomcat.conf}" property="tomcat.conf.available"/>
+    <fail message="Tomcat conf not available: ${tomcat.conf}" unless="tomcat.conf.available"/>
     
     <property name="hudson.username.${hudson.username}" value="true"/>
     <fail message="Cannot use default hudson username: ${hudson.username}" if="hudson.username.changeme"/>
@@ -79,7 +64,7 @@
     <property name="thirdparty.dir" value="${hudson.target.dir}/thirdparty"/>
     <mkdir dir="${thirdparty.dir}"/>
     <available property="apache.tomcat.available" file="${thirdparty.dir}/apache-tomcat.zip"/>
-    <available property="sun.hudson.available" file="${thirdparty.dir}/hudson.war"/>
+    <available property="hudson.war.available" file="${thirdparty.dir}/hudson.war"/>
     <available property="jboss501.available" file="${thirdparty.dir}/jboss-5.0.1.GA.zip"/>
     <available property="jboss510.available" file="${thirdparty.dir}/jboss-5.1.0.GA.zip"/>
     <available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M2.zip"/>
@@ -88,16 +73,13 @@
   <!-- 
     Get thirdparty dependencies 
   -->
-  <target name="thirdparty" depends="init-thirdparty,get-tomcat,get-hudson,get-jboss501,get-jboss510,get-jboss600">
+  <target name="thirdparty" depends="init-thirdparty,get-hudson,get-jboss501,get-jboss510,get-jboss600">
     <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-5.0.1.GA.zip"/>
     <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-5.1.0.GA.zip"/>
     <copy todir="${hudson.root}/jboss" file="${thirdparty.dir}/jboss-6.0.0.M2.zip"/>
   </target>
-  <target name="get-tomcat" depends="init-thirdparty" unless="apache.tomcat.available">
-    <get src="http://www.apache.org/dist/tomcat/tomcat-5/v${apache-tomcat}/bin/apache-tomcat-${apache-tomcat}.zip" dest="${thirdparty.dir}/apache-tomcat.zip" usetimestamp="true" verbose="true"/>
-  </target>
-  <target name="get-hudson" depends="init-thirdparty" unless="sun.hudson.available">
-    <get src="http://hudson-ci.org/download/war/${sun-hudson}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="true" verbose="true"/>
+  <target name="get-hudson" depends="init-thirdparty" unless="hudson.war.available">
+    <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="true" verbose="true"/>
   </target>
   <target name="get-jboss501" depends="init-thirdparty" unless="jboss501.available">
     <property name="hudson.jboss501.zip" value="http://downloads.sourceforge.net/jboss/jboss-5.0.1.GA.zip"/>
@@ -115,19 +97,16 @@
   <!-- 
     Setup the Hudson Tomcat instance 
   -->
-  <target name="hudson-tomcat-setup" depends="thirdparty" unless="hudson.tomcat.available">
+  <target name="hudson-tomcat-setup" depends="thirdparty">
     
-    <!-- Install Tomcat -->
-    <unzip src="${thirdparty.dir}/apache-tomcat.zip" dest="${hudson.root}"/>
-    <move file="${hudson.root}/apache-tomcat-${apache-tomcat}" tofile="${hudson.tomcat}"/>
-    <chmod perm="+x">
-      <fileset dir="${hudson.tomcat}/bin">
-        <include name="*.sh"/>
-      </fileset>
-    </chmod>
+    <property file="${tomcat.conf}"/>
+    <fail unless="HUDSON_HOME">
+      HUDSON_HOME not available in: ${tomcat.conf}
+      echo 'HUDSON_HOME=${hudson.home}' >> ${tomcat.conf}
+    </fail>
     
     <!-- Install Hudson -->
-    <copy todir="${hudson.tomcat}/webapps" file="${thirdparty.dir}/hudson.war"/>
+    <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war"/>
     
   </target>
   
@@ -135,34 +114,15 @@
     Update the Hudson version
   -->
   <target name="hudson-update" depends="init-thirdparty">
-    <get src="https://hudson.dev.java.net/files/documents/${sun-hudson}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="false" verbose="true"/>
-    <delete dir="${hudson.tomcat}/webapps/hudson"/>
-    <copy todir="${hudson.tomcat}/webapps" file="${thirdparty.dir}/hudson.war" overwrite="true"/>
+    <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="false" verbose="true"/>
+    <delete dir="${tomcat.base}/webapps/hudson"/>
+    <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war" overwrite="true"/>
   </target>
 
   <!-- 
     Setup the Hudson QA environment
   -->
   <target name="hudson-setup" depends="init-hudson,hudson-tomcat-setup"  description="Setup the Hudson QA environment">
-    
-    <!-- get the svn url -->
-    <exec dir="${project.root.dir}" executable="svn" failonerror="true" output="${hudson.target.dir}/svn-info.xml">
-      <arg line="info"/>
-      <arg line="--xml"/>
-    </exec>
-    <xmlproperty file="${hudson.target.dir}/svn-info.xml"/>
-    <property name="hudson.osgi.url" value="${info.entry.url}"/>
-    
-    <!-- Configure Tomcat -->
-    <copy todir="${hudson.tomcat}" overwrite="true">
-      <fileset dir="${hudson.dir}/apache-tomcat">
-        <include name="**/*.xml"/>
-      </fileset>
-      <filterset>
-        <filtersfile file="${hudson.dir}/ant.properties"/>
-        <filter token="hudson.home" value="${hudson.home}"/>
-      </filterset>
-    </copy>
     
     <!-- Configure Hudson Home -->
     <copy todir="${hudson.home}" overwrite="true">
@@ -190,7 +150,7 @@
   
   <target name="hudson-stop" depends="init-hudson" description="Stops the Hudson QA environment">
     
-    <exec executable="${hudson.tomcat}/bin/catalina.sh" failonerror="true">
+    <exec executable="${tomcat.base}/bin/catalina.sh" failonerror="true">
       <arg line="stop"/>
     </exec>
 
@@ -205,10 +165,7 @@
   
   <target name="hudson-start" depends="init-hudson" description="Start the Hudson QA environment">
     
-    <property environment="env"/>
-    <fail message="unset JBOSS_REPOSITORY=${env.JBOSS_REPOSITORY}" if="env.JBOSS_REPOSITORY"/>
-
-    <exec executable="${hudson.tomcat}/bin/catalina.sh" failonerror="true" output="${hudson.target.dir}/hudson.log">
+    <exec executable="${tomcat.base}/bin/catalina.sh" failonerror="true" output="${hudson.target.dir}/hudson.log">
       <env key="CATALINA_OPTS" value="-Xmx512m -DHUDSON_HOME=${hudson.home} -Djava.awt.headless=true"/>
       <arg line="start"/>
     </exec>
@@ -219,7 +176,24 @@
     <echo message="* http://${jboss.bind.address}:${hudson.http.port}/hudson"/>
     <echo message="*************************************"/>
     <echo/>
-
   </target>
+  
+  <!-- ================================================================== -->
+  <!-- Hudson Jobs                                                        -->
+  <!-- ================================================================== -->
+  <macrodef name="copyjobs">
+    <sequential>
+      <copy todir="${hudson.home}/jobs" overwrite="true">
+        <fileset dir="${hudson.dir}/hudson-home/jobs">
+          <include name="*/config.xml"/>
+        </fileset>
+        <filterset>
+          <filter token="scm.url.jbosgi" value="${scm.url.jbosgi}"/>
+          <filter token="version.id" value="${version.id}"/>
+          <filtersfile file="${hudson.dir}/ant.properties"/>
+        </filterset>
+      </copy>
+    </sequential>
+  </macrodef>
   
 </project>

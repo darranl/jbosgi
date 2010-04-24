@@ -36,3 +36,4 @@ jboss.bind.address=127.0.0.1
 # hudson.jboss510.zip=file:///home/username/Download/java/jboss/jboss-5.1.0.GA.zip
 # hudson.jboss600.zip=file:///home/username/Download/java/jboss/jboss-6.0.0.M2.zip
 
+# tomcat.base=/usr/share/tomcat6

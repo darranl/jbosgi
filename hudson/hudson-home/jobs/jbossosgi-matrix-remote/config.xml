@@ -46,6 +46,7 @@
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.6</jdk>
   <triggers class="vector">
     <hudson.triggers.TimerTrigger>
       <spec>0 2 * * *</spec>

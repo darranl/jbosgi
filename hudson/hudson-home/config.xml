@@ -1,13 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <version>1.355</version>
-  <numExecutors>2</numExecutors>
+  <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
+    <permission>hudson.model.Item.Workspace:anonymous</permission>
     <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
     <permission>hudson.model.Hudson.Read:@hudson.username@</permission>
-    <permission>hudson.model.Hudson.Read:anonymous</permission>
     <permission>hudson.model.Computer.Configure:@hudson.username@</permission>
     <permission>hudson.model.Computer.Delete:@hudson.username@</permission>
     <permission>hudson.model.Item.Build:@hudson.username@</permission>
@@ -15,7 +17,6 @@
     <permission>hudson.model.Item.Create:@hudson.username@</permission>
     <permission>hudson.model.Item.Delete:@hudson.username@</permission>
     <permission>hudson.model.Item.Workspace:@hudson.username@</permission>
-    <permission>hudson.model.Item.Workspace:anonymous</permission>
     <permission>hudson.model.View.Configure:@hudson.username@</permission>
     <permission>hudson.model.View.Create:@hudson.username@</permission>
     <permission>hudson.model.View.Delete:@hudson.username@</permission>

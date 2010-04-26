@@ -10,5 +10,7 @@ framework.version=1.0.0.Alpha5-SNAPSHOT
 aQute.bnd.version=0.0.366-SNAPSHOT
 
 # The location of the OSGi TCK
-# osgitck.dir=/home/username/svn/osgi.org/build/trunk
+# tck.checkout.dir=/home/username/svn/osgi.org/tck/r4v42-core-cmpn-final
 
+# Hudson QA Environment
+# hudson.user=username

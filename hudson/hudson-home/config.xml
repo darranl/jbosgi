@@ -1,25 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
-  <numExecutors>2</numExecutors>
+  <version>1.355</version>
+  <numExecutors>1</numExecutors>
+  <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
-    <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
-    <permission>hudson.model.Hudson.Read:@hudson.username@</permission>
+  <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
     <permission>hudson.model.Hudson.Read:anonymous</permission>
-    <permission>hudson.model.Computer.Configure:@hudson.username@</permission>
-    <permission>hudson.model.Computer.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Item.Build:@hudson.username@</permission>
-    <permission>hudson.model.Item.Configure:@hudson.username@</permission>
-    <permission>hudson.model.Item.Create:@hudson.username@</permission>
-    <permission>hudson.model.Item.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Item.Workspace:@hudson.username@</permission>
-    <permission>hudson.model.Item.Workspace:anonymous</permission>
-    <permission>hudson.model.View.Configure:@hudson.username@</permission>
-    <permission>hudson.model.View.Create:@hudson.username@</permission>
-    <permission>hudson.model.View.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Run.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Run.Update:@hudson.username@</permission>
-    <permission>hudson.scm.SCM.Tag:@hudson.username@</permission>
+    <permission>hudson.model.Hudson.Administer:@hudson.admin@</permission>
+    <permission>hudson.model.Hudson.Read:@hudson.admin@</permission>
+    <permission>hudson.model.Computer.Configure:@hudson.admin@</permission>
+    <permission>hudson.model.Computer.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Build:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Configure:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Create:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Workspace:@hudson.admin@</permission>
+    <permission>hudson.model.View.Configure:@hudson.admin@</permission>
+    <permission>hudson.model.View.Create:@hudson.admin@</permission>
+    <permission>hudson.model.View.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Run.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Run.Update:@hudson.admin@</permission>
+    <permission>hudson.scm.SCM.Tag:@hudson.admin@</permission>
   </authorizationStrategy>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>false</disableSignup>
@@ -31,10 +32,10 @@
 <table>
 <tr align="left"><th>Bind Addr</th><td>@jboss.bind.address@</td></tr>
 <tr align="left"><th>Documentation</th><td>
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/jboss-osgi/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
+<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
 </td></tr>
 </table>
 ]]>
@@ -42,21 +43,74 @@
   <jdks>
     <jdk>
       <name>jdk1.5</name>
-      <javaHome>@java.home.jdk15@</javaHome>
+      <home>@java.home.jdk15@</home>
+      <properties/>
     </jdk>
     <jdk>
       <name>jdk1.6</name>
-      <javaHome>@java.home.jdk16@</javaHome>
+      <home>@java.home.jdk16@</home>
+      <properties/>
     </jdk>
   </jdks>
   <clouds/>
   <slaves/>
   <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
     <hudson.model.AllView>
       <owner class="hudson" reference="../../.."/>
       <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
     </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>OSGi TCK</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>aQute.bnd</string>
+        <string>osgi.blueprint.tests</string>
+        <string>osgi.core.tests</string>
+        <string>osgi.jdbc.tests</string>
+        <string>osgi.jmx.tests</string>
+        <string>osgi.jndi.tests</string>
+        <string>osgi.webapp.tests</string>
+      </jobNames>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>JBoss OSGi</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <string>JBoss-6.0.1</string>
+        <string>jbossosgi-embedded</string>
+        <string>jbossosgi-jdk16</string>
+        <string>jbossosgi-matrix-embedded</string>
+        <string>jbossosgi-matrix-remote</string>
+      </jobNames>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
   </views>
   <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>

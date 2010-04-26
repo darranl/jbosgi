@@ -1,32 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Build and test embedded JBossOSGi @version.id@</description>
-  <logRotator>
-    <daysToKeep>60</daysToKeep>
-    <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>-1</artifactDaysToKeep>
-    <artifactNumToKeep>-1</artifactNumToKeep>
-  </logRotator>
+  <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>@scm.http.url.jbosgi@</projectUrl>
-    </com.coravy.hudson.plugins.github.GithubProjectProperty>
-    <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Workspace:anonymous</permission>
-      <permission>hudson.model.Item.Read:anonymous</permission>
-    </hudson.security.AuthorizationMatrixProperty>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>framework</name>
-          <description></description>
-          <defaultValue>jbossmc</defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.plugins.git.GitSCM">
     <configVersion>1</configVersion>
     <remoteRepositories>
@@ -40,7 +17,7 @@
         <string>uploadpack</string>
         <string>git-upload-pack</string>
         <string>url</string>
-        <string>@scm.git.url.jbosgi@</string>
+        <string>git://github.com/jbosgi/jbosgi-framework.git</string>
         <string>tagopt</string>
         <string></string>
       </org.spearce.jgit.transport.RemoteConfig>
@@ -60,18 +37,48 @@
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>jdk1.6</jdk>
-  <triggers class="vector"/>
+  <triggers class="vector">
+    <hudson.triggers.TimerTrigger>
+      <spec>0 20 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Maven>
-      <targets>-U -fae clean install</targets>
-      <mavenName>@maven.name@</mavenName>
-      <usePrivateRepository>false</usePrivateRepository>
-    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>
+export TCKCHECKOUT=$WORKSPACE/tck-checkout
+export TCKSETUP=$WORKSPACE/jbosgi/reactor/tck-setup
+
+# Clone the TCK repo 
+if [ ! -d $TCKCHECKOUT ]; then
+  git clone ~hudson/git/org.osgi.tck $TCKCHECKOUT
+fi
+
+# Clone the jbosgi repo 
+if [ ! -d $TCKSETUP ]; then
+  git clone git://github.com/jbosgi/jbosgi.git 
+else
+  cd jbosgi; git pull origin master
+fi
+
+# Build and Install the Framework
+cd $WORKSPACE; mvn -U -fae -Pall clean install
+
+# Switch to known tck-checkout tag 
+cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final
+
+# Setup the TCK
+cd $TCKSETUP; cp ant.properties.example ant.properties
+ant clean setup.ri
+
+# Run the blueprint tests
+ant run-blueprint-tests
+      </command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>**/target/surefire-reports/TEST-*.xml</testResults>
+      <testResults>tck-checkout/*/generated/**/test-reports/TEST-*.xml</testResults>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
   </publishers>

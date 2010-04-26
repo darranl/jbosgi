@@ -11,7 +11,7 @@
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>https://svn.jboss.org/repos/jbossas/projects/jboss-osgi/projects/aQute/trunk</remote>
+        <remote>https://svn.jboss.org/repos/jbossas/projects/jboss-osgi/legacy/aQute/trunk</remote>
         <local>aQute.bnd</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>

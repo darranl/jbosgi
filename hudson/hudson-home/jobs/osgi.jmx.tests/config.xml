@@ -4,42 +4,71 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.scm.SubversionSCM">
-    <locations>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@tcksetup.svn.url@</remote>
-        <local>osgitck-setup</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-      <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>@osgitck.svn.url@</remote>
-        <local>osgitck.dir</local>
-      </hudson.scm.SubversionSCM_-ModuleLocation>
-    </locations>
-    <useUpdate>true</useUpdate>
-    <browser class="hudson.scm.browsers.FishEyeSVN">
-      <url>http://fisheye.jboss.com/browse/JBossOSGi/</url>
-      <rootModule></rootModule>
-    </browser>
-    <excludedRegions></excludedRegions>
-    <excludedUsers></excludedUsers>
-    <excludedRevprop></excludedRevprop>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>1</configVersion>
+    <remoteRepositories>
+      <org.spearce.jgit.transport.RemoteConfig>
+        <string>origin</string>
+        <int>5</int>
+        <string>fetch</string>
+        <string>+refs/heads/*:refs/remotes/origin/*</string>
+        <string>receivepack</string>
+        <string>git-upload-pack</string>
+        <string>uploadpack</string>
+        <string>git-upload-pack</string>
+        <string>url</string>
+        <string>git://github.com/jbosgi/jbosgi-framework.git</string>
+        <string>tagopt</string>
+        <string></string>
+      </org.spearce.jgit.transport.RemoteConfig>
+    </remoteRepositories>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <mergeOptions/>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <clean>false</clean>
+    <choosingStrategy>Default</choosingStrategy>
+    <submoduleCfg class="list"/>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>jdk1.6</jdk>
-  <triggers class="vector"/>
+  <triggers class="vector">
+    <hudson.triggers.TimerTrigger>
+      <spec>0 20 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>
-TCKSETUPDIR=$WORKSPACE/osgitck-setup
+export TCKCHECKOUT=$WORKSPACE/tck-checkout
+export TCKSETUP=$WORKSPACE/jbosgi/reactor/tck-setup
+
+# Clone the TCK repo 
+if [ ! -d $TCKCHECKOUT ]; then
+  git clone ~hudson/git/org.osgi.tck $TCKCHECKOUT
+fi
+
+# Clone the jbosgi repo 
+if [ ! -d $TCKSETUP ]; then
+  git clone git://github.com/jbosgi/jbosgi.git 
+else
+  cd jbosgi; git pull origin master
+fi
+
+# Build and Install the Framework
+cd $WORKSPACE; mvn -U -fae -Pall clean install
+
+# Switch to known tck-checkout tag 
+cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final
 
 # Setup the TCK
-cd $TCKSETUPDIR
-cp ant.properties.example ant.properties
-
-# Setup the TCK
+cd $TCKSETUP; cp ant.properties.example ant.properties
 ant clean setup.ri
 
 # Run the jmx tests
@@ -49,7 +78,7 @@ ant run-jmx-tests
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>osgitck.dir/*/generated/**/test-reports/TEST-*.xml</testResults>
+      <testResults>tck-checkout/*/generated/**/test-reports/TEST-*.xml</testResults>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
   </publishers>

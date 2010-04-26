@@ -11,8 +11,12 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>@scm.url.jbosgi@</projectUrl>
+      <projectUrl>@scm.http.url.jbosgi@</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+    </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <configVersion>1</configVersion>
@@ -27,7 +31,7 @@
         <string>uploadpack</string>
         <string>git-upload-pack</string>
         <string>url</string>
-        <string>@scm.url.jbosgi@</string>
+        <string>@scm.git.url.jbosgi@</string>
         <string>tagopt</string>
         <string></string>
       </org.spearce.jgit.transport.RemoteConfig>
@@ -46,7 +50,6 @@
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <jdk>jdk1.6</jdk>
   <triggers class="vector">
     <hudson.triggers.TimerTrigger>
       <spec>0 2 * * *</spec>
@@ -72,9 +75,14 @@
         <string>jbossmc</string>
       </values>
     </axis>
+    <axis>
+      <name>jdk</name>
+      <values>
+        <string>jdk1.6</string>
+      </values>
+    </axis>
   </axes>
   <combinationFilter>!((container=='jboss501' || container=='jboss510') &amp;&amp; framework=='jbossmc')</combinationFilter>
-  <jdk>jdk1.6</jdk>
   <builders>
     <hudson.tasks.Shell>
       <command>

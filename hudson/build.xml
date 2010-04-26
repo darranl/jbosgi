@@ -31,8 +31,8 @@
     
   	<!-- Setup property defaults -->
   	<property environment="env"/>
-    <property name="hudson.username" value="${env.USER}" />
-    <property name="hudson.root" value="/home/${hudson.username}/workspace/jboss-osgi" />
+    <property name="hudson.admin" value="${env.USER}" />
+    <property name="hudson.root" value="/home/${hudson.admin}/workspace/jboss-osgi" />
     
     <xmlproperty file="${project.root.dir}/pom.xml"/>
     <property name="version.id" value="${project.version}"/>
@@ -44,7 +44,7 @@
     <property name="hudson.version" value="1.355"/>
     
     <echo/>
-    <echo message="hudson.user = ${hudson.username}"/>
+    <echo message="hudson.user = ${hudson.admin}"/>
     <echo message="hudson.root = ${hudson.root}"/>
     <echo message="hudson.home = ${hudson.home}"/>
     <echo/>
@@ -56,8 +56,8 @@
     <available file="${tomcat.conf}" property="tomcat.conf.available"/>
     <fail message="Tomcat conf not available: ${tomcat.conf}" unless="tomcat.conf.available"/>
     
-    <property name="hudson.username.${hudson.username}" value="true"/>
-    <fail message="Cannot use default hudson username: ${hudson.username}" if="hudson.username.changeme"/>
+    <property name="hudson.admin.${hudson.admin}" value="true"/>
+    <fail message="Cannot use default hudson username: ${hudson.admin}" if="hudson.admin.changeme"/>
   </target>
   
   <target name="init-thirdparty" depends="init-hudson">
@@ -131,7 +131,7 @@
       </fileset>
       <filterset>
         <filter token="version.id" value="${version.id}"/>
-        <filter token="hudson.username" value="${hudson.username}"/>
+        <filter token="hudson.admin" value="${hudson.admin}"/>
         <filtersfile file="${hudson.dir}/ant.properties"/>
       </filterset>
     </copy>
@@ -142,40 +142,10 @@
     <echo/>
     <echo message="*************************************"/>
     <echo message="* Hudson setup successfully          "/>
-    <echo message="* ant hudson-start                   "/>
+    <echo message="* sudo service tomcat6 restart       "/>
     <echo message="*************************************"/>
     <echo/>
 
-  </target>
-  
-  <target name="hudson-stop" depends="init-hudson" description="Stops the Hudson QA environment">
-    
-    <exec executable="${tomcat.base}/bin/catalina.sh" failonerror="true">
-      <arg line="stop"/>
-    </exec>
-
-    <echo/>
-    <echo message="*************************************"/>
-    <echo message="* Hudson stopped successfully        "/>
-    <echo message="* ant hudson-start                   "/>
-    <echo message="*************************************"/>
-    <echo/>
-
-  </target>
-  
-  <target name="hudson-start" depends="init-hudson" description="Start the Hudson QA environment">
-    
-    <exec executable="${tomcat.base}/bin/catalina.sh" failonerror="true" output="${hudson.target.dir}/hudson.log">
-      <env key="CATALINA_OPTS" value="-Xmx512m -DHUDSON_HOME=${hudson.home} -Djava.awt.headless=true"/>
-      <arg line="start"/>
-    </exec>
-
-    <echo/>
-    <echo message="*************************************"/>
-    <echo message="* Hudson started successfully         "/>
-    <echo message="* http://${jboss.bind.address}:${hudson.http.port}/hudson"/>
-    <echo message="*************************************"/>
-    <echo/>
   </target>
   
   <!-- ================================================================== -->
@@ -188,7 +158,7 @@
           <include name="*/config.xml"/>
         </fileset>
         <filterset>
-          <filter token="scm.url.jbosgi" value="${scm.url.jbosgi}"/>
+          <filter token="scm.git.url.jbosgi" value="${scm.git.url.jbosgi}"/>
           <filter token="version.id" value="${version.id}"/>
           <filtersfile file="${hudson.dir}/ant.properties"/>
         </filterset>

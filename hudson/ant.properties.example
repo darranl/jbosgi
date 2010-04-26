@@ -12,10 +12,6 @@ tomcat.conf=/etc/tomcat6/tomcat6.conf
 scm.git.url.jbosgi=git://github.com/jbosgi/jbosgi.git
 scm.http.url.jbosgi=http://github.com/jbosgi/jbosgi
 
-# The Hudson OSGi TCK checkout URL
-osgitck.svn.url=https://www.osgi.org/members/svn/build/trunk
-osgitck.core.svn.url=https://www.osgi.org/members/svn/build/tags/r4v42-core-cmpn-final
-
 # JDK settings
 # ------------
 java.home.jdk15=/usr/java/jdk1.5.0_22

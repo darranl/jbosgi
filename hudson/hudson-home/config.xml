@@ -6,23 +6,21 @@
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
     <permission>hudson.model.Hudson.Read:anonymous</permission>
-    <permission>hudson.model.Item.Read:anonymous</permission>
-    <permission>hudson.model.Item.Workspace:anonymous</permission>
-    <permission>hudson.model.Hudson.Administer:@hudson.username@</permission>
-    <permission>hudson.model.Hudson.Read:@hudson.username@</permission>
-    <permission>hudson.model.Computer.Configure:@hudson.username@</permission>
-    <permission>hudson.model.Computer.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Item.Build:@hudson.username@</permission>
-    <permission>hudson.model.Item.Configure:@hudson.username@</permission>
-    <permission>hudson.model.Item.Create:@hudson.username@</permission>
-    <permission>hudson.model.Item.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Item.Workspace:@hudson.username@</permission>
-    <permission>hudson.model.View.Configure:@hudson.username@</permission>
-    <permission>hudson.model.View.Create:@hudson.username@</permission>
-    <permission>hudson.model.View.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Run.Delete:@hudson.username@</permission>
-    <permission>hudson.model.Run.Update:@hudson.username@</permission>
-    <permission>hudson.scm.SCM.Tag:@hudson.username@</permission>
+    <permission>hudson.model.Hudson.Administer:@hudson.admin@</permission>
+    <permission>hudson.model.Hudson.Read:@hudson.admin@</permission>
+    <permission>hudson.model.Computer.Configure:@hudson.admin@</permission>
+    <permission>hudson.model.Computer.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Build:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Configure:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Create:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Item.Workspace:@hudson.admin@</permission>
+    <permission>hudson.model.View.Configure:@hudson.admin@</permission>
+    <permission>hudson.model.View.Create:@hudson.admin@</permission>
+    <permission>hudson.model.View.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Run.Delete:@hudson.admin@</permission>
+    <permission>hudson.model.Run.Update:@hudson.admin@</permission>
+    <permission>hudson.scm.SCM.Tag:@hudson.admin@</permission>
   </authorizationStrategy>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>false</disableSignup>
@@ -65,6 +63,54 @@
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
     </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>OSGi TCK</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>aQute.bnd</string>
+        <string>osgi.blueprint.tests</string>
+        <string>osgi.core.tests</string>
+        <string>osgi.jdbc.tests</string>
+        <string>osgi.jmx.tests</string>
+        <string>osgi.jndi.tests</string>
+        <string>osgi.webapp.tests</string>
+      </jobNames>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>JBoss OSGi</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames class="tree-set">
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <string>JBoss-6.0.1</string>
+        <string>jbossosgi-embedded</string>
+        <string>jbossosgi-jdk16</string>
+        <string>jbossosgi-matrix-embedded</string>
+        <string>jbossosgi-matrix-remote</string>
+      </jobNames>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
   </views>
   <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>

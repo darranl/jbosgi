@@ -11,8 +11,12 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>@scm.url.jbosgi@</projectUrl>
+      <projectUrl>@scm.http.url.jbosgi@</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+    </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <configVersion>1</configVersion>
@@ -27,7 +31,7 @@
         <string>uploadpack</string>
         <string>git-upload-pack</string>
         <string>url</string>
-        <string>@scm.url.jbosgi@</string>
+        <string>@scm.git.url.jbosgi@</string>
         <string>tagopt</string>
         <string></string>
       </org.spearce.jgit.transport.RemoteConfig>

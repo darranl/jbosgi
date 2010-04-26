@@ -9,7 +9,12 @@ tomcat.conf=/etc/tomcat6/tomcat6.conf
 
 # SCM settings
 # ------------
-scm.url.jbosgi=git://github.com/jbosgi/jbosgi.git
+scm.git.url.jbosgi=git://github.com/jbosgi/jbosgi.git
+scm.http.url.jbosgi=http://github.com/jbosgi/jbosgi
+
+# The Hudson OSGi TCK checkout URL
+osgitck.svn.url=https://www.osgi.org/members/svn/build/trunk
+osgitck.core.svn.url=https://www.osgi.org/members/svn/build/tags/r4v42-core-cmpn-final
 
 # JDK settings
 # ------------
@@ -29,11 +34,9 @@ jboss.bind.address=127.0.0.1
 # Hudson Default settings
 # -----------------------
 # hudson.root=/home/username/workspace/hudson/jboss-osgi
-# hudson.username=username
+# hudson.admin=username
 # hudson.version=1.355
 
 # hudson.jboss501.zip=file:///home/username/Download/java/jboss/jboss-5.0.1.GA.zip
 # hudson.jboss510.zip=file:///home/username/Download/java/jboss/jboss-5.1.0.GA.zip
 # hudson.jboss600.zip=file:///home/username/Download/java/jboss/jboss-6.0.0.M2.zip
-
-# tomcat.base=/usr/share/tomcat6

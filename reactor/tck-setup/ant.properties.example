@@ -1,0 +1,16 @@
+#
+# A sample ant properties file
+#
+# $Id: ant.properties.example 3995 2007-07-26 08:52:45Z thomas.diesler@jboss.com $
+
+# The JBoss OSGi framework version
+framework.version=1.0.0.Alpha5-SNAPSHOT
+
+# The aQute Bnd version 
+aQute.bnd.version=0.0.366-SNAPSHOT
+
+# The location of the OSGi TCK
+# tck.checkout.dir=/home/username/svn/osgi.org/tck/r4v42-core-cmpn-final
+
+# Hudson QA Environment
+# hudson.user=username

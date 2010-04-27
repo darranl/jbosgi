@@ -40,6 +40,17 @@
     <version>1.0.0.Beta8</version>
   </parent>
 
+  <!-- Modules -->
+  <modules>
+    <module>jbosgi-jmx</module>
+    <module>jbosgi-spi</module>
+    <module>jbosgi-apache-xerces</module>
+    <module>jbosgi-http</module>
+    <module>jbosgi-jaxb</module>
+    <module>jbosgi-xml-binding</module>
+    <module>jbosgi-framework</module>
+  </modules>
+  
   <!-- Profiles -->
   <profiles>
 

@@ -60,10 +60,15 @@ esac
 
 ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.home=$RUNTIME_HOME -Djboss.bind.address=$JBOSS_BINDADDR"
 
+# Update the Git submodules
+if [ -f .gitmodules]; then
+   git submodule init
+   git submodule update
+fi
+
 #
 # Build distro
 #
-cd $OSGIDIR
 MVN_CMD="mvn -U -Pdistro $ENVIRONMENT clean install"
 echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
 if [ $MVN_STATUS -ne 0 ]; then

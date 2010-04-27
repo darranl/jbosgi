@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>http://github.com/jbosgi/jbossas.git</projectUrl>
+      <projectUrl>http://github.com/jbosgi/jbossas</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Workspace:anonymous</permission>

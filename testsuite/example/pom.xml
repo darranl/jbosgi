@@ -22,7 +22,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <name>JBossOSGi Testsuite - Examples</name>
+  <name>JBossOSGi Testsuite Examples</name>
 
   <groupId>org.jboss.osgi.testsuite</groupId>
   <artifactId>jboss-osgi-testsuite-example</artifactId>

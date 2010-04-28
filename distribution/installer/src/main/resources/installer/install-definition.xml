@@ -133,7 +133,7 @@
 
       <!-- JBossOSGi Source -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/source" override="true">
-        <include name="jboss-osgi-apache-xerces-sources.jar" />
+        <include name="jboss-osgi-xerces-sources.jar" />
         <include name="jboss-osgi-blueprint-sources.jar" />
         <include name="jboss-osgi-common-core-sources.jar" />
         <include name="jboss-osgi-common-sources.jar" />
@@ -230,8 +230,8 @@
         <!-- web -->
         <include name="org.apache.felix.configadmin.jar" />
         <include name="org.apache.felix.metatype.jar" />
+        <include name="jboss-osgi-http.jar" />
         <include name="jboss-osgi-webconsole.jar" />
-        <include name="pax-web-jetty-bundle.jar" />
       </fileset>
 
       <!-- Server All -->
@@ -245,12 +245,12 @@
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
         <!-- web -->
-        <include name="jboss-osgi-webconsole.jar" />
         <include name="org.apache.felix.configadmin.jar" />
         <include name="org.apache.felix.metatype.jar" />
-        <include name="pax-web-jetty-bundle.jar" />
+        <include name="jboss-osgi-http.jar" />
+        <include name="jboss-osgi-webconsole.jar" />
         <!-- all -->
-        <include name="jboss-osgi-apache-xerces.jar" />
+        <include name="jboss-osgi-xerces.jar" />
         <include name="jboss-osgi-blueprint.jar" />
         <include name="jboss-osgi-husky.jar" />
         <include name="jboss-osgi-jaxb.jar" />
@@ -421,21 +421,21 @@
 
       <!-- deploy/osgi -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="jboss-osgi-apache-xerces.jar" />
         <include name="jboss-osgi-blueprint.jar" />
         <include name="jboss-osgi-common.jar" />
         <include name="jboss-osgi-common-core.jar" />
+        <include name="jboss-osgi-http.jar" />
         <include name="jboss-osgi-husky.jar" />
         <include name="jboss-osgi-jaxb.jar" />
         <include name="jboss-osgi-jmx.jar" />
         <include name="jboss-osgi-jndi.jar" />
-        <include name="jboss-osgi-webconsole.jar" />
         <include name="jboss-osgi-reflect.jar" />
+        <include name="jboss-osgi-webconsole.jar" />
+        <include name="jboss-osgi-xerces.jar" />
         <include name="jboss-osgi-xml-binding.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
         <include name="org.apache.felix.log.jar" />
-        <include name="pax-web-jetty-bundle.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
         <include name="jta-service-jboss-beans.xml" />

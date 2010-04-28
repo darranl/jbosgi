@@ -25,7 +25,7 @@ package org.jboss.test.osgi.example.webapp;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.osgi.spi.capability.HttpServiceCapability;
+import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.junit.AfterClass;

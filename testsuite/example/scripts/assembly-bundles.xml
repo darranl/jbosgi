@@ -15,10 +15,10 @@
       <outputDirectory>bundles</outputDirectory>
       <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       <includes>
-        <include>*:jboss-osgi-apache-xerces:jar</include>
         <include>*:jboss-osgi-blueprint:jar</include>
         <include>*:jboss-osgi-common:jar</include>
         <include>*:jboss-osgi-common-core:jar</include>
+        <include>*:jboss-osgi-http:jar</include>
         <include>*:jboss-osgi-husky:jar</include>
         <include>*:jboss-osgi-jaxb:jar</include>
         <include>*:jboss-osgi-jmx:jar</include>
@@ -27,6 +27,7 @@
         <include>*:jboss-osgi-reflect:jar</include>
         <include>*:jboss-osgi-serviceloader:jar</include>
         <include>*:jboss-osgi-webapp:jar</include>
+        <include>*:jboss-osgi-xerces:jar</include>
         <include>*:jboss-osgi-xml-binding:jar</include>
         <include>*:org.apache.aries.blueprint:jar</include>
         <include>*:org.apache.aries.jmx:jar</include>
@@ -36,7 +37,6 @@
         <include>*:org.apache.felix.log:jar</include>
         <include>*:org.apache.felix.metatype:jar</include>
         <include>*:pax-web-extender-war:jar</include>
-        <include>*:pax-web-jetty-bundle:jar</include>
       </includes>
       <useStrictFiltering>true</useStrictFiltering>
       <scope>provided</scope>

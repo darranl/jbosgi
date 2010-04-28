@@ -50,16 +50,37 @@
   <!-- 
   ********************************
   *                              *  
+  *  OSGi Meta Data Repository   *
+  *                              *
+  ********************************
+  -->
+  
+  <bean name="MDRService" class="org.jboss.osgi.framework.bundle.MetaDataRetrievalService">
+    <constructor>
+      <parameter><inject bean="jboss.kernel:service=Kernel" /></parameter>
+      <parameter><inject bean="OSGiBundleManager" property="systemBundle" /></parameter>
+    </constructor>
+    <property name="factory"><inject bean="InstanceMDRFactory" /></property>
+  </bean>
+  <bean name="InstanceMDRFactory" class="org.jboss.osgi.framework.bundle.InstanceMetaDataRetrievalFactory">
+    <constructor><parameter><inject bean="jboss.kernel:service=Kernel" /></parameter></constructor>
+    <incallback method="addFactory" />
+    <uncallback method="removeFactory" />
+  </bean>
+  <bean name="OSGiDictionaryFactory" class="org.jboss.osgi.framework.bundle.OSGiServiceStateDictionaryFactory" />
+  <bean name="KernelDictionaryFactory" class="org.jboss.osgi.framework.bundle.KernelDictionaryFactory">
+    <constructor><parameter><inject bean="jboss.kernel:service=KernelConfigurator" /></parameter>
+    </constructor>
+  </bean>
+  
+  <!-- 
+  ********************************
+  *                              *  
   *  OSGi Framework Plugins      *
   *                              *
   ********************************
   -->
   
-  <!-- 
-  <bean name="OSGiBundleResolver" class="org.jboss.osgi.framework.resolver.internal.basic.BasicResolverImpl">
-    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
-  </bean>
-  -->
   <bean name="OSGiControllerContextPlugin" class="org.jboss.osgi.framework.bundle.ControllerContextPluginImpl">
     <constructor>
       <parameter><inject bean="OSGiBundleManager" /></parameter>
@@ -92,17 +113,34 @@
   
   <bean name="MicrocontainerService" class="org.jboss.osgi.framework.service.internal.MicrocontainerServiceImpl">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <related-class name="org.jboss.osgi.spi.service.MicrocontainerService">OSGi</related-class>
+    <demand state="PreInstall">MDRService</demand>
   </bean>
   <bean name="StartLevelService" class="org.jboss.osgi.framework.service.internal.StartLevelImpl">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <related-class name="org.osgi.service.startlevel.StartLevel">OSGi</related-class>
+    <demand state="PreInstall">MDRService</demand>
   </bean>
   <bean name="PackageAdminService" class="org.jboss.osgi.framework.packageadmin.PackageAdminImpl">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
-  </bean>
-  <bean name="DeployerService" class="org.jboss.osgi.framework.service.internal.DeployerServiceImpl">
-    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <related-class name="org.osgi.service.packageadmin.PackageAdmin">OSGi</related-class>
+    <demand state="PreInstall">MDRService</demand>
   </bean>
   <bean name="LifecycleInterceptorService" class="org.jboss.osgi.framework.service.internal.LifecycleInterceptorServiceImpl">
+    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <related-class name="org.jboss.osgi.deployment.interceptor.LifecycleInterceptorService">OSGi</related-class>
+    <demand state="PreInstall">MDRService</demand>
+  </bean>
+  
+  <!--
+  ********************************
+  *                              *  
+  *  OSGi Interceptors           *
+  *                              *
+  ********************************
+  -->
+  
+  <bean name="WebXMLVerifier" class="org.jboss.osgi.framework.service.internal.WebXMLVerifierInterceptor">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
   </bean>
   
@@ -119,9 +157,6 @@
     <property name="structuralDeployers"><inject bean="StructuralDeployers" /></property>
     <property name="deployers"><inject bean="Deployers" /></property>
   </bean>
-
-  <!-- The deployment registry -->
-  <bean name="OSGiDeploymentRegistry" class="org.jboss.deployers.structure.spi.helpers.AbstractDeploymentRegistry"/>
 
   <!-- The holder for deployers that determine structure -->
   <bean name="StructuralDeployers" class="org.jboss.deployers.vfs.plugins.structure.VFSStructuralDeployersImpl">
@@ -159,6 +194,9 @@
     <property name="deploymentRegistry"><inject bean="OSGiDeploymentRegistry"/></property>
   </bean>
 
+  <!-- The deployment registry -->
+  <bean name="OSGiDeploymentRegistry" class="org.jboss.deployers.structure.spi.helpers.AbstractDeploymentRegistry"/>
+
   <!-- OSGI Deployment -->
   <bean name="OSGiBundleActivatorDeployer" class="org.jboss.osgi.framework.deployers.OSGiBundleActivatorDeployer" />
   <bean name="OSGiBundleStateCreateDeployer" class="org.jboss.osgi.framework.deployers.OSGiBundleStateCreateDeployer">
@@ -171,6 +209,20 @@
   <bean name="OSGiManifestParsingDeployer" class="org.jboss.osgi.framework.deployers.OSGiManifestParsingDeployer" />
   <bean name="OSGiNativeCodeMetaDataDeployer" class="org.jboss.osgi.framework.deployers.OSGiNativeCodeMetaDataDeployer" />
 
+  <bean name="OSGiSingletonSchemaResolverFactory">
+    <constructor factoryClass="org.jboss.xb.binding.sunday.unmarshalling.SingletonSchemaResolverFactory" factoryMethod="getInstance" />
+  </bean>
+  <bean name="Pojo2OSGiSchema" class="org.jboss.xb.binding.resolver.MutableSchemaResolver">
+    <constructor factoryMethod="getSchemaBindingResolver"><factory bean="OSGiSingletonSchemaResolverFactory" /></constructor>
+    <install method="mapURIToClass">
+      <parameter>urn:jboss:pojo2osgi:1.0</parameter>
+      <parameter>org.jboss.osgi.framework.metadata.internal.OSGiPojoMetaData</parameter>
+    </install>
+    <uninstall method="removeURIToClassMapping">
+      <parameter>urn:jboss:pojo2osgi:1.0</parameter>
+    </uninstall>
+  </bean>
+  
   <!--
   ********************************
   *                              *  

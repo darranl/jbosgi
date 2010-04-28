@@ -4,7 +4,7 @@ JBoss OSGi
 This is the umbrella project for our OSGi effort. It is the home of the integration testsuite, the installer, documentation, etc.
 
 Building From Source
--------------------------------
+--------------------
 
 > git clone git://github.com/jbosgi/jbosgi.git
 
@@ -14,12 +14,13 @@ When you work with the latest head it is likely that the umbrella project contai
 > git submodule update
 
 Setup the JBoss Maven Repository
------------------------------------------------------
+--------------------------------
 
 To use dependencies from JBoss.org, you need to add the JBoss Maven Repositories to your Maven settings.xml. For details see http://community.jboss.org/wiki/MavenGettingStarted-Users
 
 Build with Maven
--------------------------
+----------------
+
 The command below builds all the modules and runs all the suites in embedded mode.
 
 <pre>
@@ -46,7 +47,8 @@ $ mvn clean install
 To setup a local Hudson QA environment have a look at http://community.jboss.org/wiki/JBossOSGiHudsonQA
 
 Running Tests
----------------------
+-------------
+
 There are two properties that can be specified when running tests
 
 > -Dtarget.container=[runtime|jboss501|jboss510|jboss???]

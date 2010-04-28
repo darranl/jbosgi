@@ -19,3 +19,9 @@
 [submodule "reactor/jbosgi-http"]
 	path = reactor/jbosgi-http
 	url = git://github.com/jbosgi/jbosgi-http.git
+[submodule "reactor/jbosgi-webapp"]
+	path = reactor/jbosgi-webapp
+	url = git://github.com/jbosgi/jbosgi-webapp.git
+[submodule "reactor/jbosgi-parent"]
+	path = reactor/jbosgi-parent
+	url = git://github.com/jbosgi/jbosgi-parent.git

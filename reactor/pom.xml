@@ -37,20 +37,9 @@
   <parent>
     <groupId>org.jboss.osgi</groupId>
     <artifactId>jboss-osgi</artifactId>
-    <version>1.0.0.Beta8</version>
+    <version>1.0.0.Beta8-SNAPSHOT</version>
   </parent>
 
-  <!-- Modules -->
-  <modules>
-    <module>jbosgi-jmx</module>
-    <module>jbosgi-spi</module>
-    <module>jbosgi-apache-xerces</module>
-    <module>jbosgi-http</module>
-    <module>jbosgi-jaxb</module>
-    <module>jbosgi-xml-binding</module>
-    <module>jbosgi-framework</module>
-  </modules>
-  
   <!-- Profiles -->
   <profiles>
 
@@ -69,7 +58,29 @@
         <module>jbossmc-javadoc</module>
       </modules>
     </profile>
-
+    
+    <!--
+      Name: reactor
+      Descr: Build the reactor modules
+    -->
+    <profile>
+      <id>reactor</id>
+      <activation>
+        <property>
+          <name>!noreactor</name>
+        </property>
+      </activation>
+      <modules>
+        <module>jbosgi-apache-xerces</module>
+        <module>jbosgi-http</module>
+        <module>jbosgi-jaxb</module>
+        <module>jbosgi-jmx</module>
+        <module>jbosgi-spi</module>
+        <module>jbosgi-xml-binding</module>
+        <module>jbosgi-webapp</module>
+        <module>jbosgi-framework</module>
+      </modules>
+    </profile>
+    
   </profiles>
-  
 </project>

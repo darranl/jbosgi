@@ -1,21 +1,21 @@
 [submodule "reactor/jbosgi-framework"]
 	path = reactor/jbosgi-framework
-	url = git@github.com:jbosgi/jbosgi-framework.git
+	url = git://github.com/jbosgi/jbosgi-framework.git
 [submodule "reactor/jbosgi-apache-xerces"]
 	path = reactor/jbosgi-apache-xerces
-	url = git@github.com:jbosgi/jbosgi-apache-xerces.git
+	url = git://github.com/jbosgi/jbosgi-apache-xerces.git
 [submodule "reactor/jbosgi-spi"]
 	path = reactor/jbosgi-spi
-	url = git@github.com:jbosgi/jbosgi-spi.git
+	url = git://github.com/jbosgi/jbosgi-spi.git
 [submodule "reactor/jbosgi-jaxb"]
 	path = reactor/jbosgi-jaxb
-	url = git@github.com:jbosgi/jbosgi-jaxb.git
+	url = git://github.com/jbosgi/jbosgi-jaxb.git
 [submodule "reactor/jbosgi-jmx"]
 	path = reactor/jbosgi-jmx
-	url = git@github.com:jbosgi/jbosgi-jmx.git
+	url = git://github.com/jbosgi/jbosgi-jmx.git
 [submodule "reactor/jbosgi-xml-binding"]
 	path = reactor/jbosgi-xml-binding
-	url = git@github.com:jbosgi/jbosgi-xml-binding.git
+	url = git://github.com/jbosgi/jbosgi-xml-binding.git
 [submodule "reactor/jbosgi-http"]
 	path = reactor/jbosgi-http
-	url = git@github.com:jbosgi/jbosgi-http.git
+	url = git://github.com/jbosgi/jbosgi-http.git

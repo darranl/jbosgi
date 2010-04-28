@@ -66,134 +66,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi</groupId>
-      <artifactId>jboss-osgi-spi</artifactId>
-      <version>${version.jboss.osgi.spi}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.deployers</groupId>
-      <artifactId>jboss-osgi-deployers-vfs30</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.deployers</groupId>
-      <artifactId>jboss-osgi-deployers-vfs21</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx-api</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx-api</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx-api</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi-api</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi-api</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi-api</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs</artifactId>
-      <version>${version.jboss.osgi.vfs}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs</artifactId>
-      <version>${version.jboss.osgi.vfs}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs30</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs30</artifactId>
-      <version>${version.jboss.osgi.vfs}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs21</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs21</artifactId>
-      <version>${version.jboss.osgi.vfs}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.testsuite</groupId>
-      <artifactId>jboss-osgi-testsuite-example</artifactId>
-      <version>${version}</version>
-      <type>zip</type>
-    </dependency>
-
-    <!-- jboss.osgi.bundles -->
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-apache-xerces</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-apache-xerces</artifactId>
-      <version>${version.jboss.osgi.apache.xerces}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-apache-xerces</artifactId>
-      <version>${version.jboss.osgi.apache.xerces}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-blueprint</artifactId>
     </dependency>
@@ -205,12 +77,6 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-blueprint</artifactId>
-      <version>${version.jboss.osgi.blueprint}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-common</artifactId>
     </dependency>
     <dependency>
@@ -218,12 +84,6 @@
       <artifactId>jboss-osgi-common</artifactId>
       <version>${version.jboss.osgi.common}</version>
       <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-common</artifactId>
-      <version>${version.jboss.osgi.common}</version>
-      <classifier>javadoc</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
@@ -235,7 +95,6 @@
       <version>${version.jboss.osgi.common.core}</version>
       <classifier>sources</classifier>
     </dependency>
-    <!-- jboss-osgi-common-core: no javadoc -->
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-hotdeploy</artifactId>
@@ -246,7 +105,6 @@
       <version>${version.jboss.osgi.hotdeploy}</version>
       <classifier>sources</classifier>
     </dependency>
-    <!-- jboss-osgi-hotdeploy: no javadoc -->
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-husky</artifactId>
@@ -259,28 +117,6 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-husky</artifactId>
-      <version>${version.jboss.osgi.husky}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-jaxb</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-jaxb</artifactId>
-      <version>${version.jboss.osgi.jaxb}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-jaxb</artifactId>
-      <version>${version.jboss.osgi.jaxb}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-jta</artifactId>
     </dependency>
     <dependency>
@@ -288,12 +124,6 @@
       <artifactId>jboss-osgi-jta</artifactId>
       <version>${version.jboss.osgi.jta}</version>
       <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-jta</artifactId>
-      <version>${version.jboss.osgi.jta}</version>
-      <classifier>javadoc</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
@@ -305,7 +135,6 @@
       <version>${version.jboss.osgi.reflect}</version>
       <classifier>sources</classifier>
     </dependency>
-    <!-- jboss-osgi-reflect: no javadoc -->
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-serviceloader</artifactId>
@@ -318,28 +147,6 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-serviceloader</artifactId>
-      <version>${version.jboss.osgi.serviceloader}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-webapp</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-webapp</artifactId>
-      <version>${version.jboss.osgi.webapp}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-webapp</artifactId>
-      <version>${version.jboss.osgi.webapp}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
       <artifactId>jboss-osgi-webconsole</artifactId>
     </dependency>
     <dependency>
@@ -349,26 +156,12 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-webconsole</artifactId>
-      <version>${version.jboss.osgi.webconsole}</version>
-      <classifier>javadoc</classifier>
+      <groupId>org.jboss.osgi.deployers</groupId>
+      <artifactId>jboss-osgi-deployers-vfs30</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-      <version>${version.jboss.osgi.xml.binding}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-      <version>${version.jboss.osgi.xml.binding}</version>
-      <classifier>javadoc</classifier>
+      <groupId>org.jboss.osgi.deployers</groupId>
+      <artifactId>jboss-osgi-deployers-vfs21</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.deployment</groupId>
@@ -381,10 +174,14 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.deployment</groupId>
-      <artifactId>jboss-osgi-deployment</artifactId>
-      <version>${version.jboss.osgi.deployment}</version>
-      <classifier>javadoc</classifier>
+      <groupId>org.jboss.osgi.jaxb</groupId>
+      <artifactId>jboss-osgi-jaxb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jaxb</groupId>
+      <artifactId>jboss-osgi-jaxb</artifactId>
+      <version>${version.jboss.osgi.jaxb}</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.jbossas</groupId>
@@ -396,7 +193,114 @@
       <version>${version.jboss.osgi.jbossas}</version>
       <classifier>sources</classifier>
     </dependency>
-    <!-- jboss-osgi-jbossas: no javadoc -->
+    <dependency>
+      <groupId>org.jboss.osgi.jmx</groupId>
+      <artifactId>jboss-osgi-jmx</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jmx</groupId>
+      <artifactId>jboss-osgi-jmx</artifactId>
+      <version>${version.jboss.osgi.jmx}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jmx</groupId>
+      <artifactId>jboss-osgi-jmx-api</artifactId>
+      <version>${version.jboss.osgi.jmx}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jmx</groupId>
+      <artifactId>jboss-osgi-jmx-api</artifactId>
+      <version>${version.jboss.osgi.jmx}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jndi</groupId>
+      <artifactId>jboss-osgi-jndi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jndi</groupId>
+      <artifactId>jboss-osgi-jndi</artifactId>
+      <version>${version.jboss.osgi.jndi}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jndi</groupId>
+      <artifactId>jboss-osgi-jndi-api</artifactId>
+      <version>${version.jboss.osgi.jndi}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.jndi</groupId>
+      <artifactId>jboss-osgi-jndi-api</artifactId>
+      <version>${version.jboss.osgi.jndi}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs</artifactId>
+      <version>${version.jboss.osgi.vfs}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs30</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs30</artifactId>
+      <version>${version.jboss.osgi.vfs}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs21</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.vfs</groupId>
+      <artifactId>jboss-osgi-vfs21</artifactId>
+      <version>${version.jboss.osgi.vfs}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.webapp</groupId>
+      <artifactId>jboss-osgi-webapp</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.webapp</groupId>
+      <artifactId>jboss-osgi-webapp</artifactId>
+      <version>${version.jboss.osgi.webapp}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.testsuite</groupId>
+      <artifactId>jboss-osgi-testsuite-example</artifactId>
+      <version>${version}</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.xb</groupId>
+      <artifactId>jboss-osgi-xml-binding</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.xb</groupId>
+      <artifactId>jboss-osgi-xml-binding</artifactId>
+      <version>${version.jboss.osgi.xml.binding}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.xerces</groupId>
+      <artifactId>jboss-osgi-xerces</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.xerces</groupId>
+      <artifactId>jboss-osgi-xerces</artifactId>
+      <version>${version.jboss.osgi.xerces}</version>
+      <classifier>sources</classifier>
+    </dependency>
     
     <!-- Aries Dependencies -->
     <dependency>
@@ -456,12 +360,6 @@
       <artifactId>org.osgi.compendium</artifactId>
     </dependency>
     
-    <!-- OPS4J -->
-    <dependency>
-      <groupId>org.ops4j.pax.web</groupId>
-      <artifactId>pax-web-jetty-bundle</artifactId>
-    </dependency>
-
     <!-- JBossMC Dependencies -->
     <dependency>
       <groupId>org.jboss.osgi.framework</groupId>

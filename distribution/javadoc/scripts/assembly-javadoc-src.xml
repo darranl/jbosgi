@@ -12,11 +12,11 @@
       <outputDirectory>/</outputDirectory>
       <useStrictFiltering>true</useStrictFiltering>
       <includes>
-        <include>*:jboss-osgi-apache-xerces:jar:sources</include>
         <include>*:jboss-osgi-blueprint:jar:sources</include>
         <include>*:jboss-osgi-common:jar:sources</include>
         <include>*:jboss-osgi-deployment:jar:sources</include>
         <include>*:jboss-osgi-hotdeploy:jar:sources</include>
+        <include>*:jboss-osgi-http:jar:sources</include>
         <include>*:jboss-osgi-husky:jar:sources</include>
         <include>*:jboss-osgi-jaxb:jar:sources</include>
         <include>*:jboss-osgi-jmx-api:jar:sources</include>
@@ -25,6 +25,7 @@
         <include>*:jboss-osgi-spi:jar:sources</include>
         <include>*:jboss-osgi-vfs:jar:sources</include>
         <include>*:jboss-osgi-webapp:jar:sources</include>
+        <include>*:jboss-osgi-xerces:jar:sources</include>
         <include>*:jboss-osgi-xml-binding:jar:sources</include>
       </includes>
       <unpack>true</unpack>

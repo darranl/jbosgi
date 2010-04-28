@@ -36,6 +36,12 @@
     <url>http://github.com/jbosgi/jbosgi</url>
   </scm>
 
+  <!-- Modules -->
+  <modules>
+    <module>reactor</module>
+    <module>testsuite</module>
+  </modules>
+
   <!-- Properties -->
   <properties>
     <version.apache.ant>1.7.0</version.apache.ant>
@@ -521,11 +527,5 @@
       </build>
     </profile>
   </profiles>
-
-  <!-- Modules -->
-  <modules>
-    <module>reactor</module>
-    <module>testsuite</module>
-  </modules>
 
 </project>

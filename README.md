@@ -10,7 +10,7 @@ Building From Source
 
 When you work with the latest head it is likely that the umbrella project contains references to external submodules. In which case you have a .gitmodules file in the project root. Before you do the actual maven build, you need to initialize and update the submodules like this
 
-> git submodule init
+> git submodule init  
 > git submodule update
 
 Setup the JBoss Maven Repository
@@ -51,7 +51,7 @@ Running Tests
 
 There are two properties that can be specified when running tests
 
-> -Dtarget.container=[runtime|jboss501|jboss510|jboss???]
+> -Dtarget.container=[runtime|jboss501|jboss510|jboss???]  
 > -Dframework=[felix|equinox|jbossmc]
 
 The default uses the native MC based Framework in embedded mode (i.e. no target container)

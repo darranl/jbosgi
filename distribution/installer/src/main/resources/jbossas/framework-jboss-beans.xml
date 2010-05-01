@@ -48,9 +48,13 @@
         <entry><key>org.jboss.osgi.jndi.host</key><value>${jboss.bind.address}</value></entry>
         <!-- JTA Object Store -->
         <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${jboss.server.data.dir}/tx-object-store</value></entry>
+        <!-- Enable Workaround for [JBOSGI-317] Context is already registered in domain DefaultDomain -->
+        <entry><key>jbosgi317.workaround</key><value>true</value></entry>
+        <!-- Enable Workaround for [JBOSGI-319] LinkageError for the type javax/servlet/Servlet -->
+        <entry><key>jbosgi319.workaround</key><value>true</value></entry>
       </map>
     </property>
-    <incallback method="addPlugin" />
+    <incallback method="addPlugin" state="Instantiated"/>
     <uncallback method="removePlugin" />
   </bean>
   
@@ -71,9 +75,30 @@
   </bean>
   -->
 
+  <bean name="OSGiBundleResolver" class="org.jboss.osgi.framework.resolver.internal.basic.BasicResolverImpl">
+    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+  </bean>
+
+  <bean name="OSGiDeployersWrapper" class="org.jboss.osgi.framework.deployers.OSGiDeployersWrapper" >
+    <constructor>
+      <parameter><inject bean="MainDeployer"/></parameter>
+      <parameter><inject bean="OSGiBundleManager"/></parameter>
+    </constructor>
+  </bean>
+
+  <!-- Enable Workaround for [JBOSGI-317] Context is already registered in domain DefaultDomain -->
+  <bean name="OSGiModuleDeployerJBOSGI317" class="org.jboss.osgi.framework.deployers.OSGiModuleDeployerJBOSGI317">
+    <property name="classLoading"><inject bean="ClassLoading" /></property>
+    <property name="bundleManager"><inject bean="OSGiBundleManager" /></property>
+  </bean>
+
   <!-- Autostart the Framework -->
   <bean name="jboss.osgi:service=Framework" class="org.jboss.osgi.framework.launch.OSGiFramework">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <depends>OSGiFrameworkEventsPlugin</depends>
+    <depends>OSGiServiceManagerPlugin</depends>
+    <depends>OSGiStoragePlugin</depends>
+    <depends>OSGiSystemPackages</depends>
   </bean>
   
 </deployment>

@@ -448,7 +448,7 @@
         <include name="jboss-osgi-felix.jar" />
         <include name="org.apache.felix.framework.jar" />
       </fileset>
-      <singlefile condition="isFelix" src="@{deploy.artifacts.dir}/resources/jbossas/jboss-beans-felix.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/jboss-osgi-jboss-beans.xml"
+      <singlefile condition="isFelix" src="@{deploy.artifacts.dir}/resources/jbossas/felix-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/felix-jboss-beans.xml"
         override="true" />
       <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
         <include name="org.apache.felix.configadmin.jar" />
@@ -468,7 +468,7 @@
         <include name="org.apache.equinox.framework.jar" />
         <include name="org.eclipse.osgi.jar" />
       </fileset>
-      <singlefile condition="isEquinox" src="@{deploy.artifacts.dir}/resources/jbossas/jboss-beans-equinox.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/jboss-osgi-jboss-beans.xml"
+      <singlefile condition="isEquinox" src="@{deploy.artifacts.dir}/resources/jbossas/equinox-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/equinox-jboss-beans.xml"
         override="true" />
       <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
         <include name="org.apache.felix.configadmin.jar" />
@@ -494,7 +494,9 @@
         override="true">
         <include name="jboss-osgi-framework-vfs30.jar" />
       </fileset>
-      <singlefile condition="isJBossMC" src="@{deploy.artifacts.dir}/resources/jbossas/jboss-beans-jbossmc.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/jboss-osgi-jboss-beans.xml"
+      <singlefile condition="isJBossMC" src="@{deploy.artifacts.dir}/resources/jbossas/framework-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-jboss-beans.xml"
+        override="true" />
+      <singlefile condition="isJBossMC" src="@{deploy.artifacts.dir}/lib/framework-core/META-INF/jboss-osgi-bootstrap-system.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-system-jboss-beans.xml"
         override="true" />
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">

@@ -23,16 +23,16 @@ package org.jboss.test.osgi.example.http;
 
 //$Id: $
 
+import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.IOException;
 
 import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.OSGiServiceReference;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -45,7 +45,7 @@ import org.osgi.service.http.HttpService;
  * @author thomas.diesler@jboss.com
  * @since 23-Jan-2009
  */
-public class HttpServiceTestCase
+public class HttpServiceTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
@@ -72,42 +72,40 @@ public class HttpServiceTestCase
    @Test
    public void testServletAccess() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=plain");
+      String line = getHttpResponse("/servlet?test=plain", 5000);
       assertEquals("Hello from Servlet", line);
    }
 
    @Test
    public void testServletInitProps() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=initProp");
+      String line = getHttpResponse("/servlet?test=initProp", 5000);
       assertEquals("initProp=SomeValue", line);
    }
 
    @Test
    public void testServletBundleContext() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=context");
+      String line = getHttpResponse("/servlet?test=context", 5000);
       assertEquals("example-http", line);
    }
 
    @Test
    public void testServletStartLevel() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=startLevel");
+      String line = getHttpResponse("/servlet?test=startLevel", 5000);
       assertEquals("startLevel=1", line);
    }
 
    @Test
    public void testResourceAccess() throws Exception
    {
-      String line = getHttpResponse("/file/message.txt");
+      String line = getHttpResponse("/file/message.txt", 5000);
       assertEquals("Hello from Resource", line);
    }
 
-   private String getHttpResponse(String reqPath) throws Exception
+   private String getHttpResponse(String reqPath, int timeout) throws IOException
    {
-      URL url = new URL("http://" + runtime.getServerHost() + ":8090" + reqPath);
-      BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-      return br.readLine();
+      return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
    }
 }

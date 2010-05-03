@@ -25,10 +25,12 @@ package org.jboss.test.osgi.example.http.bundle;
 
 import java.util.Properties;
 
+import org.jboss.osgi.common.log.LogServiceTracker;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
+import org.osgi.service.log.LogService;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -40,9 +42,13 @@ import org.osgi.util.tracker.ServiceTracker;
 public class HttpExampleActivator implements BundleActivator
 {
    private ServiceTracker tracker;
+   private LogService log;
    
    public void start(BundleContext context)
    {
+      log = new LogServiceTracker(context);
+      log.log(LogService.LOG_INFO, "Start: " + context.getBundle());
+      
       tracker = new ServiceTracker(context, HttpService.class.getName(), null)
       {
          @Override
@@ -73,6 +79,7 @@ public class HttpExampleActivator implements BundleActivator
 
    private void registerService(BundleContext context, HttpService httpService)
    {
+      log.log(LogService.LOG_INFO, "registerService: " + context.getBundle());
       try
       {
          Properties initParams = new Properties();
@@ -88,6 +95,7 @@ public class HttpExampleActivator implements BundleActivator
 
    private void unregisterService(BundleContext context, HttpService httpService)
    {
+      log.log(LogService.LOG_INFO, "unregisterService: " + context.getBundle());
       httpService.unregister("/servlet");
       httpService.unregister("/file");
    }

@@ -30,6 +30,7 @@ import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.webapp.WebAppCapability;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -43,7 +44,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 26-Oct-2009
  */
-public class WebAppNegativeTestCase extends AbstractWebAppTestCase
+public class WebAppNegativeTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 

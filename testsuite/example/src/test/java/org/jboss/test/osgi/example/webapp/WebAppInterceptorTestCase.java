@@ -23,11 +23,16 @@ package org.jboss.test.osgi.example.webapp;
 
 // $Id: $
 
+import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
+import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.webapp.WebAppCapability;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -39,7 +44,7 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 06-Oct-2009
  */
-public class WebAppInterceptorTestCase extends AbstractWebAppTestCase
+public class WebAppInterceptorTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
@@ -66,21 +71,26 @@ public class WebAppInterceptorTestCase extends AbstractWebAppTestCase
    public void testResourceAccess() throws Exception
    {
       // FIXME: http://issues.ops4j.org/browse/PAXWEB-182
-      String line = getHttpResponse("/message.txt", 20000);
+      String line = getHttpResponse("/example-webapp/message.txt", 20000);
       assertEquals("Hello from Resource", line);
    }
 
    @Test
    public void testServletAccess() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=plain", 20000);
+      String line = getHttpResponse("/example-webapp/servlet?test=plain", 20000);
       assertEquals("Hello from Servlet", line);
    }
 
    @Test
    public void testServletInitProps() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=initProp", 20000);
+      String line = getHttpResponse("/example-webapp/servlet?test=initProp", 20000);
       assertEquals("initProp=SomeValue", line);
+   }
+
+   private String getHttpResponse(String reqPath, int timeout) throws IOException
+   {
+      return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
    }
 }

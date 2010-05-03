@@ -23,11 +23,15 @@ package org.jboss.test.osgi.example.webapp;
 
 //$Id:$
 
+import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
 
 import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,7 +46,7 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 06-Oct-2009
  */
-public class WebAppExtenderTestCase extends AbstractWebAppTestCase
+public class WebAppExtenderTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
@@ -72,21 +76,26 @@ public class WebAppExtenderTestCase extends AbstractWebAppTestCase
    @Test
    public void testServletAccess() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=plain", 5000);
+      String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
       assertEquals("Hello from Servlet", line);
    }
 
    @Test
    public void testServletInitProps() throws Exception
    {
-      String line = getHttpResponse("/servlet?test=initProp", 5000);
+      String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
       assertEquals("initProp=SomeValue", line);
    }
 
    @Test
    public void testResourceAccess() throws Exception
    {
-      String line = getHttpResponse("/message.txt", 5000);
+      String line = getHttpResponse("/example-webapp/message.txt", 5000);
       assertEquals("Hello from Resource", line);
+   }
+
+   private String getHttpResponse(String reqPath, int timeout) throws IOException
+   {
+      return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
    }
 }

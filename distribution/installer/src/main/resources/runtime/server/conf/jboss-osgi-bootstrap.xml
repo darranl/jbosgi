@@ -53,7 +53,7 @@
         <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${osgi.server.home}/data/ObjectStore</value></entry>
       </map>
     </property>
-    <incallback method="addPlugin" />
+    <incallback method="addPlugin" state="Instantiated"/>
     <uncallback method="removePlugin" />
   </bean>
   

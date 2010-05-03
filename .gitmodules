@@ -25,3 +25,6 @@
 [submodule "reactor/jbosgi-parent"]
 	path = reactor/jbosgi-parent
 	url = git://github.com/jbosgi/jbosgi-parent.git
+[submodule "reactor/jbosgi-deployers"]
+	path = reactor/jbosgi-deployers
+	url = git://github.com/jbosgi/jbosgi-deployers.git

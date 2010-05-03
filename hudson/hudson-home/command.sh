@@ -69,7 +69,7 @@ fi
 #
 # Build distro
 #
-MVN_CMD="mvn -U -Pdistro $ENVIRONMENT clean install"
+MVN_CMD="mvn -Pdistro $ENVIRONMENT clean install"
 echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
 if [ $MVN_STATUS -ne 0 ]; then
   echo maven exit status $MVN_STATUS
@@ -109,7 +109,7 @@ fi
 #
 # execute tests
 #
-MVN_CMD="mvn -o -fae $ENVIRONMENT test"
+MVN_CMD="mvn -o -Dnoreactor -fae $ENVIRONMENT test"
 echo $MVN_CMD; $MVN_CMD 2>&1 | tee $WORKSPACE/tests.log
 cat $WORKSPACE/tests.log | egrep FIXME\|FAILED | sort -u | tee $WORKSPACE/fixme.txt
 cat $WORKSPACE/fixme.txt | egrep "\[\S*]" > $WORKSPACE/errata-$CONTAINER.txt || :

@@ -1,62 +1,58 @@
 <deployment xmlns="urn:jboss:bean-deployer:2.0">
 
-  <bean name="OSGiBundleManager" class="org.jboss.osgi.framework.bundle.OSGiBundleManager">
+  <bean name="OSGiFrameworkProperties" class="org.jboss.osgi.framework.plugins.FrameworkProperties">
     <constructor>
-      <parameter><inject bean="jboss.kernel:service=Kernel" /></parameter>
-      <parameter><inject bean="MainDeployer" /></parameter>
+      <parameter>
+        <map keyClass="java.lang.String" valueClass="java.lang.String">
+          <entry><key>org.osgi.framework.storage</key><value>${osgi.server.home}/data/osgi-store</value></entry>
+          <entry><key>org.osgi.framework.storage.clean</key><value>onFirstInit</value></entry>
+          <entry><key>org.osgi.framework.system.packages.extra</key><value>
+          
+            <!-- [JBOSGI-145]  JAXB classes are loaded from the system classpath -->
+            com.sun.xml.internal.bind.v2,
+            
+            <!-- logging -->
+            org.apache.log4j;version=1.2,
+            org.jboss.logging;version=2.1,
+            
+            <!-- jboss -->
+            org.jboss.beans.metadata.plugins;version=2.2,
+            org.jboss.beans.metadata.plugins.builder;version=2.2,
+            org.jboss.beans.metadata.spi;version=2.2,
+            org.jboss.beans.metadata.spi.builder;version=2.2,
+            org.jboss.dependency.spi;version=2.2,
+            org.jboss.kernel.spi.dependency;version=2.2,
+            org.jboss.vfs;version=3.0,
+            
+            <!-- jboss-osgi -->
+            org.jboss.osgi.spi;version=1.0,
+            org.jboss.osgi.spi.capability;version=1.0,
+            org.jboss.osgi.spi.framework;version=1.0,
+            org.jboss.osgi.spi.service;version=1.0,
+            org.jboss.osgi.spi.util;version=1.0,
+            org.jboss.osgi.testing;version=1.0,
+            org.jboss.osgi.vfs;version=1.0
+          </value></entry>
+          <!-- Hot Deployment -->
+          <entry><key>org.jboss.osgi.hotdeploy.scandir</key><value>${osgi.server.home}/deploy</value></entry>
+          <!-- Husky socket connector properties -->
+          <entry><key>org.jboss.osgi.husky.runtime.connector.host</key><value>${jboss.bind.address}</value></entry>
+          <entry><key>org.jboss.osgi.husky.runtime.connector.port</key><value>5401</value></entry>
+          <!-- HTTP Service Port -->
+          <entry><key>org.osgi.service.http.port</key><value>8090</value></entry>
+          <!-- Config Admin Service -->
+          <entry><key>felix.cm.dir</key><value>${osgi.server.home}/data/osgi-configadmin</value></entry>
+          <!-- JMX bundle properties -->
+          <entry><key>org.jboss.osgi.jmx.host</key><value>${jboss.bind.address}</value></entry>
+          <!-- JNDI bundle properties -->
+          <entry><key>org.jboss.osgi.jndi.host</key><value>${jboss.bind.address}</value></entry>
+          <!-- JTA Object Store -->
+          <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${osgi.server.home}/data/ObjectStore</value></entry>
+        </map>
+      </parameter>
     </constructor>
-    <property name="properties">
-      <map keyClass="java.lang.String" valueClass="java.lang.String">
-        <entry><key>org.osgi.framework.storage</key><value>${osgi.server.home}/data/osgi-store</value></entry>
-        <entry><key>org.osgi.framework.storage.clean</key><value>onFirstInit</value></entry>
-        <entry><key>org.osgi.framework.system.packages.extra</key><value>
-        
-          <!-- [JBOSGI-145]  JAXB classes are loaded from the system classpath -->
-          com.sun.xml.internal.bind.v2,
-          
-          <!-- logging -->
-          org.apache.log4j;version=1.2,
-          org.jboss.logging;version=2.1,
-          
-          <!-- jboss -->
-          org.jboss.beans.metadata.plugins;version=2.2,
-          org.jboss.beans.metadata.plugins.builder;version=2.2,
-          org.jboss.beans.metadata.spi;version=2.2,
-          org.jboss.beans.metadata.spi.builder;version=2.2,
-          org.jboss.dependency.spi;version=2.2,
-          org.jboss.kernel.spi.dependency;version=2.2,
-          org.jboss.vfs;version=3.0,
-          
-          <!-- jboss-osgi -->
-          org.jboss.osgi.spi;version=1.0,
-          org.jboss.osgi.spi.capability;version=1.0,
-          org.jboss.osgi.spi.framework;version=1.0,
-          org.jboss.osgi.spi.service;version=1.0,
-          org.jboss.osgi.spi.util;version=1.0,
-          org.jboss.osgi.testing;version=1.0,
-          org.jboss.osgi.vfs;version=1.0
-        </value></entry>
-        <!-- Hot Deployment -->
-        <entry><key>org.jboss.osgi.hotdeploy.scandir</key><value>${osgi.server.home}/deploy</value></entry>
-        <!-- Husky socket connector properties -->
-        <entry><key>org.jboss.osgi.husky.runtime.connector.host</key><value>${jboss.bind.address}</value></entry>
-        <entry><key>org.jboss.osgi.husky.runtime.connector.port</key><value>5401</value></entry>
-        <!-- HTTP Service Port -->
-        <entry><key>org.osgi.service.http.port</key><value>8090</value></entry>
-        <!-- Config Admin Service -->
-        <entry><key>felix.cm.dir</key><value>${osgi.server.home}/data/osgi-configadmin</value></entry>
-        <!-- JMX bundle properties -->
-        <entry><key>org.jboss.osgi.jmx.host</key><value>${jboss.bind.address}</value></entry>
-        <!-- JNDI bundle properties -->
-        <entry><key>org.jboss.osgi.jndi.host</key><value>${jboss.bind.address}</value></entry>
-        <!-- JTA Object Store -->
-        <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${osgi.server.home}/data/ObjectStore</value></entry>
-      </map>
-    </property>
-    <incallback method="addPlugin" state="Instantiated"/>
-    <uncallback method="removePlugin" />
   </bean>
-  
+
   <bean name="OSGiAutoInstallPlugin" class="org.jboss.osgi.framework.plugins.internal.AutoInstallPluginImpl">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
     <property name="autoInstall">

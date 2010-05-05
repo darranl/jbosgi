@@ -8,7 +8,9 @@
           <entry><key>org.osgi.framework.storage.clean</key><value>onFirstInit</value></entry>
           <entry><key>org.osgi.framework.system.packages.extra</key><value>
             
-            <!-- javax -->            
+            <!-- javax -->
+            javax.servlet,            
+            javax.servlet.http,            
             javax.transaction,
             
             <!-- jnp naming -->

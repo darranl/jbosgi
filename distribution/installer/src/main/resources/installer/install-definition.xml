@@ -355,7 +355,6 @@
       </fileset>
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="org.osgi.core.jar" />
-        <include name="org.osgi.compendium.jar" /> <!-- Used for org.osgi.service.tracker delegation -->
       </fileset>
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
         <include name="org.osgi.compendium.jar" />
@@ -435,6 +434,7 @@
         <include name="jboss-osgi-xml-binding.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
         <include name="org.apache.felix.log.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
@@ -501,7 +501,6 @@
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
         override="true">
         <include name="org.osgi.core.jar" />
-        <include name="org.osgi.compendium.jar" /> <!-- Used for org.osgi.service.tracker delegation -->
       </fileset>
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi"
         override="true">

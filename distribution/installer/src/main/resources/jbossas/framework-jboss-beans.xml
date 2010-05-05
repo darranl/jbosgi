@@ -1,12 +1,15 @@
 <deployment xmlns="urn:jboss:bean-deployer:2.0">
 
-  <bean name="OSGiFrameworkProperties" class="org.jboss.osgi.framework.plugins.FrameworkProperties">
+  <bean name="OSGiFrameworkProperties" class="org.jboss.osgi.framework.plugins.internal.FrameworkPropertiesImpl">
     <constructor>
       <parameter>
         <map keyClass="java.lang.String" valueClass="java.lang.String">
           <entry><key>org.osgi.framework.storage</key><value>${jboss.server.data.dir}/osgi-store</value></entry>
           <entry><key>org.osgi.framework.storage.clean</key><value>onFirstInit</value></entry>
           <entry><key>org.osgi.framework.system.packages.extra</key><value>
+            
+            <!-- javax -->            
+            javax.transaction,
             
             <!-- jnp naming -->
             org.jnp.interfaces;version=5.0,

@@ -107,7 +107,7 @@ export JBOSS_BINDADDR=@jboss.bind.address@
   </publishers>
   <buildWrappers/>
   <runSequentially>false</runSequentially>
-  <touchStoneCombinationFilter>container == 'runtime'' && framework == 'jbossmc'</touchStoneCombinationFilter>
+  <touchStoneCombinationFilter>container == 'runtime'' &amp;&amp; framework == 'jbossmc'</touchStoneCombinationFilter>
   <touchStoneResultCondition>
     <name>SUCCESS</name>
     <ordinal>0</ordinal>

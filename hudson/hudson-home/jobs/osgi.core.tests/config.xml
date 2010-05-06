@@ -66,7 +66,7 @@ else
 fi
 
 # Build and Install the Framework
-cd $WORKSPACE; mvn -U -fae -Pall clean install
+cd $WORKSPACE; mvn -fae -Pall,jbossmc clean install
 
 # Switch to known tck-checkout tag 
 cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final

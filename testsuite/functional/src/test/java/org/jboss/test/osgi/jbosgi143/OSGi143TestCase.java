@@ -51,7 +51,7 @@ public class OSGi143TestCase extends OSGiFrameworkTest
    @Test
    public void testLoadClass() throws Exception
    {
-      BundleContext sysContext = framework.getBundleContext();
+      BundleContext sysContext = getFramework().getBundleContext();
       Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
       bundleX.start();
 

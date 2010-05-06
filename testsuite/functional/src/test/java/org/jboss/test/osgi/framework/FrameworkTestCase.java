@@ -41,21 +41,21 @@ import org.osgi.framework.BundleException;
 public class FrameworkTestCase extends OSGiFrameworkTest
 {
    @Test
-   public void testGetBundleId()
+   public void testGetBundleId() throws BundleException
    {
-      assertEquals("BundleId == 0", 0, framework.getBundleId());
+      assertEquals("BundleId == 0", 0, getFramework().getBundleId());
    }
 
    @Test
-   public void testGetSymbolicName()
+   public void testGetSymbolicName() throws BundleException
    {
-      assertNotNull("SymbolicName not null", framework.getSymbolicName());
+      assertNotNull("SymbolicName not null", getFramework().getSymbolicName());
    }
 
    @Test
-   public void testGetLocation()
+   public void testGetLocation() throws BundleException
    {
-      assertEquals("System Bundle", framework.getLocation());
+      assertEquals("System Bundle", getFramework().getLocation());
    }
 
    @Test
@@ -63,7 +63,7 @@ public class FrameworkTestCase extends OSGiFrameworkTest
    {
       try
       {
-         framework.uninstall();
+         getFramework().uninstall();
          fail("BundleException expected");
       }
       catch (BundleException ex)

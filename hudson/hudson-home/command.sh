@@ -69,7 +69,7 @@ fi
 #
 # Report the last 10 commits
 #
-GIT_CMD="git log --pretty=%h%x20%s%x20(%an) -10"
+GIT_CMD="git log --pretty=%x20%h%x20%s%x20(%an) -10"
 echo $GIT_CMD; $GIT_CMD
  
 #

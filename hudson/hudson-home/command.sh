@@ -58,17 +58,37 @@ case "$CONTAINER" in
   ;;
 esac
 
-# Update the Git submodules
-if [ -f .gitmodules]; then
-   git submodule init
-   git submodule update
+#
+# Report the Git submodule status
+#
+if [ -f .gitmodules ]; then
    git submodule status
 fi
 
 #
-# Build distro
+# Report the last 10 commits
 #
-MVN_CMD="mvn -Pdistro clean install"
+git log --pretty="%h %s (%an)" -10
+ 
+#
+# Setup the build environment
+# 
+ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.home=$CONTAINER_HOME -Djboss.bind.address=$JBOSS_BINDADDR"
+
+#
+# Run the build
+#
+MVN_CMD="mvn clean install"
+echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
+if [ $MVN_STATUS -ne 0 ]; then
+  echo maven exit status $MVN_STATUS
+  exit 1
+fi
+
+#
+# Build the distro
+#
+MVN_CMD="mvn -Dnoreactor -Pdistro clean install"
 echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
 if [ $MVN_STATUS -ne 0 ]; then
   echo maven exit status $MVN_STATUS
@@ -108,7 +128,6 @@ fi
 #
 # execute tests
 #
-ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.home=$CONTAINER_HOME -Djboss.bind.address=$JBOSS_BINDADDR"
 MVN_CMD="mvn -o -Dnoreactor -fae $ENVIRONMENT test"
 echo $MVN_CMD; $MVN_CMD 2>&1 | tee $WORKSPACE/tests.log
 cat $WORKSPACE/tests.log | egrep FIXME\|FAILED | sort -u | tee $WORKSPACE/fixme.txt

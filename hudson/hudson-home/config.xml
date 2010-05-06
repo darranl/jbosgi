@@ -32,10 +32,10 @@
 <table>
 <tr align="left"><th>Bind Addr</th><td>@jboss.bind.address@</td></tr>
 <tr align="left"><th>Documentation</th><td>
-<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
-<a href='job/jbossosgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
+<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
+<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
+<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
+<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
 </td></tr>
 </table>
 ]]>

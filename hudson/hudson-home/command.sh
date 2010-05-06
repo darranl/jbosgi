@@ -78,19 +78,21 @@ echo $GIT_CMD; $GIT_CMD
 ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.home=$CONTAINER_HOME -Djboss.bind.address=$JBOSS_BINDADDR"
 
 #
-# Run the build
+# Do the sanity reactor build
 #
-MVN_CMD="mvn clean install"
-echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
-if [ $MVN_STATUS -ne 0 ]; then
-  echo maven exit status $MVN_STATUS
-  exit 1
+if [ $FRAMEWORK = 'jbossmc' ] && [ $CONTAINER = 'runtime' ]; then
+  MVN_CMD="mvn -Dframework=$FRAMEWORK clean install"
+  echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
+  if [ $MVN_STATUS -ne 0 ]; then
+     echo maven exit status $MVN_STATUS
+	 exit 1
+  fi
 fi
 
 #
 # Build the distro
 #
-MVN_CMD="mvn -Dnoreactor -Pdistro $ENVIRONMENT clean install"
+MVN_CMD="mvn -f distribution/pom.xml $ENVIRONMENT clean install"
 echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
 if [ $MVN_STATUS -ne 0 ]; then
   echo maven exit status $MVN_STATUS

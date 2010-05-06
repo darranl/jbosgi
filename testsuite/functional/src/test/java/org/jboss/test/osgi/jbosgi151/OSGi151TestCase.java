@@ -66,7 +66,7 @@ public class OSGi151TestCase extends OSGiFrameworkTest
          return;
       }
       
-      BundleContext sysContext = framework.getBundleContext();
+      BundleContext sysContext = getFramework().getBundleContext();
       
       Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleA.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleA.getState());
@@ -94,7 +94,7 @@ public class OSGi151TestCase extends OSGiFrameworkTest
    @Ignore
    public void testCircularInstallCbeforeD() throws Exception
    {
-      BundleContext sysContext = framework.getBundleContext();
+      BundleContext sysContext = getFramework().getBundleContext();
       
       Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleC.getState());
@@ -122,7 +122,7 @@ public class OSGi151TestCase extends OSGiFrameworkTest
    @Ignore
    public void testCircularInstallDbeforeC() throws Exception
    {
-      BundleContext sysContext = framework.getBundleContext();
+      BundleContext sysContext = getFramework().getBundleContext();
       
       Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleD.getState());

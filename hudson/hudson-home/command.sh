@@ -76,6 +76,7 @@ echo $GIT_CMD; $GIT_CMD
 # Setup the build environment
 # 
 ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.home=$CONTAINER_HOME -Djboss.bind.address=$JBOSS_BINDADDR"
+echo "ENVIRONMENT=$ENVIRONMENT"
 
 #
 # Run the build

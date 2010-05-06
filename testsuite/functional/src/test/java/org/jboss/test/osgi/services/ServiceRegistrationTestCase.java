@@ -55,7 +55,7 @@ public class ServiceRegistrationTestCase extends OSGiFrameworkTest
          }
       };
 
-      BundleContext context = framework.getBundleContext();
+      BundleContext context = getFramework().getBundleContext();
       ServiceRegistration sreg = context.registerService(Runnable.class.getName(), exp, null);
       ServiceReference sref = sreg.getReference();
 
@@ -115,7 +115,7 @@ public class ServiceRegistrationTestCase extends OSGiFrameworkTest
             allGood[1] = true;
          }
       };
-      BundleContext context = framework.getBundleContext();
+      BundleContext context = getFramework().getBundleContext();
       ServiceRegistration sreg = context.registerService(Runnable.class.getName(), factory, null);
       ServiceReference sref = sreg.getReference();
 

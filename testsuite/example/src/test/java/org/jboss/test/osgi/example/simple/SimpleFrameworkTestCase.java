@@ -51,7 +51,7 @@ public class SimpleFrameworkTestCase extends OSGiFrameworkTest
       URL url = getTestArchiveURL("example-simple.jar");
       
       // Install the Bundle
-      BundleContext sysContext = framework.getBundleContext();
+      BundleContext sysContext = getFramework().getBundleContext();
       Bundle bundle = sysContext.installBundle(url.toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundle.getState());
 

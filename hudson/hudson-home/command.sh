@@ -62,13 +62,15 @@ esac
 # Report the Git submodule status
 #
 if [ -f .gitmodules ]; then
-   git submodule status
+   GIT_CMD="git submodule status"
+   echo $GIT_CMD; $GIT_CMD
 fi
 
 #
 # Report the last 10 commits
 #
-git log --pretty="%h %s (%an)" -10
+GIT_CMD="git log --pretty=%h%x20%s%x20(%an) -10"
+echo $GIT_CMD; $GIT_CMD
  
 #
 # Setup the build environment
@@ -88,7 +90,7 @@ fi
 #
 # Build the distro
 #
-MVN_CMD="mvn -Dnoreactor -Pdistro clean install"
+MVN_CMD="mvn -Dnoreactor -Pdistro $ENVIRONMENT clean install"
 echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
 if [ $MVN_STATUS -ne 0 ]; then
   echo maven exit status $MVN_STATUS

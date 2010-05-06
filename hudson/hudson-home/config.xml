@@ -96,10 +96,11 @@
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
         <string>JBoss-6.0.1</string>
-        <string>jbossosgi-embedded</string>
-        <string>jbossosgi-jdk16</string>
-        <string>jbossosgi-matrix-embedded</string>
-        <string>jbossosgi-matrix-remote</string>
+        <string>jboss-osgi-embedded</string>
+        <string>jboss-osgi-framework</string>
+        <string>jboss-osgi-jdk16</string>
+        <string>jboss-osgi-matrix-embedded</string>
+        <string>jboss-osgi-matrix-remote</string>
       </jobNames>
       <columns>
         <hudson.views.StatusColumn/>

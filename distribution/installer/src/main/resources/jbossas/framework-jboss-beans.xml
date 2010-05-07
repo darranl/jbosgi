@@ -52,8 +52,6 @@
           <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${jboss.server.data.dir}/tx-object-store</value></entry>
           <!-- Enable Workaround for [JBOSGI-317] Context is already registered in domain DefaultDomain -->
           <entry><key>jbosgi317.workaround</key><value>true</value></entry>
-          <!-- Enable Workaround for [JBOSGI-319] LinkageError for the type javax/servlet/Servlet -->
-          <entry><key>jbosgi319.workaround</key><value>true</value></entry>
         </map>
       </parameter>
     </constructor>

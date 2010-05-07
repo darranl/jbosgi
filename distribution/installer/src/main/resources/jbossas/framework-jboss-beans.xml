@@ -76,6 +76,12 @@
   </bean>
   -->
 
+  <bean name="MicrocontainerService" class="org.jboss.osgi.framework.service.internal.MicrocontainerServiceImpl">
+    <related-class name="org.jboss.osgi.spi.service.MicrocontainerService">OSGi</related-class>
+    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <demand state="PreInstall">MDRService</demand>
+  </bean>
+  
   <bean name="OSGiBundleResolver" class="org.jboss.osgi.framework.resolver.internal.basic.BasicResolverImpl">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
   </bean>

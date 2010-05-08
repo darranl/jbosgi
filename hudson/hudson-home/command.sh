@@ -31,9 +31,9 @@ case "$CONTAINER" in
   ;;
   'jboss600')
     SERVER_NAME=default
-    JBOSS_BUILD=jboss-6.0.0.M2
+    JBOSS_BUILD=jboss-6.0.0.M3
     JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-	CONTAINER_HOME=$WORKSPACE/jboss-6.0.0.20100216-M2
+	CONTAINER_HOME=$WORKSPACE/jboss-6.0.0.20100429-M3
 	CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE  
     cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
@@ -75,14 +75,13 @@ echo $GIT_CMD; $GIT_CMD
 #
 # Setup the build environment
 # 
-ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.home=$CONTAINER_HOME -Djboss.bind.address=$JBOSS_BINDADDR"
-echo "ENVIRONMENT=$ENVIRONMENT"
+ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.bind.address=$JBOSS_BINDADDR -Djboss.home=$CONTAINER_HOME"
 
 #
 # Do the sanity reactor build
 #
 if [ $FRAMEWORK = 'jbossmc' ] && [ $CONTAINER = 'runtime' ]; then
-  MVN_CMD="mvn -Dframework=$FRAMEWORK clean install"
+  MVN_CMD="mvn clean install"
   echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
   if [ $MVN_STATUS -ne 0 ]; then
      echo maven exit status $MVN_STATUS
@@ -93,7 +92,7 @@ fi
 #
 # Build the distro
 #
-MVN_CMD="mvn -f distribution/pom.xml $ENVIRONMENT clean install"
+MVN_CMD="mvn -Dnoreactor -Pdistro $ENVIRONMENT clean install"
 echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
 if [ $MVN_STATUS -ne 0 ]; then
   echo maven exit status $MVN_STATUS

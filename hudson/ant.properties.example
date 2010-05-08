@@ -35,4 +35,4 @@ jboss.bind.address=127.0.0.1
 
 # hudson.jboss501.zip=file:///home/username/Downloads/java/jboss/jboss-5.0.1.GA.zip
 # hudson.jboss510.zip=file:///home/username/Downloads/java/jboss/jboss-5.1.0.GA.zip
-# hudson.jboss600.zip=file:///home/username/Downloads/java/jboss/jboss-6.0.0.M2.zip
+# hudson.jboss600.zip=file:///home/username/Downloads/java/jboss/jboss-6.0.0.M3.zip

@@ -519,16 +519,18 @@
 
     <!-- 
        This pack MUST NOT be part of an JBoss OSGi release 
-    - ->
+    -->
     <pack name="JBossMC SNAPSHOT overwrites" required="no" preselected="yes">
       <description>Temporarily overwrite AS provided jars with SNAPSHOT versions</description>
       
       <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/lib"
         override="true">
-        <include name="jboss-jmx-mc-int.jar" />
+        <include name="jboss-classloader.jar" />
+        <include name="jboss-classloading.jar" />
+        <include name="jboss-classloading-spi.jar" />
+        <include name="jboss-classloading-vfs.jar" />
       </fileset>
     </pack>
-    -->
     
   </packs>
 </installation>

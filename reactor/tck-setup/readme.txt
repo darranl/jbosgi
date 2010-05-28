@@ -3,7 +3,10 @@ Setup the OSGi TCK
 
 Checkout the OSGi TCK setup project
 
-    svn co https://svn.jboss.org/repos/jbossas/projects/jboss-osgi/projects/osgitck/trunk osgitck-setup
+    git clone git://github.com/jbosgi/jbosgi.git
+    cd jbosgi
+    git submodule init
+    git submodele update
 
 Copy and edit the setup properties
 
@@ -18,6 +21,7 @@ Running the OSGi TCK against the RI (Equinox)
     ant test-reports
 
 Running the OSGi TCK against the JBoss OSGi Framework
+    (This only works after having run 'ant clean setup.ri' at least once)
 
     ant clean setup.vi
     ant run-core-tests

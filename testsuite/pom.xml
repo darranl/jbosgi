@@ -336,11 +336,6 @@
           <artifactId>jboss-osgi-framework-metadata</artifactId>
           <scope>provided</scope>
         </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-vfs30</artifactId>
-          <scope>provided</scope>
-        </dependency>
       </dependencies>
     </profile>
     <profile>
@@ -364,11 +359,6 @@
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework-metadata</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-vfs30</artifactId>
           <scope>provided</scope>
         </dependency>
       </dependencies>

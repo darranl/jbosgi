@@ -31,5 +31,4 @@ Test-Cases							= ${testcases}
 	osgi.compatibility.bootdelegation=false, \
 	osgi.resolverMode=strict
 
-# TDI: Reduce start level test timeouts to 20sec  
--runvm = osgi.tc.startlevel.sleeptime=200, osgi.tc.startlevel.timeout=100
+-runvm = osgi.tc.startlevel.sleeptime=1000, osgi.tc.startlevel.timeout=1000

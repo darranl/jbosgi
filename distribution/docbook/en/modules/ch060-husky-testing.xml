@@ -64,39 +64,39 @@
     <para>Here is how it works </para>
     
     <orderedlist>
-      <listitem>A <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/Bridge.html">Bridge</ulink> 
+      <listitem>A <ulink url="../../apidocs/org/jboss/osgi/husky/Bridge.html">Bridge</ulink> 
       intercepts a test and determines the FQN of the test case and the test method from the call stack. It then delegates the execution to the same 
       (or another) test in and isolated test environment. An isolated test environment is one that does not have the same class loading space as 
       the test itself.</listitem>
       
-      <listitem>A Bridge is associated with an <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/Invoker.html">
+      <listitem>A Bridge is associated with an <ulink url="../../apidocs/org/jboss/osgi/husky/Invoker.html">
       Invoker</ulink>. Invokers may be arbitarily complex. Local 'in proccess' invokers are possible just as well as remote invokers. </listitem>
       
-      <listitem>The Invoker sends the <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/Request.html">
-      Request</ulink> to a <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/Connector.html">
+      <listitem>The Invoker sends the <ulink url="../../apidocs/org/jboss/osgi/husky/Request.html">
+      Request</ulink> to a <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/Connector.html">
       Connector</ulink> in the isolated test environment.</listitem>
       
-      <listitem>A Connector has associated <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/PackageListener.html">
+      <listitem>A Connector has associated <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/PackageListener.html">
       PackageListeners</ulink> that are responsible for processing test cases for their respective test packages.</listitem>
       
-      <listitem>A PackageListeners delegates the Request to a test <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/Runner.html">
-      Runner</ulink>, typicaly this would be a <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/junit/JUnitRunner.html">
+      <listitem>A PackageListeners delegates the Request to a test <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/Runner.html">
+      Runner</ulink>, typicaly this would be a <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/junit/JUnitRunner.html">
       JUnitRunner</ulink>.</listitem>
       
-      <listitem>The Runner injects the <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/Context.html">
-      Context</ulink> into the test case and returns a <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/Response.html">
+      <listitem>The Runner injects the <ulink url="../../apidocs/org/jboss/osgi/husky/Context.html">
+      Context</ulink> into the test case and returns a <ulink url="../../apidocs/org/jboss/osgi/husky/Response.html">
       Response</ulink>, which the Connector returns to the Invoker.</listitem>
       
-      <listitem>The Bridge finally translates potential <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/Failure.html">
+      <listitem>The Bridge finally translates potential <ulink url="../../apidocs/org/jboss/osgi/husky/Failure.html">
       Failures</ulink> that may be contained in the Result, to test failures on the client side.</listitem>
     </orderedlist>
     
     <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-husky.jar</emphasis> bundle registers the Connectors. 
-    The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/osgi/JMXConnector.html">
+    The <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/osgi/JMXConnector.html">
     JMXConnector</ulink> is always registered. 
-    The <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/osgi/SocketConnector.html">
+    The <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/osgi/SocketConnector.html">
     SocketConnector</ulink> is registered when the appropriate configuration options are set. It then registers the 
-    <ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/husky/runtime/osgi/HuskyExtender.html">HuskyExtender</ulink>, 
+    <ulink url="../../apidocs/org/jboss/osgi/husky/runtime/osgi/HuskyExtender.html">HuskyExtender</ulink>, 
     which is a <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/framework/BundleListener.html">BundleListener</ulink> that inspects every
     incomming bundle for the <emphasis role="bold">Test-Package</emphasis> manifest header. The Extender creates a PackageListener
     for every package in the 'Test-Package' manifest header and registers them with the available Connectors.</para>

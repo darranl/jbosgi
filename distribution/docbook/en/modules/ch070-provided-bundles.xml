@@ -65,7 +65,7 @@
     <para>The service is registered with the Framework under the name</para>
     
     <itemizedlist>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/jaxb/JAXBService.html">org.jboss.osgi.jaxb.JAXBService</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jaxb/JAXBService.html">org.jboss.osgi.jaxb.JAXBService</ulink></emphasis></listitem>
     </itemizedlist>
     
   </sect1>
@@ -104,10 +104,10 @@
     
     <itemizedlist>
       <listitem><emphasis role="bold"><ulink url="http://java.sun.com/javase/6/docs/api/javax/management/MBeanServer.html">javax.management.MBeanServer</ulink></emphasis></listitem>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/jmx/FrameworkMBeanExt.html">org.jboss.osgi.jmx.FrameworkMBeanExt</ulink></emphasis></listitem>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/jmx/BundleStateMBeanExt.html">org.jboss.osgi.jmx.BundleStateMBeanExt</ulink></emphasis></listitem>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/jmx/PackageStateMBeanExt.html">org.jboss.osgi.jmx.PackageStateMBeanExt</ulink></emphasis></listitem>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/jmx/ServiceStateMBeanExt.html">org.jboss.osgi.jmx.ServiceStateMBeanExt</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jmx/FrameworkMBeanExt.html">org.jboss.osgi.jmx.FrameworkMBeanExt</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jmx/BundleStateMBeanExt.html">org.jboss.osgi.jmx.BundleStateMBeanExt</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jmx/PackageStateMBeanExt.html">org.jboss.osgi.jmx.PackageStateMBeanExt</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jmx/ServiceStateMBeanExt.html">org.jboss.osgi.jmx.ServiceStateMBeanExt</ulink></emphasis></listitem>
     </itemizedlist>
     
   </sect1>
@@ -178,7 +178,7 @@
     The service is registered with the Framework under the name.</para>
     
     <itemizedlist>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/spi/service/MicrocontainerService.html">org.jboss.osgi.spi.service.MicrocontainerService</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/spi/service/MicrocontainerService.html">org.jboss.osgi.spi.service.MicrocontainerService</ulink></emphasis></listitem>
     </itemizedlist>
     
     <para>Here is an example of how an OSGi component can access an arbitrary MC bean.</para>
@@ -258,7 +258,7 @@ public class SomeService
     <para>The service is registered with the Framework under the name</para>
     
     <itemizedlist>
-      <listitem><emphasis role="bold"><ulink url="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/apidocs/org/jboss/osgi/jbossxb/UnmarshallerService.html">org.jboss.osgi.jbossxb.UnmarshallerService</ulink></emphasis></listitem>
+      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jbossxb/UnmarshallerService.html">org.jboss.osgi.jbossxb.UnmarshallerService</ulink></emphasis></listitem>
     </itemizedlist>
     
   </sect1>

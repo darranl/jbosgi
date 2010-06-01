@@ -367,16 +367,6 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.framework</groupId>
-      <artifactId>jboss-osgi-framework-vfs30</artifactId>
-      <version>${version.jboss.osgi.framework}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.framework</groupId>
-      <artifactId>jboss-osgi-framework-vfs21</artifactId>
-      <version>${version.jboss.osgi.framework}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.framework</groupId>
       <artifactId>jboss-osgi-framework</artifactId>
       <version>${version.jboss.osgi.framework}</version>
       <classifier>sources</classifier>

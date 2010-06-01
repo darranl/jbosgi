@@ -374,6 +374,10 @@
     <dependency>
       <groupId>org.jboss.osgi.framework</groupId>
       <artifactId>jboss-osgi-framework-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.framework</groupId>
+      <artifactId>jboss-osgi-framework-core</artifactId>
       <version>${version.jboss.osgi.framework}</version>
       <classifier>sources</classifier>
     </dependency>

@@ -23,12 +23,19 @@ package org.jboss.test.osgi.services.startlevel;
 
 //$Id: StartLevelRemoteTestCase.java 87336 2009-04-15 11:31:26Z thomas.diesler@jboss.com $
 
-import org.jboss.osgi.spi.capability.CompendiumCapability;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assume.assumeNotNull;
+
+import org.jboss.osgi.husky.BridgeFactory;
+import org.jboss.osgi.husky.HuskyCapability;
+import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 
 /**
  * Deploy a bundle that accesses the StartLevel service
@@ -38,24 +45,43 @@ import org.osgi.framework.Bundle;
  */
 public class StartLevelTestCase extends OSGiRuntimeTest
 {
+   @RuntimeContext
+   public BundleContext context;
+
+   @Before
+   public void setUp() throws Exception
+   {
+      // Only do this if we are not within the OSGi Runtime
+      if (context == null)
+      {
+         // Get the default runtime
+         OSGiRuntime runtime = getDefaultRuntime();
+         runtime.addCapability(new HuskyCapability());
+         
+         // Install the bundle
+         OSGiBundle bundle = runtime.installBundle("service-startlevel.jar");
+         bundle.start();
+      }
+   }
+   
    @Test
    public void testStartLevel() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
-      try
+      // Tell Husky to run this test method within the OSGi Runtime
+      if (context == null)
+         BridgeFactory.getBridge().run();
+      
+      // Stop here if the context is not injected
+      assumeNotNull(context);
+      
+      Bundle bundle = null;
+      for (Bundle aux : context.getBundles())
       {
-         runtime.addCapability(new CompendiumCapability());
-         
-         OSGiBundle bundle = runtime.installBundle("service-startlevel.jar");
-         bundle.start();
-         
-         assertBundleState(Bundle.ACTIVE, bundle.getState());
-         
-         bundle.uninstall();
+         System.out.println(aux);
+         if ("service-startlevel".equals(aux.getSymbolicName()))
+            bundle = aux;
       }
-      finally
-      {
-         runtime.shutdown();
-      }
+      
+      assertNotNull("Test bundle found", bundle);
    }
 }

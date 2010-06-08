@@ -30,9 +30,9 @@
 
     <!-- Setup property defaults -->
     <property environment="env" />
-    <property name="hudson.user" value="${env.USER}" />
-    <property name="tck.checkout.dir" value="${env.TCKCHECKOUT}" />
-    <property name="maven.local.repository" value="/home/${hudson.user}/.m2/repository" />
+    <property name="username" value="${env.USER}" />
+    <property name="tck.checkout.dir" value="/home/${username}/svn/jboss-tck/osgitck/r4v42" />
+    <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
 
     <echo>************************************************</echo>
     <echo message="aQute.bnd.version=${aQute.bnd.version}" />

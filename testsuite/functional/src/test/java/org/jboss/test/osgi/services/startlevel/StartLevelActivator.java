@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.services.startlevel.bundle;
+package org.jboss.test.osgi.services.startlevel;
 
 //$Id: ServiceActivator.java 87336 2009-04-15 11:31:26Z thomas.diesler@jboss.com $
 
@@ -34,7 +34,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 04-Feb-2009
  */
-public class ServiceActivator implements BundleActivator
+public class StartLevelActivator implements BundleActivator
 {
    public void start(BundleContext context)
    {

@@ -50,9 +50,9 @@
     <version.apache.aries.util>0.1-incubating-20100329</version.apache.aries.util>
     <version.apache.felix.configadmin>1.2.4</version.apache.felix.configadmin>
     <version.apache.felix.core>1.4.0</version.apache.felix.core>
-    <version.apache.felix.eventadmin>1.0.0</version.apache.felix.eventadmin>
+    <version.apache.felix.eventadmin>1.2.2</version.apache.felix.eventadmin>
     <version.apache.felix.log>1.0.0</version.apache.felix.log>
-    <version.apache.felix.metatype>1.0.2</version.apache.felix.metatype>
+    <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
     <version.jboss.osgi.blueprint>1.0.0.Beta2</version.jboss.osgi.blueprint>

@@ -21,10 +21,13 @@
  */
 package org.jboss.test.osgi.services.startlevel;
 
-//$Id: StartLevelRemoteTestCase.java 87336 2009-04-15 11:31:26Z thomas.diesler@jboss.com $
-
-import static org.junit.Assert.assertNotNull;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
+
+import java.net.URL;
+import java.util.concurrent.CountDownLatch;
 
 import org.jboss.osgi.husky.BridgeFactory;
 import org.jboss.osgi.husky.HuskyCapability;
@@ -36,17 +39,38 @@ import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleEvent;
+import org.osgi.framework.BundleListener;
+import org.osgi.framework.FrameworkEvent;
+import org.osgi.framework.FrameworkListener;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.startlevel.StartLevel;
 
 /**
- * Deploy a bundle that accesses the StartLevel service
+ * Tests Start Level functionality.
  * 
  * @author thomas.diesler@jboss.com
+ * @author <a href="david@redhat.com">David Bosschaert</a>
  * @since 04-Mar-2009
  */
 public class StartLevelTestCase extends OSGiRuntimeTest
 {
    @RuntimeContext
    public BundleContext context;
+
+   // Guarded by this as this latch is used to synchronize threads 
+   // in this test.
+   private CountDownLatch startLevelLatch;
+
+   private synchronized CountDownLatch getStartLevelLatch()
+   {
+      return startLevelLatch;
+   }
+
+   private synchronized void setStartLevelLatch(CountDownLatch l)
+   {
+      startLevelLatch = l;
+   }
 
    @Before
    public void setUp() throws Exception
@@ -74,13 +98,73 @@ public class StartLevelTestCase extends OSGiRuntimeTest
       // Stop here if the context is not injected
       assumeNotNull(context);
       
-      Bundle bundle = null;
-      for (Bundle aux : context.getBundles())
+      ServiceReference sref = context.getServiceReference(StartLevel.class.getName());
+      StartLevel sls = (StartLevel)context.getService(sref);
+      assertEquals(1, sls.getStartLevel());
+
+      assertEquals(1, sls.getInitialBundleStartLevel());
+      sls.setInitialBundleStartLevel(5);
+
+      URL baurl = getTestArchiveURL("fragments-simple-hostA.jar");
+      Bundle ba = context.installBundle(baurl.toString());
+      URL bburl = getTestArchiveURL("fragments-simple-hostB.jar");
+      Bundle bb = context.installBundle(bburl.toString());
+
+      setStartLevelLatch(new CountDownLatch(1));
+      FrameworkListener fl = new FrameworkListener()
       {
-         if ("service-startlevel".equals(aux.getSymbolicName()))
-            bundle = aux;
-      }
-      
-      assertNotNull("Test bundle found", bundle);
+         @Override
+         public void frameworkEvent(FrameworkEvent event)
+         {
+            if (event.getType() == FrameworkEvent.STARTLEVEL_CHANGED)
+            {
+               getStartLevelLatch().countDown();
+               setStartLevelLatch(new CountDownLatch(1));
+            }
+         }
+      };
+      context.addFrameworkListener(fl);
+
+      assertEquals(5, sls.getBundleStartLevel(ba));
+      assertEquals(5, sls.getBundleStartLevel(bb));
+      ba.start();
+      assertTrue("Bundle should not yet be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+      assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+
+      CountDownLatch latch = getStartLevelLatch();
+      sls.setStartLevel(5);
+
+      assertTrue(latch.await(60, SECONDS));
+      assertTrue("Bundle should be started", (ba.getState() & Bundle.ACTIVE) != 0);
+      assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+
+      final CountDownLatch bundleStoppedLatch = new CountDownLatch(1);
+      BundleListener bl = new BundleListener()
+      {
+         @Override
+         public void bundleChanged(BundleEvent event)
+         {
+            if (event.getType() == BundleEvent.STOPPED)
+            {
+               bundleStoppedLatch.countDown();
+            }
+         }
+      };
+      context.addBundleListener(bl);
+
+      sls.setBundleStartLevel(ba, 10);
+      assertTrue(bundleStoppedLatch.await(60, SECONDS));
+      assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+      assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+
+      bb.start();
+      assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+      assertTrue("Bundle should be started", (bb.getState() & Bundle.ACTIVE) != 0);
+
+      latch = getStartLevelLatch();
+      sls.setStartLevel(1);
+      assertTrue(latch.await(60, SECONDS));
+      assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+      assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
    }
 }

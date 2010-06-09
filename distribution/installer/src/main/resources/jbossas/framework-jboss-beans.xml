@@ -80,7 +80,7 @@
     <demand state="PreInstall">MDRService</demand>
   </bean>
   
-  <bean name="OSGiBundleResolver" class="org.jboss.osgi.framework.resolver.internal.basic.BasicResolverImpl">
+  <bean name="OSGiBundleResolver" class="org.jboss.osgi.framework.resolver.basic.BasicResolverImpl">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
   </bean>
 

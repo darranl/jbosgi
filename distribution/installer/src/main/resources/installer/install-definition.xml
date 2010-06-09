@@ -402,6 +402,11 @@
         <include name="jboss-logging.xml" />
       </fileset>
       
+      <!-- lib -->
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/lib" override="true">
+        <include name="jboss-osgi-framework-metadata.jar" />
+      </fileset>
+      
       <!-- deployers/osgi.deployer -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
         <include name="jboss-osgi-deployment.jar" />
@@ -485,7 +490,6 @@
         override="true">
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />
-        <include name="jboss-osgi-framework-metadata.jar" />
         <include name="jboss-osgi-framework-resolver.jar" />
       </fileset>
       <singlefile condition="isJBossMC" src="@{deploy.artifacts.dir}/resources/jbossas/framework-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-jboss-beans.xml"

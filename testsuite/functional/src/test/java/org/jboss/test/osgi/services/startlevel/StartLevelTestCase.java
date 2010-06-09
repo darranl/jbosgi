@@ -77,7 +77,6 @@ public class StartLevelTestCase extends OSGiRuntimeTest
       Bundle bundle = null;
       for (Bundle aux : context.getBundles())
       {
-         System.out.println(aux);
          if ("service-startlevel".equals(aux.getSymbolicName()))
             bundle = aux;
       }

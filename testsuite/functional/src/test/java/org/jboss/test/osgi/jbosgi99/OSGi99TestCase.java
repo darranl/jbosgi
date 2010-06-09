@@ -78,55 +78,70 @@ public class OSGi99TestCase extends OSGiRuntimeTest
    public void testAllGood() throws Exception
    {
       OSGiBundle bundle = runtime.installBundle("jbosgi99-allgood.jar");
-      assertBundleState(Bundle.INSTALLED, bundle.getState());
+      try
+      {
+         assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      bundle.start();
-      assertBundleState(Bundle.ACTIVE, bundle.getState());
-
-      bundle.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+         bundle.start();
+         assertBundleState(Bundle.ACTIVE, bundle.getState());
+      }
+      finally
+      {
+         bundle.uninstall();
+         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+      }
    }
 
    @Test
    public void testFailOnResolve() throws Exception
    {
       OSGiBundle bundle = runtime.installBundle("jbosgi99-failonresolve.jar");
-      assertBundleState(Bundle.INSTALLED, bundle.getState());
-
       try
       {
-         bundle.start();
-         fail("BundleException expected");
-      }
-      catch (BundleException ex)
-      {
-         log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
          assertBundleState(Bundle.INSTALLED, bundle.getState());
-      }
 
-      bundle.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-   }
+         try
+         {
+            bundle.start();
+            fail("BundleException expected");
+         }
+         catch (BundleException ex)
+         {
+            log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
+            assertBundleState(Bundle.INSTALLED, bundle.getState());
+         }
+      }
+      finally
+      {
+         bundle.uninstall();
+         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+      }
+  }
 
    @Test
    public void testFailOnStart() throws Exception
    {
       OSGiBundle bundle = runtime.installBundle("jbosgi99-failonstart.jar");
-      assertBundleState(Bundle.INSTALLED, bundle.getState());
-
       try
       {
-         bundle.start();
-         fail("BundleException expected");
-      }
-      catch (BundleException ex)
-      {
-         log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
-         assertBundleState(Bundle.RESOLVED, bundle.getState());
-      }
+         assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      bundle.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+         try
+         {
+            bundle.start();
+            fail("BundleException expected");
+         }
+         catch (BundleException ex)
+         {
+            log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
+            assertBundleState(Bundle.RESOLVED, bundle.getState());
+         }
+      }
+      finally
+      {
+         bundle.uninstall();
+         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+      }
    }
 
    @Test

@@ -2,7 +2,7 @@
 
 Bundle-SymbolicName: example-event
 Export-Package: org.jboss.test.osgi.example.event
-Import-Package: org.osgi.framework, org.osgi.service.event, org.jboss.osgi.husky, org.jboss.osgi.spi.capability, org.jboss.osgi.testing, org.junit
+Import-Package: org.osgi.framework, org.osgi.service.event;version="[1.2,2.0)", org.jboss.osgi.husky, org.jboss.osgi.spi.capability, org.jboss.osgi.testing, org.junit
 
 # Tell Husky that there are test cases in this package
 Test-Package: org.jboss.test.osgi.example.event

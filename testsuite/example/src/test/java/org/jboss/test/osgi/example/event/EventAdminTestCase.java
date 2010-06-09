@@ -104,7 +104,7 @@ public class EventAdminTestCase extends OSGiRuntimeTest
       // Send event through the the EventAdmin
       ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
       EventAdmin eventAdmin = (EventAdmin)context.getService(sref);
-      eventAdmin.sendEvent(new Event(TOPIC, null));
+      eventAdmin.sendEvent(new Event(TOPIC, (Dictionary)null));
       
       // Verify received event
       assertEquals("Event received", 1, eventHandler.received.size());

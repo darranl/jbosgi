@@ -101,11 +101,11 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.apache.felix</groupId>
+          <groupId>org.osgi</groupId>
           <artifactId>org.osgi.core</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.apache.felix</groupId>
+          <groupId>org.osgi</groupId>
           <artifactId>org.osgi.compendium</artifactId>
         </exclusion>
       </exclusions>

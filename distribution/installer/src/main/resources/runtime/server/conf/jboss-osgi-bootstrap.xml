@@ -79,6 +79,4 @@
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
   </bean>
   
-  <bean name="OSGiKernelDeploymentDeployer" class="org.jboss.osgi.framework.deployers.OSGiKernelDeploymentDeployer" />
-  
 </deployment>

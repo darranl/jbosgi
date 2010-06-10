@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.test.osgi.jbosgi151.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi151.bundleB.BeanB;
-import org.junit.Ignore;
+import org.junit.After;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -57,20 +57,26 @@ import org.osgi.framework.BundleContext;
  */
 public class OSGi151TestCase extends OSGiFrameworkTest
 {
+   @After
+   public void tearDown() throws Exception
+   {
+      shutdownFramework();
+   }
+   
    @Test
    public void testCircularNoSelfDependency() throws Exception
    {
-      if ("jbossmc".equals(getFrameworkName()))
-      {
-         System.out.println("FIXME [JBKERNEL-54] Cannot resolve circular dependencies");
-         return;
-      }
-      
       BundleContext sysContext = getFramework().getBundleContext();
       
+      // Bundle-SymbolicName: jbosgi151-bundleA
+      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
+      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleB
       Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleA.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleA.getState());
 
+      // Bundle-SymbolicName: jbosgi151-bundleB
+      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleB
+      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
       Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleB.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleB.getState());
       
@@ -91,14 +97,19 @@ public class OSGi151TestCase extends OSGiFrameworkTest
    }
 
    @Test
-   @Ignore
    public void testCircularInstallCbeforeD() throws Exception
    {
       BundleContext sysContext = getFramework().getBundleContext();
       
+      // Bundle-SymbolicName: jbosgi151-bundleC
+      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
+      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
       Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleC.getState());
 
+      // Bundle-SymbolicName: jbosgi151-bundleD
+      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
+      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
       Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleD.getState());
       
@@ -119,14 +130,19 @@ public class OSGi151TestCase extends OSGiFrameworkTest
    }
 
    @Test
-   @Ignore
    public void testCircularInstallDbeforeC() throws Exception
    {
       BundleContext sysContext = getFramework().getBundleContext();
       
+      // Bundle-SymbolicName: jbosgi151-bundleD
+      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
+      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
       Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleD.getState());
       
+      // Bundle-SymbolicName: jbosgi151-bundleC
+      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
+      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
       Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
       assertBundleState(Bundle.INSTALLED, bundleC.getState());
 

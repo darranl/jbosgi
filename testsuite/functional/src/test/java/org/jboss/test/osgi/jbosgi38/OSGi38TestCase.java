@@ -246,9 +246,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
          
          bundleX.uninstall();
          assertBundleState(Bundle.UNINSTALLED, bundleX.getState());
-         
-         System.out.println("FIXME [JBDEPLOY-245] Unexpected dependee state changes");
-         //assertBundleState(Bundle.ACTIVE, bundleB.getState());
+         assertBundleState(Bundle.ACTIVE, bundleB.getState());
          
          bundleB.uninstall();
          assertBundleState(Bundle.UNINSTALLED, bundleB.getState());

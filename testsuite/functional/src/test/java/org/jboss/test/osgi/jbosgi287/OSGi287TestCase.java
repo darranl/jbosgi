@@ -110,12 +110,6 @@ public class OSGi287TestCase extends OSGiRuntimeTest
    @Test
    public void testResolvedOptionalImportReverse() throws Exception
    {
-      if ("jbossmc".equals(getFrameworkName()))
-      {
-         System.out.println("FIXME [JBKERNEL-54] Cannot resolve circular dependencies");
-         return;
-      }
-      
       OSGiRuntime runtime = getDefaultRuntime();
       try
       {

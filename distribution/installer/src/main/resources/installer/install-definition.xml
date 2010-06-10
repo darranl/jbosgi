@@ -521,7 +521,7 @@
 
     <!-- 
        This pack MUST NOT be part of an JBoss OSGi release 
-    -->
+    - ->
     <pack name="JBossMC SNAPSHOT overwrites" required="no" preselected="yes">
       <description>Temporarily overwrite AS provided jars with SNAPSHOT versions</description>
       
@@ -533,6 +533,7 @@
         <include name="jboss-classloading-vfs.jar" />
       </fileset>
     </pack>
+    -->
     
   </packs>
 </installation>

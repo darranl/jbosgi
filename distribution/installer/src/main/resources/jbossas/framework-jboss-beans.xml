@@ -50,8 +50,6 @@
           <entry><key>org.jboss.osgi.jndi.host</key><value>${jboss.bind.address}</value></entry>
           <!-- JTA Object Store -->
           <entry><key>com.arjuna.ats.arjuna.objectstore.objectStoreDir</key><value>${jboss.server.data.dir}/tx-object-store</value></entry>
-          <!-- Enable Workaround for [JBOSGI-317] Context is already registered in domain DefaultDomain -->
-          <entry><key>jbosgi317.workaround</key><value>true</value></entry>
         </map>
       </parameter>
     </constructor>
@@ -89,12 +87,6 @@
       <parameter><inject bean="MainDeployer"/></parameter>
       <parameter><inject bean="OSGiBundleManager"/></parameter>
     </constructor>
-  </bean>
-
-  <!-- Enable Workaround for [JBOSGI-317] Context is already registered in domain DefaultDomain -->
-  <bean name="OSGiModuleDeployerJBOSGI317" class="org.jboss.osgi.framework.deployers.OSGiModuleDeployerWorkaround">
-    <property name="classLoading"><inject bean="ClassLoading" /></property>
-    <property name="bundleManager"><inject bean="OSGiBundleManager" /></property>
   </bean>
 
   <!-- Autostart the Framework -->

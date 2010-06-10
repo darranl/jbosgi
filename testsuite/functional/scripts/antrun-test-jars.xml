@@ -67,6 +67,10 @@
   <target name="build-test-jars" depends="init" description="Build the test deployments">
 
     <!-- Please add alphabetically -->
+    
+    <!-- bundles/simple -->
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/bundles-simple-bundleA.jar" files="${tests.resources.dir}/bundles/simple-bundleA.bnd" />
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/bundles-simple-bundleB.jar" files="${tests.resources.dir}/bundles/simple-bundleB.bnd" />
 
     <!-- fragments/simple -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-hostA.jar" files="${tests.resources.dir}/fragments/simple-hostA.bnd" />

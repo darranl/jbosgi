@@ -55,18 +55,20 @@
    <!-- for packages that you don't want to trace       -->
    <!-- =============================================== -->
 
-   <!-- Trace logging for org.jboss.osgi -->
+   <!-- Trace logging for org.jboss.osgi - ->
    <logger category="org.jboss.osgi">
       <level name="TRACE"/>
    </logger>
+   -->
    
-   <!-- Trace logging for org.jboss.classloading -->
+   <!-- Trace logging for org.jboss.classloading - ->
    <logger category="org.jboss.classloading">
      <level name="TRACE" />
    </logger>
    <logger category="org.jboss.classloader">
      <level name="TRACE" />
    </logger>
+   -->
 
    <!-- ======================= -->
    <!-- Setup the Root category -->

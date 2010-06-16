@@ -42,9 +42,7 @@
       <error-manager>
          <only-once/>
       </error-manager>
-
       <level name="INFO"/>
-
       <formatter>
          <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] %m%n"/>
       </formatter>
@@ -57,11 +55,18 @@
    <!-- for packages that you don't want to trace       -->
    <!-- =============================================== -->
 
-   <!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
+   <!-- Trace logging for org.jboss.osgi -->
    <logger category="org.jboss.osgi">
       <level name="TRACE"/>
    </logger>
-
+   
+   <!-- Trace logging for org.jboss.classloading -->
+   <logger category="org.jboss.classloading">
+     <level name="TRACE" />
+   </logger>
+   <logger category="org.jboss.classloader">
+     <level name="TRACE" />
+   </logger>
 
    <!-- ======================= -->
    <!-- Setup the Root category -->

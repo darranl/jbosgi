@@ -162,36 +162,43 @@ public class OSGi99TestCase extends OSGiRuntimeTest
       outPath = outPath.substring(0, outPath.indexOf("data/osgi-store"));
       File deployFile = new File(outPath + "deploy/jbosgi99-allgood.jar");
       outFile.renameTo(deployFile);
-
-      int timeout = 8000;
-      OSGiBundle bundle = null;
-      while (timeout > 0)
+      try
       {
-         bundle = runtime.getBundle("jbosgi99-allgood", null);
-         if (bundle != null && bundle.getState() == Bundle.ACTIVE)
-            break;
+         int timeout = 8000;
+         OSGiBundle bundle = null;
+         while (timeout > 0)
+         {
+            bundle = runtime.getBundle("jbosgi99-allgood", null);
+            if (bundle != null && bundle.getState() == Bundle.ACTIVE)
+               break;
 
-         Thread.sleep(200);
-         timeout -= 200;
+            Thread.sleep(200);
+            timeout -= 200;
+         }
+
+         assertNotNull("Bundle not null", bundle);
+         assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+         // Delete the bundle from the deploy directory
+         deployFile.delete();
+
+         timeout = 8000;
+         while (timeout > 0)
+         {
+            if (bundle.getState() == Bundle.UNINSTALLED)
+               break;
+
+            Thread.sleep(200);
+            timeout -= 200;
+         }
+
+         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
       }
-
-      assertNotNull("Bundle not null", bundle);
-      assertBundleState(Bundle.ACTIVE, bundle.getState());
-
-      // Delete the bundle from the deploy directory
-      deployFile.delete();
-
-      timeout = 8000;
-      while (timeout > 0)
+      finally
       {
-         if (bundle.getState() == Bundle.UNINSTALLED)
-            break;
-
-         Thread.sleep(200);
-         timeout -= 200;
+         if (deployFile.exists())
+            deployFile.delete();
       }
-
-      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
    }
 
    private void copyfile(File inFile, File outFile) throws IOException

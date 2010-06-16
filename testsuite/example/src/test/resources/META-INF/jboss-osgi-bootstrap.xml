@@ -56,8 +56,4 @@
     <demand state="PreInstall">MDRService</demand>
   </bean>
 
-  <bean name="OSGiResolverPlugin" class="org.jboss.osgi.framework.resolver.felix.FelixResolverPlugin">
-    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
-  </bean>
-  
 </deployment>

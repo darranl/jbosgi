@@ -35,6 +35,8 @@ import org.osgi.framework.Bundle;
  * 
  * https://jira.jboss.org/jira/browse/JBOSGI-286
  * 
+ * The activator verifies that the javax.xml.bind.JAXBContext is wired to jboss-osgi-jaxb
+ * 
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */

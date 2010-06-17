@@ -31,6 +31,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.jboss.osgi.husky.BridgeFactory;
 import org.jboss.osgi.husky.HuskyCapability;
 import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.spi.capability.EventAdminCapability;
@@ -57,7 +58,7 @@ import org.osgi.service.event.EventHandler;
 public class EventAdminTestCase extends OSGiRuntimeTest
 {
    static String TOPIC = "org/jboss/test/osgi/example/event";
-   
+
    @RuntimeContext
    public BundleContext context;
 
@@ -89,17 +90,12 @@ public class EventAdminTestCase extends OSGiRuntimeTest
    public void testEventHandler() throws Exception
    {
       if (context == null)
-      {
-    	  System.out.println("FIXME [JBOSGI-338] Cannot obtain EventAdmin service");
-    	  return;
-    	  
-          //BridgeFactory.getBridge().run();
-      }
+         BridgeFactory.getBridge().run();
 
       assumeNotNull(context);
 
       TestEventHandler eventHandler = new TestEventHandler();
-      
+
       // Register the EventHandler
       Dictionary param = new Hashtable();
       param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
@@ -109,7 +105,7 @@ public class EventAdminTestCase extends OSGiRuntimeTest
       ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
       EventAdmin eventAdmin = (EventAdmin)context.getService(sref);
       eventAdmin.sendEvent(new Event(TOPIC, (Dictionary)null));
-      
+
       // Verify received event
       assertEquals("Event received", 1, eventHandler.received.size());
       assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
@@ -118,7 +114,7 @@ public class EventAdminTestCase extends OSGiRuntimeTest
    static class TestEventHandler implements EventHandler
    {
       List<Event> received = new ArrayList<Event>();
-      
+
       public void handleEvent(Event event)
       {
          received.add(event);

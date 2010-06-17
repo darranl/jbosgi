@@ -34,6 +34,7 @@ import org.jboss.osgi.testing.internal.RemoteRuntime;
 import org.jboss.test.osgi.jbossas.jbosgi36.mbean.FooMBean;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -44,6 +45,11 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 25-Feb-2009
  */
+
+// [JBREFLECT-130] NPE in BootstrapParentUnitFinder
+// https://jira.jboss.org/browse/JBREFLECT-130
+
+@Ignore
 public class OSGi36TestCase extends OSGiRuntimeTest
 {
    private static RemoteRuntime runtime;

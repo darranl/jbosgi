@@ -38,7 +38,7 @@ public class OSGi286Activator implements BundleActivator
       ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
       PackageAdmin packageAdmin = (PackageAdmin)context.getService(sref);
       
-      // Verify that the javax.xml.bind.JAXBContext is wired to the jax bundle
+      // Verify that the javax.xml.bind.JAXBContext is wired to jboss-osgi-jaxb
       Bundle exporter = packageAdmin.getBundle(JAXBContext.class);
       if (exporter == null || "jboss-osgi-jaxb".equals(exporter.getSymbolicName()) == false)
          throw new IllegalStateException("Invalid exporter: " + exporter);

@@ -42,6 +42,8 @@
           <entry><key>org.osgi.service.http.port</key><value>8090</value></entry>
           <!-- Config Admin Service -->
           <entry><key>felix.cm.dir</key><value>${osgi.server.home}/data/osgi-configadmin</value></entry>
+          <!-- Event Admin Service -->
+          <entry><key>org.apache.felix.eventadmin.Timeout</key><value>500</value></entry>
           <!-- JMX bundle properties -->
           <entry><key>org.jboss.osgi.jmx.host</key><value>${jboss.bind.address}</value></entry>
           <!-- JNDI bundle properties -->
@@ -65,6 +67,7 @@
       <value>${osgi.home}/server/minimal/deploy/org.apache.felix.log.jar</value>
       <value>${osgi.home}/server/minimal/deploy/jboss-osgi-common.jar</value>
       <value>${osgi.home}/server/minimal/deploy/jboss-osgi-hotdeploy.jar</value>
+      <value>${osgi.server.home}/deploy/org.apache.felix.configadmin.jar</value>
      </list>
     </property>
   </bean>

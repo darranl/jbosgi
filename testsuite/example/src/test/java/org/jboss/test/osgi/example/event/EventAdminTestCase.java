@@ -24,7 +24,6 @@ package org.jboss.test.osgi.example.event;
 //$Id$
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeNotNull;
 
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ import org.jboss.osgi.spi.capability.EventAdminCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.jboss.osgi.testing.OSGiServiceReference;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,9 +73,6 @@ public class EventAdminTestCase extends OSGiRuntimeTest
          runtime.addCapability(new HuskyCapability());
          runtime.addCapability(new EventAdminCapability());
 
-         OSGiServiceReference sref = runtime.getServiceReference(EventAdmin.class.getName(), 5000);
-         assertNotNull("EventAdmin available", sref);
-         
          OSGiBundle bundle = runtime.installBundle("example-event.jar");
          bundle.start();
       }

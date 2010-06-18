@@ -32,6 +32,11 @@
   <!-- Limit categories -->
   <!-- ================ -->
 
+  <!-- Show jboss osgi traces -->  
+  <category name="org.jboss.osgi">
+    <priority value="TRACE" />
+  </category>
+  
   <!-- Show jboss deployer traces  
   <category name="org.jboss.deployers">
     <priority value="TRACE" />

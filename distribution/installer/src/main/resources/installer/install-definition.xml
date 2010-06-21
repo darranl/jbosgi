@@ -194,6 +194,9 @@
         <include name="jbossxb.jar" />
         <include name="log4j.jar" />
         <include name="mcann-core.jar" />
+        <include name="scanning-plugins.jar" />
+        <include name="scanning-spi.jar" />
+        <include name="scanning-impl.jar" />
         <include name="shrinkwrap-api.jar" />
         <include name="slf4j-api.jar" />
         <include name="slf4j-log4j12.jar" />

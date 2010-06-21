@@ -32,20 +32,15 @@
 <table>
 <tr align="left"><th>Bind Addr</th><td>@jboss.bind.address@</td></tr>
 <tr align="left"><th>Documentation</th><td>
-<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
-<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
-<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
-<a href='job/jboss-osgi-jdk16/ws/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
+<a href='job/jbosgi-remote/ws/distribution/installer/target/auto-install-dest/docs/apidocs/index.html'>Javadoc</a>&nbsp;
+<a href='job/jbosgi-remote/ws/distribution/installer/target/auto-install-dest/docs/userguide/pdf/JBossOSGiUserguide.pdf'>PDF</a>&nbsp;
+<a href='job/jbosgi-remote/ws/distribution/installer/target/auto-install-dest/docs/userguide/html/index.html'>HTML</a>&nbsp;
+<a href='job/jbosgi-remote/ws/distribution/installer/target/auto-install-dest/docs/userguide/html_single/index.html'>HTML-Single</a>&nbsp;
 </td></tr>
 </table>
 ]]>
   </systemMessage>
   <jdks>
-    <jdk>
-      <name>jdk1.5</name>
-      <home>@java.home.jdk15@</home>
-      <properties/>
-    </jdk>
     <jdk>
       <name>jdk1.6</name>
       <home>@java.home.jdk16@</home>
@@ -76,6 +71,7 @@
         <string>osgi.jdbc.tests</string>
         <string>osgi.jmx.tests</string>
         <string>osgi.jndi.tests</string>
+        <string>osgi.startlevel.tests</string>
         <string>osgi.webapp.tests</string>
       </jobNames>
       <columns>
@@ -96,11 +92,10 @@
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
         <string>JBoss-6.0.1</string>
-        <string>jboss-osgi-embedded</string>
-        <string>jboss-osgi-framework</string>
-        <string>jboss-osgi-jdk16</string>
-        <string>jboss-osgi-matrix-embedded</string>
-        <string>jboss-osgi-matrix-remote</string>
+        <string>jbosgi-embedded</string>
+        <string>jbosgi-framework</string>
+        <string>jbosgi-remote</string>
+        <string>jbosgi-remote-matrix</string>
       </jobNames>
       <columns>
         <hudson.views.StatusColumn/>

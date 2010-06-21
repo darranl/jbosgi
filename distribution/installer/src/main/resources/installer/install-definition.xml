@@ -39,42 +39,18 @@
 
   <!-- Variables -->
   <variables>
-    <variable name="jboss501.home" value="@{jboss501.home}" />
-    <variable name="jboss510.home" value="@{jboss510.home}" />
     <variable name="jboss600.home" value="@{jboss600.home}" />
     <variable name="jboss601.home" value="@{jboss601.home}" />
   </variables>
 
   <!-- Dynamic Variables -->
   <dynamicvariables>
-    <variable name="jboss.home" value="${jboss501.home}" condition="isJBoss501" />
-    <variable name="jboss.home" value="${jboss510.home}" condition="isJBoss510" />
     <variable name="jboss.home" value="${jboss600.home}" condition="isJBoss600" />
     <variable name="jboss.home" value="${jboss601.home}" condition="isJBoss601" />
   </dynamicvariables>
 
   <!-- Conditions -->
   <conditions>
-    <condition type="variable" id="isFelix">
-      <name>frameworkSelection</name>
-      <value>felix</value>
-    </condition>
-    <condition type="variable" id="isEquinox">
-      <name>frameworkSelection</name>
-      <value>equinox</value>
-    </condition>
-    <condition type="variable" id="isJBossMC">
-      <name>frameworkSelection</name>
-      <value>jbossmc</value>
-    </condition>
-    <condition type="variable" id="isJBoss501">
-      <name>jbossSelection</name>
-      <value>jboss501</value>
-    </condition>
-    <condition type="variable" id="isJBoss510">
-      <name>jbossSelection</name>
-      <value>jboss510</value>
-    </condition>
     <condition type="variable" id="isJBoss600">
       <name>jbossSelection</name>
       <value>jboss600</value>
@@ -94,9 +70,7 @@
     <panel classname="HelloPanel" />
     <panel classname="TargetPanel" />
     <panel classname="TreePacksPanel" />
-    <panel classname="UserInputPanel" id="framework.select" />
-    <panel classname="UserInputPanel" id="jbossas.select.felix.equinox" condition="isFelix|isEquinox" />
-    <panel classname="UserInputPanel" id="jbossas.select.jbossmc" condition="isJBossMC" />
+    <panel classname="UserInputPanel" id="jbossas.select.jbossmc" />
     <panel classname="UserInputPanel" id="jboss.home.select" />
     <panel classname="SummaryPanel" />
     <panel classname="InstallPanel" />
@@ -184,152 +158,13 @@
       <!-- JBossOSGi Lib -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="args4j.jar" />
-        <include name="jboss-common-core.jar" />
-        <include name="jboss-logging-spi.jar" />
-        <include name="jboss-logging-log4j.jar" />
-        <include name="jboss-osgi-deployment.jar" />
-        <include name="jboss-osgi-spi.jar" />
-        <include name="jboss-osgi-vfs.jar" />
-        <include name="jboss-osgi-vfs30.jar" />
-        <include name="jboss-vfs.jar" />
-        <include name="log4j.jar" />
-        <include name="shrinkwrap-api.jar" />
-        <include name="slf4j-api.jar" />
-        <include name="slf4j-log4j12.jar" />
-      </fileset>
-
-      <!-- Server Minimal -->
-      <file src="@{runtime.dir}/server/conf/log4j.xml" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" />
-      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
-        <include name="org.apache.felix.log.jar" />
-        <include name="jboss-osgi-common.jar" />
-        <include name="jboss-osgi-hotdeploy.jar" />
-      </fileset>
-
-      <!-- Server Default -->
-      <file src="@{runtime.dir}/server/conf/log4j.xml" targetdir="$INSTALL_PATH/runtime/server/default/conf" override="true" />
-      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/default/deploy" override="true">
-        <!-- default -->
-        <include name="jboss-osgi-common-core.jar" />
-        <include name="jboss-osgi-jmx.jar" />
-        <include name="jboss-osgi-jndi.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
-        <include name="org.apache.aries.jmx.jar" />
-        <include name="org.apache.aries.util.jar" />
-      </fileset>
-
-      <!-- Server Web -->
-      <file src="@{runtime.dir}/server/conf/log4j.xml" targetdir="$INSTALL_PATH/runtime/server/web/conf" override="true" />
-      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/web/deploy" override="true">
-        <!-- default -->
-        <include name="jboss-osgi-common-core.jar" />
-        <include name="jboss-osgi-jmx.jar" />
-        <include name="jboss-osgi-jndi.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
-        <include name="org.apache.aries.jmx.jar" />
-        <include name="org.apache.aries.util.jar" />
-        <!-- web -->
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.metatype.jar" />
-        <include name="jboss-osgi-http.jar" />
-        <include name="jboss-osgi-webconsole.jar" />
-      </fileset>
-
-      <!-- Server All -->
-      <file src="@{runtime.dir}/server/conf/log4j.xml" targetdir="$INSTALL_PATH/runtime/server/all/conf" override="true" />
-      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/all/deploy" override="true">
-        <!-- default -->
-        <include name="jboss-osgi-common-core.jar" />
-        <include name="jboss-osgi-jmx.jar" />
-        <include name="jboss-osgi-jndi.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
-        <include name="org.apache.aries.jmx.jar" />
-        <include name="org.apache.aries.util.jar" />
-        <!-- web -->
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.metatype.jar" />
-        <include name="jboss-osgi-http.jar" />
-        <include name="jboss-osgi-webconsole.jar" />
-        <!-- all -->
-        <include name="jboss-osgi-xerces.jar" />
-        <include name="jboss-osgi-blueprint.jar" />
-        <include name="jboss-osgi-husky.jar" />
-        <include name="jboss-osgi-jaxb.jar" />
-        <include name="jboss-osgi-jta.jar" />
-        <include name="jboss-osgi-reflect.jar" />
-        <include name="jboss-osgi-xml-binding.jar" />
-      </fileset>
-
-      <!-- Felix Integration -->
-
-      <singlefile condition="isFelix" src="@{runtime.dir}/conf/jboss-osgi-felix.properties" target="$INSTALL_PATH/runtime/conf/jboss-osgi-framework.properties"
-        override="true" />
-      <singlefile condition="isFelix" src="@{runtime.dir}/server/conf/jboss-osgi-extra-minimal.properties" target="$INSTALL_PATH/runtime/server/minimal/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <singlefile condition="isFelix" src="@{runtime.dir}/server/conf/jboss-osgi-extra-default.properties" target="$INSTALL_PATH/runtime/server/default/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <singlefile condition="isFelix" src="@{runtime.dir}/server/conf/jboss-osgi-extra-web.properties" target="$INSTALL_PATH/runtime/server/web/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <singlefile condition="isFelix" src="@{runtime.dir}/server/conf/jboss-osgi-extra-all.properties" target="$INSTALL_PATH/runtime/server/all/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
-        <include name="jboss-osgi-felix.jar" />
-        <include name="org.apache.felix.framework.jar" />
-      </fileset>
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
-        <include name="org.osgi.compendium.jar" />
-      </fileset>
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/web/deploy" override="true">
-        <include name="pax-web-extender-war.jar" />
-      </fileset>
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/all/deploy" override="true">
-        <include name="pax-web-extender-war.jar" />
-      </fileset>
-
-      <!-- Equinox Integration -->
-
-      <singlefile condition="isEquinox" src="@{runtime.dir}/conf/jboss-osgi-equinox.properties" target="$INSTALL_PATH/runtime/conf/jboss-osgi-framework.properties"
-        override="true" />
-      <singlefile condition="isEquinox" src="@{runtime.dir}/server/conf/jboss-osgi-extra-minimal.properties" target="$INSTALL_PATH/runtime/server/minimal/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <singlefile condition="isEquinox" src="@{runtime.dir}/server/conf/jboss-osgi-extra-default.properties" target="$INSTALL_PATH/runtime/server/default/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <singlefile condition="isEquinox" src="@{runtime.dir}/server/conf/jboss-osgi-extra-web.properties" target="$INSTALL_PATH/runtime/server/web/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <singlefile condition="isEquinox" src="@{runtime.dir}/server/conf/jboss-osgi-extra-all.properties" target="$INSTALL_PATH/runtime/server/all/conf/jboss-osgi-extra.properties"
-        override="true" />
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
-        <include name="jboss-osgi-equinox.jar" />
-        <include name="org.eclipse.osgi.jar" />
-      </fileset>
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
-        <include name="org.eclipse.osgi.services.jar" />
-        <include name="org.eclipse.osgi.util.jar" />
-      </fileset>
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/web/deploy" override="true">
-        <include name="pax-web-extender-war.jar" />
-      </fileset>
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/all/deploy" override="true">
-        <include name="pax-web-extender-war.jar" />
-      </fileset>
-
-      <!-- Native Integration -->
-
-      <singlefile condition="isJBossMC" src="@{runtime.dir}/server/conf/jboss-osgi-bootstrap.xml" target="$INSTALL_PATH/runtime/server/minimal/conf/jboss-osgi-bootstrap.xml"
-        override="true" />
-      <singlefile condition="isJBossMC" src="@{runtime.dir}/server/conf/jboss-osgi-bootstrap.xml" target="$INSTALL_PATH/runtime/server/default/conf/jboss-osgi-bootstrap.xml"
-        override="true" />
-      <singlefile condition="isJBossMC" src="@{runtime.dir}/server/conf/jboss-osgi-bootstrap.xml" target="$INSTALL_PATH/runtime/server/web/conf/jboss-osgi-bootstrap.xml"
-        override="true" />
-      <singlefile condition="isJBossMC" src="@{runtime.dir}/server/conf/jboss-osgi-bootstrap.xml" target="$INSTALL_PATH/runtime/server/all/conf/jboss-osgi-bootstrap.xml"
-        override="true" />
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="javax.inject.jar" />
         <include name="jaxb-api.jar" />
         <include name="jboss-classloader.jar" />
         <include name="jboss-classloading.jar" />
         <include name="jboss-classloading-spi.jar" />
         <include name="jboss-classloading-vfs.jar" />
+        <include name="jboss-common-core.jar" />
         <include name="jboss-dependency.jar" />
         <include name="jboss-deployers-client.jar" />
         <include name="jboss-deployers-client-spi.jar" />
@@ -341,30 +176,112 @@
         <include name="jboss-deployers-vfs.jar" />
         <include name="jboss-deployers-vfs-spi.jar" />
         <include name="jboss-kernel.jar" />
+        <include name="jboss-logging-spi.jar" />
+        <include name="jboss-logging-log4j.jar" />
         <include name="jboss-managed.jar" />
         <include name="jboss-mdr.jar" />
         <include name="jboss-metatype.jar" />
         <include name="jboss-osgi-deployers-vfs30.jar" />
+        <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />
         <include name="jboss-osgi-framework-metadata.jar" />
         <include name="jboss-osgi-framework-resolver.jar" />
+        <include name="jboss-osgi-spi.jar" />
+        <include name="jboss-osgi-vfs.jar" />
+        <include name="jboss-osgi-vfs30.jar" />
         <include name="jboss-reflect.jar" />
+        <include name="jboss-vfs.jar" />
         <include name="jbossxb.jar" />
+        <include name="log4j.jar" />
         <include name="mcann-core.jar" />
+        <include name="shrinkwrap-api.jar" />
+        <include name="slf4j-api.jar" />
+        <include name="slf4j-log4j12.jar" />
         <include name="xercesImpl.jar" />
       </fileset>
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/lib" override="true">
+      <fileset dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="org.osgi.core.jar" />
       </fileset>
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
+      
+      <!-- Server Minimal -->
+      <fileset dir="@{runtime.dir}/server/minimal/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
+        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="log4j.xml" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
+        <include name="org.apache.felix.log.jar" />
+        <include name="jboss-osgi-common.jar" />
+        <include name="jboss-osgi-hotdeploy.jar" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
         <include name="org.osgi.compendium.jar" />
       </fileset>
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/web/deploy" override="true">
-        <include name="jboss-osgi-webapp.jar" />
+
+      <!-- Server Default -->
+      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/default/conf" override="true" >
+        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="log4j.xml" />
       </fileset>
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/all/deploy" override="true">
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/default/deploy" override="true">
+        <!-- default -->
+        <include name="jboss-osgi-common-core.jar" />
+        <include name="jboss-osgi-jmx.jar" />
+        <include name="jboss-osgi-jndi.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.util.jar" />
+      </fileset>
+
+      <!-- Server Web -->
+      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/web/conf" override="true" >
+        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="log4j.xml" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/web/deploy" override="true">
+        <!-- default -->
+        <include name="jboss-osgi-common-core.jar" />
+        <include name="jboss-osgi-jmx.jar" />
+        <include name="jboss-osgi-jndi.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.util.jar" />
+        <!-- web -->
+        <include name="org.apache.felix.metatype.jar" />
+        <include name="jboss-osgi-http.jar" />
         <include name="jboss-osgi-webapp.jar" />
+        <include name="jboss-osgi-webconsole.jar" />
+      </fileset>
+
+      <!-- Server All -->
+      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/all/conf" override="true" >
+        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="log4j.xml" />
+      </fileset>
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/all/deploy" override="true">
+        <!-- default -->
+        <include name="jboss-osgi-common-core.jar" />
+        <include name="jboss-osgi-jmx.jar" />
+        <include name="jboss-osgi-jndi.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.util.jar" />
+        <!-- web -->
+        <include name="org.apache.felix.metatype.jar" />
+        <include name="jboss-osgi-http.jar" />
+        <include name="jboss-osgi-webapp.jar" />
+        <include name="jboss-osgi-webconsole.jar" />
+        <!-- all -->
+        <include name="jboss-osgi-xerces.jar" />
+        <include name="jboss-osgi-blueprint.jar" />
+        <include name="jboss-osgi-husky.jar" />
+        <include name="jboss-osgi-jaxb.jar" />
+        <include name="jboss-osgi-jta.jar" />
+        <include name="jboss-osgi-reflect.jar" />
+        <include name="jboss-osgi-xml-binding.jar" />
       </fileset>
 
     </pack>
@@ -381,22 +298,6 @@
 
       <description>Integration with an existing JBossAS instance</description>
 
-      <!-- https://jira.jboss.org/jira/browse/JBOSGI-94 -->
-      <fileset condition="isJBoss501" dir="@{deploy.artifacts.dir}/resources/jbossas/jboss501" 
-        targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers" override="true">
-        <include name="metadata-deployer-jboss-beans.xml" />
-      </fileset>
-      <!-- https://jira.jboss.org/jira/browse/JBAS-7322 -->
-      <fileset condition="isJBoss501" dir="@{deploy.artifacts.dir}/resources/jbossas/jboss501" 
-        targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/jbossweb.deployer/META-INF" override="true">
-        <include name="war-deployers-jboss-beans.xml" />
-      </fileset>
-      <!-- https://jira.jboss.org/jira/browse/JBAS-7322 -->
-      <fileset condition="isJBoss510" dir="@{deploy.artifacts.dir}/resources/jbossas/jboss510" 
-        targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/jbossweb.deployer/META-INF" override="true">
-        <include name="war-deployers-jboss-beans.xml" />
-      </fileset>
-
       <fileset condition="isJBoss601" dir="@{deploy.artifacts.dir}/resources/jbossas/jboss600" 
         targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy" override="true">
         <include name="jboss-logging.xml" />
@@ -410,18 +311,18 @@
       <!-- deployers/osgi.deployer -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
         <include name="jboss-osgi-deployment.jar" />
+        <include name="jboss-osgi-deployers-vfs30.jar" />
+        <include name="jboss-osgi-framework.jar" />
+        <include name="jboss-osgi-framework-core.jar" />
+        <include name="jboss-osgi-framework-resolver.jar" />
         <include name="jboss-osgi-jbossas.jar" />
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-vfs.jar" />
+        <include name="jboss-osgi-vfs30.jar" />
         <include name="shrinkwrap-api.jar" />
       </fileset>
-      <fileset condition="isJBoss501|isJBoss510" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
-        <include name="jboss-osgi-deployers-vfs21.jar" />
-        <include name="jboss-osgi-vfs21.jar" />
-      </fileset>
-      <fileset condition="isJBoss600|isJBoss601" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
-        <include name="jboss-osgi-deployers-vfs30.jar" />
-        <include name="jboss-osgi-vfs30.jar" />
+      <fileset dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
+        <include name="org.osgi.core.jar" />
       </fileset>
 
       <!-- deploy/osgi -->
@@ -435,6 +336,7 @@
         <include name="jboss-osgi-jmx.jar" />
         <include name="jboss-osgi-jndi.jar" />
         <include name="jboss-osgi-reflect.jar" />
+        <include name="jboss-osgi-webapp.jar" />
         <include name="jboss-osgi-webconsole.jar" />
         <include name="jboss-osgi-xerces.jar" />
         <include name="jboss-osgi-xml-binding.jar" />
@@ -443,82 +345,21 @@
         <include name="org.apache.felix.eventadmin.jar" />
         <include name="org.apache.felix.log.jar" />
       </fileset>
-      <fileset dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="jta-service-jboss-beans.xml" />
-      </fileset>
-
-      <!-- Felix Integration -->
-
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
-        override="true">
-        <include name="jboss-osgi-felix.jar" />
-        <include name="org.apache.felix.framework.jar" />
-      </fileset>
-      <singlefile condition="isFelix" src="@{deploy.artifacts.dir}/resources/jbossas/felix-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/felix-jboss-beans.xml"
-        override="true" />
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.metatype.jar" />
-        <include name="pax-web-extender-war.jar" />
-      </fileset>
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi"
-        override="true">
+      <fileset dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
         <include name="org.osgi.compendium.jar" />
       </fileset>
-      <fileset condition="isFelix" dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
+      <fileset condition="isJBoss600" dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
         <include name="jta-service-jboss-beans.xml" />
       </fileset>
 
-      <!-- Equinox Integration -->
+      <!-- Framework Configuration -->
 
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
-        override="true">
-        <include name="jboss-osgi-equinox.jar" />
-        <include name="org.apache.equinox.framework.jar" />
-        <include name="org.eclipse.osgi.jar" />
-      </fileset>
-      <singlefile condition="isEquinox" src="@{deploy.artifacts.dir}/resources/jbossas/equinox-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/equinox-jboss-beans.xml"
+      <singlefile condition="isJBoss600" src="@{deploy.artifacts.dir}/resources/jbossas/jboss600/framework-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-jboss-beans.xml"
         override="true" />
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.metatype.jar" />
-        <include name="org.eclipse.osgi.services.jar" />
-        <include name="org.eclipse.osgi.util.jar" />
-        <include name="pax-web-extender-war.jar" />
-      </fileset>
-      <fileset condition="isEquinox" dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="jta-service-jboss-beans.xml" />
-      </fileset>
-
-      <!-- Native Integration -->
-
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
-        override="true">
-        <include name="jboss-osgi-framework.jar" />
-        <include name="jboss-osgi-framework-core.jar" />
-        <include name="jboss-osgi-framework-resolver.jar" />
-      </fileset>
-      <singlefile condition="isJBossMC+isJBoss600" src="@{deploy.artifacts.dir}/resources/jbossas/jboss600/framework-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-jboss-beans.xml"
+      <singlefile condition="isJBoss601" src="@{deploy.artifacts.dir}/resources/jbossas/jboss601/framework-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-jboss-beans.xml"
         override="true" />
-      <singlefile condition="isJBossMC+isJBoss601" src="@{deploy.artifacts.dir}/resources/jbossas/jboss601/framework-jboss-beans.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-jboss-beans.xml"
+      <singlefile src="@{deploy.artifacts.dir}/lib/framework-core/META-INF/jboss-osgi-bootstrap-system.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-system-jboss-beans.xml"
         override="true" />
-      <singlefile condition="isJBossMC" src="@{deploy.artifacts.dir}/lib/framework-core/META-INF/jboss-osgi-bootstrap-system.xml" target="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer/META-INF/framework-system-jboss-beans.xml"
-        override="true" />
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer"
-        override="true">
-        <include name="org.osgi.core.jar" />
-      </fileset>
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi"
-        override="true">
-        <include name="org.osgi.compendium.jar" />
-      </fileset>
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi"
-        override="true">
-        <include name="jboss-osgi-webapp.jar" />
-      </fileset>
-      <fileset condition="isJBossMC+isJBoss600" dir="@{deploy.artifacts.dir}/resources/jbossas" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deploy/osgi" override="true">
-        <include name="jta-service-jboss-beans.xml" />
-      </fileset>
 
     </pack>
 
@@ -536,7 +377,7 @@
     <pack name="JBossMC SNAPSHOT overwrites" required="no" preselected="yes">
       <description>Temporarily overwrite AS provided jars with SNAPSHOT versions</description>
       
-      <fileset condition="isJBossMC" dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/lib"
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/lib"
         override="true">
         <include name="jboss-classloader.jar" />
         <include name="jboss-classloading.jar" />

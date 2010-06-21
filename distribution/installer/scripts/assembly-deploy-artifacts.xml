@@ -74,7 +74,6 @@
       <includes>
         <include>JBossORG-EULA.txt</include>
         <include>ReleaseNotes.html</include>
-        <include>jboss501/**</include>
       </includes>
     </fileSet>
     <!-- jbossas -->

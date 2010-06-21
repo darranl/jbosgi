@@ -11,24 +11,6 @@ HUDSONDIR=$OSGIDIR/hudson
 HUDSONBIN=$HUDSONDIR/hudson-home/bin
 
 case "$CONTAINER" in
-  'jboss501')
-    SERVER_NAME=default
-    JBOSS_BUILD=jboss-5.0.1.GA
-    JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-	CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
-	CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
-    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE  
-    cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
-  ;;
-  'jboss510')
-    SERVER_NAME=default
-    JBOSS_BUILD=jboss-5.1.0.GA
-    JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-	CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
-	CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
-    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE  
-    cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
-  ;;
   'jboss600')
     SERVER_NAME=default
     JBOSS_BUILD=jboss-6.0.0.M3
@@ -75,12 +57,12 @@ echo $GIT_CMD; $GIT_CMD
 #
 # Setup the build environment
 # 
-ENVIRONMENT="-Dframework=$FRAMEWORK -Dtarget.container=$CONTAINER -Djboss.bind.address=$JBOSS_BINDADDR -Djboss.home=$CONTAINER_HOME"
+ENVIRONMENT="-Dtarget.container=$CONTAINER -Djboss.bind.address=$JBOSS_BINDADDR -Djboss.home=$CONTAINER_HOME"
 
 #
 # Do the sanity reactor build
 #
-if [ $FRAMEWORK = 'jbossmc' ] && [ $CONTAINER = 'runtime' ]; then
+if [ $CONTAINER = 'runtime' ]; then
   MVN_CMD="mvn clean install"
   echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
   if [ $MVN_STATUS -ne 0 ]; then

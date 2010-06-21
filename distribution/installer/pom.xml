@@ -68,18 +68,6 @@
               </descriptors>
             </configuration>
           </execution>
-          <execution>
-            <id>src</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>scripts/assembly-src-distro.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -97,8 +85,6 @@
                 <property name="framework" value="${framework}" />
                 <!-- ${jboss.home} is available in the hudson run  -->
                 <property name="jboss.home" value="${jboss.home}" />
-                <property name="jboss501.home" value="${jboss501.home}" />
-                <property name="jboss510.home" value="${jboss510.home}" />
                 <property name="jboss600.home" value="${jboss600.home}" />
                 <property name="jboss601.home" value="${jboss601.home}" />
                 <property name="product.name" value="${project.name}" />

@@ -1,30 +1,5 @@
 <userInput>
-  <panel order="0" id="framework.select">
-    <field type="radio" variable="frameworkSelection">
-      <description align="left" txt="Please choose the OSGi Framework" />
-      <spec>
-        <choice txt="Microcontainer" value="jbossmc" set="true"/>
-        <choice txt="Felix" value="felix"/>
-        <choice txt="Equinox" value="equinox"/>
-      </spec>
-    </field>
-  </panel>
-  <panel order="1" id="jbossas.select.felix.equinox">
-    <createForPack name="JBossAS Integration" />
-    <field type="radio" variable="jbossSelection">
-      <description align="left" txt="Please choose your target container" />
-      <spec>
-        <choice txt="JBoss-5.0.1" value="jboss501"/>
-        <choice txt="JBoss-5.1.0" value="jboss510"/>
-        <choice txt="JBoss-6.0.0.M3" value="jboss600" set="true"/>
-        <choice txt="JBoss-6.0.0-SNAPSHOT" value="jboss601"/>
-      </spec>
-    </field>
-    <field type="text" variable="jbossTargetServer">
-      <spec txt="Server:" size="15" set="default" />
-    </field>
-  </panel>
-  <panel order="2" id="jbossas.select.jbossmc">
+  <panel order="0" id="jbossas.select.jbossmc">
     <createForPack name="JBossAS Integration" />
     <field type="radio" variable="jbossSelection">
       <description align="left" txt="Please choose your target container" />
@@ -37,7 +12,7 @@
       <spec txt="Server:" size="15" set="default" />
     </field>
   </panel>
-  <panel order="3" id="jboss.home.select">
+  <panel order="1" id="jboss.home.select">
     <createForPack name="JBossAS Integration" />
     <field type="dir" align="left" variable="jbossInstallPath">
       <spec txt="JBoss Home:" size="25" set="${jboss.home}" />

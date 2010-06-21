@@ -78,7 +78,6 @@
         <module>jbosgi-spi</module>
         <module>jbosgi-xml-binding</module>
         <module>jbosgi-webapp</module>
-        <module>jbosgi-deployers</module>
         <module>jbosgi-framework</module>
       </modules>
     </profile>

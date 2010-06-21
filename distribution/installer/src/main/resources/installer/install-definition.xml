@@ -181,7 +181,6 @@
         <include name="jboss-managed.jar" />
         <include name="jboss-mdr.jar" />
         <include name="jboss-metatype.jar" />
-        <include name="jboss-osgi-deployers-vfs30.jar" />
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />
@@ -311,7 +310,6 @@
       <!-- deployers/osgi.deployer -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
         <include name="jboss-osgi-deployment.jar" />
-        <include name="jboss-osgi-deployers-vfs30.jar" />
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />
         <include name="jboss-osgi-framework-resolver.jar" />

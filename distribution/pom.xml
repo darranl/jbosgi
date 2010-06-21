@@ -156,14 +156,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.deployers</groupId>
-      <artifactId>jboss-osgi-deployers-vfs30</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.deployers</groupId>
-      <artifactId>jboss-osgi-deployers-vfs21</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.deployment</groupId>
       <artifactId>jboss-osgi-deployment</artifactId>
     </dependency>

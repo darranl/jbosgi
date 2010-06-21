@@ -10,17 +10,6 @@
   </com.izforge.izpack.panels.TreePacksPanel>
   <com.izforge.izpack.panels.UserInputPanel>
     <userInput>
-      <entry key="frameworkSelection" value="@framework@" />
-    </userInput>
-  </com.izforge.izpack.panels.UserInputPanel>
-  <com.izforge.izpack.panels.UserInputPanel>
-    <userInput>
-      <entry key="jbossTargetServer" value="default" />
-      <entry key="jbossSelection" value="@target.container@" />
-    </userInput>
-  </com.izforge.izpack.panels.UserInputPanel>
-  <com.izforge.izpack.panels.UserInputPanel>
-    <userInput>
       <entry key="jbossTargetServer" value="default" />
       <entry key="jbossSelection" value="@target.container@" />
     </userInput>

@@ -35,4 +35,5 @@
     </constructor>
   </bean>
 
+  <start-level xmlns="urn:jboss:startlevel:1.0" />
 </deployment>

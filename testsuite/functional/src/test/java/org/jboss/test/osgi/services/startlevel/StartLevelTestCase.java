@@ -133,6 +133,13 @@ public class StartLevelTestCase extends OSGiRuntimeTest
          ba = context.installBundle(baurl.toURI().toString());
          bb = context.installBundle(bburl.toURI().toString());
 
+         // david temp workaround to initialize start level
+         ba.start();
+         ba.stop();
+         bb.start();
+         bb.stop();
+         // david end temp workaround
+
          setStartLevelLatch(new CountDownLatch(1));
          FrameworkListener fl = new FrameworkListener()
          {

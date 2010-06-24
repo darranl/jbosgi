@@ -55,6 +55,12 @@
     </constructor>
   </bean>
   
+  <bean name="StartLevelService" class="org.jboss.osgi.framework.service.internal.StartLevelImpl">
+    <related-class name="org.osgi.service.startlevel.StartLevel">OSGi</related-class>
+    <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
+    <demand state="PreInstall">MDRService</demand>
+  </bean>
+
   <bean name="MicrocontainerService" class="org.jboss.osgi.framework.service.internal.MicrocontainerServiceImpl">
     <related-class name="org.jboss.osgi.spi.service.MicrocontainerService">OSGi</related-class>
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
@@ -69,7 +75,7 @@
     </constructor>
   </bean>
 
-  <!-- Autostart the Framework -->
+  <!-- Autostart the Framework, must come last -->
   <bean name="jboss.osgi:service=Framework" class="org.jboss.osgi.framework.launch.OSGiFramework">
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
     <depends>OSGiFrameworkEventsPlugin</depends>
@@ -77,11 +83,4 @@
     <depends>OSGiStoragePlugin</depends>
     <depends>OSGiSystemPackages</depends>
   </bean>
-  
-  <start-level xmlns="urn:jboss:startlevel:1.0">
-    <!-- Specify initial start levels for bundles here 
-    <bundle symbolic-name="foo" version="1.2.3" start-level="5"/>
-    <bundle symbolic-name="bar" start-level="4"/>
-    -->
-  </start-level>
 </deployment>

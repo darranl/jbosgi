@@ -69,34 +69,43 @@ public class JMXStartLevelTestCase extends OSGiRuntimeTest
    public void testStartLevelMBean() throws Exception
    {
       FrameworkMBean fw = runtime.getFrameworkMBean();
-      fw.setInitialBundleStartLevel(2);
-
-      Assert.assertEquals(1, fw.getFrameworkStartLevel());
-      OSGiBundle bundle = runtime.installBundle("example-jmx.jar"); // TODO maybe use another bundle
-
-      BundleStateMBean bs = runtime.getBundleStateMBean();
-      TabularData td = bs.listBundles();
-
-      long bundleId = -1;
-      for (CompositeData row : (Collection<CompositeData>)td.values())
+      try
       {
-         if (bundle.getSymbolicName().equals(row.get("SymbolicName")))
+         fw.setInitialBundleStartLevel(2);
+
+         Assert.assertEquals(1, fw.getFrameworkStartLevel());
+         OSGiBundle bundle = runtime.installBundle("example-jmx.jar"); // TODO maybe use another bundle
+
+         BundleStateMBean bs = runtime.getBundleStateMBean();
+         TabularData td = bs.listBundles();
+
+         long bundleId = -1;
+         for (CompositeData row : (Collection<CompositeData>)td.values())
          {
-            bundleId = Long.parseLong(row.get("Identifier").toString());
-            break;
+            if (bundle.getSymbolicName().equals(row.get("SymbolicName")))
+            {
+               bundleId = Long.parseLong(row.get("Identifier").toString());
+               break;
+            }
          }
+         assertTrue("Could not find test bundle through JMX", bundleId != -1);
+
+         fw.startBundle(bundleId);
+
+         assertEquals(2, bs.getStartLevel(bundleId));
+         fw.setBundleStartLevel(bundleId, 5);
+         assertEquals(5, bs.getStartLevel(bundleId));
+         waitForBundleState("INSTALLED", bs, bundleId);
+
+         fw.setFrameworkStartLevel(10);
+         waitForBundleState("ACTIVE", bs, bundleId);
       }
-      assertTrue("Could not find test bundle through JMX", bundleId != -1);
-
-      fw.startBundle(bundleId);
-
-      assertEquals(2, bs.getStartLevel(bundleId));
-      fw.setBundleStartLevel(bundleId, 5);
-      assertEquals(5, bs.getStartLevel(bundleId));
-      waitForBundleState("INSTALLED", bs, bundleId);
-
-      fw.setFrameworkStartLevel(10);
-      waitForBundleState("ACTIVE", bs, bundleId);
+      finally
+      {
+         // reset the start level old value
+         fw.setInitialBundleStartLevel(1);
+         fw.setFrameworkStartLevel(1);
+      }
    }
    
    private void waitForBundleState(String state, BundleStateMBean bs, long bundleId) throws Exception

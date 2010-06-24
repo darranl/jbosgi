@@ -77,4 +77,10 @@
     <depends>OSGiSystemPackages</depends>
   </bean>
   
+  <start-level xmlns="urn:jboss:startlevel:1.0">
+    <!-- Specify initial start levels for bundles here 
+    <bundle symbolic-name="foo" version="1.2.3" start-level="5"/>
+    <bundle symbolic-name="bar" start-level="4"/>
+    -->
+  </start-level>
 </deployment>

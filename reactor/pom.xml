@@ -71,13 +71,6 @@
         </property>
       </activation>
       <modules>
-        <module>jbosgi-apache-xerces</module>
-        <module>jbosgi-http</module>
-        <module>jbosgi-jaxb</module>
-        <module>jbosgi-jmx</module>
-        <module>jbosgi-spi</module>
-        <module>jbosgi-xml-binding</module>
-        <module>jbosgi-webapp</module>
         <module>jbosgi-framework</module>
       </modules>
     </profile>

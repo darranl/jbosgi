@@ -214,6 +214,9 @@ assertNotNull("root element not null", rootElement);
   <sect1 xml:id="SecJMXServiceExample">  
     <title>JMX Service</title>
 
+    <sect2 xml:id="SecJMXMBeanServerExample">
+      <title>MBeanServer Service</title>
+      
     <para>The <emphasis role="bold">example-jmx.jar</emphasis> bundle tracks the MBeanServer service and registers
     a pojo with JMX. It then verifies the JMX access.
     </para>
@@ -268,11 +271,12 @@ public void testMBeanAccess() throws Exception
       <ulink url="../../apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
       OSGiRuntime</ulink> abstraction.</para>
     </note>
-
+	</sect2>
+	
     <sect2 xml:id="SecJMXStartLevelExample">
-      <title>JMX control of Start Level Service</title>
+      <title>Start Level controll via FrameworkMBean</title>
 
-      <para>The <emphasis role="bold">JMXStartLevelTestCase</emphasis> uses JMX to control bundle and framework start levels.
+      <para>The <emphasis role="bold">StartLevelTestCase</emphasis> uses JMX to control bundle and framework start levels.
         The beginning of the <emphasis role="bold">testStartLevelMBean</emphasis> uses JMX to set the initial bundle start level to 2 and then installs a 
         new bundle in the framework through JMX.
       </para>

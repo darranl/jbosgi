@@ -31,8 +31,8 @@
 
   <!-- SCM -->
   <scm>
-    <connection>scm:git://github.com/jbosgi/jbosgi.git</connection>
-    <developerConnection>scm:git@github.com:jbosgi/jbosgi.git</developerConnection>
+    <connection>scm:git:git://github.com/jbosgi/jbosgi.git</connection>
+    <developerConnection>scm:git:git@github.com:jbosgi/jbosgi.git</developerConnection>
     <url>http://github.com/jbosgi/jbosgi</url>
   </scm>
 

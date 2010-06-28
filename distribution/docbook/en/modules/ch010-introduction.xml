@@ -68,8 +68,10 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-layers.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
-
     
     <emphasis role="bold">OSGi Security Layer</emphasis>
   
@@ -92,6 +94,9 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-delegation.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
   
     <emphasis role="bold">OSGi Module Layer</emphasis>
@@ -126,6 +131,9 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-classloader.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
     
     <para>For example, the following import and export definition resolve correctly because the version range in the import definition 
@@ -140,6 +148,9 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-version-constraint.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
   
     <para>Apart from bundle versions, OSGi Attribute Matching is a generic mechanism to allow the importer and exporter to influence the 
@@ -166,6 +177,9 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-life-cycle.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
     
     <para>A bundle is activated by calling its <emphasis role="bold">Bundle Activator</emphasis> object, if one exists. 
@@ -194,6 +208,9 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-service-registration.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
   </sect1>
   
@@ -223,6 +240,9 @@
       <imageobject>
         <imagedata  align="center" fileref="images/osgi-config-service.png"/> 
       </imageobject>
+	  <caption>
+	    <para>Source: OSGi Alliance</para>
+	  </caption>
     </mediaobject>
   
     <emphasis role="bold">Metatype Service</emphasis>

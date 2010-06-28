@@ -1,55 +1,77 @@
 <body>
 
-<h2>Release Notes - JBossOSGi-1.0.0.Beta7</h2>
+<h2>Release Notes - JBossOSGi-1.0.0.Beta8</h2>
 
-<p>I am happy to announce the release of JBossOSGi-1.0.0.Beta7.</p>
+<p>I am happy to announce the release of JBossOSGi-1.0.0.Beta8.</p>
 <p/>
 
-<p>You can download the binary here: <a href="http://sourceforge.net/projects/jboss/files/JBossOSGi/1.0.0.Beta7/jboss-osgi-installer-1.0.0.Beta7.jar/download">jboss-osgi-installer-1.0.0.Beta7.jar</a></p>
+<p>You can download the binary here: <a href="http://sourceforge.net/projects/jboss/files/JBossOSGi/1.0.0.Beta8/jboss-osgi-installer-1.0.0.Beta8.jar/download">jboss-osgi-installer-1.0.0.Beta8.jar</a></p>
 <p/>
 
 <p>The release comes with improvements in the following areas</p>
 <p/>
 
 <ul>
-<li>Enterprise OSGi bundle management (JMX)</li>
-<li>JSR160 compliant JMXConnector</li>
-<li>Integrate JBoss OSGi with AS 6.0.0.M3</li>
-<li>Framework service hooks</li>
-<li>OSGi core TCK compliant at 40%</li>
+<li>Integrate Apache Felix resolver</li>
+<li>Added support for DynamicImport-Package</li>
+<li>Implementation of the <a href="http://www.osgi.org/javadoc/r4v42/org/osgi/service/startlevel/StartLevel.html">StartLevel</a> Service</li>
+<li>Remove Felix and Equinox from the Installer (JBoss Framework reached acceptance threshold)</li>
 </ul>
 <p/>
 
-<p>For details please have a look at the latest version of our <a href="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta7/userguide/html/">User Guide</a>.</p>
+<p>For details please have a look at the latest version of our <a href="http://jbmuc.dyndns.org/jboss-osgi-1.0.0.Beta8/userguide/html/">User Guide</a>.</p>
 <p/>
 
 <p>Here are the change log details</p>
 <p/>
 
 <h2>Bug</h2>
-<ul><li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-292'>JBOSGI-292</a>] -     PackageAdmin cannot obtain classloading metadata</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-295'>JBOSGI-295</a>] -         NullPointerException in ExportedPackageHelper constructor</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-297'>JBOSGI-297</a>] -         OSGiBootstrapBean spinning on System.in read</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-299'>JBOSGI-299</a>] -         WebConsole does not display on jbossas/trunk</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-300'>JBOSGI-300</a>] -         Felix integration breaks jbossas/trunk bootstrap</li>
+<ul>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-151'>JBOSGI-151</a>] -         Cannot resolve circular dependencies</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-213'>JBOSGI-213</a>] -         Unexpected dependee state changes</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-317'>JBOSGI-317</a>] -         Context is already registered in domain DefaultDomain</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-318'>JBOSGI-318</a>] -         Linkage error for javax.servlet.Servlet in AS600</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-319'>JBOSGI-319</a>] -         LinkageError for the type javax/servlet/Servlet</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-323'>JBOSGI-323</a>] -         DynamicImport-Package takes presendence over embedded classes</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-324'>JBOSGI-324</a>] -         Cannot start EventAdmin service in AS</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-326'>JBOSGI-326</a>] -         MC service does not maintain properties</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-334'>JBOSGI-334</a>] -         Fix Start Level Support from the webconsole</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-338'>JBOSGI-338</a>] -         Cannot obtain EventAdmin service</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-341'>JBOSGI-341</a>] -         Endless loop at AS server startup</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-342'>JBOSGI-342</a>] -         Bundle resolution depends on install order</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-344'>JBOSGI-344</a>] -         When stopping the framework, bundles need to be taken down in reverse startlevel order</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-348'>JBOSGI-348</a>] -         EventAdmin unexpectedly unregistered in Runtime</li>
 </ul>
         
 <h2>Feature Request</h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-126'>JBOSGI-126</a>] -         Replace the SPI JMX functionality  by RFC-139 API</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-307'>JBOSGI-307</a>] -         JSR160 compliant JMXConnector</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-267'>JBOSGI-267</a>] -         Allow multiple bundles to change state at once
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-138'>JBOSGI-138</a>] -         Proper system BundleContext implementation</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-143'>JBOSGI-143</a>] -         Add support for DynamicImport-Package</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-184'>JBOSGI-184</a>] -         Allow for overlay of jboss-osgi-bootstrap.xml</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-311'>JBOSGI-311</a>] -         Provide access to org.osgi.jmx API in OSGiFrameworkTest</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-320'>JBOSGI-320</a>] -         Integrate Apache Felix resolver</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-332'>JBOSGI-332</a>] -         Enhance the StartLevel plugin to support specification of start level</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-333'>JBOSGI-333</a>] -         Make it possible to specify the initial start level of the system</li>
 </ul>
                     
 <h2>Task</h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-83'>JBOSGI-83</a>] -           Enterprise OSGi JMX</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-289'>JBOSGI-289</a>] -         Migrate all components to jboss-logging</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-290'>JBOSGI-290</a>] -         Use LifecycleInterceptor with Aries Blueprint</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-303'>JBOSGI-303</a>] -         Upgrade to equinox-3.5.2</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-304'>JBOSGI-304</a>] -         Upgrade to felix-2.0.4</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-302'>JBOSGI-302</a>] -         Add support for service hooks</li>
-<li>[<a href='https://jira.jboss.org/jira/browse/JBOSGI-312'>JBOSGI-312</a>] -         Integrate JBoss OSGi with AS 6.0.0.M3</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-94'>JBOSGI-94</a>] -           Remove DeploymentProvidedDeploymentUnitFilter</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-235'>JBOSGI-235</a>] -         Verify system classpath access</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-301'>JBOSGI-301</a>] -         Enable VFS3 leak detection in runtime</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-310'>JBOSGI-310</a>] -         Link generated javadoc to org.osgi API</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-314'>JBOSGI-314</a>] -         Change Hudson QA setup to work with Git</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-315'>JBOSGI-315</a>] -         Integrate jboss-osgi-http in distribution</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-316'>JBOSGI-316</a>] -         Verify integrity of the jboss-osgi-framework-all.jar</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-327'>JBOSGI-327</a>] -         Add support for JBossAS-6.0.0.M3</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-328'>JBOSGI-328</a>] -         Merge framework vfs30 support with core</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-335'>JBOSGI-335</a>] -         Ensure that start levels are supported via JMX</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-349'>JBOSGI-349</a>] -         Remove Felix and Equinox from the Installer </li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-350'>JBOSGI-350</a>] -         Add OSGi Alliance trade mark to images in userguide</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-351'>JBOSGI-351</a>] -         Release jboss-osgi-1.0.0.Beta8</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-352'>JBOSGI-352</a>] -         Remove dependency on osgi deployers project</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-139'>JBOSGI-139</a>] -         Implement system BundleContext.loadClass()</li>
+<li>[<a href='https://jira.jboss.org/browse/JBOSGI-278'>JBOSGI-278</a>] -         Revisit ControllerContext handling</li>
 </ul>
 
 <p/>

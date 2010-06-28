@@ -268,7 +268,58 @@ public void testMBeanAccess() throws Exception
       <ulink url="../../apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
       OSGiRuntime</ulink> abstraction.</para>
     </note>
-    
+
+    <sect2 xml:id="SecJMXStartLevelExample">
+      <title>JMX control of Start Level Service</title>
+
+      <para>The <emphasis role="bold">JMXStartLevelTestCase</emphasis> uses JMX to control bundle and framework start levels.
+        The beginning of the <emphasis role="bold">testStartLevelMBean</emphasis> uses JMX to set the initial bundle start level to 2 and then installs a 
+        new bundle in the framework through JMX.
+      </para>
+
+      <para>Once installed, it finds the bundle ID of the newly installed bundle through JMX, by obtaining the 
+        <emphasis role="bold">TabularData</emphasis> from <emphasis role="bold">listBundles()</emphasis>. 
+            The test then tries to start the bundle, but this doesn't actually start the bundle yet as the framework
+            start level is still at 1.
+            Increasing the start level of the bundle to 5 should keep the bundle in the <emphasis role="bold">INSTALLED</emphasis> state. Finally
+            the framework start level is increased to 10 which will bring the bundle in the <emphasis role="bold">ACTIVE</emphasis> state.
+      </para>
+
+      <programlisting role="JAVA">
+public void testStartLevelMBean() throws Exception
+{
+  FrameworkMBean fw = runtime.getFrameworkMBean();
+  fw.setInitialBundleStartLevel(2);
+
+  Assert.assertEquals(1, fw.getFrameworkStartLevel());
+  OSGiBundle bundle = runtime.installBundle("any_bundle.jar");
+
+  BundleStateMBean bs = runtime.getBundleStateMBean();
+  TabularData td = bs.listBundles();
+
+  long bundleId = -1;
+  for (CompositeData row : (Collection&lt;CompositeData&gt;)td.values())
+  {
+     if (bundle.getSymbolicName().equals(row.get("SymbolicName")))
+     {
+        bundleId = Long.parseLong(row.get("Identifier").toString());
+        break;
+     }
+  }
+  assertTrue("Could not find test bundle through JMX", bundleId != -1);
+
+  fw.startBundle(bundleId);
+
+  assertEquals(2, bs.getStartLevel(bundleId));
+  fw.setBundleStartLevel(bundleId, 5);
+  assertEquals(5, bs.getStartLevel(bundleId));
+  waitForBundleState("INSTALLED", bs, bundleId);
+
+  fw.setFrameworkStartLevel(10);
+  waitForBundleState("ACTIVE", bs, bundleId);
+  ...
+      </programlisting>
+    </sect2>
   </sect1>
   
   <sect1 xml:id="SecJNDIServiceExample">  

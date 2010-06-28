@@ -22,9 +22,7 @@
     that logically work together. A profile can be bootstrapped either as a standalone server or embedded in some other environment. 
     With a startup time of less than 600ms, the runtime can be easily be bootstrapped from within plain JUnit4 test cases.</para>
     
-    <para>The JBoss OSGi Runtime has an integration layer for the underlying OSGi frameworks. It comes with a choice of 
-    <link linkend="SecIntegrationFelix">Apache Felix</link>, <link linkend="SecIntegrationEquinox">Eclipse Equinox</link> or 
-    <link linkend="SecIntegrationJBossMC">JBoss Microcontainer</link>.</para>
+    <para>The JBoss OSGi Runtime has an integration layer for the underlying OSGi framework.</para>
     
     <para>Through local and remote management capabilities the JBoss OSGi Runtime can be provisioned with new or updated bundles.
     Similar to <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> it supports hot-deployment by dropping bundles
@@ -65,11 +63,6 @@
       <listitem><emphasis role="bold">Hot Deployement</emphasis> -
       Similar to <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> there is a deployment scanner that scans
       the 'deploy' folder for new or removed bundles.</listitem>
-      
-      <listitem><emphasis role="bold">Multiple OSGi Frameworks</emphasis> -
-      The Installer can setup the JBoss OSGi Runtime using <link linkend="SecIntegrationFelix">Felix</link>,
-      <link linkend="SecIntegrationEquinox">Equinox</link> or <link linkend="SecIntegrationJBossMC">JBossMC</link>. 
-      </listitem>
       
       <listitem><emphasis role="bold">Local and Remote JMX Support</emphasis> - 
       There is local as well as remote JSR160 support for JMX. 
@@ -167,10 +160,10 @@ $ bin/run.sh -c minimal
     <para>The following bundles are installed:</para>
   
     <itemizedlist>
-      <listitem><emphasis role="bold">org.osgi.compendium.jar</emphasis> - OSGi compendium API</listitem>
       <listitem><emphasis role="bold">jboss-osgi-common.jar</emphasis> - JBoss OSGi common services</listitem>
-      <listitem><emphasis role="bold">org.apache.felix.log.jar</emphasis> - Apache LogService</listitem>
       <listitem><emphasis role="bold">jboss-osgi-hotdeploy.jar</emphasis> - JBoss OSGi hot deployment service</listitem>
+      <listitem><emphasis role="bold">org.apache.felix.log.jar</emphasis> - Apache LogService</listitem>
+      <listitem><emphasis role="bold">org.osgi.compendium.jar</emphasis> - OSGi compendium API</listitem>
     </itemizedlist>
     
     <emphasis role="bold">Default Profile</emphasis>
@@ -180,11 +173,12 @@ $ bin/run.sh -c minimal
     <para>These additional bundles are installed:</para>
   
     <itemizedlist>
-      <listitem><emphasis role="bold">org.apache.aries.jmx.jar</emphasis> - Apache Aries JMX services</listitem>
-      <listitem><emphasis role="bold">org.apache.felix.eventadmin.jar</emphasis> - Apache Event Admin service</listitem>
       <listitem><emphasis role="bold">jboss-osgi-common-core.jar</emphasis> - JBoss Common Core functionality</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jmx.jar</emphasis> - JBoss OSGi JMX service</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jndi.jar</emphasis> - JBoss OSGi JNDI service</listitem>
+      <listitem><emphasis role="bold">org.apache.aries.jmx.jar</emphasis> - Apache Aries JMX services</listitem>
+      <listitem><emphasis role="bold">org.apache.felix.configadmin.jar</emphasis> - Apache Config Admin service</listitem>
+      <listitem><emphasis role="bold">org.apache.felix.eventadmin.jar</emphasis> - Apache Event Admin service</listitem>
     </itemizedlist>
   
     <emphasis role="bold">Web Profile</emphasis>
@@ -194,9 +188,8 @@ $ bin/run.sh -c minimal
     <para>These additional bundles are installed:</para>
   
     <itemizedlist>
-      <listitem><emphasis role="bold">org.apache.felix.configadmin.jar</emphasis> - Apache Config Admin service</listitem>
-      <listitem><emphasis role="bold">pax-web-jetty-bundle.jar</emphasis> - Pax Web HttpService</listitem>
-      <listitem><emphasis role="bold">pax-web-extender-war.jar</emphasis> - Pax Web WebApp Extender</listitem>
+      <listitem><emphasis role="bold">jboss-osgi-http.jar</emphasis> - JBoss OSGi HttpService</listitem>
+      <listitem><emphasis role="bold">jboss-osgi-webapp.jar</emphasis> - JBoss OSGi WebApp Support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-webconsole.jar</emphasis> - JBoss OSGi Web Console</listitem>
     </itemizedlist>
 
@@ -207,11 +200,10 @@ $ bin/run.sh -c minimal
     <para>These additional bundles are installed:</para>
   
     <itemizedlist>
-      <listitem><emphasis role="bold">jboss-osgi-apache-xerces.jar</emphasis> - Apache Xerces support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jaxb.jar</emphasis> - JAXB support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jta.jar</emphasis> - JTA support</listitem>
+      <listitem><emphasis role="bold">jboss-osgi-xerces.jar</emphasis> - Apache Xerces support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-xml-binding.jar</emphasis> - XML Binding (JBossXB) support</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-microcontainer.jar</emphasis> - Microcontainer support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-blueprint.jar</emphasis> - Blueprint Container support</listitem>
     </itemizedlist>
   </sect1>

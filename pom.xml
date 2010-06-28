@@ -45,9 +45,9 @@
   <!-- Properties -->
   <properties>
     <version.apache.ant>1.7.0</version.apache.ant>
-    <version.apache.aries.blueprint>0.1-incubating-20100329</version.apache.aries.blueprint>
-    <version.apache.aries.jmx>0.1-incubating-20100329</version.apache.aries.jmx>
-    <version.apache.aries.util>0.1-incubating-20100329</version.apache.aries.util>
+    <version.apache.aries.blueprint>0.1-incubating</version.apache.aries.blueprint>
+    <version.apache.aries.jmx>0.1-incubating</version.apache.aries.jmx>
+    <version.apache.aries.util>0.1-incubating</version.apache.aries.util>
     <version.apache.felix.configadmin>1.2.4</version.apache.felix.configadmin>
     <version.apache.felix.core>1.4.0</version.apache.felix.core>
     <version.apache.felix.eventadmin>1.2.2</version.apache.felix.eventadmin>
@@ -61,7 +61,7 @@
     <version.jboss.osgi.deployment>1.0.2</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>2.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.Alpha5-SNAPSHOT</version.jboss.osgi.framework>
+    <version.jboss.osgi.framework>1.0.0.Alpha5</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.5</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.0</version.jboss.osgi.http>
     <version.jboss.osgi.husky>1.0.4</version.jboss.osgi.husky>

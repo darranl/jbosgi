@@ -1,7 +1,6 @@
 #
 # A sample ant properties file
 #
-# $Id: ant.properties.example 3995 2007-07-26 08:52:45Z thomas.diesler@jboss.com $
 
 # Tomcat settings
 tomcat.base=/usr/share/tomcat6
@@ -33,6 +32,6 @@ jboss.bind.address=127.0.0.1
 # hudson.admin=username
 # hudson.version=1.355
 
-# hudson.jboss501.zip=file:///home/username/Downloads/java/jboss/jboss-5.0.1.GA.zip
-# hudson.jboss510.zip=file:///home/username/Downloads/java/jboss/jboss-5.1.0.GA.zip
+# JBoss Distributions
+# -------------------
 # hudson.jboss600.zip=file:///home/username/Downloads/java/jboss/jboss-6.0.0.M3.zip

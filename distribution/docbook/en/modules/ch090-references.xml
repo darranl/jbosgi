@@ -12,8 +12,7 @@
     <listitem><ulink url="http://jbossosgi.blogspot.com">JBoss OSGi Diary</ulink></listitem>
     <listitem><ulink url="https://jira.jboss.org/jira/browse/JBOSGI">Issue Tracking</ulink></listitem> 
     <listitem><ulink url="http://jbmuc.dyndns.org:8280/hudson">Hudson QA</ulink></listitem>
-    <listitem><ulink url="https://anonsvn.jboss.org/repos/jbossas/projects/jboss-osgi">Subversion</ulink></listitem> 
-    <listitem><ulink url="http://fisheye.jboss.com/browse/JBoss OSGi">Fisheye</ulink></listitem>
+    <listitem><ulink url="http://github.com/jbosgi">Source Repository</ulink></listitem> 
     <listitem><ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=257">User Forum</ulink></listitem> 
     <listitem><ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=256">Design Forum</ulink></listitem>
   </itemizedlist>

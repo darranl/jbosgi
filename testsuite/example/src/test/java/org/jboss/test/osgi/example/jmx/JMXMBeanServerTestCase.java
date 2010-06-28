@@ -65,9 +65,16 @@ public class JMXMBeanServerTestCase
    public void testMBeanAccess() throws Exception
    {
       OSGiBundle bundle = runtime.installBundle("example-jmx.jar");
-      bundle.start();
+      try
+      {
+         bundle.start();
 
-      FooMBean foo = runtime.getMBeanProxy(MBEAN_NAME, FooMBean.class);
-      assertEquals("hello", foo.echo("hello"));
+         FooMBean foo = runtime.getMBeanProxy(MBEAN_NAME, FooMBean.class);
+         assertEquals("hello", foo.echo("hello"));
+      }
+      finally
+      {
+         bundle.uninstall();
+      }
    }
 }

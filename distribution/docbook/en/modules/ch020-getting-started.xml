@@ -21,7 +21,7 @@
     <para>To run the installer execute the following command:</para>
     
     <programlisting>
-    java -jar jboss-osgi-installer-1.0.0.Beta7.jar
+    java -jar jboss-osgi-installer-1.0.0.Beta8.jar
     </programlisting>
       
     <para>The installer first shows a welcome screen</para>
@@ -55,14 +55,6 @@
       <listitem><emphasis role="bold">JBossAS Integration</emphasis> - Integration with an existing JBossAS instance</listitem>
     </itemizedlist>
     
-    <para>Next, you will be presented with the choice of supported OSGi Frameworks.</para>
-    
-    <mediaobject>
-      <imageobject>
-        <imagedata align="center" width="90%" fileref="images/izpack15-target-framework.png"/> 
-      </imageobject>
-    </mediaobject>
-    
     <para>In case you have selected 'JBossAS Integration', you will be presented with the choice of supported target containers.</para>
     
     <mediaobject>
@@ -73,11 +65,6 @@
     
     <para>You will then have to point the installer to your existing <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> installation.</para>
     
-    <tip>
-      <title>Supported JBossAS versions</title>
-      <para>The Microcontainer based OSGi Framework is only supported on JBoss-6.0.0 and above.</para>
-    </tip>
-        
     <mediaobject>
       <imageobject>
         <imagedata align="center" width="90%" fileref="images/izpack25-jboss-home.png"/> 
@@ -132,7 +119,7 @@ $ bin/run.sh
 
   JBossOSGi Bootstrap Environment
 
-  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta7/runtime
+  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta8/runtime
 
   JAVA: /usr/java/jdk1.6/bin/java
 
@@ -140,21 +127,20 @@ $ bin/run.sh
 
 =========================================================================
 
-13:10:35,143 INFO  [OSGiBundleManager] JBossOSGi Core Framework - 1.0.0.Alpha4
+11:45:05,168 INFO  JBossOSGi Framework Core - 1.0.0.Alpha5
 ...
-13:10:36,405 INFO  Start DeploymentScanner: [scandir=.../server/default/deploy,interval=2000ms]
-13:10:36,416 INFO  Bundle STARTED: Bundle{system.bundle-0.0.0}
-13:10:36,442 INFO  JBossOSGi Runtime booted in 1.297sec
-13:10:36,742 INFO  Bundle INSTALLED: Bundle{jboss-osgi-jndi-1.0.2}
-13:10:36,967 INFO  Bundle INSTALLED: Bundle{jboss-osgi-common-core-2.2.13.GA}
-13:10:36,994 INFO  Bundle INSTALLED: Bundle{jboss-osgi-jmx-1.0.3}
-13:10:37,018 INFO  Bundle INSTALLED: Bundle{org.apache.felix.eventadmin-1.0.0}
-13:10:37,167 INFO  Bundle STARTED: Bundle{jboss-osgi-common-core-2.2.13.GA}
-13:10:37,297 INFO  Bundle STARTED: Bundle{jboss-osgi-jmx-1.0.3}
-13:10:37,829 INFO  Bundle STARTED: Bundle{jboss-osgi-jndi-1.0.2}
-13:10:38,070 INFO  Bundle STARTED: Bundle{org.apache.felix.eventadmin-1.0.0}
+11:45:05,826 INFO  Starting bundles for start level 1
+11:45:06,677 INFO  Bundle STARTED: Bundle{system.bundle-0.0.0}
+11:45:06,686 INFO  JBossOSGi Runtime booted in 1.515sec
+11:45:06,703 INFO  Bundle INSTALLED: Bundle{jboss-osgi-common-core-2.2.13.GA}
+11:45:06,925 INFO  Bundle STARTED: Bundle{jboss-osgi-common-core-2.2.13.GA}
+11:45:07,177 INFO  Bundle STARTED: Bundle{org.apache.felix.eventadmin-1.2.2}
+11:45:07,695 INFO  Bundle STARTED: Bundle{jboss-osgi-jndi-1.0.3}
+11:45:07,916 INFO  Bundle STARTED: Bundle{org.apache.aries.jmx-0.1.0.incubating}
+11:45:07,939 INFO  Bundle STARTED: Bundle{org.apache.aries.util-0.1.0.incubating}
+11:45:08,217 INFO  Bundle STARTED: Bundle{jboss-osgi-jmx-1.0.7}
 ...
-<emphasis role="bold">13:10:38,334 INFO  JBossOSGi Runtime started in 1.939sec</emphasis>
+<emphasis role="bold">11:45:08,222 INFO  JBossOSGi Runtime started in 1.777sec</emphasis>
     </programlisting>
   </sect1>
     
@@ -300,7 +286,7 @@ $ ant hudson-setup
 Buildfile: build.xml
 
 init:
-     [echo] V1.0.0.Beta7
+     [echo] V1.0.0.Beta8
 
 init-hudson:
      [echo] 
@@ -328,7 +314,7 @@ $ ant hudson-start
 Buildfile: build.xml
 
 init:
-     [echo] V1.0.0.Beta7
+     [echo] V1.0.0.Beta8
 
 init-hudson:
      [echo] 
@@ -354,7 +340,7 @@ $ ant hudson-stop
 Buildfile: build.xml
 
 init:
-     [echo] V1.0.0.Beta7
+     [echo] V1.0.0.Beta8
 
 init-hudson:
      [echo] 

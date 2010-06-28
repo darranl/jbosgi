@@ -67,7 +67,7 @@
     <version.jboss.osgi.husky>1.0.4</version.jboss.osgi.husky>
     <version.jboss.osgi.jaxb>2.1.10.SP5</version.jboss.osgi.jaxb>
     <version.jboss.osgi.jbossas>1.0.3</version.jboss.osgi.jbossas>
-    <version.jboss.osgi.jmx>1.0.6</version.jboss.osgi.jmx>
+    <version.jboss.osgi.jmx>1.0.7</version.jboss.osgi.jmx>
     <version.jboss.osgi.jndi>1.0.3</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>1.0.1</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0</version.jboss.osgi.reflect>

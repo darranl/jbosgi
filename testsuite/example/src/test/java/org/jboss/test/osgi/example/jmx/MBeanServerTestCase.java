@@ -21,36 +21,36 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-//$Id: JMXTestCase.java 95465 2009-10-23 05:59:57Z thomas.diesler@jboss.com $
+//$Id$
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import javax.management.openmbean.TabularData;
+import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
+import static org.junit.Assert.assertEquals;
 
 import org.jboss.osgi.jmx.JMXCapability;
+import org.jboss.osgi.jndi.JNDICapability;
+import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.osgi.jmx.framework.BundleStateMBean;
 
 /**
  * A test that deployes a bundle that registeres an MBean
  * 
  * @author thomas.diesler@jboss.com
- * @since 15-Feb-2010
+ * @since 12-Feb-2009
  */
-public class JMXStandardTestCase extends OSGiRuntimeTest
+public class MBeanServerTestCase
 {
    private static OSGiRuntime runtime;
-   
+
    @BeforeClass
    public static void setUpClass() throws Exception
    {
       runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime.addCapability(new JNDICapability());
       runtime.addCapability(new JMXCapability());
    }
 
@@ -62,13 +62,19 @@ public class JMXStandardTestCase extends OSGiRuntimeTest
    }
 
    @Test
-   public void testBundleStateMBean() throws Exception
+   public void testMBeanAccess() throws Exception
    {
-      BundleStateMBean bundleState = runtime.getBundleStateMBean();
-      assertNotNull("BundleStateMBean not null", bundleState);
-      
-      TabularData bundleData = bundleState.listBundles();
-      assertNotNull("TabularData not null", bundleData);
-      assertFalse("TabularData not empty", bundleData.isEmpty());
+      OSGiBundle bundle = runtime.installBundle("example-jmx.jar");
+      try
+      {
+         bundle.start();
+
+         FooMBean foo = runtime.getMBeanProxy(MBEAN_NAME, FooMBean.class);
+         assertEquals("hello", foo.echo("hello"));
+      }
+      finally
+      {
+         bundle.uninstall();
+      }
    }
 }

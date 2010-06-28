@@ -21,36 +21,36 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-//$Id$
+//$Id: JMXTestCase.java 95465 2009-10-23 05:59:57Z thomas.diesler@jboss.com $
 
-import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import javax.management.openmbean.TabularData;
 
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.jndi.JNDICapability;
-import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeHelper;
-import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.osgi.jmx.framework.BundleStateMBean;
 
 /**
- * A test that deployes a bundle that registeres an MBean
+ * Test {@link BundleState} functionality  
  * 
  * @author thomas.diesler@jboss.com
- * @since 12-Feb-2009
+ * @since 15-Feb-2010
  */
-public class JMXMBeanServerTestCase
+public class BundleStateTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
-
+   
    @BeforeClass
    public static void setUpClass() throws Exception
    {
       runtime = new OSGiRuntimeHelper().getDefaultRuntime();
-      runtime.addCapability(new JNDICapability());
       runtime.addCapability(new JMXCapability());
    }
 
@@ -62,19 +62,13 @@ public class JMXMBeanServerTestCase
    }
 
    @Test
-   public void testMBeanAccess() throws Exception
+   public void testBundleStateMBean() throws Exception
    {
-      OSGiBundle bundle = runtime.installBundle("example-jmx.jar");
-      try
-      {
-         bundle.start();
-
-         FooMBean foo = runtime.getMBeanProxy(MBEAN_NAME, FooMBean.class);
-         assertEquals("hello", foo.echo("hello"));
-      }
-      finally
-      {
-         bundle.uninstall();
-      }
+      BundleStateMBean bundleState = runtime.getBundleStateMBean();
+      assertNotNull("BundleStateMBean not null", bundleState);
+      
+      TabularData bundleData = bundleState.listBundles();
+      assertNotNull("TabularData not null", bundleData);
+      assertFalse("TabularData not empty", bundleData.isEmpty());
    }
 }

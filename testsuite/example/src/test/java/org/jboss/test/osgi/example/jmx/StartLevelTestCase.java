@@ -46,7 +46,7 @@ import org.osgi.jmx.framework.FrameworkMBean;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class JMXStartLevelTestCase extends OSGiRuntimeTest
+public class StartLevelTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 

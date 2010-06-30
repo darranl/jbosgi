@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jboss.osgi.testsuite</groupId>
+    <artifactId>jboss-osgi-testsuite</artifactId>
+    <version>1.0.0.Beta9-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.jboss.osgi.testsuite</groupId>
+  <artifactId>jboss-osgi-testsuite-performance</artifactId>
+  <name>JBossOSGi Testsuite Performance</name>
+
+  <properties>
+    <version.jboss_osgi_framework>1.0.0.Alpha6-SNAPSHOT</version.jboss_osgi_framework>
+    <version.arquillian>1.0.0-SNAPSHOT</version.arquillian>
+    <version.shrinkwrap>1.0.0-alpha-9</version.shrinkwrap>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.arquillian.protocol</groupId>
+      <artifactId>arquillian-protocol-jmx</artifactId>
+      <version>${version.arquillian}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.packager</groupId>
+      <artifactId>arquillian-packager-osgi</artifactId>
+      <version>${version.arquillian}</version>
+      <scope>provided</scope>
+    </dependency> 
+    <dependency>
+      <groupId>org.jboss.shrinkwrap</groupId>
+      <artifactId>shrinkwrap-impl-base</artifactId>
+      <version>${version.shrinkwrap}</version>
+      <!-- <scope>provided</scope>  -->
+    </dependency>
+
+     <dependency>
+      <groupId>org.jboss.arquillian.container</groupId>
+      <artifactId>arquillian-osgi-embedded-4.2</artifactId>
+      <version>${version.arquillian}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian</groupId>
+      <artifactId>arquillian-junit</artifactId>
+      <version>${version.arquillian}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.jboss.arquillian</groupId>
+                  <artifactId>arquillian-bundle</artifactId>
+                  <version>${version.arquillian}</version>
+                  <destFileName>arquillian-bundle.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.osgi</groupId>
+                  <artifactId>org.osgi.compendium</artifactId>
+                  <destFileName>org.osgi.compendium.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.directory}/test-libs/bundles</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -83,6 +83,39 @@
         <configuration>
           <forkMode>always</forkMode>
         </configuration>
+          </plugin>
+    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-trax</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+            
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <configuration>
+              <tasks>
+                <property name="testsfile" value="target/performance-tests.xml"/>
+                <echo message="&lt;tests&gt;" file="${testsfile}"/>
+                <concat destfile="${testsfile}" append="true">
+                  <fileset dir="target/performance-results" includes="*.xml"/>
+                </concat>
+                <echo message="&lt;/tests&gt;" file="${testsfile}" append="true"/>
+                
+                <xslt in="${testsfile}" out="target/performance-report.html" style="src/test/xslt/performance-report.xsl"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>  

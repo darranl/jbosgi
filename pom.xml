@@ -55,6 +55,7 @@
     <version.apache.felix.metatype>1.0.2</version.apache.felix.metatype>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
+    <version.jboss.arquillian>1.0.0-SNAPSHOT</version.jboss.arquillian>
     <version.jboss.osgi.blueprint>1.0.0.Beta2</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.4</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.13.GA</version.jboss.osgi.common.core>
@@ -78,6 +79,7 @@
     <version.jboss.osgi.webconsole>1.0.3</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xerces>2.9.1.SP5</version.jboss.osgi.xerces>
     <version.jboss.osgi.xml.binding>2.0.2.Beta4.SP2</version.jboss.osgi.xml.binding>
+    <version.jboss.shrinkwrap>1.0.0-alpha-9</version.jboss.shrinkwrap>
     <version.ops4j.pax.web>0.7.2</version.ops4j.pax.web>
     <version.osgi>4.2.0</version.osgi>
 

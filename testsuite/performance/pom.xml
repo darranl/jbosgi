@@ -10,43 +10,43 @@
   <groupId>org.jboss.osgi.testsuite</groupId>
   <artifactId>jboss-osgi-testsuite-performance</artifactId>
   <name>JBossOSGi Testsuite Performance</name>
-
+  <!--
   <properties>
     <version.jboss_osgi_framework>1.0.0.Alpha6-SNAPSHOT</version.jboss_osgi_framework>
-    <version.arquillian>1.0.0-SNAPSHOT</version.arquillian>
-    <version.shrinkwrap>1.0.0-alpha-9</version.shrinkwrap>
+    <version.jboss.arquillian>1.0.0-SNAPSHOT</version.jboss.arquillian>
+    <version.jboss.shrinkwrap>1.0.0-alpha-9</version.jboss.shrinkwrap>
   </properties>
-
+  -->
   <dependencies>
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
       <artifactId>arquillian-protocol-jmx</artifactId>
-      <version>${version.arquillian}</version>
+      <version>${version.jboss.arquillian}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.packager</groupId>
       <artifactId>arquillian-packager-osgi</artifactId>
-      <version>${version.arquillian}</version>
+      <version>${version.jboss.arquillian}</version>
       <scope>provided</scope>
     </dependency> 
     <dependency>
       <groupId>org.jboss.shrinkwrap</groupId>
       <artifactId>shrinkwrap-impl-base</artifactId>
-      <version>${version.shrinkwrap}</version>
+      <version>${version.jboss.shrinkwrap}</version>
       <!-- <scope>provided</scope>  -->
     </dependency>
 
      <dependency>
       <groupId>org.jboss.arquillian.container</groupId>
       <artifactId>arquillian-osgi-embedded-4.2</artifactId>
-      <version>${version.arquillian}</version>
+      <version>${version.jboss.arquillian}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian</groupId>
       <artifactId>arquillian-junit</artifactId>
-      <version>${version.arquillian}</version>
+      <version>${version.jboss.arquillian}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -68,7 +68,7 @@
                 <artifactItem>
                   <groupId>org.jboss.arquillian</groupId>
                   <artifactId>arquillian-bundle</artifactId>
-                  <version>${version.arquillian}</version>
+                  <version>${version.jboss.arquillian}</version>
                   <destFileName>arquillian-bundle.jar</destFileName>
                 </artifactItem>
                 <artifactItem>

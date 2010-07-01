@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.osgi.framework.BundleContext;
 
-public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark implements PerformanceTest
+public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark implements PerformanceBenchmark
 {
    protected AbstractThreadedBenchmark(BundleContext bc)
    {

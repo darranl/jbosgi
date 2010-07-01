@@ -15,7 +15,8 @@ public abstract class AbstractPerformanceTestCase
    protected static JavaArchive getTestBundleArchive()
    {
       final JavaArchive archive = ShrinkWrap.create("test.jar", JavaArchive.class);
-      archive.addClasses(AbstractBenchmark.class, AbstractThreadedBenchmark.class, ChartType.class, ChartTypeImpl.class, PerformanceTest.class);
+      archive.addClasses(AbstractBenchmark.class, AbstractThreadedBenchmark.class, ChartType.class, ChartTypeImpl.class, Parameter.class,
+            PerformanceBenchmark.class);
       return archive;
    }
 

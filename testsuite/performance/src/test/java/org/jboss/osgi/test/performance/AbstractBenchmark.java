@@ -14,7 +14,7 @@ import java.util.Properties;
 
 import org.osgi.framework.BundleContext;
 
-public abstract class AbstractBenchmark implements PerformanceTest
+public abstract class AbstractBenchmark implements PerformanceBenchmark
 {
    protected final BundleContext bundleContext;
    protected final File tempDir;
@@ -34,22 +34,23 @@ public abstract class AbstractBenchmark implements PerformanceTest
    protected abstract ChartType[] getAllChartTypes();
    
    @Override
-   public void reportXML(File targetFile) throws Exception
+   public void reportXML(File targetFile, Parameter... parameters) throws Exception
    {
       StringBuilder sb = new StringBuilder();
       sb.append("<test name='");
       sb.append(getClass().getName());
       sb.append("'>");
 
-      /* TODO Obtain parameters from individual tests.
-      sb.append("<parameters><parameter name='numThreads' value='");
-      sb.append(numThreads);
-      sb.append("'/><parameter name='servicesPerThread   ' value='");
-      sb.append(numServicesPerThread);
-      sb.append("'/><parameter name='totalServices' value='");
-      sb.append(numThreads * numServicesPerThread);
-      sb.append("'/></parameters>");
-      */
+      sb.append("<parameters>");
+      for (Parameter p : parameters)
+      {
+         sb.append("<parameter name='");
+         sb.append(p.getName());
+         sb.append("' value='");
+         sb.append(p.getValue());
+         sb.append("'/>");
+      }
+      sb.append("</parameters>");
 
       for (ChartType type : getAllChartTypes())
       {
@@ -93,6 +94,25 @@ public abstract class AbstractBenchmark implements PerformanceTest
             }
          }
       }
+      
+      Runtime r = Runtime.getRuntime();
+      sb.append("<runtime processors='" + r.availableProcessors());
+      sb.append("' total-memory='" + r.totalMemory());
+      sb.append("' max-memory='" + r.maxMemory());
+      sb.append("'/>");
+
+      sb.append("<sysprops>");
+      Properties p = System.getProperties();
+      for (Entry<Object, Object> entry : p.entrySet())
+      {
+         sb.append("<prop name='");
+         sb.append(entry.getKey().toString());
+         sb.append("' value='");
+         sb.append(entry.getValue().toString());
+         sb.append("'/>");
+      }
+      sb.append("</sysprops>");
+      
       sb.append("</test>");
 
       OutputStreamWriter writer = new FileWriter(targetFile);

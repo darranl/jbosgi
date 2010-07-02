@@ -66,6 +66,7 @@ public class OSGiEmbeddedFrameworkTestCase
             builder.addExportPackages(OSGiEmbeddedFrameworkTestCase.class);
             builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
             builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
+            builder.addImportPackages("org.osgi.framework");
             return builder.openStream();
          }
       });

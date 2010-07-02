@@ -1,15 +1,36 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2005, JBoss Inc., and individual contributors as indicated
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.osgi.test.performance;
 
 import java.io.File;
-import java.io.InputStream;
 
-import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
+/**
+ * @author <a href="david@redhat.com">David Bosschaert</a>
+ */
 public abstract class AbstractPerformanceTestCase
 {
    protected static JavaArchive getTestBundleArchive()
@@ -23,29 +44,6 @@ public abstract class AbstractPerformanceTestCase
             Parameter.class,
             PerformanceBenchmark.class);
       return archive;
-   }
-
-   protected static OSGiManifestBuilder getTestManifestBuilder(JavaArchive archive)
-   {
-      final OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-      builder.addBundleSymbolicName(archive.getName());
-      builder.addBundleManifestVersion(2);
-      builder.addExportPackages(ChartType.class);
-      builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
-      builder.addImportPackages("org.jboss.osgi.testing");
-      builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
-      builder.addImportPackages("org.osgi.framework");
-
-      archive.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            return builder.openStream();
-         }
-      });
-
-      return builder;
    }
 
    protected File getResultsDir()

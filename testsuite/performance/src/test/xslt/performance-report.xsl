@@ -50,17 +50,40 @@
 
     <p/>
     <xsl:variable name="cb">http://chart.apis.google.com/chart?cht=lxy&amp;chs=400x300&amp;chxt=x,y&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,000000,0,-1,5|s,000000,1,-1,5&amp;chdl=JBoss|Dummy&amp;chdlp=r&amp;</xsl:variable>
-    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,0,1000|1,0,2000&amp;chds=0,1000,0,2000&amp;')"/>
+    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,0,1000|1,0,2000&amp;chds=0,1000,0,2000&amp;')"/>        
+
+<!--    <xsl:call-template name="ProcessFramework"-->
+
+
+    <xsl:variable name="populations">
+      <xsl:call-template name="GetPopList">
+        <xsl:with-param name="params" select="$results/../parameters/parameter[@name='Total Services']"/>
+      </xsl:call-template>
+    </xsl:variable>
+    PopsZZZZZZZZZZZz: <xsl:value-of select="populations"/>
+
+   <!-- 
+    <xsl:for-each select="$results/../parameters/parameter[@name='Total Services']">
+      <xsl:variable name="pop" select="@value"/>
+      <xsl:variable name="res">
+      <xsl:call-template name="GetAverageYValue">
+        <xsl:with-param name="resultset" select="../../result"/>
+      </xsl:call-template>
+      </xsl:variable> 
+      
+      Population: <xsl:value-of select="$pop"/> Result: <xsl:value-of select="$res"/> 
+      
+    </xsl:for-each>  -->
 
     <xsl:variable name="avg100">
       <xsl:call-template name="GetAverageYValue">
-        <xsl:with-param name="data" select="$results[(../parameters/parameter/@name='Total Services') and (../parameters/parameter/@value='100')]"/>
+        <xsl:with-param name="resultset" select="$results[(../parameters/parameter/@name='Total Services') and (../parameters/parameter/@value='100')]"/>
       </xsl:call-template>
     </xsl:variable>
 
     <xsl:variable name="avg1000">
       <xsl:call-template name="GetAverageYValue">
-        <xsl:with-param name="data" select="$results[(../parameters/parameter/@name='Total Services') and (../parameters/parameter/@value='1000')]"/>
+        <xsl:with-param name="resultset" select="$results[(../parameters/parameter/@name='Total Services') and (../parameters/parameter/@value='1000')]"/>
       </xsl:call-template>
     </xsl:variable>
         
@@ -79,7 +102,32 @@
   </xsl:template>
   
   <xsl:template name="GetAverageYValue">
-    <xsl:param name="data"/>
-    <xsl:value-of select="round(sum($data/@y-value) div count($data))"/>
+    <xsl:param name="resultset"/>
+    <xsl:value-of select="round(sum($resultset/@y-value) div count($resultset))"/>
+  </xsl:template>
+  
+  <xsl:template name="GetPopList">
+    <xsl:param name="params"/>
+    <xsl:variable name="str">
+      <xsl:call-template name="GetPopList1">
+        <xsl:with-param name="params" select="$params"/>
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:value-of select="substring($str, 1, string-length($str)-1)"/>
+  </xsl:template>
+
+  <xsl:template name="GetPopList1">
+    <xsl:param name="params"/>
+    <xsl:choose>
+      <xsl:when test="$params">
+        <xsl:variable name="first" select="$params[1]"/>
+        <xsl:variable name="rest">
+          <xsl:call-template name="GetPopList1">
+            <xsl:with-param name="params" select="$params[position()!=1]"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="concat($first/@value,',',$rest)"/>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 </xsl:transform>

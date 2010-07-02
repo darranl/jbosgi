@@ -15,7 +15,12 @@ public abstract class AbstractPerformanceTestCase
    protected static JavaArchive getTestBundleArchive()
    {
       final JavaArchive archive = ShrinkWrap.create("test.jar", JavaArchive.class);
-      archive.addClasses(AbstractBenchmark.class, AbstractThreadedBenchmark.class, ChartType.class, ChartTypeImpl.class, Parameter.class,
+      archive.addClasses(AbstractBenchmark.class,
+            AbstractPerformanceTestCase.class,
+            AbstractThreadedBenchmark.class,
+            ChartType.class,
+            ChartTypeImpl.class,
+            Parameter.class,
             PerformanceBenchmark.class);
       return archive;
    }
@@ -27,7 +32,9 @@ public abstract class AbstractPerformanceTestCase
       builder.addBundleManifestVersion(2);
       builder.addExportPackages(ChartType.class);
       builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+      builder.addImportPackages("org.jboss.osgi.testing");
       builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
+      builder.addImportPackages("org.osgi.framework");
 
       archive.setManifest(new Asset()
       {

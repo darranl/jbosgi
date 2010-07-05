@@ -58,15 +58,11 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
             return builder.openStream();
          }
       });
-      archive.addClasses(CreateAndLookupTestActivator.class,
-            CreateAndLookupBenchmark.class,
-            ServiceTestBase.class,
-            Service100TestCase.class,
-            Service1000TestCase.class);
-      archive.addClasses(TestClass.class, TestClass1.class, TestClass2.class, TestClass3.class, TestClass4.class, TestClass5.class);
-      archive.addClasses(TestClass6.class, TestClass7.class, TestClass8.class, TestClass9.class, TestClass10.class);
-      archive.addClasses(TestClass11.class, TestClass12.class, TestClass13.class, TestClass14.class, TestClass15.class);
-      archive.addClasses(TestClass16.class, TestClass17.class, TestClass18.class, TestClass19.class, TestClass20.class);
+      archive.addClasses(CreateAndLookupTestActivator.class, CreateAndLookupBenchmark.class, ServiceTestBase.class);
+      archive.addClasses(SvcCls.class, SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class);
+      archive.addClasses(SvcCls6.class, SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class);
+      archive.addClasses(SvcCls11.class, SvcCls12.class, SvcCls13.class, SvcCls14.class, SvcCls15.class);
+      archive.addClasses(SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class);
       return archive;
    }
 

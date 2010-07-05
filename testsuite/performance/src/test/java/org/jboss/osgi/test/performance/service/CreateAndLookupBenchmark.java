@@ -41,9 +41,9 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
    private static final ChartType LOOKUP = new ChartTypeImpl("LKU", "Service Lookup Time", "Number", "Time");
    
    @SuppressWarnings("unchecked")
-   private static final Class<TestClass>[] CLASSES = new Class[] { TestClass1.class, TestClass2.class, TestClass3.class, TestClass4.class, TestClass5.class,
-         TestClass6.class, TestClass7.class, TestClass8.class, TestClass9.class, TestClass10.class, TestClass11.class, TestClass12.class, TestClass13.class,
-         TestClass14.class, TestClass15.class, TestClass16.class, TestClass17.class, TestClass18.class, TestClass19.class, TestClass20.class };
+   private static final Class<SvcCls>[] CLASSES = new Class[] { SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class,
+         SvcCls6.class, SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class, SvcCls11.class, SvcCls12.class, SvcCls13.class,
+         SvcCls14.class, SvcCls15.class, SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class };
 
    public CreateAndLookupBenchmark(BundleContext context)
    {
@@ -71,7 +71,7 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
       // Service Registrations
       for (int i = 0; i < numServicesPerThread; i++)
       {
-         TestClass svc = TestClass.createInst(CLASSES[i % CLASSES.length], threadName + i);
+         SvcCls svc = SvcCls.createInst(CLASSES[i % CLASSES.length], threadName + i);
          ServiceRegistration reg = bundleContext.registerService(svc.getClass().getName(), svc, null);
          serviceIDs[i] = (Long)reg.getReference().getProperty(Constants.SERVICE_ID);
       }
@@ -87,7 +87,7 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
          if (srs.length != 1)
             throw new IllegalStateException("Should only have found 1 service: " + Arrays.toString(srs));
 
-         TestClass ti = (TestClass)bundleContext.getService(srs[0]);
+         SvcCls ti = (SvcCls)bundleContext.getService(srs[0]);
          if (!ti.toString().equals(threadName + i))
             throw new IllegalStateException("Wrong service used, expected: " + i + " but got " + ti);
       }

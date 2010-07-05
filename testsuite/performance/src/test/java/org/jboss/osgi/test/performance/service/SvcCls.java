@@ -1,10 +1,10 @@
 package org.jboss.osgi.test.performance.service;
 
-public class TestClass
+public class SvcCls
 {
    private String value;
 
-   protected TestClass()
+   protected SvcCls()
    {
    }
 
@@ -19,9 +19,9 @@ public class TestClass
       return value;
    }
 
-   public static TestClass createInst(Class<TestClass> clz, String val) throws Exception
+   public static SvcCls createInst(Class<SvcCls> clz, String val) throws Exception
    {
-      TestClass inst = clz.newInstance();
+      SvcCls inst = clz.newInstance();
       inst.setValue(val);
       return inst;
    }

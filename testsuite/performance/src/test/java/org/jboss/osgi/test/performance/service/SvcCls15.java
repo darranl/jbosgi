@@ -1,5 +1,5 @@
 package org.jboss.osgi.test.performance.service;
 
-public class TestClass16 extends TestClass
+public class SvcCls15 extends SvcCls
 {
 }

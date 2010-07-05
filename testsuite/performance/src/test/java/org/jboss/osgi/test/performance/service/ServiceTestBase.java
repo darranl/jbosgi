@@ -76,7 +76,7 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
       CreateAndLookupBenchmark tc = getService(bc, CreateAndLookupBenchmark.class);
       int processors = Runtime.getRuntime().availableProcessors();
       tc.run(processors, size / processors);
-      File f = new File(getResultsDir(), "testPerformance" + size + ".xml");
+      File f = new File(getResultsDir(), "testPerformance" + size + "-" + System.currentTimeMillis() + ".xml");
       tc.reportXML(f, new Parameter("Threads", processors), new Parameter("Total Services", size));
 
       getBundle().stop();

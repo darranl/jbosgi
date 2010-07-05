@@ -45,8 +45,17 @@
   <xsl:template name="ServiceBenchMark">
     <xsl:param name="results"/>
     <xsl:variable name="cb">http://chart.apis.google.com/chart?cht=lxy&amp;chs=500x300&amp;chxt=x,y,x,y&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,000000,0,-1,5|s,000000,1,-1,5&amp;chdlp=r&amp;</xsl:variable>
-    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,0,10000|1,0,90000&amp;chds=0,10000,0,90000,0,10000,0,90000&amp;chxl=2:||Number%20of%20Services||3:||Time%20(ms)|&amp;')"/>        
     
+    <xsl:variable name="yvalues">
+      <xsl:call-template name="SortStrList">
+        <xsl:with-param name="strlst">
+          <xsl:call-template name="GetYMeasurements">
+            <xsl:with-param name="params" select="$results"/>
+          </xsl:call-template>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:variable>
+            
     <xsl:variable name="populations">
       <xsl:call-template name="SortStrList">
         <xsl:with-param name="strlst">
@@ -61,6 +70,20 @@
       </xsl:call-template>
     </xsl:variable>
 
+    <xsl:variable name="maxy">
+      <xsl:call-template name="StrLstLastItem">
+        <xsl:with-param name="strlst" select="$yvalues"/>
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="maxx">
+      <xsl:call-template name="StrLstLastItem">
+        <xsl:with-param name="strlst" select="$populations"/>
+      </xsl:call-template>
+    </xsl:variable>
+    
+    <xsl:variable name="xrange" select="concat('0,', $maxx)"/>
+    <xsl:variable name="yrange" select="concat('0,', $maxy)"/>
+
     <xsl:variable name="frameworks">
       <xsl:call-template name="StrSet">
         <xsl:with-param name="strlst">
@@ -71,6 +94,23 @@
       </xsl:call-template>
     </xsl:variable>
     
+    
+    <xsl:message><xsl:value-of select="$frameworks"/></xsl:message>
+    <xsl:variable name="ranges">
+    <xsl:call-template name="RemoveTrailingChar">
+      <xsl:with-param name="str">
+        <xsl:call-template name="StrListAppendForEach">
+          <xsl:with-param name="strlst" select="$frameworks"/>
+          <xsl:with-param name="val" select="concat($xrange, ',', $yrange, ',')"/>
+        </xsl:call-template>
+      </xsl:with-param>
+      <xsl:with-param name="char" select="string(',')"/>
+    </xsl:call-template>
+    </xsl:variable>
+    
+    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,', $xrange, '|1,', $yrange,'&amp;chds=', $ranges, '&amp;chxl=2:||Number%20of%20Services||3:||Time%20(ms)|&amp;')"/>
+<!--    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,0,10000|1,0,90000&amp;chds=0,10000,0,90000,0,10000,0,90000&amp;chxl=2:||Number%20of%20Services||3:||Time%20(ms)|&amp;')"/>-->
+
     <xsl:variable name="googlechartmeasurings">
       <xsl:call-template name="GetAllGoogleChartMeasurings">
         <xsl:with-param name="populations" select="$populations" />
@@ -357,6 +397,43 @@
     </xsl:choose>
   </xsl:template>
   
+  <xsl:template name="StrLstLastItem">
+    <xsl:param name="strlst"/>
+    <xsl:choose>
+      <xsl:when test="contains($strlst, ',')">
+        <xsl:variable name="result">
+          <xsl:call-template name="StrLstLastItem">
+            <xsl:with-param name="strlst" select="substring-after($strlst, ',')"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="$result"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$strlst"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="StrListAppendForEach">
+    <xsl:param name="strlst"/>
+    <xsl:param name="val"/>
+    
+    <xsl:choose>
+      <xsl:when test="contains($strlst, ',')">
+        <xsl:variable name="rest">
+          <xsl:call-template name="StrListAppendForEach">
+            <xsl:with-param name="strlst" select="substring-after($strlst, ',')"/>
+            <xsl:with-param name="val" select="$val"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="concat($val, $rest)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$val"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <xsl:template name="GetAverageYValue">
     <xsl:param name="resultset"/>
     <xsl:value-of select="round(sum($resultset/@y-value) div count($resultset))"/>
@@ -374,6 +451,24 @@
         </xsl:variable>
         <xsl:value-of select="concat($first/@value,',',$rest)"/>
       </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="GetYMeasurements">
+    <xsl:param name="params"/>
+    <xsl:choose>
+      <xsl:when test="count($params) &gt; 1">
+        <xsl:variable name="first" select="$params[1]"/>
+        <xsl:variable name="rest">
+          <xsl:call-template name="GetYMeasurements">
+            <xsl:with-param name="params" select="$params[position()!=1]"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="concat($first/@y-value,',',$rest)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$params/@y-value"/>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 </xsl:transform>

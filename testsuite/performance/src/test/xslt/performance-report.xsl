@@ -93,9 +93,7 @@
         </xsl:with-param>
       </xsl:call-template>
     </xsl:variable>
-    
-    
-    <xsl:message><xsl:value-of select="$frameworks"/></xsl:message>
+        
     <xsl:variable name="ranges">
     <xsl:call-template name="RemoveTrailingChar">
       <xsl:with-param name="str">

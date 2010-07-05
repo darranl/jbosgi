@@ -63,6 +63,10 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
             ServiceTestBase.class,
             Service100TestCase.class,
             Service1000TestCase.class);
+      archive.addClasses(TestClass.class, TestClass1.class, TestClass2.class, TestClass3.class, TestClass4.class, TestClass5.class);
+      archive.addClasses(TestClass6.class, TestClass7.class, TestClass8.class, TestClass9.class, TestClass10.class);
+      archive.addClasses(TestClass11.class, TestClass12.class, TestClass13.class, TestClass14.class, TestClass15.class);
+      archive.addClasses(TestClass16.class, TestClass17.class, TestClass18.class, TestClass19.class, TestClass20.class);
       return archive;
    }
 

@@ -131,7 +131,6 @@
     Number of threads: <xsl:value-of select="$results/../parameters/parameter[@name='Threads']/@value"/><br/>
     Total Memory Available: <xsl:value-of select="round($results/../runtime/@max-memory div 1024 div 1024)"/> Megabytes<br/>
     Populations: <xsl:value-of select="$populations"/><br/>
-    Frameworks: <xsl:value-of select="$frameworks"/><br/>
     Measurements: <xsl:for-each select="$results">
       x: <xsl:value-of select="@x-value"/> y: <xsl:value-of select="@y-value"/> 
     </xsl:for-each><br/>      

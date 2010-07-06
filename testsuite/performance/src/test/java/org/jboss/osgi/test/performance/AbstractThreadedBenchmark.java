@@ -43,7 +43,7 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
       List<Thread> threads = new ArrayList<Thread>(numThreads);
       for (int i = 0; i < numThreads; i++)
       {
-         final String threadName = "Thread " + i;
+         final String threadName = "Thread_" + (i + 1);
 
          threads.add(new Thread(new Runnable()
          {

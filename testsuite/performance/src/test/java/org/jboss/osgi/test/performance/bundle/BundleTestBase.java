@@ -22,22 +22,16 @@
 package org.jboss.osgi.test.performance.bundle;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Method;
-import java.util.Properties;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
+import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
-import org.jboss.shrinkwrap.api.Assignable;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.runner.RunWith;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -66,88 +60,23 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
             return builder.openStream();
          }
       });
-      archive.addClasses(BundleTestBase.class, BundlePerfTestActivator.class);
+      archive.addClasses(BundleTestBase.class, BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
       archive.addClasses(Bundle100TestCase.class);
       return archive;
    }
 
    abstract BundleContext getBundleContext();
 
-   private File getPrivateStorageDir()
-   {
-      File f = new File(System.getProperty("basedir") + "/target/performance-storage");
-      f.mkdirs();
-      return f;
-   }
-
    void testPerformance(int size) throws Exception
    {
-      File dir = getPrivateStorageDir();
-      for (int i = 0; i < size; i++)
-      {
-         InputStream is = getBundle(i);
-         writeData(dir, "inst", "Bundle-" + i, System.currentTimeMillis());
-         Bundle bundle = getBundleContext().installBundle("someloc" + i, is);
-         bundle.start();
-      }
+      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(getBundleContext());
 
-      // Wait until all bundles have been started
-      int numStartedBundles = 0;
-      while (numStartedBundles < size)
-      {
-         System.out.println("Waiting for all bundles to be started");
-         Thread.sleep(1000);
-         synchronized ("bundle-test")
-         {
-            numStartedBundles = Integer.parseInt(System.getProperty("started-bundles", "0"));
-         }
-      }
+      // There is a problem with concurrent bundle installs it seems
+      // int threads = Runtime.getRuntime().availableProcessors();
+      int threads = 1;
+      bm.run(threads, size / threads);
+      
+      File f = new File(getResultsDir(), "testBundlePerf" + size + "-" + System.currentTimeMillis() + ".xml");
+      bm.reportXML(f, new Parameter("Threads", threads), new Parameter("Total Bundles", size));
    }
-
-   private void writeData(File dir, String type, Object x, Object y) throws Exception
-   {
-      File f = File.createTempFile("perf", "." + type, dir);
-      OutputStream fos = null;
-      try
-      {
-         fos = new FileOutputStream(f);
-         Properties p = new Properties();
-         p.setProperty(x.toString(), y.toString());
-         p.store(fos, "");
-      }
-      finally
-      {
-         if (fos != null)
-         {
-            fos.close();
-         }
-      }
-   }
-
-   private InputStream getBundle(final int counter) throws Exception
-   {
-      final JavaArchive jar = ShrinkWrap.create("test-" + counter + ".jar", JavaArchive.class);
-      jar.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("Bundle-" + counter);
-            builder.addBundleActivator(BundlePerfTestActivator.class.getName());
-            builder.addBundleManifestVersion(2);
-            return builder.openStream();
-         }
-      });
-      jar.addClasses(BundlePerfTestActivator.class);
-
-      // Temp workaround - need to use reflection to obtain ZipExporter to avoid classloader issues
-      // Can use normal types once ARQ-208 is fixed.
-      @SuppressWarnings("unchecked")
-      Class<Assignable> zeClass = (Class<Assignable>)getClass().getClassLoader().loadClass("org.jboss.shrinkwrap.api.exporter.ZipExporter");
-      Object ze = jar.as(zeClass);
-      Method m = zeClass.getMethod("exportZip");
-      return (InputStream)m.invoke(ze);
-   }
-   
 }

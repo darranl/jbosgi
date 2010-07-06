@@ -59,7 +59,11 @@ public abstract class AbstractPerformanceTestCase
       st.open();
       try
       {
-         return c.cast(st.waitForService(100000));
+         Object svc = st.waitForService(100000);
+         if (svc == null)
+            throw new NullPointerException("Service not available: " + c.getName());
+
+         return c.cast(svc);
       }
       finally
       {

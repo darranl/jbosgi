@@ -39,7 +39,7 @@ import org.osgi.framework.BundleContext;
 public abstract class ServiceTestBase extends AbstractPerformanceTestCase
 {
    @Deployment
-   public static JavaArchive createdeployment()
+   public static JavaArchive createDeployment()
    {
       final JavaArchive archive = getTestBundleArchive();
       archive.setManifest(new Asset()

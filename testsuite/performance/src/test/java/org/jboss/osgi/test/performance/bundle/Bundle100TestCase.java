@@ -41,7 +41,7 @@ public class Bundle100TestCase extends BundleTestBase
    }
 
    @Test
-   public void test100x() throws Exception
+   public void test100Bundles() throws Exception
    {
       testPerformance(100);
    }

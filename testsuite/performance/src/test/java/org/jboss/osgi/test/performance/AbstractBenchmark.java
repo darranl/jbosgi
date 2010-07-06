@@ -113,8 +113,7 @@ public abstract class AbstractBenchmark implements PerformanceBenchmark
             }
             finally
             {
-               if (is != null)
-                  is.close();
+               is.close();
             }
          }
       }

@@ -29,25 +29,26 @@
         <h1>Performance Test Report</h1>
         <h2>Service Creation Test</h2>
         This test creates a number of Services and registers these with the OSGi Service Registry. 
-        <p/>
-        <xsl:call-template name="ServiceBenchMark">
+        <xsl:call-template name="ChartBenchmark">
           <xsl:with-param name="results" select="/tests/test/result[@type='REG']"/>
         </xsl:call-template>
+
         <h2>Service Lookup Test</h2>
         This test looks up a number of different services from the OSGi Service Registry and makes an invocation on each.
-        <xsl:call-template name="ServiceBenchMark">
+        <xsl:call-template name="ChartBenchmark">
           <xsl:with-param name="results" select="/tests/test/result[@type='LKU']"/>
         </xsl:call-template>
+
         <h2>Bundle Installation Test</h2>
         This tests installs and starts bundles with a number of dependencies.
-        <xsl:call-template name="ServiceBenchMark">
+        <xsl:call-template name="ChartBenchmark">
           <xsl:with-param name="results" select="/tests/test/result[@type='IS']"/>
         </xsl:call-template>
       </BODY>
     </HTML>
   </xsl:template>
   
-  <xsl:template name="ServiceBenchMark">
+  <xsl:template name="ChartBenchmark">
     <xsl:param name="results"/>
     <xsl:variable name="cb">http://chart.apis.google.com/chart?cht=lxy&amp;chs=500x300&amp;chxt=x,y,x,y&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,000000,0,-1,5|s,000000,1,-1,5&amp;chdlp=r&amp;</xsl:variable>
     
@@ -111,8 +112,10 @@
     </xsl:call-template>
     </xsl:variable>
     
-    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,', $xrange, '|1,', $yrange,'&amp;chds=', $ranges, '&amp;chxl=2:||Number%20of%20Services||3:||Time%20(ms)|&amp;')"/>
-<!--    <xsl:variable name="cb2" select="concat($cb, 'chxr=0,0,10000|1,0,90000&amp;chds=0,10000,0,90000,0,10000,0,90000&amp;chxl=2:||Number%20of%20Services||3:||Time%20(ms)|&amp;')"/>-->
+    <xsl:variable name="x-label" select="$results/@x-axis"/>
+    <xsl:variable name="y-label" select="$results/@y-axis"/>
+    <xsl:variable name="cb1" select="concat($cb, 'chxr=0,', $xrange, '|1,', $yrange,'&amp;chds=', $ranges)"/>
+    <xsl:variable name="cb2" select="concat($cb1, '&amp;chxl=2:||', translate($x-label, ' ', '+'), '||3:||', translate($y-label, ' ', '+'), '|&amp;')"/>
 
     <xsl:variable name="googlechartmeasurings">
       <xsl:call-template name="GetAllGoogleChartMeasurings">
@@ -123,10 +126,6 @@
     </xsl:variable>    
                  
     <xsl:variable name="cb3" select="concat($cb2, 'chdl=', translate($frameworks, ',', '|'), '&amp;', 'chd=t:', $googlechartmeasurings)"/>
-    <!-- 
-    <br/>desired:http://chart.apis.google.com/chart?cht=lxy&amp;chs=400x300&amp;chxt=x,y&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,000000,0,-1,5|s,000000,1,-1,5&amp;chdl=JBoss|Dummy&amp;chdlp=r&amp;chxr=0,0,1000|1,0,2000&amp;chds=0,1000,0,2000&amp;chd=t:100,1000|178,1690|100,1000|500,1000
-    <br/>actual:<xsl:value-of select="$cb3"></xsl:value-of>
-     -->
     <p/>
     <img>
       <xsl:attribute name="src"><xsl:value-of select="$cb3"/></xsl:attribute>

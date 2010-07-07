@@ -48,8 +48,9 @@ public class BundlePerfTestActivator implements BundleActivator
       String threadName = getThreadName(bsn);
       synchronized (threadName.intern()) // VM-Global lock, outside of measuring section
       {
-         int num = Integer.parseInt(System.getProperty("started-bundles", "0"));
-         System.setProperty("started-bundles", "" + (num + 1));
+         String propName = threadName + "started-bundles";
+         int num = Integer.parseInt(System.getProperty(propName, "0"));
+         System.setProperty(propName, "" + (num + 1));
       }
    }
 

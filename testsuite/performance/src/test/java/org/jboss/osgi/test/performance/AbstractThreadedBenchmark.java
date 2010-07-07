@@ -37,14 +37,22 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
       super(bc);
    }
 
+   protected List<String> getThreadNames(int numThreads)
+   {
+      List<String> names = new ArrayList<String>(numThreads);
+      for (int i = 0; i < numThreads; i++)
+      {
+         names.add("Thread_" + (i + 1) + "_");
+      }
+      return names;
+   }
+
    public void runTest(int numThreads, final T parameters) throws Exception
    {
       final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<Throwable>());
       List<Thread> threads = new ArrayList<Thread>(numThreads);
-      for (int i = 0; i < numThreads; i++)
+      for (final String threadName : getThreadNames(numThreads))
       {
-         final String threadName = "Thread_" + (i + 1);
-
          threads.add(new Thread(new Runnable()
          {
             @Override

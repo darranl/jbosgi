@@ -21,8 +21,13 @@
  */
 package org.jboss.osgi.test.performance.bundle;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.net.URI;
 import java.util.Date;
 
 import org.jboss.osgi.test.common.CommonClass;
@@ -70,10 +75,13 @@ import org.osgi.framework.BundleContext;
 public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<Integer>
 {
    private static final ChartType INSTALL_START = new ChartTypeImpl("IS", "Bundle Install and Start Time", "Number of Bundles", "Time (ms)");
+   private final File bundleStorage;
 
    protected BundleInstallAndStartBenchmark(BundleContext bc)
    {
       super(bc);
+      bundleStorage = new File(tempDir, "bundles");
+      bundleStorage.mkdirs();
    }
    
    @Override
@@ -84,6 +92,9 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    public void run(int numThreads, int numBundlesPerThread) throws Exception
    {
+      for (String threadName : getThreadNames(numThreads))
+         createTestBundles(threadName, numBundlesPerThread);
+
       installBaseLineBundles();
       runTest(numThreads, numBundlesPerThread);
    }
@@ -98,6 +109,25 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       }
    }
 
+   private void createTestBundles(String threadName, int numBundlesPerThread) throws Exception
+   {
+      System.out.println("Creating test bundles in " + bundleStorage);
+      for (int i = 0; i < numBundlesPerThread; i++)
+      {
+         InputStream is = getTestBundle(threadName, i);
+         FileOutputStream fos = new FileOutputStream(new File(bundleStorage, threadName + i + ".jar"));
+         try
+         {
+            pumpStream(is, fos);
+         }
+         finally
+         {
+            fos.close();
+            is.close();
+         }
+      }
+   }
+
    @Override
    protected void runThread(String threadName, Integer numBundlesPerThread) throws Exception
    {
@@ -105,9 +135,11 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       long start = System.currentTimeMillis();
       for (int i = 0; i < numBundlesPerThread; i++)
       {
-         InputStream is = getTestBundle(threadName, i);
+         //         InputStream is = getTestBundle(threadName, i);
 
-         Bundle bundle = bundleContext.installBundle(threadName + i, is);
+         //         Bundle bundle = bundleContext.installBundle(threadName + i, is);
+         URI uri = new File(bundleStorage, threadName + i + ".jar").toURI();
+         Bundle bundle = bundleContext.installBundle(uri.toString());
          bundle.start();
       }
 
@@ -191,7 +223,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getTestBundle(final String threadName, final int counter) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("test-" + threadName + "_" + counter + ".jar", JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create("test-" + threadName + counter + ".jar", JavaArchive.class);
       jar.setManifest(new Asset()
       {
          @Override
@@ -229,5 +261,28 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
    private static String getBSN(String threadName, int counter)
    {
       return "Bundle-" + threadName + "-" + counter;
+   }
+
+   public static void pumpStream(InputStream is, OutputStream os) throws IOException
+   {
+      byte[] bytes = new byte[8192];
+
+      int length = 0;
+      int offset = 0;
+
+      while ((length = is.read(bytes, offset, bytes.length - offset)) != -1)
+      {
+         offset += length;
+
+         if (offset == bytes.length)
+         {
+            os.write(bytes, 0, bytes.length);
+            offset = 0;
+         }
+      }
+      if (offset != 0)
+      {
+         os.write(bytes, 0, offset);
+      }
    }
 }

@@ -35,6 +35,8 @@ import java.util.Properties;
 import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
 import org.jboss.osgi.test.performance.ChartType;
 import org.jboss.osgi.test.performance.ChartTypeImpl;
+import org.jboss.osgi.test.shared.SharedClass;
+import org.jboss.osgi.test.versioned.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.Assignable;
@@ -63,6 +65,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    public void run(int numThreads, int numBundlesPerThread) throws Exception
    {
+      installBaseLineBundles();
       runTest(numThreads, numBundlesPerThread);
 
       // Once all the tests are finished, collect the measurements and write them to disk
@@ -140,13 +143,23 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       writeData(INSTALL_START, numBundlesPerThread, totalDuration);
    }
 
+   private void installBaseLineBundles() throws Exception
+   {
+      // Shared bundle disabled due to class space issues
+      // bundleContext.installBundle("shared", getSharedBundle("1"));
+      for (int i = 1; i <= 5; i++)
+      {
+         bundleContext.installBundle("versioned" + i, getVersionedBundle("" + i));
+      }
+   }
+
    @Override
    protected void runThread(String threadName, Integer numBundlesPerThread) throws Exception
    {
       File tempDir = getPrivateStorageDir(threadName);
       for (int i = 0; i < numBundlesPerThread; i++)
       {
-         InputStream is = getBundle(threadName, i);
+         InputStream is = getTestBundle(threadName, i);
 
          writeData(tempDir, "inst", getBSN(threadName, i), System.currentTimeMillis());
          Bundle bundle = bundleContext.installBundle(threadName + i, is);
@@ -173,7 +186,50 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       return f;
    }
 
-   private InputStream getBundle(final String threadName, final int counter) throws Exception
+   // currently disabled until we can share bundles
+   @SuppressWarnings("unused")
+   private InputStream getSharedBundle(final String version) throws Exception
+   {
+      final JavaArchive jar = ShrinkWrap.create("shared-bundle-" + version, JavaArchive.class);
+      jar.setManifest(new Asset()
+      {
+         @Override
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName("SharedBundle" + version);
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages("org.osgi.framework");
+            builder.addImportPackages(SharedClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
+            builder.addExportPackages(SharedClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
+            return builder.openStream();
+         }
+      });
+      jar.addClasses(SharedClass.class);
+      return getInputStream(jar);
+   }
+
+   private InputStream getVersionedBundle(final String version) throws Exception
+   {
+      final JavaArchive jar = ShrinkWrap.create("versioned-bundle-" + version, JavaArchive.class);
+      jar.setManifest(new Asset()
+      {
+         @Override
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName("VersionedBundle" + version);
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages("org.osgi.framework");
+            builder.addExportPackages(VersionedClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
+            return builder.openStream();
+         }
+      });
+      jar.addClasses(VersionedClass.class);
+      return getInputStream(jar);
+   }
+
+   private InputStream getTestBundle(final String threadName, final int counter) throws Exception
    {
       final JavaArchive jar = ShrinkWrap.create("test-" + threadName + "_" + counter + ".jar", JavaArchive.class);
       jar.setManifest(new Asset()
@@ -185,11 +241,22 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
             builder.addBundleSymbolicName(getBSN(threadName, counter));
             builder.addBundleActivator(BundlePerfTestActivator.class.getName());
             builder.addBundleManifestVersion(2);
+            builder.addImportPackages("org.osgi.framework");
+
+            // TODO shared bundle currently causes issues
+            // builder.addImportPackages(SharedClass.class);
+            int ver = (counter % 5) + 1;
+            builder.addImportPackages(VersionedClass.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
             return builder.openStream();
          }
       });
       jar.addClasses(BundlePerfTestActivator.class);
 
+      return getInputStream(jar);
+   }
+
+   private InputStream getInputStream(final JavaArchive jar) throws Exception
+   {
       // Temp workaround - need to use reflection to obtain ZipExporter to avoid classloader issues
       // Can use normal types once ARQ-208 is fixed.
       @SuppressWarnings("unchecked")

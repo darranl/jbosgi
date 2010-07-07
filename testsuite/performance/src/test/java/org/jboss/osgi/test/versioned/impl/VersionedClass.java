@@ -19,12 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.versioned;
+package org.jboss.osgi.test.versioned.impl;
+
+import org.jboss.osgi.test.versioned.VersionedInterface;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class VersionedClass
+public class VersionedClass implements VersionedInterface
 {
    private static final String staticValue;
    static
@@ -36,11 +38,16 @@ public class VersionedClass
          System.setProperty(VersionedClass.class.getName(), "" + counter);
          staticValue = "" + counter;
       }
-      System.out.println("VersionedClass Initialized to: " + staticValue);
    }
 
-   public static String getStaticValue()
+   @Override
+   public String getValue()
    {
       return staticValue;
+   }
+
+   public static VersionedInterface create()
+   {
+      return new VersionedClass();
    }
 }

@@ -26,7 +26,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import org.jboss.osgi.test.versioned.VersionedClass;
+import org.jboss.osgi.test.common.CommonClass;
+import org.jboss.osgi.test.versioned.VersionedInterface;
+import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -43,7 +45,14 @@ public class BundlePerfTestActivator implements BundleActivator
    @Override
    public void start(BundleContext context) throws Exception
    {
-      System.out.println("Versioned class: " + VersionedClass.getStaticValue());
+      String common = CommonClass.getStaticValue();
+      VersionedInterface vi = VersionedClass.create();
+      String versioned = vi.getValue();
+      if (!common.equals(versioned)) {
+         throw new IllegalStateException("Expected the same version of the common and versioned classes, found. Found: common " +
+               common + ", versioned: " + versioned);
+      }
+
       long started = System.currentTimeMillis();
       String bsn = context.getBundle().getSymbolicName();
 

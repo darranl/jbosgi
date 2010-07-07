@@ -19,28 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.shared;
+package org.jboss.osgi.test.versioned;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class SharedClass
+public interface VersionedInterface
 {
-   private static final String staticValue;
-   static
-   {
-      synchronized (SharedClass.class.getName().intern())
-      {
-         int counter = Integer.parseInt(System.getProperty(SharedClass.class.getName(), "0"));
-         counter++;
-         System.setProperty(SharedClass.class.getName(), "" + counter);
-         staticValue = "" + counter;
-      }
-      System.out.println("SharedClass Initialized to: " + staticValue);
-   }
-
-   public static String getStaticValue()
-   {
-      return staticValue;
-   }
+   String getValue();
 }

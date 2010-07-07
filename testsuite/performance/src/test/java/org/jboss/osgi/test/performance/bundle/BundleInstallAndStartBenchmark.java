@@ -32,11 +32,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
 import org.jboss.osgi.test.performance.ChartType;
 import org.jboss.osgi.test.performance.ChartTypeImpl;
-import org.jboss.osgi.test.shared.SharedClass;
-import org.jboss.osgi.test.versioned.VersionedClass;
+import org.jboss.osgi.test.versioned.VersionedInterface;
+import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.Assignable;
@@ -46,6 +47,31 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
+ * This Benchmark tests how much time it takes to install and start bundles in a number of class-spaces.
+ * It creates the following configuration:
+ * 
+ * 5 (Versioned) Common Bundles
+ *   - Exports org.jboss.osgi.test.common;version=x
+ * 5 Versioned Interfaces Bundles
+ *   - Exports org.jboss.osgi.test.versioned;version=x
+ * 5 Versioned Impl Bundles
+ *   - Imports org.jboss.osgi.test.common;version=[x,x]
+ *   - Imports org.jboss.osgi.test.versioned;version=[x,x]
+ *   - Exports org.jboss.osgi.test.versioned.impl;version=x
+ * a large number of test bundles
+ *   - Imports org.jboss.osgi.test.common;version=[x,x]
+ *   - Imports org.jboss.osgi.test.versioned;version=[x,x]
+ *   - Imports org.jboss.osgi.test.versioned.impl;version=[x,x]
+ *   
+ * For each test bundle installed the time is measured from just before it is being installed to just after 
+ * the bundle has loaded a class of each of its 3 dependency packages in its activator.
+ * 
+ * After the test is run, the durations are computed for each bundle and added to a total duration which 
+ * is reported back.
+ * 
+ * The original intention was to make the Common Bundles all of the same version, but this caused issues
+ * with the current resolver. 
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<Integer>
@@ -145,11 +171,11 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private void installBaseLineBundles() throws Exception
    {
-      // Shared bundle disabled due to class space issues
-      // bundleContext.installBundle("shared", getSharedBundle("1"));
       for (int i = 1; i <= 5; i++)
       {
-         bundleContext.installBundle("versioned" + i, getVersionedBundle("" + i));
+         bundleContext.installBundle("common" + i, getCommonBundle("" + i));
+         bundleContext.installBundle("versioned-intf" + i, getVersionedIntfBundle("" + i));
+         bundleContext.installBundle("versioned-impl" + i, getVersionedImplBundle("" + i));
       }
    }
 
@@ -186,41 +212,61 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       return f;
    }
 
-   // currently disabled until we can share bundles
-   @SuppressWarnings("unused")
-   private InputStream getSharedBundle(final String version) throws Exception
+   private InputStream getCommonBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("shared-bundle-" + version, JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create("common-bundle-" + version, JavaArchive.class);
       jar.setManifest(new Asset()
       {
          @Override
          public InputStream openStream()
          {
             OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("SharedBundle" + version);
+            builder.addBundleSymbolicName("CommonBundle" + version);
             builder.addBundleManifestVersion(2);
             builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages(SharedClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
-            builder.addExportPackages(SharedClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
+            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
+            builder.addExportPackages(CommonClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
             return builder.openStream();
          }
       });
-      jar.addClasses(SharedClass.class);
+      jar.addClasses(CommonClass.class);
       return getInputStream(jar);
    }
 
-   private InputStream getVersionedBundle(final String version) throws Exception
+   private InputStream getVersionedIntfBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("versioned-bundle-" + version, JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create("versioned-intf-bundle-" + version, JavaArchive.class);
       jar.setManifest(new Asset()
       {
          @Override
          public InputStream openStream()
          {
             OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("VersionedBundle" + version);
+            builder.addBundleSymbolicName("VersionedIntfBundle" + version);
             builder.addBundleManifestVersion(2);
             builder.addImportPackages("org.osgi.framework");
+            builder.addExportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"" + version + ".0\"");
+            return builder.openStream();
+         }
+      });
+      jar.addClasses(VersionedInterface.class);
+      return getInputStream(jar);
+   }
+
+   private InputStream getVersionedImplBundle(final String version) throws Exception
+   {
+      final JavaArchive jar = ShrinkWrap.create("versioned-impl-bundle-" + version, JavaArchive.class);
+      jar.setManifest(new Asset()
+      {
+         @Override
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName("VersionedImplBundle" + version);
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages("org.osgi.framework");
+            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
+            builder.addImportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
             builder.addExportPackages(VersionedClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
             return builder.openStream();
          }
@@ -243,9 +289,9 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
             builder.addBundleManifestVersion(2);
             builder.addImportPackages("org.osgi.framework");
 
-            // TODO shared bundle currently causes issues
-            // builder.addImportPackages(SharedClass.class);
             int ver = (counter % 5) + 1;
+            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
+            builder.addImportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
             builder.addImportPackages(VersionedClass.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
             return builder.openStream();
          }

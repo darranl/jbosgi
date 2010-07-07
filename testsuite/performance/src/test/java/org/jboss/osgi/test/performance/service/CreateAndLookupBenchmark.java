@@ -37,8 +37,8 @@ import org.osgi.framework.ServiceRegistration;
  */
 public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
 {
-   private static final ChartType REGISTRATION = new ChartTypeImpl("REG", "Service Registration Time", "Number", "Time");
-   private static final ChartType LOOKUP = new ChartTypeImpl("LKU", "Service Lookup Time", "Number", "Time");
+   private static final ChartType REGISTRATION = new ChartTypeImpl("REG", "Service Registration Time", "Number of Services", "Time (ms)");
+   private static final ChartType LOOKUP = new ChartTypeImpl("LKU", "Service Lookup Time", "Number of Services", "Time (ms)");
    
    @SuppressWarnings("unchecked")
    private static final Class<SvcCls>[] CLASSES = new Class[] { SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class,

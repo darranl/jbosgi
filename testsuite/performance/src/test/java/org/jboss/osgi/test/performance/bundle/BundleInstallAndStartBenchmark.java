@@ -118,7 +118,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
          FileOutputStream fos = new FileOutputStream(new File(bundleStorage, threadName + i + ".jar"));
          try
          {
-            pumpStream(is, fos);
+            pumpStreams(is, fos);
          }
          finally
          {
@@ -135,9 +135,6 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       long start = System.currentTimeMillis();
       for (int i = 0; i < numBundlesPerThread; i++)
       {
-         //         InputStream is = getTestBundle(threadName, i);
-
-         //         Bundle bundle = bundleContext.installBundle(threadName + i, is);
          URI uri = new File(bundleStorage, threadName + i + ".jar").toURI();
          Bundle bundle = bundleContext.installBundle(uri.toString());
          bundle.start();
@@ -150,7 +147,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
          Thread.sleep(200);
          synchronized (threadName.intern())
          {
-            numStartedBundles = Integer.parseInt(System.getProperty("started-bundles", "0"));
+            numStartedBundles = Integer.parseInt(System.getProperty(threadName + "started-bundles", "0"));
          }
       }
       long end = System.currentTimeMillis();
@@ -263,7 +260,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       return "Bundle-" + threadName + "-" + counter;
    }
 
-   public static void pumpStream(InputStream is, OutputStream os) throws IOException
+   public static void pumpStreams(InputStream is, OutputStream os) throws IOException
    {
       byte[] bytes = new byte[8192];
 

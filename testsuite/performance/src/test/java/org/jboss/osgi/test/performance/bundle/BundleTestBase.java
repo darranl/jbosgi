@@ -28,6 +28,8 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.Parameter;
+import org.jboss.osgi.test.shared.SharedClass;
+import org.jboss.osgi.test.versioned.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -61,6 +63,7 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
          }
       });
       archive.addClasses(BundleTestBase.class, BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
+      archive.addClasses(SharedClass.class, VersionedClass.class);
       archive.addClasses(Bundle100TestCase.class);
       return archive;
    }

@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import org.jboss.osgi.test.versioned.VersionedClass;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -42,6 +43,7 @@ public class BundlePerfTestActivator implements BundleActivator
    @Override
    public void start(BundleContext context) throws Exception
    {
+      System.out.println("Versioned class: " + VersionedClass.getStaticValue());
       long started = System.currentTimeMillis();
       String bsn = context.getBundle().getSymbolicName();
 

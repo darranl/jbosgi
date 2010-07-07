@@ -81,6 +81,6 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
       bm.run(threads, size / threads);
       
       File f = new File(getResultsDir(), "testBundlePerf" + size + "-" + System.currentTimeMillis() + ".xml");
-      bm.reportXML(f, new Parameter("Threads", threads), new Parameter("Total Bundles", size));
+      bm.reportXML(f, new Parameter("Threads", threads), new Parameter("Population", size));
    }
 }

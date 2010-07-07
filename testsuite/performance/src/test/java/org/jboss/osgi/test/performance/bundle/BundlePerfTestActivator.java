@@ -21,11 +21,6 @@
  */
 package org.jboss.osgi.test.performance.bundle;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.Properties;
-
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.versioned.VersionedInterface;
 import org.jboss.osgi.test.versioned.impl.VersionedClass;
@@ -37,11 +32,6 @@ import org.osgi.framework.BundleContext;
  */
 public class BundlePerfTestActivator implements BundleActivator
 {
-   private File getPrivateStorageDir(String threadName)
-   {
-      return new File(System.getProperty("basedir") + "/target/performance-bundle-data/" + threadName);
-   }
-
    @Override
    public void start(BundleContext context) throws Exception
    {
@@ -53,11 +43,8 @@ public class BundlePerfTestActivator implements BundleActivator
                common + ", versioned: " + versioned);
       }
 
-      long started = System.currentTimeMillis();
       String bsn = context.getBundle().getSymbolicName();
-
       String threadName = getThreadName(bsn);
-      writeData(getPrivateStorageDir(threadName), "started", bsn, started);
       synchronized (threadName.intern()) // VM-Global lock, outside of measuring section
       {
          int num = Integer.parseInt(System.getProperty("started-bundles", "0"));
@@ -68,26 +55,6 @@ public class BundlePerfTestActivator implements BundleActivator
    @Override
    public void stop(BundleContext context) throws Exception
    {
-   }
-
-   private void writeData(File dir, String event, Object x, Object y) throws Exception
-   {
-      File f = File.createTempFile("perf", "." + event, dir);
-      OutputStream fos = null;
-      try
-      {
-         fos = new FileOutputStream(f);
-         Properties p = new Properties();
-         p.setProperty(x.toString(), y.toString());
-         p.store(fos, "");
-      }
-      finally
-      {
-         if (fos != null)
-         {
-            fos.close();
-         }
-      }
    }
 
    private static String getThreadName(String bsn)

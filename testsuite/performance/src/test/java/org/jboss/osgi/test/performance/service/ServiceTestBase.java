@@ -77,7 +77,7 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
       int processors = Runtime.getRuntime().availableProcessors();
       tc.run(processors, size / processors);
       File f = new File(getResultsDir(), "testPerformance" + size + "-" + System.currentTimeMillis() + ".xml");
-      tc.reportXML(f, new Parameter("Threads", processors), new Parameter("Total Services", size));
+      tc.reportXML(f, new Parameter("Threads", processors), new Parameter("Population", size));
 
       getBundle().stop();
    }

@@ -29,7 +29,7 @@ import org.osgi.framework.BundleContext;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class Bundle5000TestCase extends BundleTestBase
+public class Bundle750TestCase extends BundleTestBase
 {
    @Inject
    public BundleContext bundleContext;
@@ -41,8 +41,8 @@ public class Bundle5000TestCase extends BundleTestBase
    }
 
    @Test
-   public void test5000Bundles() throws Exception
+   public void test750Bundles() throws Exception
    {
-      testPerformance(5000);
+      testPerformance(750);
    }
 }

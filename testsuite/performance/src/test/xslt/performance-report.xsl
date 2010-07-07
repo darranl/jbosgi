@@ -38,6 +38,11 @@
         <xsl:call-template name="ServiceBenchMark">
           <xsl:with-param name="results" select="/tests/test/result[@type='LKU']"/>
         </xsl:call-template>
+        <h2>Bundle Installation Test</h2>
+        This tests installs and starts bundles with a number of dependencies.
+        <xsl:call-template name="ServiceBenchMark">
+          <xsl:with-param name="results" select="/tests/test/result[@type='IS']"/>
+        </xsl:call-template>
       </BODY>
     </HTML>
   </xsl:template>
@@ -62,7 +67,7 @@
           <xsl:call-template name="StrSet">
             <xsl:with-param name="strlst">
               <xsl:call-template name="GetValues">
-                <xsl:with-param name="params" select="$results/../parameters/parameter[@name='Total Services']"/>
+                <xsl:with-param name="params" select="$results/../parameters/parameter[@name='Population']"/>
               </xsl:call-template>
             </xsl:with-param>
           </xsl:call-template>
@@ -267,14 +272,14 @@
 
         <xsl:variable name="measuring">        
           <xsl:call-template name="GetAverageYValue">
-            <xsl:with-param name="resultset" select="$resultset[../parameters/parameter[(@name='Total Services') and (@value=$first)]]"/>
+            <xsl:with-param name="resultset" select="$resultset[../parameters/parameter[(@name='Population') and (@value=$first)]]"/>
           </xsl:call-template>
         </xsl:variable>
         <xsl:value-of select="concat($measuring,',',$rest)"/>
       </xsl:when>
       <xsl:otherwise>      
         <xsl:call-template name="GetAverageYValue">
-          <xsl:with-param name="resultset" select="$resultset[../parameters/parameter[(@name='Total Services') and (@value=$populations)]]"/>
+          <xsl:with-param name="resultset" select="$resultset[../parameters/parameter[(@name='Population') and (@value=$populations)]]"/>
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>        

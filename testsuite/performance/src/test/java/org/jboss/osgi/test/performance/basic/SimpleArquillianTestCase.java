@@ -39,17 +39,10 @@ import org.osgi.framework.ServiceReference;
  * Test the embedded OSGi framework
  *
  * @author thomas.diesler@jboss.com
- * @version $Revision: $
  */
 @RunWith(Arquillian.class)
-public class OSGiEmbeddedFrameworkTestCase
+public class SimpleArquillianTestCase
 {
-   
-   public OSGiEmbeddedFrameworkTestCase()
-   {
-      super();
-   }
-
    @Deployment
    public static JavaArchive createdeployment()
    {
@@ -63,7 +56,7 @@ public class OSGiEmbeddedFrameworkTestCase
             builder.addBundleManifestVersion(2);
             builder.addBundleActivator(SimpleActivator.class.getName());
             // [TODO] generate a separate bundle the contains the test case
-            builder.addExportPackages(OSGiEmbeddedFrameworkTestCase.class);
+            builder.addExportPackages(SimpleArquillianTestCase.class);
             builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
             builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework");
@@ -71,7 +64,7 @@ public class OSGiEmbeddedFrameworkTestCase
          }
       });
       archive.addClasses(SimpleActivator.class, SimpleService.class);
-      archive.addClasses(OSGiEmbeddedFrameworkTestCase.class);
+      archive.addClasses(SimpleArquillianTestCase.class);
       return archive;
    }
 

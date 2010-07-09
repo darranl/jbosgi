@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
-
-  <!-- $Id$ -->
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!-- JBoss, the OpenSource J2EE webOS                                       -->
+<!--                                                                        -->
+<!-- Distributable under LGPL license.                                      -->
+<!-- See terms of license at http://www.gnu.org.                            -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -53,7 +51,7 @@
       <groupId>org.jboss.osgi.deployment</groupId>
       <artifactId>jboss-osgi-deployment</artifactId>
     </dependency>
-  
+
     <!-- Apache Aries Dependencies -->
     <dependency>
       <groupId>org.apache.aries.blueprint</groupId>
@@ -71,7 +69,7 @@
       <artifactId>org.apache.aries.jmx</artifactId>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- Bundle Dependencies -->
     <dependency>
       <groupId>org.apache.felix</groupId>
@@ -88,15 +86,8 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!--
-    Contains classes from org.osgi.util.tracker that must come after
-    the framework provided ones. Equinox chokes with SecurityException.
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.configadmin</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    -->
+    <!-- Contains classes from org.osgi.util.tracker that must come after the framework provided ones. Equinox chokes with SecurityException. <dependency> <groupId>org.apache.felix</groupId> 
+      <artifactId>org.apache.felix.configadmin</artifactId> <scope>provided</scope> </dependency> -->
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.eventadmin</artifactId>
@@ -203,7 +194,7 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
-      
+
     <!-- OPS4J -->
     <dependency>
       <groupId>org.ops4j.pax.web</groupId>
@@ -252,10 +243,7 @@
   <!-- Profiles -->
   <profiles>
 
-    <!--
-      Name: framework-equinox
-      Descr: Setup for Equinox framework integration testing
-    -->
+    <!-- Name: framework-equinox Descr: Setup for Equinox framework integration testing -->
     <profile>
       <id>framework-equinox</id>
       <activation>
@@ -281,10 +269,7 @@
       </dependencies>
     </profile>
 
-    <!--
-      Name: framework-felix 
-      Descr: Setup for Felix framework integration testing
-    -->
+    <!-- Name: framework-felix Descr: Setup for Felix framework integration testing -->
     <profile>
       <id>framework-felix</id>
       <activation>
@@ -310,10 +295,7 @@
       </dependencies>
     </profile>
 
-    <!--
-      Name: framework-jbossmc
-      Descr: Setup for JBossMC framework integration testing
-    -->
+    <!-- Name: framework-jbossmc Descr: Setup for JBossMC framework integration testing -->
     <profile>
       <id>framework-jbossmc</id>
       <activation>
@@ -376,6 +358,37 @@
       </dependencies>
     </profile>
 
+    <!-- Name: framework-jbossmc Descr: Setup for JBossMC framework integration testing -->
+    <profile>
+      <id>framework-jbmsc</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>jbmsc</value>
+        </property>
+      </activation>
+      <properties>
+        <jboss.osgi.framework.properties>jboss-osgi-jbmsc.properties</jboss.osgi.framework.properties>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.container</groupId>
+          <artifactId>jbosgi-container-core</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.resolver</groupId>
+          <artifactId>jbosgi-resolver-felix</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.vfs</groupId>
+          <artifactId>jboss-osgi-vfs30</artifactId>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
     <profile>
       <id>config-admin</id>
       <activation>
@@ -386,8 +399,8 @@
       </activation>
       <dependencies>
         <!-- 
-          Contains classes from org.osgi.util.tracker that must come after
-          the framework provided ones. Equinox chokes with SecurityException.  
+           Contains classes from org.osgi.util.tracker that must come after the framework provided ones. 
+           Equinox chokes with SecurityException. 
         -->
         <dependency>
           <groupId>org.apache.felix</groupId>
@@ -406,11 +419,8 @@
         </dependency>
       </dependencies>
     </profile>
-    
-    <!--
-      Name: embedded-testing 
-      Descr: Setup for embedded integration testing
-    -->
+
+    <!-- Name: embedded-testing Descr: Setup for embedded integration testing -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -423,10 +433,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: runtime-testing 
-      Descr: Setup for runtime integration testing
-    -->
+    <!-- Name: runtime-testing Descr: Setup for runtime integration testing -->
     <profile>
       <id>runtime-testing</id>
       <activation>
@@ -440,10 +447,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: jboss501
-      Descr: Setup for jboss501 integration testing
-    -->
+    <!-- Name: jboss501 Descr: Setup for jboss501 integration testing -->
     <profile>
       <id>jboss501</id>
       <activation>
@@ -457,10 +461,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: jboss510
-      Descr: Setup for jboss510 integration testing
-    -->
+    <!-- Name: jboss510 Descr: Setup for jboss510 integration testing -->
     <profile>
       <id>jboss510</id>
       <activation>
@@ -474,10 +475,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: jboss600
-      Descr: Setup for jboss600 integration testing
-    -->
+    <!-- Name: jboss600 Descr: Setup for jboss600 integration testing -->
     <profile>
       <id>jboss600</id>
       <activation>
@@ -491,10 +489,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: jboss601
-      Descr: Setup for jboss601 integration testing
-    -->
+    <!-- Name: jboss601 Descr: Setup for jboss601 integration testing -->
     <profile>
       <id>jboss601</id>
       <activation>

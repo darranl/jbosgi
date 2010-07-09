@@ -12,6 +12,7 @@
   <name>JBossOSGi Testsuite Performance</name>
 
   <dependencies>
+    <!-- 
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
       <artifactId>arquillian-protocol-jmx</artifactId>
@@ -23,23 +24,17 @@
       <artifactId>arquillian-packager-osgi</artifactId>
       <version>${version.jboss.arquillian}</version>
       <scope>provided</scope>
-    </dependency> 
+    </dependency>
     <dependency>
       <groupId>org.jboss.shrinkwrap</groupId>
       <artifactId>shrinkwrap-impl-base</artifactId>
       <version>${version.jboss.shrinkwrap}</version>
-      <!-- <scope>provided</scope>  -->
     </dependency>
+    -->
 
-     <dependency>
-      <groupId>org.jboss.arquillian.container</groupId>
-      <artifactId>arquillian-osgi-embedded-4.2</artifactId>
-      <version>${version.jboss.arquillian}</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian</groupId>
-      <artifactId>arquillian-junit</artifactId>
+      <groupId>org.jboss.arquillian.osgi</groupId>
+      <artifactId>arquillian-osgi-container</artifactId>
       <version>${version.jboss.arquillian}</version>
       <scope>test</scope>
     </dependency>
@@ -61,7 +56,7 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>org.jboss.arquillian</groupId>
+                  <groupId>org.jboss.arquillian.osgi</groupId>
                   <artifactId>arquillian-bundle</artifactId>
                   <version>${version.jboss.arquillian}</version>
                   <destFileName>arquillian-bundle.jar</destFileName>
@@ -101,7 +96,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin> 
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -111,7 +106,7 @@
           <forkMode>always</forkMode>
         </configuration>
       </plugin>
-    
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -122,20 +117,20 @@
             <version>1.6.5</version>
           </dependency>
         </dependencies>
-            
+
         <executions>
           <execution>
             <phase>package</phase>
             <configuration>
               <tasks>
-                <property name="testsfile" value="target/performance-tests.xml"/>
-                <echo message="&lt;tests&gt;" file="${testsfile}"/>
+                <property name="testsfile" value="target/performance-tests.xml" />
+                <echo message="&lt;tests&gt;" file="${testsfile}" />
                 <concat destfile="${testsfile}" append="true">
-                  <fileset dir="target/performance-results" includes="*.xml"/>
+                  <fileset dir="target/performance-results" includes="*.xml" />
                 </concat>
-                <echo message="&lt;/tests&gt;" file="${testsfile}" append="true"/>
-                
-                <xslt in="${testsfile}" out="target/performance-report.html" style="src/test/xslt/performance-report.xsl"/>
+                <echo message="&lt;/tests&gt;" file="${testsfile}" append="true" />
+
+                <xslt in="${testsfile}" out="target/performance-report.html" style="src/test/xslt/performance-report.xsl" />
               </tasks>
             </configuration>
             <goals>
@@ -145,5 +140,5 @@
         </executions>
       </plugin>
     </plugins>
-  </build>  
+  </build>
 </project>

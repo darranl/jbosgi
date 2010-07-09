@@ -12,7 +12,7 @@
             org.apache.log4j;version=1.2,
             org.jboss.logging;version=2.1,
 
-            <!-- temp workaround for missing exports in Shrinkwrap- ->
+            <!-- temp workaround for missing exports in Shrinkwrap - ->
             org.jboss.shrinkwrap.api,
             org.jboss.shrinkwrap.api.container,
             org.jboss.shrinkwrap.api.formatter,

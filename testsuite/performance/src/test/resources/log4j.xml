@@ -32,8 +32,8 @@
   <!-- Limit categories -->
   <!-- ================ -->
 
-  <!-- Show jboss deployer traces 
-  <category name="org.jboss.deployers">
+  <!-- Show jboss deployer traces - ->
+  <category name="org.jboss.classloader">
     <priority value="TRACE" />
   </category>
   -->

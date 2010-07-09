@@ -58,11 +58,12 @@
     <version.jboss.arquillian>1.0.0-SNAPSHOT</version.jboss.arquillian>
     <version.jboss.osgi.blueprint>1.0.0.Beta2</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.4</version.jboss.osgi.common>
+    <version.jboss.osgi.container>0.1-SNAPSHOT</version.jboss.osgi.container>
     <version.jboss.osgi.common.core>2.2.13.GA</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.2</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>2.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.Alpha5</version.jboss.osgi.framework>
+    <version.jboss.osgi.framework>1.0.0.Alpha6-SNAPSHOT</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.5</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.0</version.jboss.osgi.http>
     <version.jboss.osgi.husky>1.0.4</version.jboss.osgi.husky>
@@ -274,7 +275,7 @@
         <version>${version.apache.felix.core}</version>
       </dependency>
 
-      <!-- Native Framework Dependencies -->
+      <!-- MC based Framework Dependencies -->
       <dependency>
         <groupId>org.jboss.osgi.framework</groupId>
         <artifactId>jboss-osgi-framework</artifactId>
@@ -301,6 +302,13 @@
         <version>${version.jboss.osgi.framework}</version>
       </dependency>
 
+      <!-- MSC based Framework Dependencies -->
+      <dependency>
+        <groupId>org.jboss.osgi.container</groupId>
+        <artifactId>jbosgi-container-core</artifactId>
+        <version>${version.jboss.osgi.container}</version>
+      </dependency>
+      
       <!-- OPS4J -->
       <dependency>
         <groupId>org.ops4j.pax.web</groupId>

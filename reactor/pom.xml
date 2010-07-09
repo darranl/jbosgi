@@ -76,6 +76,9 @@
         <module>arquillian/osgi</module>
         <module>jboss-modules</module>
         <module>jboss-msc</module>
+        <module>jbosgi-vfs</module>
+        <module>jbosgi-spi</module>
+        <module>jbosgi-husky</module>
         <module>jbosgi-resolver</module>
         <module>jbosgi-container</module>
         <module>jbosgi-framework</module>

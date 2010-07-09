@@ -22,6 +22,8 @@
             org.jboss.vfs;version=3.0,          
             
             <!-- jboss-osgi -->
+            org.jboss.osgi.deployment.deployer;version=1.0,
+            org.jboss.osgi.deployment.interceptor;version=1.0,
             org.jboss.osgi.spi;version=1.0,
             org.jboss.osgi.spi.capability;version=1.0,
             org.jboss.osgi.spi.framework;version=1.0,

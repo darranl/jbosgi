@@ -26,9 +26,11 @@
     <version>1.0.0.Beta9-SNAPSHOT</version>
   </parent>
 
+  <!-- Modules -->
   <modules>
     <module>example</module>
     <module>functional</module>
+    <module>performance</module>
   </modules>
 
   <!-- Properties -->
@@ -336,6 +338,11 @@
           <artifactId>jboss-osgi-framework-metadata</artifactId>
           <scope>provided</scope>
         </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.resolver</groupId>
+          <artifactId>jbosgi-resolver-felix</artifactId>
+          <scope>provided</scope>
+        </dependency>
       </dependencies>
     </profile>
     <profile>
@@ -359,6 +366,11 @@
         <dependency>
           <groupId>org.jboss.osgi.framework</groupId>
           <artifactId>jboss-osgi-framework-metadata</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.resolver</groupId>
+          <artifactId>jbosgi-resolver-felix</artifactId>
           <scope>provided</scope>
         </dependency>
       </dependencies>

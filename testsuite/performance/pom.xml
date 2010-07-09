@@ -12,6 +12,12 @@
   <name>JBossOSGi Testsuite Performance</name>
 
   <dependencies>
+    <dependency>
+      <groupId>org.jboss.arquillian.osgi</groupId>
+      <artifactId>arquillian-bundle</artifactId>
+      <version>${version.jboss.arquillian}</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- 
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>

@@ -87,7 +87,11 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
          for (Throwable th : exceptions)
             log.error("Test error", th);
          
-         throw new RuntimeException("One or more performance test threads failed", exceptions.get(0));
+         Throwable firstError = exceptions.get(0);
+         if (firstError instanceof Exception)
+            throw (Exception)firstError;
+         
+         throw new RuntimeException("One or more tests failures", firstError);
       }
    }
    

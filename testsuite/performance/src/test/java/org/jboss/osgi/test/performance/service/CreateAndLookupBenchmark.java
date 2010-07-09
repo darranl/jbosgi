@@ -39,11 +39,11 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
 {
    private static final ChartType REGISTRATION = new ChartTypeImpl("REG", "Service Registration Time", "Number of Services", "Time (ms)");
    private static final ChartType LOOKUP = new ChartTypeImpl("LKU", "Service Lookup Time", "Number of Services", "Time (ms)");
-   
+
    @SuppressWarnings("unchecked")
-   private static final Class<SvcCls>[] CLASSES = new Class[] { SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class,
-         SvcCls6.class, SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class, SvcCls11.class, SvcCls12.class, SvcCls13.class,
-         SvcCls14.class, SvcCls15.class, SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class };
+   private static final Class<SvcCls>[] CLASSES = new Class[] { SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class, SvcCls6.class,
+         SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class, SvcCls11.class, SvcCls12.class, SvcCls13.class, SvcCls14.class, SvcCls15.class,
+         SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class };
 
    public CreateAndLookupBenchmark(BundleContext context)
    {
@@ -83,9 +83,11 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
       // Lookup & Invoke Services
       for (int i = 0; i < numServicesPerThread; i++)
       {
-         ServiceReference[] srs = bundleContext.getServiceReferences(CLASSES[i % CLASSES.length].getName(), "(" + Constants.SERVICE_ID + "=" + serviceIDs[i] + ")");
+         String className = CLASSES[i % CLASSES.length].getName();
+         String filter = "(" + Constants.SERVICE_ID + "=" + serviceIDs[i] + ")";
+         ServiceReference[] srs = bundleContext.getServiceReferences(className, filter);
          if (srs.length != 1)
-            throw new IllegalStateException("Should only have found 1 service: " + Arrays.toString(srs));
+            throw new IllegalStateException("getServiceReferences(" + className + "," + filter + ") => " + Arrays.toString(srs));
 
          SvcCls ti = (SvcCls)bundleContext.getService(srs[0]);
          if (!ti.toString().equals(threadName + i))

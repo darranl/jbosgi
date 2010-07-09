@@ -12,7 +12,7 @@
             org.apache.log4j;version=1.2,
             org.jboss.logging;version=2.1,
 
-            <!-- temp workaround for missing exports in Shrinkwrap-->
+            <!-- temp workaround for missing exports in Shrinkwrap- ->
             org.jboss.shrinkwrap.api,
             org.jboss.shrinkwrap.api.container,
             org.jboss.shrinkwrap.api.formatter,
@@ -28,15 +28,15 @@
             org.jboss.shrinkwrap.impl.base.io,
             org.jboss.shrinkwrap.impl.base.path,
             org.jboss.shrinkwrap.impl.base.spec,
+            -->
             
-            <!-- jboss - ->
+            <!-- jboss -->
             org.jboss.beans.metadata.plugins;version=2.2,
             org.jboss.beans.metadata.plugins.builder;version=2.2,
             org.jboss.beans.metadata.spi;version=2.2,
             org.jboss.beans.metadata.spi.builder;version=2.2,
             org.jboss.dependency.spi;version=2.2,
             org.jboss.kernel.spi.dependency;version=2.2,
-            -->
             
             <!-- jboss-osgi -->
             org.jboss.osgi.deployment.deployer;version=1.0,
@@ -62,7 +62,7 @@
     </property>
     <property name="autoStart">
      <list elementClass="java.net.URL">
-       <!-- value>./target/test-libs/bundles/org.apache.felix.log.jar</value-->
+       <value>./target/test-libs/bundles/org.apache.felix.log.jar</value>
        <value>./target/test-libs/bundles/arquillian-bundle.jar</value>
      </list>
     </property>

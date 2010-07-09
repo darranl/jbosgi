@@ -105,6 +105,7 @@
             <configuration>
               <includes>
                 <include>**/basic/*TestCase.java</include>
+                <include>**/*SmokeTestCase.java</include>
               </includes>
             </configuration>
           </plugin>

@@ -51,10 +51,11 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
             builder.addBundleManifestVersion(2);
             builder.addBundleActivator(CreateAndLookupTestActivator.class.getName());
             builder.addExportPackages(ServiceTestBase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
-            builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
-            builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages("org.osgi.util.tracker");
+            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
+            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+            builder.addImportPackages("org.junit", "org.junit.runner");
+            builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
+            builder.addImportPackages("javax.inject");
             return builder.openStream();
          }
       });

@@ -78,7 +78,15 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
          t.join();
       System.out.println("All threads finished");
 
-      if (exceptions.size() > 0)
+      if (exceptions.size() == 1)
+      {
+         Throwable t = exceptions.get(0);
+         if (t instanceof Exception)
+            throw (Exception)t;
+         else
+            throw new Exception(t);
+      }
+      else if (exceptions.size() > 1)
          throw new Exception("One or more performance test threads failed: " + exceptions);
    }
    

@@ -62,6 +62,8 @@
     <!--
       Name: reactor
       Descr: Build the reactor modules
+      
+      git submodule add git://github.com/jbosgi/jbosgi-framework.git reactor/jbosgi-framework
     -->
     <profile>
       <id>reactor</id>
@@ -71,7 +73,12 @@
         </property>
       </activation>
       <modules>
-        <!-- module>jbosgi-framework</module -->
+        <module>arquillian/osgi</module>
+        <module>jboss-modules</module>
+        <module>jboss-msc</module>
+        <module>jbosgi-resolver</module>
+        <module>jbosgi-container</module>
+        <module>jbosgi-framework</module>
       </modules>
     </profile>
     

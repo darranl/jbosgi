@@ -1,0 +1,18 @@
+[submodule "reactor/jbosgi-container"]
+	path = reactor/jbosgi-container
+	url = git://github.com/jbosgi/jbosgi-container.git
+[submodule "reactor/jbosgi-framework"]
+	path = reactor/jbosgi-framework
+	url = git://github.com/jbosgi/jbosgi-framework.git
+[submodule "reactor/jboss-modules"]
+	path = reactor/jboss-modules
+	url = git://github.com/jbosgi/jboss-modules.git
+[submodule "reactor/jboss-msc"]
+	path = reactor/jboss-msc
+	url = git://github.com/jbosgi/jboss-msc.git
+[submodule "reactor/jbosgi-resolver"]
+	path = reactor/jbosgi-resolver
+	url = git://github.com/jbosgi/jbosgi-resolver.git
+[submodule "reactor/arquillian"]
+	path = reactor/arquillian
+	url = git://github.com/jbosgi/arquillian.git

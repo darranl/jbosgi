@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.jboss.logging.Logger;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -32,6 +33,9 @@ import org.osgi.framework.BundleContext;
  */
 public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark implements PerformanceBenchmark
 {
+   // Provide logging
+   private final Logger log = Logger.getLogger(AbstractThreadedBenchmark.class);
+   
    protected AbstractThreadedBenchmark(BundleContext bc)
    {
       super(bc);
@@ -78,16 +82,13 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
          t.join();
       System.out.println("All threads finished");
 
-      if (exceptions.size() == 1)
+      if (exceptions.size() > 0)
       {
-         Throwable t = exceptions.get(0);
-         if (t instanceof Exception)
-            throw (Exception)t;
-         else
-            throw new Exception(t);
+         for (Throwable th : exceptions)
+            log.error("Test error", th);
+         
+         throw new RuntimeException("One or more performance test threads failed", exceptions.get(0));
       }
-      else if (exceptions.size() > 1)
-         throw new Exception("One or more performance test threads failed: " + exceptions);
    }
    
    abstract protected void runThread(String threadName, T parameters) throws Exception;

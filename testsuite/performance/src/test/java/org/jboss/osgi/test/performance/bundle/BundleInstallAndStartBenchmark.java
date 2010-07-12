@@ -92,11 +92,16 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    public void run(int numThreads, int numBundlesPerThread) throws Exception
    {
+      prepareTest(numThreads, numBundlesPerThread);
+      runTest(numThreads, numBundlesPerThread);
+   }
+
+   void prepareTest(int numThreads, int numBundlesPerThread) throws Exception
+   {
       for (String threadName : getThreadNames(numThreads))
          createTestBundles(threadName, numBundlesPerThread);
 
       installBaseLineBundles();
-      runTest(numThreads, numBundlesPerThread);
    }
 
    private void installBaseLineBundles() throws Exception

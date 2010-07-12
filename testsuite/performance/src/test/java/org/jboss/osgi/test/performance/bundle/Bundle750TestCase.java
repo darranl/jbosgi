@@ -23,12 +23,15 @@ package org.jboss.osgi.test.performance.bundle;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
+@RunWith(Arquillian.class)
 public class Bundle750TestCase extends BundleTestBase
 {
    @Inject

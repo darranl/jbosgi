@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.Parameter;
@@ -34,13 +33,11 @@ import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-@RunWith(Arquillian.class)
 public abstract class BundleTestBase extends AbstractPerformanceTestCase
 {
    @Deployment
@@ -55,17 +52,18 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
             builder.addBundleSymbolicName(archive.getName());
             builder.addBundleManifestVersion(2);
             builder.addExportPackages(BundleTestBase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
-            builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
-            builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages("org.osgi.util.tracker");
-            builder.addImportPackages("org.osgi.service.log");
+            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
+            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+            builder.addImportPackages("org.jboss.shrinkwrap.api.exporter");
+            builder.addImportPackages("org.junit", "org.junit.runner");
+            builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
+            builder.addImportPackages("javax.inject");
+            builder.addImportPackages("org.jboss.osgi.testing");
             return builder.openStream();
          }
       });
       archive.addClasses(BundleTestBase.class, BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
       archive.addClasses(CommonClass.class, VersionedInterface.class, VersionedClass.class);
-      archive.addClasses(Bundle100TestCase.class);
       return archive;
    }
 

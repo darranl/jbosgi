@@ -34,7 +34,6 @@ import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -80,7 +79,6 @@ public class BundleSmokeTestCase extends AbstractPerformanceTestCase
       return bundleContext;
    }
 
-   @Ignore
    @Test
    public void test5() throws Exception
    {

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.performance.service;
+package org.jboss.osgi.test.performance.bundle;
 
 import java.io.InputStream;
 
@@ -27,20 +27,22 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
+import org.jboss.osgi.test.versioned.VersionedInterface;
+import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class ServiceSmokeTestCase extends AbstractPerformanceTestCase
+public class BundleSmokeTestCase extends AbstractPerformanceTestCase
 {
    @Deployment
    public static JavaArchive createDeployment()
@@ -53,41 +55,35 @@ public class ServiceSmokeTestCase extends AbstractPerformanceTestCase
             OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
             builder.addBundleSymbolicName(archive.getName());
             builder.addBundleManifestVersion(2);
-            builder.addBundleActivator(CreateAndLookupTestActivator.class.getName());
-            builder.addExportPackages(ServiceSmokeTestCase.class);
+            builder.addExportPackages(BundleSmokeTestCase.class);
             builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
             builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+            builder.addImportPackages("org.jboss.shrinkwrap.api.exporter");
             builder.addImportPackages("org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
             builder.addImportPackages("javax.inject");
+            builder.addImportPackages("org.jboss.osgi.testing");
             return builder.openStream();
          }
       });
-      archive.addClasses(CreateAndLookupTestActivator.class, CreateAndLookupBenchmark.class, ServiceSmokeTestCase.class);
-      archive.addClasses(SvcCls.class, SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class);
-      archive.addClasses(SvcCls6.class, SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class);
-      archive.addClasses(SvcCls11.class, SvcCls12.class, SvcCls13.class, SvcCls14.class, SvcCls15.class);
-      archive.addClasses(SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class);
+      archive.addClasses(BundleSmokeTestCase.class, BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
+      archive.addClasses(CommonClass.class, VersionedInterface.class, VersionedClass.class);
       return archive;
    }
 
    @Inject
-   public Bundle bundle;
+   public BundleContext bundleContext;
 
-   Bundle getBundle()
+   BundleContext getBundleContext()
    {
-      return bundle;
+      return bundleContext;
    }
 
    @Test
-   public void test25() throws Exception
+   public void test5() throws Exception
    {
-      getBundle().start();
-
-      BundleContext bc = getBundle().getBundleContext();
-      CreateAndLookupBenchmark tc = getService(bc, CreateAndLookupBenchmark.class);
-      tc.runThread("Main", 25);
-
-      getBundle().stop();
+      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(getBundleContext());
+      bm.prepareTest(1, 5);
+      bm.runThread("Thread_1_", 5);
    }
 }

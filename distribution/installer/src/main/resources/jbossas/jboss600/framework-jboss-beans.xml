@@ -29,6 +29,8 @@
             org.jboss.kernel.spi.dependency;version=2.2,
             
             <!-- jboss-osgi -->
+            org.jboss.osgi.deployment.deployer;version=1.0,
+            org.jboss.osgi.deployment.interceptor;version=1.0,
             org.jboss.osgi.spi;version=1.0,
             org.jboss.osgi.spi.capability;version=1.0,
             org.jboss.osgi.spi.framework;version=1.0,
@@ -60,7 +62,7 @@
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>
     <demand state="PreInstall">MDRService</demand>
   </bean>
-  
+
   <bean name="MicrocontainerService" class="org.jboss.osgi.framework.service.internal.MicrocontainerServiceImpl">
     <related-class name="org.jboss.osgi.spi.service.MicrocontainerService">OSGi</related-class>
     <constructor><parameter><inject bean="OSGiBundleManager" /></parameter></constructor>

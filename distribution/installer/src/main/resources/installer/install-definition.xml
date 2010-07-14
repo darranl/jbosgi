@@ -107,11 +107,17 @@
 
       <!-- JBossOSGi Source -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/source" override="true">
+        <include name="jbosgi-resolver-api-sources.jar" />
+        <include name="jbosgi-resolver-spi-sources.jar" />
+        <include name="jbosgi-resolver-felix-sources.jar" />
+        <include name="jbosgi-resolver-metadata-sources.jar" />
         <include name="jboss-osgi-xerces-sources.jar" />
         <include name="jboss-osgi-blueprint-sources.jar" />
         <include name="jboss-osgi-common-core-sources.jar" />
         <include name="jboss-osgi-common-sources.jar" />
         <include name="jboss-osgi-deployment-sources.jar" />
+        <include name="jboss-osgi-equinox-sources.jar" />
+        <include name="jboss-osgi-felix-sources.jar" />
         <include name="jboss-osgi-framework-sources.jar" />
         <include name="jboss-osgi-framework-core-sources.jar" />
         <include name="jboss-osgi-framework-metadata-sources.jar" />
@@ -119,13 +125,11 @@
         <include name="jboss-osgi-hotdeploy-sources.jar" />
         <include name="jboss-osgi-husky-harness-sources.jar" />
         <include name="jboss-osgi-jaxb-sources.jar" />
+        <include name="jboss-osgi-jbossas-sources.jar" />
         <include name="jboss-osgi-jmx-sources.jar" />
         <include name="jboss-osgi-jndi-sources.jar" />
         <include name="jboss-osgi-jta-sources.jar" />
         <include name="jboss-osgi-reflect-sources.jar" />
-        <include name="jboss-osgi-equinox-sources.jar" />
-        <include name="jboss-osgi-felix-sources.jar" />
-        <include name="jboss-osgi-jbossas-sources.jar" />
         <include name="jboss-osgi-spi-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
         <include name="jboss-osgi-webconsole-sources.jar" />
@@ -160,6 +164,10 @@
         <include name="args4j.jar" />
         <include name="javax.inject.jar" />
         <include name="jaxb-api.jar" />
+        <include name="jbosgi-resolver-api.jar" />
+        <include name="jbosgi-resolver-spi.jar" />
+        <include name="jbosgi-resolver-felix.jar" />
+        <include name="jbosgi-resolver-metadata.jar" />
         <include name="jboss-classloader.jar" />
         <include name="jboss-classloading.jar" />
         <include name="jboss-classloading-spi.jar" />
@@ -312,6 +320,10 @@
       
       <!-- deployers/osgi.deployer -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/server/${jbossTargetServer}/deployers/osgi.deployer" override="true">
+        <include name="jbosgi-resolver-api.jar" />
+        <include name="jbosgi-resolver-spi.jar" />
+        <include name="jbosgi-resolver-felix.jar" />
+        <include name="jbosgi-resolver-metadata.jar" />
         <include name="jboss-osgi-deployment.jar" />
         <include name="jboss-osgi-framework.jar" />
         <include name="jboss-osgi-framework-core.jar" />

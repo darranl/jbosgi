@@ -63,7 +63,7 @@ ENVIRONMENT="-Dtarget.container=$CONTAINER -Djboss.bind.address=$JBOSS_BINDADDR 
 # Do the sanity reactor build
 #
 if [ $CONTAINER = 'runtime' ]; then
-  MVN_CMD="mvn clean install"
+  MVN_CMD="mvn -fae clean install"
   echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
   if [ $MVN_STATUS -ne 0 ]; then
      echo maven exit status $MVN_STATUS

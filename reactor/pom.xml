@@ -78,6 +78,7 @@
         <module>jboss-msc</module>
         <module>jbosgi-vfs</module>
         <module>jbosgi-spi</module>
+        <module>jbosgi-deployment</module>
         <module>jbosgi-husky</module>
         <module>jbosgi-resolver</module>
         <module>jbosgi-container</module>

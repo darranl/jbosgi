@@ -28,3 +28,6 @@
 [submodule "reactor/jbosgi-husky"]
 	path = reactor/jbosgi-husky
 	url = git://github.com/jbosgi/jbosgi-husky.git
+[submodule "reactor/jbosgi-deployment"]
+	path = reactor/jbosgi-deployment
+	url = git://github.com/jbosgi/jbosgi-deployment.git

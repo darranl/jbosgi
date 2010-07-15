@@ -28,6 +28,11 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.Parameter;
+import org.jboss.osgi.test.util1.Util1;
+import org.jboss.osgi.test.util2.Util2;
+import org.jboss.osgi.test.util3.Util3;
+import org.jboss.osgi.test.util4.Util4;
+import org.jboss.osgi.test.util5.Util5;
 import org.jboss.osgi.test.versioned.VersionedInterface;
 import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
@@ -64,6 +69,7 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
       });
       archive.addClasses(BundleTestBase.class, BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
       archive.addClasses(CommonClass.class, VersionedInterface.class, VersionedClass.class);
+      archive.addClasses(Util1.class, Util2.class, Util3.class, Util4.class, Util5.class);
       return archive;
    }
 

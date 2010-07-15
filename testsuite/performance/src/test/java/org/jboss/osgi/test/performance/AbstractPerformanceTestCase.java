@@ -35,7 +35,7 @@ public abstract class AbstractPerformanceTestCase
 {
    protected static JavaArchive getTestBundleArchive()
    {
-      final JavaArchive archive = ShrinkWrap.create("test.jar", JavaArchive.class);
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar");
       archive.addClasses(AbstractBenchmark.class,
             AbstractPerformanceTestCase.class,
             AbstractThreadedBenchmark.class,

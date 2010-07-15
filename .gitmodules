@@ -13,15 +13,9 @@
 [submodule "reactor/jbosgi-resolver"]
 	path = reactor/jbosgi-resolver
 	url = git://github.com/jbosgi/jbosgi-resolver.git
-[submodule "reactor/arquillian"]
-	path = reactor/arquillian
-	url = git://github.com/jbosgi/arquillian.git
 [submodule "reactor/jbosgi-spi"]
 	path = reactor/jbosgi-spi
 	url = git://github.com/jbosgi/jbosgi-spi.git
-[submodule "reactor/jbosgi-vfs"]
-	path = reactor/jbosgi-vfs
-	url = git://github.com/jbosgi/jbosgi-vfs.git
 [submodule "reactor/jbosgi-parent"]
 	path = reactor/jbosgi-parent
 	url = git://github.com/jbosgi/jbosgi-parent.git

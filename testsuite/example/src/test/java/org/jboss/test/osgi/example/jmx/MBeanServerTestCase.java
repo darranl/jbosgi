@@ -34,6 +34,7 @@ import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -42,6 +43,7 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
+@Ignore
 public class MBeanServerTestCase
 {
    private static OSGiRuntime runtime;

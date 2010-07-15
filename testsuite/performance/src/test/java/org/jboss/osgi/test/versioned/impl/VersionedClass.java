@@ -46,6 +46,14 @@ public class VersionedClass implements VersionedInterface
       return staticValue;
    }
 
+   @Override
+   public String getUtilValue() throws Exception
+   {
+      Class<?> cls = getClass().getClassLoader().loadClass("org.jboss.osgi.test.util" + getValue() + ".Util" + getValue());
+      String name = cls.getName();
+      return name.substring(name.length() - 1, name.length());
+   }
+
    public static VersionedInterface create()
    {
       return new VersionedClass();

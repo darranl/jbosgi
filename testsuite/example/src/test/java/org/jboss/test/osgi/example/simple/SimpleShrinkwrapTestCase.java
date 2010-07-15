@@ -29,8 +29,8 @@ import java.io.InputStream;
 
 import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -48,7 +48,7 @@ public class SimpleShrinkwrapTestCase extends OSGiFrameworkTest
    public void testSimpleBundle() throws Exception
    {
       // Build the bundle with shrinkwrap
-      JavaArchive archive = ShrinkWrap.create("example-simple", JavaArchive.class);
+      JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-simple");
       archive.setManifest(new Asset()
       {
          public InputStream openStream()

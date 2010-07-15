@@ -37,9 +37,9 @@ import org.jboss.osgi.test.performance.ChartTypeImpl;
 import org.jboss.osgi.test.versioned.VersionedInterface;
 import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.Asset;
 import org.jboss.shrinkwrap.api.Assignable;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -162,7 +162,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getCommonBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("common-bundle-" + version, JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "common-bundle-" + version);
       jar.setManifest(new Asset()
       {
          @Override
@@ -183,7 +183,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getVersionedIntfBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("versioned-intf-bundle-" + version, JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "versioned-intf-bundle-" + version);
       jar.setManifest(new Asset()
       {
          @Override
@@ -203,7 +203,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getVersionedImplBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("versioned-impl-bundle-" + version, JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "versioned-impl-bundle-" + version);
       jar.setManifest(new Asset()
       {
          @Override
@@ -225,7 +225,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getTestBundle(final String threadName, final int counter) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create("test-" + threadName + counter + ".jar", JavaArchive.class);
+      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "test-" + threadName + counter + ".jar");
       jar.setManifest(new Asset()
       {
          @Override

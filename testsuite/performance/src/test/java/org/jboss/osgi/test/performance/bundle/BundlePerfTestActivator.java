@@ -38,11 +38,15 @@ public class BundlePerfTestActivator implements BundleActivator
       String common = CommonClass.getStaticValue();
       VersionedInterface vi = VersionedClass.create();
       String versioned = vi.getValue();
+      String utilVal = vi.getUtilValue();
 
-      if (!common.equals(versioned)) {
+      if (!common.equals(versioned))
          throw new IllegalStateException("Expected the same version of the common and versioned classes, found. Found: common " +
                common + ", versioned: " + versioned);
-      }
+
+      if (!utilVal.equals(versioned))
+         throw new IllegalStateException("Expected the same number for version of the versioned and util class, found. Found: util " +
+               utilVal + ", versioned: " + versioned);
 
       String bsn = context.getBundle().getSymbolicName();
       String threadName = getThreadName(bsn);

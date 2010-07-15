@@ -26,7 +26,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Date;
 
@@ -34,12 +33,17 @@ import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
 import org.jboss.osgi.test.performance.ChartType;
 import org.jboss.osgi.test.performance.ChartTypeImpl;
+import org.jboss.osgi.test.util1.Util1;
+import org.jboss.osgi.test.util2.Util2;
+import org.jboss.osgi.test.util3.Util3;
+import org.jboss.osgi.test.util4.Util4;
+import org.jboss.osgi.test.util5.Util5;
 import org.jboss.osgi.test.versioned.VersionedInterface;
 import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.Assignable;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -50,25 +54,28 @@ import org.osgi.framework.BundleContext;
  * 
  * 5 (Versioned) Common Bundles
  *   - Exports org.jboss.osgi.test.common;version=x
+ * 5 Numbered (but not versioned) Util Bundles
+ *   - Imports org.jboss.osgi.test.common
+ *   - Exports org.jboss.osgi.test.util[x];uses="org.jboss.osgi.test.common"
  * 5 Versioned Interfaces Bundles
  *   - Exports org.jboss.osgi.test.versioned;version=x
  * 5 Versioned Impl Bundles
  *   - Imports org.jboss.osgi.test.common;version=[x,x]
  *   - Imports org.jboss.osgi.test.versioned;version=[x,x]
- *   - Exports org.jboss.osgi.test.versioned.impl;version=x
+ *   - Imports org.jboss.osgi.test.util[x]
+ *   - Exports org.jboss.osgi.test.versioned.impl;version=x;uses=org.jboss.osgi.test.util[x]
  * a large number of test bundles
  *   - Imports org.jboss.osgi.test.common;version=[x,x]
  *   - Imports org.jboss.osgi.test.versioned;version=[x,x]
  *   - Imports org.jboss.osgi.test.versioned.impl;version=[x,x]
  *   
- * For each test bundle installed the time is measured from just before it is being installed to just after 
- * the bundle has loaded a class of each of its 3 dependency packages in its activator.
+ * Each test bundle loads a class of each of its 3 dependency packages in its activator. This also triggers
+ * an indirect load on the Util[x] class.
  * 
- * After the test is run, the durations are computed for each bundle and added to a total duration which 
- * is reported back.
+ * Time is measured for installing and activating of all the bundles.
  * 
  * The original intention was to make the Common Bundles all of the same version, but this caused issues
- * with the current resolver. 
+ * with the jbossmc resolver. 
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
@@ -109,8 +116,9 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       for (int i = 1; i <= 5; i++)
       {
          bundleContext.installBundle("common" + i, getCommonBundle("" + i));
+         bundleContext.installBundle("util" + i, getUtilBundle(i));
          bundleContext.installBundle("versioned-intf" + i, getVersionedIntfBundle("" + i));
-         bundleContext.installBundle("versioned-impl" + i, getVersionedImplBundle("" + i));
+         bundleContext.installBundle("versioned-impl" + i, getVersionedImplBundle(i));
       }
    }
 
@@ -181,6 +189,47 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       return getInputStream(jar);
    }
 
+   private InputStream getUtilBundle(final int i) throws Exception
+   {
+      final Class<?> utilClass = getUtilClass(i);
+      
+      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "util_" + i);
+      jar.setManifest(new Asset()
+      {
+         @Override
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName("Util" + i);
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages("org.osgi.framework");
+            builder.addImportPackages(CommonClass.class.getPackage().getName());
+            builder.addExportPackages(utilClass.getPackage().getName() + ";uses:=\"" + CommonClass.class.getPackage().getName() + "\"");
+            return builder.openStream();
+         }
+      });
+      jar.addClasses(utilClass);
+      return getInputStream(jar);
+   }
+
+   private Class<?> getUtilClass(final int i)
+   {
+      switch (i)
+      {
+         case 1: 
+            return Util1.class;
+         case 2:
+            return Util2.class;
+         case 3:
+            return Util3.class;
+         case 4: 
+            return Util4.class;
+         case 5:
+            return Util5.class;
+      }
+      return null;
+   }
+
    private InputStream getVersionedIntfBundle(final String version) throws Exception
    {
       final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "versioned-intf-bundle-" + version);
@@ -201,7 +250,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       return getInputStream(jar);
    }
 
-   private InputStream getVersionedImplBundle(final String version) throws Exception
+   private InputStream getVersionedImplBundle(final int version) throws Exception
    {
       final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "versioned-impl-bundle-" + version);
       jar.setManifest(new Asset()
@@ -209,13 +258,17 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
          @Override
          public InputStream openStream()
          {
+            Class<?> utilClass = getUtilClass(version);
+
             OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
             builder.addBundleSymbolicName("VersionedImplBundle" + version);
             builder.addBundleManifestVersion(2);
             builder.addImportPackages("org.osgi.framework");
             builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
             builder.addImportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
-            builder.addExportPackages(VersionedClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
+            builder.addImportPackages(utilClass.getPackage().getName());
+            builder.addExportPackages(VersionedClass.class.getPackage().getName() + ";version=\"" + version + ".0\";uses:=\""
+                  + utilClass.getPackage().getName() + "\"");
             return builder.openStream();
          }
       });
@@ -251,13 +304,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getInputStream(final JavaArchive jar) throws Exception
    {
-      // Temp workaround - need to use reflection to obtain ZipExporter to avoid classloader issues
-      // Can use normal types once ARQ-208 is fixed.
-      @SuppressWarnings("unchecked")
-      Class<Assignable> zeClass = (Class<Assignable>)getClass().getClassLoader().loadClass("org.jboss.shrinkwrap.api.exporter.ZipExporter");
-      Object ze = jar.as(zeClass);
-      Method m = zeClass.getMethod("exportZip");
-      return (InputStream)m.invoke(ze);
+      return jar.as(ZipExporter.class).exportZip();
    }
 
    private static String getBSN(String threadName, int counter)

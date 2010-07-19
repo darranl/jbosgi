@@ -24,19 +24,25 @@ package org.jboss.osgi.test.performance.service;
 import java.io.File;
 import java.io.InputStream;
 
+import javax.inject.Inject;
+
 import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public abstract class ServiceTestBase extends AbstractPerformanceTestCase
+@RunWith(Arquillian.class)
+public class ServiceTestBase extends AbstractPerformanceTestCase
 {
    @Deployment
    public static JavaArchive createDeployment()
@@ -51,7 +57,7 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
             builder.addBundleManifestVersion(2);
             builder.addBundleActivator(CreateAndLookupTestActivator.class.getName());
             builder.addExportPackages(ServiceTestBase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging", "org.jboss.osgi.deployment");
+            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
             builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
             builder.addImportPackages("org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
@@ -67,7 +73,20 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase
       return archive;
    }
 
-   abstract Bundle getBundle();
+   //   abstract Bundle getBundle();
+   @Inject
+   public Bundle bundle;
+
+   Bundle getBundle()
+   {
+      return bundle;
+   }
+
+   @Test
+   public void test99() throws Exception
+   {
+      testPerformance(99);
+   }
 
    void testPerformance(int size) throws Exception
    {

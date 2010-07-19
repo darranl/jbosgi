@@ -59,6 +59,7 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
             builder.addExportPackages(BundleTestBase.class);
             builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
             builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+            builder.addImportPackages("org.jboss.shrinkwrap.api.asset");
             builder.addImportPackages("org.jboss.shrinkwrap.api.exporter");
             builder.addImportPackages("org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");

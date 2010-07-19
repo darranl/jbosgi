@@ -39,7 +39,6 @@ import org.jboss.osgi.test.versioned.impl.VersionedClass;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -47,7 +46,6 @@ import org.osgi.framework.BundleContext;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-@Ignore
 @RunWith(Arquillian.class)
 public class BundleSmokeTestCase extends AbstractPerformanceTestCase
 {
@@ -65,6 +63,7 @@ public class BundleSmokeTestCase extends AbstractPerformanceTestCase
             builder.addExportPackages(BundleSmokeTestCase.class);
             builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
             builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+            builder.addImportPackages("org.jboss.shrinkwrap.api.asset");
             builder.addImportPackages("org.jboss.shrinkwrap.api.exporter");
             builder.addImportPackages("org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");

@@ -57,7 +57,8 @@ public class SimpleArquillianTestCase
             builder.addBundleActivator(SimpleActivator.class.getName());
             // [TODO] generate a separate bundle the contains the test case
             builder.addExportPackages(SimpleArquillianTestCase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+            builder.addImportPackages("org.jboss.arquillian.junit");
+            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
             builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework");
             return builder.openStream();

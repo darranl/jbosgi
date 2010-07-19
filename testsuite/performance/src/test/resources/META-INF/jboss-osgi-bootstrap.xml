@@ -12,14 +12,6 @@
             org.apache.log4j;version=1.2,
             org.jboss.logging;version=2.1,
 
-            <!-- Shrinkwrap -->
-            org.jboss.shrinkwrap.api,
-            org.jboss.shrinkwrap.api.asset,
-            org.jboss.shrinkwrap.api.exporter,
-            org.jboss.shrinkwrap.api.spec,
-            org.jboss.shrinkwrap.impl.base,
-            org.jboss.shrinkwrap.impl.base.exporter,
-            
             <!-- jboss -->
             org.jboss.beans.metadata.plugins;version=2.2,
             org.jboss.beans.metadata.plugins.builder;version=2.2,

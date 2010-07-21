@@ -39,6 +39,7 @@ public class BundlePerfTestActivator implements BundleActivator
       VersionedInterface vi = VersionedClass.create();
       String versioned = vi.getValue();
       String utilVal = vi.getUtilValue();
+      // System.out.println("*** Common: " + common + " Versioned: " + versioned + " Util: " + utilVal);
 
       if (!common.equals(versioned))
          throw new IllegalStateException("Expected the same version of the common and versioned classes, found. Found: common " +

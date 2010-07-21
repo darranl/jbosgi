@@ -55,7 +55,7 @@ import org.osgi.framework.BundleContext;
  * 5 (Versioned) Common Bundles
  *   - Exports org.jboss.osgi.test.common;version=x
  * 5 Numbered (but not versioned) Util Bundles
- *   - Imports org.jboss.osgi.test.common
+ *   - Imports org.jboss.osgi.test.common;version=[x,x]
  *   - Exports org.jboss.osgi.test.util[x];uses="org.jboss.osgi.test.common"
  * 5 Versioned Interfaces Bundles
  *   - Exports org.jboss.osgi.test.versioned;version=x
@@ -203,7 +203,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
             builder.addBundleSymbolicName("Util" + i);
             builder.addBundleManifestVersion(2);
             builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages(CommonClass.class.getPackage().getName());
+            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + i + "," + i + "]\"");
             builder.addExportPackages(utilClass.getPackage().getName() + ";uses:=\"" + CommonClass.class.getPackage().getName() + "\"");
             return builder.openStream();
          }

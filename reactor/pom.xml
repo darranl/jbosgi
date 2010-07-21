@@ -80,6 +80,7 @@
         <module>jbosgi-hotdeploy</module>
         <module>jbosgi-husky</module>
         <module>jbosgi-webconsole</module>
+        <module>jbosgi-jta</module>
         <module>jbosgi-resolver</module>
         <module>jbosgi-container</module>
         <module>jbosgi-framework</module>

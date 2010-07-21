@@ -296,6 +296,44 @@
         </plugins>
       </build>
     </profile>
+    
+    <!--
+      Name: framework-jbmsc
+      Descr: Setup for MSC Framework integration testing
+    -->
+    <profile>
+      <id>framework-jbmsc</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>jbmsc</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compendium</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>directory-single</goal>
+                </goals>
+                <configuration>
+                  <finalName>test-libs</finalName>
+                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptors>
+                    <descriptor>scripts/assembly-compendium.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>framework-default</id>
       <activation>
@@ -324,18 +362,6 @@
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-204] Failure in Bundle.start() uninstalls the bundle -->
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
-                <!-- Functionality not supported in JBossMC -->                
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppExtenderTestCase.class</exclude>
-              </excludes>
-            </configuration>
           </plugin>
         </plugins>
       </build>

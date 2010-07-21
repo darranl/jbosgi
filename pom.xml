@@ -9,8 +9,6 @@
   <!--                                                                        -->
   <!-- ====================================================================== -->
 
-  <!-- $Id: pom.xml 91197 2009-07-14 09:48:24Z thomas.diesler@jboss.com $ -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -71,7 +69,7 @@
     <version.jboss.osgi.jbossas>1.0.3</version.jboss.osgi.jbossas>
     <version.jboss.osgi.jmx>1.0.7</version.jboss.osgi.jmx>
     <version.jboss.osgi.jndi>1.0.3</version.jboss.osgi.jndi>
-    <version.jboss.osgi.jta>1.0.1</version.jboss.osgi.jta>
+    <version.jboss.osgi.jta>4.6.1-SNAPSHOT</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0</version.jboss.osgi.reflect>
     <version.jboss.osgi.resolver>1.0.0-SNAPSHOT</version.jboss.osgi.resolver>
     <version.jboss.osgi.resolver.felix>2.1.0-SNAPSHOT</version.jboss.osgi.resolver.felix>

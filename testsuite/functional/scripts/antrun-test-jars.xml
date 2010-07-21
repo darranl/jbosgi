@@ -182,9 +182,6 @@
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/localization-simple-host.jar" files="${tests.resources.dir}/localization/localization-simple-host.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/localization-simple-frag.jar" files="${tests.resources.dir}/localization/localization-simple-frag.bnd" />
 
-    <!-- performance -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/performance-blueprint.jar" files="${tests.resources.dir}/performance/blueprint/performance-blueprint.bnd" />
-
     <!-- startlevel -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/service-startlevel.jar" files="${tests.resources.dir}/services/startlevel/startlevel.bnd" />
 

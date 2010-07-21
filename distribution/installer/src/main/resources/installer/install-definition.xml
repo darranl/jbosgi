@@ -107,6 +107,7 @@
 
       <!-- JBossOSGi Source -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/source" override="true">
+        <include name="jbosgi-container-core-sources.jar" />
         <include name="jbosgi-resolver-api-sources.jar" />
         <include name="jbosgi-resolver-spi-sources.jar" />
         <include name="jbosgi-resolver-felix-sources.jar" />
@@ -116,12 +117,6 @@
         <include name="jboss-osgi-common-core-sources.jar" />
         <include name="jboss-osgi-common-sources.jar" />
         <include name="jboss-osgi-deployment-sources.jar" />
-        <include name="jboss-osgi-equinox-sources.jar" />
-        <include name="jboss-osgi-felix-sources.jar" />
-        <include name="jboss-osgi-framework-sources.jar" />
-        <include name="jboss-osgi-framework-core-sources.jar" />
-        <include name="jboss-osgi-framework-metadata-sources.jar" />
-        <include name="jboss-osgi-framework-resolver-sources.jar" />
         <include name="jboss-osgi-hotdeploy-sources.jar" />
         <include name="jboss-osgi-husky-harness-sources.jar" />
         <include name="jboss-osgi-jaxb-sources.jar" />
@@ -154,57 +149,26 @@
       <fileset dir="@{runtime.dir}/bin" targetdir="$INSTALL_PATH/runtime/bin" override="true" />
       <executable targetfile="$INSTALL_PATH/runtime/bin/run.sh" stage="never" keep="true" />
 
-      <!-- JBossOSGi conf -->
-      <fileset dir="@{runtime.dir}/conf" targetdir="$INSTALL_PATH/runtime/conf/META-INF/services" override="true">
-        <include name="org.jboss.osgi.spi.framework.OSGiBootstrapProvider" />
-      </fileset>
-
       <!-- JBossOSGi Lib -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="args4j.jar" />
         <include name="javax.inject.jar" />
-        <include name="jaxb-api.jar" />
+        <include name="jbosgi-container-core.jar" />
         <include name="jbosgi-resolver-api.jar" />
         <include name="jbosgi-resolver-spi.jar" />
         <include name="jbosgi-resolver-felix.jar" />
         <include name="jbosgi-resolver-metadata.jar" />
-        <include name="jboss-classloader.jar" />
-        <include name="jboss-classloading.jar" />
-        <include name="jboss-classloading-spi.jar" />
-        <include name="jboss-classloading-vfs.jar" />
         <include name="jboss-common-core.jar" />
-        <include name="jboss-dependency.jar" />
-        <include name="jboss-deployers-client.jar" />
-        <include name="jboss-deployers-client-spi.jar" />
-        <include name="jboss-deployers-core.jar" />
-        <include name="jboss-deployers-core-spi.jar" />
-        <include name="jboss-deployers-impl.jar" />
-        <include name="jboss-deployers-spi.jar" />
-        <include name="jboss-deployers-structure-spi.jar" />
-        <include name="jboss-deployers-vfs.jar" />
-        <include name="jboss-deployers-vfs-spi.jar" />
-        <include name="jboss-kernel.jar" />
         <include name="jboss-logging-spi.jar" />
         <include name="jboss-logging-log4j.jar" />
-        <include name="jboss-managed.jar" />
-        <include name="jboss-mdr.jar" />
-        <include name="jboss-metatype.jar" />
+        <include name="jboss-modules.jar" />
+        <include name="jboss-msc.jar" />
         <include name="jboss-osgi-deployment.jar" />
-        <include name="jboss-osgi-framework.jar" />
-        <include name="jboss-osgi-framework-core.jar" />
-        <include name="jboss-osgi-framework-metadata.jar" />
-        <include name="jboss-osgi-framework-resolver.jar" />
         <include name="jboss-osgi-spi.jar" />
         <include name="jboss-osgi-vfs.jar" />
         <include name="jboss-osgi-vfs30.jar" />
-        <include name="jboss-reflect.jar" />
         <include name="jboss-vfs.jar" />
-        <include name="jbossxb.jar" />
         <include name="log4j.jar" />
-        <include name="mcann-core.jar" />
-        <include name="scanning-plugins.jar" />
-        <include name="scanning-spi.jar" />
-        <include name="scanning-impl.jar" />
         <include name="shrinkwrap-api.jar" />
         <include name="slf4j-api.jar" />
         <include name="slf4j-log4j12.jar" />
@@ -216,7 +180,7 @@
       
       <!-- Server Minimal -->
       <fileset dir="@{runtime.dir}/server/minimal/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
-        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
@@ -230,7 +194,7 @@
 
       <!-- Server Default -->
       <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/default/conf" override="true" >
-        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/default/deploy" override="true">
@@ -246,7 +210,7 @@
 
       <!-- Server Web -->
       <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/web/conf" override="true" >
-        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/web/deploy" override="true">
@@ -267,7 +231,7 @@
 
       <!-- Server All -->
       <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/all/conf" override="true" >
-        <include name="jboss-osgi-bootstrap.xml" />
+        <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/all/deploy" override="true">

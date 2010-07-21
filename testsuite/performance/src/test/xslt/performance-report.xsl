@@ -50,7 +50,7 @@
   
   <xsl:template name="ChartBenchmark">
     <xsl:param name="results"/>
-    <xsl:variable name="cb">http://chart.apis.google.com/chart?cht=lxy&amp;chs=500x300&amp;chxt=x,y,x,y&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,000000,0,-1,5|s,000000,1,-1,5&amp;chdlp=r&amp;</xsl:variable>
+    <xsl:variable name="cb">http://chart.apis.google.com/chart?cht=lxy&amp;chs=600x450&amp;chxt=x,y,x,y&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,000000,0,-1,5|s,000000,1,-1,5&amp;chdlp=r&amp;</xsl:variable>
     
     <xsl:variable name="yvalues">
       <xsl:call-template name="SortStrList">

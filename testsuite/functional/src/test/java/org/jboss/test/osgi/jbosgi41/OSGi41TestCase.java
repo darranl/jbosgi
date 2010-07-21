@@ -55,18 +55,18 @@ public class OSGi41TestCase extends OSGiRuntimeTest
       try
       {
          runtime.addCapability(new ConfigAdminCapability());
-         
+
          OSGiBundle bundleA = runtime.installBundle("jbosgi41-bundleA.jar");
          bundleA.start();
-         
+
          assertBundleState(Bundle.ACTIVE, bundleA.getState());
-         
+
          File dataFile = getBundleDataFile(bundleA, "config/jbosgi41.txt");
          assertTrue("File exists: " + dataFile, dataFile.exists());
-         
+
          BufferedReader br = new BufferedReader(new FileReader(dataFile));
          assertEquals("jbosgi41-bundleA", br.readLine());
-         
+
          bundleA.uninstall();
       }
       finally
@@ -81,15 +81,7 @@ public class OSGi41TestCase extends OSGiRuntimeTest
       String storageRoot = systemBundle.getProperty("org.osgi.framework.storage");
       assertNotNull("Storage dir not null", storageRoot);
 
-      File dataFile;
-      if ("equinox".equals(getFrameworkName()))
-      {
-         dataFile = new File(storageRoot + "/org.eclipse.osgi/bundles/" + bundleA.getBundleId() + "/data/" + filename);
-      }
-      else
-      {
-         dataFile = new File(storageRoot + "/bundle" + bundleA.getBundleId() + "/data/" + filename);
-      }
+      File dataFile = new File(storageRoot + "/bundle-" + bundleA.getBundleId() + "/" + filename);
       return dataFile;
    }
 }

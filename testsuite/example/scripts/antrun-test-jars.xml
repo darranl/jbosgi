@@ -64,9 +64,6 @@
     <!-- jta -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jta.jar" files="${tests.resources.dir}/jta/example-jta.bnd" />
 
-    <!-- mcservice -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-mcservice-bundleA.jar" files="${tests.resources.dir}/mcservice/example-mcservice-bundleA.bnd" />
-  	
     <!-- serviceloader -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-serviceloader-api.jar" files="${tests.resources.dir}/serviceloader/example-serviceloader-api.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-serviceloader-client.jar" files="${tests.resources.dir}/serviceloader/example-serviceloader-client.bnd" />

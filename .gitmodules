@@ -31,3 +31,7 @@
 [submodule "reactor/jbosgi-webconsole"]
 	path = reactor/jbosgi-webconsole
 	url = git://github.com/jbosgi/jbosgi-webconsole.git
+[submodule "reactor/jbosgi-jta"]
+	path = reactor/jbosgi-jta
+	url = git://github.com/jbosgi/jbosgi-jta.git
+

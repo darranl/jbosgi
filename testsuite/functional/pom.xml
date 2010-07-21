@@ -174,7 +174,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <exclude>org/jboss/test/osgi/performance/**</exclude>
                 <!-- [JBOSGI-206] Wire to an already uninstalled bundle -->
                 <exclude>org/jboss/test/osgi/jbosgi39/**</exclude>
                 <!-- [JBOSGI-108] Investigate statics on PackageAdmin.refresh -->
@@ -229,7 +228,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <exclude>org/jboss/test/osgi/performance/**</exclude>
               </excludes>
             </configuration>
           </plugin>
@@ -276,7 +274,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <exclude>org/jboss/test/osgi/performance/**</exclude>
                 <!-- [JBOSGI-143] Add initial support for DynamicImport-Package -->
                 <exclude>org/jboss/test/osgi/jbosgi143/**</exclude>
                 <!-- [JBOSGI-151] Cannot resolve circular dependencies -->
@@ -288,6 +285,54 @@
                 <exclude>org/jboss/test/osgi/jbosgi41/**</exclude>
                 <!-- [JBOSGI-214] Cannot repeatedly register service bound to an interface from the system classpath -->
                 <exclude>org/jboss/test/osgi/jbosgi214/**</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!--
+      Name: framework-jbmsc
+      Descr: Setup for MSC Framework integration testing
+    -->
+    <profile>
+      <id>framework-jbmsc</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>jbmsc</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compendium</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>directory-single</goal>
+                </goals>
+                <configuration>
+                  <finalName>test-libs</finalName>
+                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptors>
+                    <descriptor>scripts/assembly-compendium.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-151] Cannot resolve circular dependencies -->
+                <exclude>org/jboss/test/osgi/jbosgi151/**</exclude>
               </excludes>
             </configuration>
           </plugin>
@@ -328,25 +373,16 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <exclude>org/jboss/test/osgi/performance/**</exclude>
-                <!-- [JBOSGI-143] Add initial support for DynamicImport-Package -->
-                <exclude>org/jboss/test/osgi/jbosgi143/**</exclude>
-                <!-- [JBOSGI-151] Cannot resolve circular dependencies -->
-                <exclude>org/jboss/test/osgi/jbosgi151/**</exclude>
-                <!-- [JBOSGI-206] Wire to an already uninstalled bundle -->
+                <!-- [JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[]) -->
                 <exclude>org/jboss/test/osgi/jbosgi39/**</exclude>
                 <exclude>org/jboss/test/osgi/jbosgi108/**</exclude>
-                <!-- [JBOSGI-207] Implement persistent file storage -->
-                <exclude>org/jboss/test/osgi/jbosgi41/**</exclude>
-                <!-- [JBOSGI-214] Cannot repeatedly register service bound to an interface from the system classpath -->
-                <exclude>org/jboss/test/osgi/jbosgi214/**</exclude>
+                <!-- [JBOSGI-151] Cannot resolve circular dependencies -->
+                <exclude>org/jboss/test/osgi/jbosgi151/**</exclude>
               </excludes>
             </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
-
   </profiles>
-
 </project>

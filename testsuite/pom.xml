@@ -34,7 +34,7 @@
   <!-- Properties -->
   <properties>
     <version.jnp.client>5.0.1.GA</version.jnp.client>
-    <surefire.system.args>${surefire.memory.args} ${surefire.jpda.args} ${surefire.profiler.args}</surefire.system.args>
+    <surefire.system.args>-da ${surefire.memory.args} ${surefire.jpda.args} ${surefire.profiler.args}</surefire.system.args>
   </properties>
 
   <!-- Dependencies -->
@@ -86,8 +86,15 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- Contains classes from org.osgi.util.tracker that must come after the framework provided ones. Equinox chokes with SecurityException. <dependency> <groupId>org.apache.felix</groupId> 
-      <artifactId>org.apache.felix.configadmin</artifactId> <scope>provided</scope> </dependency> -->
+    <!-- 
+      Contains classes from org.osgi.util.tracker that must come after the framework provided ones. 
+      Equinox chokes with SecurityException. 
+    <dependency> 
+      <groupId>org.apache.felix</groupId> 
+      <artifactId>org.apache.felix.configadmin</artifactId> 
+      <scope>provided</scope> 
+    </dependency> 
+    -->
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.eventadmin</artifactId>
@@ -243,7 +250,10 @@
   <!-- Profiles -->
   <profiles>
 
-    <!-- Name: framework-equinox Descr: Setup for Equinox framework integration testing -->
+    <!-- 
+      Name: framework-equinox 
+      Descr: Setup for Equinox framework integration testing 
+    -->
     <profile>
       <id>framework-equinox</id>
       <activation>
@@ -269,7 +279,10 @@
       </dependencies>
     </profile>
 
-    <!-- Name: framework-felix Descr: Setup for Felix framework integration testing -->
+    <!-- 
+      Name: framework-felix 
+      Descr: Setup for Felix framework integration testing 
+    -->
     <profile>
       <id>framework-felix</id>
       <activation>
@@ -295,7 +308,10 @@
       </dependencies>
     </profile>
 
-    <!-- Name: framework-jbossmc Descr: Setup for JBossMC framework integration testing -->
+    <!-- 
+      Name: framework-jbossmc 
+      Descr: Setup for JBossMC framework integration testing 
+    -->
     <profile>
       <id>framework-jbossmc</id>
       <activation>
@@ -327,27 +343,26 @@
         </dependency>
       </dependencies>
     </profile>
+
+    <!-- 
+      Name: framework-jbmsc 
+      Descr: Setup for MSC Framework integration testing 
+    -->
     <profile>
-      <id>framework-jbossmc-default</id>
+      <id>framework-jbmsc</id>
       <activation>
         <property>
-          <name>!framework</name>
+          <name>framework</name>
+          <value>jbmsc</value>
         </property>
       </activation>
+      <properties>
+        <jboss.osgi.framework.properties>jboss-osgi-jbmsc.properties</jboss.osgi.framework.properties>
+      </properties>
       <dependencies>
         <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-core</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-metadata</artifactId>
+          <groupId>org.jboss.osgi.container</groupId>
+          <artifactId>jbosgi-container-core</artifactId>
           <scope>provided</scope>
         </dependency>
         <dependency>
@@ -355,16 +370,18 @@
           <artifactId>jbosgi-resolver-felix</artifactId>
           <scope>provided</scope>
         </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.vfs</groupId>
+          <artifactId>jboss-osgi-vfs30</artifactId>
+          <scope>provided</scope>
+        </dependency>
       </dependencies>
     </profile>
-
-    <!-- Name: framework-jbossmc Descr: Setup for JBossMC framework integration testing -->
     <profile>
-      <id>framework-jbmsc</id>
+      <id>default-framework</id>
       <activation>
         <property>
-          <name>framework</name>
-          <value>jbmsc</value>
+          <name>!framework</name>
         </property>
       </activation>
       <properties>
@@ -444,34 +461,6 @@
       </activation>
       <properties>
         <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
-      </properties>
-    </profile>
-
-    <!-- Name: jboss501 Descr: Setup for jboss501 integration testing -->
-    <profile>
-      <id>jboss501</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss501</value>
-        </property>
-      </activation>
-      <properties>
-        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
-      </properties>
-    </profile>
-
-    <!-- Name: jboss510 Descr: Setup for jboss510 integration testing -->
-    <profile>
-      <id>jboss510</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss510</value>
-        </property>
-      </activation>
-      <properties>
-        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
       </properties>
     </profile>
 

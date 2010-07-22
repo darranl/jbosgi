@@ -1,22 +1,10 @@
 [submodule "reactor/jbosgi-container"]
 	path = reactor/jbosgi-container
 	url = git://github.com/jbosgi/jbosgi-container.git
-[submodule "reactor/jbosgi-husky"]
-	path = reactor/jbosgi-husky
-	url = git://github.com/jbosgi/jbosgi-husky.git
 [submodule "reactor/jboss-modules"]
 	path = reactor/jboss-modules
 	url = git://github.com/jbosgi/jboss-modules.git
 [submodule "reactor/jboss-msc"]
 	path = reactor/jboss-msc
 	url = git://github.com/jbosgi/jboss-msc.git
-[submodule "reactor/jbosgi-hotdeploy"]
-	path = reactor/jbosgi-hotdeploy
-	url = git://github.com/jbosgi/jbosgi-hotdeploy.git
-[submodule "reactor/jbosgi-webconsole"]
-	path = reactor/jbosgi-webconsole
-	url = git://github.com/jbosgi/jbosgi-webconsole.git
-[submodule "reactor/jbosgi-jta"]
-	path = reactor/jbosgi-jta
-	url = git://github.com/jbosgi/jbosgi-jta.git
 

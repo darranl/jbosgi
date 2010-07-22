@@ -76,10 +76,6 @@
         <module>jbosgi-container</module>
         <module>jboss-modules</module>
         <module>jboss-msc</module>
-        <module>jbosgi-hotdeploy</module>
-        <module>jbosgi-husky</module>
-        <module>jbosgi-webconsole</module>
-        <module>jbosgi-jta</module>
       </modules>
     </profile>
     

@@ -44,6 +44,10 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 
 /**
+ * This test exercises the Bundle Performance test code in a very basic manner to
+ * ensure that it works. Passing this test is a precondition for running the real 
+ * Bundle Performance tests.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)

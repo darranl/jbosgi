@@ -36,6 +36,21 @@ import java.util.Properties;
 import org.osgi.framework.BundleContext;
 
 /**
+ * Abstract Base Class for performance bench marks. A bench mark is invoked by a
+ * performance test case and does the actual work.<p/>
+ * 
+ * This base class provides access to the bundles context and a temporary directory.
+ * It also provides functionality to write the performance results to an XML file that
+ * can be used by the reporting XSLT sheet (performance-report.xsl).<p/>
+ * 
+ * An actual benchmark provides a {@link #getAllChartTypes()} method that lists all the 
+ * measurements done in its benchmark. <p/>
+ * 
+ * The benchmark then makes its measurements and invokes {@link #writeData(ChartType, Object, Object)}  
+ * to store the results in a temporary file.
+ * Once the benchmark is complete, invoke {@link #reportXML(File, Parameter...)} on it to produce an XML
+ * file ready for processing with the XSLT sheet. 
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public abstract class AbstractBenchmark implements PerformanceBenchmark
@@ -56,7 +71,7 @@ public abstract class AbstractBenchmark implements PerformanceBenchmark
    }
 
    protected abstract ChartType[] getAllChartTypes();
-   
+
    @Override
    public void reportXML(File targetFile, Parameter... parameters) throws Exception
    {

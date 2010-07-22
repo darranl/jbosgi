@@ -29,6 +29,8 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 
 /**
+ * Split off in a separate class to enable Maven to run this in a separate VM instance.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)

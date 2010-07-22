@@ -24,25 +24,24 @@ package org.jboss.osgi.test.performance.service;
 import java.io.File;
 import java.io.InputStream;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
+ * This is the base class for the Service Performance tests. 
+ * The actual testing is delegated to the {@link CreateAndLookupBenchmark}.<p/>
+ * 
+ * This test is abstract. Every population is isolated in a unique subclass. This is
+ * to enable maven to run every test in a separate VM (when forkMode=always is specified).
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-@RunWith(Arquillian.class)
-public class ServiceTestBase extends AbstractPerformanceTestCase
+public abstract class ServiceTestBase extends AbstractPerformanceTestCase
 {
    @Deployment
    public static JavaArchive createDeployment()
@@ -73,20 +72,7 @@ public class ServiceTestBase extends AbstractPerformanceTestCase
       return archive;
    }
 
-   //   abstract Bundle getBundle();
-   @Inject
-   public Bundle bundle;
-
-   Bundle getBundle()
-   {
-      return bundle;
-   }
-
-   @Test
-   public void test99() throws Exception
-   {
-      testPerformance(99);
-   }
+   abstract Bundle getBundle();
 
    void testPerformance(int size) throws Exception
    {

@@ -29,6 +29,9 @@ import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
+ * Abstract Base Class for the Arquillian-based performance tests. Provides a basic 
+ * test.jar which contains shared classes and provides a number of utility methods.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public abstract class AbstractPerformanceTestCase

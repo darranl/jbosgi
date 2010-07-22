@@ -1,24 +1,9 @@
 [submodule "reactor/jbosgi-container"]
 	path = reactor/jbosgi-container
 	url = git://github.com/jbosgi/jbosgi-container.git
-[submodule "reactor/jbosgi-framework"]
-	path = reactor/jbosgi-framework
-	url = git://github.com/jbosgi/jbosgi-framework.git
-[submodule "reactor/jbosgi-resolver"]
-	path = reactor/jbosgi-resolver
-	url = git://github.com/jbosgi/jbosgi-resolver.git
-[submodule "reactor/jbosgi-spi"]
-	path = reactor/jbosgi-spi
-	url = git://github.com/jbosgi/jbosgi-spi.git
-[submodule "reactor/jbosgi-parent"]
-	path = reactor/jbosgi-parent
-	url = git://github.com/jbosgi/jbosgi-parent.git
 [submodule "reactor/jbosgi-husky"]
 	path = reactor/jbosgi-husky
 	url = git://github.com/jbosgi/jbosgi-husky.git
-[submodule "reactor/jbosgi-deployment"]
-	path = reactor/jbosgi-deployment
-	url = git://github.com/jbosgi/jbosgi-deployment.git
 [submodule "reactor/jboss-modules"]
 	path = reactor/jboss-modules
 	url = git://github.com/jbosgi/jboss-modules.git

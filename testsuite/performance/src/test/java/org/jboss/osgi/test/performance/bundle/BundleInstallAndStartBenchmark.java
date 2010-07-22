@@ -97,6 +97,13 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       return new ChartType[] { INSTALL_START };
    }
 
+   /**
+    * This method kicks off the test.
+    * 
+    * @param numThreads number of concurrent threads to use.
+    * @param numBundlesPerThread number of bundles to install in each thread.
+    * @throws Exception if anything goes wrong.
+    */
    public void run(int numThreads, int numBundlesPerThread) throws Exception
    {
       prepareTest(numThreads, numBundlesPerThread);

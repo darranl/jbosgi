@@ -23,6 +23,8 @@
 package org.jboss.osgi.test.performance;
 
 /**
+ * Describes custom parameters that will be listed in the performance report.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class Parameter

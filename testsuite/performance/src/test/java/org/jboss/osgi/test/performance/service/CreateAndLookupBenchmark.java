@@ -33,6 +33,10 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
 /**
+ * This benchmark measures the time it takes to register and then to look up services in the
+ * OSGi framework. The test can use multiple threads. The number of threads and services to 
+ * be used is specified in the {@link #run(int, int)} method.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
@@ -56,9 +60,16 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
       return new ChartType[] { REGISTRATION, LOOKUP };
    }
 
-   public void run(int numthreads, int numservices) throws Exception
+   /**
+    * This method kicks off the test.
+    * 
+    * @param numthreads the number of concurrent threads to use.
+    * @param numServicesPerThread the number of services each thread should create and look up.
+    * @throws Exception if anything goes wrong.
+    */
+   public void run(int numthreads, int numServicesPerThread) throws Exception
    {
-      runTest(numthreads, numservices);
+      runTest(numthreads, numServicesPerThread);
    }
 
    @Override

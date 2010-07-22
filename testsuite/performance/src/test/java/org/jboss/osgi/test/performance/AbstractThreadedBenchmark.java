@@ -29,6 +29,11 @@ import org.jboss.logging.Logger;
 import org.osgi.framework.BundleContext;
 
 /**
+ * Abstract Base Class for performance benchmarks that can run in multiple threads. A benchmark supporting
+ * execution in multiple threads can extend this class and should invoke the {@link #runTest(int, Object)} method
+ * providing the number of concurrent threads to use for the current run. The benchmark must provide a 
+ * {@link #runThread(String, Object)} method with will be invoked for every thread taking part.
+ *  
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark implements PerformanceBenchmark
@@ -41,6 +46,11 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
       super(bc);
    }
 
+   /**
+    * Provides a unique name for each thread.
+    * @param numThreads The number of threads used.
+    * @return a list of strings containing the thread names used.
+    */
    protected List<String> getThreadNames(int numThreads)
    {
       List<String> names = new ArrayList<String>(numThreads);
@@ -51,27 +61,36 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
       return names;
    }
 
-   public void runTest(int numThreads, final T parameters) throws Exception
+   /**
+    * Run the benchmark in a number of threads. This method will spawn the threads and
+    * wait until they've all been finished.  
+    * @param numThreads the number of threads required.
+    * @param parameter arbitrary parameter which will be passed to each thread.
+    * @throws Exception if one of the threads throws an exception it will be rethrown.
+    */
+   public void runTest(int numThreads, final T parameter) throws Exception
    {
       final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<Throwable>());
       List<Thread> threads = new ArrayList<Thread>(numThreads);
       for (final String threadName : getThreadNames(numThreads))
       {
-         threads.add(new Thread(new Runnable()
+         Thread t = new Thread(new Runnable()
          {
             @Override
             public void run()
             {
                try
                {
-                  runThread(threadName, parameters);
+                  runThread(threadName, parameter);
                }
                catch (Throwable e)
                {
                   exceptions.add(e);
                }
             }
-         }));
+         });
+         t.setName(threadName);
+         threads.add(t);
       }
 
       System.out.println("Starting " + numThreads + " threads");
@@ -94,6 +113,13 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
          throw new RuntimeException("One or more tests failures", firstError);
       }
    }
-   
-   abstract protected void runThread(String threadName, T parameters) throws Exception;
+
+   /**
+    * A benchmark implementation must provide this method which does the actual testing.
+    * 
+    * @param threadName the name of the current thread. Can be used to make things unique.
+    * @param parameter the parameter passed into the {@link #runTest(int, Object)} method.
+    * @throws Exception if anything goes wrong throw an exception. This will fail the test.
+    */
+   abstract protected void runThread(String threadName, T parameter) throws Exception;
 }

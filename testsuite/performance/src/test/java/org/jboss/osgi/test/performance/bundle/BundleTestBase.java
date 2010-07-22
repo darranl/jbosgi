@@ -41,6 +41,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.BundleContext;
 
 /**
+ * This is the base class for the Bundle Performance tests. 
+ * The actual testing is delegated to the {@link BundleInstallAndStartBenchmark}.<p/>
+ * 
+ * This test is abstract. Every population is isolated in a unique subclass. This is
+ * to enable maven to run every test in a separate VM (when forkMode=always is specified).
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public abstract class BundleTestBase extends AbstractPerformanceTestCase

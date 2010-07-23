@@ -120,11 +120,9 @@
         <include name="jboss-osgi-hotdeploy-sources.jar" />
         <include name="jboss-osgi-husky-harness-sources.jar" />
         <include name="jboss-osgi-jaxb-sources.jar" />
-        <include name="jboss-osgi-jbossas-sources.jar" />
         <include name="jboss-osgi-jmx-sources.jar" />
         <include name="jboss-osgi-jndi-sources.jar" />
         <include name="jboss-osgi-jta-sources.jar" />
-        <include name="jboss-osgi-reflect-sources.jar" />
         <include name="jboss-osgi-spi-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
         <include name="jboss-osgi-webconsole-sources.jar" />

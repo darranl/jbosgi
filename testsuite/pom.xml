@@ -126,48 +126,28 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.xerces</groupId>
-      <artifactId>jboss-osgi-xerces</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.blueprint</groupId>
       <artifactId>jboss-osgi-blueprint</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.common</groupId>
       <artifactId>jboss-osgi-common</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
+      <groupId>org.jboss.osgi.common</groupId>
       <artifactId>jboss-osgi-common-core</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-husky</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-jta</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-reflect</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.bundles</groupId>
-      <artifactId>jboss-osgi-serviceloader</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.http</groupId>
       <artifactId>jboss-osgi-http</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.husky</groupId>
+      <artifactId>jboss-osgi-husky</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -186,8 +166,28 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.jta</groupId>
+      <artifactId>jboss-osgi-jta</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.reflect</groupId>
+      <artifactId>jboss-osgi-reflect</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.serviceloader</groupId>
+      <artifactId>jboss-osgi-serviceloader</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
       <artifactId>jboss-osgi-webapp</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.xerces</groupId>
+      <artifactId>jboss-osgi-xerces</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

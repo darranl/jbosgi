@@ -18,12 +18,14 @@
         <include>*:jboss-osgi-blueprint:jar</include>
         <include>*:jboss-osgi-common:jar</include>
         <include>*:jboss-osgi-common-core:jar</include>
-        <include>*:jboss-osgi-husky:jar</include>
         <include>*:jboss-osgi-http:jar</include>
+        <include>*:jboss-osgi-husky:jar</include>
         <include>*:jboss-osgi-jaxb:jar</include>
         <include>*:jboss-osgi-jmx:jar</include>
         <include>*:jboss-osgi-jndi:jar</include>
+        <include>*:jboss-osgi-jta:jar</include>
         <include>*:jboss-osgi-reflect:jar</include>
+        <include>*:jboss-osgi-serviceloader:jar</include>
         <include>*:jboss-osgi-webapp:jar</include>
         <include>*:jboss-osgi-xerces:jar</include>
         <include>*:jboss-osgi-xml-binding:jar</include>

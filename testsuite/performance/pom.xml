@@ -62,7 +62,7 @@
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.jboss.osgi.common</groupId>
-                  <artifactId>jbosgi-common</artifactId>
+                  <artifactId>jboss-osgi-common</artifactId>
                   <version>${version.jboss.osgi.common}</version>
                   <destFileName>jbosgi-common.jar</destFileName>
                 </artifactItem>

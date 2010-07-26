@@ -14,6 +14,7 @@
       <includes>
         <include>*:jbosgi-resolver-api:jar:sources</include>
         <include>*:jbosgi-resolver-spi:jar:sources</include>
+        <include>*:jbosgi-resolver-metadata:jar:sources</include>
         <include>*:jboss-osgi-blueprint:jar:sources</include>
         <include>*:jboss-osgi-common:jar:sources</include>
         <include>*:jboss-osgi-deployment:jar:sources</include>

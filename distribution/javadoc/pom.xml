@@ -114,6 +114,12 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.resolver</groupId>
+      <artifactId>jbosgi-resolver-metadata</artifactId>
+      <version>${version.jboss.osgi.resolver}</version>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.serviceloader</groupId>
       <artifactId>jboss-osgi-serviceloader</artifactId>
       <version>${version.jboss.osgi.serviceloader}</version>

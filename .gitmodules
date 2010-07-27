@@ -8,3 +8,6 @@
 	path = reactor/jboss-msc
 	url = git://github.com/jbosgi/jboss-msc.git
 
+[submodule "reactor/jbosgi-spi"]
+	path = reactor/jbosgi-spi
+	url = git://github.com/jbosgi/jbosgi-spi.git

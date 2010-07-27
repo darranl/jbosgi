@@ -55,6 +55,7 @@
         </property>
       </activation>
       <modules>
+        <module>jbosgi-spi</module>
         <module>jbosgi-container</module>
         <module>jboss-modules</module>
         <module>jboss-msc</module>

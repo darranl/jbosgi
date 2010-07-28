@@ -6,11 +6,17 @@ Checkout the OSGi TCK setup project
     git clone git://github.com/jbosgi/jbosgi.git
     cd jbosgi
     git submodule init
-    git submodele update
+    git submodule update
 
+Checkout the OSGi TCK 
+
+		svn co https://www.osgi.org/members/svn/build/tags/r4v42-core-cmpn-final
+	or
+		svn co https://svn.devel.redhat.com/repos/jboss-tck/osgitck/r4v42
+	
 Copy and edit the setup properties
 
-    cd osgitck-setup
+    cd reactor/tck-setup
     cp ant.properties.example ant.properties
     vi ant.properties
 

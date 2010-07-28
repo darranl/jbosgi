@@ -49,10 +49,10 @@
     <available property="aQute.bnd.available" file="${aQute.bnd.jar}" />
     <fail message="Cannot find: ${aQute.bnd.jar}" unless="aQute.bnd.available" />
 
-    <!-- Check if the jboss.osgi.framework jar is available -->
-    <property name="jboss.osgi.framework.jar" value="${maven.local.repository}/org/jboss/osgi/framework/jboss-osgi-framework/${framework.version}/jboss-osgi-framework-${framework.version}-all.jar" />
-    <available property="jboss.osgi.framework.available" file="${jboss.osgi.framework.jar}" />
-    <fail message="Cannot find: ${jboss.osgi.framework.jar}" unless="jboss.osgi.framework.available" />
+    <!-- Check if the jboss.osgi.container jar is available -->
+    <property name="jboss.osgi.container.jar" value="${maven.local.repository}/org/jboss/osgi/container/jbosgi-container-core/${framework.version}/jbosgi-container-core-${framework.version}-all.jar" />
+    <available property="jboss.osgi.container.available" file="${jboss.osgi.container.jar}" />
+    <fail message="Cannot find: ${jboss.osgi.container.jar}" unless="jboss.osgi.container.available" />
 
   </target>
 
@@ -88,9 +88,9 @@
   <!-- Update the JBoss OSGi Framework -->
   <target name="update-framework" description="Update the JBoss OSGi Framework" depends="init">
     <!-- Copy the OSGi Framework -->
-    <mkdir dir="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework" />
-  	<echo message="jboss.osgi.framework.jar=${jboss.osgi.framework.jar}"/>
-    <copy file="${jboss.osgi.framework.jar}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework/org.jboss.osgi.framework-1.0.0.jar"
+    <mkdir dir="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container" />
+  	<echo message="jboss.osgi.container.jar=${jboss.osgi.container.jar}"/>
+    <copy file="${jboss.osgi.container.jar}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container/org.jboss.osgi.container-1.0.0.jar"
       overwrite="true" />
   </target>
 

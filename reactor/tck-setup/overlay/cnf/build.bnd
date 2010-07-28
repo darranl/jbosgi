@@ -87,7 +87,7 @@ Bundle-Vendor			= OSGi Alliance
 -removeheaders			= Include-Resource, Private-Package
 
 # Define the OSGi vendor framework
-osgi.vendor.framework = org.jboss.osgi.framework
+osgi.vendor.framework = org.jboss.osgi.container
 osgi.vendor.version   = 1.0.0
 
 -runpath							= \

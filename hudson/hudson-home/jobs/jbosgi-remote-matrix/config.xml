@@ -62,8 +62,6 @@
       <name>container</name>
       <values>
         <string>runtime</string>
-        <string>jboss600</string>
-        <string>jboss601</string>
       </values>
     </axis>
   </axes>

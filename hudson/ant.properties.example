@@ -13,13 +13,12 @@ scm.http.url.jbosgi=http://github.com/jbosgi/jbosgi
 
 # JDK settings
 # ------------
-java.home.jdk15=/usr/java/jdk1.5.0_22
-java.home.jdk16=/usr/java/jdk1.6.0_17
+java.home.jdk16=/usr/java/jdk1.6.0_20
 
 # Maven settings
 # --------------
-maven.name=apache-maven-2.2.1
-maven.path=/usr/java/apache-maven-2.2.1
+maven.name=apache-maven-3.0-beta-1
+maven.path=/usr/java/apache-maven-3.0-beta-1
 
 # The JBoss settings
 # ------------------

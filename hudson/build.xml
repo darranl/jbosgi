@@ -31,6 +31,7 @@
     
   	<!-- Setup property defaults -->
   	<property environment="env"/>
+    <property name="username" value="${env.USER}" />
     <property name="hudson.admin" value="${env.USER}" />
     <property name="hudson.root" value="/home/${hudson.admin}/workspace/jboss-osgi" />
     
@@ -113,6 +114,7 @@
         <include name="*.xml"/>
       </fileset>
       <filterset>
+        <filter token="username" value="${username}"/>
         <filter token="version.id" value="${version.id}"/>
         <filter token="hudson.admin" value="${hudson.admin}"/>
         <filtersfile file="${hudson.dir}/ant.properties"/>

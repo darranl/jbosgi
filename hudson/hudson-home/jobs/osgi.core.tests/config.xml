@@ -55,7 +55,7 @@ export TCKSETUP=$WORKSPACE/jbosgi/reactor/tck-setup
 
 # Clone the TCK repo 
 if [ ! -d $TCKCHECKOUT ]; then
-  git clone ~hudson/git/org.osgi.tck $TCKCHECKOUT
+  git clone ~@username@/git/org.osgi.tck $TCKCHECKOUT
 fi
 
 # Clone the jbosgi repo 
@@ -69,7 +69,6 @@ fi
 cd $WORKSPACE; mvn -fae -Pall clean install
 
 # Switch to known tck-checkout tag 
-rm -rf $TCKCHECKOUT; mkdir $TCKCHECKOUT
 cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final
 
 # Setup the TCK

@@ -50,7 +50,7 @@
     <fail message="Cannot find: ${aQute.bnd.jar}" unless="aQute.bnd.available" />
 
     <!-- Check if the jboss.osgi.container jar is available -->
-    <property name="jboss.osgi.container.jar" value="${maven.local.repository}/org/jboss/osgi/container/jbosgi-container-core/${framework.version}/jbosgi-container-core-${framework.version}-all.jar" />
+    <property name="jboss.osgi.container.jar" value="${maven.local.repository}/org/jboss/osgi/container/jbosgi-container-aggregated/${framework.version}/jbosgi-container-aggregated-${framework.version}.jar" />
     <available property="jboss.osgi.container.available" file="${jboss.osgi.container.jar}" />
     <fail message="Cannot find: ${jboss.osgi.container.jar}" unless="jboss.osgi.container.available" />
 

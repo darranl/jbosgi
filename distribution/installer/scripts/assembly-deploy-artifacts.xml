@@ -47,7 +47,6 @@
       <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       <useStrictFiltering>true</useStrictFiltering>
       <includes>
-        <include>*:jboss-logging-log4j:jar</include>
         <include>*:log4j:jar</include>
       </includes>
       <scope>test</scope>

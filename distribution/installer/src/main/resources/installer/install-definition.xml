@@ -157,8 +157,7 @@
         <include name="jbosgi-resolver-felix.jar" />
         <include name="jbosgi-resolver-metadata.jar" />
         <include name="jboss-common-core.jar" />
-        <include name="jboss-logging-spi.jar" />
-        <include name="jboss-logging-log4j.jar" />
+        <include name="jboss-logging.jar" />
         <include name="jboss-modules.jar" />
         <include name="jboss-msc.jar" />
         <include name="jboss-osgi-deployment.jar" />

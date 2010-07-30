@@ -33,10 +33,14 @@
     <property name="username" value="${env.USER}" />
     <property name="tck.checkout.dir" value="${env.TCKCHECKOUT}" />
     <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
+    <property name="framework.groupId" value="org/jboss/osgi/container" />
+    <property name="framework.artifactId" value="jbosgi-container-aggregated" />
+    <property name="framework.classifier" value="assembly" />
+    <property name="framework.jar" value="${framework.artifactId}-${framework.version}-${framework.classifier}.jar" />
 
     <echo>************************************************</echo>
     <echo message="aQute.bnd.version=${aQute.bnd.version}" />
-    <echo message="framework.version=${framework.version}" />
+    <echo message="framework.jar=${framework.jar}" />
     <echo message="tck.checkout.dir=${tck.checkout.dir}" />
     <echo>************************************************</echo>
 
@@ -50,9 +54,9 @@
     <fail message="Cannot find: ${aQute.bnd.jar}" unless="aQute.bnd.available" />
 
     <!-- Check if the jboss.osgi.container jar is available -->
-    <property name="jboss.osgi.container.jar" value="${maven.local.repository}/org/jboss/osgi/container/jbosgi-container-aggregated/${framework.version}/jbosgi-container-aggregated-${framework.version}.jar" />
-    <available property="jboss.osgi.container.available" file="${jboss.osgi.container.jar}" />
-    <fail message="Cannot find: ${jboss.osgi.container.jar}" unless="jboss.osgi.container.available" />
+    <property name="framework.jar.path" value="${maven.local.repository}/${framework.groupId}/${framework.artifactId}/${framework.version}/${framework.jar}" />
+    <available property="framework.jar.available" file="${framework.jar.path}" />
+    <fail message="Cannot find: ${framework.jar}" unless="framework.jar.available" />
 
   </target>
 
@@ -89,8 +93,7 @@
   <target name="update-framework" description="Update the JBoss OSGi Framework" depends="init">
     <!-- Copy the OSGi Framework -->
     <mkdir dir="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container" />
-  	<echo message="jboss.osgi.container.jar=${jboss.osgi.container.jar}"/>
-    <copy file="${jboss.osgi.container.jar}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container/org.jboss.osgi.container-1.0.0.jar"
+    <copy file="${framework.jar.path}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container/org.jboss.osgi.container-1.0.0.jar"
       overwrite="true" />
   </target>
 

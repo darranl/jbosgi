@@ -178,6 +178,8 @@
       <!-- Server Minimal -->
       <fileset dir="@{runtime.dir}/server/minimal/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
         <include name="jboss-osgi-framework.properties" />
+      </fileset>
+      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
         <include name="log4j.xml" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">

@@ -407,7 +407,7 @@
     </profile>
 
     <profile>
-      <id>config-admin</id>
+      <id>dependency-order</id>
       <activation>
         <!-- activeByDefault>true</activeByDefault -->
         <property>

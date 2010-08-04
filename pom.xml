@@ -460,6 +460,15 @@
                   <value>org.jboss.osgi.husky.internal.AbstractInvoker</value>
                 </property>
                 <property>
+                  <!-- 
+                    In embedded mode we don't have sufficient control over class path ordering. 
+                    META-INF/services/javax.xml.parsers.DocumentBuilderFactory gets loaded from 
+                    xercesImpl. With this hack we force the DocumentBuilderFactory from jboss-osgi-xerces.
+                   -->
+                  <name>javax.xml.parsers.DocumentBuilderFactory</name>
+                  <value>org.jboss.osgi.xml.DocumentBuilderFactoryImpl</value>
+                </property>
+                <property>
                   <name>test.archive.directory</name>
                   <value>${project.build.directory}/test-libs</value>
                 </property>

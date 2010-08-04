@@ -3,7 +3,7 @@
 Bundle-SymbolicName: example-jta
 Export-Package: org.jboss.test.osgi.example.jta
 Import-Package: \
-	javax.transaction;version="[1.0,1.1)", \
+    javax.transaction;version="[1.0,1.1)", \
 	org.jboss.osgi.jmx, org.jboss.osgi.husky, org.jboss.osgi.testing, org.jboss.osgi.jta, org.jboss.osgi.spi.capability, \
 	org.junit, org.osgi.framework
 

@@ -60,6 +60,8 @@
         <module>jboss-modules</module>
         <module>jboss-msc</module>
         <module>jbosgi-container</module>
+        <module>jbosgi-blueprint</module>
+        <module>jbosgi-husky</module>
         <module>jbosgi-xerces</module>
         <module>jbosgi-xml-binding</module>
         <module>jbosgi-jta</module>

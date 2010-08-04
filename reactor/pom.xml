@@ -57,9 +57,12 @@
       <modules>
         <module>jbosgi-spi</module>
         <module>jbosgi-deployment</module>
-        <module>jbosgi-container</module>
         <module>jboss-modules</module>
         <module>jboss-msc</module>
+        <module>jbosgi-container</module>
+        <module>jbosgi-xerces</module>
+        <module>jbosgi-xml-binding</module>
+        <module>jbosgi-jta</module>
       </modules>
     </profile>
     

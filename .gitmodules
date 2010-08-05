@@ -7,25 +7,3 @@
 [submodule "reactor/jboss-msc"]
 	path = reactor/jboss-msc
 	url = git://github.com/jbosgi/jboss-msc.git
-
-[submodule "reactor/jbosgi-spi"]
-	path = reactor/jbosgi-spi
-	url = git://github.com/jbosgi/jbosgi-spi.git
-[submodule "reactor/jbosgi-deployment"]
-	path = reactor/jbosgi-deployment
-	url = git://github.com/jbosgi/jbosgi-deployment.git
-[submodule "reactor/jbosgi-xerces"]
-	path = reactor/jbosgi-xerces
-	url = git://github.com/jbosgi/jbosgi-xerces.git
-[submodule "reactor/jbosgi-xml-binding"]
-	path = reactor/jbosgi-xml-binding
-	url = git://github.com/jbosgi/jbosgi-xml-binding.git
-[submodule "reactor/jbosgi-jta"]
-	path = reactor/jbosgi-jta
-	url = git://github.com/jbosgi/jbosgi-jta.git
-[submodule "reactor/jbosgi-blueprint"]
-	path = reactor/jbosgi-blueprint
-	url = git://github.com/jbosgi/jbosgi-blueprint.git
-[submodule "reactor/jbosgi-husky"]
-	path = reactor/jbosgi-husky
-	url = git://github.com/jbosgi/jbosgi-husky.git

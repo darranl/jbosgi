@@ -45,7 +45,7 @@
       Name: reactor
       Descr: Build the reactor modules
       
-      git submodule add git://github.com/jbosgi/jbosgi-framework.git reactor/jbosgi-framework
+      git submodule add git://github.com/jbosgi/jbosgi-container.git reactor/jbosgi-framework
     -->
     <profile>
       <id>reactor</id>

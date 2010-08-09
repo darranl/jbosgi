@@ -71,6 +71,7 @@
         <string>osgi.jdbc.tests</string>
         <string>osgi.jmx.tests</string>
         <string>osgi.jndi.tests</string>
+        <string>osgi.packageadmin.tests</string>
         <string>osgi.startlevel.tests</string>
         <string>osgi.webapp.tests</string>
       </jobNames>

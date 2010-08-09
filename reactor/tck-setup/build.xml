@@ -106,9 +106,14 @@
     <ant dir="${tck.checkout.dir}/osgi.ct" target="osgi.core.tests" />
   </target>
 
-  <target name="run-startlevel-tests" description="Run the TCK start level service tests" depends="init">
+  <target name="run-startlevel-tests" description="Run the TCK Start Level service tests" depends="init">
     <fail message="Cannot find: ${tck.checkout.dir}" unless="tck.checkout.dir.available" />
     <ant dir="${tck.checkout.dir}/org.osgi.test.cases.startlevel" target="test" />
+  </target>
+
+  <target name="run-packageadmin-tests" description="Run the TCK Package Admin service tests" depends="init">
+    <fail message="Cannot find: ${tck.checkout.dir}" unless="tck.checkout.dir.available" />
+    <ant dir="${tck.checkout.dir}/org.osgi.test.cases.packageadmin" target="test" />
   </target>
 
   <target name="run-blueprint-tests" description="Run the TCK blueprint tests" depends="init">

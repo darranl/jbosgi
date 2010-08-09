@@ -17,7 +17,7 @@
         <string>uploadpack</string>
         <string>git-upload-pack</string>
         <string>url</string>
-        <string>git://github.com/jbosgi/jbosgi-framework.git</string>
+        <string>git://github.com/jbosgi/jbosgi-container.git</string>
         <string>tagopt</string>
         <string></string>
       </org.spearce.jgit.transport.RemoteConfig>

@@ -109,7 +109,10 @@ public class OSGi287TestCase extends OSGiRuntimeTest
    }
 
    @Test
-   @Ignore("Fails in the remote scenario only, need to investigate")
+   @Ignore("Depends on JBOSGI-381")
+   // This test fails when run in the remote container as part of the whole test
+   // class. It passes however when run in the remote container in isolation.
+   // So the failure is caused by leftovers from the other tests in this class.
    public void testResolvedOptionalImportReverse() throws Exception
    {
       OSGiRuntime runtime = getDefaultRuntime();

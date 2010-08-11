@@ -73,7 +73,7 @@
     <version.jboss.osgi.resolver>1.0.0</version.jboss.osgi.resolver>
     <version.jboss.osgi.resolver.felix>3.0.1</version.jboss.osgi.resolver.felix>
     <version.jboss.osgi.serviceloader>1.0.2</version.jboss.osgi.serviceloader>
-    <version.jboss.osgi.spi>1.0.11</version.jboss.osgi.spi>
+    <version.jboss.osgi.spi>1.0.12-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.0</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.0</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.5</version.jboss.osgi.webconsole>

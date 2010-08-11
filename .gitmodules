@@ -10,3 +10,6 @@
 [submodule "reactor/jboss-spi"]
 	path = reactor/jboss-spi
 	url = git://github.com/jbosgi/jbosgi-spi.git
+[submodule "reactor/jbosgi-spi"]
+	path = reactor/jbosgi-spi
+	url = git://github.com/jbosgi/jbosgi-spi.git

@@ -13,3 +13,6 @@
 [submodule "reactor/jbosgi-spi"]
 	path = reactor/jbosgi-spi
 	url = git://github.com/jbosgi/jbosgi-spi.git
+[submodule "reactor/jbosgi-resolver"]
+	path = reactor/jbosgi-resolver
+	url = git://github.com/jbosgi/jbosgi-resolver.git

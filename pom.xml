@@ -70,8 +70,7 @@
     <version.jboss.osgi.jndi>1.0.3</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0.Alpha2</version.jboss.osgi.reflect>
-    <version.jboss.osgi.resolver>1.0.0</version.jboss.osgi.resolver>
-    <version.jboss.osgi.resolver.felix>3.0.1</version.jboss.osgi.resolver.felix>
+    <version.jboss.osgi.resolver>1.0.1-SNAPSHOT</version.jboss.osgi.resolver>
     <version.jboss.osgi.serviceloader>1.0.2</version.jboss.osgi.serviceloader>
     <version.jboss.osgi.spi>1.0.12-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.1-SNAPSHOT</version.jboss.osgi.vfs>
@@ -218,7 +217,7 @@
       <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>
         <artifactId>jbosgi-resolver-felix</artifactId>
-        <version>${version.jboss.osgi.resolver.felix}</version>
+        <version>${version.jboss.osgi.resolver}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.serviceloader</groupId>

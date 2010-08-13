@@ -65,11 +65,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    @After
    public void tearDown() throws Exception
    {
-      if (runtime != null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
+      runtime.shutdown();
    }
 
    @Test
@@ -151,14 +147,10 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       assertBundleState(Bundle.ACTIVE, hostA.getState());
       assertBundleState(Bundle.RESOLVED, fragA.getState());
 
-      // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
-      // to normalize the differences in VFS protocols when running against a VFS21 target container.
-      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getBundleStateMBean();
-
-      String entryURL = bundleState.getEntry(hostA.getBundleId(), "resources/resource.txt");
+      URL entryURL = hostA.getEntry("resources/resource.txt");
       assertNull("Entry URL null", entryURL);
 
-      String resourceURL = bundleState.getResource(hostA.getBundleId(), "resources/resource.txt");
+      URL resourceURL = hostA.getResource("resources/resource.txt");
       assertNotNull("Resource URL not null", resourceURL);
 
       OSGiBundle fragBeanProvider = hostA.loadClass(FragBeanA.class.getName());
@@ -268,7 +260,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Refreshing HostA causes the FragA to get attached
       FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
       frameworkMBean.refreshBundle(hostA.getBundleId());
-      
+
       // HostC should now resolve and start
       hostC.start();
       assertBundleState(Bundle.ACTIVE, hostC.getState());

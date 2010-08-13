@@ -338,7 +338,20 @@
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.resolver</groupId>
+          <artifactId>jbosgi-resolver-api</artifactId>
+          <version>1.0.0</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.resolver</groupId>
+          <artifactId>jbosgi-resolver-spi</artifactId>
+          <version>1.0.0</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.resolver</groupId>
           <artifactId>jbosgi-resolver-felix</artifactId>
+          <version>3.0.1</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>

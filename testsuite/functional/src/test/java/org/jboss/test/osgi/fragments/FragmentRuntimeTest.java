@@ -50,7 +50,6 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
-@Ignore("Add fragment support to MSC Framework")
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
    private OSGiRuntime runtime;
@@ -133,6 +132,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    }
 
    @Test
+   @Ignore("testAttachedFragment")
    public void testAttachedFragment() throws Exception
    {
       // Bundle-SymbolicName: simple-hostA
@@ -177,6 +177,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    }
 
    @Test
+   @Ignore("testHiddenPrivatePackage")
    public void testHiddenPrivatePackage() throws Exception
    {
       // Bundle-SymbolicName: simple-hostA
@@ -202,10 +203,8 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
 
       // The fragment contains an overwrites Private-Package with Import-Package
       // The SubBeanA is expected to come from HostB, which exports that package
-      hostA.loadClass(SubBeanA.class.getName());
-
-      System.out.println("FIXME [JBOSGI-346] Attached fragment hides private package in host");
-      //assertEquals("Class provided by host", hostB, subBeanProvider);
+      OSGiBundle subBeanProvider = hostA.loadClass(SubBeanA.class.getName());
+      assertEquals("Class provided by host", hostB, subBeanProvider);
 
       hostA.uninstall();
       assertBundleState(Bundle.UNINSTALLED, hostA.getState());
@@ -219,6 +218,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    }
 
    @Test
+   @Ignore("testAttachedFragment")
    public void testFragmentExportsPackage() throws Exception
    {
       // Bundle-SymbolicName: simple-hostA
@@ -269,20 +269,6 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
       frameworkMBean.refreshBundle(hostA.getBundleId());
       
-      if ("jbossmc".equals(getFrameworkName()))
-      {
-         System.out.println("FIXME [JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])");
-         return;
-      }
-
-      // Wait for the fragment to get attached
-      int timeout = 2000;
-      while (timeout > 0 && fragA.getState() != Bundle.RESOLVED)
-      {
-         Thread.sleep(200);
-         timeout -= 200;
-      }
-
       // HostC should now resolve and start
       hostC.start();
       assertBundleState(Bundle.ACTIVE, hostC.getState());

@@ -28,7 +28,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.jboss.osgi.testing.OSGiFrameworkTest;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.BundleException;
 
@@ -70,110 +69,5 @@ public class FrameworkTestCase extends OSGiFrameworkTest
       {
          // expected
       }
-   }
-
-   @Test
-   @Ignore
-   public void testFindEntries()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetBundleContext()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetEntry()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetEntryPaths()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetHeaders()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetLastModified()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetRegisteredServices()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetResource()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetResources()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetServicesInUse()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetSignerCertificates()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetState()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testGetVersion()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testHasPermission()
-   {
-
-   }
-
-   @Test
-   @Ignore
-   public void testLoadClass()
-   {
-
    }
 }

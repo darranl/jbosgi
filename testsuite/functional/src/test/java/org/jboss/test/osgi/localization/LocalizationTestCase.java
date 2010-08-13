@@ -34,7 +34,6 @@ import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
@@ -45,7 +44,6 @@ import org.osgi.framework.Constants;
  * @author thomas.diesler@jboss.com
  * @since 25-Jan-2010
  */
-@Ignore("Add localization support to MSC Framework")
 public class LocalizationTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;

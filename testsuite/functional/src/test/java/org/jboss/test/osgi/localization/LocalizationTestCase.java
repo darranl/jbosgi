@@ -30,10 +30,9 @@ import java.util.Locale;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
@@ -46,22 +45,18 @@ import org.osgi.framework.Constants;
  */
 public class LocalizationTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
+   private OSGiRuntime runtime;
 
-   @BeforeClass
-   public static void beforeClass()
+   @Before
+   public void beforeClass()
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = getDefaultRuntime();
    }
 
-   @AfterClass
-   public static void afterClass()
+   @After
+   public void afterClass()
    {
-      if (runtime != null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
+      runtime.shutdown();
    }
 
    @Test
@@ -74,17 +69,17 @@ public class LocalizationTestCase extends OSGiRuntimeTest
       Dictionary<String, String> headers = host.getHeaders();
       String bundleName = headers.get(Constants.BUNDLE_NAME);
       assertEquals("English Bundle Name", bundleName);
-      
+
       // Test explicit default locale
       headers = host.getHeaders(null);
       bundleName = headers.get(Constants.BUNDLE_NAME);
       assertEquals("English Bundle Name", bundleName);
-      
+
       // Test raw headers
       headers = host.getHeaders("");
       bundleName = headers.get(Constants.BUNDLE_NAME);
       assertEquals("%bundle-name", bundleName);
-      
+
       host.uninstall();
       assertBundleState(Bundle.UNINSTALLED, host.getState());
 
@@ -99,7 +94,7 @@ public class LocalizationTestCase extends OSGiRuntimeTest
    {
       OSGiBundle host = runtime.installBundle("localization-simple-host.jar");
       OSGiBundle frag = runtime.installBundle("localization-simple-frag.jar");
-      
+
       host.start();
       assertBundleState(Bundle.ACTIVE, host.getState());
       assertBundleState(Bundle.RESOLVED, frag.getState());
@@ -108,10 +103,10 @@ public class LocalizationTestCase extends OSGiRuntimeTest
       Dictionary<String, String> headers = host.getHeaders(Locale.GERMAN.toString());
       String bundleName = headers.get(Constants.BUNDLE_NAME);
       assertEquals("Deutscher Bundle Name", bundleName);
-      
+
       host.uninstall();
       assertBundleState(Bundle.UNINSTALLED, host.getState());
-      
+
       frag.uninstall();
       assertBundleState(Bundle.UNINSTALLED, frag.getState());
 

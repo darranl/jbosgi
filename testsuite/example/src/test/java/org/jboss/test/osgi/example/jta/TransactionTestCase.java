@@ -40,7 +40,7 @@ import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jta.TransactionCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,7 +65,7 @@ public class TransactionTestCase
    {
       if (context == null)
       {
-         runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+         runtime = OSGiRuntimeTest.createDefaultRuntime();
          runtime.addCapability(new JMXCapability());
          runtime.addCapability(new HuskyCapability());
          runtime.addCapability(new TransactionCapability());

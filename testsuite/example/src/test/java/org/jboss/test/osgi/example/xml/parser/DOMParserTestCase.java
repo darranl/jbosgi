@@ -38,7 +38,7 @@ import org.jboss.osgi.husky.HuskyCapability;
 import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.xml.XMLParserCapability;
 import org.junit.After;
 import org.junit.Before;
@@ -70,7 +70,7 @@ public class DOMParserTestCase
       // Only do this if we are not within the OSGi Runtime
       if (context == null)
       {
-         runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+         runtime = OSGiRuntimeTest.createDefaultRuntime();
          runtime.addCapability(new XMLParserCapability());
          runtime.addCapability(new HuskyCapability());
 

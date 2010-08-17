@@ -28,7 +28,6 @@ import static org.junit.Assert.fail;
 
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jmx.MBeanProxy;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.internal.RemoteRuntime;
 import org.jboss.test.osgi.jbossas.jbosgi36.mbean.FooMBean;
@@ -51,7 +50,7 @@ public class OSGi36TestCase extends OSGiRuntimeTest
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = (RemoteRuntime)new OSGiRuntimeHelper().getRemoteRuntime();
+      runtime = (RemoteRuntime)createRemoteRuntime();
       runtime.addCapability(new JMXCapability());
 
       runtime.installBundle("jbosgi36-bundle.jar");

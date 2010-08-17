@@ -73,7 +73,7 @@ public class ServiceLoaderTestCase extends OSGiRuntimeTest
    public void testOSGiServiceAPI() throws Exception
    {
       // Get the default runtime
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new ServiceLoaderCapability());
       
       try

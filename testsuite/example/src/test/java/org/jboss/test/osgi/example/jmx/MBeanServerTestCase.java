@@ -28,7 +28,7 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -40,14 +40,14 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class MBeanServerTestCase
+public class MBeanServerTestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new JNDICapability());
       runtime.addCapability(new JMXCapability());
    }

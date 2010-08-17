@@ -64,7 +64,7 @@ public class SimpleHuskyTestCase extends OSGiRuntimeTest
       if (context == null)
       {
          // Get the default runtime
-         runtime = getDefaultRuntime();
+         runtime = createDefaultRuntime();
          runtime.addCapability(new HuskyCapability());
          
          // Install the bundle

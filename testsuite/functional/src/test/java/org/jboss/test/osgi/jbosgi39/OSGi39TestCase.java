@@ -56,7 +56,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest
    @Before
    public void setUp() throws Exception
    {
-      runtime = getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
       

@@ -51,7 +51,7 @@ public class OSGi41TestCase extends OSGiRuntimeTest
    @Test
    public void testFirstRun() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          runtime.addCapability(new ConfigAdminCapability());

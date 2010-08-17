@@ -48,7 +48,7 @@ public class OSGi287TestCase extends OSGiRuntimeTest
    @Test
    public void testUnresolvedOptionalImport() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          // Bundle-SymbolicName: jbosgi287-bundleA
@@ -78,7 +78,7 @@ public class OSGi287TestCase extends OSGiRuntimeTest
    @Test
    public void testResolvedOptionalImport() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          // Bundle-SymbolicName: jbosgi287-bundleB
@@ -115,7 +115,7 @@ public class OSGi287TestCase extends OSGiRuntimeTest
    // So the failure is caused by leftovers from the other tests in this class.
    public void testResolvedOptionalImportReverse() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          // Bundle-SymbolicName: jbosgi287-bundleA
@@ -148,7 +148,7 @@ public class OSGi287TestCase extends OSGiRuntimeTest
    @Test
    public void testMessagingAPI() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          // Bundle-SymbolicName: jbosgi287-bundleC

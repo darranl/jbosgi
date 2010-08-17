@@ -54,7 +54,7 @@ public class OSGi161TestCase extends OSGiRuntimeTest
    @Test
    public void testFrameworkLogging() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          runtime.addCapability(new LogServiceCapability());

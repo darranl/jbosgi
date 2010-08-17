@@ -51,7 +51,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
    @Test
    public void testInstallStartX() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());
@@ -77,7 +77,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
    @Test
    public void testInstallXBeforeB() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());
@@ -107,7 +107,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
    @Test
    public void testInstallBBeforeA() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());
@@ -142,7 +142,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
    @Test
    public void testInstallBBeforeX() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());
@@ -182,7 +182,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
    @Test
    public void testInstallABeforeB() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());
@@ -229,7 +229,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
    @Test
    public void testUninstallX() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());

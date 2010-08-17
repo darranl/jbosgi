@@ -35,7 +35,6 @@ import junit.framework.Assert;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -53,7 +52,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
    @BeforeClass
    public static void setupClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new JMXCapability());
    }
 

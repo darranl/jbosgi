@@ -32,7 +32,7 @@ import javax.naming.NameNotFoundException;
 import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -43,14 +43,14 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 05-May-2009
  */
-public class JNDITestCase
+public class JNDITestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new JNDICapability());
    }
 

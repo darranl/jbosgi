@@ -34,11 +34,7 @@ import java.io.IOException;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.spi.util.ConstantsHelper;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -56,28 +52,10 @@ public class OSGi99TestCase extends OSGiRuntimeTest
    // Provide logging
    private static final Logger log = Logger.getLogger(OSGi99TestCase.class);
 
-   private static OSGiRuntime runtime;
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
-   }
-
-   @AfterClass
-   public static void afterClass()
-   {
-      if (runtime != null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
-   }
-
    @Test
    public void testAllGood() throws Exception
    {
-      OSGiBundle bundle = runtime.installBundle("jbosgi99-allgood.jar");
+      OSGiBundle bundle = getRuntime().installBundle("jbosgi99-allgood.jar");
       try
       {
          assertBundleState(Bundle.INSTALLED, bundle.getState());
@@ -95,7 +73,7 @@ public class OSGi99TestCase extends OSGiRuntimeTest
    @Test
    public void testFailOnResolve() throws Exception
    {
-      OSGiBundle bundle = runtime.installBundle("jbosgi99-failonresolve.jar");
+      OSGiBundle bundle = getRuntime().installBundle("jbosgi99-failonresolve.jar");
       try
       {
          assertBundleState(Bundle.INSTALLED, bundle.getState());
@@ -121,7 +99,7 @@ public class OSGi99TestCase extends OSGiRuntimeTest
    @Test
    public void testFailOnStart() throws Exception
    {
-      OSGiBundle bundle = runtime.installBundle("jbosgi99-failonstart.jar");
+      OSGiBundle bundle = getRuntime().installBundle("jbosgi99-failonstart.jar");
       try
       {
          assertBundleState(Bundle.INSTALLED, bundle.getState());
@@ -147,14 +125,14 @@ public class OSGi99TestCase extends OSGiRuntimeTest
    @Test
    public void testHotDeploy() throws Exception
    {
-      if (runtime.isRemoteRuntime() == false)
+      if (getRuntime().isRemoteRuntime() == false)
          return;
 
       // [JBOSGI-210] Bundle installed but not started with hot deploy
       File inFile = getTestArchiveFile("jbosgi99-allgood.jar");
 
       // Copy the bundle to the data directory
-      String outPath = runtime.getBundle(0).getDataFile("jbosgi99-allgood.jar").getAbsolutePath();
+      String outPath = getRuntime().getBundle(0).getDataFile("jbosgi99-allgood.jar").getAbsolutePath();
       File outFile = new File(outPath);
       copyfile(inFile, outFile);
       
@@ -168,7 +146,7 @@ public class OSGi99TestCase extends OSGiRuntimeTest
          OSGiBundle bundle = null;
          while (timeout > 0)
          {
-            bundle = runtime.getBundle("jbosgi99-allgood", null);
+            bundle = getRuntime().getBundle("jbosgi99-allgood", null);
             if (bundle != null && bundle.getState() == Bundle.ACTIVE)
                break;
 

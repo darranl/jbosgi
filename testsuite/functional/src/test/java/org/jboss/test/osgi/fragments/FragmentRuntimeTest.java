@@ -52,12 +52,10 @@ import org.osgi.framework.BundleException;
  */
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
-   private OSGiRuntime runtime;
-
    @Before
    public void setUp() throws Exception
    {
-      runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
    }
@@ -65,7 +63,8 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    @After
    public void tearDown() throws Exception
    {
-      runtime.shutdown();
+      getRuntime().getFrameworkMBean().refreshBundles(null);
+      getRuntime().shutdown();
    }
 
    @Test
@@ -73,7 +72,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = runtime.installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       hostA.start();
@@ -100,12 +99,12 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Export-Package: org.jboss.test.osgi.fragments.fragA
       // Include-Resource: resources/resource.txt=resource.txt
       // Fragment-Host: simple-hostA
-      OSGiBundle fragA = runtime.installBundle("fragments-simple-fragA.jar");
+      OSGiBundle fragA = getRuntime().installBundle("fragments-simple-fragA.jar");
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
       // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
       // to normalize the differences in VFS protocols when running against a VFS21 target container.
-      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)runtime.getBundleStateMBean();
+      BundleStateMBeanExt bundleState = (BundleStateMBeanExt)getRuntime().getBundleStateMBean();
 
       String entryURL = bundleState.getEntry(fragA.getBundleId(), "resources/resource.txt");
       assertNotNull("Entry URL not null", entryURL);
@@ -133,14 +132,14 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = runtime.installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-fragA
       // Export-Package: org.jboss.test.osgi.fragments.fragA
       // Include-Resource: resources/resource.txt=resource.txt
       // Fragment-Host: simple-hostA
-      OSGiBundle fragA = runtime.installBundle("fragments-simple-fragA.jar");
+      OSGiBundle fragA = getRuntime().installBundle("fragments-simple-fragA.jar");
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
       hostA.start();
@@ -174,19 +173,19 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = runtime.installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-hostB
       // Export-Package: org.jboss.test.osgi.fragments.subA
       // Private-Package: org.jboss.test.osgi.fragments.hostB 
-      OSGiBundle hostB = runtime.installBundle("fragments-simple-hostB.jar");
+      OSGiBundle hostB = getRuntime().installBundle("fragments-simple-hostB.jar");
       assertBundleState(Bundle.INSTALLED, hostB.getState());
 
       // Bundle-SymbolicName: simple-fragB
       // Import-Package: org.jboss.test.osgi.fragments.subA
       // Fragment-Host: simple-hostA
-      OSGiBundle fragB = runtime.installBundle("fragments-simple-fragB.jar");
+      OSGiBundle fragB = getRuntime().installBundle("fragments-simple-fragB.jar");
       assertBundleState(Bundle.INSTALLED, fragB.getState());
 
       hostA.start();
@@ -215,13 +214,13 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = runtime.installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-hostC
       // Import-Package: org.jboss.test.osgi.fragments.fragA
       // Private-Package: org.jboss.test.osgi.fragments.hostC 
-      OSGiBundle hostC = runtime.installBundle("fragments-simple-hostC.jar");
+      OSGiBundle hostC = getRuntime().installBundle("fragments-simple-hostC.jar");
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       hostA.start();
@@ -242,7 +241,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Export-Package: org.jboss.test.osgi.fragments.fragA
       // Include-Resource: resources/resource.txt=resource.txt
       // Fragment-Host: simple-hostA
-      OSGiBundle fragA = runtime.installBundle("fragments-simple-fragA.jar");
+      OSGiBundle fragA = getRuntime().installBundle("fragments-simple-fragA.jar");
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
       try
@@ -258,7 +257,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       }
 
       // Refreshing HostA causes the FragA to get attached
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
+      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)getRuntime().getFrameworkMBean();
       frameworkMBean.refreshBundle(hostA.getBundleId());
 
       // HostC should now resolve and start
@@ -280,14 +279,14 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = runtime.installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-fragC
       // Export-Package: org.jboss.test.osgi.fragments.fragC
       // Require-Bundle: simple-hostB
       // Fragment-Host: simple-hostA
-      OSGiBundle fragC = runtime.installBundle("fragments-simple-fragC.jar");
+      OSGiBundle fragC = getRuntime().installBundle("fragments-simple-fragC.jar");
       assertBundleState(Bundle.INSTALLED, fragC.getState());
 
       try
@@ -311,7 +310,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Bundle-SymbolicName: simple-hostB
       // Export-Package: org.jboss.test.osgi.fragments.subA
       // Private-Package: org.jboss.test.osgi.fragments.hostB 
-      OSGiBundle hostB = runtime.installBundle("fragments-simple-hostB.jar");
+      OSGiBundle hostB = getRuntime().installBundle("fragments-simple-hostB.jar");
       assertBundleState(Bundle.INSTALLED, hostB.getState());
 
       // HostA should resolve and start after HostB got installed

@@ -59,7 +59,7 @@ public class CapabilityTestCase extends OSGiRuntimeTest
    @Test
    public void testXMLParserCapability() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new LogServiceCapability());
@@ -97,7 +97,7 @@ public class CapabilityTestCase extends OSGiRuntimeTest
    @Test
    public void testJAXBCapability() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new LogServiceCapability());
@@ -119,7 +119,7 @@ public class CapabilityTestCase extends OSGiRuntimeTest
    @Test
    public void testXMLBindingCapability() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new LogServiceCapability());
@@ -141,7 +141,7 @@ public class CapabilityTestCase extends OSGiRuntimeTest
    @Test
    public void testJNDICapability() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new LogServiceCapability());
@@ -163,7 +163,7 @@ public class CapabilityTestCase extends OSGiRuntimeTest
    @Test
    public void testJMXCapability() throws Exception
    {
-      OSGiRuntime runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());

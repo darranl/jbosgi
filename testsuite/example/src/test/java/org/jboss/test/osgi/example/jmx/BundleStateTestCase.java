@@ -28,9 +28,9 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.management.openmbean.TabularData;
 
+import org.apache.aries.jmx.framework.BundleState;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -50,7 +50,7 @@ public class BundleStateTestCase extends OSGiRuntimeTest
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new JMXCapability());
    }
 

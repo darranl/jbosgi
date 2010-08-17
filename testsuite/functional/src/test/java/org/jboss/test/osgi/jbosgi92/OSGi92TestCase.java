@@ -31,7 +31,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.OSGiServiceReference;
 import org.junit.AfterClass;
@@ -55,7 +54,7 @@ public class OSGi92TestCase extends OSGiRuntimeTest
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new CompendiumCapability());
    }
 

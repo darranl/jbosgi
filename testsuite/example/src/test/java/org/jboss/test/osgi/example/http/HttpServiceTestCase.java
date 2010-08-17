@@ -31,10 +31,8 @@ import java.io.IOException;
 
 import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.service.http.HttpService;
@@ -47,12 +45,10 @@ import org.osgi.service.http.HttpService;
  */
 public class HttpServiceTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new HttpServiceCapability());
 
       // Allow 10s for the HttpService to become available
@@ -60,13 +56,6 @@ public class HttpServiceTestCase extends OSGiRuntimeTest
       assertNotNull("HttpService not null", sref);
 
       runtime.installBundle("example-http.jar").start();
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
    }
 
    @Test

@@ -31,10 +31,8 @@ import java.io.IOException;
 import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.webapp.WebAppCapability;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -46,25 +44,14 @@ import org.junit.Test;
  */
 public class WebAppInterceptorTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
    @BeforeClass
    public static void setUpClass() throws Exception
    {
-      OSGiRuntimeHelper osgiTestHelper = new OSGiRuntimeHelper();
-
-      runtime = osgiTestHelper.getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new WebAppCapability());
 
       OSGiBundle bundle = runtime.installBundle("example-webapp.war");
       bundle.start();
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
    }
 
    @Test

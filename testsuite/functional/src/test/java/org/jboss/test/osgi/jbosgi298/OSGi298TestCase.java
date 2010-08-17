@@ -35,7 +35,6 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.jmx.framework.BundleStateMBean;
@@ -55,34 +54,25 @@ public class OSGi298TestCase extends OSGiRuntimeTest
    // Provide logging
    private static final Logger log = Logger.getLogger(OSGi298TestCase.class);
    
-   private OSGiRuntime runtime;
-
    @Before
    public void setUp() throws Exception
    {
       super.setUp();
-      runtime = getEmbeddedRuntime();
+      OSGiRuntime runtime = createEmbeddedRuntime();
       runtime.addCapability(new LogServiceCapability());
-   }
-
-   @After
-   public void tearDown() throws Exception
-   {
-      runtime.shutdown();
-      super.tearDown();
    }
 
    @Test
    public void testJMXCapability() throws Exception
    {
       JMXCapability capability = new JMXCapability();
-      runtime.addCapability(capability);
+      getRuntime().addCapability(capability);
 
       assertTrue("FrameworkMBean registered", isRegistered(FrameworkMBean.OBJECTNAME));
       assertTrue("BundleStateMBean registered", isRegistered(BundleStateMBean.OBJECTNAME));
       assertTrue("ServiceStateMBean registered", isRegistered(ServiceStateMBean.OBJECTNAME));
 
-      runtime.removeCapability(capability);
+      getRuntime().removeCapability(capability);
 
       assertFalse("FrameworkMBean not registered", isRegistered(FrameworkMBean.OBJECTNAME));
       assertFalse("BundleStateMBean not registered", isRegistered(BundleStateMBean.OBJECTNAME));
@@ -93,8 +83,8 @@ public class OSGi298TestCase extends OSGiRuntimeTest
    @Test
    public void testJMXBundles() throws Exception
    {
-      OSGiBundle jbossJMX = runtime.installBundle("bundles/jboss-osgi-jmx.jar");
-      OSGiBundle ariesJMX = runtime.installBundle("bundles/org.apache.aries.jmx.jar");
+      OSGiBundle jbossJMX = getRuntime().installBundle("bundles/jboss-osgi-jmx.jar");
+      OSGiBundle ariesJMX = getRuntime().installBundle("bundles/org.apache.aries.jmx.jar");
       
       jbossJMX.start();
       ariesJMX.start();
@@ -109,7 +99,7 @@ public class OSGi298TestCase extends OSGiRuntimeTest
    
    private boolean isRegistered(String oname) throws MalformedObjectNameException
    {
-      MBeanServer server = (MBeanServer)runtime.getMBeanServer();
+      MBeanServer server = (MBeanServer)getRuntime().getMBeanServer();
       boolean registered = server.isRegistered(ObjectName.getInstance(oname));
       log.debug(oname + " registered: " + registered);
       return registered;

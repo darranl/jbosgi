@@ -30,9 +30,7 @@ import java.io.IOException;
 
 import org.jboss.osgi.http.HttpServiceCapability;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -48,14 +46,10 @@ import org.junit.Test;
  */
 public class WebAppExtenderTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      OSGiRuntimeHelper osgiTestHelper = new OSGiRuntimeHelper();
-
-      runtime = osgiTestHelper.getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new HttpServiceCapability());
 
       // Conditionally install the webapp extender in case we test against
@@ -65,14 +59,7 @@ public class WebAppExtenderTestCase extends OSGiRuntimeTest
       
       runtime.installBundle("example-webapp.war").start();
    }
-
-   @AfterClass
-   public static void afterClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
-
+   
    @Test
    public void testServletAccess() throws Exception
    {

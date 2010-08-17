@@ -69,7 +69,7 @@ public class EventAdminTestCase extends OSGiRuntimeTest
    {
       if (context == null)
       {
-         runtime = getDefaultRuntime();
+         runtime = createDefaultRuntime();
          runtime.addCapability(new HuskyCapability());
          runtime.addCapability(new EventAdminCapability());
 

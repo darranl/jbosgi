@@ -48,7 +48,7 @@ public class OSGi37TestCase extends OSGiRuntimeTest
    @Test
    public void testNestedBundle() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          runtime.addCapability(new CompendiumCapability());

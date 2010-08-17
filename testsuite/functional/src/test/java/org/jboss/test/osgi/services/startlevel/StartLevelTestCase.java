@@ -70,7 +70,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
       // Only do this if we are not within the OSGi Runtime
       if (context == null)
       {
-         OSGiRuntime runtime = getDefaultRuntime();
+         OSGiRuntime runtime = createDefaultRuntime();
          runtime.addCapability(new HuskyCapability());
 
          streamFileToRuntime(runtime, "bundles-simple-bundleA.jar");

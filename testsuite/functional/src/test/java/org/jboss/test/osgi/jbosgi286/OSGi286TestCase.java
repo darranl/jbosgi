@@ -45,7 +45,7 @@ public class OSGi286TestCase extends OSGiRuntimeTest
    @Test
    public void testJAXBContextWiring() throws Exception
    {
-      OSGiRuntime runtime = getDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       try
       {
          runtime.addCapability(new JAXBCapability());

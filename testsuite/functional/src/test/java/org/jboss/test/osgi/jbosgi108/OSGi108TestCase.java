@@ -33,7 +33,7 @@ import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,14 +48,14 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
-public class OSGi108TestCase
+public class OSGi108TestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;
 
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+      runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
    }

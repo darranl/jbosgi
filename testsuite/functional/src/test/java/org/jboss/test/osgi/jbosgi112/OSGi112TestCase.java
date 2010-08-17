@@ -24,14 +24,9 @@ package org.jboss.test.osgi.jbosgi112;
 //$Id: OSGI39TestCase.java 87103 2009-04-09 22:18:31Z thomas.diesler@jboss.com $
 
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.SynchronousBundleListener;
 
 /**
@@ -44,24 +39,6 @@ import org.osgi.framework.SynchronousBundleListener;
  */
 public class OSGi112TestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
-   @BeforeClass
-   public static void beforeClass() throws BundleException
-   {
-      runtime = new OSGiRuntimeHelper().getDefaultRuntime();
-   }
-
-   @AfterClass
-   public static void afterClass() throws BundleException
-   {
-      if (runtime != null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
-   }
-
    /**
     * BundleA registers a {@link SynchronousBundleListener} which throws an exception. 
     * Start of BundleB is started and expected to be ACTIVE.
@@ -69,10 +46,10 @@ public class OSGi112TestCase extends OSGiRuntimeTest
    @Test
    public void testInstallBundles() throws Exception
    {
-      OSGiBundle bundleA = runtime.installBundle("jbosgi112-bundleA.jar");
+      OSGiBundle bundleA = getRuntime().installBundle("jbosgi112-bundleA.jar");
       bundleA.start();
 
-      OSGiBundle bundleB = runtime.installBundle("jbosgi112-bundleB.jar");
+      OSGiBundle bundleB = getRuntime().installBundle("jbosgi112-bundleB.jar");
       bundleB.start();
       
       // Exceptions thrown from listeners are logged but otherwise ignored. 

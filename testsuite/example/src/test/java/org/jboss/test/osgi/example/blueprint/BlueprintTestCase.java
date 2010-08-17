@@ -36,7 +36,7 @@ import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeHelper;
+import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceA;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceB;
@@ -54,7 +54,7 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
  * @author thomas.diesler@jboss.com
  * @since 12-Jul-2009
  */
-public class BlueprintTestCase
+public class BlueprintTestCase 
 {
    @RuntimeContext
    public static BundleContext context;
@@ -65,7 +65,7 @@ public class BlueprintTestCase
    {
       if (context == null)
       {
-         runtime = new OSGiRuntimeHelper().getDefaultRuntime();
+         runtime = OSGiRuntimeTest.createDefaultRuntime();
          runtime.addCapability(new HuskyCapability());
          runtime.addCapability(new JMXCapability());
          runtime.addCapability(new BlueprintCapability());

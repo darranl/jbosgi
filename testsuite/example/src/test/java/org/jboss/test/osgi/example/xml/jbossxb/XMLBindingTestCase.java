@@ -62,7 +62,7 @@ public class XMLBindingTestCase extends OSGiRuntimeTest
    {
       if (context == null)
       {
-         runtime = getDefaultRuntime();
+         runtime = createDefaultRuntime();
          runtime.addCapability(new HuskyCapability());
          runtime.addCapability(new XMLBindingCapability());
          

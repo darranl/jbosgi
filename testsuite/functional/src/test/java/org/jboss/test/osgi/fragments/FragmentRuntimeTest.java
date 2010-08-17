@@ -38,7 +38,7 @@ import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -52,8 +52,8 @@ import org.osgi.framework.BundleException;
  */
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
-   @Before
-   public void setUp() throws Exception
+   @BeforeClass
+   public static void beforeClass() throws Exception
    {
       OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
@@ -63,8 +63,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    @After
    public void tearDown() throws Exception
    {
-      getRuntime().getFrameworkMBean().refreshBundles(null);
-      getRuntime().shutdown();
+      getRuntime().refreshPackages(null);
    }
 
    @Test

@@ -30,7 +30,6 @@ import java.util.Locale;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
@@ -43,14 +42,7 @@ import org.osgi.framework.Constants;
  */
 public class LocalizationTestCase extends OSGiRuntimeTest
 {
-   @After
-   public void tearDown() throws Exception
-   {
-      getRuntime().refreshPackages(null);
-      super.tearDown();
-   }
-
-   //@Test
+   @Test
    public void testHostLocalization() throws Exception
    {
       OSGiBundle host = getRuntime().installBundle("localization-simple-host.jar");
@@ -78,6 +70,8 @@ public class LocalizationTestCase extends OSGiRuntimeTest
       headers = host.getHeaders();
       bundleName = headers.get(Constants.BUNDLE_NAME);
       assertEquals("English Bundle Name", bundleName);
+
+      getRuntime().refreshPackages(new OSGiBundle[] { host });
    }
 
    @Test
@@ -105,5 +99,7 @@ public class LocalizationTestCase extends OSGiRuntimeTest
       headers = host.getHeaders();
       bundleName = headers.get(Constants.BUNDLE_NAME);
       assertEquals("English Bundle Name", bundleName);
+
+      getRuntime().refreshPackages(new OSGiBundle[] { host, frag });
    }
 }

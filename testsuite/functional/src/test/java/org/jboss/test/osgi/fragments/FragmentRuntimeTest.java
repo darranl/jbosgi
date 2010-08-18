@@ -50,6 +50,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
+@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
    @BeforeClass

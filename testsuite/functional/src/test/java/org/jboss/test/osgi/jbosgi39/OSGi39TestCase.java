@@ -33,6 +33,7 @@ import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -49,6 +50,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 04-Mar-2009
  */
+@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class OSGi39TestCase extends OSGiRuntimeTest
 {
    private OSGiRuntime runtime;

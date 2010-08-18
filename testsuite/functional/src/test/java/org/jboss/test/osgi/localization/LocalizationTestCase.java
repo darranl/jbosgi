@@ -30,6 +30,7 @@ import java.util.Locale;
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
@@ -40,6 +41,7 @@ import org.osgi.framework.Constants;
  * @author thomas.diesler@jboss.com
  * @since 25-Jan-2010
  */
+@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class LocalizationTestCase extends OSGiRuntimeTest
 {
    @Test

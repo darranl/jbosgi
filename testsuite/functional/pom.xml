@@ -331,8 +331,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-151] Cannot resolve circular dependencies -->
-                <exclude>org/jboss/test/osgi/jbosgi151/**</exclude>
               </excludes>
             </configuration>
           </plugin>
@@ -373,11 +371,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[]) -->
-                <exclude>org/jboss/test/osgi/jbosgi39/**</exclude>
-                <exclude>org/jboss/test/osgi/jbosgi108/**</exclude>
-                <!-- [JBOSGI-151] Cannot resolve circular dependencies -->
-                <exclude>org/jboss/test/osgi/jbosgi151/**</exclude>
               </excludes>
             </configuration>
           </plugin>

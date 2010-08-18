@@ -38,6 +38,7 @@ import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -48,6 +49,7 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
+@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class OSGi108TestCase extends OSGiRuntimeTest
 {
    private static OSGiRuntime runtime;

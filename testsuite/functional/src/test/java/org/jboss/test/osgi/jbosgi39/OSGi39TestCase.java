@@ -25,14 +25,12 @@ package org.jboss.test.osgi.jbosgi39;
 
 import static org.junit.Assert.fail;
 
-import org.jboss.osgi.jmx.FrameworkMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -50,32 +48,20 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 04-Mar-2009
  */
-@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class OSGi39TestCase extends OSGiRuntimeTest
 {
-   private OSGiRuntime runtime;
-
-   @Before
-   public void setUp() throws Exception
+   @BeforeClass
+   public static void beforeClass() throws Exception
    {
-      runtime = createDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
-      
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
-      frameworkMBean.refreshBundles(null);
-   }
-
-   @After
-   public void tearDown() throws Exception
-   {
-      runtime.shutdown();
    }
 
    @Test
    public void testVerifyUnresolved() throws Exception
    {
-      OSGiBundle bundleB = runtime.installBundle("jbosgi39-bundleB.jar");
+      OSGiBundle bundleB = getRuntime().installBundle("jbosgi39-bundleB.jar");
       assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
       try
@@ -88,7 +74,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest
          // expected
       }
 
-      OSGiBundle bundleX = runtime.installBundle("jbosgi39-bundleX.jar");
+      OSGiBundle bundleX = getRuntime().installBundle("jbosgi39-bundleX.jar");
 
       bundleB.start();
 
@@ -111,10 +97,11 @@ public class OSGi39TestCase extends OSGiRuntimeTest
     * for existing bundles and future resolves until the refreshPackages method is called or the Framework is restarted.
     */
    @Test
+   @Ignore("testWiringToUninstalled")
    public void testWiringToUninstalled() throws Exception
    {
-      OSGiBundle bundleX = runtime.installBundle("jbosgi39-bundleX.jar");
-      OSGiBundle bundleB = runtime.installBundle("jbosgi39-bundleB.jar");
+      OSGiBundle bundleX = getRuntime().installBundle("jbosgi39-bundleX.jar");
+      OSGiBundle bundleB = getRuntime().installBundle("jbosgi39-bundleB.jar");
 
       bundleB.start();
 
@@ -126,7 +113,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest
       bundleB.uninstall();
 
       // Install B without X
-      bundleB = runtime.installBundle("jbosgi39-bundleB.jar");
+      bundleB = getRuntime().installBundle("jbosgi39-bundleB.jar");
 
       bundleB.start();
 
@@ -136,10 +123,11 @@ public class OSGi39TestCase extends OSGiRuntimeTest
    }
 
    @Test
+   @Ignore("[JBOSGI-383] Cannot refresh uninstalled bundle through FrameworkMBean")
    public void testWiringToUninstalledPackageAdmin() throws Exception
    {
-      OSGiBundle bundleX = runtime.installBundle("jbosgi39-bundleX.jar");
-      OSGiBundle bundleB = runtime.installBundle("jbosgi39-bundleB.jar");
+      OSGiBundle bundleX = getRuntime().installBundle("jbosgi39-bundleX.jar");
+      OSGiBundle bundleB = getRuntime().installBundle("jbosgi39-bundleB.jar");
 
       bundleB.start();
 
@@ -151,11 +139,10 @@ public class OSGi39TestCase extends OSGiRuntimeTest
       bundleB.uninstall();
 
       // Forces the update (replacement) or removal of packages exported by the specified bundles.
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
-      frameworkMBean.refreshBundles(null);
+      getRuntime().refreshPackages(new OSGiBundle[] { bundleB, bundleX });
 
       // Install B without X
-      bundleB = runtime.installBundle("jbosgi39-bundleB.jar");
+      bundleB = getRuntime().installBundle("jbosgi39-bundleB.jar");
 
       try
       {
@@ -167,7 +154,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest
          // expected
       }
 
-      bundleX = runtime.installBundle("jbosgi39-bundleX.jar");
+      bundleX = getRuntime().installBundle("jbosgi39-bundleX.jar");
 
       bundleB.start();
 

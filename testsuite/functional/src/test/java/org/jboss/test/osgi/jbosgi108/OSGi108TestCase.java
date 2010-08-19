@@ -25,18 +25,14 @@ package org.jboss.test.osgi.jbosgi108;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.jboss.osgi.jmx.FrameworkMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,51 +45,31 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
-@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class OSGi108TestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      runtime = createDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
-   }
-
-   @AfterClass
-   public static void afterClass() throws Exception
-   {
-      if (runtime != null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
-   }
-
-   @Before
-   public void setUp() throws IOException
-   {
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
-      frameworkMBean.refreshBundles(null);
    }
 
    @Test
    public void testRedeploySingle() throws Exception
    {
-      OSGiBundle bundleA = runtime.installBundle("jbosgi108-bundleA.jar");
+      OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
 
       bundleA.start();
 
-      SomeBeanMBean someBean = runtime.getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+      SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 1, messages.size());
 
       bundleA.uninstall();
 
       // Reinstall bundleA
-      bundleA = runtime.installBundle("jbosgi108-bundleA.jar");
+      bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
       bundleA.start();
 
       // The static in bundleA.SomeBean is expected to be recreated
@@ -107,13 +83,13 @@ public class OSGi108TestCase extends OSGiRuntimeTest
    @Test
    public void testRedeployWithReference() throws Exception
    {
-      OSGiBundle bundleA = runtime.installBundle("jbosgi108-bundleA.jar");
-      OSGiBundle bundleB = runtime.installBundle("jbosgi108-bundleB.jar");
+      OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+      OSGiBundle bundleB = getRuntime().installBundle("jbosgi108-bundleB.jar");
 
       bundleA.start();
       bundleB.start();
 
-      SomeBeanMBean someBean = runtime.getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+      SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 2, messages.size());
 
@@ -123,7 +99,7 @@ public class OSGi108TestCase extends OSGiRuntimeTest
       // bundleA.SomeBean
 
       // Reinstall bundleA
-      bundleA = runtime.installBundle("jbosgi108-bundleA.jar");
+      bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
       bundleA.start();
 
       // The static in bundleA.SomeBean is expected to be reused
@@ -136,15 +112,16 @@ public class OSGi108TestCase extends OSGiRuntimeTest
    }
 
    @Test
+   @Ignore("[JBOSGI-383] Cannot refresh uninstalled bundle through FrameworkMBean")
    public void testRedeployWithReferenceAndRefresh() throws Exception
    {
-      OSGiBundle bundleA = runtime.installBundle("jbosgi108-bundleA.jar");
-      OSGiBundle bundleB = runtime.installBundle("jbosgi108-bundleB.jar");
+      OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+      OSGiBundle bundleB = getRuntime().installBundle("jbosgi108-bundleB.jar");
 
       bundleA.start();
       bundleB.start();
 
-      SomeBeanMBean someBean = runtime.getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+      SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
       List<String> messages = report(someBean.getMessages());
       assertEquals("Start messages", 2, messages.size());
 
@@ -153,12 +130,11 @@ public class OSGi108TestCase extends OSGiRuntimeTest
       // After uninstall bundleA, bundleB still holds a reference on
       // bundleA.SomeBean
 
-      // Refresh all packages
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)runtime.getFrameworkMBean();
-      frameworkMBean.refreshBundles(null);
+      // Refresh bundleA, bundleB
+      getRuntime().refreshPackages(new OSGiBundle[] { bundleA, bundleB });
 
       // Reinstall bundleA
-      bundleA = runtime.installBundle("jbosgi108-bundleA.jar");
+      bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
       bundleA.start();
 
       // The static in bundleA.SomeBean is expected to be recreated
@@ -176,7 +152,7 @@ public class OSGi108TestCase extends OSGiRuntimeTest
       // for (String aux : messages)
       //    System.out.println(aux);
       // System.out.println("<<<<<<<<<<<");
-      
+
       return messages;
    }
 }

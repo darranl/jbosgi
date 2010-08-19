@@ -37,7 +37,6 @@ import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -50,7 +49,6 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
-@Ignore("[JBOSGI-336] Implement PackageAdmin.refreshPackages(Bundle[])")
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
    @BeforeClass
@@ -59,12 +57,6 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new LogServiceCapability());
       runtime.addCapability(new JMXCapability());
-   }
-
-   @After
-   public void tearDown() throws Exception
-   {
-      getRuntime().refreshPackages(null);
    }
 
    @Test

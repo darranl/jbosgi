@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi39-bundleX.jar src/test/resources/jbosgi39/bundleX.bnd
-
-Bundle-SymbolicName: jbosgi39-bundleX
-Export-Package: org.jboss.test.osgi.jbosgi39.bundleX
-

@@ -23,6 +23,7 @@ package org.jboss.test.osgi.jbosgi39.bundleB;
 
 //$Id: ServiceActivator.java 87064 2009-04-09 11:08:56Z thomas.diesler@jboss.com $
 
+import org.jboss.test.osgi.jbosgi39.bundleX.OSGi39BeanX;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -30,8 +31,8 @@ public class OSGi39ActivatorB implements BundleActivator
 {
    public void start(BundleContext context)
    {
-      ServiceB service = new ServiceB();
-      context.registerService(ServiceB.class.getName(), service, null);
+      OSGi39BeanX beanX = new OSGi39BeanX(context.getBundle().getSymbolicName());
+      beanX.toString();
    }
 
    public void stop(BundleContext context)

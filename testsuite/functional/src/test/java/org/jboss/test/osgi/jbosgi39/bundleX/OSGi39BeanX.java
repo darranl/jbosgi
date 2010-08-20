@@ -19,22 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.jbosgi39.bundleB;
+package org.jboss.test.osgi.jbosgi39.bundleX;
 
-//$Id: ServiceB.java 87064 2009-04-09 11:08:56Z thomas.diesler@jboss.com $
 
-import org.jboss.test.osgi.jbosgi39.bundleX.SomePojo;
-
-/**
- * ServiceA has a dependency on ServiceB, both have a dependency on SomePojo
- * 
- * @author thomas.diesler@jboss.com
- * @since 02-Mar-2009
- */
-public class ServiceB 
+public class OSGi39BeanX
 {
-  public String doStuffInB(SomePojo obj)
-  {
-     return obj.toString();
-  }
+   private String message;
+   
+   public OSGi39BeanX(String message)
+   {
+      this.message = message;
+   }
+
+   @Override
+   public String toString()
+   {
+      return "[" + message + "]";
+   }
 }

@@ -67,18 +67,10 @@
   <target name="build-test-jars" depends="init" description="Build the test deployments">
 
     <!-- Please add alphabetically -->
-    
+
     <!-- bundles/simple -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/bundles-simple-bundleA.jar" files="${tests.resources.dir}/bundles/simple-bundleA.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/bundles-simple-bundleB.jar" files="${tests.resources.dir}/bundles/simple-bundleB.bnd" />
-
-    <!-- fragments/simple -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-hostA.jar" files="${tests.resources.dir}/fragments/simple-hostA.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-hostB.jar" files="${tests.resources.dir}/fragments/simple-hostB.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-hostC.jar" files="${tests.resources.dir}/fragments/simple-hostC.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-fragA.jar" files="${tests.resources.dir}/fragments/simple-fragA.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-fragB.jar" files="${tests.resources.dir}/fragments/simple-fragB.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/fragments-simple-fragC.jar" files="${tests.resources.dir}/fragments/simple-fragC.bnd" />
 
     <!-- jbossas/jbosgi36 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi36-bundle.jar" files="${tests.resources.dir}/jbossas/jbosgi36/jbosgi36.bnd" />
@@ -106,10 +98,6 @@
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi38-bundleA.jar" files="${tests.resources.dir}/jbosgi38/jbosgi38-bundleA.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi38-bundleB.jar" files="${tests.resources.dir}/jbosgi38/jbosgi38-bundleB.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi38-bundleX.jar" files="${tests.resources.dir}/jbosgi38/jbosgi38-bundleX.bnd" />
-
-    <!-- jbosgi39 -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi39-bundleB.jar" files="${tests.resources.dir}/jbosgi39/jbosgi39-bundleB.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi39-bundleX.jar" files="${tests.resources.dir}/jbosgi39/jbosgi39-bundleX.bnd" />
 
     <!-- jbosgi41 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi41-bundleA.jar" files="${tests.resources.dir}/jbosgi41/jbosgi41-bundleA.bnd" />

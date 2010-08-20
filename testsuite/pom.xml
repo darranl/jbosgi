@@ -28,8 +28,7 @@
   <modules>
     <module>example</module>
     <module>functional</module>
-    <!-- Runs forever. Probably related to bundle stream storage.
-    <module>performance</module-->
+    <module>performance</module>
   </modules>
 
   <!-- Properties -->

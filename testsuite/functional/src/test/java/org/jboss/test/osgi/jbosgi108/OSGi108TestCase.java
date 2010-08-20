@@ -34,7 +34,6 @@ import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -112,7 +111,6 @@ public class OSGi108TestCase extends OSGiRuntimeTest
    }
 
    @Test
-   @Ignore("[JBOSGI-383] Cannot refresh uninstalled bundle through FrameworkMBean")
    public void testRedeployWithReferenceAndRefresh() throws Exception
    {
       OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");

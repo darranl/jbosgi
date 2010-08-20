@@ -26,19 +26,27 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.InputStream;
 import java.net.URL;
 
 import org.jboss.osgi.jmx.BundleStateMBeanExt;
-import org.jboss.osgi.jmx.FrameworkMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
+import org.jboss.test.osgi.fragments.fragB.FragBeanB;
+import org.jboss.test.osgi.fragments.fragC.FragBeanC;
+import org.jboss.test.osgi.fragments.hostA.HostAActivator;
+import org.jboss.test.osgi.fragments.hostB.HostBActivator;
+import org.jboss.test.osgi.fragments.hostC.HostCActivator;
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -64,16 +72,16 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle(getHostA());
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       hostA.start();
       assertBundleState(Bundle.ACTIVE, hostA.getState());
 
-      URL entryURL = hostA.getEntry("resources/resource.txt");
+      URL entryURL = hostA.getEntry("resource.txt");
       assertNull("Entry URL null", entryURL);
 
-      URL resourceURL = hostA.getResource("resources/resource.txt");
+      URL resourceURL = hostA.getResource("resource.txt");
       assertNull("Resource URL null", resourceURL);
 
       // Load a private class
@@ -91,17 +99,17 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Export-Package: org.jboss.test.osgi.fragments.fragA
       // Include-Resource: resources/resource.txt=resource.txt
       // Fragment-Host: simple-hostA
-      OSGiBundle fragA = getRuntime().installBundle("fragments-simple-fragA.jar");
+      OSGiBundle fragA = getRuntime().installBundle(getFragmentA());
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
       // Use the BundleStateMBeanExt.getEntry() instead of OSGiBundle.getEntry() 
       // to normalize the differences in VFS protocols when running against a VFS21 target container.
       BundleStateMBeanExt bundleState = (BundleStateMBeanExt)getRuntime().getBundleStateMBean();
 
-      String entryURL = bundleState.getEntry(fragA.getBundleId(), "resources/resource.txt");
+      String entryURL = bundleState.getEntry(fragA.getBundleId(), "resource.txt");
       assertNotNull("Entry URL not null", entryURL);
 
-      String resourceURL = bundleState.getResource(fragA.getBundleId(), "resources/resource.txt");
+      String resourceURL = bundleState.getResource(fragA.getBundleId(), "resource.txt");
       assertNull("Resource URL null", resourceURL);
 
       try
@@ -119,29 +127,28 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    }
 
    @Test
-   @Ignore("testAttachedFragment")
    public void testAttachedFragment() throws Exception
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle(getHostA());
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-fragA
       // Export-Package: org.jboss.test.osgi.fragments.fragA
       // Include-Resource: resources/resource.txt=resource.txt
       // Fragment-Host: simple-hostA
-      OSGiBundle fragA = getRuntime().installBundle("fragments-simple-fragA.jar");
+      OSGiBundle fragA = getRuntime().installBundle(getFragmentA());
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
       hostA.start();
       assertBundleState(Bundle.ACTIVE, hostA.getState());
       assertBundleState(Bundle.RESOLVED, fragA.getState());
 
-      URL entryURL = hostA.getEntry("resources/resource.txt");
+      URL entryURL = hostA.getEntry("resource.txt");
       assertNull("Entry URL null", entryURL);
 
-      URL resourceURL = hostA.getResource("resources/resource.txt");
+      URL resourceURL = hostA.getResource("resource.txt");
       assertNotNull("Resource URL not null", resourceURL);
 
       OSGiBundle fragBeanProvider = hostA.loadClass(FragBeanA.class.getName());
@@ -160,24 +167,23 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    }
 
    @Test
-   @Ignore("testHiddenPrivatePackage")
    public void testHiddenPrivatePackage() throws Exception
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle(getHostA());
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-hostB
       // Export-Package: org.jboss.test.osgi.fragments.subA
       // Private-Package: org.jboss.test.osgi.fragments.hostB 
-      OSGiBundle hostB = getRuntime().installBundle("fragments-simple-hostB.jar");
+      OSGiBundle hostB = getRuntime().installBundle(getHostB());
       assertBundleState(Bundle.INSTALLED, hostB.getState());
 
       // Bundle-SymbolicName: simple-fragB
       // Import-Package: org.jboss.test.osgi.fragments.subA
       // Fragment-Host: simple-hostA
-      OSGiBundle fragB = getRuntime().installBundle("fragments-simple-fragB.jar");
+      OSGiBundle fragB = getRuntime().installBundle(getFragmentB());
       assertBundleState(Bundle.INSTALLED, fragB.getState());
 
       hostA.start();
@@ -201,18 +207,17 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    }
 
    @Test
-   @Ignore("testAttachedFragment")
    public void testFragmentExportsPackage() throws Exception
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle(getHostA());
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-hostC
       // Import-Package: org.jboss.test.osgi.fragments.fragA
       // Private-Package: org.jboss.test.osgi.fragments.hostC 
-      OSGiBundle hostC = getRuntime().installBundle("fragments-simple-hostC.jar");
+      OSGiBundle hostC = getRuntime().installBundle(getHostC());
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       hostA.start();
@@ -233,7 +238,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Export-Package: org.jboss.test.osgi.fragments.fragA
       // Include-Resource: resources/resource.txt=resource.txt
       // Fragment-Host: simple-hostA
-      OSGiBundle fragA = getRuntime().installBundle("fragments-simple-fragA.jar");
+      OSGiBundle fragA = getRuntime().installBundle(getFragmentA());
       assertBundleState(Bundle.INSTALLED, fragA.getState());
 
       try
@@ -249,8 +254,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       }
 
       // Refreshing HostA causes the FragA to get attached
-      FrameworkMBeanExt frameworkMBean = (FrameworkMBeanExt)getRuntime().getFrameworkMBean();
-      frameworkMBean.refreshBundle(hostA.getBundleId());
+      getRuntime().refreshPackages(new OSGiBundle[] { hostA });
 
       // HostC should now resolve and start
       hostC.start();
@@ -271,14 +275,14 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    {
       // Bundle-SymbolicName: simple-hostA
       // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA 
-      OSGiBundle hostA = getRuntime().installBundle("fragments-simple-hostA.jar");
+      OSGiBundle hostA = getRuntime().installBundle(getHostA());
       assertBundleState(Bundle.INSTALLED, hostA.getState());
 
       // Bundle-SymbolicName: simple-fragC
       // Export-Package: org.jboss.test.osgi.fragments.fragC
       // Require-Bundle: simple-hostB
       // Fragment-Host: simple-hostA
-      OSGiBundle fragC = getRuntime().installBundle("fragments-simple-fragC.jar");
+      OSGiBundle fragC = getRuntime().installBundle(getFragmentC());
       assertBundleState(Bundle.INSTALLED, fragC.getState());
 
       try
@@ -302,7 +306,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
       // Bundle-SymbolicName: simple-hostB
       // Export-Package: org.jboss.test.osgi.fragments.subA
       // Private-Package: org.jboss.test.osgi.fragments.hostB 
-      OSGiBundle hostB = getRuntime().installBundle("fragments-simple-hostB.jar");
+      OSGiBundle hostB = getRuntime().installBundle(getHostB());
       assertBundleState(Bundle.INSTALLED, hostB.getState());
 
       // HostA should resolve and start after HostB got installed
@@ -314,5 +318,140 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
 
       fragC.uninstall();
       assertBundleState(Bundle.UNINSTALLED, fragC.getState());
+   }
+
+   private JavaArchive getHostA()
+   {
+      // Bundle-SymbolicName: simple-hostA
+      // Bundle-Activator: org.jboss.test.osgi.container.fragments.hostA.HostAActivator
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-hostA");
+      archive.addClasses(HostAActivator.class, SubBeanA.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(HostAActivator.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+
+   private JavaArchive getHostB()
+   {
+      // Bundle-SymbolicName: simple-hostB
+      // Bundle-Activator: org.jboss.test.osgi.container.fragments.hostB.HostBActivator
+      // Export-Package: org.jboss.test.osgi.container.fragments.subA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-hostB");
+      archive.addClasses(HostBActivator.class, SubBeanA.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(HostBActivator.class);
+            builder.addExportPackages(SubBeanA.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+
+   private JavaArchive getHostC()
+   {
+      //Bundle-SymbolicName: simple-hostC
+      //Bundle-Activator: org.jboss.test.osgi.container.fragments.hostC.HostCActivator
+      //Import-Package: org.osgi.framework, org.jboss.test.osgi.container.fragments.fragA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-hostC");
+      archive.addClasses(HostCActivator.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(HostCActivator.class);
+            builder.addImportPackages(FragBeanA.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+
+   private JavaArchive getFragmentA()
+   {
+      // Bundle-SymbolicName: simple-fragA
+      // Export-Package: org.jboss.test.osgi.fragments.fragA
+      // Fragment-Host: simple-hostA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-fragA");
+      archive.addClasses(FragBeanA.class);
+      archive.addResource(getResourceFile("fragments/resource.txt"));
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addExportPackages(FragBeanA.class);
+            builder.addFragmentHost("simple-hostA");
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+
+   private JavaArchive getFragmentB()
+   {
+      // Bundle-SymbolicName: simple-fragB
+      // Export-Package: org.jboss.test.osgi.container.fragments.fragB
+      // Import-Package: org.jboss.test.osgi.container.fragments.subA
+      // Fragment-Host: simple-hostA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-fragB");
+      archive.addClasses(FragBeanB.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addExportPackages(FragBeanB.class);
+            builder.addImportPackages(SubBeanA.class);
+            builder.addFragmentHost("simple-hostA");
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+
+   private JavaArchive getFragmentC()
+   {
+      // Bundle-SymbolicName: simple-fragC
+      // Export-Package: org.jboss.test.osgi.container.fragments.fragC
+      // Require-Bundle: simple-hostB
+      // Fragment-Host: simple-hostA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-fragC");
+      archive.addClasses(FragBeanC.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addExportPackages(FragBeanC.class);
+            builder.addRequireBundle("simple-hostB");
+            builder.addFragmentHost("simple-hostA");
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

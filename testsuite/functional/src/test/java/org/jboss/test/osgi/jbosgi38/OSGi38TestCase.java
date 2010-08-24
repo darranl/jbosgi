@@ -25,10 +25,21 @@ package org.jboss.test.osgi.jbosgi38;
 
 import static org.junit.Assert.fail;
 
+import java.io.InputStream;
+
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.jbosgi38.bundleA.OSGi38ActivatorA;
+import org.jboss.test.osgi.jbosgi38.bundleA.ServiceA;
+import org.jboss.test.osgi.jbosgi38.bundleB.OSGi38ActivatorB;
+import org.jboss.test.osgi.jbosgi38.bundleB.ServiceB;
+import org.jboss.test.osgi.jbosgi38.bundleX.SomePojo;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -56,7 +67,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new CompendiumCapability());
          
-         OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
+         OSGiBundle bundleX = runtime.installBundle(getBundleX());
          assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
          bundleX.start();
@@ -82,10 +93,10 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new CompendiumCapability());
          
-         OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
+         OSGiBundle bundleX = runtime.installBundle(getBundleX());
          assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
-         OSGiBundle bundleB = runtime.installBundle("jbosgi38-bundleB.jar");
+         OSGiBundle bundleB = runtime.installBundle(getBundleB());
          assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
          bundleB.start();
@@ -112,13 +123,13 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new CompendiumCapability());
          
-         OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
+         OSGiBundle bundleX = runtime.installBundle(getBundleX());
          assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
-         OSGiBundle bundleB = runtime.installBundle("jbosgi38-bundleB.jar");
+         OSGiBundle bundleB = runtime.installBundle(getBundleB());
          assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
-         OSGiBundle bundleA = runtime.installBundle("jbosgi38-bundleA.jar");
+         OSGiBundle bundleA = runtime.installBundle(getBundleA());
          assertBundleState(Bundle.INSTALLED, bundleA.getState());
 
          bundleA.start();
@@ -147,7 +158,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new CompendiumCapability());
          
-         OSGiBundle bundleB = runtime.installBundle("jbosgi38-bundleB.jar");
+         OSGiBundle bundleB = runtime.installBundle(getBundleB());
          assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
          try
@@ -160,7 +171,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
             // expected
          }
 
-         OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
+         OSGiBundle bundleX = runtime.installBundle(getBundleX());
          assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
          bundleB.start();
@@ -187,10 +198,10 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new CompendiumCapability());
          
-         OSGiBundle bundleA = runtime.installBundle("jbosgi38-bundleA.jar");
+         OSGiBundle bundleA = runtime.installBundle(getBundleA());
          assertBundleState(Bundle.INSTALLED, bundleA.getState());
 
-         OSGiBundle bundleB = runtime.installBundle("jbosgi38-bundleB.jar");
+         OSGiBundle bundleB = runtime.installBundle(getBundleB());
          assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
          try
@@ -203,7 +214,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest
             // expected
          }
 
-         OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
+         OSGiBundle bundleX = runtime.installBundle(getBundleX());
          assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
          bundleB.start();
@@ -234,10 +245,10 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new CompendiumCapability());
          
-         OSGiBundle bundleX = runtime.installBundle("jbosgi38-bundleX.jar");
+         OSGiBundle bundleX = runtime.installBundle(getBundleX());
          assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
-         OSGiBundle bundleB = runtime.installBundle("jbosgi38-bundleB.jar");
+         OSGiBundle bundleB = runtime.installBundle(getBundleB());
          assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
          bundleB.start();
@@ -257,4 +268,71 @@ public class OSGi38TestCase extends OSGiRuntimeTest
       }
    }
 
+   private JavaArchive getBundleA()
+   {
+      // Bundle-SymbolicName: jbosgi38-bundleA
+      // Bundle-Activator: org.jboss.test.osgi.jbosgi38.bundleA.OSGi38ActivatorA
+      // Export-Package: org.jboss.test.osgi.jbosgi38.bundleA
+      // Import-Package: org.jboss.test.osgi.jbosgi38.bundleB, org.jboss.test.osgi.jbosgi38.bundleX
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi38-bundleA");
+      archive.addClasses(OSGi38ActivatorA.class, ServiceA.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(OSGi38ActivatorA.class);
+            builder.addExportPackages("org.jboss.test.osgi.jbosgi38.bundleA");
+            builder.addImportPackages("org.jboss.test.osgi.jbosgi38.bundleB", "org.jboss.test.osgi.jbosgi38.bundleX");
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
+   private JavaArchive getBundleB()
+   {
+      // Bundle-SymbolicName: jbosgi38-bundleB
+      // Bundle-Activator: org.jboss.test.osgi.jbosgi38.bundleB.OSGi38ActivatorB
+      // Export-Package: org.jboss.test.osgi.jbosgi38.bundleB
+      // Import-Package: org.jboss.test.osgi.jbosgi38.bundleX
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi38-bundleB");
+      archive.addClasses(OSGi38ActivatorB.class, ServiceB.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(OSGi38ActivatorB.class);
+            builder.addExportPackages("org.jboss.test.osgi.jbosgi38.bundleB");
+            builder.addImportPackages("org.jboss.test.osgi.jbosgi38.bundleX");
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
+   private JavaArchive getBundleX()
+   {
+      // Bundle-SymbolicName: jbosgi38-bundleX
+      // Export-Package: org.jboss.test.osgi.jbosgi38.bundleX
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi38-bundleX");
+      archive.addClasses(SomePojo.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addExportPackages("org.jboss.test.osgi.jbosgi38.bundleX");
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
 }

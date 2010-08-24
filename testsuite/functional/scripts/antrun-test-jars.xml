@@ -68,18 +68,6 @@
 
     <!-- Please add alphabetically -->
 
-    <!-- jbossas/jbosgi36 -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi36-bundle.jar" files="${tests.resources.dir}/jbossas/jbosgi36/jbosgi36.bnd" />
-    <jar jarfile="${tests.output.dir}/test-libs/jbosgi36-mbean.jar">
-      <fileset dir="${tests.classes.dir}">
-        <include name="org/jboss/test/osgi/jbossas/jbosgi36/mbean/Foo.class" />
-        <include name="org/jboss/test/osgi/jbossas/jbosgi36/mbean/FooMBean.class" />
-      </fileset>
-      <fileset dir="${tests.resources.dir}/jbossas/jbosgi36">
-        <include name="META-INF/jbosgi36-jboss-beans.xml" />
-      </fileset>
-    </jar>
-
     <!-- jbosgi37 -->
     <jar jarfile="${tests.output.dir}/test-libs/jbosgi37-subB.jar">
       <fileset dir="${tests.classes.dir}">
@@ -90,20 +78,8 @@
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi37-bundleA.jar" files="${tests.resources.dir}/jbosgi37/jbosgi37-bundleA.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi37-bundleB.jar" files="${tests.resources.dir}/jbosgi37/jbosgi37-bundleB.bnd" />
 
-    <!-- jbosgi38 -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi38-bundleA.jar" files="${tests.resources.dir}/jbosgi38/jbosgi38-bundleA.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi38-bundleB.jar" files="${tests.resources.dir}/jbosgi38/jbosgi38-bundleB.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi38-bundleX.jar" files="${tests.resources.dir}/jbosgi38/jbosgi38-bundleX.bnd" />
-
     <!-- jbosgi41 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi41-bundleA.jar" files="${tests.resources.dir}/jbosgi41/jbosgi41-bundleA.bnd" />
-
-    <!-- jbosgi58 -->
-    <jar jarfile="${tests.output.dir}/test-libs/jbosgi58-ejb.jar">
-      <fileset dir="${tests.classes.dir}">
-        <include name="org/jboss/test/osgi/jbossas/jbosgi58/ejb/**" />
-      </fileset>
-    </jar>
 
     <!-- jbosgi92 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi92-bundleA.jar" files="${tests.resources.dir}/jbosgi92/jbosgi92-bundleA.bnd" />

@@ -30,13 +30,22 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
 
 import org.jboss.osgi.spi.capability.ConfigAdminCapability;
 import org.jboss.osgi.testing.OSGiBundle;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.jbosgi41.bundleA.OSGi41Activator;
+import org.jboss.test.osgi.jbosgi41.bundleA.ServiceA;
+import org.jboss.test.osgi.jbosgi41.bundleA.ServiceB;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.Constants;
 
 /**
  * [JBOSGI-41] Verify persistent file storage
@@ -56,7 +65,7 @@ public class OSGi41TestCase extends OSGiRuntimeTest
       {
          runtime.addCapability(new ConfigAdminCapability());
 
-         OSGiBundle bundleA = runtime.installBundle("jbosgi41-bundleA.jar");
+         OSGiBundle bundleA = runtime.installBundle(getBundleA());
          bundleA.start();
 
          assertBundleState(Bundle.ACTIVE, bundleA.getState());
@@ -78,10 +87,33 @@ public class OSGi41TestCase extends OSGiRuntimeTest
    private File getBundleDataFile(OSGiBundle bundleA, String filename)
    {
       OSGiBundle systemBundle = bundleA.getRuntime().getBundle(0);
-      String storageRoot = systemBundle.getProperty("org.osgi.framework.storage");
+      String storageRoot = systemBundle.getProperty(Constants.FRAMEWORK_STORAGE);
       assertNotNull("Storage dir not null", storageRoot);
 
       File dataFile = new File(storageRoot + "/bundle-" + bundleA.getBundleId() + "/" + filename);
       return dataFile;
+   }
+
+   private JavaArchive getBundleA()
+   {
+      // Bundle-SymbolicName: jbosgi41-bundleA
+      // Bundle-Activator: org.jboss.test.osgi.jbosgi41.bundleA.OSGi41Activator
+      // Export-Package: org.jboss.test.osgi.jbosgi41.bundleA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi41-bundleA");
+      archive.addClasses(OSGi41Activator.class, ServiceA.class, ServiceB.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(OSGi41Activator.class);
+            builder.addExportPackages("org.jboss.test.osgi.jbosgi41.bundleA");
+            builder.addImportPackages("org.osgi.framework", "org.osgi.service.cm","org.osgi.util.tracker");
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

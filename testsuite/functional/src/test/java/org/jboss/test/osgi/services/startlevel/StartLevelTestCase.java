@@ -27,17 +27,25 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeNotNull;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 
 import org.jboss.osgi.husky.BridgeFactory;
 import org.jboss.osgi.husky.HuskyCapability;
 import org.jboss.osgi.husky.RuntimeContext;
 import org.jboss.osgi.testing.OSGiBundle;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.osgi.vfs.VFSUtils;
+import org.jboss.osgi.vfs.VirtualFile;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA;
+import org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -73,36 +81,15 @@ public class StartLevelTestCase extends OSGiRuntimeTest
          OSGiRuntime runtime = createDefaultRuntime();
          runtime.addCapability(new HuskyCapability());
 
-         streamFileToRuntime(runtime, "bundles-simple-bundleA.jar");
-         streamFileToRuntime(runtime, "bundles-simple-bundleB.jar");
+         streamFileToRuntime(runtime, getBundleA());
+         streamFileToRuntime(runtime, getBundleB());
 
          // Install the bundle
-         OSGiBundle bundle = runtime.installBundle("service-startlevel.jar");
+         OSGiBundle bundle = runtime.installBundle(getStartLevelBundle());
          bundle.start();
       }
    }
    
-   private void streamFileToRuntime(OSGiRuntime runtime, String fname) throws IOException
-   {
-      File in = getTestArchiveFile(fname);
-      OSGiBundle bundle = runtime.getBundle(0);
-      File out = bundle.getDataFile(fname).getAbsoluteFile();
-      copyFile(in, out);
-   }
-
-   private static void copyFile(File inFile, File outFile) throws IOException
-   {
-      FileInputStream in = new FileInputStream(inFile);
-      FileOutputStream out = new FileOutputStream(outFile);
-
-      int c;
-      while ((c = in.read()) != -1)
-         out.write(c);
-
-      in.close();
-      out.close();
-   }
-
    @Test
    public void testStartLevel() throws Exception
    {
@@ -128,8 +115,8 @@ public class StartLevelTestCase extends OSGiRuntimeTest
          // subsequent tests.
          sls.setInitialBundleStartLevel(5);
 
-         File baurl = context.getBundle(0).getBundleContext().getDataFile("bundles-simple-bundleA.jar");
-         File bburl = context.getBundle(0).getBundleContext().getDataFile("bundles-simple-bundleB.jar");
+         File baurl = context.getBundle(0).getBundleContext().getDataFile("simple-bundleA.jar");
+         File bburl = context.getBundle(0).getBundleContext().getDataFile("simple-bundleB.jar");
          ba = context.installBundle(baurl.toURI().toString());
          bb = context.installBundle(bburl.toURI().toString());
 
@@ -221,5 +208,84 @@ public class StartLevelTestCase extends OSGiRuntimeTest
    private synchronized void setStartLevelLatch(CountDownLatch l)
    {
       startLevelLatch = l;
+   }
+
+   private void streamFileToRuntime(OSGiRuntime runtime, JavaArchive archive) throws IOException
+   {
+      VirtualFile inFile = toVirtualFile(archive);
+      File outFile = runtime.getBundle(0).getDataFile(archive.getName() + ".jar").getAbsoluteFile();
+      
+      InputStream in = inFile.openStream();
+      FileOutputStream out = new FileOutputStream(outFile);
+      
+      VFSUtils.copyStream(in, out);
+      
+      in.close();
+      out.close();
+   }
+   
+   private JavaArchive getBundleA()
+   {
+      //Bundle-SymbolicName: simple-bundleA
+      //Bundle-Activator: org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleA");
+      archive.addClasses(SimpleActivatorA.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(SimpleActivatorA.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
+   private JavaArchive getBundleB()
+   {
+      //Bundle-SymbolicName: simple-bundleB
+      //Bundle-Activator: org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleB");
+      archive.addClasses(SimpleActivatorB.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(SimpleActivatorB.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
+   private JavaArchive getStartLevelBundle()
+   {
+      // Bundle-SymbolicName: service-startlevel
+      // Bundle-Activator: org.jboss.test.osgi.services.startlevel.StartLevelActivator
+      // Export-Package: org.jboss.test.osgi.services.startlevel
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "service-startlevel");
+      archive.addClasses(StartLevelActivator.class, StartLevelTestCase.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(StartLevelActivator.class);
+            builder.addExportPackages("org.jboss.test.osgi.services.startlevel");
+            builder.addImportPackages("org.jboss.osgi.spi.capability", "org.jboss.osgi.husky", "org.jboss.osgi.testing", "org.junit", "org.osgi.framework");
+            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
+            builder.addManifestHeader("Test-Package", "org.jboss.test.osgi.services.startlevel");
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

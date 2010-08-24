@@ -63,7 +63,7 @@
     <version.jboss.osgi.framework>1.0.0.Alpha6</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.7</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.0</version.jboss.osgi.http>
-    <version.jboss.osgi.husky>1.0.6</version.jboss.osgi.husky>
+    <version.jboss.osgi.husky>1.0.7</version.jboss.osgi.husky>
     <version.jboss.osgi.jaxb>2.1.10.SP5</version.jboss.osgi.jaxb>
     <version.jboss.osgi.jbossas>1.0.3</version.jboss.osgi.jbossas>
     <version.jboss.osgi.jmx>1.0.7</version.jboss.osgi.jmx>

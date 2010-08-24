@@ -68,10 +68,6 @@
 
     <!-- Please add alphabetically -->
 
-    <!-- bundles/simple -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/bundles-simple-bundleA.jar" files="${tests.resources.dir}/bundles/simple-bundleA.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/bundles-simple-bundleB.jar" files="${tests.resources.dir}/bundles/simple-bundleB.bnd" />
-
     <!-- jbossas/jbosgi36 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi36-bundle.jar" files="${tests.resources.dir}/jbossas/jbosgi36/jbosgi36.bnd" />
     <jar jarfile="${tests.output.dir}/test-libs/jbosgi36-mbean.jar">
@@ -169,9 +165,6 @@
     <!-- localization -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/localization-simple-host.jar" files="${tests.resources.dir}/localization/localization-simple-host.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/localization-simple-frag.jar" files="${tests.resources.dir}/localization/localization-simple-frag.bnd" />
-
-    <!-- startlevel -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/service-startlevel.jar" files="${tests.resources.dir}/services/startlevel/startlevel.bnd" />
 
     <!-- Please add alphabetically -->
 

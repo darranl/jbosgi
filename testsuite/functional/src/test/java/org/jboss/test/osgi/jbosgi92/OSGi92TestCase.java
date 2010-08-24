@@ -25,19 +25,26 @@ package org.jboss.test.osgi.jbosgi92;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.InputStream;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.jboss.osgi.spi.capability.CompendiumCapability;
 import org.jboss.osgi.testing.OSGiBundle;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.OSGiServiceReference;
-import org.junit.AfterClass;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.jbosgi92.bundleA.ActivatorBundleA;
+import org.jboss.test.osgi.jbosgi92.bundleA.DocumentBuilderFactoryImpl;
+import org.jboss.test.osgi.jbosgi92.bundleA.SAXParserFactoryImpl;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleException;
 
 /**
  * [JBOSGI-92] Class.forName issue with XMLParserActivator
@@ -49,38 +56,51 @@ import org.osgi.framework.BundleException;
  */
 public class OSGi92TestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
    @BeforeClass
    public static void beforeClass() throws Exception
    {
-      runtime = createDefaultRuntime();
+      OSGiRuntime runtime = createDefaultRuntime();
       runtime.addCapability(new CompendiumCapability());
-   }
-
-   @AfterClass
-   public static void afterClass() throws BundleException
-   {
-      if (runtime != null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
    }
 
    @Test
    public void testDeployParsers() throws Exception
    {
-      OSGiBundle bundleA = runtime.installBundle("jbosgi92-bundleA.jar");
+      OSGiBundle bundleA = getRuntime().installBundle(getBundleA());
       bundleA.start();
 
       assertBundleState(Bundle.ACTIVE, bundleA.getState());
-      
+
       String filter = "(parser.factoryname=org.jboss.test.osgi.jbosgi92.bundleA.*)";
-      OSGiServiceReference[] domRefs = runtime.getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
+      OSGiServiceReference[] domRefs = getRuntime().getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
       assertEquals("DocumentBuilderFactory service available", 1, domRefs.length);
 
-      OSGiServiceReference[] saxRefs = runtime.getServiceReferences(SAXParserFactory.class.getName(), filter);
+      OSGiServiceReference[] saxRefs = getRuntime().getServiceReferences(SAXParserFactory.class.getName(), filter);
       assertEquals("SAXParserFactory service available", 1, saxRefs.length);
+   }
+
+   private JavaArchive getBundleA()
+   {
+      // Bundle-SymbolicName: jbosgi92-bundleA
+      // Bundle-Activator: org.jboss.test.osgi.jbosgi92.bundleA.ActivatorBundleA
+      // Export-Package: org.jboss.test.osgi.jbosgi92.bundleA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi92-bundleA");
+      archive.addClasses(ActivatorBundleA.class, DocumentBuilderFactoryImpl.class, SAXParserFactoryImpl.class);
+      archive.addResource("jbosgi92/javax.xml.parsers.DocumentBuilderFactory", "META-INF/services/javax.xml.parsers.DocumentBuilderFactory");
+      archive.addResource("jbosgi92/javax.xml.parsers.SAXParserFactory", "META-INF/services/javax.xml.parsers.SAXParserFactory");
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(ActivatorBundleA.class);
+            builder.addExportPackages("org.jboss.test.osgi.jbosgi92.bundleA");
+            builder.addImportPackages("javax.xml.parsers", "org.osgi.framework", "org.osgi.util.xml", "org.xml.sax");
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

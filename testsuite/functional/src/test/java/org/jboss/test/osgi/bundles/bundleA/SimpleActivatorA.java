@@ -3,7 +3,7 @@ package org.jboss.test.osgi.bundles.bundleA;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class SimpleActivator implements BundleActivator
+public class SimpleActivatorA implements BundleActivator
 {
 
    @Override

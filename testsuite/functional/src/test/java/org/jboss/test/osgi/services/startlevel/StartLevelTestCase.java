@@ -108,6 +108,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
 
       Bundle ba = null;
       Bundle bb = null;
+      FrameworkListener frameworkListener = null;
       try
       {
          // In this try block the state of the framework is modified. Any modifications
@@ -115,20 +116,13 @@ public class StartLevelTestCase extends OSGiRuntimeTest
          // subsequent tests.
          sls.setInitialBundleStartLevel(5);
 
-         File baurl = context.getBundle(0).getBundleContext().getDataFile("simple-bundleA.jar");
-         File bburl = context.getBundle(0).getBundleContext().getDataFile("simple-bundleB.jar");
-         ba = context.installBundle(baurl.toURI().toString());
-         bb = context.installBundle(bburl.toURI().toString());
-
-         // david temp workaround to initialize start level
-         ba.start();
-         ba.stop();
-         bb.start();
-         bb.stop();
-         // david end temp workaround
+         File baFile = context.getBundle(0).getBundleContext().getDataFile("simple-bundleA.jar");
+         File bbFile = context.getBundle(0).getBundleContext().getDataFile("simple-bundleB.jar");
+         ba = context.installBundle(baFile.toURI().toString());
+         bb = context.installBundle(bbFile.toURI().toString());
 
          setStartLevelLatch(new CountDownLatch(1));
-         FrameworkListener fl = new FrameworkListener()
+         frameworkListener = new FrameworkListener()
          {
             @Override
             public void frameworkEvent(FrameworkEvent event)
@@ -140,7 +134,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
                }
             }
          };
-         context.addFrameworkListener(fl);
+         context.addFrameworkListener(frameworkListener);
 
          assertEquals(5, sls.getBundleStartLevel(ba));
          assertEquals(5, sls.getBundleStartLevel(bb));
@@ -189,14 +183,14 @@ public class StartLevelTestCase extends OSGiRuntimeTest
          sls.setInitialBundleStartLevel(1);
          sls.setStartLevel(1);
 
+         if (frameworkListener != null)
+            context.removeFrameworkListener(frameworkListener);
+
          if (ba != null)
-         {
             ba.uninstall();
-         }
+
          if (bb != null)
-         {
             bb.uninstall();
-         }
       }
    }
 

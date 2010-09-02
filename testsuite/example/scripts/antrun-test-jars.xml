@@ -71,8 +71,7 @@
     
     <!-- simple -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-simple.jar" files="${tests.resources.dir}/simple/example-simple.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-simple-husky.jar" files="${tests.resources.dir}/simple/example-simple-husky.bnd" />
-    
+  
     <!-- webapp -->
     <war destfile="${tests.output.dir}/test-libs/example-webapp.war"
       manifest="${tests.resources.dir}/webapp/manifest.mf"

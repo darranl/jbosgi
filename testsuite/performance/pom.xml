@@ -14,7 +14,7 @@
   <dependencies>
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
-      <artifactId>arquillian-protocol-jmx-osgi-bundle</artifactId>
+      <artifactId>arquillian-osgi-bundle</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -42,9 +42,9 @@
               <artifactItems>
                 <artifactItem>
                   <groupId>org.jboss.arquillian.protocol</groupId>
-                  <artifactId>arquillian-protocol-jmx-osgi-bundle</artifactId>
+                  <artifactId>arquillian-osgi-bundle</artifactId>
                   <version>${version.jboss.arquillian}</version>
-                  <destFileName>arquillian-protocol-jmx-osgi-bundle.jar</destFileName>
+                  <destFileName>arquillian-osgi-bundle.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.osgi</groupId>

@@ -45,7 +45,7 @@
     <property name="autoStart">
      <list elementClass="java.net.URL">
        <value>./target/test-libs/bundles/org.apache.felix.log.jar</value>
-       <value>./target/test-libs/bundles/arquillian-protocol-jmx-osgi-bundle.jar</value>
+       <value>./target/test-libs/bundles/arquillian-osgi-bundle.jar</value>
      </list>
     </property>
   </bean>

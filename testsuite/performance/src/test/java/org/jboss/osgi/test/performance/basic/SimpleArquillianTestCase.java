@@ -47,6 +47,7 @@ public class SimpleArquillianTestCase
    public static JavaArchive createdeployment()
    {
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar");
+      archive.addClasses(SimpleActivator.class, SimpleService.class);
       archive.setManifest(new Asset()
       {
          public InputStream openStream()
@@ -55,17 +56,9 @@ public class SimpleArquillianTestCase
             builder.addBundleSymbolicName(archive.getName());
             builder.addBundleManifestVersion(2);
             builder.addBundleActivator(SimpleActivator.class.getName());
-            // [TODO] generate a separate bundle the contains the test case
-            builder.addExportPackages(SimpleArquillianTestCase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit");
-            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
-            builder.addImportPackages("javax.inject", "org.junit", "org.junit.runner");
-            builder.addImportPackages("org.osgi.framework");
             return builder.openStream();
          }
       });
-      archive.addClasses(SimpleActivator.class, SimpleService.class);
-      archive.addClasses(SimpleArquillianTestCase.class);
       return archive;
    }
 

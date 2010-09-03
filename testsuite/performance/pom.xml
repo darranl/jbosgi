@@ -11,14 +11,6 @@
   <artifactId>jboss-osgi-testsuite-performance</artifactId>
   <name>JBossOSGi Testsuite Performance</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jboss.arquillian.protocol</groupId>
-      <artifactId>arquillian-osgi-bundle</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>

@@ -25,24 +25,24 @@ package org.jboss.test.osgi.example.blueprint;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeNotNull;
 
+import java.io.InputStream;
+
+import javax.inject.Inject;
 import javax.management.MBeanServer;
 
-import org.jboss.osgi.blueprint.BlueprintCapability;
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
-import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
+import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceA;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceB;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -54,47 +54,39 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
  * @author thomas.diesler@jboss.com
  * @since 12-Jul-2009
  */
+@RunWith(Arquillian.class)
 public class BlueprintTestCase 
 {
-   @RuntimeContext
-   public static BundleContext context;
-   private static OSGiRuntime runtime;
+   @Inject
+   public BundleContext context;
 
-   @BeforeClass
-   public static void beforeClass() throws Exception
+   @Inject
+   public Bundle bundle;
+
+   @Deployment
+   public static JavaArchive createdeployment()
    {
-      if (context == null)
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-blueprint");
+      archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
+      archive.addResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
+      archive.setManifest(new Asset()
       {
-         runtime = OSGiRuntimeTest.createDefaultRuntime();
-         runtime.addCapability(new HuskyCapability());
-         runtime.addCapability(new JMXCapability());
-         runtime.addCapability(new BlueprintCapability());
-         
-         OSGiBundle bundle = runtime.installBundle("example-blueprint.jar");
-         bundle.start();
-      }
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages(BlueprintContainer.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
-
-   @AfterClass
-   public static void afterClass() throws Exception
-   {
-      if (context == null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
-      context = null;
-   }
-
+   
    @Test
    public void testBlueprintContainerAvailable() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
-      
-      assumeNotNull(context);
-      
-      Bundle bundle = context.getBundle();
+      bundle.start();
       assertEquals("example-blueprint", bundle.getSymbolicName());
       
       BlueprintContainer bpContainer = getBlueprintContainer();
@@ -104,11 +96,7 @@ public class BlueprintTestCase
    @Test
    public void testServiceA() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
-      
-      assumeNotNull(context);
-
+      bundle.start();
       ServiceReference sref = context.getServiceReference(ServiceA.class.getName());
       assertNotNull("ServiceA not null", sref);
       
@@ -120,11 +108,7 @@ public class BlueprintTestCase
    @Test
    public void testServiceB() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
-      
-      assumeNotNull(context);
-
+      bundle.start();
       ServiceReference sref = context.getServiceReference(ServiceB.class.getName());
       assertNotNull("ServiceB not null", sref);
       

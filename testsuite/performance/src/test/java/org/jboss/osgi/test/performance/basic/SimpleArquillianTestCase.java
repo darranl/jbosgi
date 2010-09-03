@@ -46,7 +46,7 @@ public class SimpleArquillianTestCase
    @Deployment
    public static JavaArchive createdeployment()
    {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar");
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-arquillian");
       archive.setManifest(new Asset()
       {
          public InputStream openStream()

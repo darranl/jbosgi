@@ -57,7 +57,11 @@
 
     <!-- jmx -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx.jar" files="${tests.resources.dir}/jmx/example-jmx.bnd" />
-
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx-update1.jar" files="${tests.resources.dir}/jmx/example-jmx-update1.bnd" />
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx-update2.jar" files="${tests.resources.dir}/jmx/example-jmx-update2.bnd" />
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx-update2-user.jar" files="${tests.resources.dir}/jmx/example-jmx-update2-user.bnd" />
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx-update3.jar" files="${tests.resources.dir}/jmx/example-jmx-update3.bnd" />
+  	
     <!-- jndi -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jndi.jar" files="${tests.resources.dir}/jndi/example-jndi.bnd" />
     

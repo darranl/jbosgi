@@ -54,19 +54,13 @@
 
     <!-- Apache Aries Dependencies -->
     <dependency>
-      <groupId>org.apache.aries.blueprint</groupId>
-      <artifactId>org.apache.aries.blueprint</artifactId>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>org.apache.aries.jmx</groupId>
       <artifactId>org.apache.aries.jmx</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.aries</groupId>
+      <artifactId>org.apache.aries.util</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -124,6 +118,11 @@
           <artifactId>org.osgi.compendium</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.protocol</groupId>
+      <artifactId>arquillian-osgi-bundle</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.blueprint</groupId>
@@ -450,7 +449,10 @@
       </dependencies>
     </profile>
 
-    <!-- Name: embedded-testing Descr: Setup for embedded integration testing -->
+    <!-- 
+      Name: embedded-testing 
+      Descr: Setup for embedded integration testing 
+    -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -461,9 +463,19 @@
       <properties>
         <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
       </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-osgi-embedded</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
     </profile>
 
-    <!-- Name: runtime-testing Descr: Setup for runtime integration testing -->
+    <!-- 
+      Name: runtime-testing 
+      Descr: Setup for runtime integration testing 
+    -->
     <profile>
       <id>runtime-testing</id>
       <activation>
@@ -475,15 +487,25 @@
       <properties>
         <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
       </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-osgi-remote</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
     </profile>
 
-    <!-- Name: jboss600 Descr: Setup for jboss600 integration testing -->
+    <!-- 
+      Name: jboss700 
+      Descr: Setup for jboss700 integration testing 
+    -->
     <profile>
-      <id>jboss600</id>
+      <id>jboss700</id>
       <activation>
         <property>
           <name>target.container</name>
-          <value>jboss600</value>
+          <value>jboss700</value>
         </property>
       </activation>
       <properties>
@@ -491,19 +513,6 @@
       </properties>
     </profile>
 
-    <!-- Name: jboss601 Descr: Setup for jboss601 integration testing -->
-    <profile>
-      <id>jboss601</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss601</value>
-        </property>
-      </activation>
-      <properties>
-        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
-      </properties>
-    </profile>
   </profiles>
 
 </project>

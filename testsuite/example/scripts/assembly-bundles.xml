@@ -15,6 +15,7 @@
       <outputDirectory>bundles</outputDirectory>
       <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       <includes>
+        <include>*:arquillian-osgi-bundle:jar</include>
         <include>*:jboss-osgi-blueprint:jar</include>
         <include>*:jboss-osgi-common:jar</include>
         <include>*:jboss-osgi-common-core:jar</include>
@@ -29,7 +30,6 @@
         <include>*:jboss-osgi-webapp:jar</include>
         <include>*:jboss-osgi-xerces:jar</include>
         <include>*:jboss-osgi-xml-binding:jar</include>
-        <include>*:org.apache.aries.blueprint:jar</include>
         <include>*:org.apache.aries.jmx:jar</include>
         <include>*:org.apache.aries.util:jar</include>
         <include>*:org.apache.felix.configadmin:jar</include>

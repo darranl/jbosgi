@@ -31,7 +31,6 @@ import static org.junit.Assert.fail;
 import org.jboss.osgi.serviceloader.ServiceLoaderCapability;
 import org.jboss.osgi.spi.util.ServiceLoader;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.testing.OSGiServiceReference;
 import org.jboss.test.osgi.example.serviceloader.service.AccountService;
@@ -53,11 +52,11 @@ public class ServiceLoaderTestCase extends OSGiRuntimeTest
       // Use the traditional ServiceLoader API to get the service
       AccountService service = ServiceLoader.loadService(AccountService.class);
       assertNotNull("AccountService loaded", service);
-      
+
       assertEquals(0, service.getBalance());
       assertEquals(100, service.credit(100));
       assertEquals(80, service.withdraw(20));
-      
+
       try
       {
          service.withdraw(100);
@@ -73,53 +72,44 @@ public class ServiceLoaderTestCase extends OSGiRuntimeTest
    public void testOSGiServiceAPI() throws Exception
    {
       // Get the default runtime
-      OSGiRuntime runtime = createDefaultRuntime();
-      runtime.addCapability(new ServiceLoaderCapability());
-      
+      getRuntime().addCapability(new ServiceLoaderCapability());
+
+      // Install the API bundle
+      OSGiBundle apiBundle = getRuntime().installBundle("example-serviceloader-api.jar");
+
+      // Install/Start the client bundle
+      OSGiBundle implBundle = getRuntime().installBundle("example-serviceloader-impl.jar");
+      implBundle.start();
+
+      // Install/Start the client bundle
+      OSGiBundle clientBundle = getRuntime().installBundle("example-serviceloader-client.jar");
+      clientBundle.start();
+
+      OSGiServiceReference[] srefs = getRuntime().getServiceReferences(AccountService.class.getName(), "(service.vendor=JBoss*)");
+      assertNotNull("AccountService not null", srefs);
+      assertEquals("One AccountService available", 1, srefs.length);
+
+      assertBundleState(Bundle.ACTIVE, implBundle.getState());
+      assertBundleState(Bundle.ACTIVE, clientBundle.getState());
+
+      OSGiBundle apiProvider = clientBundle.loadClass(AccountService.class.getName());
+      assertEquals(apiBundle, apiProvider);
+
       try
       {
-         // Install the API bundle
-         OSGiBundle apiBundle = runtime.installBundle("example-serviceloader-api.jar");
-         
-         // Install/Start the client bundle
-         OSGiBundle implBundle = runtime.installBundle("example-serviceloader-impl.jar");
-         implBundle.start();
-         
-         // Install/Start the client bundle
-         OSGiBundle clientBundle = runtime.installBundle("example-serviceloader-client.jar");
-         clientBundle.start();
-         
-         OSGiServiceReference[] srefs = runtime.getServiceReferences(AccountService.class.getName(), "(service.vendor=JBoss*)");
-         assertNotNull("AccountService not null", srefs);
-         assertEquals("One AccountService available", 1, srefs.length);
-         
-         assertBundleState(Bundle.ACTIVE, implBundle.getState());
-         assertBundleState(Bundle.ACTIVE, clientBundle.getState());
-         
-         OSGiBundle apiProvider = clientBundle.loadClass(AccountService.class.getName());
-         assertEquals(apiBundle, apiProvider);
-         
-         try
-         {
-            // The client cannot access the implementation class directly
-            clientBundle.loadClass(AccountServiceImpl.class.getName());
-            fail("ClassNotFoundException expected");
-         }
-         catch (ClassNotFoundException ex)
-         {
-            // expected
-         }
-         
-         // Stopping the implementation bundle should unregister the service
-         implBundle.stop();
-         
-         OSGiServiceReference sref = runtime.getServiceReference(AccountService.class.getName());
-         assertNull("AccountService not available", sref);
+         // The client cannot access the implementation class directly
+         clientBundle.loadClass(AccountServiceImpl.class.getName());
+         fail("ClassNotFoundException expected");
       }
-      finally
+      catch (ClassNotFoundException ex)
       {
-         // Shutdown the runtime 
-         runtime.shutdown();
+         // expected
       }
+
+      // Stopping the implementation bundle should unregister the service
+      implBundle.stop();
+
+      OSGiServiceReference sref = getRuntime().getServiceReference(AccountService.class.getName());
+      assertNull("AccountService not available", sref);
    }
 }

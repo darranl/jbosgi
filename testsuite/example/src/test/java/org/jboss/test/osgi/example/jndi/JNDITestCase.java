@@ -29,12 +29,8 @@ import static org.junit.Assert.fail;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 
-import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -45,29 +41,13 @@ import org.junit.Test;
  */
 public class JNDITestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new JNDICapability());
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
-
    @Test
    public void testJNDIAccess() throws Exception
    {
-      OSGiBundle bundle = runtime.installBundle("example-jndi.jar");
+      OSGiBundle bundle = getRuntime().installBundle("example-jndi.jar");
       bundle.start();
 
-      InitialContext iniCtx = runtime.getInitialContext();
+      InitialContext iniCtx = getRuntime().getInitialContext();
       String lookup = (String)iniCtx.lookup("test/Foo");
       assertEquals("JNDI bound String expected", "Bar", lookup);
 

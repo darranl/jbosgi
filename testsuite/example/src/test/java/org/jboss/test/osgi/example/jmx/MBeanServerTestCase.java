@@ -24,14 +24,9 @@ package org.jboss.test.osgi.example.jmx;
 import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -42,32 +37,15 @@ import org.junit.Test;
  */
 public class MBeanServerTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new JNDICapability());
-      runtime.addCapability(new JMXCapability());
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
-
    @Test
    public void testMBeanAccess() throws Exception
    {
-      OSGiBundle bundle = runtime.installBundle("example-jmx.jar");
+      OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar");
       try
       {
          bundle.start();
 
-         FooMBean foo = runtime.getMBeanProxy(MBEAN_NAME, FooMBean.class);
+         FooMBean foo = getRuntime().getMBeanProxy(MBEAN_NAME, FooMBean.class);
          assertEquals("hello", foo.echo("hello"));
       }
       finally

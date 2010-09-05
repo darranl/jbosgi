@@ -42,7 +42,6 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -57,9 +56,11 @@ import org.osgi.service.packageadmin.PackageAdmin;
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
-@Ignore("FIXME JAXBTestCase")
 public class JAXBTestCase
 {
+   @Inject
+   public BundleContext context;
+   
    @Inject
    public Bundle bundle;
 
@@ -77,7 +78,8 @@ public class JAXBTestCase
             OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
             builder.addBundleSymbolicName(archive.getName());
             builder.addBundleManifestVersion(2);
-            builder.addImportPackages("com.sun.xml.bind.v2");
+            builder.addImportPackages("com.sun.xml.bind.v2", "javax.xml.bind", "javax.xml.bind.annotation");
+            builder.addImportPackages("javax.xml.datatype", "javax.xml.namespace");
             return builder.openStream();
          }
       });
@@ -87,7 +89,6 @@ public class JAXBTestCase
    @Test
    public void testWiring() throws Exception
    {
-      BundleContext context = bundle.getBundleContext();
       ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
       PackageAdmin packageAdmin = (PackageAdmin)context.getService(sref);
       

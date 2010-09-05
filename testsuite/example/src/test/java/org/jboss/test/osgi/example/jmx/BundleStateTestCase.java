@@ -29,11 +29,7 @@ import static org.junit.Assert.assertNotNull;
 import javax.management.openmbean.TabularData;
 
 import org.apache.aries.jmx.framework.BundleState;
-import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.jmx.framework.BundleStateMBean;
 
@@ -45,26 +41,10 @@ import org.osgi.jmx.framework.BundleStateMBean;
  */
 public class BundleStateTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-   
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new JMXCapability());
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
-
    @Test
    public void testBundleStateMBean() throws Exception
    {
-      BundleStateMBean bundleState = runtime.getBundleStateMBean();
+      BundleStateMBean bundleState = getRuntime().getBundleStateMBean();
       assertNotNull("BundleStateMBean not null", bundleState);
       
       TabularData bundleData = bundleState.listBundles();

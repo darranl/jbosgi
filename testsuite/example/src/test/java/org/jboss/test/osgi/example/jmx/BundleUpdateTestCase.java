@@ -29,12 +29,8 @@ import static org.junit.Assert.fail;
 import java.net.URL;
 import java.util.Arrays;
 
-import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.jmx.framework.FrameworkMBean;
@@ -44,27 +40,11 @@ import org.osgi.jmx.framework.FrameworkMBean;
  */
 public class BundleUpdateTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
-   @BeforeClass
-   public static void setupClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new JMXCapability());
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
-
    @Test
    public void testUpdateBundle() throws Exception
    {
-      FrameworkMBean fw = runtime.getFrameworkMBean();
-      BundleStateMBean bs = runtime.getBundleStateMBean();
+      FrameworkMBean fw = getRuntime().getFrameworkMBean();
+      BundleStateMBean bs = getRuntime().getBundleStateMBean();
 
       // Install and start a bundle via JMX that exports a package
       URL bundleURL = getTestArchiveURL("example-jmx-update1.jar");
@@ -95,7 +75,7 @@ public class BundleUpdateTestCase extends OSGiRuntimeTest
             Arrays.toString(bs.getExportedPackages(bundleId)));
       
       // Install a bundle that depends on the updated bundle
-      OSGiBundle depBundle = runtime.installBundle("example-jmx-update2-user.jar");
+      OSGiBundle depBundle = getRuntime().installBundle("example-jmx-update2-user.jar");
       depBundle.start();
       long depId = depBundle.getBundleId();
       assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]",
@@ -103,7 +83,7 @@ public class BundleUpdateTestCase extends OSGiRuntimeTest
       assertEquals("ACTIVE", bs.getState(depId));
 
       // Install an unrelated bundle, this should return to active when refreshed
-      OSGiBundle bundle3 = runtime.installBundle("example-jmx-update3.jar");
+      OSGiBundle bundle3 = getRuntime().installBundle("example-jmx-update3.jar");
       bundle3.start();
       long b3Id = bundle3.getBundleId();
       assertEquals("ACTIVE", bs.getState(b3Id));

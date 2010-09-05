@@ -41,7 +41,7 @@ public class SimpleRuntimeTestCase extends OSGiRuntimeTest
    public void testSimpleBundle() throws Exception
    {
       // Get the default runtime
-      OSGiRuntime runtime = createDefaultRuntime();
+      OSGiRuntime runtime = getRuntime();
       try
       {
          // Install the bundle

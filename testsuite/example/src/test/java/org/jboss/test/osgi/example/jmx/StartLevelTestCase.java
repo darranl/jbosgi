@@ -32,12 +32,8 @@ import javax.management.openmbean.TabularData;
 
 import junit.framework.Assert;
 
-import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.jmx.framework.FrameworkMBean;
@@ -47,35 +43,19 @@ import org.osgi.jmx.framework.FrameworkMBean;
  */
 public class StartLevelTestCase extends OSGiRuntimeTest
 {
-   private static OSGiRuntime runtime;
-
-   @BeforeClass
-   public static void setupClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new JMXCapability());
-   }
-
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
-
-   @SuppressWarnings("unchecked")
    @Test
+   @SuppressWarnings("unchecked")
    public void testStartLevelMBean() throws Exception
    {
-      FrameworkMBean fw = runtime.getFrameworkMBean();
+      FrameworkMBean fw = getRuntime().getFrameworkMBean();
       try
       {
          fw.setInitialBundleStartLevel(2);
 
          Assert.assertEquals(1, fw.getFrameworkStartLevel());
-         OSGiBundle bundle = runtime.installBundle("example-jmx.jar"); // TODO maybe use another bundle
+         OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar"); // TODO maybe use another bundle
 
-         BundleStateMBean bs = runtime.getBundleStateMBean();
+         BundleStateMBean bs = getRuntime().getBundleStateMBean();
          TabularData td = bs.listBundles();
 
          long bundleId = -1;

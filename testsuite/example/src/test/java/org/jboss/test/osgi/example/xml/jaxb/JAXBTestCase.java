@@ -42,6 +42,7 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -56,6 +57,7 @@ import org.osgi.service.packageadmin.PackageAdmin;
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
+@Ignore("FIXME JAXBTestCase")
 public class JAXBTestCase
 {
    @Inject

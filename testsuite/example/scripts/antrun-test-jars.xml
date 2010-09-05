@@ -94,9 +94,6 @@
     <!-- xml/binding -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-xml-binding.jar" files="${tests.resources.dir}/xml/jbossxb/example-xml-binding.bnd" />
     
-    <!-- xml/parser -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-xml-parser.jar" files="${tests.resources.dir}/xml/parser/example-xml-parser.bnd" />
-    
     <!-- Please add alphabetically -->
 
   </target>

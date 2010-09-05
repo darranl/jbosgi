@@ -26,16 +26,12 @@ package org.jboss.test.osgi.example.blueprint;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.InputStream;
-
 import javax.inject.Inject;
 import javax.management.MBeanServer;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
@@ -69,17 +65,6 @@ public class BlueprintTestCase
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-blueprint");
       archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
       archive.addResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages(BlueprintContainer.class);
-            return builder.openStream();
-         }
-      });
       return archive;
    }
    

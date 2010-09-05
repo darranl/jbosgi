@@ -26,24 +26,18 @@ package org.jboss.test.osgi.example.jta;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assume.assumeNotNull;
 
+import javax.inject.Inject;
 import javax.transaction.Status;
 import javax.transaction.Synchronization;
 import javax.transaction.Transaction;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
-import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.jta.TransactionCapability;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
@@ -53,45 +47,21 @@ import org.osgi.framework.ServiceReference;
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
+@RunWith(Arquillian.class)
 public class TransactionTestCase
 {
-   @RuntimeContext
-   public BundleContext context;
+   @Inject
+   public Bundle bundle;
    
-   private OSGiRuntime runtime;
-
-   @Before
-   public void setUp() throws Exception
-   {
-      if (context == null)
-      {
-         runtime = OSGiRuntimeTest.createDefaultRuntime();
-         runtime.addCapability(new JMXCapability());
-         runtime.addCapability(new HuskyCapability());
-         runtime.addCapability(new TransactionCapability());
-         runtime.installBundle("example-jta.jar").start();
-      }
-   }
-
-   @After
-   public void tearDown() throws Exception
-   {
-      if (context == null)
-         runtime.shutdown();
-   }
-
    @Test
    public void testUserTransaction() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
+      assertNotNull("Bundle injected", bundle);
       
-      // Tell Husky to run this test method within the OSGi Runtime
-      if (context == null)
-         BridgeFactory.getBridge().run();
+      bundle.start();
+      assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
       
-      // Stop here if the context is not injected
-      assumeNotNull(context);
+      BundleContext context = bundle.getBundleContext();
       
       Transactional txObj = new Transactional();
       

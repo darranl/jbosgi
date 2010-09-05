@@ -94,16 +94,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.husky</groupId>
-      <artifactId>jboss-osgi-husky</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.husky</groupId>
-      <artifactId>jboss-osgi-husky</artifactId>
-      <version>${version.jboss.osgi.husky}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.jta</groupId>
       <artifactId>jboss-osgi-jta</artifactId>
     </dependency>

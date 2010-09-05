@@ -118,7 +118,6 @@
         <include name="jboss-osgi-common-sources.jar" />
         <include name="jboss-osgi-deployment-sources.jar" />
         <include name="jboss-osgi-hotdeploy-sources.jar" />
-        <include name="jboss-osgi-husky-harness-sources.jar" />
         <include name="jboss-osgi-jaxb-sources.jar" />
         <include name="jboss-osgi-jmx-sources.jar" />
         <include name="jboss-osgi-jndi-sources.jar" />
@@ -251,7 +250,6 @@
         <!-- all -->
         <include name="arquillian-osgi-bundle.jar" />
         <include name="jboss-osgi-blueprint.jar" />
-        <include name="jboss-osgi-husky.jar" />
         <include name="jboss-osgi-jaxb.jar" />
         <include name="jboss-osgi-jta.jar" />
         <include name="jboss-osgi-reflect.jar" />

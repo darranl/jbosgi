@@ -25,26 +25,25 @@ package org.jboss.test.osgi.example.xml.jaxb;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeNotNull;
 
+import java.io.InputStream;
 import java.net.URL;
 
+import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
-import org.jboss.osgi.jaxb.JAXBCapability;
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.jaxb.JAXBService;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -56,49 +55,37 @@ import org.osgi.service.packageadmin.PackageAdmin;
  * @author thomas.diesler@jboss.com
  * @since 21-Jul-2009
  */
+@RunWith(Arquillian.class)
 public class JAXBTestCase
 {
-   @RuntimeContext
-   public static BundleContext context;
-   private static OSGiRuntime runtime;
+   @Inject
+   public Bundle bundle;
 
-   @Before
-   public void beforeClass() throws Exception
+   @Deployment
+   public static JavaArchive createdeployment()
    {
-      // Only do this if we are not within the OSGi Runtime
-      if (context == null)
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-jaxb");
+      archive.addClasses(CompanyType.class, ContactType.class, CourseBooking.class, ObjectFactory.class, StudentType.class);
+      archive.addResource("xml/jaxb/booking.xml", "booking.xml");
+      archive.addResource("xml/jaxb/booking.xsd", "booking.xsd");
+      archive.setManifest(new Asset()
       {
-         runtime = OSGiRuntimeTest.createDefaultRuntime();
-         runtime.addCapability(new JAXBCapability());
-         runtime.addCapability(new HuskyCapability());
-
-         OSGiBundle bundle = runtime.installBundle("example-xml-jaxb.jar");
-         bundle.start();
-      }
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages("com.sun.xml.bind.v2");
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
-
-   @After
-   public void afterClass() throws Exception
-   {
-      // Only do this if we are not within the OSGi Runtime
-      if (context == null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
-      context = null;
-   }
-
+   
    @Test
    public void testWiring() throws Exception
    {
-      // Tell Husky to run this test method within the OSGi Runtime
-      if (context == null)
-         BridgeFactory.getBridge().run();
-      
-      // Stop here if the context is not injected
-      assumeNotNull(context);
-
+      BundleContext context = bundle.getBundleContext();
       ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
       PackageAdmin packageAdmin = (PackageAdmin)context.getService(sref);
       
@@ -114,16 +101,11 @@ public class JAXBTestCase
    @SuppressWarnings("unchecked")
    public void testUnmarshaller() throws Exception
    {
-      // Tell Husky to run this test method within the OSGi Runtime
-      if (context == null)
-         BridgeFactory.getBridge().run();
+      bundle.start();
       
-      // Stop here if the context is not injected
-      assumeNotNull(context);
-
       JAXBContext jaxbContext = getJAXBContext();
       Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-      URL resURL = context.getBundle().getResource("booking.xml");
+      URL resURL = bundle.getResource("booking.xml");
       JAXBElement<CourseBooking> rootElement = (JAXBElement<CourseBooking>)unmarshaller.unmarshal(resURL.openStream());
       assertNotNull("root element not null", rootElement);
       
@@ -135,15 +117,21 @@ public class JAXBTestCase
       assertEquals("ACME Consulting", company.getName());
    }
 
-   private JAXBContext getJAXBContext() throws JAXBException 
+   private JAXBService getJAXBService() throws JAXBException 
    {
-      // This service gets registerd by the jboss-osgi-apache-xerces service
+      // This service gets registerd by the jboss-osgi-jaxb activator
+      BundleContext context = bundle.getBundleContext();
       ServiceReference sref = context.getServiceReference(JAXBService.class.getName());
       if (sref == null)
          throw new IllegalStateException("JAXBService not available");
       
-      JAXBService service = (JAXBService)context.getService(sref);
-      JAXBContext jaxbContext = service.newJAXBContext(getClass().getPackage().getName());
+      JAXBService jaxbService = (JAXBService)context.getService(sref);
+      return jaxbService;
+   }
+   
+   private JAXBContext getJAXBContext() throws JAXBException 
+   {
+      JAXBContext jaxbContext = getJAXBService().newJAXBContext(getClass().getPackage().getName());
       return jaxbContext;
    }
 }

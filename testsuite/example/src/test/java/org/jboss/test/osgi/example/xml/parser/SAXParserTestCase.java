@@ -24,24 +24,22 @@ package org.jboss.test.osgi.example.xml.parser;
 //$Id: JMXTestCase.java 91196 2009-07-14 09:41:15Z thomas.diesler@jboss.com $
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeNotNull;
 
 import java.net.URL;
 
+import javax.inject.Inject;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.xml.XMLParserCapability;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
@@ -56,51 +54,27 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author thomas.diesler@jboss.com
  * @since 21-Jul-2009
  */
+@RunWith(Arquillian.class)
 public class SAXParserTestCase
 {
-   @RuntimeContext
-   public static BundleContext context;
-   private static OSGiRuntime runtime;
+   @Inject
+   public Bundle bundle;
 
-   @Before
-   public void beforeClass() throws Exception
+   @Deployment
+   public static JavaArchive createdeployment()
    {
-      // Only do this if we are not within the OSGi Runtime
-      if (context == null)
-      {
-         runtime = OSGiRuntimeTest.createDefaultRuntime();
-         runtime.addCapability(new XMLParserCapability());
-         runtime.addCapability(new HuskyCapability());
-
-         OSGiBundle bundle = runtime.installBundle("example-xml-parser.jar");
-         bundle.start();
-      }
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
+      archive.addResource("xml/parser/example-xml-parser.xml", "example-xml-parser.xml");
+      return archive;
    }
-
-   @After
-   public void afterClass() throws Exception
-   {
-      // Only do this if we are not within the OSGi Runtime
-      if (context == null)
-      {
-         runtime.shutdown();
-         runtime = null;
-      }
-      context = null;
-   }
-
+   
    @Test
    public void testSAXParser() throws Exception
    {
-      // Tell Husky to run this test method within the OSGi Runtime
-      if (context == null)
-         BridgeFactory.getBridge().run();
+      bundle.start();
       
-      // Stop here if the context is not injected
-      assumeNotNull(context);
-
       SAXParser saxParser = getSAXParser();
-      URL resURL = context.getBundle().getResource("example-xml-parser.xml");
+      URL resURL = bundle.getResource("example-xml-parser.xml");
       
       SAXHandler saxHandler = new SAXHandler();
       saxParser.parse(resURL.openStream(), saxHandler);
@@ -109,6 +83,8 @@ public class SAXParserTestCase
 
    private SAXParser getSAXParser() throws SAXException, ParserConfigurationException, InvalidSyntaxException
    {
+      BundleContext context = bundle.getBundleContext();
+      
       // This service gets registerd by the jboss-osgi-apache-xerces service
       String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
       ServiceReference[] srefs = context.getServiceReferences(SAXParserFactory.class.getName(), filter);

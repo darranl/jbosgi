@@ -24,23 +24,24 @@ package org.jboss.test.osgi.example.event;
 //$Id$
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeNotNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
-import org.jboss.osgi.spi.capability.EventAdminCapability;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
+import javax.inject.Inject;
+
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.osgi.OSGiContainer;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
@@ -55,50 +56,49 @@ import org.osgi.service.event.EventHandler;
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
-public class EventAdminTestCase extends OSGiRuntimeTest
+@RunWith(Arquillian.class)
+public class EventAdminTestCase 
 {
    static String TOPIC = "org/jboss/test/osgi/example/event";
 
-   @RuntimeContext
+   @Inject
    public BundleContext context;
+   
+   @Inject
+   public Bundle bundle;
 
-   private OSGiRuntime runtime;
-
-   @Before
-   public void setUp() throws Exception
+   @Deployment
+   public static JavaArchive createdeployment()
    {
-      if (context == null)
+      return ShrinkWrap.create(JavaArchive.class, "example-event");
+   }
+   
+   @Before
+   public void setUp() throws BundleException
+   {
+      if (context != null)
       {
-         runtime = createDefaultRuntime();
-         runtime.addCapability(new HuskyCapability());
-         runtime.addCapability(new EventAdminCapability());
-
-         OSGiBundle bundle = runtime.installBundle("example-event.jar");
-         bundle.start();
+         // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
+         Bundle eventadmin = OSGiContainer.installBundle(context, "org.apache.felix", "org.apache.felix.eventadmin", "1.2.2");
+         eventadmin.start();
       }
    }
-
-   @After
-   public void tearDown() throws BundleException
-   {
-      if (context == null)
-         runtime.shutdown();
-   }
-
+   
    @Test
    @SuppressWarnings({ "unchecked", "rawtypes" })
    public void testEventHandler() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
-
-      assumeNotNull(context);
-
-      TestEventHandler eventHandler = new TestEventHandler();
+      assertNotNull("Bundle injected", bundle);
+      
+      bundle.start();
+      assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
+      
+      BundleContext context = bundle.getBundleContext();
 
       // Register the EventHandler
       Dictionary param = new Hashtable();
       param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
+      TestEventHandler eventHandler = new TestEventHandler();
       context.registerService(EventHandler.class.getName(), eventHandler, param);
 
       // Send event through the the EventAdmin

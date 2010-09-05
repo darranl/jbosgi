@@ -42,9 +42,6 @@
 
     <!-- Please add alphabetically -->
 
-    <!-- event -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-event.jar" files="${tests.resources.dir}/event/example-event.bnd" />
-
     <!-- http -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-http.jar" files="${tests.resources.dir}/http/example-http.bnd" />
 

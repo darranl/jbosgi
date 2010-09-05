@@ -24,24 +24,24 @@ package org.jboss.test.osgi.example.xml.jbossxb;
 //$Id$
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeNotNull;
 
+import java.io.InputStream;
 import java.net.URL;
 
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
+import javax.inject.Inject;
+
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.jbossxb.UnmarshallerService;
-import org.jboss.osgi.jbossxb.XMLBindingCapability;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.junit.After;
-import org.junit.Before;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.xb.annotations.JBossXmlSchema;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 
 /**
@@ -50,42 +50,40 @@ import org.osgi.framework.ServiceReference;
  * @author thomas.diesler@jboss.com
  * @since 26-Nov-2009
  */
-public class XMLBindingTestCase extends OSGiRuntimeTest
+@RunWith(Arquillian.class)
+public class XMLBindingTestCase
 {
-   @RuntimeContext
-   public BundleContext context;
+   @Inject
+   public Bundle bundle;
 
-   private OSGiRuntime runtime;
-
-   @Before
-   public void setUp() throws Exception
+   @Deployment
+   public static JavaArchive createdeployment()
    {
-      if (context == null)
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-binding");
+      archive.addClasses(CompanyType.class, ContactType.class, CourseBooking.class, StudentType.class);
+      archive.addResource("xml/jbossxb/booking.xml", "booking.xml");
+      archive.addResource("xml/jbossxb/booking.xsd", "booking.xsd");
+      archive.setManifest(new Asset()
       {
-         runtime = createDefaultRuntime();
-         runtime.addCapability(new HuskyCapability());
-         runtime.addCapability(new XMLBindingCapability());
-         
-         OSGiBundle bundle = runtime.installBundle("example-xml-binding.jar");
-         bundle.start();
-      }
-   }
-
-   @After
-   public void tearDown() throws BundleException
-   {
-      if (context == null)
-         runtime.shutdown();
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addImportPackages(UnmarshallerService.class, JBossXmlSchema.class);
+            builder.addImportPackages("javax.xml.bind.annotation");
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 
    @Test
    public void testUnmarshaller() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
+      bundle.start();
       
-      assumeNotNull(context);
-      
+      BundleContext context = bundle.getBundleContext();
       ServiceReference sref = context.getServiceReference(UnmarshallerService.class.getName());
       assertNotNull("UnmarshallerService available", sref);
       
@@ -94,7 +92,6 @@ public class XMLBindingTestCase extends OSGiRuntimeTest
       unmarshaller.setNamespaceAware(true);
       unmarshaller.setValidation(true);
       
-      Bundle bundle = context.getBundle();
       URL xsdurl = bundle.getEntry("booking.xsd");
       assertNotNull("booking.xsd available", xsdurl);
       

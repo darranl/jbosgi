@@ -20,7 +20,6 @@
         <include>*:jboss-osgi-deployment:jar:sources</include>
         <include>*:jboss-osgi-hotdeploy:jar:sources</include>
         <include>*:jboss-osgi-http:jar:sources</include>
-        <include>*:jboss-osgi-husky:jar:sources</include>
         <include>*:jboss-osgi-jaxb:jar:sources</include>
         <include>*:jboss-osgi-jmx-api:jar:sources</include>
         <include>*:jboss-osgi-jndi-api:jar:sources</include>

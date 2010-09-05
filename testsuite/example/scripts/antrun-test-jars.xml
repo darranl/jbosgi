@@ -88,12 +88,6 @@
       </fileset>
     </jar> 
     
-    <!-- xml/jaxb -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-xml-jaxb.jar" files="${tests.resources.dir}/xml/jaxb/example-xml-jaxb.bnd" />
-    
-    <!-- xml/binding -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-xml-binding.jar" files="${tests.resources.dir}/xml/jbossxb/example-xml-binding.bnd" />
-    
     <!-- Please add alphabetically -->
 
   </target>

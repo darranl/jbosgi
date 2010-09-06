@@ -46,6 +46,7 @@ import org.osgi.jmx.framework.FrameworkMBean;
  * Test {@link BundleState} functionality  
  * 
  * @author thomas.diesler@jboss.com
+ * @author <a href="david@redhat.com">David Bosschaert</a>
  * @since 15-Feb-2010
  */
 public class BundleStateTestCase extends OSGiRuntimeTest

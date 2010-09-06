@@ -43,6 +43,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.bundles.update1.A1;
 import org.jboss.test.osgi.bundles.update2.A2;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -53,6 +54,7 @@ import org.osgi.framework.Version;
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
+@Ignore("Migrate to Arquillian")
 public class BundleUpdateTestCase extends OSGiRuntimeTest
 {
    @RuntimeContext

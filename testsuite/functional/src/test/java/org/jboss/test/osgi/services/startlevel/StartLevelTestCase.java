@@ -47,6 +47,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA;
 import org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -64,6 +65,7 @@ import org.osgi.service.startlevel.StartLevel;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  * @since 04-Mar-2009
  */
+@Ignore("Migrate to Arquillian")
 public class StartLevelTestCase extends OSGiRuntimeTest
 {
    @RuntimeContext

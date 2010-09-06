@@ -46,6 +46,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.bundles.exporter.ExportedClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -59,6 +60,7 @@ import org.osgi.service.packageadmin.PackageAdmin;
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
+@Ignore("Migrate to Arquillian")
 public class PackageAdminTestCase extends OSGiRuntimeTest
 {
    @RuntimeContext

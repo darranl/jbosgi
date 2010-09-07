@@ -59,18 +59,18 @@ public class EventAdminTestCase
    static String TOPIC = "org/jboss/test/osgi/example/event";
 
    @Inject
-   public BundleContext context;
-   
-   @Inject
    public Bundle bundle;
+
+   @Inject
+   public OSGiContainer container;
 
    @Before
    public void setUp() throws BundleException
    {
-      if (context != null)
+      if (container != null)
       {
          // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
-         Bundle eventadmin = OSGiContainer.installBundle(context, "org.apache.felix", "org.apache.felix.eventadmin", "1.2.2");
+         Bundle eventadmin = container.installBundle("org.apache.felix", "org.apache.felix.eventadmin", "1.2.2");
          eventadmin.start();
       }
    }

@@ -24,30 +24,22 @@ package org.jboss.test.osgi.services.packageadmin;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 
-import org.jboss.osgi.husky.BridgeFactory;
-import org.jboss.osgi.husky.HuskyCapability;
-import org.jboss.osgi.husky.RuntimeContext;
-import org.jboss.osgi.testing.OSGiBundle;
+import javax.inject.Inject;
+
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.osgi.ArchiveProvider;
+import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.jboss.osgi.vfs.VFSUtils;
-import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.bundles.exporter.ExportedClass;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkEvent;
@@ -56,49 +48,27 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
- * Tests PackageAdmin functionality.
- * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-@Ignore("Migrate to Arquillian")
-public class PackageAdminTestCase extends OSGiRuntimeTest
+@RunWith(Arquillian.class)
+public class PackageAdminTestCase
 {
-   @RuntimeContext
+   @Inject
+   public OSGiContainer container;
+
+   @Inject
    public BundleContext context;
-
-   @Before
-   public void setUp() throws Exception
-   {
-      if (context == null)
-      {
-         OSGiRuntime runtime = createDefaultRuntime();
-         runtime.addCapability(new HuskyCapability());
-
-         streamFileToRuntime(runtime, getImportingBundle());
-         streamFileToRuntime(runtime, getExportingBundle());
-
-         // Install the test case bundle
-         OSGiBundle bundle = runtime.installBundle(getTestBundle());
-         bundle.start();
-      }
-   }
 
    @Test
    public void testRefreshPackages() throws Exception
    {
-      if (context == null)
-         BridgeFactory.getBridge().run();
-
-      assumeNotNull(context);
-      
-      File ibFile = context.getBundle(0).getBundleContext().getDataFile("opt-import-bundle.jar");
-      File ebFile = context.getBundle(0).getBundleContext().getDataFile("exporting-bundle.jar");
-
+      //      Bundle bundle = container.installBundle(container.getTestArchive("initial"));
+      //      try
       Bundle importing = null, exporting = null;
       FrameworkListener frameworkListener = null;
       try
       {
-         importing = context.installBundle(ibFile.toURI().toString());
+         importing = container.installBundle(container.getTestArchive("importing"));
          importing.start();
          try
          {
@@ -110,7 +80,7 @@ public class PackageAdminTestCase extends OSGiRuntimeTest
             // good
          }
 
-         exporting = context.installBundle(ebFile.toURI().toString());
+         exporting = container.installBundle(container.getTestArchive("exporting"));
          exporting.start();
          try
          {
@@ -121,7 +91,7 @@ public class PackageAdminTestCase extends OSGiRuntimeTest
          {
             // good
          }
-         
+
          final CountDownLatch latch = new CountDownLatch(1);
          frameworkListener = new FrameworkListener()
          {
@@ -155,83 +125,58 @@ public class PackageAdminTestCase extends OSGiRuntimeTest
       }
    }
 
-   private void streamFileToRuntime(OSGiRuntime runtime, JavaArchive archive) throws IOException
+   public static class BundleArchiveProvider implements ArchiveProvider
    {
-      VirtualFile inFile = toVirtualFile(archive);
-      File outFile = runtime.getBundle(0).getDataFile(archive.getName() + ".jar").getAbsoluteFile();
-
-      InputStream in = inFile.openStream();
-      FileOutputStream out = new FileOutputStream(outFile);
-
-      VFSUtils.copyStream(in, out);
-
-      in.close();
-      out.close();
-   }
-
-   private JavaArchive getImportingBundle()
-   {
-      // Bundle-SymbolicName: opt-import-bundle
-      // Import-Package: org.jboss.test.osgi.bundles.exporter;resolution:=optional
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "opt-import-bundle");
-      archive.setManifest(new Asset()
+      @Override
+      public JavaArchive getTestArchive(String name)
       {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addImportPackages(ExportedClass.class.getPackage().getName() + ";resolution:=optional");
-            return builder.openStream();
-         }
-      });
+         if ("importing".equals(name))
+            return getImportingBundle();
+         else if ("exporting".equals(name))
+            return getExportingBundle();
+         return null;
+      }
 
-      return archive;
-   }
-
-   private JavaArchive getExportingBundle()
-   {
-      // Bundle-SymbolicName: exporting-bundle
-      // Export-Package: org.jboss.test.osgi.bundles.exporter
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exporting-bundle");
-      archive.addClasses(ExportedClass.class);
-      archive.setManifest(new Asset()
+      private JavaArchive getImportingBundle()
       {
-         @Override
-         public InputStream openStream()
+         // Bundle-SymbolicName: opt-import-bundle
+         // Import-Package: org.jboss.test.osgi.bundles.exporter;resolution:=optional
+         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "opt-import-bundle");
+         archive.setManifest(new Asset()
          {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addExportPackages(ExportedClass.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+            @Override
+            public InputStream openStream()
+            {
+               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+               builder.addBundleManifestVersion(2);
+               builder.addBundleSymbolicName(archive.getName());
+               builder.addImportPackages(ExportedClass.class.getPackage().getName() + ";resolution:=optional");
+               return builder.openStream();
+            }
+         });
 
-   private JavaArchive getTestBundle()
-   {
-      // Bundle-SymbolicName: package-admin-test
-      // Export-Package: org.jboss.test.osgi.services.packageadmin
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "package-admin-test");
-      archive.addClasses(getClass());
-      archive.setManifest(new Asset()
+         return archive;
+      }
+
+      private JavaArchive getExportingBundle()
       {
-         @Override
-         public InputStream openStream()
+         // Bundle-SymbolicName: exporting-bundle
+         // Export-Package: org.jboss.test.osgi.bundles.exporter
+         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exporting-bundle");
+         archive.addClasses(ExportedClass.class);
+         archive.setManifest(new Asset()
          {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addExportPackages(getClass().getPackage().getName());
-            builder.addImportPackages("org.jboss.osgi.spi.capability", "org.jboss.osgi.husky", "org.jboss.osgi.testing", "org.junit", "org.osgi.framework");
-            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
-            builder.addManifestHeader("Test-Package", getClass().getPackage().getName());
-            return builder.openStream();
-         }
-      });
-      return archive;
+            @Override
+            public InputStream openStream()
+            {
+               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+               builder.addBundleManifestVersion(2);
+               builder.addBundleSymbolicName(archive.getName());
+               builder.addExportPackages(ExportedClass.class);
+               return builder.openStream();
+            }
+         });
+         return archive;
+      }
    }
 }

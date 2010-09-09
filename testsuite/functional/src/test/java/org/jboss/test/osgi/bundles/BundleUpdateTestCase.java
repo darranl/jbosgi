@@ -44,7 +44,7 @@ import org.osgi.framework.Version;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class BundleUpdateArquillianTestCase extends OSGiTest
+public class BundleUpdateTestCase extends OSGiTest
 {
    @Inject
    public OSGiContainer container;

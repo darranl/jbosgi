@@ -39,7 +39,6 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA;
 import org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;

@@ -57,8 +57,7 @@ import org.osgi.service.startlevel.StartLevel;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-// @Ignore("Ignore while I figure out why this is causing a JMX-related error in the remote scenario.")
-public class StartLevelArquillianTestCase
+public class StartLevelTestCase
 {
    @Inject
    public OSGiContainer container;

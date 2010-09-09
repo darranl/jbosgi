@@ -23,10 +23,8 @@ package org.jboss.test.osgi.example.simple.bundle;
 
 //$Id$
 
-import org.jboss.osgi.common.log.LogServiceTracker;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.service.log.LogService;
 
 /**
  * A Service Activator
@@ -36,20 +34,13 @@ import org.osgi.service.log.LogService;
  */
 public class SimpleActivator implements BundleActivator
 {
-   private LogService log;
-   
    public void start(BundleContext context)
    {
-      log = new LogServiceTracker(context);
-      log.log(LogService.LOG_INFO, "Start: " + context.getBundle());
-      
       // Register a service
-      SimpleService service = new SimpleService(context);
-      context.registerService(SimpleService.class.getName(), service, null);
+      context.registerService(SimpleService.class.getName(), new SimpleService(), null);
    }
 
    public void stop(BundleContext context)
    {
-      log.log(LogService.LOG_INFO, "Stop: " + context.getBundle());
    }
 }

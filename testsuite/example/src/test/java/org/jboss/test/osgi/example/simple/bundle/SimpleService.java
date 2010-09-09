@@ -23,9 +23,6 @@ package org.jboss.test.osgi.example.simple.bundle;
 
 //$Id$
 
-import org.jboss.osgi.common.log.LogServiceTracker;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.log.LogService;
 
 /**
  * A SimpleService
@@ -35,16 +32,12 @@ import org.osgi.service.log.LogService;
  */
 public class SimpleService 
 {
-   private LogService log;
-   
-   public SimpleService(BundleContext context)
+   public Integer sum(Integer... values)
    {
-      log = new LogServiceTracker(context);
-   }
-
-   public String echo(String msg)
-   {
-      log.log(LogService.LOG_INFO, "echo: " + msg);
-      return msg;
+      int result = 0;
+      for (int val : values)
+         result += val;
+      
+      return result;
    }
 }

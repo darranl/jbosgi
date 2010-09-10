@@ -62,7 +62,6 @@
     <version.jboss.osgi.framework>1.0.0.Alpha6</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.7</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.0</version.jboss.osgi.http>
-    <version.jboss.osgi.husky>1.0.7</version.jboss.osgi.husky>
     <version.jboss.osgi.jaxb>2.1.10.SP5</version.jboss.osgi.jaxb>
     <version.jboss.osgi.jbossas>1.0.3</version.jboss.osgi.jbossas>
     <version.jboss.osgi.jmx>1.0.7</version.jboss.osgi.jmx>
@@ -172,11 +171,6 @@
         <groupId>org.jboss.osgi.http</groupId>
         <artifactId>jboss-osgi-http</artifactId>
         <version>${version.jboss.osgi.http}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.husky</groupId>
-        <artifactId>jboss-osgi-husky</artifactId>
-        <version>${version.jboss.osgi.husky}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.jaxb</groupId>
@@ -454,10 +448,6 @@
                   <value>${jboss.osgi.framework.properties}</value>
                 </property>
                 <property>
-                  <name>org.jboss.osgi.husky.Invoker</name>
-                  <value>org.jboss.osgi.husky.internal.AbstractInvoker</value>
-                </property>
-                <property>
                   <!-- 
                     In embedded mode we don't have sufficient control over class path ordering. 
                     META-INF/services/javax.xml.parsers.DocumentBuilderFactory gets loaded from 
@@ -509,18 +499,6 @@
                 <property>
                   <name>jboss.osgi.framework.properties</name>
                   <value>${jboss.osgi.framework.properties}</value>
-                </property>
-                <property>
-                  <name>org.jboss.osgi.husky.Invoker</name>
-                  <value>org.jboss.osgi.husky.internal.AbstractInvoker</value>
-                </property>
-                <property>
-                  <name>org.jboss.osgi.husky.runtime.connector.host</name>
-                  <value>${jboss.bind.address}</value>
-                </property>
-                <property>
-                  <name>org.jboss.osgi.husky.runtime.connector.port</name>
-                  <value>5401</value>
                 </property>
                 <property>
                   <name>jndi.server.port</name>

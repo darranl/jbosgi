@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.Parameter;
@@ -79,11 +80,13 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
       return archive;
    }
 
+   abstract OSGiContainer getOSGiContainer();
+
    abstract BundleContext getBundleContext();
 
    void testPerformance(int size) throws Exception
    {
-      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(getBundleContext());
+      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(getOSGiContainer(), getBundleContext());
 
       // There is a problem with concurrent bundle installs it seems
       // int threads = Runtime.getRuntime().availableProcessors();

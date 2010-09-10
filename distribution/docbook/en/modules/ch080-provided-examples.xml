@@ -271,10 +271,56 @@ public void testMBeanAccess() throws Exception
       <ulink url="../../apidocs/org/jboss/osgi/spi/testing/OSGiRuntime.html">
       OSGiRuntime</ulink> abstraction.</para>
     </note>
-	</sect2>
-	
+    </sect2>
+
+    <sect2 xml:id="SecJMXBundleStateExample">
+      <title>Bundle State control via BundleStateMBean</title>
+
+      <para>The <emphasis role="bold">BundleStateTestCase</emphasis> uses JMX to control the bundle state through the BundleStateMBean. The <emphasis role="bold">testBundleStateMBean</emphasis> lists the available bundles over JMX. 
+      </para>
+      <programlisting role="JAVA">
+public void testBundleStateMBean() throws Exception
+{
+  BundleStateMBean bundleState = getRuntime().getBundleStateMBean();
+  assertNotNull("BundleStateMBean not null", bundleState);
+  
+  TabularData bundleData = bundleState.listBundles();
+  assertNotNull("TabularData not null", bundleData);
+  assertFalse("TabularData not empty", bundleData.isEmpty());
+}
+      </programlisting>
+
+      <para>
+        The <emphasis role="bold">testUpdateBundle</emphasis> updates a bundle in the framework over JMX.
+        It starts by installing a bundle via the FrameworkMBean. This bundle exports the package <emphasis role="bold">org.jboss.test.osgi.example.jmx.bundle.update1</emphasis>
+      </para>
+      <programlisting role="JAVA">
+public void testUpdateBundle() throws Exception
+{
+  FrameworkMBean fw = getRuntime().getFrameworkMBean();
+  BundleStateMBean bs = getRuntime().getBundleStateMBean();
+
+  // Install and start a bundle via JMX that exports a package
+  URL bundleURL = getTestArchiveURL("example-jmx-update1.jar");
+  long bundleId = fw.installBundle(bundleURL.toString());
+  fw.startBundle(bundleId);
+
+  // Obtain the exported packages through JMX
+  assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update1;0.0.0]",
+        Arrays.toString(bs.getExportedPackages(bundleId)));
+      </programlisting>
+      <para>
+        Subsequently the bundle is updated through <emphasis role="bold">FrameworkMBean.updateBundledFromURL()</emphasis>
+        with a revision that exports the package the package <emphasis role="bold">org.jboss.test.osgi.example.jmx.bundle.update2</emphasis>
+      </para>
+      <programlisting role="JAVA">
+  URL updatedURL = getTestArchiveURL("example-jmx-update2.jar");
+  fw.updateBundleFromURL(bundleId, updatedURL.toString());
+      </programlisting>
+    </sect2>
+
     <sect2 xml:id="SecJMXStartLevelExample">
-      <title>Start Level controll via FrameworkMBean</title>
+      <title>Start Level control via FrameworkMBean</title>
 
       <para>The <emphasis role="bold">StartLevelTestCase</emphasis> uses JMX to control bundle and framework start levels.
         The beginning of the <emphasis role="bold">testStartLevelMBean</emphasis> uses JMX to set the initial bundle start level to 2 and then installs a 

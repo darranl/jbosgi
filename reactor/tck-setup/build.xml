@@ -35,8 +35,7 @@
     <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
     <property name="framework.groupId" value="org/jboss/osgi/container" />
     <property name="framework.artifactId" value="jbosgi-container-aggregated" />
-    <property name="framework.classifier" value="assembly" />
-    <property name="framework.jar" value="${framework.artifactId}-${framework.version}-${framework.classifier}.jar" />
+    <property name="framework.jar" value="${framework.artifactId}-${framework.version}.jar" />
 
     <echo>************************************************</echo>
     <echo message="aQute.bnd.version=${aQute.bnd.version}" />

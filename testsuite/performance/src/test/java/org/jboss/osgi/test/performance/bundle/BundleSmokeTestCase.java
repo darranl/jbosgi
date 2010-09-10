@@ -94,6 +94,11 @@ public class BundleSmokeTestCase extends AbstractPerformanceTestCase
    @Inject
    public OSGiContainer container;
 
+   OSGiContainer getOSGiContainer()
+   {
+      return container;
+   }
+
    @Inject
    public BundleContext bundleContext;
 
@@ -105,7 +110,7 @@ public class BundleSmokeTestCase extends AbstractPerformanceTestCase
    @Test
    public void test5() throws Exception
    {
-      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(container, getBundleContext());
+      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(getOSGiContainer(), getBundleContext());
       bm.prepareTest(1, 5);
       bm.runThread("Thread_1_", 5);
    }

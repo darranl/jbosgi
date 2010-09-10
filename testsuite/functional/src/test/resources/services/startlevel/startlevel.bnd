@@ -3,6 +3,3 @@
 Bundle-SymbolicName: service-startlevel
 Bundle-Activator: org.jboss.test.osgi.services.startlevel.StartLevelActivator
 Export-Package: org.jboss.test.osgi.services.startlevel
-
-# Tell Husky that there are test cases in this package
-Test-Package: org.jboss.test.osgi.services.startlevel

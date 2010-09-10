@@ -6,9 +6,6 @@ Bundle-SymbolicName: example-xml-jaxb
 Export-Package: org.jboss.test.osgi.example.xml.jaxb
 
 Import-Package: com.sun.xml.bind.v2, javax.xml.bind*, javax.xml.datatype, javax.xml.namespace, \
-   org.jboss.osgi.jaxb, org.jboss.osgi.spi*, org.jboss.osgi.husky, org.jboss.osgi.testing, org.junit, org.osgi.framework, org.osgi.service.packageadmin
+   org.jboss.osgi.jaxb, org.jboss.osgi.spi*, org.jboss.osgi.testing, org.junit, org.osgi.framework, org.osgi.service.packageadmin
 
 Include-Resource: booking.xml, booking.xsd
-
-# Tell Husky that there are test cases in this package
-Test-Package: org.jboss.test.osgi.example.xml.jaxb

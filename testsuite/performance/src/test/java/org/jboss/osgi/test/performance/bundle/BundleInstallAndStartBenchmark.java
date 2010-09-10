@@ -29,22 +29,10 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Date;
 
-import org.jboss.osgi.test.common.CommonClass;
+import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
 import org.jboss.osgi.test.performance.ChartType;
 import org.jboss.osgi.test.performance.ChartTypeImpl;
-import org.jboss.osgi.test.util1.Util1;
-import org.jboss.osgi.test.util2.Util2;
-import org.jboss.osgi.test.util3.Util3;
-import org.jboss.osgi.test.util4.Util4;
-import org.jboss.osgi.test.util5.Util5;
-import org.jboss.osgi.test.versioned.VersionedInterface;
-import org.jboss.osgi.test.versioned.impl.VersionedClass;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -81,14 +69,22 @@ import org.osgi.framework.BundleContext;
  */
 public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<Integer>
 {
+   static final String COMMON_BUNDLE_PREFIX = "commonBundle#";
+   static final String UTIL_BUNDLE_PREFIX = "utilBundle#";
+   static final String VERSIONED_IMPL_BUNDLE_PREFIX = "versionedImplBundle#";
+   static final String VERSIONED_INTF_BUNDLE_PREFIX = "versionedIntfBundle#";
+   static final String TEST_BUNDLE_PREFIX = "testBundle#";
+
    private static final ChartType INSTALL_START = new ChartTypeImpl("IS", "Bundle Install and Start Time", "Number of Bundles", "Time (ms)");
    private final File bundleStorage;
+   private final OSGiContainer container;
 
-   protected BundleInstallAndStartBenchmark(BundleContext bc)
+   protected BundleInstallAndStartBenchmark(OSGiContainer container, BundleContext bc)
    {
       super(bc);
       bundleStorage = new File(tempDir, "bundles");
       bundleStorage.mkdirs();
+      this.container = container;
    }
    
    @Override
@@ -177,146 +173,27 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getCommonBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "common-bundle-" + version);
-      jar.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("CommonBundle" + version);
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
-            builder.addExportPackages(CommonClass.class.getPackage().getName() + ";version=\"" + version + ".0\"");
-            return builder.openStream();
-         }
-      });
-      jar.addClasses(CommonClass.class);
-      return getInputStream(jar);
+      return container.getTestArchiveStream(COMMON_BUNDLE_PREFIX + version);
    }
 
    private InputStream getUtilBundle(final int i) throws Exception
    {
-      final Class<?> utilClass = getUtilClass(i);
-      
-      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "util_" + i);
-      jar.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("Util" + i);
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + i + "," + i + "]\"");
-            builder.addExportPackages(utilClass.getPackage().getName() + ";uses:=\"" + CommonClass.class.getPackage().getName() + "\"");
-            return builder.openStream();
-         }
-      });
-      jar.addClasses(utilClass);
-      return getInputStream(jar);
-   }
-
-   private Class<?> getUtilClass(final int i)
-   {
-      switch (i)
-      {
-         case 1: 
-            return Util1.class;
-         case 2:
-            return Util2.class;
-         case 3:
-            return Util3.class;
-         case 4: 
-            return Util4.class;
-         case 5:
-            return Util5.class;
-      }
-      return null;
+      return container.getTestArchiveStream(UTIL_BUNDLE_PREFIX + i);
    }
 
    private InputStream getVersionedIntfBundle(final String version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "versioned-intf-bundle-" + version);
-      jar.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("VersionedIntfBundle" + version);
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages("org.osgi.framework");
-            builder.addExportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"" + version + ".0\"");
-            return builder.openStream();
-         }
-      });
-      jar.addClasses(VersionedInterface.class);
-      return getInputStream(jar);
+      return container.getTestArchiveStream(VERSIONED_INTF_BUNDLE_PREFIX + version);
    }
 
    private InputStream getVersionedImplBundle(final int version) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "versioned-impl-bundle-" + version);
-      jar.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            Class<?> utilClass = getUtilClass(version);
-
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("VersionedImplBundle" + version);
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages("org.osgi.framework");
-            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
-            builder.addImportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"[" + version + ".0," + version + ".0]\"");
-            builder.addImportPackages(utilClass.getPackage().getName());
-            builder.addExportPackages(VersionedClass.class.getPackage().getName() + ";version=\"" + version + ".0\";uses:=\""
-                  + utilClass.getPackage().getName() + "\"");
-            return builder.openStream();
-         }
-      });
-      jar.addClasses(VersionedClass.class);
-      return getInputStream(jar);
+      return container.getTestArchiveStream(VERSIONED_IMPL_BUNDLE_PREFIX + version);
    }
 
    private InputStream getTestBundle(final String threadName, final int counter) throws Exception
    {
-      final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "test-" + threadName + counter + ".jar");
-      jar.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName(getBSN(threadName, counter));
-            builder.addBundleActivator(BundlePerfTestActivator.class.getName());
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages("org.osgi.framework");
-
-            int ver = (counter % 5) + 1;
-            builder.addImportPackages(CommonClass.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
-            builder.addImportPackages(VersionedInterface.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
-            builder.addImportPackages(VersionedClass.class.getPackage().getName() + ";version=\"[" + ver + ".0," + ver + ".0]\"");
-            return builder.openStream();
-         }
-      });
-      jar.addClasses(BundlePerfTestActivator.class);
-
-      return getInputStream(jar);
-   }
-
-   private InputStream getInputStream(final JavaArchive jar) throws Exception
-   {
-      return jar.as(ZipExporter.class).exportZip();
-   }
-
-   private static String getBSN(String threadName, int counter)
-   {
-      return "Bundle-" + threadName + "-" + counter;
+      return container.getTestArchiveStream(TEST_BUNDLE_PREFIX + threadName + "#" + counter);
    }
 
    public static void pumpStreams(InputStream is, OutputStream os) throws IOException

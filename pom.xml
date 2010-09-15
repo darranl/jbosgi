@@ -51,7 +51,7 @@
     <version.apache.felix.metatype>1.0.2</version.apache.felix.metatype>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
-    <version.jboss.arquillian>1.0.0-SNAPSHOT</version.jboss.arquillian>
+    <version.jboss.arquillian>1.0.0.Alpha4-OSGi</version.jboss.arquillian>
     <version.jboss.osgi.blueprint>1.0.0</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.5</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17</version.jboss.osgi.common.core>

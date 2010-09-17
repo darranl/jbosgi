@@ -144,12 +144,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.xb</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-      <version>${version.jboss.osgi.xml.binding}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
       <version>${version.jboss.osgi.xerces}</version>

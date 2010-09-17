@@ -28,7 +28,6 @@
         <include>*:jboss-osgi-serviceloader:jar</include>
         <include>*:jboss-osgi-webapp:jar</include>
         <include>*:jboss-osgi-xerces:jar</include>
-        <include>*:jboss-osgi-xml-binding:jar</include>
         <include>*:org.apache.aries.jmx:jar</include>
         <include>*:org.apache.aries.util:jar</include>
         <include>*:org.apache.felix.configadmin:jar</include>

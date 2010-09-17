@@ -184,11 +184,6 @@
       <artifactId>jboss-osgi-xerces</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.xb</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-      <scope>provided</scope>
-    </dependency>
 
     <!-- javax.* -->
     <dependency>
@@ -212,6 +207,10 @@
         <exclusion>
           <groupId>org.jboss</groupId>
           <artifactId>jboss-common-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging-spi</artifactId>
         </exclusion>
       </exclusions>
       <scope>test</scope>

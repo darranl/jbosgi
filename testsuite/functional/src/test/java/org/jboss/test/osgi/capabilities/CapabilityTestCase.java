@@ -35,8 +35,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.jboss.osgi.jaxb.JAXBCapability;
 import org.jboss.osgi.jaxb.JAXBService;
-import org.jboss.osgi.jbossxb.UnmarshallerService;
-import org.jboss.osgi.jbossxb.XMLBindingCapability;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
@@ -109,28 +107,6 @@ public class CapabilityTestCase extends OSGiRuntimeTest
          
          OSGiServiceReference sref = runtime.getServiceReference(JAXBService.class.getName());
          assertNotNull("JAXBService registered", sref);
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
-   
-   @Test
-   public void testXMLBindingCapability() throws Exception
-   {
-      OSGiRuntime runtime = createEmbeddedRuntime();
-      try
-      {
-         runtime.addCapability(new LogServiceCapability());
-         
-         OSGiBundle bundle = runtime.getBundle("jboss-osgi-xml-binding", null);
-         assertNull("Test bundle null", bundle);
-         
-         runtime.addCapability(new XMLBindingCapability());
-         
-         OSGiServiceReference sref = runtime.getServiceReference(UnmarshallerService.class.getName());
-         assertNotNull("UnmarshallerService registered", sref);
       }
       finally
       {

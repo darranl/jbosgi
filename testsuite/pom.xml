@@ -367,8 +367,8 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>org.jboss.osgi.container</groupId>
-          <artifactId>jbosgi-container-core</artifactId>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jbosgi-framework-core</artifactId>
           <scope>provided</scope>
         </dependency>
         <dependency>
@@ -395,8 +395,8 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>org.jboss.osgi.container</groupId>
-          <artifactId>jbosgi-container-core</artifactId>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jbosgi-framework-core</artifactId>
           <scope>provided</scope>
         </dependency>
         <dependency>

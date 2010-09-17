@@ -1,3 +1,0 @@
-[submodule "reactor/jbosgi-container"]
-	path = reactor/jbosgi-container
-	url = git://github.com/jbosgi/jbosgi-container.git

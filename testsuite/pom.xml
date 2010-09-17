@@ -302,55 +302,6 @@
     </profile>
 
     <!-- 
-      Name: framework-jbossmc 
-      Descr: Setup for JBossMC framework integration testing 
-    -->
-    <profile>
-      <id>framework-jbossmc</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>jbossmc</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-core</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jboss-osgi-framework-metadata</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.resolver</groupId>
-          <artifactId>jbosgi-resolver-api</artifactId>
-          <version>1.0.0</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.resolver</groupId>
-          <artifactId>jbosgi-resolver-spi</artifactId>
-          <version>1.0.0</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.resolver</groupId>
-          <artifactId>jbosgi-resolver-felix</artifactId>
-          <version>3.0.1</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <!-- 
       Name: framework-jbmsc 
       Descr: Setup for MSC Framework integration testing 
     -->

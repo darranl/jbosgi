@@ -125,7 +125,6 @@
         <include name="jboss-osgi-spi-sources.jar" />
         <include name="jboss-osgi-webapp-sources.jar" />
         <include name="jboss-osgi-webconsole-sources.jar" />
-        <include name="jboss-osgi-xml-binding-sources.jar" />
       </fileset>
 
     </pack>
@@ -166,8 +165,6 @@
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
         <include name="shrinkwrap-api.jar" />
-        <include name="slf4j-api.jar" />
-        <include name="slf4j-log4j12.jar" />
         <include name="xercesImpl.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/lib" override="true">
@@ -254,7 +251,6 @@
         <include name="jboss-osgi-jta.jar" />
         <include name="jboss-osgi-reflect.jar" />
         <include name="jboss-osgi-xerces.jar" />
-        <include name="jboss-osgi-xml-binding.jar" />
       </fileset>
 
     </pack>

@@ -30,6 +30,10 @@
   <!-- Dependencies -->
   <dependencies>
     <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
     </dependency>
@@ -264,16 +268,6 @@
       <artifactId>jboss-osgi-testsuite-example</artifactId>
       <version>${project.version}</version>
       <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.xb</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.xb</groupId>
-      <artifactId>jboss-osgi-xml-binding</artifactId>
-      <version>${version.jboss.osgi.xml.binding}</version>
-      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>

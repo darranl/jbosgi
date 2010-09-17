@@ -107,7 +107,7 @@
 
       <!-- JBossOSGi Source -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/source" override="true">
-        <include name="jbosgi-container-core-sources.jar" />
+        <include name="jbosgi-framework-core-sources.jar" />
         <include name="jbosgi-resolver-api-sources.jar" />
         <include name="jbosgi-resolver-spi-sources.jar" />
         <include name="jbosgi-resolver-felix-sources.jar" />
@@ -149,7 +149,7 @@
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="args4j.jar" />
         <include name="javax.inject.jar" />
-        <include name="jbosgi-container-core.jar" />
+        <include name="jbosgi-framework-core.jar" />
         <include name="jbosgi-resolver-api.jar" />
         <include name="jbosgi-resolver-spi.jar" />
         <include name="jbosgi-resolver-felix.jar" />

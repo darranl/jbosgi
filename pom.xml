@@ -285,33 +285,6 @@
         <version>${version.apache.felix.core}</version>
       </dependency>
 
-      <!-- MC based Framework Dependencies -->
-      <dependency>
-        <groupId>org.jboss.osgi.framework</groupId>
-        <artifactId>jboss-osgi-framework</artifactId>
-        <version>${version.jboss.osgi.framework}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.framework</groupId>
-        <artifactId>jboss-osgi-framework-core</artifactId>
-        <version>${version.jboss.osgi.framework}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.framework</groupId>
-        <artifactId>jboss-osgi-framework-metadata</artifactId>
-        <version>${version.jboss.osgi.framework}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.framework</groupId>
-        <artifactId>jboss-osgi-framework-vfs21</artifactId>
-        <version>${version.jboss.osgi.framework}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.framework</groupId>
-        <artifactId>jboss-osgi-framework-vfs30</artifactId>
-        <version>${version.jboss.osgi.framework}</version>
-      </dependency>
-
       <!-- MSC based Framework Dependencies -->
       <dependency>
         <groupId>org.jboss.osgi.framework</groupId>

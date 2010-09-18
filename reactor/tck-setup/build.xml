@@ -33,8 +33,8 @@
     <property name="username" value="${env.USER}" />
     <property name="tck.checkout.dir" value="${env.TCKCHECKOUT}" />
     <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
-    <property name="framework.groupId" value="org/jboss/osgi/container" />
-    <property name="framework.artifactId" value="jbosgi-container-aggregated" />
+    <property name="framework.groupId" value="org/jboss/osgi/framework" />
+    <property name="framework.artifactId" value="jbosgi-framework-aggregated" />
     <property name="framework.jar" value="${framework.artifactId}-${framework.version}.jar" />
 
     <echo>************************************************</echo>
@@ -52,7 +52,7 @@
     <available property="aQute.bnd.available" file="${aQute.bnd.jar}" />
     <fail message="Cannot find: ${aQute.bnd.jar}" unless="aQute.bnd.available" />
 
-    <!-- Check if the jboss.osgi.container jar is available -->
+    <!-- Check if the jboss.osgi.framework jar is available -->
     <property name="framework.jar.path" value="${maven.local.repository}/${framework.groupId}/${framework.artifactId}/${framework.version}/${framework.jar}" />
     <available property="framework.jar.available" file="${framework.jar.path}" />
     <fail message="Cannot find: ${framework.jar}" unless="framework.jar.available" />
@@ -91,8 +91,8 @@
   <!-- Update the JBoss OSGi Framework -->
   <target name="update-framework" description="Update the JBoss OSGi Framework" depends="init">
     <!-- Copy the OSGi Framework -->
-    <mkdir dir="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container" />
-    <copy file="${framework.jar.path}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.container/org.jboss.osgi.container-1.0.0.jar"
+    <mkdir dir="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework" />
+    <copy file="${framework.jar.path}" tofile="${tck.checkout.dir}/licensed/repo/org.jboss.osgi.framework/org.jboss.osgi.framework-1.0.0.jar"
       overwrite="true" />
   </target>
 

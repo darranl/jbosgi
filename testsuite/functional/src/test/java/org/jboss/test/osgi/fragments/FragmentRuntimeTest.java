@@ -47,6 +47,7 @@ import org.jboss.test.osgi.fragments.hostB.HostBActivator;
 import org.jboss.test.osgi.fragments.hostC.HostCActivator;
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -57,6 +58,7 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
+@Ignore("Temporarily disabled")
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
    @BeforeClass

@@ -47,7 +47,6 @@ import org.jboss.test.osgi.fragments.hostB.HostBActivator;
 import org.jboss.test.osgi.fragments.hostC.HostCActivator;
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -58,7 +57,6 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
-@Ignore("Temporarily disabled")
 public class FragmentRuntimeTest extends OSGiRuntimeTest
 {
    @BeforeClass
@@ -325,7 +323,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    private JavaArchive getHostA()
    {
       // Bundle-SymbolicName: simple-hostA
-      // Bundle-Activator: org.jboss.test.osgi.container.fragments.hostA.HostAActivator
+      // Bundle-Activator: org.jboss.test.osgi.fragments.hostA.HostAActivator
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-hostA");
       archive.addClasses(HostAActivator.class, SubBeanA.class);
       archive.setManifest(new Asset()
@@ -345,8 +343,8 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    private JavaArchive getHostB()
    {
       // Bundle-SymbolicName: simple-hostB
-      // Bundle-Activator: org.jboss.test.osgi.container.fragments.hostB.HostBActivator
-      // Export-Package: org.jboss.test.osgi.container.fragments.subA
+      // Bundle-Activator: org.jboss.test.osgi.fragments.hostB.HostBActivator
+      // Export-Package: org.jboss.test.osgi.fragments.subA
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-hostB");
       archive.addClasses(HostBActivator.class, SubBeanA.class);
       archive.setManifest(new Asset()
@@ -367,8 +365,8 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    private JavaArchive getHostC()
    {
       //Bundle-SymbolicName: simple-hostC
-      //Bundle-Activator: org.jboss.test.osgi.container.fragments.hostC.HostCActivator
-      //Import-Package: org.osgi.framework, org.jboss.test.osgi.container.fragments.fragA
+      //Bundle-Activator: org.jboss.test.osgi.fragments.hostC.HostCActivator
+      //Import-Package: org.osgi.framework, org.jboss.test.osgi.fragments.fragA
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-hostC");
       archive.addClasses(HostCActivator.class);
       archive.setManifest(new Asset()
@@ -412,8 +410,8 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    private JavaArchive getFragmentB()
    {
       // Bundle-SymbolicName: simple-fragB
-      // Export-Package: org.jboss.test.osgi.container.fragments.fragB
-      // Import-Package: org.jboss.test.osgi.container.fragments.subA
+      // Export-Package: org.jboss.test.osgi.fragments.fragB
+      // Import-Package: org.jboss.test.osgi.fragments.subA
       // Fragment-Host: simple-hostA
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-fragB");
       archive.addClasses(FragBeanB.class);
@@ -436,7 +434,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest
    private JavaArchive getFragmentC()
    {
       // Bundle-SymbolicName: simple-fragC
-      // Export-Package: org.jboss.test.osgi.container.fragments.fragC
+      // Export-Package: org.jboss.test.osgi.fragments.fragC
       // Require-Bundle: simple-hostB
       // Fragment-Host: simple-hostA
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-fragC");

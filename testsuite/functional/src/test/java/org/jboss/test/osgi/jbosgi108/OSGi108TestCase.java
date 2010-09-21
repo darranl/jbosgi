@@ -34,7 +34,6 @@ import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBeanMBean;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -45,7 +44,6 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
-@Ignore("Temporarily disabled")
 public class OSGi108TestCase extends OSGiRuntimeTest
 {
    @BeforeClass

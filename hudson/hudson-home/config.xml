@@ -93,7 +93,7 @@
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
         <string>JBoss-6.0.1</string>
-        <string>jbosgi-container</string>
+        <string>jbosgi-framework</string>
         <string>jbosgi-embedded</string>
         <string>jbosgi-remote</string>
         <string>jbosgi-remote-matrix</string>

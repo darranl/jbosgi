@@ -29,7 +29,7 @@ jboss.bind.address=127.0.0.1
 # -----------------------
 # hudson.root=/home/username/workspace/hudson/jboss-osgi
 # hudson.admin=username
-# hudson.version=1.355
+hudson.version=1.377
 
 # JBoss Distributions
 # -------------------

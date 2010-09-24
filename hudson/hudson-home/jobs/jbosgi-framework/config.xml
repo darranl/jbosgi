@@ -1,17 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>The build of the JBoss MSC based framework.</description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl>http://github.com/jbosgi/jbosgi-framework/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <configVersion>1</configVersion>
     <remoteRepositories>
       <org.spearce.jgit.transport.RemoteConfig>
-        <string>origin</string>
+        <string>github</string>
         <int>5</int>
         <string>fetch</string>
-        <string>+refs/heads/*:refs/remotes/origin/*</string>
+        <string>+refs/heads/*:refs/remotes/github/*</string>
         <string>receivepack</string>
         <string>git-upload-pack</string>
         <string>uploadpack</string>
@@ -37,41 +45,22 @@
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>jdk1.6</jdk>
-  <triggers class="vector"/>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>*/15 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command>
-export TCKCHECKOUT=$WORKSPACE/tck-checkout
-export TCKSETUP=$WORKSPACE/jbosgi/reactor/tck-setup
-
-# Clone the TCK repo 
-if [ ! -d $TCKCHECKOUT ]; then
-  git clone ~hudson/git/org.osgi.tck $TCKCHECKOUT
-fi
-
-# Clone the jbosgi repo 
-if [ ! -d $TCKSETUP ]; then
-  git clone git://github.com/jbosgi/jbosgi.git 
-else
-  cd jbosgi; git pull origin master
-fi
-
-# Switch to known tck-checkout tag 
-cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final
-
-# Setup the TCK
-cd $TCKSETUP; cp ant.properties.example ant.properties
-ant clean setup.ri
-
-# Run the webapp tests
-ant run-webapp-tests
-      </command>
-    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>-fae clean install</targets>
+      <mavenName>apache-maven-3.0-beta-1</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>tck-checkout/*/generated/**/test-reports/TEST-*.xml</testResults>
+      <testResults>**/target/surefire-reports/TEST-*.xml</testResults>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
   </publishers>

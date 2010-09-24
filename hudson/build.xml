@@ -42,7 +42,6 @@
   <target name="init-hudson" depends="init">
     <property name="hudson.home" value="${hudson.root}/hudson-home"/>
     <property name="hudson.jboss" value="${hudson.root}/jboss"/>
-    <property name="hudson.version" value="1.355"/>
     
     <echo/>
     <echo message="hudson.user = ${hudson.admin}"/>

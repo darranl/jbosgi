@@ -146,6 +146,7 @@
         <filterset>
           <filter token="scm.git.url.jbosgi" value="${scm.git.url.jbosgi}"/>
           <filter token="version.id" value="${version.id}"/>
+          <filter token="username" value="${username}"/>
           <filtersfile file="${hudson.dir}/ant.properties"/>
         </filterset>
       </copy>

@@ -21,7 +21,7 @@
     <para>To run the installer execute the following command:</para>
     
     <programlisting>
-    java -jar jboss-osgi-installer-1.0.0.Beta8.jar
+    java -jar jboss-osgi-installer-1.0.0.Beta9.jar
     </programlisting>
       
     <para>The installer first shows a welcome screen</para>
@@ -119,7 +119,7 @@ $ bin/run.sh
 
   JBossOSGi Bootstrap Environment
 
-  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta8/runtime
+  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta9/runtime
 
   JAVA: /usr/java/jdk1.6/bin/java
 

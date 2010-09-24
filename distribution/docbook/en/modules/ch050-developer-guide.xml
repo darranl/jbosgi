@@ -29,7 +29,6 @@
       <listitem><ulink url="../../apidocs/org/jboss/osgi/spi/package-summary.html">org.jboss.osgi.spi</ulink> - Common classes and interfaces.</listitem>
       <listitem><ulink url="../../apidocs/org/jboss/osgi/spi/capability/package-summary.html">org.jboss.osgi.spi.capability</ulink> - Capabilities that can be installed in the OSGi framework.</listitem>
       <listitem><ulink url="../../apidocs/org/jboss/osgi/spi/framework/package-summary.html">org.jboss.osgi.spi.framework</ulink> - Framework integration and bootstrap.</listitem>
-      <listitem><ulink url="../../apidocs/org/jboss/osgi/spi/service/package-summary.html">org.jboss.osgi.spi.service</ulink> -  A collection of SPI provided services.</listitem>
       <listitem><ulink url="../../apidocs/org/jboss/osgi/spi/util/package-summary.html">org.jboss.osgi.spi.util</ulink> -  A collection of SPI provided utilities.</listitem>
       <listitem><ulink url="../../apidocs/org/jboss/osgi/testing/package-summary.html">org.jboss.osgi.testing</ulink> -  Test support classes and interfaces.</listitem>
     </itemizedlist>
@@ -75,12 +74,12 @@
     <para>OSGiBootstrapProvider implementations that read their configurtation from some other source are possible, but currently not
     part of the JBoss OSGi SPI.</para>
     
-    <tip>
+    <!-- tip>
       <title>Using the SPI from within JBossAS deployed components</title>
       <para>If you need access to the OSGi Framework from within an JBossAS deployed component (e.g. servlet, ejb, mbean) you 
       <emphasis role="bold">would not</emphasis> bootstrap JBoss OSGi through the SPI. Instead, you would inject the already bootstrapped
       OSGi Framework instance into your component.</para>
-    </tip>
+    </tip-->
   </sect1>
   
   <sect1 xml:id="SecJMXView">  
@@ -97,6 +96,7 @@
     <ulink url="../../apidocs/org/jboss/osgi/testing/OSGiRuntime.html">OSGiRuntime</ulink>.
     </para> 
     
+    <!-- 
     <para>If you install JBoss OSGi in an already existing JBossAS instance you also get access to the Managed Objects through the JBoss provided
     JMX Console (<ulink url="http://localhost:8080/jmx-console">http://localhost:8080/jmx-console</ulink>).</para> 
     
@@ -109,6 +109,7 @@
     <note>
       <para>The JMX Console is <emphasis role="bold">not part</emphasis> of the <link linkend="ChapRuntime">JBoss OSGi Runtime</link>.</para>
     </note> 
+    -->
   </sect1>
   
   <sect1 xml:id="SecWritingTests">  
@@ -123,18 +124,62 @@
       <listitem>Remote OSGi Framework</listitem>
     </itemizedlist>
     
+    <!-- 
     <para>The remote scenario can actually be separated again in:</para>
     
     <itemizedlist>
       <listitem>Standalone JBoss OSGi Runtime</listitem>
       <listitem>JBoss OSGi Runtime running in JBossAS</listitem>
     </itemizedlist>
+    -->
     
-    <para>A test case that takes advantage of the OSGi runtime abstration that transparently handles the various remote scenarios.</para>
+    <para>A test case that takes advantage of the OSGi runtime abstration transparently handles the various remote scenarios.</para>
     
-    <sect2 xml:id="SecWritingTestsSimpleTestCase">
+    <sect2 xml:id="SecWritingTestsFrameworkTest">
       
-      <title>Simple Test Case</title>
+      <title>Simple Framework Test Case</title>
+      
+      <para>The most basic form of OSGi testing can be done with an OSGiFrameworkTest. This would boostrap the framework in the @BeforeClass scope
+      and make the framework instance available through getFramework(). Due to classloading restrictions, you cannot however not share non-primitive 
+      types between the test and the framework.
+      </para>
+      
+      <programlisting role="JAVA">
+public class SimpleFrameworkTestCase extends OSGiFrameworkTest
+{
+   @Test
+   public void testSimpleBundle() throws Exception
+   {
+      // Get the bundle location
+      URL url = getTestArchiveURL("example-simple.jar");
+      
+      // Install the Bundle
+      BundleContext sysContext = getFramework().getBundleContext();
+      Bundle bundle = sysContext.installBundle(url.toExternalForm());
+      assertBundleState(Bundle.INSTALLED, bundle.getState());
+
+      // Start the bundle
+      bundle.start();
+      assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+      // Stop the bundle
+      bundle.stop();
+      assertBundleState(Bundle.RESOLVED, bundle.getState());
+      
+      // Uninstall the bundle
+      bundle.uninstall();
+      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+   }
+}      </programlisting>
+      
+      <para>These tests always work with an embedded OSGi framework. You can however use the -Dframework property to run the test against a
+      different framework implemenation (i.e. <ulink url="http://felix.apache.org">Apache Felix</ulink>).
+      </para>
+    </sect2>
+    
+    <sect2 xml:id="SecWritingTestsRuntimeTest">
+      
+      <title>Simple Runtime Test Case</title>
     
       <para>The test case bootstraps the OSGi Runtime, installes/starts the bundle, asserts the bundle state and finally 
       shuts down the runtime again. Please note, this is a plain JUnit4 test case that transparently handles embedded/remote 
@@ -142,14 +187,13 @@
       </para>
       
       <programlisting role="JAVA">
-public class SimpleTestCase extends OSGiTest
+public class SimpleRuntimeTestCase extends OSGiRuntimeTest
 {
    @Test
    public void testSimpleBundle() throws Exception
    {
       // Get the default runtime
-      OSGiRuntime runtime = getDefaultRuntime();
-      
+      OSGiRuntime runtime = getRuntime();
       try
       {
          // Install the bundle
@@ -175,9 +219,9 @@ public class SimpleTestCase extends OSGiTest
       </para>
       
       <programlisting role="JAVA">
-      [tdiesler@tddell example]$ mvn -Dtest=SimpleTestCase test
+      [tdiesler@tddell example]$ mvn -Dtest=SimpleRuntimeTestCase test
       ...
-      Running org.jboss.test.osgi.example.simple.SimpleTestCase
+      Running org.jboss.test.osgi.example.simple.SimpleRuntimeTestCase
       Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.361 sec
       </programlisting>
       
@@ -185,81 +229,27 @@ public class SimpleTestCase extends OSGiTest
       </para>
       
       <programlisting role="JAVA">
-      [tdiesler@tddell example]$ mvn -Dtarget.container=runtime -Dtest=SimpleTestCase test
+      [tdiesler@tddell example]$ mvn -Dtarget.container=runtime -Dtest=SimpleRuntimeTestCase test
       ...
-      Running org.jboss.test.osgi.example.simple.SimpleTestCase
-      Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.303 sec
+      Running org.jboss.test.osgi.example.simple.SimpleRuntimeTestCase
+      Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.979 sec
      </programlisting>
      
       <para>In the runtime console you should see</para>
       
       <programlisting role="JAVA">
-      12:44:30,960 INFO  [jboss-osgi-common] Installed: example-simple [8]
-      12:44:31,081 INFO  [example-simple] Start: example-simple [8]
-      12:44:31,089 INFO  [example-simple] Stop: example-simple [8]
-      12:44:31,095 INFO  [jboss-osgi-common] Uninstalled: example-simple [8]
+      14:36:38,954 INFO  [FrameworkEventsPluginImpl] Bundle INSTALLED: example-simple:0.0.0
+      14:36:39,098 INFO  [FrameworkEventsPluginImpl] Bundle STARTED: example-simple:0.0.0
+      14:36:39,108 INFO  [FrameworkEventsPluginImpl] Bundle STOPPED: example-simple:0.0.0
+      14:36:39,109 INFO  [FrameworkEventsPluginImpl] Bundle UNINSTALLED: example-simple:0.0.0
      </programlisting>
     
       <para>Due to classloading restrictions it is not possible to interact with the services that get registered in the OSGi Framework 
       directly. Instead, there must be some means for the bundle under test to communicate with the test case that lives outside the 
-      Framework. The approach of OSGi testing based on remote log messages is covered in 
-      <ulink url="http://jbossosgi.blogspot.com/2009/04/non-intrusive-osgi-bundle-testing.html">Non intrusive OSGi Bundle Testing</ulink>.</para>
+      Framework.</para>
      
       <para>The next section explains how to write a plain JUnit test that is then executed within the OSGi Runtime.</para>
     </sect2>
-    
-    <sect2 xml:id="SecWritingTestsSimpleHuskyTestCase">
-      
-      <title>Simple Husky Test Case</title>
-      
-      <para>The test case does everthing identical to <link linkend="SecWritingTestsSimpleTestCase">SimpleTestCase</link>, 
-      but only executes the code in the test method when Husky injected the BundleContext. 
-      </para>
-      
-      <programlisting role="JAVA">
-public class SimpleHuskyTestCase
-{
-   @ProvideContext
-   public BundleContext context;
-   ...
-   @Test
-   public void testSimpleBundle() throws Exception
-   {
-      // Tell Husky to run this test method within the OSGi Runtime
-      if (context == null)
-         BridgeFactory.getBridge().run();
-      
-      // Stop here if the context is not injected
-      assumeNotNull(context);
-      
-      // Get the SimpleService reference
-      ServiceReference sref = context.getServiceReference(SimpleService.class.getName());
-      assertNotNull("SimpleService Not Null", sref);
-      
-      // Access the SimpleService 
-      SimpleService service = (SimpleService)context.getService(sref);
-      assertEquals("hello", service.echo("hello"));
-   }
-}
-      </programlisting>
-      
-      <para>Running this test is also no different from <link linkend="SecWritingTestsSimpleTestCase">SimpleTestCase</link>.</para>
-
-      <para>In the runtime console you should see</para>
-      
-      <programlisting role="JAVA">
-      13:29:15,924 INFO  [jboss-osgi-common] Installed: example-simple-husky [16]
-      13:29:15,972 INFO  [example-simple-husky] Start: example-simple-husky [16]
-      13:29:15,981 INFO  [jboss-osgi-husky] Test-Package [org.jboss.test.osgi.example.simple] in bundle: example-simple-husky [16]
-      13:29:16,160 INFO  [example-simple-husky] echo: hello
-      13:29:16,191 INFO  [example-simple-husky] Stop: example-simple-husky [16]
-      13:29:16,196 INFO  [jboss-osgi-common] Uninstalled: example-simple-husky [16]
-     </programlisting>
-
-      <para>To learn more about the magic of the BridgeFactory have a look at <link linkend="ChapHuskyTesting">Husky Test Framework</link>
-      which comes next.</para>
-    </sect2>
-    
   </sect1>
   
   <sect1 xml:id="SecLifecycleInterceptors">  

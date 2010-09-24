@@ -13,9 +13,8 @@
   <xi:include href="modules/ch010-introduction.xml"/>
   <xi:include href="modules/ch020-getting-started.xml"/>
   <xi:include href="modules/ch030-runtime.xml"/>
-  <xi:include href="modules/ch040-framework-integration.xml"/>
   <xi:include href="modules/ch050-developer-guide.xml"/>
-  <xi:include href="modules/ch060-husky-testing.xml"/>
+  <xi:include href="modules/ch060-arquillian-testing.xml"/>
   <xi:include href="modules/ch070-provided-bundles.xml"/>
   <xi:include href="modules/ch080-provided-examples.xml"/>
   <xi:include href="modules/ch090-references.xml"/>

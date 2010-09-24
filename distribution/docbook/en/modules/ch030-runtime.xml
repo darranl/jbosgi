@@ -207,6 +207,7 @@ $ bin/run.sh -c minimal
     <para>These additional bundles are installed:</para>
   
     <itemizedlist>
+      <listitem><emphasis role="bold">arquillian-osgi-bundle.jar</emphasis> - Arquillian test support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jaxb.jar</emphasis> - JAXB support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jta.jar</emphasis> - JTA support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-xerces.jar</emphasis> - Apache Xerces support</listitem>

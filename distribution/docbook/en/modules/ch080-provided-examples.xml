@@ -45,6 +45,7 @@ Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
     mvn -Dtarget.container=runtime test
     </programlisting>
     
+    <!-- 
     <para>Suported target container values are:</para> 
     
     <itemizedlist>
@@ -54,7 +55,9 @@ Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
       <listitem>jboss600</listitem>
       <listitem>jboss601</listitem>
     </itemizedlist>
+    -->
 
+    <!-- 
     <para>To run the examples against a different OSGi Framework, you need to define the
     <emphasis role="bold">framework</emphasis> system property.</para>
      
@@ -69,6 +72,7 @@ Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
       <listitem>equinox</listitem>
       <listitem>felix</listitem>
     </itemizedlist>
+    -->
   </sect1>
   
   <sect1 xml:id="SecEventAdminExample">  
@@ -580,25 +584,6 @@ public class PublisherInterceptor extends AbstractLifecycleInterceptor
     </programlisting>
   </sect1>
   
-  <sect1 xml:id="SecMicrocontainerServiceExample">  
-    <title>Microcontainer Service</title>
-    
-    <para>The <emphasis role="bold">example-microcontainer.jar</emphasis> bundle calls a service 
-    from an MC bean and vica versa. The MC bean gets the MBeanServer injected and registeres itself as an MBean.</para>
-    
-    <para>The test accesses the registered MBean.</para>
-
-    <programlisting role="JAVA">
-@Test
-public void testServiceRoundTrip() throws Exception
-{
-  SomeBeanMBean someBean = MBeanProxy.get(SomeBeanMBean.class, MBEAN_NAME, runtime.getMBeanServer());
-  assertEquals("hello", someBean.echo("hello"));
-  assertEquals("hello", someBean.callSomeService("hello"));
-}
-    </programlisting>
-  </sect1>
-  
   <sect1 xml:id="SecWebAppExample">  
     <title>Web Application</title>
     
@@ -706,28 +691,6 @@ URL resURL = context.getBundle().getResource("example-xml-parser.xml");
 SAXHandler saxHandler = new SAXHandler();
 saxParser.parse(resURL.openStream(), saxHandler);
 assertEquals("content", saxHandler.getContent());
-    </programlisting>
-  </sect1>
-  
-  <sect1 xml:id="SecXMLBindingServiceExample">  
-    <title>XML Unmarshaller Service</title>
-
-    <para>The <emphasis role="bold">example-xml-binding.jar</emphasis> bundle unmarshalls an XML document through the UnmarshallerService.
-    This example is very similar to the <link linkend="SecJAXBServiceExample">JAXB Example</link>. However, it uses JBossXB to do the 
-    unmarshalling.</para>
-    
-    <programlisting role="JAVA">
-ServiceReference sref = context.getServiceReference(UnmarshallerService.class.getName());
-UnmarshallerService unmarshaller = (UnmarshallerService)context.getService(sref);
-
-Bundle bundle = context.getBundle();
-URL xsdurl = bundle.getEntry("booking.xsd");
-URL xmlurl = bundle.getEntry("booking.xml");
-
-unmarshaller.registerSchemaLocation("http://org.jboss.test.osgi.jbossxb.simple/booking.xsd", xsdurl.toExternalForm());
-unmarshaller.addClassBinding(CourseBooking.NAMESPACE_XML_SIMPLE, CourseBooking.class);
-
-CourseBooking booking = (CourseBooking)unmarshaller.unmarshal(xmlurl.toExternalForm());
     </programlisting>
   </sect1>
   

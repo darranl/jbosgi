@@ -10,7 +10,7 @@ framework.version=1.0.0.Alpha9-SNAPSHOT
 aQute.bnd.version=0.0.366-SNAPSHOT
 
 # The location of the OSGi TCK
-# tck.checkout.dir=/home/yourname/svn/jboss-tck/osgitck/r4v42
+# tck.checkout.dir=/home/yourname/git/osgitck
 
 # TCK user
 # username=yourname

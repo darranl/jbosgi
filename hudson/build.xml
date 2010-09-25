@@ -42,7 +42,6 @@
   <target name="init-hudson" depends="init">
     <property name="hudson.home" value="${hudson.root}/hudson-home"/>
     <property name="hudson.jboss" value="${hudson.root}/jboss"/>
-    <property name="hudson.version" value="1.355"/>
     
     <echo/>
     <echo message="hudson.user = ${hudson.admin}"/>
@@ -147,6 +146,7 @@
         <filterset>
           <filter token="scm.git.url.jbosgi" value="${scm.git.url.jbosgi}"/>
           <filter token="version.id" value="${version.id}"/>
+          <filter token="username" value="${username}"/>
           <filtersfile file="${hudson.dir}/ant.properties"/>
         </filterset>
       </copy>

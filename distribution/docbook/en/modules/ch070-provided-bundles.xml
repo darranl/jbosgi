@@ -171,32 +171,6 @@
     <para>For details please refer to the <ulink url="http://www.jboss.org/jbosstm/docs/index.html">JBossTM documentation</ulink>.</para>
   </sect1>
   
-  <sect1 xml:id="SecBundleMicrocontainer">  
-    <title>Microcontainer Service</title>
-    
-    <para>The JBoss OSGi Microcontainer Service gives access to the <ulink url="http://www.jboss.org/jbossmc">JBoss Microcontainer</ulink> Kernel. 
-    The service is registered with the Framework under the name.</para>
-    
-    <itemizedlist>
-      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/spi/service/MicrocontainerService.html">org.jboss.osgi.spi.service.MicrocontainerService</ulink></emphasis></listitem>
-    </itemizedlist>
-    
-    <para>Here is an example of how an OSGi component can access an arbitrary MC bean.</para>
-    
-    <programlisting role="JAVA">
-public class SomeService
-{
-   public String callSomeBean(String msg)
-   {
-      ServiceReference sref = context.getServiceReference(MicrocontainerService.class.getName());
-      MicrocontainerService mcService = (MicrocontainerService)context.getService(sref);
-      SomeBean bean = (SomeBean)mcService.getRegisteredBean("SomeBean");
-      return bean.echo(msg);
-   }
-}
-    </programlisting>
-  </sect1>
-  
   <sect1 xml:id="SecServiceLoader">  
     <title>ServiceLoader Interceptor</title>
     
@@ -246,20 +220,6 @@ public class SomeService
     
     <para>Please see <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/util/xml/XMLParserActivator.html">XMLParserActivator</ulink>
     for details.</para>
-    
-  </sect1>
-  
-  <sect1 xml:id="SecBundleXMLBinding">  
-    <title>XML Binding Services</title>
-    
-    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-xml-binding.jar</emphasis> bundle provides an 
-    <ulink url="http://www.jboss.org/community/wiki/JBossXB">JBossXB</ulink> unmarshaller service.</para>
-
-    <para>The service is registered with the Framework under the name</para>
-    
-    <itemizedlist>
-      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jbossxb/UnmarshallerService.html">org.jboss.osgi.jbossxb.UnmarshallerService</ulink></emphasis></listitem>
-    </itemizedlist>
     
   </sect1>
   

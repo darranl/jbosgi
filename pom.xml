@@ -372,7 +372,7 @@
         </property>
       </activation>
       <properties>
-        <surefire.profiler.args>-agentlib:yjpagent=onexit=memory</surefire.profiler.args>
+        <surefire.profiler.args>-agentpath:/usr/java/yjp/bin/linux-x86-64/libyjpagent.so</surefire.profiler.args>
       </properties>
     </profile>
 

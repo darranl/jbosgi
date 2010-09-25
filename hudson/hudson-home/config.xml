@@ -1,26 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
-  <version>1.355</version>
+  <version>1.377</version>
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
     <permission>hudson.model.Hudson.Read:anonymous</permission>
     <permission>hudson.model.Hudson.Administer:@hudson.admin@</permission>
-    <permission>hudson.model.Hudson.Read:@hudson.admin@</permission>
-    <permission>hudson.model.Computer.Configure:@hudson.admin@</permission>
-    <permission>hudson.model.Computer.Delete:@hudson.admin@</permission>
-    <permission>hudson.model.Item.Build:@hudson.admin@</permission>
-    <permission>hudson.model.Item.Configure:@hudson.admin@</permission>
-    <permission>hudson.model.Item.Create:@hudson.admin@</permission>
-    <permission>hudson.model.Item.Delete:@hudson.admin@</permission>
-    <permission>hudson.model.Item.Workspace:@hudson.admin@</permission>
-    <permission>hudson.model.View.Configure:@hudson.admin@</permission>
-    <permission>hudson.model.View.Create:@hudson.admin@</permission>
-    <permission>hudson.model.View.Delete:@hudson.admin@</permission>
-    <permission>hudson.model.Run.Delete:@hudson.admin@</permission>
-    <permission>hudson.model.Run.Update:@hudson.admin@</permission>
-    <permission>hudson.scm.SCM.Tag:@hudson.admin@</permission>
   </authorizationStrategy>
   <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
     <disableSignup>false</disableSignup>
@@ -65,15 +51,10 @@
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
-        <string>aQute.bnd</string>
-        <string>osgi.blueprint.tests</string>
+        <string>jbosgi-framework</string>
         <string>osgi.core.tests</string>
-        <string>osgi.jdbc.tests</string>
-        <string>osgi.jmx.tests</string>
-        <string>osgi.jndi.tests</string>
         <string>osgi.packageadmin.tests</string>
         <string>osgi.startlevel.tests</string>
-        <string>osgi.webapp.tests</string>
       </jobNames>
       <columns>
         <hudson.views.StatusColumn/>
@@ -92,7 +73,7 @@
       <filterQueue>false</filterQueue>
       <jobNames class="tree-set">
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
-        <string>JBoss-6.0.1</string>
+        <string>JBoss-7.0.0</string>
         <string>jbosgi-framework</string>
         <string>jbosgi-embedded</string>
         <string>jbosgi-remote</string>

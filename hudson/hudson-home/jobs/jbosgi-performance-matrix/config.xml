@@ -58,7 +58,6 @@ Latest &lt;a href=&apos;ws/testsuite/performance/target/performance-report.html&
       <command># Update the Git submodules
 if [ -f .gitmodules]; then
   git submodule init
-  git submodule sync
   git submodule update
 fi
 </command>
@@ -66,21 +65,6 @@ fi
     <hudson.tasks.Maven>
       <targets>clean</targets>
       <mavenName>@maven.name@</mavenName>
-      <usePrivateRepository>false</usePrivateRepository>
-    </hudson.tasks.Maven>
-    <hudson.tasks.Maven>
-      <targets>-DskipTests
-install</targets>
-      <mavenName>@maven.name@</mavenName>
-      <usePrivateRepository>false</usePrivateRepository>
-    </hudson.tasks.Maven>
-    <hudson.tasks.Maven>
-      <targets>-fae install</targets>
-      <mavenName>@maven.name@</mavenName>
-      <pom>testsuite/performance/pom.xml</pom>
-      <properties>test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
-bench=true
-framework=jbossmc</properties>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
     <hudson.tasks.Maven>

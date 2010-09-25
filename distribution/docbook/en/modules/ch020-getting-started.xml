@@ -21,7 +21,7 @@
     <para>To run the installer execute the following command:</para>
     
     <programlisting>
-    java -jar jboss-osgi-installer-1.0.0.Beta8.jar
+    java -jar jboss-osgi-installer-1.0.0.Beta9.jar
     </programlisting>
       
     <para>The installer first shows a welcome screen</para>
@@ -52,9 +52,10 @@
     <itemizedlist>
       <listitem><emphasis role="bold">JBoss OSGi Distribution</emphasis> - Documentation, Binary Artifacts and Sources</listitem>
       <listitem><emphasis role="bold">JBoss OSGi Runtime</emphasis> - Standalone JBoss OSGi Runtime</listitem>
-      <listitem><emphasis role="bold">JBossAS Integration</emphasis> - Integration with an existing JBossAS instance</listitem>
+      <!-- listitem><emphasis role="bold">JBossAS Integration</emphasis> - Integration with an existing JBossAS instance</listitem -->
     </itemizedlist>
     
+    <!-- 
     <para>In case you have selected 'JBossAS Integration', you will be presented with the choice of supported target containers.</para>
     
     <mediaobject>
@@ -70,6 +71,7 @@
         <imagedata align="center" width="90%" fileref="images/izpack25-jboss-home.png"/> 
       </imageobject>
     </mediaobject>
+    -->
     
     <para>You can then verify the selected installation options and proceed with the actual installation.</para>
     
@@ -119,7 +121,7 @@ $ bin/run.sh
 
   JBossOSGi Bootstrap Environment
 
-  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta8/runtime
+  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta9/runtime
 
   JAVA: /usr/java/jdk1.6/bin/java
 
@@ -127,20 +129,21 @@ $ bin/run.sh
 
 =========================================================================
 
-11:45:05,168 INFO  JBossOSGi Framework Core - 1.0.0.Alpha5
+12:27:07,406 INFO  JBossOSGi Framework Core - 1.0.0.Alpha8
+12:27:07,515 INFO  Bundle STARTED: system.bundle:0.0.0
+12:27:08,079 INFO  Bundle STARTED: org.apache.felix.log:1.0.0
+12:27:08,182 INFO  Bundle STARTED: jboss-osgi-common:1.0.6
+12:27:08,239 INFO  Bundle STARTED: jboss-osgi-hotdeploy:1.0.8
+12:27:08,244 INFO  JBossOSGi Runtime booted in 0.837sec
+12:27:08,459 INFO  Bundle STARTED: org.apache.aries.util:0.1.0.incubating
+12:27:08,608 INFO  Bundle STARTED: org.apache.aries.jmx:0.1.0.incubating
+12:27:08,690 INFO  Bundle STARTED: org.apache.felix.configadmin:1.2.4
+12:27:08,839 INFO  Bundle STARTED: org.apache.felix.eventadmin:1.2.2
+12:27:09,288 INFO  Bundle STARTED: jboss-osgi-jndi:1.0.4
+12:27:09,291 INFO  Bundle STARTED: jboss-osgi-common-core:2.2.17.SP1
+12:27:09,493 INFO  Bundle STARTED: jboss-osgi-jmx:1.0.8
 ...
-11:45:05,826 INFO  Starting bundles for start level 1
-11:45:06,677 INFO  Bundle STARTED: Bundle{system.bundle-0.0.0}
-11:45:06,686 INFO  JBossOSGi Runtime booted in 1.515sec
-11:45:06,703 INFO  Bundle INSTALLED: Bundle{jboss-osgi-common-core-2.2.13.GA}
-11:45:06,925 INFO  Bundle STARTED: Bundle{jboss-osgi-common-core-2.2.13.GA}
-11:45:07,177 INFO  Bundle STARTED: Bundle{org.apache.felix.eventadmin-1.2.2}
-11:45:07,695 INFO  Bundle STARTED: Bundle{jboss-osgi-jndi-1.0.3}
-11:45:07,916 INFO  Bundle STARTED: Bundle{org.apache.aries.jmx-0.1.0.incubating}
-11:45:07,939 INFO  Bundle STARTED: Bundle{org.apache.aries.util-0.1.0.incubating}
-11:45:08,217 INFO  Bundle STARTED: Bundle{jboss-osgi-jmx-1.0.7}
-...
-<emphasis role="bold">11:45:08,222 INFO  JBossOSGi Runtime started in 1.777sec</emphasis>
+<emphasis role="bold">12:27:09,493 INFO JBossOSGi Runtime started in 1.264sec</emphasis>
     </programlisting>
   </sect1>
     
@@ -158,11 +161,9 @@ $ bin/run.sh
       <listitem><emphasis role="bold">jmx</emphasis> - Standard and extended JMX examples</listitem>
       <listitem><emphasis role="bold">jndi</emphasis> - Bind objects to the Naming Service</listitem>
       <listitem><emphasis role="bold">jta</emphasis> - Transaction examples</listitem>
-      <listitem><emphasis role="bold">microcontainer</emphasis> - JBossMC/OSGi integration examples</listitem>
       <listitem><emphasis role="bold">serviceloader</emphasis> - Autoregister META-INF/services</listitem>
       <listitem><emphasis role="bold">simple</emphasis> - Simple OSGi examples (start here)</listitem>
       <listitem><emphasis role="bold">webapp</emphasis> - WebApplication (WAR) examples</listitem>
-      <listitem><emphasis role="bold">xml binding</emphasis> - JBoss XML Binding examples</listitem>
       <listitem><emphasis role="bold">xml jaxb</emphasis> - JAXB examples</listitem>
       <listitem><emphasis role="bold">xml parser</emphasis> - SAX/DOM parser examples</listitem>
     </itemizedlist>

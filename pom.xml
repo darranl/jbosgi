@@ -52,6 +52,8 @@
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
     <version.jboss.arquillian>1.0.0.Alpha4.SP1</version.jboss.arquillian>
+    <version.jboss.modules>1.0.0.Beta6</version.jboss.modules>
+    <version.jboss.msc>1.0.0.Beta2</version.jboss.msc>
     <version.jboss.osgi.blueprint>1.0.1</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
@@ -127,6 +129,18 @@
         <groupId>org.jboss.arquillian.container</groupId>
         <artifactId>arquillian-osgi-remote</artifactId>
         <version>${version.jboss.arquillian}</version>
+      </dependency>
+      
+      <!-- jboss.modules -->
+      <dependency>
+        <groupId>org.jboss.modules</groupId>
+        <artifactId>jboss-modules</artifactId>
+        <version>${version.jboss.modules}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.msc</groupId>
+        <artifactId>jboss-msc</artifactId>
+        <version>${version.jboss.msc}</version>
       </dependency>
       
       <!-- jboss.osgi -->

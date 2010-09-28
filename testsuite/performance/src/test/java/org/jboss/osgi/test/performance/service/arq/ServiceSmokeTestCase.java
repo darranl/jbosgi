@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.performance.service;
+package org.jboss.osgi.test.performance.service.arq;
 
 import java.io.InputStream;
 
@@ -27,7 +27,30 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.test.performance.AbstractPerformanceTestCase;
+import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
+import org.jboss.osgi.test.performance.service.CreateAndLookupBenchmark;
+import org.jboss.osgi.test.performance.service.CreateAndLookupTestActivator;
+import org.jboss.osgi.test.performance.service.SvcCls;
+import org.jboss.osgi.test.performance.service.SvcCls1;
+import org.jboss.osgi.test.performance.service.SvcCls10;
+import org.jboss.osgi.test.performance.service.SvcCls11;
+import org.jboss.osgi.test.performance.service.SvcCls12;
+import org.jboss.osgi.test.performance.service.SvcCls13;
+import org.jboss.osgi.test.performance.service.SvcCls14;
+import org.jboss.osgi.test.performance.service.SvcCls15;
+import org.jboss.osgi.test.performance.service.SvcCls16;
+import org.jboss.osgi.test.performance.service.SvcCls17;
+import org.jboss.osgi.test.performance.service.SvcCls18;
+import org.jboss.osgi.test.performance.service.SvcCls19;
+import org.jboss.osgi.test.performance.service.SvcCls2;
+import org.jboss.osgi.test.performance.service.SvcCls20;
+import org.jboss.osgi.test.performance.service.SvcCls3;
+import org.jboss.osgi.test.performance.service.SvcCls4;
+import org.jboss.osgi.test.performance.service.SvcCls5;
+import org.jboss.osgi.test.performance.service.SvcCls6;
+import org.jboss.osgi.test.performance.service.SvcCls7;
+import org.jboss.osgi.test.performance.service.SvcCls8;
+import org.jboss.osgi.test.performance.service.SvcCls9;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

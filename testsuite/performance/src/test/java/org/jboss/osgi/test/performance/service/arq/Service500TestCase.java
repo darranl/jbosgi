@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.performance.service;
+package org.jboss.osgi.test.performance.service.arq;
 
 import javax.inject.Inject;
 
@@ -34,7 +34,7 @@ import org.osgi.framework.Bundle;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class Service5000TestCase extends ServiceTestBase
+public class Service500TestCase extends ServiceTestBase
 {
    @Inject
    public Bundle bundle;
@@ -45,8 +45,8 @@ public class Service5000TestCase extends ServiceTestBase
    }
    
    @Test
-   public void test5000() throws Exception
+   public void test500() throws Exception
    {
-      testPerformance(5000);
+      testPerformance(500);
    }
 }

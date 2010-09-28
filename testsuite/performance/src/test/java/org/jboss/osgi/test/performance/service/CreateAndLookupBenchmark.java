@@ -73,7 +73,7 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
    }
 
    @Override
-   protected void runThread(String threadName, Integer numServicesPerThread) throws Exception
+   public void runThread(String threadName, Integer numServicesPerThread) throws Exception
    {
       long[] serviceIDs = new long[numServicesPerThread];
 

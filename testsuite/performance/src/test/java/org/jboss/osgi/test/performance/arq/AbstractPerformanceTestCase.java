@@ -19,10 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.performance;
+package org.jboss.osgi.test.performance.arq;
 
 import java.io.File;
 
+import org.jboss.osgi.test.performance.AbstractBenchmark;
+import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
+import org.jboss.osgi.test.performance.ChartType;
+import org.jboss.osgi.test.performance.ChartTypeImpl;
+import org.jboss.osgi.test.performance.Parameter;
+import org.jboss.osgi.test.performance.PerformanceBenchmark;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.BundleContext;

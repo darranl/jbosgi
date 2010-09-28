@@ -27,8 +27,18 @@
     <version>1.0.0.Beta10-SNAPSHOT</version>
   </parent>
 
+  <!-- Properties -->
+  <properties>
+    <version.javax.inject>1</version.javax.inject>
+  </properties>
+  
   <!-- Dependencies -->
   <dependencies>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>${version.javax.inject}</version>
+    </dependency>
     <dependency>
       <groupId>org.jboss.modules</groupId>
       <artifactId>jboss-modules</artifactId>

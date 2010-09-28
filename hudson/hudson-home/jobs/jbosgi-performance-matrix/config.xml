@@ -71,18 +71,33 @@ fi
       <targets>-fae install</targets>
       <mavenName>@maven.name@</mavenName>
       <pom>testsuite/performance/pom.xml</pom>
-      <properties>test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
-bench=true
-framework=jbmsc</properties>
+      <properties>
+      test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
+      bench=true
+      framework=jbmsc
+      </properties>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
     <hudson.tasks.Maven>
       <targets>-fae install</targets>
       <mavenName>@maven.name@</mavenName>
       <pom>testsuite/performance/pom.xml</pom>
-      <properties>test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
-bench=true
-framework=felix</properties>
+      <properties>
+      test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
+      bench=true
+      framework=felix
+      </properties>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>-fae install</targets>
+      <mavenName>@maven.name@</mavenName>
+      <pom>testsuite/performance/pom.xml</pom>
+      <properties>
+      test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
+      bench=true
+      framework=equinox
+      </properties>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
   </builders>

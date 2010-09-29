@@ -57,7 +57,7 @@
     <version.jboss.osgi.blueprint>1.0.1</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
-    <version.jboss.osgi.deployment>1.0.5</version.jboss.osgi.deployment>
+    <version.jboss.osgi.deployment>1.0.6-SNAPSHOT</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.1</version.jboss.osgi.felix>
     <version.jboss.osgi.framework>1.0.0.Alpha9-SNAPSHOT</version.jboss.osgi.framework>
@@ -69,7 +69,7 @@
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0.Alpha9</version.jboss.osgi.reflect>
-    <version.jboss.osgi.resolver>1.0.2</version.jboss.osgi.resolver>
+    <version.jboss.osgi.resolver>1.0.3-SNAPSHOT</version.jboss.osgi.resolver>
     <version.jboss.osgi.serviceloader>1.0.3</version.jboss.osgi.serviceloader>
     <version.jboss.osgi.spi>1.0.15</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.2-SNAPSHOT</version.jboss.osgi.vfs>

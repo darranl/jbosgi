@@ -10,6 +10,3 @@
 [submodule "reactor/jbosgi-resolver"]
 	path = reactor/jbosgi-resolver
 	url = git://github.com/jbosgi/jbosgi-resolver.git
-[submodule "reactor/jboss-modules"]
-	path = reactor/jboss-modules
-	url = git://github.com/jbosgi/jboss-modules.git

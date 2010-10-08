@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.performance.bundle;
+package org.jboss.osgi.test.performance.bundle.arq;
 
 import javax.inject.Inject;
 
@@ -30,14 +30,12 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 
 /**
- * This test exercises the Bundle Performance test code in a very basic manner to
- * ensure that it works. Passing this test is a precondition for running the real 
- * Bundle Performance tests.
+ * Split off in a separate class to enable Maven to run this in a separate VM instance.
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class BundleSmokeTestCase extends BundleTestBase
+public class Bundle750TestCase extends BundleTestBase
 {
    @Inject
    public OSGiContainer container;
@@ -50,16 +48,15 @@ public class BundleSmokeTestCase extends BundleTestBase
    @Inject
    public BundleContext bundleContext;
 
+   @Override
    BundleContext getBundleContext()
    {
       return bundleContext;
    }
 
    @Test
-   public void test5() throws Exception
+   public void test750Bundles() throws Exception
    {
-      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(getOSGiContainer(), getBundleContext());
-      bm.prepareTest(1, 5);
-      bm.runThread("Thread_1_", 5);
+      testPerformance(750);
    }
 }

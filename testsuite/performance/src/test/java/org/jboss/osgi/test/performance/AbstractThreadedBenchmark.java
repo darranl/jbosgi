@@ -56,7 +56,7 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
       List<String> names = new ArrayList<String>(numThreads);
       for (int i = 0; i < numThreads; i++)
       {
-         names.add("Thread_" + (i + 1) + "_");
+         names.add("Thread_" + (i + 1));
       }
       return names;
    }
@@ -121,5 +121,5 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
     * @param parameter the parameter passed into the {@link #runTest(int, Object)} method.
     * @throws Exception if anything goes wrong throw an exception. This will fail the test.
     */
-   abstract protected void runThread(String threadName, T parameter) throws Exception;
+   abstract public void runThread(String threadName, T parameter) throws Exception;
 }

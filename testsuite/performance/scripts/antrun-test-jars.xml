@@ -39,13 +39,19 @@
 
   <target name="build-test-jars" depends="init" description="Build the test deployments">
 
-    <!-- Please add alphabetically -->
-
+    <!-- Bundle Performance Test -->
+    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/standalone-bundles/bundle-perf-test.jar" files="${tests.resources.dir}/bundles/bundle-perf-test-bundle.bnd"/>
+  	
     <!-- Service Performance Test -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/standalone-bundles/service-perf-test.jar" files="${tests.resources.dir}/bundles/service-perf-test-bundle.bnd"/>
 
-    <!-- Please add alphabetically -->
-
+  	<!-- Generate test jars for standalone use -->
+    <java classname="org.jboss.osgi.test.performance.bundle.tool.BundleCreator"
+  		classpath="${maven.test.classpath}" fork="true" dir="${tests.output.dir}">  		
+      <arg value="25"/>
+      <arg value="${tests.output.dir}/test-libs/standalone-bundles/bundle-perf-test-bundles"/>
+      <sysproperty key="log4j.output.dir" value="${tests.output.dir}"/>
+    </java>
+  	
   </target>
-
 </project>

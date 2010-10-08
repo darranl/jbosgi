@@ -80,6 +80,7 @@
             <configuration>
               <tasks>
                 <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
+                <property name="maven.test.classpath" refid="maven.test.classpath" />
                 <property name="tests.output.dir" value="${project.build.directory}" />
                 <ant antfile="scripts/antrun-test-jars.xml" />
               </tasks>

@@ -29,7 +29,6 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Date;
 
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
 import org.jboss.osgi.test.performance.ChartType;
 import org.jboss.osgi.test.performance.ChartTypeImpl;
@@ -69,22 +68,22 @@ import org.osgi.framework.BundleContext;
  */
 public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<Integer>
 {
-   static final String COMMON_BUNDLE_PREFIX = "commonBundle#";
-   static final String UTIL_BUNDLE_PREFIX = "utilBundle#";
-   static final String VERSIONED_IMPL_BUNDLE_PREFIX = "versionedImplBundle#";
-   static final String VERSIONED_INTF_BUNDLE_PREFIX = "versionedIntfBundle#";
-   static final String TEST_BUNDLE_PREFIX = "testBundle#";
+   public static final String COMMON_BUNDLE_PREFIX = "commonBundle#";
+   public static final String UTIL_BUNDLE_PREFIX = "utilBundle#";
+   public static final String VERSIONED_IMPL_BUNDLE_PREFIX = "versionedImplBundle#";
+   public static final String VERSIONED_INTF_BUNDLE_PREFIX = "versionedIntfBundle#";
+   public static final String TEST_BUNDLE_PREFIX = "testBundle#";
 
    private static final ChartType INSTALL_START = new ChartTypeImpl("IS", "Bundle Install and Start Time", "Number of Bundles", "Time (ms)");
    private final File bundleStorage;
-   private final OSGiContainer container;
+   private final TestBundleProvider testBundleProvider;
 
-   protected BundleInstallAndStartBenchmark(OSGiContainer container, BundleContext bc)
+   public BundleInstallAndStartBenchmark(TestBundleProvider tbp, BundleContext bc)
    {
       super(bc);
       bundleStorage = new File(tempDir, "bundles");
       bundleStorage.mkdirs();
-      this.container = container;
+      testBundleProvider = tbp;
    }
    
    @Override
@@ -106,7 +105,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       runTest(numThreads, numBundlesPerThread);
    }
 
-   void prepareTest(int numThreads, int numBundlesPerThread) throws Exception
+   public void prepareTest(int numThreads, int numBundlesPerThread) throws Exception
    {
       installBaseLineBundles();
 
@@ -131,7 +130,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       for (int i = 0; i < numBundlesPerThread; i++)
       {
          InputStream is = getTestBundle(threadName, i);
-         FileOutputStream fos = new FileOutputStream(new File(bundleStorage, threadName + i + ".jar"));
+         FileOutputStream fos = new FileOutputStream(new File(bundleStorage, threadName + "_" + i + ".jar"));
          try
          {
             pumpStreams(is, fos);
@@ -145,13 +144,13 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
    }
 
    @Override
-   protected void runThread(String threadName, Integer numBundlesPerThread) throws Exception
+   public void runThread(String threadName, Integer numBundlesPerThread) throws Exception
    {
       System.out.println("Starting at " + new Date());
       long start = System.currentTimeMillis();
       for (int i = 0; i < numBundlesPerThread; i++)
       {
-         URI uri = new File(bundleStorage, threadName + i + ".jar").toURI();
+         URI uri = new File(bundleStorage, threadName + "_" + i + ".jar").toURI();
          Bundle bundle = bundleContext.installBundle(uri.toString());
          bundle.start();
       }
@@ -173,27 +172,27 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
    private InputStream getCommonBundle(final String version) throws Exception
    {
-      return container.getTestArchiveStream(COMMON_BUNDLE_PREFIX + version);
+      return testBundleProvider.getTestArchiveStream(COMMON_BUNDLE_PREFIX + version);
    }
 
    private InputStream getUtilBundle(final int i) throws Exception
    {
-      return container.getTestArchiveStream(UTIL_BUNDLE_PREFIX + i);
+      return testBundleProvider.getTestArchiveStream(UTIL_BUNDLE_PREFIX + i);
    }
 
    private InputStream getVersionedIntfBundle(final String version) throws Exception
    {
-      return container.getTestArchiveStream(VERSIONED_INTF_BUNDLE_PREFIX + version);
+      return testBundleProvider.getTestArchiveStream(VERSIONED_INTF_BUNDLE_PREFIX + version);
    }
 
    private InputStream getVersionedImplBundle(final int version) throws Exception
    {
-      return container.getTestArchiveStream(VERSIONED_IMPL_BUNDLE_PREFIX + version);
+      return testBundleProvider.getTestArchiveStream(VERSIONED_IMPL_BUNDLE_PREFIX + version);
    }
 
    private InputStream getTestBundle(final String threadName, final int counter) throws Exception
    {
-      return container.getTestArchiveStream(TEST_BUNDLE_PREFIX + threadName + "#" + counter);
+      return testBundleProvider.getTestArchiveStream(TEST_BUNDLE_PREFIX + threadName + "#" + counter);
    }
 
    public static void pumpStreams(InputStream is, OutputStream os) throws IOException

@@ -19,44 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.osgi.test.performance.bundle;
+package org.jboss.osgi.test.performance.bundle.arq;
 
-import javax.inject.Inject;
+import java.io.InputStream;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.osgi.OSGiContainer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.osgi.framework.BundleContext;
+import org.jboss.osgi.test.performance.bundle.TestBundleProvider;
 
 /**
- * Split off in a separate class to enable Maven to run this in a separate VM instance.
+ * This {@link TestBundleProvider} provides the test bundles via the (remote) OSGiContainer.
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-@RunWith(Arquillian.class)
-public class Bundle500TestCase extends BundleTestBase
+public class TestBundleProviderImpl implements TestBundleProvider
 {
-   @Inject
-   public OSGiContainer container;
+   private OSGiContainer container;
 
-   OSGiContainer getOSGiContainer()
+   public TestBundleProviderImpl(OSGiContainer container)
    {
-      return container;
+      this.container = container;
    }
-
-   @Inject
-   public BundleContext bundleContext;
 
    @Override
-   BundleContext getBundleContext()
+   public InputStream getTestArchiveStream(String name)
    {
-      return bundleContext;
-   }
-
-   @Test
-   public void test500Bundles() throws Exception
-   {
-      testPerformance(500);
+      return container.getTestArchiveStream(name);
    }
 }

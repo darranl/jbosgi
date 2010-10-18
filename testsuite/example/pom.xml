@@ -334,6 +334,7 @@
         </plugins>
       </build>
     </profile>
+        
     <profile>
       <id>framework-default</id>
       <activation>

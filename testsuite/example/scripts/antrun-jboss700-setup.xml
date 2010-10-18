@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ============================================================ -->
+<!--  JBoss, the OpenSource J2EE webOS                            -->
+<!--  Distributable under LGPL license.                           -->
+<!--  See terms of license at http://www.gnu.org.                 -->
+<!-- ============================================================ -->
+
+<project default="jboss-as-setup">
+
+  <description>Sets up JBoss AS for test suite</description>
+
+  <!-- ================================================================== -->
+  <!-- Init                                                               -->
+  <!-- ================================================================== -->
+
+  <target name="check-config" unless="jboss700.dir">
+    <echo>
+Please specify JBoss AS 7 root directory in property 'jboss700.dir'
+For example:
+             -Djboss700.dir=/clones/jbosgi-as/build/target
+    </echo>
+    <fail/>
+  </target>
+
+  <target name="jboss-as-setup" depends="check-config">
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-common-core.jar"/>
+    </antcall>  	
+    <antcall target="copy-file">
+      <param name="file" value="org.apache.felix.log.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="org.apache.aries.jmx.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="org.apache.aries.util.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-jndi.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-jmx.jar"/>
+    </antcall>      
+  </target>
+
+  <target name="copy-file">
+    <echo message="Bundle: ${file}"/>
+
+    <condition property="file.exist">
+      <or>
+        <available file="${jboss700.dir}/standalone/deployments/${file}"/>
+        <available file="${jboss700.dir}/standalone/deployments/${file}.deployed"/>
+      </or>
+    </condition>
+    <antcall target="copy-if-not-exist"/>
+  </target>
+	
+  <target name="copy-if-not-exist" unless="file.exist">
+    <copy file="target/test-libs/bundles/${file}"
+          toDir="${jboss700.dir}/standalone/deployments"/>
+  </target>
+</project>

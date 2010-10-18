@@ -456,8 +456,27 @@
       <properties>
         <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>setup-as7</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+                    <ant antfile="scripts/antrun-jboss700-setup.xml" />
+                  </tasks>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
-
   </profiles>
-
 </project>

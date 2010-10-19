@@ -456,8 +456,16 @@
       <properties>
         <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
       </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-osgi-remote</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
       <build>
         <plugins>
+          <!-- 
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
             <executions>
@@ -475,6 +483,7 @@
               </execution>
             </executions>
           </plugin>
+          -->
         </plugins>
       </build>
     </profile>

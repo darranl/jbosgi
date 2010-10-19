@@ -180,6 +180,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.webconsole</groupId>
+      <artifactId>jboss-osgi-webconsole</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
       <scope>provided</scope>

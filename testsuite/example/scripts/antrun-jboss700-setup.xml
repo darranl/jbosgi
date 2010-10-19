@@ -39,9 +39,29 @@ For example:
     <antcall target="copy-file">
       <param name="file" value="jboss-osgi-jndi.jar"/>
     </antcall>      
+  	<!-- disable because we have issues with JMX
     <antcall target="copy-file">
       <param name="file" value="jboss-osgi-jmx.jar"/>
+    </antcall>
+    -->      
+  	
+  	<!-- Web console bundles -->
+    <antcall target="copy-file">
+      <param name="file" value="org.apache.felix.configadmin.jar"/>
     </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="org.apache.felix.eventadmin.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="org.apache.felix.log.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-http.jar"/>
+    </antcall>      
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-webconsole.jar"/>
+    </antcall>      
+  	
   </target>
 
   <target name="copy-file">

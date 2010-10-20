@@ -470,7 +470,6 @@
       </dependencies>
       <build>
         <plugins>
-          <!-- 
           <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
             <executions>
@@ -488,7 +487,6 @@
               </execution>
             </executions>
           </plugin>
-          -->
         </plugins>
       </build>
     </profile>

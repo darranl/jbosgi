@@ -25,6 +25,14 @@ For example:
 
   <target name="jboss-as-setup" depends="check-config">
     <antcall target="copy-file">
+      <param name="file" value="arquillian-osgi-bundle.jar"/>
+    </antcall>
+  	<antcall target="copy-file">
+      <param name="file" value="jboss-osgi-jmx.jar"/>
+    </antcall>
+
+  	<!--
+  	<antcall target="copy-file">
       <param name="file" value="jboss-osgi-common-core.jar"/>
     </antcall>  	
     <antcall target="copy-file">
@@ -39,11 +47,8 @@ For example:
     <antcall target="copy-file">
       <param name="file" value="jboss-osgi-jndi.jar"/>
     </antcall>      
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-jmx.jar"/>
-    </antcall>
   	
-  	<!-- Web console bundles -->
+  	<!- - Web console bundles - ->
     <antcall target="copy-file">
       <param name="file" value="org.apache.felix.configadmin.jar"/>
     </antcall>      
@@ -59,7 +64,7 @@ For example:
     <antcall target="copy-file">
       <param name="file" value="jboss-osgi-webconsole.jar"/>
     </antcall>      
-  	
+  	-->
   </target>
 
   <target name="copy-file">

@@ -7,3 +7,6 @@
 [submodule "reactor/jbosgi-jmx"]
 	path = reactor/jbosgi-jmx
 	url = git://github.com/jbosgi/jbosgi-jmx.git
+[submodule "reactor/jbosgi-vfs"]
+	path = reactor/jbosgi-vfs
+	url = git://github.com/jbosgi/jbosgi-vfs.git

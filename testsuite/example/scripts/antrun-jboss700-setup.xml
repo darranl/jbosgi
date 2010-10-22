@@ -14,11 +14,11 @@
   <!-- Init                                                               -->
   <!-- ================================================================== -->
 
-  <target name="check-config" unless="jboss700.dir">
+  <target name="check-config" unless="jboss.home">
     <echo>
-Please specify JBoss AS 7 root directory in property 'jboss700.dir'
+Please specify JBoss AS 7 root directory in property 'jboss.home'
 For example:
-             -Djboss700.dir=/clones/jbosgi-as/build/target
+             -Djboss.home=/clones/jbosgi-as/build/target
     </echo>
     <fail/>
   </target>
@@ -102,8 +102,8 @@ For example:
 
     <condition property="file.exist">
       <or>
-        <available file="${jboss700.dir}/standalone/deployments/${file}"/>
-        <available file="${jboss700.dir}/standalone/deployments/${file}.deployed"/>
+        <available file="${jboss.home}/standalone/deployments/${file}"/>
+        <available file="${jboss.home}/standalone/deployments/${file}.deployed"/>
       </or>
     </condition>
     <antcall target="copy-if-not-exist"/>
@@ -111,6 +111,6 @@ For example:
 	
   <target name="copy-if-not-exist" unless="file.exist">
     <copy file="target/test-libs/bundles/${file}"
-          toDir="${jboss700.dir}/standalone/deployments"/>
+          toDir="${jboss.home}/standalone/deployments"/>
   </target>
 </project>

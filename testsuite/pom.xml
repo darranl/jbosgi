@@ -445,50 +445,5 @@
         </dependency>
       </dependencies>
     </profile>
-
-    <!-- 
-      Name: jboss700 
-      Descr: Setup for jboss700 integration testing 
-    -->
-    <profile>
-      <id>jboss700</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss700</value>
-        </property>
-      </activation>
-      <properties>
-        <target.container.excludes>org/jboss/test/osgi/nothing-to-exclude</target.container.excludes>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-osgi-remote</artifactId>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>setup-as7</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <tasks>
-                    <ant antfile="scripts/antrun-jboss700-setup.xml" />
-                  </tasks>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>

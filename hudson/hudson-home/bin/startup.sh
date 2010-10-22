@@ -8,6 +8,15 @@ SERVER_NAME="$3"
 BINDADDR="$4"
 
 export RUNTIME_HOME
+pidfile="$RUNTIME_HOME/bin/pid.txt"
+
+if [ $SERVER_NAME = 'jboss700' ]; then
+    RUN_CMD=$RUNTIME_HOME/bin/standalone.sh
+    export LAUNCH_JBOSS_IN_BACKGROUND="true"
+    export JBOSS_PIDFILE=$pidfile
+else
+    RUN_CMD="$RUNTIME_HOME/bin/run.sh -c $SERVER_NAME -b $BINDADDR"
+fi
 
 #
 # Helper to complain.
@@ -25,10 +34,9 @@ case "$CMD" in
 start)
     # This version of run.sh obtains the pid of the JVM and saves it as jboss.pid
     # It relies on bash specific features
-    /bin/bash $RUNTIME_HOME/bin/run.sh -c $SERVER_NAME -b $BINDADDR &
+    /bin/bash $RUN_CMD &
     ;;
 stop)
-    pidfile="$RUNTIME_HOME/bin/pid.txt"
     if [ -f "$pidfile" ]; then
        pid=`cat "$pidfile"`
        echo "kill pid: $pid"

@@ -58,6 +58,7 @@
         <module>jbosgi-spi</module>
         <module>jbosgi-jmx</module>
         <module>jbosgi-vfs</module>
+        <module>jbosgi-deployment</module>
         <module>jbosgi-framework</module>
       </modules>
     </profile>

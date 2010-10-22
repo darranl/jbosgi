@@ -10,3 +10,6 @@
 [submodule "reactor/jbosgi-vfs"]
 	path = reactor/jbosgi-vfs
 	url = git://github.com/jbosgi/jbosgi-vfs.git
+[submodule "reactor/jbosgi-deployment"]
+	path = reactor/jbosgi-deployment
+	url = git://github.com/jbosgi/jbosgi-deployment.git

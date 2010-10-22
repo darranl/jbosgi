@@ -31,7 +31,7 @@ case "$CONTAINER" in
   ;;
   'jboss700')
     SERVER_NAME=jboss700
-    JBOSS_BUILD=jboss-7.0.0.Beta1-SNAPSHOT
+    JBOSS_BUILD=jboss-7.0.0-SNAPSHOT
     JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
     CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
     CONTAINER_LOG=$CONTAINER_HOME/standalong/log/boot.log

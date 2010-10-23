@@ -54,7 +54,7 @@ export TCKSETUP=$WORKSPACE/jbosgi/reactor/tck-setup
 
 # Clone the TCK repo 
 if [ ! -d $TCKCHECKOUT ]; then
-  git clone ~hudson/git/osgitck $TCKCHECKOUT
+  git clone ~@username@/git/osgitck $TCKCHECKOUT
 fi
 
 # Clone the jbosgi repo 

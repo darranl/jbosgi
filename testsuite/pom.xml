@@ -41,7 +41,7 @@
   <dependencies>
     <dependency>
       <groupId>biz.aQute</groupId>
-      <artifactId>bnd</artifactId>
+      <artifactId>aQute.bnd</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi</groupId>

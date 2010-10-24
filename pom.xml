@@ -49,6 +49,7 @@
     <version.apache.felix.eventadmin>1.2.2</version.apache.felix.eventadmin>
     <version.apache.felix.log>1.0.0</version.apache.felix.log>
     <version.apache.felix.metatype>1.0.2</version.apache.felix.metatype>
+    <version.aqute.bnd.sp>0.0.365.SP1</version.aqute.bnd.sp>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
     <version.jboss.arquillian>1.0.0.Alpha4.SP3-SNAPSHOT</version.jboss.arquillian>
@@ -89,6 +90,12 @@
   <dependencyManagement>
     <dependencies>
 
+      <dependency>
+        <groupId>biz.aQute</groupId>
+        <artifactId>aQute.bnd</artifactId>
+        <version>${version.aqute.bnd.sp}</version>
+      </dependency>
+      
       <!-- apache ant -->
       <dependency>
         <groupId>org.apache.ant</groupId>

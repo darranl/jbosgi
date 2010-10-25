@@ -31,7 +31,7 @@
     <!-- Setup property defaults -->
     <property environment="env" />
     <property name="username" value="${env.USER}" />
-    <property name="tck.checkout.dir" value="/home/${username}/git/osgitck" />
+    <property name="tck.checkout.dir" value="${env.TCKCHECKOUT}" />
     <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
     <property name="framework.groupId" value="org/jboss/osgi/framework" />
     <property name="framework.artifactId" value="jbosgi-framework-aggregated" />

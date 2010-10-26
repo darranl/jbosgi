@@ -32,6 +32,7 @@
   	<!-- Setup property defaults -->
   	<property environment="env"/>
     <property name="username" value="${env.USER}" />
+    <property name="hudson.admin" value="${username}" />
     <property name="hudson.home" value="/home/${username}/workspace/hudson-home" />
     
     <xmlproperty file="${project.root.dir}/pom.xml"/>

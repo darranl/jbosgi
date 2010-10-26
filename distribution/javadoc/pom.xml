@@ -165,9 +165,19 @@
       <version>${version.jboss.osgi.webconsole}</version>
       <classifier>sources</classifier>
     </dependency>
+    <!-- 
+       Disable xerces because of the missing 
+       wutka-dtdparser:dtdparser121 from public jboss repo
+    -->
     <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>wutka-dtdparser</groupId>
+      	  <artifactId>dtdparser121</artifactId>
+        </exclusion>
+      </exclusions>
       <version>${version.jboss.osgi.xerces}</version>
       <classifier>sources</classifier>
     </dependency>

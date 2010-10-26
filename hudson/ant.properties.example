@@ -32,6 +32,8 @@ hudson.version=1.382
 github.plugin.version=0.2
 git.plugin.version=1.1
 
+#hudson.admin=username
+
 # JBoss Distributions
 # -------------------
 # hudson.jboss600.zip=file:///home/username/Downloads/java/jboss/jboss-6.0.0.M3.zip

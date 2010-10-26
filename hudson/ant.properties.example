@@ -27,9 +27,10 @@ jboss.bind.address=127.0.0.1
 
 # Hudson Default settings
 # -----------------------
-# hudson.root=/home/username/workspace/hudson/jboss-osgi
-# hudson.admin=username
-hudson.version=1.377
+hudson.root=/usr/share/tomcat6/workspace/hudson/jbosgi
+hudson.version=1.382
+github.plugin.version=0.2
+git.plugin.version=1.1
 
 # JBoss Distributions
 # -------------------

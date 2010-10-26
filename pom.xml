@@ -262,7 +262,7 @@
         <exclusions>
           <exclusion>
             <groupId>wutka-dtdparser</groupId>
-        	<artifactId>dtdparser121</artifactId>
+        	  <artifactId>dtdparser121</artifactId>
           </exclusion>
         </exclusions>
         <version>${version.jboss.osgi.xerces}</version>

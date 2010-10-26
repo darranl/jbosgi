@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi286;
 
-//$Id: OSGi284TestCase.java 100204 2010-02-01 10:14:11Z thomas.diesler@jboss.com $
+//$Id$
 
 import org.jboss.osgi.jaxb.JAXBCapability;
 import org.jboss.osgi.testing.OSGiBundle;

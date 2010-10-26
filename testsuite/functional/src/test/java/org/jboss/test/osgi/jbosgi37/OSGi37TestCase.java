@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi37;
 
-//$Id: OSGI37TestCase.java 87351 2009-04-15 14:25:32Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertEquals;
 

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-//$Id: CapabilityTestCase.java 97030 2009-11-26 14:42:11Z thomas.diesler@jboss.com $
+//$Id$
 package org.jboss.test.osgi.jbosgi298;
 
 import static org.junit.Assert.assertFalse;

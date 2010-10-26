@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.example.jndi;
 
-//$Id: JNDITestCase.java 88356 2009-05-07 13:13:26Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

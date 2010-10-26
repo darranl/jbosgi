@@ -22,7 +22,7 @@
 package org.jboss.test.osgi.jbosgi37.subB;
 
 
-//$Id: PojoB.java 87103 2009-04-09 22:18:31Z thomas.diesler@jboss.com $
+//$Id$
 
 public class PojoB
 {

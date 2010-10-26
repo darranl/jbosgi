@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.services;
 
-//$Id: StartLevelRemoteTestCase.java 87336 2009-04-15 11:31:26Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

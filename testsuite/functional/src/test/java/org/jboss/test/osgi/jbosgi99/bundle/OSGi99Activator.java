@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi99.bundle;
 
-//$Id: ServiceActivator.java 87064 2009-04-09 11:08:56Z thomas.diesler@jboss.com $
+//$Id$
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

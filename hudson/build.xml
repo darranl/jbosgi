@@ -32,8 +32,7 @@
   	<!-- Setup property defaults -->
   	<property environment="env"/>
     <property name="username" value="${env.USER}" />
-    <property name="hudson.admin" value="${env.USER}" />
-    <property name="hudson.root" value="/home/${hudson.admin}/workspace/jboss-osgi" />
+    <property name="hudson.root" value="/home/${username}/workspace/hudson/jbosgi" />
     
     <xmlproperty file="${project.root.dir}/pom.xml"/>
     <property name="version.id" value="${project.version}"/>
@@ -44,7 +43,6 @@
     <property name="hudson.jboss" value="${hudson.root}/jboss"/>
     
     <echo/>
-    <echo message="hudson.user = ${hudson.admin}"/>
     <echo message="hudson.root = ${hudson.root}"/>
     <echo message="hudson.home = ${hudson.home}"/>
     <echo/>
@@ -60,10 +58,29 @@
     <fail message="Cannot use default hudson username: ${hudson.admin}" if="hudson.admin.changeme"/>
   </target>
   
+  <target name="init-thirdparty" depends="init-hudson">
+    <property name="thirdparty.dir" value="${hudson.target.dir}/thirdparty"/>
+    <mkdir dir="${thirdparty.dir}"/>
+    <available property="apache.tomcat.available" file="${thirdparty.dir}/apache-tomcat.zip"/>
+    <available property="hudson.war.available" file="${thirdparty.dir}/hudson.war"/>
+    <available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M3.zip"/>
+  </target>
+	
+  <!-- 
+    Get thirdparty dependencies 
+  -->
+  <target name="thirdparty" depends="init-thirdparty,get-hudson">
+  </target>
+  <target name="get-hudson" depends="init-thirdparty" unless="hudson.war.available">
+    <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="true" verbose="true"/>
+    <get src="http://hudson-ci.org/download/plugins/github/${github.plugin.version}/github.hpi" dest="${thirdparty.dir}/github.hpi" usetimestamp="true" verbose="true"/>
+    <get src="http://hudson-ci.org/download/plugins/git/${git.plugin.version}/git.hpi" dest="${thirdparty.dir}/git.hpi" usetimestamp="true" verbose="true"/>
+  </target>
+  
   <!-- 
     Setup the Hudson Tomcat instance 
   -->
-  <target name="hudson-tomcat-setup" depends="init-hudson">
+  <target name="hudson-tomcat-setup" depends="thirdparty">
     
     <property file="${tomcat.conf}"/>
     <fail unless="HUDSON_HOME">
@@ -71,8 +88,22 @@
       echo 'HUDSON_HOME=${hudson.home}' >> ${tomcat.conf}
     </fail>
     
+    <!-- Install Hudson -->
+    <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war"/>
+    <copy todir="${hudson.home}/plugins" file="${thirdparty.dir}/github.hpi"/>
+    <copy todir="${hudson.home}/plugins" file="${thirdparty.dir}/git.hpi"/>
+    
   </target>
   
+  <!-- 
+    Update the Hudson version
+  -->
+  <target name="hudson-update" depends="init-thirdparty">
+    <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="false" verbose="true"/>
+    <delete dir="${tomcat.base}/webapps/hudson"/>
+    <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war" overwrite="true"/>
+  </target>
+
   <!-- 
     Setup the Hudson QA environment
   -->

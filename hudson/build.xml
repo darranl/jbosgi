@@ -32,38 +32,33 @@
   	<!-- Setup property defaults -->
   	<property environment="env"/>
     <property name="username" value="${env.USER}" />
-    <property name="hudson.root" value="/home/${username}/workspace/hudson/jbosgi" />
+    <property name="hudson.admin" value="${username}" />
+    <property name="hudson.home" value="/home/${username}/workspace/hudson-home" />
     
     <xmlproperty file="${project.root.dir}/pom.xml"/>
     <property name="version.id" value="${project.version}"/>
   </target>
   
   <target name="init-hudson" depends="init">
-    <property name="hudson.home" value="${hudson.root}/hudson-home"/>
-    <property name="hudson.jboss" value="${hudson.root}/jboss"/>
     
     <echo/>
-    <echo message="hudson.root = ${hudson.root}"/>
+    <echo message="tomcat.base = ${tomcat.base}"/>
     <echo message="hudson.home = ${hudson.home}"/>
     <echo/>
     
-    <available file="${hudson.root}" property="hudson.root.available"/>
-    <fail message="Hudson root not available: ${hudson.root}" unless="hudson.root.available"/>
+    <available file="${hudson.home}" property="hudson.home.available"/>
+    <fail message="HUDSON_HOME not available: ${hudson.home}" unless="hudson.home.available"/>
     <available file="${tomcat.base}" property="tomcat.base.available"/>
     <fail message="Tomcat base not available: ${tomcat.base}" unless="tomcat.base.available"/>
     <available file="${tomcat.conf}" property="tomcat.conf.available"/>
     <fail message="Tomcat conf not available: ${tomcat.conf}" unless="tomcat.conf.available"/>
-    
-    <property name="hudson.admin.${hudson.admin}" value="true"/>
-    <fail message="Cannot use default hudson username: ${hudson.admin}" if="hudson.admin.changeme"/>
   </target>
   
   <target name="init-thirdparty" depends="init-hudson">
     <property name="thirdparty.dir" value="${hudson.target.dir}/thirdparty"/>
     <mkdir dir="${thirdparty.dir}"/>
-    <available property="apache.tomcat.available" file="${thirdparty.dir}/apache-tomcat.zip"/>
     <available property="hudson.war.available" file="${thirdparty.dir}/hudson.war"/>
-    <available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M3.zip"/>
+    <!-- available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M3.zip"/ -->
   </target>
 	
   <!-- 

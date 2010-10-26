@@ -41,7 +41,7 @@
   <dependencies>
     <dependency>
       <groupId>biz.aQute</groupId>
-      <artifactId>bnd</artifactId>
+      <artifactId>aQute.bnd</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi</groupId>
@@ -187,6 +187,12 @@
     <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>wutka-dtdparser</groupId>
+          <artifactId>dtdparser121</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>provided</scope>
     </dependency>
 

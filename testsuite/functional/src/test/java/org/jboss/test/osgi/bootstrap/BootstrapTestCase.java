@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.bootstrap;
 
-//$Id: BootstrapTestCase.java 86588 2009-04-01 13:39:25Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

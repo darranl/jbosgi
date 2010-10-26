@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi214;
 
-//$Id: SomeService.java 97340 2009-12-03 12:57:01Z thomas.diesler@jboss.com $
+//$Id$
 
 
 /**

@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi37.bundleB;
 
-//$Id: ServiceB.java 87351 2009-04-15 14:25:32Z thomas.diesler@jboss.com $
+//$Id$
 
 import org.jboss.test.osgi.jbosgi37.subB.PojoB;
 import org.osgi.framework.BundleContext;

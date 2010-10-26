@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi41.bundleA;
 
-//$Id: ServiceActivator.java 85293 2009-03-05 13:45:47Z thomas.diesler@jboss.com $
+//$Id$
 
 import java.util.Dictionary;
 import java.util.Hashtable;

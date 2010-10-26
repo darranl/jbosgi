@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi108.bundleA;
 
-//$Id: ServiceActivator.java 87064 2009-04-09 11:08:56Z thomas.diesler@jboss.com $
+//$Id$
 
 import javax.management.MBeanServer;
 

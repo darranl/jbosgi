@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-//$Id: SimpleTestCase.java 102343 2010-03-12 09:23:57Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi112;
 
-//$Id: OSGI39TestCase.java 87103 2009-04-09 22:18:31Z thomas.diesler@jboss.com $
+//$Id$
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntimeTest;

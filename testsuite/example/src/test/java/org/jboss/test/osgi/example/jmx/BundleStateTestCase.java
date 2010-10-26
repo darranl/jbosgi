@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-//$Id: JMXTestCase.java 95465 2009-10-23 05:59:57Z thomas.diesler@jboss.com $
+//$Id$
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static junit.framework.Assert.assertTrue;

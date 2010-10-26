@@ -6,7 +6,7 @@
 <!--  See terms of license at http://www.gnu.org.                 -->
 <!-- ============================================================ -->
 
-<!-- $Id: antrun-example-jars.xml 87329 2009-04-15 10:34:21Z thomas.diesler@jboss.com $ -->
+<!-- $Id$ -->
 
 <project default="build-test-jars">
 

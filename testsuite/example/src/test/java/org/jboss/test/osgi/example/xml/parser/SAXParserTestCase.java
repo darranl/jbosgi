@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.example.xml.parser;
 
-//$Id: JMXTestCase.java 91196 2009-07-14 09:41:15Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertEquals;
 

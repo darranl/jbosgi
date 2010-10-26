@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.example.xml.jaxb;
 
-//$Id: DOMParserTestCase.java 91490 2009-07-21 08:39:45Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

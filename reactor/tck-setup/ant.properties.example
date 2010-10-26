@@ -7,7 +7,7 @@
 framework.version=1.0.0.Alpha12-SNAPSHOT
 
 # The aQute Bnd version 
-aQute.bnd.version=0.0.366-SNAPSHOT
+aQute.bnd.version=0.0.365.SP1
 
 # The location of the OSGi TCK
 # tck.checkout.dir=/home/yourname/git/osgitck

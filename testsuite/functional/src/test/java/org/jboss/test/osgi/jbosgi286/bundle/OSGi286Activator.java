@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi286.bundle;
 
-//$Id: OSGi284ActivatorA.java 100204 2010-02-01 10:14:11Z thomas.diesler@jboss.com $
+//$Id$
 
 import javax.xml.bind.JAXBContext;
 

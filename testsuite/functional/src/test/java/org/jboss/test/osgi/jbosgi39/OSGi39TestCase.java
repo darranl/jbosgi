@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi39;
 
-//$Id: OSGI39TestCase.java 87103 2009-04-09 22:18:31Z thomas.diesler@jboss.com $
+//$Id$
 
 import static org.junit.Assert.fail;
 

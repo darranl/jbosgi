@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.example.http.bundle;
 
-//$Id: EndpointServlet.java 87329 2009-04-15 10:34:21Z thomas.diesler@jboss.com $
+//$Id$
 
 import java.io.IOException;
 import java.io.PrintWriter;

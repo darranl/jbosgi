@@ -21,7 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi41.bundleA;
 
-//$Id: ServiceA.java 85288 2009-03-05 10:31:17Z thomas.diesler@jboss.com $
+//$Id$
 
 import java.io.File;
 import java.io.FileOutputStream;

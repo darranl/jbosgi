@@ -1,6 +1,3 @@
-<!-- 
-  $Id$ 
--->
 <chapter xml:id="ChapRuntime">
 
   <title>JBoss OSGi Runtime</title>

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jmx.bundle;
 
-//$Id$
 
 import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
 

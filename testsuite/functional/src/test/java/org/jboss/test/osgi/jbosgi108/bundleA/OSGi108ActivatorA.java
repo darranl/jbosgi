@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi108.bundleA;
 
-//$Id$
 
 import javax.management.MBeanServer;
 

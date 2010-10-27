@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-//$Id$
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static junit.framework.Assert.assertTrue;

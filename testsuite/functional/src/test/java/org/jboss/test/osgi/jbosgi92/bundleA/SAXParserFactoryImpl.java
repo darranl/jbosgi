@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi92.bundleA;
 
-//$Id$
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;

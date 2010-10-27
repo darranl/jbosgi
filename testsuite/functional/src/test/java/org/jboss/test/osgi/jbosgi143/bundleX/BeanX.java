@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi143.bundleX;
 
-//$Id$
 
 public class BeanX
 {

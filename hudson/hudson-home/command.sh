@@ -3,8 +3,7 @@
 # A script that uses Maven to build the project and
 # execute its test suite against a given target container 
 #
-# $Id$
-
+# 
 OSGIDIR=$WORKSPACE
 DISTRODIR=$OSGIDIR/distribution/installer/target
 HUDSONDIR=$OSGIDIR/hudson

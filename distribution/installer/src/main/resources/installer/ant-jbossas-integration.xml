@@ -9,8 +9,7 @@
 <!--                                                                        -->
 <!-- ====================================================================== -->
 
-<!-- $Id$ -->
-
+<!-- 
 <project>
 
   <target name="delete-resources" depends="init,delete-jboss600-jbossmc">

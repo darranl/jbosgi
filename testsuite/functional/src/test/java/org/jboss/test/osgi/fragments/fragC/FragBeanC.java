@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.fragments.fragC;
 
-//$Id$
 
 
 public class FragBeanC

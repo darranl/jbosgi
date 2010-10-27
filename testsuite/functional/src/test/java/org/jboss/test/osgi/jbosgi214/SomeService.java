@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi214;
 
-//$Id$
 
 
 /**

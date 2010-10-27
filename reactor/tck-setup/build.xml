@@ -9,8 +9,7 @@
 <!--                                                                        -->
 <!-- ====================================================================== -->
 
-<!-- $Id$ -->
-
+<!-- 
 <project default="setup.vi">
 
   <property name="target.dir" value="${basedir}/target" />

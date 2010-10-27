@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.serviceloader.service;
 
-//$Id$
 
 /**
  * A simple bank account service 

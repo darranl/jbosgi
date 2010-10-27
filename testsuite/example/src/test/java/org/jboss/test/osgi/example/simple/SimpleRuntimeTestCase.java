@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-//$Id$
 
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi161;
 
-//$Id$
 
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;

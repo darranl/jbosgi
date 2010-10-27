@@ -22,7 +22,6 @@
 package org.jboss.test.osgi.jbosgi38.bundleX;
 
 
-//$Id$
 
 public class SomePojo
 {

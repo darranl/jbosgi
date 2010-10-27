@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi39.bundleB;
 
-//$Id$
 
 import org.jboss.test.osgi.jbosgi39.bundleX.OSGi39BeanX;
 import org.osgi.framework.BundleActivator;

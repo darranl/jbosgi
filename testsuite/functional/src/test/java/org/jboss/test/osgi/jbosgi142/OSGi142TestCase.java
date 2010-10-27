@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi142;
 
-//$Id$
 
 import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.test.osgi.jbosgi142.bundleA.BeanA;

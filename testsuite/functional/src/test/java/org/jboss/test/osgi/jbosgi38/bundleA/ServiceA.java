@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi38.bundleA;
 
-//$Id$
 
 import org.jboss.test.osgi.jbosgi38.bundleB.ServiceB;
 import org.jboss.test.osgi.jbosgi38.bundleX.SomePojo;

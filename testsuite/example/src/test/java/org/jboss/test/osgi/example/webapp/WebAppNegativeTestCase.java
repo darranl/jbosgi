@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.webapp;
 
-// $Id$
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;

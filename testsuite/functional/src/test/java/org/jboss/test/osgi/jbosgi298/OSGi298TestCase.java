@@ -20,7 +20,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-//$Id$
 package org.jboss.test.osgi.jbosgi298;
 
 import static org.junit.Assert.assertFalse;

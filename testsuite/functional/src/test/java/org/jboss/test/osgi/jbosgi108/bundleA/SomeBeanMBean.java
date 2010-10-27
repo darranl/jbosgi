@@ -27,7 +27,6 @@ import javax.management.ObjectName;
 
 import org.jboss.osgi.jmx.ObjectNameFactory;
 
-//$Id$
 
 public interface SomeBeanMBean
 {

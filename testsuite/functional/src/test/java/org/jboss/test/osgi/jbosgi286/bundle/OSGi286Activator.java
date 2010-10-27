@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi286.bundle;
 
-//$Id$
 
 import javax.xml.bind.JAXBContext;
 

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi161.bundle;
 
-// $Id$
 
 import java.util.ArrayList;
 import java.util.List;

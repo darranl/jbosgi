@@ -13,3 +13,6 @@
 [submodule "reactor/jbosgi-deployment"]
 	path = reactor/jbosgi-deployment
 	url = git://github.com/jbosgi/jbosgi-deployment.git
+[submodule "reactor/jbosgi-xerces"]
+	path = reactor/jbosgi-xerces
+	url = git://github.com/jbosgi/jbosgi-xerces.git

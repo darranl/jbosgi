@@ -29,7 +29,7 @@
         <include>*:jboss-osgi-spi:jar:sources</include>
         <include>*:jboss-osgi-vfs:jar:sources</include>
         <include>*:jboss-osgi-webapp:jar:sources</include>
-        <!-- include>*:jboss-osgi-xerces:jar:sources</include -->
+        <include>*:jboss-osgi-xerces:jar:sources</include>
       </includes>
       <unpack>true</unpack>
     </dependencySet>

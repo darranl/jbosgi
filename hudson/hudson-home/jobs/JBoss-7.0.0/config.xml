@@ -57,6 +57,19 @@
       <mavenName>apache-maven-3.0-beta-1</mavenName>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>pushd $WORKSPACE/build/target
+if [ ! -d $HUDSON_HOME/../jboss ]; then
+  mkdir $HUDSON_HOME/../jboss 
+fi
+if [ -f $HUDSON_HOME/../jboss/jboss-7.0.0-SNAPSHOT.zip ]; then
+  rm $HUDSON_HOME/../jboss/jboss-7.0.0-SNAPSHOT.zip
+fi
+zip -r $HUDSON_HOME/../jboss/jboss-7.0.0-SNAPSHOT.zip *
+popd
+
+</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.junit.JUnitResultArchiver>

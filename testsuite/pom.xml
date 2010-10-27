@@ -187,12 +187,6 @@
     <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>wutka-dtdparser</groupId>
-          <artifactId>dtdparser121</artifactId>
-        </exclusion>
-      </exclusions>
       <scope>provided</scope>
     </dependency>
 

@@ -14,8 +14,8 @@ case "$CONTAINER" in
     SERVER_NAME=default
     JBOSS_BUILD=jboss-6.0.0.M3
     JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-	CONTAINER_HOME=$WORKSPACE/jboss-6.0.0.20100429-M3
-	CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
+    CONTAINER_HOME=$WORKSPACE/jboss-6.0.0.20100429-M3
+    CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE  
     cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
   ;;
@@ -23,19 +23,27 @@ case "$CONTAINER" in
     SERVER_NAME=default
     JBOSS_BUILD=jboss-6.0.0-SNAPSHOT
     JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-	CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
-	CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
+    CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
+    CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
     cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
   ;;
+  'jboss700')
+    SERVER_NAME=jboss700
+    JBOSS_BUILD=jboss-7.0.0-SNAPSHOT
+    JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
+    CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
+    CONTAINER_LOG=$CONTAINER_HOME/standalong/log/boot.log
+    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $CONTAINER_HOME
+  ;;
   'runtime')
     SERVER_NAME=all
-	CONTAINER_HOME=$DISTRODIR/auto-install-dest/runtime
-	CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
+    CONTAINER_HOME=$DISTRODIR/auto-install-dest/runtime
+    CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
   ;;
   *)
-	echo "Unsupported container: $CONTAINER"
-	exit 1
+    echo "Unsupported container: $CONTAINER"
+    exit 1
   ;;
 esac
 
@@ -66,7 +74,7 @@ if [ $CONTAINER = 'runtime' ]; then
   echo $MVN_CMD; $MVN_CMD; MVN_STATUS=$?
   if [ $MVN_STATUS -ne 0 ]; then
      echo maven exit status $MVN_STATUS
-	 exit 1
+     exit 1
   fi
 fi
 
@@ -113,7 +121,12 @@ fi
 #
 # execute tests
 #
-MVN_CMD="mvn -o -Dnoreactor -fae $ENVIRONMENT test"
+if [ $CONTAINER = 'jboss700' ]; then
+  # Only run the example tests for JBOSS 700 for the momenet
+  MVN_CMD="mvn -o -Dnoreactor -fae -pl testsuite/example -am $ENVIRONMENT test"
+else
+  MVN_CMD="mvn -o -Dnoreactor -fae $ENVIRONMENT test"
+fi
 echo $MVN_CMD; $MVN_CMD 2>&1 | tee $WORKSPACE/tests.log
 cat $WORKSPACE/tests.log | egrep FIXME\|FAILED | sort -u | tee $WORKSPACE/fixme.txt
 cat $WORKSPACE/fixme.txt | egrep "\[\S*]" > $WORKSPACE/errata-$CONTAINER.txt || :

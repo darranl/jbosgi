@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi151.bundleA;
 
-//$Id$
 
 import org.jboss.test.osgi.jbosgi151.bundleB.BeanB;
 

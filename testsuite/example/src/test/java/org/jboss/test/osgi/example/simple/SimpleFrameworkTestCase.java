@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-//$Id$
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

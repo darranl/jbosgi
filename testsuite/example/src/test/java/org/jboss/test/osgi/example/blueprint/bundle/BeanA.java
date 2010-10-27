@@ -24,7 +24,6 @@ package org.jboss.test.osgi.example.blueprint.bundle;
 import javax.management.MBeanServer;
 
 
-//$Id$
 
 /**
  * A basic bean

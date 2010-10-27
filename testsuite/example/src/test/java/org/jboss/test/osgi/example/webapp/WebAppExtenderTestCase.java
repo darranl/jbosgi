@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.webapp;
 
-//$Id$
 
 import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;

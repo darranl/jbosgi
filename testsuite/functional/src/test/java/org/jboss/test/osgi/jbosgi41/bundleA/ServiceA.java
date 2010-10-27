@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi41.bundleA;
 
-//$Id$
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.blueprint.bundle;
 
-//$Id$
 
 /**
  * A basic service

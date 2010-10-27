@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi37.bundleB;
 
-//$Id$
 
 import org.jboss.test.osgi.jbosgi37.subB.PojoB;
 import org.osgi.framework.BundleContext;

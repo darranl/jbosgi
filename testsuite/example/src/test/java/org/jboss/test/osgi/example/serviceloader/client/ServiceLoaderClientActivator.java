@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.serviceloader.client;
 
-//$Id$
 
 import org.jboss.osgi.spi.util.ServiceLoader;
 import org.jboss.test.osgi.example.serviceloader.service.AccountService;

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.http.bundle;
 
-//$Id$
 
 import java.util.Properties;
 

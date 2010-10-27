@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jndi.bundle;
 
-//$Id$
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

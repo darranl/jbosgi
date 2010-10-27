@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.fragments.hostC;
 
-//$Id$
 
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
 import org.osgi.framework.BundleActivator;

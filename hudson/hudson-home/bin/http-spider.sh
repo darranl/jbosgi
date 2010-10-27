@@ -10,8 +10,7 @@
 #
 # @author Heiko.Braun@jboss.com
 #
-# $Id$
-#
+# #
 #############################################################
 
 TIMEOUT=2           # wget timeout in sec

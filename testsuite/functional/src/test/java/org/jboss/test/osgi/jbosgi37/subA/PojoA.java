@@ -22,7 +22,6 @@
 package org.jboss.test.osgi.jbosgi37.subA;
 
 
-//$Id$
 
 public class PojoA
 {

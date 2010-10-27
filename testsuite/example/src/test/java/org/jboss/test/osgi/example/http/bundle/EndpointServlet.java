@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.http.bundle;
 
-//$Id$
 
 import java.io.IOException;
 import java.io.PrintWriter;

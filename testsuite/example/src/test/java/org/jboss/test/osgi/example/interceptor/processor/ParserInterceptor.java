@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-//$Id$
 
 import java.io.IOException;
 import java.util.Properties;

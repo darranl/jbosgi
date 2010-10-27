@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-//$Id$
 
 import javax.servlet.http.HttpServlet;
 

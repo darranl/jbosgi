@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi287.bundleA;
 
-//$Id$
 
 
 public class OSGi287BeanA

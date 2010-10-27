@@ -6,8 +6,7 @@
 <!--  See terms of license at http://www.gnu.org.                 -->
 <!-- ============================================================ -->
 
-<!-- $Id$ -->
-
+<!-- 
 <!--
 
  [JBOSGI-36]  Bundle classes leak into system classloader

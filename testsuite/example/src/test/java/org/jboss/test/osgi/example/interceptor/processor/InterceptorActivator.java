@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-//$Id$
 
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorService;

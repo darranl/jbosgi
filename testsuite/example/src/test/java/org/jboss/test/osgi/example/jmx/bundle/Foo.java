@@ -24,7 +24,6 @@ package org.jboss.test.osgi.example.jmx.bundle;
 
 
 
-//$Id$
 
 public class Foo implements FooMBean
 {

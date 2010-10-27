@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple.bundle;
 
-//$Id$
 
 
 /**

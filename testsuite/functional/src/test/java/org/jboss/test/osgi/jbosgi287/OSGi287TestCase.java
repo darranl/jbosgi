@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi287;
 
-//$Id$
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

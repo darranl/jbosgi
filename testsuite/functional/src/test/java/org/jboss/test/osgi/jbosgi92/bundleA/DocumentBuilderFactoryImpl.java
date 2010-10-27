@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi92.bundleA;
 
-//$Id$
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

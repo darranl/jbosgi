@@ -1,8 +1,7 @@
 #
 # A sample ant properties file
 #
-# $Id: ant.properties.example 3995 2007-07-26 08:52:45Z thomas.diesler@jboss.com $
-
+# 
 # The JBoss OSGi framework version
 framework.version=1.0.0.Alpha12-SNAPSHOT
 

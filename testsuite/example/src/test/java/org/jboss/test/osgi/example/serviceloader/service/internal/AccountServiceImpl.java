@@ -23,7 +23,6 @@ package org.jboss.test.osgi.example.serviceloader.service.internal;
 
 import org.jboss.test.osgi.example.serviceloader.service.AccountService;
 
-//$Id$
 
 /**
  * A simple bank account service 

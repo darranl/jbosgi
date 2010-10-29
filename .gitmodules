@@ -1,18 +1,3 @@
 [submodule "reactor/jbosgi-framework"]
 	path = reactor/jbosgi-framework
 	url = git://github.com/jbosgi/jbosgi-framework.git
-[submodule "reactor/jbosgi-spi"]
-	path = reactor/jbosgi-spi
-	url = git://github.com/jbosgi/jbosgi-spi.git
-[submodule "reactor/jbosgi-jmx"]
-	path = reactor/jbosgi-jmx
-	url = git://github.com/jbosgi/jbosgi-jmx.git
-[submodule "reactor/jbosgi-vfs"]
-	path = reactor/jbosgi-vfs
-	url = git://github.com/jbosgi/jbosgi-vfs.git
-[submodule "reactor/jbosgi-deployment"]
-	path = reactor/jbosgi-deployment
-	url = git://github.com/jbosgi/jbosgi-deployment.git
-[submodule "reactor/jbosgi-xerces"]
-	path = reactor/jbosgi-xerces
-	url = git://github.com/jbosgi/jbosgi-xerces.git

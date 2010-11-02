@@ -10,30 +10,20 @@ HUDSONDIR=$OSGIDIR/hudson
 HUDSONBIN=$HUDSONDIR/hudson-home/bin
 
 case "$CONTAINER" in
-  'jboss600')
-    SERVER_NAME=default
-    JBOSS_BUILD=jboss-6.0.0.M3
-    JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-    CONTAINER_HOME=$WORKSPACE/jboss-6.0.0.20100429-M3
-    CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
-    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE  
-    cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
-  ;;
-  'jboss601')
-    SERVER_NAME=default
-    JBOSS_BUILD=jboss-6.0.0-SNAPSHOT
-    JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
-    CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
-    CONTAINER_LOG=$CONTAINER_HOME/server/$SERVER_NAME/log/server.log
-    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
-    cp --backup $HUDSONBIN/run-with-pid.sh $CONTAINER_HOME/bin/run.sh
-  ;;
   'jboss700')
-    SERVER_NAME=jboss700
-    JBOSS_BUILD=jboss-7.0.0-SNAPSHOT
-    JBOSS_ZIP=$HUDSON_HOME/../jboss/$JBOSS_BUILD.zip
+    SERVER_NAME=default
+    JBOSS_BUILD=jboss-7.0.0.Alpha1
+    JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD.zip
     CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
-    CONTAINER_LOG=$CONTAINER_HOME/standalong/log/boot.log
+    CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
+    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $CONTAINER_HOME
+  ;;
+  'jboss701')
+    SERVER_NAME=default
+    JBOSS_BUILD=jboss-7.0.0.Alpha2
+    JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD-SNAPSHOT.zip
+    CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
+    CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $CONTAINER_HOME
   ;;
   'runtime')

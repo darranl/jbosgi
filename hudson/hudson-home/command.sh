@@ -16,7 +16,7 @@ case "$CONTAINER" in
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD.zip
     CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
     CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
-    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $CONTAINER_HOME
+    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
   ;;
   'jboss701')
     SERVER_NAME=default
@@ -24,7 +24,7 @@ case "$CONTAINER" in
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD-SNAPSHOT.zip
     CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
     CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
-    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $CONTAINER_HOME
+    rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
   ;;
   'runtime')
     SERVER_NAME=all

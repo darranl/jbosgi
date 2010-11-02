@@ -10,7 +10,7 @@ BINDADDR="$4"
 export RUNTIME_HOME
 pidfile="$RUNTIME_HOME/bin/pid.txt"
 
-if [ $SERVER_NAME = 'jboss700' ]; then
+if [ $CONTAINER = 'jboss700' || $CONTAINER = 'jboss701' ]; then
     RUN_CMD=$RUNTIME_HOME/bin/standalone.sh
     export LAUNCH_JBOSS_IN_BACKGROUND="true"
     export JBOSS_PIDFILE=$pidfile
@@ -25,10 +25,10 @@ warn() {
    echo "$PROGNAME: $*"
 }
 
-if [ ! -f "$RUNTIME_HOME/bin/run.sh" ]; then
-   warn "Cannot find: $RUNTIME_HOME/bin/run.sh"
-   exit 1
-fi
+#if [ ! -f "$RUNTIME_HOME/bin/run.sh" ]; then
+#   warn "Cannot find: $RUNTIME_HOME/bin/run.sh"
+#   exit 1
+#fi
 
 case "$CMD" in
 start)

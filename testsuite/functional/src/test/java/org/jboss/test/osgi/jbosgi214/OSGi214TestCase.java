@@ -21,13 +21,13 @@
  */
 package org.jboss.test.osgi.jbosgi214;
 
-
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jboss.osgi.framework.Constants;
 import org.jboss.osgi.spi.util.ServiceLoader;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
@@ -40,7 +40,8 @@ import org.osgi.framework.launch.FrameworkFactory;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
- * [JBOSGI-214] Cannot repeatedly register service bound to an interface from the system classpath
+ * [JBOSGI-214] Cannot repeatedly register service bound to an interface from
+ * the system classpath
  * 
  * https://jira.jboss.org/jira/browse/JBOSGI-214
  * 
@@ -60,31 +61,34 @@ public class OSGi214TestCase extends OSGiRuntimeTest
    {
       runSystemServiceTest();
    }
-   
+
    private void runSystemServiceTest() throws BundleException, InterruptedException
    {
       // Setup some package on the system classpath
       Map<String, String> props = new HashMap<String, String>();
-      props.put("org.osgi.framework.system.packages.extra", SomeService.class.getPackage().getName());
+      props.put(Constants.FRAMEWORK_STORAGE, "target/osgi-store");
+      props.put(Constants.FRAMEWORK_STORAGE_CLEAN, Constants.FRAMEWORK_STORAGE_CLEAN_ONFIRSTINIT);
+      props.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, SomeService.class.getPackage().getName());
       props.put("felix.bootdelegation.implicit", "false");
-      
+
       // Bootstrap and start the framework
       FrameworkFactory factory = ServiceLoader.loadService(FrameworkFactory.class);
       Framework framework = factory.newFramework(props);
       framework.start();
-      
+
       // Start the ServiceTracker
       BundleContext context = framework.getBundleContext();
       new SomeServiceTracker(context).open();
-      
+
       try
       {
          // Install and start the test bundle
          URL bundleURL = getTestArchiveURL("jbosgi214-bundle.jar");
          Bundle bundle = context.installBundle(bundleURL.toExternalForm());
          bundle.start();
-         
-         // Verify that the service is there and can be cast to an interface from the system classpath
+
+         // Verify that the service is there and can be cast to an interface
+         // from the system classpath
          ServiceReference sref = context.getServiceReference(SomeService.class.getName());
          SomeService service = (SomeService)context.getService(sref);
          assertNotNull("Service not null", service);
@@ -99,7 +103,7 @@ public class OSGi214TestCase extends OSGiRuntimeTest
          framework.waitForStop(5000);
       }
    }
-   
+
    class SomeServiceTracker extends ServiceTracker
    {
       public SomeServiceTracker(BundleContext context)
@@ -111,14 +115,14 @@ public class OSGi214TestCase extends OSGiRuntimeTest
       public Object addingService(ServiceReference sref)
       {
          Object serviceObj = super.addingService(sref);
-         //System.out.println("addingService: " + serviceObj);
+         // System.out.println("addingService: " + serviceObj);
          return (SomeService)serviceObj;
       }
 
       @Override
       public void removedService(ServiceReference reference, Object serviceObj)
       {
-         //System.out.println("removedService: " + serviceObj);
+         // System.out.println("removedService: " + serviceObj);
          super.removedService(reference, serviceObj);
       }
    }

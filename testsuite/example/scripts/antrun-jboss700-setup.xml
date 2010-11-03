@@ -20,18 +20,12 @@ Please specify JBoss AS 7 root directory in property 'jboss.home'
 For example:
              -Djboss.home=/clones/jbosgi-as/build/target
     </echo>
-    <fail/>
   </target>
 
-  <target name="jboss-as-setup" depends="check-config">
+  <target name="jboss-as-setup" depends="check-config" if="jboss.home">
     <antcall target="copy-file">
       <param name="file" value="arquillian-osgi-bundle.jar"/>
     </antcall>
-  	<antcall target="copy-file">
-      <param name="file" value="jboss-osgi-jmx.jar"/>
-    </antcall>
-
-  	<!-- For the moment we deploy these as well -->
     <antcall target="copy-file">
       <param name="file" value="jboss-osgi-blueprint.jar"/>
     </antcall>      
@@ -39,12 +33,23 @@ For example:
       <param name="file" value="jboss-osgi-common-core.jar"/>
     </antcall>  	
     <antcall target="copy-file">
-      <param name="file" value="org.apache.felix.log.jar"/>
+      <param name="file" value="jboss-osgi-http.jar"/>
+    </antcall>
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-jaxb.jar"/>
+    </antcall>
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-reflect.jar"/>
     </antcall>      
     <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-jndi.jar"/>
+      <param name="file" value="jboss-osgi-webapp.jar"/>
+    </antcall>
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-webconsole.jar"/>
     </antcall>      
-  	
+    <antcall target="copy-file">
+      <param name="file" value="jboss-osgi-xerces.jar"/>
+    </antcall>      
     <antcall target="copy-file">
       <param name="file" value="org.apache.felix.configadmin.jar"/>
     </antcall>      
@@ -54,44 +59,6 @@ For example:
     <antcall target="copy-file">
       <param name="file" value="org.apache.felix.log.jar"/>
     </antcall>      
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-http.jar"/>
-    </antcall>      
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-webconsole.jar"/>
-    </antcall>      
-
-  	<!-- This one causes the following exception in AS7:
-  	     missing requirement [Module[jboss-osgi-jaxb:2.1.10.SP5]] package; (&(package=org.jboss.osgi.xml)(version>=2.9.0)(!(version>=3.0.0)))
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-jaxb.jar"/>
-    </antcall>
-    -->      
-  	
-  	<!-- This one causes the following exception in AS7:
-  	     missing requirement [Module[jboss-osgi-jta:4.6.1.SP2]] package; (&(package=javax.transaction)(version>=1.0.0)(!(version>=1.1.0)))
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-jta.jar"/>
-    </antcall>      
-    -->
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-reflect.jar"/>
-    </antcall>      
-  	
-  	<!-- This one causes the following exception in AS7:
-  	     missing requirement [Module[jboss-osgi-webapp:1.0.1]] package; (&(package=org.jboss.osgi.vfs)(version>=1.0.0)(!(version>=2.0.0)))
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-webapp.jar"/>
-    </antcall>
-    -->
-  	
-  	<!-- This one causes the following exception in AS7:
-  	     java.lang.NoClassDefFoundError: javax/xml/parsers/FactoryConfigurationError  	     
-    <antcall target="copy-file">
-      <param name="file" value="jboss-osgi-xerces.jar"/>
-    </antcall>      
-    -->
-
     <antcall target="copy-file">
       <param name="file" value="org.apache.felix.metatype.jar"/>
     </antcall>      

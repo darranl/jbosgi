@@ -34,7 +34,7 @@ public class LoggingDelegate
       String loggerClass = log.getClass().getName();
       
       List<String> expected = new ArrayList<String>();
-      expected.add("org.jboss.logging.Log4jLogger");
+      expected.add("org.jboss.logging.JBossLogManagerLogger");
       
       if (expected.contains(loggerClass) == false)
          throw new IllegalStateException("Unexpected logger: " + loggerClass);

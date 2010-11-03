@@ -23,6 +23,7 @@ package org.jboss.test.osgi.jbosgi99;
 
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -40,9 +41,9 @@ import org.osgi.framework.BundleException;
 
 /**
  * [JBOSGI-99] No explicit control over bundle.start()
- * 
+ *
  * https://jira.jboss.org/jira/browse/JBOSGI-99
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 08-Jul-2009
  */
@@ -124,9 +125,18 @@ public class OSGi99TestCase extends OSGiRuntimeTest
    @Test
    public void testHotDeploy() throws Exception
    {
-      if (getRuntime().isRemoteRuntime() == false)
+      String targetContainer = getTargetContainer();
+      if (targetContainer == null)
          return;
 
+      String depoydir = null;
+      if (targetContainer.equals("runtime"))
+         depoydir = "deploy";
+      else if (targetContainer.startsWith("jboss70"))
+         depoydir = "deployments";
+      else
+         fail("Unsupported target container: " + targetContainer);
+      
       // [JBOSGI-210] Bundle installed but not started with hot deploy
       File inFile = getTestArchiveFile("jbosgi99-allgood.jar");
 
@@ -134,10 +144,10 @@ public class OSGi99TestCase extends OSGiRuntimeTest
       String outPath = getRuntime().getBundle(0).getDataFile("jbosgi99-allgood.jar").getAbsolutePath();
       File outFile = new File(outPath);
       copyfile(inFile, outFile);
-      
+
       // Move the bundle to the deploy directory
       outPath = outPath.substring(0, outPath.indexOf("data/osgi-store"));
-      File deployFile = new File(outPath + "deploy/jbosgi99-allgood.jar");
+      File deployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar");
       outFile.renameTo(deployFile);
       try
       {
@@ -156,7 +166,12 @@ public class OSGi99TestCase extends OSGiRuntimeTest
          assertNotNull("Bundle not null", bundle);
          assertBundleState(Bundle.ACTIVE, bundle.getState());
 
+         // Adjust the deployment file for jboss70x
+         if (deployFile.exists() == false)
+            deployFile = new File(deployFile + ".deployed");
+         
          // Delete the bundle from the deploy directory
+         assertTrue("Deployment file exists: " + deployFile, deployFile.exists());
          deployFile.delete();
 
          timeout = 8000;

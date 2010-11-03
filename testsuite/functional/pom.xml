@@ -373,7 +373,7 @@
                 <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
                 <exclude>org/jboss/test/osgi/jbosgi99/**</exclude>
                 <exclude>org/jboss/test/osgi/jbosgi161/**</exclude>
-                <exclude>org/jboss/test/osgi/jbosgi268/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi286/**</exclude>
                 <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
                 <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
               </excludes>

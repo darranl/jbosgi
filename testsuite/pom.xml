@@ -445,5 +445,88 @@
         </dependency>
       </dependencies>
     </profile>
+
+    <!-- 
+      Name: jboss700 
+      Descr: Setup for jboss700 integration testing
+      TODO: this one should move up one level 
+    -->
+    <profile>
+      <id>jboss700</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss700</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-osgi-remote</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+                    <ant antfile="scripts/antrun-jboss700-setup.xml" />
+                  </tasks>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- 
+      Name: jboss701
+      Descr: Setup for jboss701 integration testing
+    -->
+    <profile>
+      <id>jboss701</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss701</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-osgi-remote</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+                    <ant antfile="scripts/antrun-jboss700-setup.xml" />
+                  </tasks>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>

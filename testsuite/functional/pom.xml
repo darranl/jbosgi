@@ -318,5 +318,69 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- 
+      Name: jboss700
+      Descr: Setup for jboss700 integration testing
+    -->
+    <profile>
+      <id>jboss700</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss700</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi99/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi161/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi268/**</exclude>
+                <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
+                <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
+              </excludes>
+            </configuration>
+          </plugin>        
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- 
+      Name: jboss701
+      Descr: Setup for jboss701 integration testing
+    -->
+    <profile>
+      <id>jboss701</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>jboss701</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+                <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi99/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi161/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi268/**</exclude>
+                <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
+                <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
+              </excludes>
+            </configuration>
+          </plugin>        
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>

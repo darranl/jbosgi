@@ -190,6 +190,7 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
                 <exclude>org/jboss/osgi/test/performance/**</exclude>
               </excludes>
             </configuration>
@@ -217,6 +218,7 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
                 <exclude>org/jboss/osgi/test/performance/**</exclude>
               </excludes>
             </configuration>

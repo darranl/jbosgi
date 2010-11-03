@@ -351,6 +351,7 @@
                 <exclude>${target.container.excludes}</exclude>
                 <exclude>org/jboss/test/osgi/example/xml/jaxb/**</exclude>
                 <exclude>org/jboss/test/osgi/example/xml/parser/**</exclude>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
                 <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>
               </excludes>
             </configuration>
@@ -396,6 +397,7 @@
                 <exclude>${target.container.excludes}</exclude>
                 <exclude>org/jboss/test/osgi/example/xml/jaxb/**</exclude>
                 <exclude>org/jboss/test/osgi/example/xml/parser/**</exclude>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
                 <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>
               </excludes>
             </configuration>

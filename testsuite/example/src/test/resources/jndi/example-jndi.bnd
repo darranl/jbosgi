@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jndi-test.jar src/test/resources/jndi/jndi-test.bnd
-
-Bundle-SymbolicName: example-jndi
-Bundle-Activator: org.jboss.test.osgi.example.jndi.bundle.JNDIExampleActivator
-Export-Package: org.jboss.test.osgi.example.jndi.bundle 
-Import-Package: javax.naming, org.osgi.framework

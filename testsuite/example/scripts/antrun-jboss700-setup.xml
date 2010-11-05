@@ -18,7 +18,7 @@
     <echo>
 Please specify JBoss AS 7 root directory in property 'jboss.home'
 For example:
-             -Djboss.home=/clones/jbosgi-as/build/target
+             -Djboss.home=/home/yourname/git/jboss-as/build/target/jboss-7.0.0.Alpha2
     </echo>
   </target>
 

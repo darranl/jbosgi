@@ -53,18 +53,26 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>-fae clean install</targets>
+      <targets>-P-all -fae clean install</targets>
       <mavenName>@maven.name@</mavenName>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
     <hudson.tasks.Shell>
       <command>
-JBOSS_VERSION=jboss-7.0.0.Alpha2-SNAPSHOT
-JBOSS_ZIP=$WORKSPACE/build/target/distribution/$JBOSS_VERSION.zip
+JBOSS_VERSION=jboss-7.0.0.Alpha2
+JBOSS_ZIP=$WORKSPACE/build/target/distribution/$JBOSS_VERSION-SNAPSHOT.zip
 TARGET_DIR=$HUDSON_HOME/userContent
 
 #
-# Copy new jboss.zip
+# Optionally create the zip
+#
+if [ ! -f $JBOSS_ZIP ]; then
+  cd $WORKSPACE/build/target; mkdir distribution
+  zip -r $JBOSS_ZIP $JBOSS_VERSION
+fi
+
+#
+# Copy jboss.zip to userContent
 #
 cp -f $JBOSS_ZIP $TARGET_DIR
       </command>

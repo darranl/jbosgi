@@ -10,7 +10,7 @@ HUDSONDIR=$OSGIDIR/hudson
 HUDSONBIN=$HUDSONDIR/hudson-home/bin
 
 case "$CONTAINER" in
-  'jboss700-stable')
+  'jboss700')
     SERVER_NAME=default
     JBOSS_BUILD=jboss-7.0.0.Alpha1
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD.zip
@@ -18,7 +18,7 @@ case "$CONTAINER" in
     CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
   ;;
-  'jboss700-latest')
+  'jboss701')
     SERVER_NAME=default
     JBOSS_BUILD=jboss-7.0.0.Alpha2
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD-SNAPSHOT.zip
@@ -111,7 +111,7 @@ fi
 #
 # execute tests
 #
-if [ $CONTAINER = 'jboss700-stable' ] || [ $CONTAINER = 'jboss700-latest' ]; then
+if [ $CONTAINER = 'jboss700' ] || [ $CONTAINER = 'jboss701' ]; then
   # Only run the example tests for JBOSS 700 for the momenet
   MVN_CMD="mvn -o -Dnoreactor -fae -pl testsuite/example -am $ENVIRONMENT test"
 else

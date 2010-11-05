@@ -25,12 +25,24 @@ package org.jboss.test.osgi.example.jndi;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.InputStream;
+
+import javax.inject.Inject;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.example.jndi.bundle.JNDIExampleActivator;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 /**
  * A test that deployes a bundle that binds a String to JNDI
@@ -38,15 +50,38 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 05-May-2009
  */
-public class JNDITestCase extends OSGiRuntimeTest
+@RunWith(Arquillian.class)
+public class JNDITestCase
 {
+   @Inject
+   public Bundle bundle;
+   
+   @Deployment
+   public static JavaArchive createdeployment()
+   {
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-jndi");
+      archive.addClasses(JNDIExampleActivator.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addBundleActivator(JNDIExampleActivator.class.getName());
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
    @Test
    public void testJNDIAccess() throws Exception
    {
-      OSGiBundle bundle = getRuntime().installBundle("example-jndi.jar");
       bundle.start();
+      assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-      InitialContext iniCtx = getRuntime().getInitialContext();
+      InitialContext iniCtx = getInitialContext(bundle.getBundleContext());
       String lookup = (String)iniCtx.lookup("test/Foo");
       assertEquals("JNDI bound String expected", "Bar", lookup);
 
@@ -62,5 +97,15 @@ public class JNDITestCase extends OSGiRuntimeTest
       {
          // expected
       }
+   }
+
+   private InitialContext getInitialContext(BundleContext context)
+   {
+      ServiceReference sref = context.getServiceReference(InitialContext.class.getName());
+      if (sref == null)
+         throw new IllegalStateException("Cannot access the InitialContext");
+      
+      InitialContext initContext = (InitialContext)context.getService(sref);
+      return initContext;
    }
 }

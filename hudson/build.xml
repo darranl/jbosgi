@@ -9,7 +9,6 @@
 <!--                                                                        -->
 <!-- ====================================================================== -->
 
-<!-- 
 <project>
   
   <property name="hudson.dir" value="${basedir}"/>
@@ -63,12 +62,15 @@
   <!-- 
     Get thirdparty dependencies 
   -->
-  <target name="thirdparty" depends="init-thirdparty,get-hudson">
+  <target name="thirdparty" depends="init-thirdparty,get-hudson,get-jboss700">
   </target>
   <target name="get-hudson" depends="init-thirdparty" unless="hudson.war.available">
     <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="true" verbose="true"/>
     <get src="http://hudson-ci.org/download/plugins/github/${github.plugin.version}/github.hpi" dest="${thirdparty.dir}/github.hpi" usetimestamp="true" verbose="true"/>
     <get src="http://hudson-ci.org/download/plugins/git/${git.plugin.version}/git.hpi" dest="${thirdparty.dir}/git.hpi" usetimestamp="true" verbose="true"/>
+  </target>
+  <target name="get-jboss700">
+    <get src="https://repository.jboss.org/nexus/content/groups/public/org/jboss/as/jboss-as-build/7.0.0.Alpha1/jboss-as-build-7.0.0.Alpha1.zip" dest="${thirdparty.dir}/jboss-7.0.0.Alpha1.zip" usetimestamp="true" verbose="true"/>
   </target>
   
   <!-- 
@@ -86,7 +88,7 @@
     <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war"/>
     <copy todir="${hudson.home}/plugins" file="${thirdparty.dir}/github.hpi"/>
     <copy todir="${hudson.home}/plugins" file="${thirdparty.dir}/git.hpi"/>
-    
+    <copy todir="${hudson.home}/userContent" file="${thirdparty.dir}/jboss-7.0.0.Alpha1.zip"/>
   </target>
   
   <!-- 

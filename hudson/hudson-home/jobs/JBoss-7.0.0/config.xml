@@ -53,7 +53,12 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>-P-all -fae clean install</targets>
+      <targets>-P-all -pl build -am -fae clean install</targets>
+      <mavenName>@maven.name@</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>-f testsuite/pom.xml -fae clean install</targets>
       <mavenName>@maven.name@</mavenName>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>

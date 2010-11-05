@@ -54,9 +54,6 @@
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx-update2-user.jar" files="${tests.resources.dir}/jmx/example-jmx-update2-user.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jmx-update3.jar" files="${tests.resources.dir}/jmx/example-jmx-update3.bnd" />
   	
-    <!-- jndi -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-jndi.jar" files="${tests.resources.dir}/jndi/example-jndi.bnd" />
-    
     <!-- serviceloader -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-serviceloader-api.jar" files="${tests.resources.dir}/serviceloader/example-serviceloader-api.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/example-serviceloader-client.jar" files="${tests.resources.dir}/serviceloader/example-serviceloader-client.bnd" />

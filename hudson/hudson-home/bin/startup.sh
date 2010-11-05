@@ -10,7 +10,7 @@ BINDADDR="$4"
 export RUNTIME_HOME
 pidfile="$RUNTIME_HOME/bin/pid.txt"
 
-if [ $CONTAINER = 'jboss700' ] || [ $CONTAINER = 'jboss701' ]; then
+if [ $CONTAINER = 'jboss700' ] || [ $CONTAINER = 'jboss70x' ]; then
     RUN_CMD=$RUNTIME_HOME/bin/standalone.sh
     export LAUNCH_JBOSS_IN_BACKGROUND="true"
     export JBOSS_PIDFILE=$pidfile

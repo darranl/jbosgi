@@ -18,7 +18,7 @@ case "$CONTAINER" in
     CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
   ;;
-  'jboss701')
+  'jboss70x')
     SERVER_NAME=default
     JBOSS_BUILD=jboss-7.0.0.Alpha2
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD-SNAPSHOT.zip

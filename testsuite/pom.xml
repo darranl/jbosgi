@@ -469,15 +469,15 @@
     </profile>
     
     <!-- 
-      Name: jboss701
-      Descr: Setup for jboss701 integration testing
+      Name: jboss70x
+      Descr: Setup for jboss70x integration testing
     -->
     <profile>
-      <id>jboss701</id>
+      <id>jboss70x</id>
       <activation>
         <property>
           <name>target.container</name>
-          <value>jboss701</value>
+          <value>jboss70x</value>
         </property>
       </activation>
       <dependencies>

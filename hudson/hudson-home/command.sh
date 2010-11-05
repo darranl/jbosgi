@@ -111,12 +111,7 @@ fi
 #
 # execute tests
 #
-if [ $CONTAINER = 'jboss700' ] || [ $CONTAINER = 'jboss701' ]; then
-  # Only run the example tests for JBOSS 700 for the momenet
-  MVN_CMD="mvn -o -Dnoreactor -fae -pl testsuite/example -am $ENVIRONMENT test"
-else
-  MVN_CMD="mvn -o -Dnoreactor -fae $ENVIRONMENT test"
-fi
+MVN_CMD="mvn -o -Dnoreactor -fae $ENVIRONMENT test"
 echo $MVN_CMD; $MVN_CMD 2>&1 | tee $WORKSPACE/tests.log
 cat $WORKSPACE/tests.log | egrep FIXME\|FAILED | sort -u | tee $WORKSPACE/fixme.txt
 cat $WORKSPACE/fixme.txt | egrep "\[\S*]" > $WORKSPACE/errata-$CONTAINER.txt || :

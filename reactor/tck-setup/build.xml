@@ -53,7 +53,7 @@
     <!-- Check if the jboss.osgi.framework jar is available -->
     <property name="framework.jar.path" value="${maven.local.repository}/${framework.groupId}/${framework.artifactId}/${framework.version}/${framework.jar}" />
     <available property="framework.jar.available" file="${framework.jar.path}" />
-    <fail message="Cannot find: ${framework.jar}" unless="framework.jar.available" />
+    <fail message="Cannot find: ${framework.jar.path}" unless="framework.jar.available" />
 
   </target>
 

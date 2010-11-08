@@ -9,22 +9,21 @@
 <!--                                                                        -->
 <!-- ====================================================================== -->
 
-<!-- 
 <project>
 
-  <target name="delete-resources" depends="init,delete-jboss600-jbossmc">
+  <target name="delete-resources" depends="init,delete-jboss700-jbossmc">
   </target>
 
   <target name="init">
-    <condition property="jboss.jboss600.jbossmc">
+    <condition property="jboss.jboss700.jbossmc">
       <and>
         <equals arg1="${frameworkSelection}" arg2="jbossmc"/>
-        <equals arg1="${jbossSelection}" arg2="jboss600"/>
+        <equals arg1="${jbossSelection}" arg2="jboss700"/>
       </and>
     </condition>
   </target>
   
-  <target name="delete-jboss600-jbossmc" if="jboss.jboss600.jbossmc">
+  <target name="delete-jboss700-jbossmc" if="jboss.jboss700.jbossmc">
   </target>
 
 </project>

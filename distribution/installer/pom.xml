@@ -376,8 +376,8 @@
                 <property name="framework" value="${framework}" />
                 <!-- ${jboss.home} is available in the hudson run  -->
                 <property name="jboss.home" value="${jboss.home}" />
-                <property name="jboss600.home" value="${jboss600.home}" />
-                <property name="jboss601.home" value="${jboss601.home}" />
+                <property name="jboss700.home" value="${jboss700.home}" />
+                <property name="jboss70x.home" value="${jboss70x.home}" />
                 <property name="product.name" value="${project.name}" />
                 <property name="product.short.name" value="${artifactId}" />
                 <property name="product.version" value="${project.version}" />

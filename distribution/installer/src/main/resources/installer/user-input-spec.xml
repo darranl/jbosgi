@@ -4,12 +4,9 @@
     <field type="radio" variable="jbossSelection">
       <description align="left" txt="Please choose your target container" />
       <spec>
-        <choice txt="JBoss-6.0.0.M3" value="jboss600" set="true"/>
-        <choice txt="JBoss-6.0.0-SNAPSHOT" value="jboss601"/>
+        <choice txt="JBoss-7.0.0.Alpha1" value="jboss700" set="true"/>
+        <choice txt="JBoss-7.0.0.Alpha2-SNAPSHOT" value="jboss70x"/>
       </spec>
-    </field>
-    <field type="text" variable="jbossTargetServer">
-      <spec txt="Server:" size="15" set="default" />
     </field>
   </panel>
   <panel order="1" id="jboss.home.select">

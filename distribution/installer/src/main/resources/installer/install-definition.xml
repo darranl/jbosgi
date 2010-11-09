@@ -269,7 +269,6 @@
         <include name="jboss-osgi-common-core.jar" />
         <include name="jboss-osgi-http.jar" />
         <include name="jboss-osgi-jaxb.jar" />
-        <include name="jboss-osgi-jmx.jar" />
         <include name="jboss-osgi-reflect.jar" />
         <include name="jboss-osgi-webapp.jar" />
         <include name="jboss-osgi-webconsole.jar" />

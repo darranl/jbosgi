@@ -55,7 +55,7 @@
         </property>
       </activation>
       <modules>
-        <!--module>jbosgi-framework</module-->
+        <module>jbosgi-spi</module>
       </modules>
     </profile>
     

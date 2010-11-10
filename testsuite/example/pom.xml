@@ -315,6 +315,57 @@
     </profile>
 
     <!-- 
+      Name: embedded-testing 
+      Descr: Setup for embedded integration testing 
+    -->
+    <profile>
+      <id>embedded-testing</id>
+      <activation>
+        <property>
+          <name>!target.container</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+              </excludes>
+            </configuration>
+          </plugin>        
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- 
+      Name: runtime-testing 
+      Descr: Setup for runtime integration testing 
+    -->
+    <profile>
+      <id>runtime-testing</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>runtime</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <exclude>${target.container.excludes}</exclude>
+              </excludes>
+            </configuration>
+          </plugin>        
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- 
       Name: jboss700
       Descr: Setup for jboss700 integration testing
     -->

@@ -44,7 +44,7 @@
       <artifactId>aQute.bnd</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi</groupId>
+      <groupId>org.jboss.osgi.spi</groupId>
       <artifactId>jboss-osgi-spi</artifactId>
     </dependency>
     <dependency>
@@ -411,7 +411,7 @@
         </property>
       </activation>
       <properties>
-        <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
+        <target.container.excludes>org/jboss/test/osgi/example/xservice/**</target.container.excludes>
       </properties>
       <dependencies>
         <dependency>
@@ -435,7 +435,7 @@
         </property>
       </activation>
       <properties>
-        <target.container.excludes>org/jboss/test/osgi/jbossas/**</target.container.excludes>
+        <target.container.excludes>org/jboss/test/osgi/example/xservice/**</target.container.excludes>
       </properties>
       <dependencies>
         <dependency>
@@ -465,6 +465,11 @@
           <artifactId>arquillian-osgi-remote</artifactId>
           <scope>test</scope>
         </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.spi</groupId>
+          <artifactId>jboss-osgi-jbossas7</artifactId>
+          <scope>test</scope>
+        </dependency>
       </dependencies>
     </profile>
     
@@ -484,6 +489,11 @@
         <dependency>
           <groupId>org.jboss.arquillian.container</groupId>
           <artifactId>arquillian-osgi-remote</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.spi</groupId>
+          <artifactId>jboss-osgi-jbossas7</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>

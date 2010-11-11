@@ -59,24 +59,28 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
          // Register the target module with the OSGi layer
          ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + targetDeploymentName);
          OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(moduleId));
-
-         // Install the client bundle
-         OSGiBundle clientBundle = getRemoteRuntime().installBundle(getClientBundleArchive());
-         assertBundleState(Bundle.INSTALLED, clientBundle.getState());
          try
          {
-            // Start the client bundle, which calls the target service. Check the console log for echo message
-            clientBundle.start();
-            assertBundleState(Bundle.ACTIVE, clientBundle.getState());
+            // Install the client bundle
+            OSGiBundle clientBundle = getRemoteRuntime().installBundle(getClientBundleArchive());
+            assertBundleState(Bundle.INSTALLED, clientBundle.getState());
+            try
+            {
+               // Start the client bundle, which calls the target service. Check the console log for echo message
+               clientBundle.start();
+               assertBundleState(Bundle.ACTIVE, clientBundle.getState());
+            }
+            finally
+            {
+               // Uninstall the client bundle
+               clientBundle.uninstall();
+            }
          }
          finally
          {
-            // Uninstall the client bundle
-            clientBundle.uninstall();
+            // Uninstall the target bundle
+            targetBundle.uninstall();
          }
-         
-         // Uninstall the target bundle
-         targetBundle.uninstall();
       }
       finally
       {

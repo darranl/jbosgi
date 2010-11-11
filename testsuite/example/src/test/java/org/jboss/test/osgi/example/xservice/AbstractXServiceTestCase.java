@@ -127,10 +127,15 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
    {
       try
       {
-         Object[] params = new Object[] { "jboss.osgi.context", "ACTIVE" };
-         String[] signature = new String[] { String.class.getName(), String.class.getName() };
-         mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "setMode", params, signature);
-         
+         Object[] params = new Object[] { "jboss.osgi.context" };
+         String[] signature = new String[] { String.class.getName() };
+         String state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
+         if (State.UP != State.valueOf(state))
+         {
+            params = new Object[] { "jboss.osgi.context", "ACTIVE" };
+            signature = new String[] { String.class.getName(), String.class.getName() };
+            mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "setMode", params, signature);
+         }
          FrameworkMBean frameworkMBean = runtime.getFrameworkMBean();
          assertNotNull("FrameworkMBean not null", frameworkMBean);
       }

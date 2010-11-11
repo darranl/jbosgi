@@ -37,7 +37,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.xservice.api.Echo;
-import org.jboss.test.osgi.example.xservice.api.EchoInvoker;
 import org.jboss.test.osgi.example.xservice.bundle.TargetBundleActivator;
 import org.jboss.test.osgi.example.xservice.module.ClientModuleActivator;
 import org.jboss.test.osgi.example.xservice.module.EchoInvokerService;
@@ -53,23 +52,22 @@ import org.osgi.framework.Bundle;
 public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCase
 {
    @Test
-   public void testModuleInvokesTargetBundleService() throws Exception
+   public void moduleInvokesBundleService() throws Exception
    {
       // Deploy the module that contains the API
       String apiDeploymentName = getRemoteRuntime().deploy(getAPIModuleArchive());
       assertNotNull("Deployment name not null", apiDeploymentName);
       try
       {
+         // Register the API module with the OSGi layer
+         ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + apiDeploymentName);
+         OSGiBundle apiBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(moduleId));
+
          // Install the bundle that contains the target service
          OSGiBundle targetBundle = getRemoteRuntime().installBundle(getTargetBundleArchive());
+         assertBundleState(Bundle.INSTALLED, targetBundle.getState());
          try
          {
-            assertBundleState(Bundle.INSTALLED, targetBundle.getState());
-
-            // Register the API module with the OSGi layer
-            ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + apiDeploymentName);
-            registerModuleWithBundleManager(moduleId);
-
             // Start the target service bundle
             targetBundle.start();
             assertBundleState(Bundle.ACTIVE, targetBundle.getState());
@@ -85,16 +83,22 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
             }
             finally
             {
+               // Undeploy the client module
                getRemoteRuntime().undeploy(clientDeploymentName);
             }
+            
+            // Uninstall the API bundle
+            apiBundle.uninstall();
          }
          finally
          {
+            // Uninstall the target bundle
             targetBundle.uninstall();
          }
       }
       finally
       {
+         // Undeploy the API module
          getRemoteRuntime().undeploy(apiDeploymentName);
       }
    }
@@ -130,7 +134,7 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
    private JavaArchive getClientModuleArchive() throws Exception
    {
       final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-client-module");
-      archive.addClasses(EchoInvoker.class, EchoInvokerService.class, ClientModuleActivator.class);
+      archive.addClasses(EchoInvokerService.class, ClientModuleActivator.class);
       String activatorPath = "META-INF/services/" + ServiceActivator.class.getName();
       archive.addResource(getResourceFile("xservice/client-module/" + activatorPath), activatorPath);
       archive.setManifest(getResourceFile("xservice/client-module/" + JarFile.MANIFEST_NAME));

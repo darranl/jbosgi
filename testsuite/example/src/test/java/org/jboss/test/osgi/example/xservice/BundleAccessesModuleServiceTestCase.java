@@ -49,34 +49,38 @@ import org.osgi.framework.Bundle;
 public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCase
 {
    @Test
-   public void testBundleInvokesModuleService() throws Exception
+   public void bundleInvokesModuleService() throws Exception
    {
       // Deploy the non-OSGi module which contains the target service
       String targetDeploymentName = getRemoteRuntime().deploy(getTargetModuleArchive());
       assertNotNull("Deployment name not null", targetDeploymentName);
       try
       {
+         // Register the target module with the OSGi layer
+         ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + targetDeploymentName);
+         OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(moduleId));
+
          // Install the client bundle
          OSGiBundle clientBundle = getRemoteRuntime().installBundle(getClientBundleArchive());
+         assertBundleState(Bundle.INSTALLED, clientBundle.getState());
          try
          {
-            assertBundleState(Bundle.INSTALLED, clientBundle.getState());
-
-            // Register the target module with the OSGi layer
-            ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + targetDeploymentName);
-            registerModuleWithBundleManager(moduleId);
-
             // Start the client bundle, which calls the target service. Check the console log for echo message
             clientBundle.start();
             assertBundleState(Bundle.ACTIVE, clientBundle.getState());
          }
          finally
          {
+            // Uninstall the client bundle
             clientBundle.uninstall();
          }
+         
+         // Uninstall the target bundle
+         targetBundle.uninstall();
       }
       finally
       {
+         // Undeploy the target module
          getRemoteRuntime().undeploy(targetDeploymentName);
       }
    }

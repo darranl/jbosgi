@@ -22,12 +22,14 @@
 
 package org.jboss.test.osgi.example.xservice.bundle;
 
+import org.jboss.logging.Logger;
 import org.jboss.test.osgi.example.xservice.api.Echo;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 public class TargetBundleActivator implements BundleActivator
 {
+   private static final Logger log = Logger.getLogger(TargetBundleActivator.class);
 
    @Override
    public void start(final BundleContext context) throws Exception
@@ -45,6 +47,7 @@ public class TargetBundleActivator implements BundleActivator
       @Override
       public String echo(String message)
       {
+         log.infof("Echo: %s", message);
          return message;
       }
    }

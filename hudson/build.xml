@@ -56,7 +56,7 @@
     <property name="thirdparty.dir" value="${hudson.target.dir}/thirdparty"/>
     <mkdir dir="${thirdparty.dir}"/>
     <available property="hudson.war.available" file="${thirdparty.dir}/hudson.war"/>
-    <!-- available property="jboss600.available" file="${thirdparty.dir}/jboss-6.0.0.M3.zip"/ -->
+    <available property="jboss700.available" file="${thirdparty.dir}/jboss-7.0.0.Alpha1.zip"/>
   </target>
 	
   <!-- 
@@ -69,7 +69,7 @@
     <get src="http://hudson-ci.org/download/plugins/github/${github.plugin.version}/github.hpi" dest="${thirdparty.dir}/github.hpi" usetimestamp="true" verbose="true"/>
     <get src="http://hudson-ci.org/download/plugins/git/${git.plugin.version}/git.hpi" dest="${thirdparty.dir}/git.hpi" usetimestamp="true" verbose="true"/>
   </target>
-  <target name="get-jboss700">
+  <target name="get-jboss700" unless="jboss700.available">
     <get src="https://repository.jboss.org/nexus/content/groups/public/org/jboss/as/jboss-as-build/7.0.0.Alpha1/jboss-as-build-7.0.0.Alpha1.zip" dest="${thirdparty.dir}/jboss-7.0.0.Alpha1.zip" usetimestamp="true" verbose="true"/>
   </target>
   

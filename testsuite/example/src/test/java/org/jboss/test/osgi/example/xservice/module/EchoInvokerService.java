@@ -35,36 +35,26 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 import org.jboss.test.osgi.example.xservice.api.Echo;
-import org.jboss.test.osgi.example.xservice.api.EchoInvoker;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-public class EchoInvokerService implements EchoInvoker, Service<EchoInvoker>
+public class EchoInvokerService implements Service<Void>
 {
    private static final Logger log = Logger.getLogger(EchoInvokerService.class);
    public static final ServiceName SERVICE_NAME = ServiceName.JBOSS.append(ServiceName.parse("osgi.xservice.invoker"));
 
-   private BundleContext systemContext;
-
    public static void addService(BatchBuilder batchBuilder)
    {
-      BatchServiceBuilder<EchoInvoker> serviceBuilder = batchBuilder.addService(SERVICE_NAME, new EchoInvokerService());
+      BatchServiceBuilder<?> serviceBuilder = batchBuilder.addService(SERVICE_NAME, new EchoInvokerService());
       serviceBuilder.setInitialMode(Mode.ACTIVE);
       log.infof("Service added: %s", SERVICE_NAME);
       log.infof("Echo Loader: %s", Echo.class.getClassLoader());
    }
 
    @Override
-   public String invoke(String message)
-   {
-      ServiceReference sref = systemContext.getServiceReference(Echo.class.getName());
-      Echo service = (Echo)systemContext.getService(sref);
-      return service.echo(message);
-   }
-
-   @Override
    public void start(StartContext context) throws StartException
    {
+      BundleContext systemContext;
       ServiceName serviceName = ServiceName.JBOSS.append("osgi", "context");
       try
       {
@@ -76,6 +66,10 @@ public class EchoInvokerService implements EchoInvoker, Service<EchoInvoker>
       {
          throw new IllegalStateException("Cannot obtain service: " + serviceName);
       }
+      
+      ServiceReference sref = systemContext.getServiceReference(Echo.class.getName());
+      Echo service = (Echo)systemContext.getService(sref);
+      service.echo("hello world");
    }
 
    @Override
@@ -84,8 +78,8 @@ public class EchoInvokerService implements EchoInvoker, Service<EchoInvoker>
    }
 
    @Override
-   public EchoInvoker getValue() throws IllegalStateException
+   public Void getValue() throws IllegalStateException
    {
-      return this;
+      return null;
    }
 }

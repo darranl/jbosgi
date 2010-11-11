@@ -22,6 +22,8 @@
 
 package org.jboss.test.osgi.example.xservice;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 
 import javax.management.InstanceNotFoundException;
@@ -36,6 +38,7 @@ import org.jboss.osgi.jmx.ObjectNameFactory;
 import org.jboss.osgi.testing.OSGiRemoteRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Before;
+import org.osgi.jmx.framework.FrameworkMBean;
 
 /**
  * Abstract base for XService testing.
@@ -67,7 +70,7 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
    {
       ObjectName oname = ObjectNameFactory.create("jboss.osgi:service=jmx,type=BundleManager");
       MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-      if (isRegisteredWithTimeout(mbeanServer, oname) == false)
+      if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
          throw new InstanceNotFoundException(oname.getCanonicalName());
 
       Object[] params = new Object[] { moduleId };
@@ -127,6 +130,9 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
          Object[] params = new Object[] { "jboss.osgi.context", "ACTIVE" };
          String[] signature = new String[] { String.class.getName(), String.class.getName() };
          mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "setMode", params, signature);
+         
+         FrameworkMBean frameworkMBean = runtime.getFrameworkMBean();
+         assertNotNull("FrameworkMBean not null", frameworkMBean);
       }
       catch (RuntimeException rte)
       {
@@ -138,9 +144,8 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
       }
    }
 
-   private boolean isRegisteredWithTimeout(MBeanServerConnection mbeanServer, ObjectName objectName) throws IOException
+   private boolean isRegisteredWithTimeout(MBeanServerConnection mbeanServer, ObjectName objectName, int timeout) throws IOException
    {
-      int timeout = 10000;
       boolean registered = mbeanServer.isRegistered(objectName);
       while (registered == false && timeout > 0)
       {

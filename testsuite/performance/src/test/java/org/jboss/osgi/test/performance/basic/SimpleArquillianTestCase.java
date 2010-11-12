@@ -27,6 +27,7 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.ShrinkWrapService;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
@@ -109,5 +110,14 @@ public class SimpleArquillianTestCase
       // Stop the bundle
       bundle.stop();
       assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
+   }
+
+   @Inject
+   public ShrinkWrapService sws;
+
+   @Test
+   public void testShrinkWrapServiceInjection() throws Exception
+   {
+      // Assert that the Shrink Wrap Service is injected.
    }
 }

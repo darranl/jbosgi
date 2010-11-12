@@ -422,6 +422,8 @@
                 <exclude>${target.container.excludes}</exclude>
                 <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
                 <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>
+                <!-- [JBAS-8634] ManagementRequest is not thread safe. Works locally but not in EC2 Hudson -->
+                <exclude>org/jboss/test/osgi/example/xservice/**</exclude>
               </excludes>
             </configuration>
           </plugin>        

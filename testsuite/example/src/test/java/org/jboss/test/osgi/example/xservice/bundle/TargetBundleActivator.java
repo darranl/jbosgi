@@ -23,6 +23,8 @@
 package org.jboss.test.osgi.example.xservice.bundle;
 
 import org.jboss.logging.Logger;
+import org.jboss.modules.ModuleClassLoader;
+import org.jboss.modules.ModuleIdentifier;
 import org.jboss.test.osgi.example.xservice.api.Echo;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -35,6 +37,10 @@ public class TargetBundleActivator implements BundleActivator
    public void start(final BundleContext context) throws Exception
    {
       context.registerService(Echo.class.getName(), new EchoImpl(), null);
+
+      ModuleClassLoader classLoader = (ModuleClassLoader)getClass().getClassLoader();
+      ModuleIdentifier identifier = classLoader.getModule().getIdentifier();
+      log.infof("ModuleIdentifier: %s", identifier);
    }
 
    @Override

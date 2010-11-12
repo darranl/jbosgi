@@ -31,7 +31,6 @@ import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
 import org.jboss.modules.ModuleIdentifier;
-import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceController.State;
 import org.jboss.msc.service.ServiceName;
 import org.jboss.osgi.jmx.ObjectNameFactory;
@@ -79,13 +78,13 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
       return bundleId;
    }
 
-   protected State getServiceState(ServiceName serviceName, long timeout) throws Exception
+   protected State getServiceState(ServiceName serviceName, State expState, long timeout) throws Exception
    {
       MBeanServerConnection mbeanServer = runtime.getMBeanServer();
       Object[] params = new Object[] { serviceName.getCanonicalName() };
       String[] signature = new String[] { String.class.getName() };
       String state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
-      while (state == null && timeout > 0)
+      while ((state == null || state != expState.toString()) && timeout > 0)
       {
          try
          {
@@ -99,28 +98,6 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
          timeout -= 100;
       }
       return state != null ? State.valueOf(state) : null;
-   }
-
-   protected Mode getServiceMode(ServiceName serviceName, long timeout) throws Exception
-   {
-      MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-      Object[] params = new Object[] { serviceName.getCanonicalName() };
-      String[] signature = new String[] { String.class.getName() };
-      String state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getMode", params, signature);
-      while (state == null && timeout > 0)
-      {
-         try
-         {
-            Thread.sleep(100);
-         }
-         catch (InterruptedException ex)
-         {
-            // ignore
-         }
-         state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getMode", params, signature);
-         timeout -= 100;
-      }
-      return state != null ? Mode.valueOf(state) : null;
    }
 
    private void activateBundleContextService(MBeanServerConnection mbeanServer)

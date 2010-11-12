@@ -79,7 +79,7 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
                try
                {
                   // Wait for the client service to come up. Check the console log for echo message
-                  State state = getServiceState(EchoInvokerService.SERVICE_NAME, 10000);
+                  State state = getServiceState(EchoInvokerService.SERVICE_NAME, State.UP, 5000);
                   assertEquals("EchoInvokerService is UP", State.UP, state);
                }
                finally

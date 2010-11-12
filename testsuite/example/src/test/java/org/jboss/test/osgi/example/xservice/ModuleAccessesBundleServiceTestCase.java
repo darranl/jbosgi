@@ -60,8 +60,8 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
       try
       {
          // Register the API module with the OSGi layer
-         ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + apiDeploymentName);
-         OSGiBundle apiBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(moduleId));
+         ModuleIdentifier apiModuleId = ModuleIdentifier.create("deployment." + apiDeploymentName);
+         OSGiBundle apiBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(apiModuleId));
          try
          {
             // Install the bundle that contains the target service

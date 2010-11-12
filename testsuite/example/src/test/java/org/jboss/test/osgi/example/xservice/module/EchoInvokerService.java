@@ -26,14 +26,12 @@ import org.jboss.logging.Logger;
 import org.jboss.msc.service.BatchBuilder;
 import org.jboss.msc.service.BatchServiceBuilder;
 import org.jboss.msc.service.Service;
-import org.jboss.msc.service.ServiceContainer;
-import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceName;
-import org.jboss.msc.service.ServiceNotFoundException;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
+import org.jboss.msc.value.InjectedValue;
 import org.jboss.test.osgi.example.xservice.api.Echo;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -41,11 +39,15 @@ import org.osgi.framework.ServiceReference;
 public class EchoInvokerService implements Service<Void>
 {
    private static final Logger log = Logger.getLogger(EchoInvokerService.class);
-   public static final ServiceName SERVICE_NAME = ServiceName.JBOSS.append(ServiceName.parse("osgi.xservice.invoker"));
+   public static final ServiceName SERVICE_NAME = ServiceName.parse("jboss.osgi.xservice.invoker");
+
+   private InjectedValue<BundleContext> injectedBundleContext = new InjectedValue<BundleContext>();
 
    public static void addService(BatchBuilder batchBuilder)
    {
-      BatchServiceBuilder<?> serviceBuilder = batchBuilder.addService(SERVICE_NAME, new EchoInvokerService());
+      EchoInvokerService service = new EchoInvokerService();
+      BatchServiceBuilder<?> serviceBuilder = batchBuilder.addService(SERVICE_NAME, service);
+      serviceBuilder.addDependency(ServiceName.parse("jboss.osgi.context"), BundleContext.class, service.injectedBundleContext);
       serviceBuilder.setInitialMode(Mode.ACTIVE);
       log.infof("Service added: %s", SERVICE_NAME);
       log.infof("Echo Loader: %s", Echo.class.getClassLoader());
@@ -54,19 +56,7 @@ public class EchoInvokerService implements Service<Void>
    @Override
    public void start(StartContext context) throws StartException
    {
-      BundleContext systemContext;
-      ServiceName serviceName = ServiceName.JBOSS.append("osgi", "context");
-      try
-      {
-         ServiceContainer serviceContainer = context.getController().getServiceContainer();
-         ServiceController<?> controller = serviceContainer.getRequiredService(serviceName);
-         systemContext = (BundleContext)controller.getValue();
-      }
-      catch (ServiceNotFoundException e)
-      {
-         throw new IllegalStateException("Cannot obtain service: " + serviceName);
-      }
-      
+      BundleContext systemContext = injectedBundleContext.getValue();
       ServiceReference sref = systemContext.getServiceReference(Echo.class.getName());
       Echo service = (Echo)systemContext.getService(sref);
       service.echo("hello world");

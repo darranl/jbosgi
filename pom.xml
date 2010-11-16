@@ -44,11 +44,11 @@
     <version.apache.ant>1.7.0</version.apache.ant>
     <version.apache.aries.jmx>0.1-incubating</version.apache.aries.jmx>
     <version.apache.aries.util>0.1-incubating</version.apache.aries.util>
-    <version.apache.felix.configadmin>1.2.4</version.apache.felix.configadmin>
+    <version.apache.felix.configadmin>1.2.8</version.apache.felix.configadmin>
     <version.apache.felix.core>1.4.0</version.apache.felix.core>
-    <version.apache.felix.eventadmin>1.2.2</version.apache.felix.eventadmin>
+    <version.apache.felix.eventadmin>1.2.6</version.apache.felix.eventadmin>
     <version.apache.felix.log>1.0.0</version.apache.felix.log>
-    <version.apache.felix.metatype>1.0.2</version.apache.felix.metatype>
+    <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
     <version.aqute.bnd.sp>0.0.365.SP1</version.aqute.bnd.sp>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
@@ -73,7 +73,7 @@
     <version.jboss.osgi.reflect>2.2.0.Alpha9</version.jboss.osgi.reflect>
     <version.jboss.osgi.resolver>1.0.4</version.jboss.osgi.resolver>
     <version.jboss.osgi.serviceloader>1.0.3</version.jboss.osgi.serviceloader>
-    <version.jboss.osgi.spi>1.0.18</version.jboss.osgi.spi>
+    <version.jboss.osgi.spi>1.0.19-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.4</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.1</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.5</version.jboss.osgi.webconsole>

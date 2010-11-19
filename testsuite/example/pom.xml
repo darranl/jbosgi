@@ -390,7 +390,7 @@
                 <exclude>org/jboss/test/osgi/example/jta/**</exclude>
                 <!-- [JBOSGI-420] Unexpected null wiring for JAXBContext -->
                 <exclude>org/jboss/test/osgi/example/xml/jaxb/**</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
                 <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>
                 <!-- [JBOSGI-393] Provide installer support for AS7 -->
                 <exclude>org/jboss/test/osgi/example/xservice/**</exclude>
@@ -420,7 +420,7 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
                 <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>
               </excludes>
             </configuration>

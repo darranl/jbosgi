@@ -79,7 +79,7 @@ if [ "x$JAVA" = "x" ]; then
 fi
 
 # Setup the classpath
-spijar="$OSGI_HOME/lib/jboss-osgi-spi.jar"
+spijar="$OSGI_HOME/lib/jbosgi-spi.jar"
 if [ ! -f "$spijar" ]; then
     die "Missing required file: $spijar"
 fi

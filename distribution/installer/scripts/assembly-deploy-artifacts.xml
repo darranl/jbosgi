@@ -27,8 +27,6 @@
       <excludes>
         <exclude>*:org.osgi.compendium:jar</exclude>
         <exclude>*:org.osgi.core:jar</exclude>
-        <!-- Exclude SPI with old groupId -->
-        <exclude>org.jboss.osgi:jboss-osgi-spi:jar</exclude>
       </excludes>
       <scope>compile</scope>
       <unpack>false</unpack>

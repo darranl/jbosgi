@@ -12,21 +12,21 @@
       <outputDirectory>/</outputDirectory>
       <useStrictFiltering>true</useStrictFiltering>
       <includes>
+        <include>*:jbosgi-deployment:jar:sources</include>
+        <include>*:jbosgi-hotdeploy:jar:sources</include>
         <include>*:jbosgi-resolver-api:jar:sources</include>
         <include>*:jbosgi-resolver-spi:jar:sources</include>
         <include>*:jbosgi-resolver-metadata:jar:sources</include>
+        <include>*:jbosgi-spi:jar:sources</include>
         <include>*:jboss-modules:jar:sources</include>
         <include>*:jboss-msc:jar:sources</include>
         <include>*:jboss-osgi-blueprint:jar:sources</include>
         <include>*:jboss-osgi-common:jar:sources</include>
-        <include>*:jboss-osgi-deployment:jar:sources</include>
-        <include>*:jboss-osgi-hotdeploy:jar:sources</include>
         <include>*:jboss-osgi-http:jar:sources</include>
         <include>*:jboss-osgi-jaxb:jar:sources</include>
         <include>*:jboss-osgi-jmx-api:jar:sources</include>
         <include>*:jboss-osgi-jndi-api:jar:sources</include>
         <include>*:jboss-osgi-jta:jar:sources</include>
-        <include>*:jboss-osgi-spi:jar:sources</include>
         <include>*:jboss-osgi-vfs:jar:sources</include>
         <include>*:jboss-osgi-webapp:jar:sources</include>
         <include>*:jboss-osgi-xerces:jar:sources</include>

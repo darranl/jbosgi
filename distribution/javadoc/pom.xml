@@ -51,7 +51,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.spi</groupId>
-      <artifactId>jboss-osgi-spi</artifactId>
+      <artifactId>jbosgi-spi</artifactId>
       <version>${version.jboss.osgi.spi}</version>
       <classifier>sources</classifier>
     </dependency>
@@ -69,13 +69,13 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.deployment</groupId>
-      <artifactId>jboss-osgi-deployment</artifactId>
+      <artifactId>jbosgi-deployment</artifactId>
       <version>${version.jboss.osgi.deployment}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.hotdeploy</groupId>
-      <artifactId>jboss-osgi-hotdeploy</artifactId>
+      <artifactId>jbosgi-hotdeploy</artifactId>
       <version>${version.jboss.osgi.hotdeploy}</version>
       <classifier>sources</classifier>
     </dependency>
@@ -159,7 +159,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.webconsole</groupId>
-      <artifactId>jboss-osgi-webconsole</artifactId>
+      <artifactId>jbosgi-webconsole</artifactId>
       <version>${version.jboss.osgi.webconsole}</version>
       <classifier>sources</classifier>
     </dependency>

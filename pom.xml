@@ -60,7 +60,7 @@
     <version.jboss.osgi.blueprint>1.0.1</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
-    <version.jboss.osgi.deployment>1.0.8</version.jboss.osgi.deployment>
+    <version.jboss.osgi.deployment>1.0.9-SNAPSHOT</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
     <version.jboss.osgi.framework>1.0.0.Alpha14-SNAPSHOT</version.jboss.osgi.framework>
@@ -120,35 +120,47 @@
       <dependency>
         <groupId>org.jboss.arquillian.protocol</groupId>
         <artifactId>arquillian-osgi-bundle</artifactId>
-        <version>${version.jboss.arquillian}</version>
         <exclusions>
           <exclusion>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging-spi</artifactId>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
           </exclusion>
         </exclusions>
+        <version>${version.jboss.arquillian}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.container</groupId>
         <artifactId>arquillian-osgi-embedded</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.arquillian}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.container</groupId>
         <artifactId>arquillian-osgi-remote</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.arquillian}</version>
       </dependency>
       
       <!-- jboss -->
       <dependency>
-          <groupId>org.jboss.logmanager</groupId>
-          <artifactId>jboss-logmanager</artifactId>
-          <version>${version.jboss.logmanager}</version>
+        <groupId>org.jboss.logmanager</groupId>
+        <artifactId>jboss-logmanager</artifactId>
+        <version>${version.jboss.logmanager}</version>
       </dependency>
       <dependency>
-          <groupId>org.jboss.logmanager</groupId>
-          <artifactId>jboss-logmanager-log4j</artifactId>
-          <version>${version.jboss.logmanager.log4j}</version>
+        <groupId>org.jboss.logmanager</groupId>
+        <artifactId>jboss-logmanager-log4j</artifactId>
+        <version>${version.jboss.logmanager.log4j}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.modules</groupId>
@@ -164,7 +176,7 @@
       <!-- jboss.osgi -->
       <dependency>
         <groupId>org.jboss.osgi.spi</groupId>
-        <artifactId>jboss-osgi-spi</artifactId>
+        <artifactId>jbosgi-spi</artifactId>
         <version>${version.jboss.osgi.spi}</version>
       </dependency>
       <dependency>
@@ -175,16 +187,38 @@
       <dependency>
         <groupId>org.jboss.osgi.blueprint</groupId>
         <artifactId>jboss-osgi-blueprint</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi.deployment</groupId>
+            <artifactId>jboss-osgi-deployment</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.blueprint}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.common</groupId>
         <artifactId>jboss-osgi-common</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.common}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.common</groupId>
         <artifactId>jboss-osgi-common-core</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.common.core}</version>
       </dependency>
       <dependency>
@@ -194,62 +228,126 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.deployment</groupId>
-        <artifactId>jboss-osgi-deployment</artifactId>
+        <artifactId>jbosgi-deployment</artifactId>
         <version>${version.jboss.osgi.deployment}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.hotdeploy</groupId>
-        <artifactId>jboss-osgi-hotdeploy</artifactId>
+        <artifactId>jbosgi-hotdeploy</artifactId>
         <version>${version.jboss.osgi.hotdeploy}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.http</groupId>
         <artifactId>jboss-osgi-http</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.http}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.jaxb</groupId>
         <artifactId>jboss-osgi-jaxb</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.jaxb}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.jmx</groupId>
         <artifactId>jboss-osgi-jmx</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.jmx}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.jndi</groupId>
         <artifactId>jboss-osgi-jndi</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.jndi}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.jta</groupId>
         <artifactId>jboss-osgi-jta</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.jta}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.reflect</groupId>
         <artifactId>jboss-osgi-reflect</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.reflect}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>
         <artifactId>jbosgi-resolver-api</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.resolver}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>
         <artifactId>jbosgi-resolver-spi</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.resolver}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>
         <artifactId>jbosgi-resolver-felix</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.resolver}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.serviceloader</groupId>
         <artifactId>jboss-osgi-serviceloader</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jboss.osgi.deployment</groupId>
+            <artifactId>jboss-osgi-deployment</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.serviceloader}</version>
       </dependency>
       <dependency>
@@ -265,16 +363,32 @@
       <dependency>
         <groupId>org.jboss.osgi.webapp</groupId>
         <artifactId>jboss-osgi-webapp</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jboss.osgi.deployment</groupId>
+            <artifactId>jboss-osgi-deployment</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.webapp}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.webconsole</groupId>
-        <artifactId>jboss-osgi-webconsole</artifactId>
+        <artifactId>jbosgi-webconsole</artifactId>
         <version>${version.jboss.osgi.webconsole}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.xerces</groupId>
         <artifactId>jboss-osgi-xerces</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${version.jboss.osgi.xerces}</version>
       </dependency>
 

@@ -42,6 +42,16 @@
     <dependency>
       <groupId>org.jboss.osgi.distribution</groupId>
       <artifactId>jboss-osgi-javadoc</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.osgi</groupId>
+          <artifactId>jboss-osgi-spi</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.osgi.deployment</groupId>
+          <artifactId>jboss-osgi-deployment</artifactId>
+        </exclusion>
+      </exclusions>
       <version>${project.version}</version>
       <classifier>javadoc</classifier>
     </dependency>
@@ -50,10 +60,6 @@
       <artifactId>jboss-osgi-userguide</artifactId>
       <version>${project.version}</version>
       <type>jdocbook</type>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.spi</groupId>
-      <artifactId>jboss-osgi-spi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.blueprint</groupId>
@@ -68,28 +74,12 @@
       <artifactId>jboss-osgi-common-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.hotdeploy</groupId>
-      <artifactId>jboss-osgi-hotdeploy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jta</groupId>
-      <artifactId>jboss-osgi-jta</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.reflect</groupId>
-      <artifactId>jboss-osgi-reflect</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.serviceloader</groupId>
-      <artifactId>jboss-osgi-serviceloader</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.webconsole</groupId>
-      <artifactId>jboss-osgi-webconsole</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.deployment</groupId>
-      <artifactId>jboss-osgi-deployment</artifactId>
+      <artifactId>jbosgi-deployment</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.hotdeploy</groupId>
+      <artifactId>jbosgi-hotdeploy</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.jaxb</groupId>
@@ -100,34 +90,28 @@
       <artifactId>jboss-osgi-jmx</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx-api</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.jndi</groupId>
       <artifactId>jboss-osgi-jndi</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi-api</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
+      <groupId>org.jboss.osgi.jta</groupId>
+      <artifactId>jboss-osgi-jta</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-spi</artifactId>
+      <groupId>org.jboss.osgi.reflect</groupId>
+      <artifactId>jboss-osgi-reflect</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.resolver</groupId>
       <artifactId>jbosgi-resolver-felix</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-spi</artifactId>
+      <groupId>org.jboss.osgi.serviceloader</groupId>
+      <artifactId>jboss-osgi-serviceloader</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.spi</groupId>
+      <artifactId>jbosgi-spi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
@@ -140,6 +124,10 @@
     <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
       <artifactId>jboss-osgi-webapp</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.osgi.webconsole</groupId>
+      <artifactId>jbosgi-webconsole</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.testsuite</groupId>

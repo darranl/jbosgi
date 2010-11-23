@@ -130,7 +130,7 @@ $ bin/run.sh
 12:27:07,515 INFO  Bundle STARTED: system.bundle:0.0.0
 12:27:08,079 INFO  Bundle STARTED: org.apache.felix.log:1.0.0
 12:27:08,182 INFO  Bundle STARTED: jboss-osgi-common:1.0.6
-12:27:08,239 INFO  Bundle STARTED: jboss-osgi-hotdeploy:1.0.8
+12:27:08,239 INFO  Bundle STARTED: jbosgi-hotdeploy:1.0.8
 12:27:08,244 INFO  JBossOSGi Runtime booted in 0.837sec
 12:27:08,459 INFO  Bundle STARTED: org.apache.aries.util:0.1.0.incubating
 12:27:08,608 INFO  Bundle STARTED: org.apache.aries.jmx:0.1.0.incubating

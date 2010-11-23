@@ -27,7 +27,7 @@
         <include>*:jboss-osgi-reflect:jar</include>
         <include>*:jboss-osgi-serviceloader:jar</include>
         <include>*:jboss-osgi-webapp:jar</include>
-        <include>*:jboss-osgi-webconsole:jar</include>
+        <include>*:jbosgi-webconsole:jar</include>
         <include>*:jboss-osgi-xerces:jar</include>
         <include>*:org.apache.aries.jmx:jar</include>
         <include>*:org.apache.aries.util:jar</include>

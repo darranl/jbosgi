@@ -153,7 +153,7 @@ $ bin/run.sh -c minimal
 14:14:38,422 INFO  Bundle STARTED: system.bundle:0.0.0
 14:14:38,766 INFO  Bundle STARTED: org.apache.felix.log:1.0.0
 14:14:38,816 INFO  Bundle STARTED: jboss-osgi-common:1.0.6
-14:14:38,867 INFO  Bundle STARTED: jboss-osgi-hotdeploy:1.0.8
+14:14:38,867 INFO  Bundle STARTED: jbosgi-hotdeploy:1.0.8
 <emphasis role="bold">14:14:38,870 INFO  JBossOSGi Runtime booted in 0.514sec</emphasis>
     </programlisting>
     
@@ -165,7 +165,7 @@ $ bin/run.sh -c minimal
   
     <itemizedlist>
       <listitem><emphasis role="bold">jboss-osgi-common.jar</emphasis> - JBoss OSGi common services</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-hotdeploy.jar</emphasis> - JBoss OSGi hot deployment service</listitem>
+      <listitem><emphasis role="bold">jbosgi-hotdeploy.jar</emphasis> - JBoss OSGi hot deployment service</listitem>
       <listitem><emphasis role="bold">org.apache.felix.log.jar</emphasis> - Apache LogService</listitem>
       <listitem><emphasis role="bold">org.osgi.compendium.jar</emphasis> - OSGi compendium API</listitem>
     </itemizedlist>
@@ -194,7 +194,7 @@ $ bin/run.sh -c minimal
     <itemizedlist>
       <listitem><emphasis role="bold">jboss-osgi-http.jar</emphasis> - JBoss OSGi HttpService</listitem>
       <listitem><emphasis role="bold">jboss-osgi-webapp.jar</emphasis> - JBoss OSGi WebApp Support</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-webconsole.jar</emphasis> - JBoss OSGi Web Console</listitem>
+      <listitem><emphasis role="bold">jbosgi-webconsole.jar</emphasis> - JBoss OSGi Web Console</listitem>
     </itemizedlist>
 
     <emphasis role="bold">All Profile</emphasis>

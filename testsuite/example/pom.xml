@@ -358,6 +358,8 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
+                <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>
               </excludes>
             </configuration>
           </plugin>        

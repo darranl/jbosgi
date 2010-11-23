@@ -63,8 +63,8 @@
     <version.jboss.osgi.deployment>1.0.8</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.Alpha13</version.jboss.osgi.framework>
-    <version.jboss.osgi.hotdeploy>1.0.8</version.jboss.osgi.hotdeploy>
+    <version.jboss.osgi.framework>1.0.0.Alpha14-SNAPSHOT</version.jboss.osgi.framework>
+    <version.jboss.osgi.hotdeploy>1.0.9-SNAPSHOT</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.1</version.jboss.osgi.http>
     <version.jboss.osgi.jaxb>2.1.10.SP5</version.jboss.osgi.jaxb>
     <version.jboss.osgi.jmx>1.0.9</version.jboss.osgi.jmx>
@@ -76,7 +76,7 @@
     <version.jboss.osgi.spi>1.0.19-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.4</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.1</version.jboss.osgi.webapp>
-    <version.jboss.osgi.webconsole>1.0.5</version.jboss.osgi.webconsole>
+    <version.jboss.osgi.webconsole>1.0.6-SNAPSHOT</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
     <version.jboss.shrinkwrap>1.0.0-alpha-11</version.jboss.shrinkwrap>
     <version.ops4j.pax.web>0.7.2</version.ops4j.pax.web>

@@ -56,7 +56,9 @@
       </activation>
       <modules>
         <module>jbosgi-spi</module>
-        <!--module>jbosgi-framework</module-->
+        <module>jbosgi-framework</module>
+        <module>jbosgi-hotdeploy</module>
+        <module>jbosgi-webconsole</module>
       </modules>
     </profile>
     

@@ -172,6 +172,33 @@
     </profile>
 
     <!-- 
+      Name: runtime-testing 
+      Descr: Setup for runtime integration testing 
+    -->
+    <profile>
+      <id>runtime-testing</id>
+      <activation>
+        <property>
+          <name>target.container</name>
+          <value>runtime</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <excludes>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
+                <exclude>org/jboss/osgi/test/performance/**</exclude>
+              </excludes>
+            </configuration>
+          </plugin>        
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- 
       Name: jboss700
       Descr: Setup for jboss700 integration testing
     -->
@@ -189,8 +216,7 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
                 <exclude>org/jboss/osgi/test/performance/**</exclude>
               </excludes>
             </configuration>
@@ -217,8 +243,7 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
                 <exclude>org/jboss/osgi/test/performance/**</exclude>
               </excludes>
             </configuration>

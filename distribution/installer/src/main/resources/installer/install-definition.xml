@@ -212,6 +212,7 @@
         <include name="jboss-osgi-jndi.jar" />
         <include name="org.apache.felix.configadmin.jar" />
         <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.felix.webconsole.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
         <!-- web -->
@@ -233,6 +234,7 @@
         <include name="jboss-osgi-jndi.jar" />
         <include name="org.apache.felix.configadmin.jar" />
         <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.felix.webconsole.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
         <!-- web -->

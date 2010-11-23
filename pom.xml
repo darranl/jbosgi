@@ -49,6 +49,7 @@
     <version.apache.felix.eventadmin>1.2.6</version.apache.felix.eventadmin>
     <version.apache.felix.log>1.0.0</version.apache.felix.log>
     <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
+    <version.apache.felix.webconsole>3.1.6-SNAPSHOT</version.apache.felix.webconsole>
     <version.aqute.bnd.sp>0.0.365.SP1</version.aqute.bnd.sp>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
@@ -424,6 +425,11 @@
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.metatype</artifactId>
         <version>${version.apache.felix.metatype}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.webconsole</artifactId>
+        <version>${version.apache.felix.webconsole}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.felix</groupId>

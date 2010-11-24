@@ -279,6 +279,7 @@
         <include name="org.apache.felix.eventadmin.jar" />
         <include name="org.apache.felix.log.jar" />
         <include name="org.apache.felix.metatype.jar" />
+        <include name="org.apache.felix.webconsole.jar" />
       </fileset>
 
     </pack>

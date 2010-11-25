@@ -33,10 +33,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.osgi.OSGiContainer;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
@@ -56,6 +59,20 @@ public class EventAdminTestCase
 
    @Inject
    public Bundle bundle;
+
+   @Inject
+   public OSGiContainer container;
+
+   @Before
+   public void setUp() throws BundleException
+   {
+      if (container != null)
+      {
+         // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
+         Bundle eventadmin = container.installBundle("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
+         eventadmin.start();
+      }
+   }
 
    @Test
    @SuppressWarnings({ "unchecked", "rawtypes" })

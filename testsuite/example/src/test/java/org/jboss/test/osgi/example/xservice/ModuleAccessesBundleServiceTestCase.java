@@ -55,13 +55,14 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
    public void moduleInvokesBundleService() throws Exception
    {
       // Deploy the module that contains the API
-      String apiDeploymentName = getRemoteRuntime().deploy(getAPIModuleArchive());
+      JavaArchive apiArchive = getAPIModuleArchive();
+      String apiDeploymentName = getRemoteRuntime().deploy(apiArchive);
       assertNotNull("Deployment name not null", apiDeploymentName);
       try
       {
          // Register the API module with the OSGi layer
          ModuleIdentifier apiModuleId = ModuleIdentifier.create("deployment." + apiDeploymentName);
-         OSGiBundle apiBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(apiModuleId));
+         OSGiBundle apiBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(apiArchive.getName(), apiModuleId));
          try
          {
             // Install the bundle that contains the target service

@@ -52,13 +52,14 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
    public void bundleInvokesModuleService() throws Exception
    {
       // Deploy the non-OSGi module which contains the target service
-      String targetDeploymentName = getRemoteRuntime().deploy(getTargetModuleArchive());
+      JavaArchive targetArchive = getTargetModuleArchive();
+      String targetDeploymentName = getRemoteRuntime().deploy(targetArchive);
       assertNotNull("Deployment name not null", targetDeploymentName);
       try
       {
          // Register the target module with the OSGi layer
          ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + targetDeploymentName);
-         OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(moduleId));
+         OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(targetArchive.getName(), moduleId));
          try
          {
             // Install the client bundle

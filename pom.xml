@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
+<!-- ====================================================================== -->
+<!-- -->
+<!-- JBoss, the OpenSource J2EE webOS -->
+<!-- -->
+<!-- Distributable under LGPL license. -->
+<!-- See terms of license at http://www.gnu.org. -->
+<!-- -->
+<!-- ====================================================================== -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -98,7 +98,7 @@
         <artifactId>aQute.bnd</artifactId>
         <version>${version.aqute.bnd.sp}</version>
       </dependency>
-      
+
       <!-- apache ant -->
       <dependency>
         <groupId>org.apache.ant</groupId>
@@ -152,7 +152,7 @@
         </exclusions>
         <version>${version.jboss.arquillian}</version>
       </dependency>
-      
+
       <!-- jboss -->
       <dependency>
         <groupId>org.jboss.logmanager</groupId>
@@ -174,7 +174,7 @@
         <artifactId>jboss-msc</artifactId>
         <version>${version.jboss.msc}</version>
       </dependency>
-      
+
       <!-- jboss.osgi -->
       <dependency>
         <groupId>org.jboss.osgi.spi</groupId>
@@ -449,7 +449,7 @@
         <artifactId>jbosgi-framework-core</artifactId>
         <version>${version.jboss.osgi.framework}</version>
       </dependency>
-      
+
       <!-- OPS4J -->
       <dependency>
         <groupId>org.ops4j.pax.web</groupId>
@@ -463,7 +463,7 @@
         <artifactId>servlet-api</artifactId>
         <version>${version.javax.servlet}</version>
       </dependency>
-      
+
       <!-- org.osgi -->
       <dependency>
         <groupId>org.osgi</groupId>
@@ -486,14 +486,11 @@
       <url>https://repository.jboss.org/nexus/content/groups/public/</url>
     </repository>
   </repositories>
-  
+
   <!-- Profiles -->
   <profiles>
 
-    <!--
-      Name: distro
-      Desc: Build the distribution
-    -->
+    <!-- Name: distro Desc: Build the distribution -->
     <profile>
       <id>distro</id>
       <modules>
@@ -511,10 +508,7 @@
       </build>
     </profile>
 
-    <!--
-      Name: jpda
-      Descr: Enable JPDA remote debuging
-    -->
+    <!-- Name: jpda Descr: Enable JPDA remote debuging -->
     <profile>
       <id>jpda</id>
       <activation>
@@ -527,10 +521,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: yourkit
-      Descr: Enable YourKit remote profiling
-    -->
+    <!-- Name: yourkit Descr: Enable YourKit remote profiling -->
     <profile>
       <id>yourkit</id>
       <activation>
@@ -543,10 +534,7 @@
       </properties>
     </profile>
 
-    <!--
-      Name: embedded-testing 
-      Descr: Setup for embedded integration testing
-    -->
+    <!-- Name: embedded-testing Descr: Setup for embedded integration testing -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -569,8 +557,8 @@
                   <value>org.jboss.vfs.protocol</value>
                 </property>
                 <property>
-                    <name>java.util.logging.manager</name>
-                    <value>org.jboss.logmanager.LogManager</value>
+                  <name>java.util.logging.manager</name>
+                  <value>org.jboss.logmanager.LogManager</value>
                 </property>
                 <property>
                   <name>jndi.server.port</name>
@@ -581,11 +569,8 @@
                   <value>${jboss.osgi.framework.properties}</value>
                 </property>
                 <property>
-                  <!-- 
-                    In embedded mode we don't have sufficient control over class path ordering. 
-                    META-INF/services/javax.xml.parsers.DocumentBuilderFactory gets loaded from 
-                    xercesImpl. With this hack we force the DocumentBuilderFactory from jboss-osgi-xerces.
-                   -->
+                  <!-- In embedded mode we don't have sufficient control over class path ordering. META-INF/services/javax.xml.parsers.DocumentBuilderFactory gets loaded 
+                    from xercesImpl. With this hack we force the DocumentBuilderFactory from jboss-osgi-xerces. -->
                   <name>javax.xml.parsers.DocumentBuilderFactory</name>
                   <value>org.jboss.osgi.xml.DocumentBuilderFactoryImpl</value>
                 </property>
@@ -600,10 +585,7 @@
       </build>
     </profile>
 
-    <!--
-      Name: remote-testing 
-      Descr: Setup for remote integration testing
-    -->
+    <!-- Name: remote-testing Descr: Setup for remote integration testing -->
     <profile>
       <id>remote-testing</id>
       <activation>
@@ -626,8 +608,8 @@
                   <value>org.jboss.net.protocol|org.jboss.virtual.protocol</value>
                 </property>
                 <property>
-                    <name>java.util.logging.manager</name>
-                    <value>org.jboss.logmanager.LogManager</value>
+                  <name>java.util.logging.manager</name>
+                  <value>org.jboss.logmanager.LogManager</value>
                 </property>
                 <property>
                   <name>jboss.bind.address</name>

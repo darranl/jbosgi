@@ -25,6 +25,7 @@ package org.jboss.test.osgi.example.xservice;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.util.Arrays;
 
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.ServiceActivator;
@@ -59,7 +60,7 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
       {
          // Register the target module with the OSGi layer
          ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + targetDeploymentName);
-         OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModuleWithBundleManager(targetArchive.getName(), moduleId));
+         OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModule(moduleId));
          try
          {
             // Install the client bundle
@@ -79,8 +80,10 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
          }
          finally
          {
+            System.out.println("Before uninstall: " + Arrays.asList(getRemoteRuntime().getBundles()));
             // Uninstall the target bundle
             targetBundle.uninstall();
+            System.out.println("After uninstall: " + Arrays.asList(getRemoteRuntime().getBundles()));
          }
       }
       finally

@@ -65,15 +65,15 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
       return runtime;
    }
 
-   protected long registerModuleWithBundleManager(String location, ModuleIdentifier moduleId) throws Exception
+   protected long registerModule(ModuleIdentifier moduleId) throws Exception
    {
       ObjectName oname = ObjectNameFactory.create("jboss.osgi:service=jmx,type=BundleManager");
       MBeanServerConnection mbeanServer = runtime.getMBeanServer();
       if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
          throw new InstanceNotFoundException(oname.getCanonicalName());
 
-      Object[] params = new Object[] { location, moduleId };
-      String[] signature = new String[] { String.class.getName(), ModuleIdentifier.class.getName() };
+      Object[] params = new Object[] { moduleId };
+      String[] signature = new String[] { ModuleIdentifier.class.getName() };
       Long bundleId = (Long)mbeanServer.invoke(oname, "installBundle", params, signature);
       return bundleId;
    }

@@ -3,7 +3,7 @@
 #
 # 
 # The JBoss OSGi framework version
-framework.version=1.0.0.Alpha14-SNAPSHOT
+framework.version=1.0.0.Alpha15-SNAPSHOT
 
 # The aQute Bnd version 
 aQute.bnd.version=0.0.365.SP1

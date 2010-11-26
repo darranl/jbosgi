@@ -266,6 +266,7 @@
       <description>Integration with an existing JBossAS instance</description>
 
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/standalone/deployments" override="true">
+        <include name="arquillian-osgi-bundle.jar" />
         <include name="jboss-osgi-blueprint.jar" />
         <include name="jboss-osgi-common-core.jar" />
         <include name="jboss-osgi-http.jar" />

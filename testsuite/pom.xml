@@ -319,7 +319,7 @@
         </property>
       </activation>
       <properties>
-        <jboss.osgi.framework.properties>jboss-osgi-jbmsc.properties</jboss.osgi.framework.properties>
+        <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
       </properties>
       <dependencies>
         <dependency>
@@ -347,7 +347,7 @@
         </property>
       </activation>
       <properties>
-        <jboss.osgi.framework.properties>jboss-osgi-jbmsc.properties</jboss.osgi.framework.properties>
+        <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
       </properties>
       <dependencies>
         <dependency>

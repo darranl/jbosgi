@@ -183,7 +183,7 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.spi</groupId>
-        <artifactId>jboss-osgi-jbossas7</artifactId>
+        <artifactId>jbosgi-spi-plugin-jbossas7</artifactId>
         <version>${version.jboss.osgi.spi}</version>
       </dependency>
       <dependency>

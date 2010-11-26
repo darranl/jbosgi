@@ -467,7 +467,7 @@
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.spi</groupId>
-          <artifactId>jboss-osgi-jbossas7</artifactId>
+          <artifactId>jbosgi-spi-plugin-jbossas7</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -493,7 +493,7 @@
         </dependency>
         <dependency>
           <groupId>org.jboss.osgi.spi</groupId>
-          <artifactId>jboss-osgi-jbossas7</artifactId>
+          <artifactId>jbosgi-spi-plugin-jbossas7</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>

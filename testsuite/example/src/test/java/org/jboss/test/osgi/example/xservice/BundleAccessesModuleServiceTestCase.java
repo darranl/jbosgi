@@ -25,7 +25,6 @@ package org.jboss.test.osgi.example.xservice;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
-import java.util.Arrays;
 
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.ServiceActivator;
@@ -80,10 +79,8 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
          }
          finally
          {
-            System.out.println("Before uninstall: " + Arrays.asList(getRemoteRuntime().getBundles()));
             // Uninstall the target bundle
             targetBundle.uninstall();
-            System.out.println("After uninstall: " + Arrays.asList(getRemoteRuntime().getBundles()));
          }
       }
       finally

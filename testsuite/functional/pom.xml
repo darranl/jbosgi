@@ -362,10 +362,8 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-429] BundleUpdateTestCase tests throws NoClassDefFoundError -->
                 <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
-                <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
-                <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
               </excludes>
             </configuration>
           </plugin>        
@@ -395,10 +393,8 @@
                 <exclude>org/jboss/test/osgi/jbosgi99/**</exclude>
                 <exclude>org/jboss/test/osgi/jbosgi161/**</exclude>
                 <exclude>org/jboss/test/osgi/jbosgi286/**</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-429] BundleUpdateTestCase tests throws NoClassDefFoundError -->
                 <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
-                <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
-                <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
               </excludes>
             </configuration>
           </plugin>        
@@ -425,10 +421,8 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback for AS7 -->
+                <!-- [JBOSGI-429] BundleUpdateTestCase tests throws NoClassDefFoundError -->
                 <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
-                <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
-                <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
               </excludes>
             </configuration>
           </plugin>        

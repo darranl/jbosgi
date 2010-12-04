@@ -1,3 +1,6 @@
 [submodule "reactor/jbosgi-framework"]
 	path = reactor/jbosgi-framework
 	url = git://github.com/jbosgi/jbosgi-framework.git
+[submodule "reactor/jboss-msc"]
+	path = reactor/jboss-msc
+	url = git://github.com/jbossas/jboss-msc.git

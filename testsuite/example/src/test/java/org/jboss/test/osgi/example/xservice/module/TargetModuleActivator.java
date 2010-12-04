@@ -42,7 +42,7 @@ public class TargetModuleActivator implements ServiceActivator
    @Override
    public void activate(ServiceActivatorContext context)
    {
-      BatchBuilder batchBuilder = context.getBatchBuilder();
+      BatchBuilder batchBuilder = context.getServiceTarget().batchBuilder();
       EchoService.addService(batchBuilder);
 
       ModuleClassLoader classLoader = (ModuleClassLoader)getClass().getClassLoader();

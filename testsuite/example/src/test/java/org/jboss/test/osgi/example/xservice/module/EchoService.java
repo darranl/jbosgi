@@ -24,7 +24,7 @@ package org.jboss.test.osgi.example.xservice.module;
 
 import org.jboss.logging.Logger;
 import org.jboss.msc.service.BatchBuilder;
-import org.jboss.msc.service.BatchServiceBuilder;
+import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.Service;
 import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceName;
@@ -48,9 +48,10 @@ public class EchoService implements Echo, Service<Echo>
    public static void addService(BatchBuilder batchBuilder)
    {
       // Add the service with an alias that the OSGi layer can use to lookup the service
-      BatchServiceBuilder<Echo> serviceBuilder = batchBuilder.addService(SERVICE_NAME, new EchoService());
+      ServiceBuilder<Echo> serviceBuilder = batchBuilder.addService(SERVICE_NAME, new EchoService());
       serviceBuilder.addAliases(ServiceName.of(Constants.JBOSGI_PREFIX, Echo.class.getName()));
       serviceBuilder.setInitialMode(Mode.ACTIVE);
+      serviceBuilder.install();
       log.infof("Service added: %s", SERVICE_NAME);
       log.infof("Echo Loader: %s", Echo.class.getClassLoader());
    }

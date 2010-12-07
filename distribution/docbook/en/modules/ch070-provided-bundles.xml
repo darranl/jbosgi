@@ -5,7 +5,7 @@
   <sect1 xml:id="SecBundleBlueprint">  
     <title>Blueprint Container Service</title>
     
-    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-blueprint.jar</emphasis> bundle provides 
+    <para>The JBoss OSGi <emphasis role="bold">jbosgi-blueprint.jar</emphasis> bundle provides 
     together with <emphasis role="bold">org.apache.aries.blueprint.jar</emphasis> access to the Blueprint extender service.</para> 
     
     <para>The <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</ulink> 

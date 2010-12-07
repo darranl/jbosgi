@@ -20,7 +20,7 @@
         <include>*:jbosgi-spi:jar:sources</include>
         <include>*:jboss-modules:jar:sources</include>
         <include>*:jboss-msc:jar:sources</include>
-        <include>*:jboss-osgi-blueprint:jar:sources</include>
+        <include>*:jbosgi-blueprint:jar:sources</include>
         <include>*:jboss-osgi-common:jar:sources</include>
         <include>*:jboss-osgi-http:jar:sources</include>
         <include>*:jboss-osgi-jaxb:jar:sources</include>

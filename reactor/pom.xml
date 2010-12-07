@@ -57,6 +57,7 @@
       <modules>
         <module>jboss-msc</module>
         <module>jbosgi-framework</module>
+        <module>jbosgi-blueprint</module>
       </modules>
     </profile>
     

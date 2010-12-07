@@ -57,7 +57,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.blueprint</groupId>
-      <artifactId>jboss-osgi-blueprint</artifactId>
+      <artifactId>jbosgi-blueprint</artifactId>
       <version>${version.jboss.osgi.blueprint}</version>
       <classifier>sources</classifier>
     </dependency>

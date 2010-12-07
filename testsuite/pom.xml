@@ -126,7 +126,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.blueprint</groupId>
-      <artifactId>jboss-osgi-blueprint</artifactId>
+      <artifactId>jbosgi-blueprint</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

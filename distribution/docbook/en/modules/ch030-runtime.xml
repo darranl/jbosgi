@@ -208,7 +208,7 @@ $ bin/run.sh -c minimal
       <listitem><emphasis role="bold">jboss-osgi-jaxb.jar</emphasis> - JAXB support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jta.jar</emphasis> - JTA support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-xerces.jar</emphasis> - Apache Xerces support</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-blueprint.jar</emphasis> - Blueprint Container support</listitem>
+      <listitem><emphasis role="bold">jbosgi-blueprint.jar</emphasis> - Blueprint Container support</listitem>
     </itemizedlist>
   </sect1>
 

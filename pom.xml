@@ -59,7 +59,7 @@
     <version.jboss.logmanager.log4j>1.0.0.CR3</version.jboss.logmanager.log4j>
     <version.jboss.modules>1.0.0.Beta10</version.jboss.modules>
     <version.jboss.msc>1.0.0.Beta5-SNAPSHOT</version.jboss.msc>
-    <version.jboss.osgi.blueprint>1.0.1</version.jboss.osgi.blueprint>
+    <version.jboss.osgi.blueprint>1.0.2-SNAPSHOT</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.9</version.jboss.osgi.deployment>
@@ -188,17 +188,7 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.blueprint</groupId>
-        <artifactId>jboss-osgi-blueprint</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi.deployment</groupId>
-            <artifactId>jboss-osgi-deployment</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
+        <artifactId>jbosgi-blueprint</artifactId>
         <version>${version.jboss.osgi.blueprint}</version>
       </dependency>
       <dependency>

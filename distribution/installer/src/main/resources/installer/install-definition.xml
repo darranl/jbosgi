@@ -161,7 +161,6 @@
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
         <include name="shrinkwrap-api.jar" />
-        <include name="xercesImpl.jar" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib/org.osgi" targetdir="$INSTALL_PATH/runtime/lib" override="true">
         <include name="org.osgi.compendium.jar" /> <!-- org.osgi.util.tracker on the sys classpath -->

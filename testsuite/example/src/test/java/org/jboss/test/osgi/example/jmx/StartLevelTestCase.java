@@ -39,6 +39,8 @@ import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.jmx.framework.FrameworkMBean;
 
 /**
+ * [TODO]
+ *
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class StartLevelTestCase extends OSGiRuntimeTest
@@ -54,7 +56,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
 
          Assert.assertEquals(1, fw.getFrameworkStartLevel());
          OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar"); // TODO maybe use another bundle
-         
+
          BundleStateMBean bs = getRuntime().getBundleStateMBean();
          TabularData td = bs.listBundles();
 
@@ -78,7 +80,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
 
          fw.setFrameworkStartLevel(10);
          waitForBundleState("ACTIVE", bs, bundleId);
-         
+
          bundle.uninstall();
       }
       finally
@@ -88,7 +90,7 @@ public class StartLevelTestCase extends OSGiRuntimeTest
          fw.setFrameworkStartLevel(1);
       }
    }
-   
+
    private void waitForBundleState(String state, BundleStateMBean bs, long bundleId) throws Exception
    {
       int secs = 10;

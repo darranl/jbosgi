@@ -421,8 +421,16 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
+                <!-- [JBAS-8719] OSGi example/functional test regression against Arquillian subsystem -->
+                <exclude>org/jboss/test/osgi/jbosgi99/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi108/**</exclude>
+                <exclude>org/jboss/test/osgi/jbosgi287/**</exclude>
+                <exclude>org/jboss/test/osgi/localization/**</exclude>
                 <!-- [JBOSGI-429] BundleUpdateTestCase tests throws NoClassDefFoundError -->
                 <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
+                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
+                <exclude>org/jboss/test/osgi/services/packageadmin/**</exclude>
+                <exclude>org/jboss/test/osgi/services/startlevel/**</exclude>
               </excludes>
             </configuration>
           </plugin>        

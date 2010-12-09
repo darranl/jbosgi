@@ -42,7 +42,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * An example of OSGi JTA.
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
@@ -51,47 +51,48 @@ public class TransactionTestCase
 {
    @Inject
    public Bundle bundle;
-   
+
    @Test
    public void testUserTransaction() throws Exception
    {
       assertNotNull("Bundle injected", bundle);
-      
+
       bundle.start();
       assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
-      
+
       BundleContext context = bundle.getBundleContext();
-      
+
       Transactional txObj = new Transactional();
-      
+
       ServiceReference userTxRef = context.getServiceReference(UserTransaction.class.getName());
       assertNotNull("UserTransaction service not null", userTxRef);
-      
+
       UserTransaction userTx = (UserTransaction)context.getService(userTxRef);
       assertNotNull("UserTransaction not null", userTx);
-      
+
       userTx.begin();
       try
       {
          ServiceReference tmRef = context.getServiceReference(TransactionManager.class.getName());
          assertNotNull("TransactionManager service not null", tmRef);
-         
+
          TransactionManager tm = (TransactionManager)context.getService(tmRef);
          assertNotNull("TransactionManager not null", tm);
-         
+
          Transaction tx = tm.getTransaction();
          assertNotNull("Transaction not null", tx);
-         
+
          tx.registerSynchronization(txObj);
-         
+
          txObj.setMessage("Donate $1.000.000");
          assertNull("Uncommited message null", txObj.getMessage());
-         
+
          userTx.commit();
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
          userTx.setRollbackOnly();
+         throw ex;
       }
 
       assertEquals("Donate $1.000.000", txObj.getMessage());
@@ -101,17 +102,17 @@ public class TransactionTestCase
    {
       private String volatileMessage;
       private String message;
-      
+
       public void beforeCompletion()
       {
       }
-      
+
       public void afterCompletion(int status)
       {
          if (status == Status.STATUS_COMMITTED)
             message = volatileMessage;
       }
-      
+
       public String getMessage()
       {
          return message;

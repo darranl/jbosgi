@@ -61,44 +61,36 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
       try
       {
          // Register the API module with the OSGi layer
-         ModuleIdentifier apiModuleId = ModuleIdentifier.create("deployment." + apiDeploymentName);
-         OSGiBundle apiBundle = getRemoteRuntime().getBundle(registerModule(apiModuleId));
+         registerModule(ModuleIdentifier.create("deployment." + apiDeploymentName));
+
+         // Install the bundle that contains the target service
+         OSGiBundle targetBundle = getRemoteRuntime().installBundle(getTargetBundleArchive());
+         assertBundleState(Bundle.INSTALLED, targetBundle.getState());
          try
          {
-            // Install the bundle that contains the target service
-            OSGiBundle targetBundle = getRemoteRuntime().installBundle(getTargetBundleArchive());
-            assertBundleState(Bundle.INSTALLED, targetBundle.getState());
+            // Start the target service bundle
+            targetBundle.start();
+            assertBundleState(Bundle.ACTIVE, targetBundle.getState());
+
+            // Deploy the non-osgi client module
+            String clientDeploymentName = getRemoteRuntime().deploy(getClientModuleArchive());
+            assertNotNull("Deployment name not null", clientDeploymentName);
             try
             {
-               // Start the target service bundle
-               targetBundle.start();
-               assertBundleState(Bundle.ACTIVE, targetBundle.getState());
-
-               // Deploy the non-osgi client module
-               String clientDeploymentName = getRemoteRuntime().deploy(getClientModuleArchive());
-               assertNotNull("Deployment name not null", clientDeploymentName);
-               try
-               {
-                  // Wait for the client service to come up. Check the console log for echo message
-                  State state = getServiceState(EchoInvokerService.SERVICE_NAME, State.UP, 5000);
-                  assertEquals("EchoInvokerService is UP", State.UP, state);
-               }
-               finally
-               {
-                  // Undeploy the client module
-                  getRemoteRuntime().undeploy(clientDeploymentName);
-               }
+               // Wait for the client service to come up. Check the console log for echo message
+               State state = getServiceState(EchoInvokerService.SERVICE_NAME, State.UP, 5000);
+               assertEquals("EchoInvokerService is UP", State.UP, state);
             }
             finally
             {
-               // Uninstall the target bundle
-               targetBundle.uninstall();
+               // Undeploy the client module
+               getRemoteRuntime().undeploy(clientDeploymentName);
             }
          }
          finally
          {
-            // Uninstall the API bundle
-            apiBundle.uninstall();
+            // Uninstall the target bundle
+            targetBundle.uninstall();
          }
       }
       finally

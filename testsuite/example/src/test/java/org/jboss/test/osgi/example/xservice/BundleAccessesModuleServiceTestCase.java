@@ -25,6 +25,7 @@ package org.jboss.test.osgi.example.xservice;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.util.jar.JarFile;
 
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.ServiceActivator;
@@ -58,29 +59,21 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
       try
       {
          // Register the target module with the OSGi layer
-         ModuleIdentifier moduleId = ModuleIdentifier.create("deployment." + targetDeploymentName);
-         OSGiBundle targetBundle = getRemoteRuntime().getBundle(registerModule(moduleId));
+         registerModule(ModuleIdentifier.create("deployment." + targetDeploymentName));
+
+         // Install the client bundle
+         OSGiBundle clientBundle = getRemoteRuntime().installBundle(getClientBundleArchive());
+         assertBundleState(Bundle.INSTALLED, clientBundle.getState());
          try
          {
-            // Install the client bundle
-            OSGiBundle clientBundle = getRemoteRuntime().installBundle(getClientBundleArchive());
-            assertBundleState(Bundle.INSTALLED, clientBundle.getState());
-            try
-            {
-               // Start the client bundle, which calls the target service. Check the console log for echo message
-               clientBundle.start();
-               assertBundleState(Bundle.ACTIVE, clientBundle.getState());
-            }
-            finally
-            {
-               // Uninstall the client bundle
-               clientBundle.uninstall();
-            }
+            // Start the client bundle, which calls the target service. Check the console log for echo message
+            clientBundle.start();
+            assertBundleState(Bundle.ACTIVE, clientBundle.getState());
          }
          finally
          {
-            // Uninstall the target bundle
-            targetBundle.uninstall();
+            // Uninstall the client bundle
+            clientBundle.uninstall();
          }
       }
       finally
@@ -116,6 +109,7 @@ public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCas
       archive.addClasses(Echo.class, EchoService.class, TargetModuleActivator.class);
       String activatorPath = "META-INF/services/" + ServiceActivator.class.getName();
       archive.addResource(getResourceFile("xservice/target-module/" + activatorPath), activatorPath);
+      archive.setManifest(getResourceFile("xservice/target-module/" + JarFile.MANIFEST_NAME));
       return archive;
    }
 }

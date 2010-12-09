@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 
 import javax.management.InstanceNotFoundException;
+import javax.management.MBeanException;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
@@ -72,10 +73,17 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
       if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
          throw new InstanceNotFoundException(oname.getCanonicalName());
 
-      Object[] params = new Object[] { moduleId };
-      String[] signature = new String[] { ModuleIdentifier.class.getName() };
-      Long bundleId = (Long)mbeanServer.invoke(oname, "installBundle", params, signature);
-      return bundleId;
+      try
+      {
+         Object[] params = new Object[] { moduleId };
+         String[] signature = new String[] { ModuleIdentifier.class.getName() };
+         Long bundleId = (Long)mbeanServer.invoke(oname, "installBundle", params, signature);
+         return bundleId;
+      }
+      catch (MBeanException ex)
+      {
+         throw ex.getTargetException();
+      }
    }
 
    protected State getServiceState(ServiceName serviceName, State expState, long timeout) throws Exception

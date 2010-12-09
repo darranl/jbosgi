@@ -420,8 +420,6 @@
                 <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
                 <exclude>org/jboss/test/osgi/example/event/EventAdminTestCase.*</exclude>              
                 <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>              
-                <!-- [JBAS-8719] OSGi example/functional test regression against Arquillian subsystem -->
-                <exclude>org/jboss/test/osgi/example/xservice/**</exclude>
                 <!-- example-webapp.war re-deploy causes DuplicateServiceException. Wait for DUP refactoring. -->
                 <exclude>org/jboss/test/osgi/example/webapp/WebAppExtenderTestCase.*</exclude>
               </excludes>

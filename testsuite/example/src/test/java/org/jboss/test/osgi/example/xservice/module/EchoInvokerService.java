@@ -23,11 +23,11 @@
 package org.jboss.test.osgi.example.xservice.module;
 
 import org.jboss.logging.Logger;
-import org.jboss.msc.service.BatchBuilder;
-import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.Service;
+import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceName;
+import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
@@ -43,10 +43,10 @@ public class EchoInvokerService implements Service<Void>
 
    private InjectedValue<BundleContext> injectedBundleContext = new InjectedValue<BundleContext>();
 
-   public static void addService(BatchBuilder batchBuilder)
+   public static void addService(ServiceTarget serviceTarget)
    {
       EchoInvokerService service = new EchoInvokerService();
-      ServiceBuilder<?> serviceBuilder = batchBuilder.addService(SERVICE_NAME, service);
+      ServiceBuilder<?> serviceBuilder = serviceTarget.addService(SERVICE_NAME, service);
       serviceBuilder.addDependency(ServiceName.parse("jboss.osgi.context"), BundleContext.class, service.injectedBundleContext);
       serviceBuilder.setInitialMode(Mode.ACTIVE);
       serviceBuilder.install();

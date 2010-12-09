@@ -25,9 +25,9 @@ package org.jboss.test.osgi.example.xservice.module;
 import org.jboss.logging.Logger;
 import org.jboss.modules.ModuleClassLoader;
 import org.jboss.modules.ModuleIdentifier;
-import org.jboss.msc.service.BatchBuilder;
 import org.jboss.msc.service.ServiceActivator;
 import org.jboss.msc.service.ServiceActivatorContext;
+import org.jboss.msc.service.ServiceTarget;
 
 /**
  * A simple MSC service activator
@@ -42,8 +42,8 @@ public class TargetModuleActivator implements ServiceActivator
    @Override
    public void activate(ServiceActivatorContext context)
    {
-      BatchBuilder batchBuilder = context.getServiceTarget().batchBuilder();
-      EchoService.addService(batchBuilder);
+      ServiceTarget serviceTarget = context.getServiceTarget();
+      EchoService.addService(serviceTarget);
 
       ModuleClassLoader classLoader = (ModuleClassLoader)getClass().getClassLoader();
       ModuleIdentifier identifier = classLoader.getModule().getIdentifier();

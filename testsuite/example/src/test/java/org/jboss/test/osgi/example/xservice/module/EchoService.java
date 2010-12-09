@@ -23,11 +23,11 @@
 package org.jboss.test.osgi.example.xservice.module;
 
 import org.jboss.logging.Logger;
-import org.jboss.msc.service.BatchBuilder;
-import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.Service;
+import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.ServiceController.Mode;
 import org.jboss.msc.service.ServiceName;
+import org.jboss.msc.service.ServiceTarget;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
@@ -45,10 +45,10 @@ public class EchoService implements Echo, Service<Echo>
    private static final Logger log = Logger.getLogger(EchoService.class);
    public static final ServiceName SERVICE_NAME = ServiceName.JBOSS.append("osgi", "xservice", "target");
 
-   public static void addService(BatchBuilder batchBuilder)
+   public static void addService(ServiceTarget serviceTarget)
    {
       // Add the service with an alias that the OSGi layer can use to lookup the service
-      ServiceBuilder<Echo> serviceBuilder = batchBuilder.addService(SERVICE_NAME, new EchoService());
+      ServiceBuilder<Echo> serviceBuilder = serviceTarget.addService(SERVICE_NAME, new EchoService());
       serviceBuilder.addAliases(ServiceName.of(Constants.JBOSGI_PREFIX, Echo.class.getName()));
       serviceBuilder.setInitialMode(Mode.ACTIVE);
       serviceBuilder.install();

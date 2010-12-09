@@ -417,8 +417,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBAS-8599] Provide JNDI InitialContext as OSGi services -->
-                <exclude>org/jboss/test/osgi/example/jndi/**</exclude>
                 <!-- [JBAS-8585] Provide TransactionManager & UserTransaction as OSGi services -->
                 <exclude>org/jboss/test/osgi/example/jta/**</exclude>
                 <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->

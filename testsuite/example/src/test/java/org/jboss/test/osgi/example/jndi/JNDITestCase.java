@@ -46,7 +46,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * A test that deployes a bundle that binds a String to JNDI
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 05-May-2009
  */
@@ -55,7 +55,7 @@ public class JNDITestCase
 {
    @Inject
    public Bundle bundle;
-   
+
    @Deployment
    public static JavaArchive createdeployment()
    {
@@ -74,7 +74,7 @@ public class JNDITestCase
       });
       return archive;
    }
-   
+
    @Test
    public void testJNDIAccess() throws Exception
    {
@@ -87,6 +87,9 @@ public class JNDITestCase
 
       // Uninstall should unbind the object
       bundle.uninstall();
+
+      // Wait a little for dependent services to come down
+      Thread.sleep(200);
 
       try
       {
@@ -104,7 +107,7 @@ public class JNDITestCase
       ServiceReference sref = context.getServiceReference(InitialContext.class.getName());
       if (sref == null)
          throw new IllegalStateException("Cannot access the InitialContext");
-      
+
       InitialContext initContext = (InitialContext)context.getService(sref);
       return initContext;
    }

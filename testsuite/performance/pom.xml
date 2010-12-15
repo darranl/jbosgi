@@ -240,9 +240,7 @@
             <configuration>
               <excludes>
                 <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
-                <!-- 
                 <exclude>org/jboss/osgi/test/performance/**</exclude>
-                 -->
               </excludes>
             </configuration>
           </plugin>        

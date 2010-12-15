@@ -22,10 +22,12 @@
 package org.jboss.osgi.test.performance;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.jboss.logging.Logger;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -41,9 +43,24 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
    // Provide logging
    private final Logger log = Logger.getLogger(AbstractThreadedBenchmark.class);
    
+   // Contains the list of all the bundles that have been installed, so they can be uninstalled when the test is finished
+   private final List<Bundle> installedBundles = Collections.synchronizedList(new ArrayList<Bundle>());
+
    protected AbstractThreadedBenchmark(BundleContext bc)
    {
       super(bc);
+   }
+
+   // Used to record any bundles installed by the test so that it can be uninstalled at cleanup
+   protected void addedBundle(Bundle bundle)
+   {
+      installedBundles.add(bundle);
+   }
+
+   // Used to record any bundles installed by the test so that it can be uninstalled at cleanup
+   protected void addedBundles(Collection<Bundle> bundles)
+   {
+      installedBundles.addAll(bundles);
    }
 
    /**
@@ -101,6 +118,8 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
          t.join();
       System.out.println("All threads finished");
 
+      cleanUp();
+
       if (exceptions.size() > 0)
       {
          for (Throwable th : exceptions)
@@ -111,6 +130,23 @@ public abstract class AbstractThreadedBenchmark<T> extends AbstractBenchmark imp
             throw (Exception)firstError;
          
          throw new RuntimeException("One or more tests failures", firstError);
+      }
+   }
+
+   public void cleanUp()
+   {
+      // now uninstall any of the installed bundles, in reverse order
+      for (int i = installedBundles.size() - 1; i > 0; i--)
+      {
+         Bundle b = installedBundles.get(i);
+         try
+         {
+            b.uninstall();
+         }
+         catch (Exception e)
+         {
+            log.error("Problem uninstalling bundle " + b, e);
+         }
       }
    }
 

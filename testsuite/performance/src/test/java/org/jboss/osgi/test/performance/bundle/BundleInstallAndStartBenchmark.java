@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.jboss.osgi.test.performance.AbstractThreadedBenchmark;
 import org.jboss.osgi.test.performance.ChartType;
@@ -117,10 +119,10 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
    {
       for (int i = 1; i <= 5; i++)
       {
-         bundleContext.installBundle("common" + i, getCommonBundle("" + i));
-         bundleContext.installBundle("util" + i, getUtilBundle(i));
-         bundleContext.installBundle("versioned-intf" + i, getVersionedIntfBundle("" + i));
-         bundleContext.installBundle("versioned-impl" + i, getVersionedImplBundle(i));
+         addedBundle(bundleContext.installBundle("common" + i, getCommonBundle("" + i)));
+         addedBundle(bundleContext.installBundle("util" + i, getUtilBundle(i)));
+         addedBundle(bundleContext.installBundle("versioned-intf" + i, getVersionedIntfBundle("" + i)));
+         addedBundle(bundleContext.installBundle("versioned-impl" + i, getVersionedImplBundle(i)));
       }
    }
 
@@ -146,6 +148,8 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
    @Override
    public void runThread(String threadName, Integer numBundlesPerThread) throws Exception
    {
+      List<Bundle> installedBundles = new ArrayList<Bundle>(numBundlesPerThread);
+
       System.out.println("Starting at " + new Date());
       long start = System.currentTimeMillis();
       for (int i = 0; i < numBundlesPerThread; i++)
@@ -153,6 +157,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
          URI uri = new File(bundleStorage, threadName + "_" + i + ".jar").toURI();
          Bundle bundle = bundleContext.installBundle(uri.toString());
          bundle.start();
+         installedBundles.add(bundle);
       }
 
       // Wait until all bundles have been started
@@ -168,6 +173,8 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
       long end = System.currentTimeMillis();
       writeData(INSTALL_START, numBundlesPerThread, end - start);
       System.out.println("Installed Bundles " + new Date());
+
+      addedBundles(installedBundles);
    }
 
    private InputStream getCommonBundle(final String version) throws Exception

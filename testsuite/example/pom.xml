@@ -417,9 +417,7 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
                 <exclude>org/jboss/test/osgi/example/event/EventAdminTestCase.*</exclude>              
-                <exclude>org/jboss/test/osgi/example/simple/SimpleArchiveProviderTestCase.*</exclude>              
                 <!-- [JBAS-8730] Hudson testsuite hangs because of Null deploymentHash -->
                 <exclude>org/jboss/test/osgi/example/xservice/ModuleAccessesBundleServiceTestCase.*</exclude>
                 <!-- [JBAS-8634] ManagementRequest is not thread safe -->

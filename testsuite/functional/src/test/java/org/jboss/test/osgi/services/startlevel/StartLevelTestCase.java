@@ -30,8 +30,8 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.ArchiveProvider;
 import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -170,56 +170,53 @@ public class StartLevelTestCase
       startLevelLatch = l;
    }
 
-   public static class BundleArchiveProvider implements ArchiveProvider
+   @ArchiveProvider
+   public static JavaArchive getTestArchive(String name)
    {
-      @Override
-      public JavaArchive getTestArchive(String name)
-      {
-         if ("BundleA".equals(name))
-            return getTestBundleA();
-         else if ("BundleB".equals(name))
-            return getTestBundleB();
-         return null;
-      }
+      if ("BundleA".equals(name))
+         return getTestBundleA();
+      else if ("BundleB".equals(name))
+         return getTestBundleB();
+      return null;
+   }
 
-      private JavaArchive getTestBundleA()
+   private static JavaArchive getTestBundleA()
+   {
+      //Bundle-SymbolicName: simple-bundleA
+      //Bundle-Activator: org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleA");
+      archive.addClasses(SimpleActivatorA.class);
+      archive.setManifest(new Asset()
       {
-         //Bundle-SymbolicName: simple-bundleA
-         //Bundle-Activator: org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleA");
-         archive.addClasses(SimpleActivatorA.class);
-         archive.setManifest(new Asset()
+         public InputStream openStream()
          {
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleManifestVersion(2);
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addBundleActivator(SimpleActivatorA.class);
-               return builder.openStream();
-            }
-         });
-         return archive;
-      }
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(SimpleActivatorA.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
 
-      private JavaArchive getTestBundleB()
+   private static JavaArchive getTestBundleB()
+   {
+      //Bundle-SymbolicName: simple-bundleB
+      //Bundle-Activator: org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleB");
+      archive.addClasses(SimpleActivatorB.class);
+      archive.setManifest(new Asset()
       {
-         //Bundle-SymbolicName: simple-bundleB
-         //Bundle-Activator: org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleB");
-         archive.addClasses(SimpleActivatorB.class);
-         archive.setManifest(new Asset()
+         public InputStream openStream()
          {
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleManifestVersion(2);
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addBundleActivator(SimpleActivatorB.class);
-               return builder.openStream();
-            }
-         });
-         return archive;
-      }
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleActivator(SimpleActivatorB.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

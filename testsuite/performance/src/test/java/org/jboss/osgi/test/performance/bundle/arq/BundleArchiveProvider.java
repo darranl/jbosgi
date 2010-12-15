@@ -29,7 +29,6 @@ import static org.jboss.osgi.test.performance.bundle.BundleInstallAndStartBenchm
 
 import java.io.InputStream;
 
-import org.jboss.arquillian.osgi.ArchiveProvider;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.bundle.BundlePerfTestActivator;
 import org.jboss.osgi.test.util1.Util1;
@@ -47,9 +46,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class BundleArchiveProvider implements ArchiveProvider
+public class BundleArchiveProvider
 {
-   @Override
    public JavaArchive getTestArchive(String name)
    {
       if (name.startsWith(TEST_BUNDLE_PREFIX))

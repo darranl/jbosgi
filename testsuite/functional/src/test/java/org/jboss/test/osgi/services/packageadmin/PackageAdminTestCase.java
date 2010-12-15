@@ -30,8 +30,8 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.ArchiveProvider;
 import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -125,58 +125,55 @@ public class PackageAdminTestCase
       }
    }
 
-   public static class BundleArchiveProvider implements ArchiveProvider
+   @ArchiveProvider
+   public static JavaArchive getTestArchive(String name)
    {
-      @Override
-      public JavaArchive getTestArchive(String name)
-      {
-         if ("importing".equals(name))
-            return getImportingBundle();
-         else if ("exporting".equals(name))
-            return getExportingBundle();
-         return null;
-      }
+      if ("importing".equals(name))
+         return getImportingBundle();
+      else if ("exporting".equals(name))
+         return getExportingBundle();
+      return null;
+   }
 
-      private JavaArchive getImportingBundle()
+   private static JavaArchive getImportingBundle()
+   {
+      // Bundle-SymbolicName: opt-import-bundle
+      // Import-Package: org.jboss.test.osgi.bundles.exporter;resolution:=optional
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "opt-import-bundle");
+      archive.setManifest(new Asset()
       {
-         // Bundle-SymbolicName: opt-import-bundle
-         // Import-Package: org.jboss.test.osgi.bundles.exporter;resolution:=optional
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "opt-import-bundle");
-         archive.setManifest(new Asset()
+         @Override
+         public InputStream openStream()
          {
-            @Override
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleManifestVersion(2);
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addImportPackages(ExportedClass.class.getPackage().getName() + ";resolution:=optional");
-               return builder.openStream();
-            }
-         });
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addImportPackages(ExportedClass.class.getPackage().getName() + ";resolution:=optional");
+            return builder.openStream();
+         }
+      });
 
-         return archive;
-      }
+      return archive;
+   }
 
-      private JavaArchive getExportingBundle()
+   private static JavaArchive getExportingBundle()
+   {
+      // Bundle-SymbolicName: exporting-bundle
+      // Export-Package: org.jboss.test.osgi.bundles.exporter
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exporting-bundle");
+      archive.addClasses(ExportedClass.class);
+      archive.setManifest(new Asset()
       {
-         // Bundle-SymbolicName: exporting-bundle
-         // Export-Package: org.jboss.test.osgi.bundles.exporter
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "exporting-bundle");
-         archive.addClasses(ExportedClass.class);
-         archive.setManifest(new Asset()
+         @Override
+         public InputStream openStream()
          {
-            @Override
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleManifestVersion(2);
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addExportPackages(ExportedClass.class);
-               return builder.openStream();
-            }
-         });
-         return archive;
-      }
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addExportPackages(ExportedClass.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

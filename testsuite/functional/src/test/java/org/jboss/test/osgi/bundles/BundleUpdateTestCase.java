@@ -25,8 +25,8 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.ArchiveProvider;
 import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiTest;
@@ -70,62 +70,59 @@ public class BundleUpdateTestCase extends OSGiTest
       }
    }
 
-   public static class BundleArchiveProvider implements ArchiveProvider
+   @ArchiveProvider
+   public static JavaArchive getTestArchive(String name)
    {
-      @Override
-      public JavaArchive getTestArchive(String name)
-      {
-         if ("initial".equals(name))
-            return getInitialBundle();
-         else if ("updated".equals(name))
-            return getUpdatedBundle();
-         return null;
-      }
+      if ("initial".equals(name))
+         return getInitialBundle();
+      else if ("updated".equals(name))
+         return getUpdatedBundle();
+      return null;
+   }
 
-      private JavaArchive getInitialBundle()
+   private static JavaArchive getInitialBundle()
+   {
+      // Bundle-SymbolicName: update-test
+      // Bundle-Version: 1
+      // Export-Package: org.jboss.test.osgi.bundles.update1
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
+      archive.addClass(A1.class);
+      archive.setManifest(new Asset()
       {
-         // Bundle-SymbolicName: update-test
-         // Bundle-Version: 1
-         // Export-Package: org.jboss.test.osgi.bundles.update1
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
-         archive.addClass(A1.class);
-         archive.setManifest(new Asset()
+         @Override
+         public InputStream openStream()
          {
-            @Override
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleManifestVersion(2);
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addBundleVersion(Version.parseVersion("1"));
-               builder.addExportPackages(A1.class);
-               return builder.openStream();
-            }
-         });
-         return archive;
-      }
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleVersion(Version.parseVersion("1"));
+            builder.addExportPackages(A1.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
 
-      private JavaArchive getUpdatedBundle()
+   private static JavaArchive getUpdatedBundle()
+   {
+      // Bundle-SymbolicName: update-test
+      // Bundle-Version: 2
+      // Export-Package: org.jboss.test.osgi.bundles.update2
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
+      archive.addClass(A2.class);
+      archive.setManifest(new Asset()
       {
-         // Bundle-SymbolicName: update-test
-         // Bundle-Version: 2
-         // Export-Package: org.jboss.test.osgi.bundles.update2
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
-         archive.addClass(A2.class);
-         archive.setManifest(new Asset()
+         @Override
+         public InputStream openStream()
          {
-            @Override
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleManifestVersion(2);
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addBundleVersion(Version.parseVersion("2"));
-               builder.addExportPackages(A2.class);
-               return builder.openStream();
-            }
-         });
-         return archive;
-      }
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleManifestVersion(2);
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleVersion(Version.parseVersion("2"));
+            builder.addExportPackages(A2.class);
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

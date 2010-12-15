@@ -63,5 +63,6 @@ public class BundleSmokeTestCase extends BundleTestBase
             new TestBundleProviderImpl(getOSGiContainer()), getBundleContext());
       bm.prepareTest(1, 5);
       bm.runThread("Thread_1", 5);
+      bm.cleanUp();
    }
 }

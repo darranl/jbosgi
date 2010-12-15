@@ -22,8 +22,8 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.ArchiveProvider;
 import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
@@ -74,25 +74,22 @@ public class SimpleArchiveProviderTestCase
       }
    }
 
-   public static class BundleArchiveProvider implements ArchiveProvider
+   @ArchiveProvider
+   public static JavaArchive getTestArchive(String name)
    {
-      @Override
-      public JavaArchive getTestArchive(String name)
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, name);
+      archive.addClasses(SimpleActivator.class, SimpleService.class);
+      archive.setManifest(new Asset()
       {
-         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, name);
-         archive.addClasses(SimpleActivator.class, SimpleService.class);
-         archive.setManifest(new Asset()
+         public InputStream openStream()
          {
-            public InputStream openStream()
-            {
-               OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-               builder.addBundleSymbolicName(archive.getName());
-               builder.addBundleManifestVersion(2);
-               builder.addBundleActivator(SimpleActivator.class.getName());
-               return builder.openStream();
-            }
-         });
-         return archive;
-      }
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addBundleActivator(SimpleActivator.class.getName());
+            return builder.openStream();
+         }
+      });
+      return archive;
    }
 }

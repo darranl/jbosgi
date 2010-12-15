@@ -24,8 +24,8 @@ package org.jboss.osgi.test.performance.bundle.arq;
 import java.io.File;
 import java.io.InputStream;
 
+import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.osgi.ArchiveProvider;
 import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.Parameter;
@@ -68,9 +68,7 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
             builder.addBundleManifestVersion(2);
             builder.addExportPackages(BundleTestBase.class);
             builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
-            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
-            builder.addImportPackages("org.jboss.shrinkwrap.api.asset");
-            builder.addImportPackages("org.jboss.shrinkwrap.api.exporter");
+            // builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
             builder.addImportPackages("org.junit", "org.junit.runner");
             builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
             builder.addImportPackages("javax.inject");
@@ -104,8 +102,9 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase
       bm.reportXML(f, new Parameter("Threads", threads), new Parameter("Population", size));
    }
 
-   // Arquillian-OSGi needs this as a way of registering an archive provider. It would be nicer to have an annotation for that...
-   public static class MyBundleArchiveProvider extends BundleArchiveProvider implements ArchiveProvider
+   @ArchiveProvider
+   public static JavaArchive getTestArchive(String name)
    {
+      return new BundleArchiveProvider().getTestArchive(name);
    }
 }

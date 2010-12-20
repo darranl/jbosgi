@@ -168,7 +168,8 @@
   <!-- Clean                                                              -->
   <!-- ================================================================== -->
 
-  <target name="clean" description="Clean the TCK setup">
+  <target name="clean" description="Clean the TCK setup" depends="init">
+    <ant dir="${tck.checkout.dir}/osgi.ct" target="deepclean" />
     <delete dir="${target.dir}" />
   </target>
 

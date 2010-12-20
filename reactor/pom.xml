@@ -55,7 +55,10 @@
         </property>
       </activation>
       <modules>
+        <module>jboss-modules</module>
         <module>jboss-msc</module>
+        <module>jbosgi-spi</module>
+        <module>jbosgi-resolver</module>
         <module>jbosgi-framework</module>
         <module>jbosgi-blueprint</module>
       </modules>

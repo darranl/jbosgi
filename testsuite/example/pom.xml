@@ -417,7 +417,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <exclude>org/jboss/test/osgi/example/event/EventAdminTestCase.*</exclude>              
                 <!-- [JBAS-8730] Hudson testsuite hangs because of Null deploymentHash -->
                 <exclude>org/jboss/test/osgi/example/xservice/ModuleAccessesBundleServiceTestCase.*</exclude>
                 <!-- [JBAS-8634] ManagementRequest is not thread safe -->

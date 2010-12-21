@@ -33,7 +33,7 @@
     <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
     <property name="framework.groupId" value="org/jboss/osgi/framework" />
     <property name="framework.artifactId" value="jbosgi-framework-aggregated" />
-    <property name="framework.jar" value="jbosgi-framework-assembly-${framework.version}.jar" />
+    <property name="framework.jar" value="${framework.artifactId}-${framework.version}-all.jar" />
 
     <echo>************************************************</echo>
     <echo message="aQute.bnd.version=${aQute.bnd.version}" />

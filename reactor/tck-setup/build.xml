@@ -32,8 +32,8 @@
     <property name="tck.checkout.dir" value="${env.TCKCHECKOUT}" />
     <property name="maven.local.repository" value="/home/${username}/.m2/repository" />
     <property name="framework.groupId" value="org/jboss/osgi/framework" />
-    <property name="framework.artifactId" value="jbosgi-framework-assembly" />
-    <property name="framework.jar" value="${framework.artifactId}-${framework.version}.jar" />
+    <property name="framework.artifactId" value="jbosgi-framework-aggregated" />
+    <property name="framework.jar" value="jbosgi-framework-assembly-${framework.version}.jar" />
 
     <echo>************************************************</echo>
     <echo message="aQute.bnd.version=${aQute.bnd.version}" />

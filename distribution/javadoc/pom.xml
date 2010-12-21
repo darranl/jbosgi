@@ -141,13 +141,13 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs</artifactId>
+      <artifactId>jbosgi-vfs</artifactId>
       <version>${version.jboss.osgi.vfs}</version>
       <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jboss-osgi-vfs30</artifactId>
+      <artifactId>jbosgi-vfs30</artifactId>
       <version>${version.jboss.osgi.vfs}</version>
       <classifier>sources</classifier>
     </dependency>

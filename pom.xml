@@ -72,10 +72,10 @@
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0.Alpha9</version.jboss.osgi.reflect>
-    <version.jboss.osgi.resolver>1.0.5</version.jboss.osgi.resolver>
+    <version.jboss.osgi.resolver>1.0.6-SNAPSHOT</version.jboss.osgi.resolver>
     <version.jboss.osgi.serviceloader>1.0.3</version.jboss.osgi.serviceloader>
-    <version.jboss.osgi.spi>1.0.20</version.jboss.osgi.spi>
-    <version.jboss.osgi.vfs>1.0.4</version.jboss.osgi.vfs>
+    <version.jboss.osgi.spi>1.0.21-SNAPSHOT</version.jboss.osgi.spi>
+    <version.jboss.osgi.vfs>1.0.5-SNAPSHOT</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.1</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
@@ -338,12 +338,12 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.vfs</groupId>
-        <artifactId>jboss-osgi-vfs</artifactId>
+        <artifactId>jbosgi-vfs</artifactId>
         <version>${version.jboss.osgi.vfs}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.vfs</groupId>
-        <artifactId>jboss-osgi-vfs30</artifactId>
+        <artifactId>jbosgi-vfs30</artifactId>
         <version>${version.jboss.osgi.vfs}</version>
       </dependency>
       <dependency>

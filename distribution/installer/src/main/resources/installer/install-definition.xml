@@ -156,8 +156,8 @@
         <include name="jboss-msc.jar" />
         <include name="jbosgi-deployment.jar" />
         <include name="jbosgi-spi.jar" />
-        <include name="jboss-osgi-vfs.jar" />
-        <include name="jboss-osgi-vfs30.jar" />
+        <include name="jbosgi-vfs.jar" />
+        <include name="jbosgi-vfs30.jar" />
         <include name="jboss-vfs.jar" />
         <include name="log4j.jar" />
         <include name="shrinkwrap-api.jar" />

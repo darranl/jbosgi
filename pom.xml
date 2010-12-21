@@ -54,11 +54,11 @@
     <version.aqute.bnd.sp>0.0.365.SP1</version.aqute.bnd.sp>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
-    <version.jboss.arquillian>1.0.0.Alpha4.SP5-SNAPSHOT</version.jboss.arquillian>
+    <version.jboss.arquillian>1.0.0.Alpha4.SP5</version.jboss.arquillian>
     <version.jboss.logmanager>1.2.0.CR7</version.jboss.logmanager>
-    <version.jboss.modules>1.0.0.Beta12-SNAPSHOT</version.jboss.modules>
-    <version.jboss.msc>1.0.0.Beta5-SNAPSHOT</version.jboss.msc>
-    <version.jboss.osgi.blueprint>1.0.2-SNAPSHOT</version.jboss.osgi.blueprint>
+    <version.jboss.modules>1.0.0.Beta12</version.jboss.modules>
+    <version.jboss.msc>1.0.0.Beta5</version.jboss.msc>
+    <version.jboss.osgi.blueprint>1.0.2</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.9</version.jboss.osgi.deployment>
@@ -72,9 +72,9 @@
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0.Alpha9</version.jboss.osgi.reflect>
-    <version.jboss.osgi.resolver>1.0.5-SNAPSHOT</version.jboss.osgi.resolver>
+    <version.jboss.osgi.resolver>1.0.5</version.jboss.osgi.resolver>
     <version.jboss.osgi.serviceloader>1.0.3</version.jboss.osgi.serviceloader>
-    <version.jboss.osgi.spi>1.0.20-SNAPSHOT</version.jboss.osgi.spi>
+    <version.jboss.osgi.spi>1.0.20</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.4</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.1</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>

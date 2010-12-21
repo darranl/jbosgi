@@ -1,18 +1,3 @@
 [submodule "reactor/jbosgi-framework"]
 	path = reactor/jbosgi-framework
 	url = git://github.com/jbosgi/jbosgi-framework.git
-[submodule "reactor/jboss-msc"]
-	path = reactor/jboss-msc
-	url = git://github.com/jbossas/jboss-msc.git
-[submodule "reactor/jbosgi-blueprint"]
-	path = reactor/jbosgi-blueprint
-	url = git://github.com/jbosgi/jbosgi-blueprint.git
-[submodule "reactor/jboss-modules"]
-	path = reactor/jboss-modules
-	url = git://github.com/jbossas/jboss-modules.git
-[submodule "reactor/jbosgi-spi"]
-	path = reactor/jbosgi-spi
-	url = git://github.com/jbosgi/jbosgi-spi.git
-[submodule "reactor/jbosgi-resolver"]
-	path = reactor/jbosgi-resolver
-	url = git://github.com/jbosgi/jbosgi-resolver.git

@@ -39,9 +39,9 @@ import org.osgi.test.support.compatibility.DefaultTestBundleControl;
  * Disabled test:
  *    
  *    testClassCircularity        - [MODULES-65] Deadlock when LocalLoader attempts a circular class load
- *    testActivationPolicy05      - [BUG-???] Unclear why StartLevel.isBundleActivationPolicyUsed(Bundle) should return false
- *    testActivationPolicy04      - [BUG-???] Passes when setBundleActivationPolicyUsed(false) is called in Bundle.stop()
- *    testActivationPolicyChain02 - [BUG-???] Too many assumptions on class load ordering
+ *                                  (https://issues.jboss.org/browse/MODULES-65)
+ *    testActivationPolicyChain02 - [BUG-1848] Too many assumptions on class load ordering
+ *                                  (https://www.osgi.org/members/bugzilla/show_bug.cgi?id=1848)  
  */
 
 /**
@@ -221,7 +221,7 @@ public class TestControl extends DefaultTestBundleControl {
 	/*
 	 * Tests the lazy activation policy in relation to the start-level service.
 	 */
-	public void FIXMEtestActivationPolicy04() throws Exception {
+	public void testActivationPolicy04() throws Exception {
 		StartLevel startLevel = (StartLevel) getService(StartLevel.class);
 		int initialSL = startLevel.getStartLevel();
 		int initialBSL = startLevel.getInitialBundleStartLevel();
@@ -341,7 +341,7 @@ public class TestControl extends DefaultTestBundleControl {
 	/*
 	 * Tests Bundle.start(START_ACTIVATION_POLICY) in relation to the start-level service
 	 */
-	public void FIXMEtestActivationPolicy05() throws Exception {
+	public void testActivationPolicy05() throws Exception {
 		StartLevel startLevel = (StartLevel) getService(StartLevel.class);
 		int initialSL = startLevel.getStartLevel();
 		int initialBSL = startLevel.getInitialBundleStartLevel();
@@ -728,7 +728,7 @@ public class TestControl extends DefaultTestBundleControl {
 	 * More advanced chain test that contains multiple class hierachies
 	 * NOTE there may be too much assumption on the order the VM verifier loads interface classes when more than one is implemented.
 	 */
-	public void FIXMEtestActivationPolicyChain02() throws Exception {
+	public void _testActivationPolicyChain02() throws Exception {
 		Bundle tbchain1 = installBundle(getWebServer()
 				+ "activationpolicy.tbchain1.jar", false);
 		Bundle tbchain2 = installBundle(getWebServer()
@@ -773,7 +773,7 @@ public class TestControl extends DefaultTestBundleControl {
 	 * This tests that a ClassCircularityError is not generated when the "trigger" class is loaded while a bundle
 	 * is being activated as a result of a lazy activation policy
 	 */
-	public void FIXMEtestClassCircularity() throws Exception {
+	public void _testClassCircularity() throws Exception {
 		Bundle tblazy5 = installBundle(getWebServer()
 				+ "activationpolicy.tblazy5.jar", false);
 		Bundle tblazy6 = installBundle(getWebServer()

@@ -1,25 +1,13 @@
-#
-# #
+Using Eclipse
+-------------
+To use eclipse you need to use the m2eclipse plugin (http://m2eclipse.sonatype.org/).
 
-1. Edit your subversion config ~/.subversion/config and set the following in each section:
+The following steps are recommended:
 
-[miscellany]
-enable-auto-props = yes
+1. Install the latest version of eclipse
+2. Launch eclipse and install the m2eclipse plugin, and make sure it uses your repo configs
+3. In eclipse preferences Java->Compiler->Errors/Warnings->Deprecated and restricted set forbidden reference to WARNING
+4. In eclipse preferences Java->Code Style, import the cleanup, templates, and formatter configs
+5. In eclipse preferences Java->Editor->Save Actions enable "Additional Actions" and deselect all actions except for "Remove trailing whitespace"
+6. Use import on the root pom, which will pull in all modules
 
-[auto-props]
-*.bat = svn:keywords=Id Revision;svn:eol-style=LF
-*.java = svn:keywords=Id Revision;svn:eol-style=LF
-*.properties = svn:keywords=Id Revision;svn:eol-style=LF
-*.sh = svn:keywords=Id Revision;svn:eol-style=LF
-*.txt = svn:keywords=Id Revision;svn:eol-style=LF
-*.wsdl = svn:keywords=Id Revision;svn:eol-style=LF
-*.xml = svn:keywords=Id Revision;svn:eol-style=LF
-*.xsd = svn:keywords=Id Revision;svn:eol-style=LF
-
-2. If you are using an IDE, make sure that it refers to the same config. So, 
-for example, if you are using Eclipse with Subclipse on windows, you need to
-set Team->SVN->Configuration Location to:
-
-/home/<your user name>/.subversion
-
-3. If you are using Eclipse, set your code style to jBPMCodeStyle.xml

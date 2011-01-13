@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jta;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -42,85 +41,75 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * An example of OSGi JTA.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class TransactionTestCase
-{
-   @Inject
-   public Bundle bundle;
+public class TransactionTestCase {
+    @Inject
+    public Bundle bundle;
 
-   @Test
-   public void testUserTransaction() throws Exception
-   {
-      assertNotNull("Bundle injected", bundle);
+    @Test
+    public void testUserTransaction() throws Exception {
+        assertNotNull("Bundle injected", bundle);
 
-      bundle.start();
-      assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
+        bundle.start();
+        assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-      BundleContext context = bundle.getBundleContext();
+        BundleContext context = bundle.getBundleContext();
 
-      Transactional txObj = new Transactional();
+        Transactional txObj = new Transactional();
 
-      ServiceReference userTxRef = context.getServiceReference(UserTransaction.class.getName());
-      assertNotNull("UserTransaction service not null", userTxRef);
+        ServiceReference userTxRef = context.getServiceReference(UserTransaction.class.getName());
+        assertNotNull("UserTransaction service not null", userTxRef);
 
-      UserTransaction userTx = (UserTransaction)context.getService(userTxRef);
-      assertNotNull("UserTransaction not null", userTx);
+        UserTransaction userTx = (UserTransaction) context.getService(userTxRef);
+        assertNotNull("UserTransaction not null", userTx);
 
-      userTx.begin();
-      try
-      {
-         ServiceReference tmRef = context.getServiceReference(TransactionManager.class.getName());
-         assertNotNull("TransactionManager service not null", tmRef);
+        userTx.begin();
+        try {
+            ServiceReference tmRef = context.getServiceReference(TransactionManager.class.getName());
+            assertNotNull("TransactionManager service not null", tmRef);
 
-         TransactionManager tm = (TransactionManager)context.getService(tmRef);
-         assertNotNull("TransactionManager not null", tm);
+            TransactionManager tm = (TransactionManager) context.getService(tmRef);
+            assertNotNull("TransactionManager not null", tm);
 
-         Transaction tx = tm.getTransaction();
-         assertNotNull("Transaction not null", tx);
+            Transaction tx = tm.getTransaction();
+            assertNotNull("Transaction not null", tx);
 
-         tx.registerSynchronization(txObj);
+            tx.registerSynchronization(txObj);
 
-         txObj.setMessage("Donate $1.000.000");
-         assertNull("Uncommited message null", txObj.getMessage());
+            txObj.setMessage("Donate $1.000.000");
+            assertNull("Uncommited message null", txObj.getMessage());
 
-         userTx.commit();
-      }
-      catch (Exception ex)
-      {
-         userTx.setRollbackOnly();
-         throw ex;
-      }
+            userTx.commit();
+        } catch (Exception ex) {
+            userTx.setRollbackOnly();
+            throw ex;
+        }
 
-      assertEquals("Donate $1.000.000", txObj.getMessage());
-   }
+        assertEquals("Donate $1.000.000", txObj.getMessage());
+    }
 
-   class Transactional implements Synchronization
-   {
-      private String volatileMessage;
-      private String message;
+    class Transactional implements Synchronization {
+        private String volatileMessage;
+        private String message;
 
-      public void beforeCompletion()
-      {
-      }
+        public void beforeCompletion() {
+        }
 
-      public void afterCompletion(int status)
-      {
-         if (status == Status.STATUS_COMMITTED)
-            message = volatileMessage;
-      }
+        public void afterCompletion(int status) {
+            if (status == Status.STATUS_COMMITTED)
+                message = volatileMessage;
+        }
 
-      public String getMessage()
-      {
-         return message;
-      }
+        public String getMessage() {
+            return message;
+        }
 
-      public void setMessage(String message)
-      {
-         this.volatileMessage = message;
-      }
-   }
+        public void setMessage(String message) {
+            this.volatileMessage = message;
+        }
+    }
 }

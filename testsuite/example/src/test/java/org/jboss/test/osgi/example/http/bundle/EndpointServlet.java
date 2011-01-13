@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.http.bundle;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -35,48 +34,36 @@ import org.osgi.service.startlevel.StartLevel;
 import org.osgi.util.tracker.ServiceTracker;
 
 @SuppressWarnings("serial")
-public class EndpointServlet extends HttpServlet
-{
-  private BundleContext context;
+public class EndpointServlet extends HttpServlet {
+    private BundleContext context;
 
-  // This hides the default ctor and verifies that this instance is used 
-  public EndpointServlet(BundleContext context)
-  {
-    this.context = context;
-  }
+    // This hides the default ctor and verifies that this instance is used
+    public EndpointServlet(BundleContext context) {
+        this.context = context;
+    }
 
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
-  {
-    PrintWriter out = res.getWriter();
-    
-    String testParam = req.getParameter("test");
-    if ("plain".equals(testParam))
-    {
-      out.println("Hello from Servlet");
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        PrintWriter out = res.getWriter();
+
+        String testParam = req.getParameter("test");
+        if ("plain".equals(testParam)) {
+            out.println("Hello from Servlet");
+        } else if ("initProp".equals(testParam)) {
+            String value = getInitParameter(testParam);
+            out.println(testParam + "=" + value);
+        } else if ("context".equals(testParam)) {
+            out.println(context.getBundle().getSymbolicName());
+        } else if ("startLevel".equals(testParam)) {
+            ServiceTracker tracker = new ServiceTracker(context, StartLevel.class.getName(), null);
+            tracker.open();
+
+            StartLevel service = (StartLevel) tracker.getService();
+            out.println("startLevel=" + (service != null ? service.getStartLevel() : 1));
+        } else {
+            throw new IllegalArgumentException("Invalid 'test' parameter: " + testParam);
+        }
+
+        out.close();
     }
-    else if ("initProp".equals(testParam))
-    {
-      String value = getInitParameter(testParam);
-      out.println(testParam + "=" + value);
-    }
-    else if ("context".equals(testParam))
-    {
-      out.println(context.getBundle().getSymbolicName());
-    }
-    else if ("startLevel".equals(testParam))
-    {
-      ServiceTracker tracker = new ServiceTracker(context, StartLevel.class.getName(), null);
-      tracker.open();
-      
-      StartLevel service = (StartLevel)tracker.getService();
-      out.println("startLevel=" + (service != null ? service.getStartLevel() : 1));
-    }
-    else
-    {
-      throw new IllegalArgumentException("Invalid 'test' parameter: " + testParam);
-    }
-    
-    out.close();
-  }
 }

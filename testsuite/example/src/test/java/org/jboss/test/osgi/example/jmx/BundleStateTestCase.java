@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -42,118 +41,107 @@ import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.jmx.framework.FrameworkMBean;
 
 /**
- * Test {@link BundleState} functionality  
+ * Test {@link BundleState} functionality
  * 
  * @author thomas.diesler@jboss.com
  * @author <a href="david@redhat.com">David Bosschaert</a>
  * @since 15-Feb-2010
  */
-public class BundleStateTestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testBundleStateMBean() throws Exception
-   {
-      BundleStateMBean bundleState = getRuntime().getBundleStateMBean();
-      assertNotNull("BundleStateMBean not null", bundleState);
-      
-      TabularData bundleData = bundleState.listBundles();
-      assertNotNull("TabularData not null", bundleData);
-      assertFalse("TabularData not empty", bundleData.isEmpty());
-   }
+public class BundleStateTestCase extends OSGiRuntimeTest {
+    @Test
+    public void testBundleStateMBean() throws Exception {
+        BundleStateMBean bundleState = getRuntime().getBundleStateMBean();
+        assertNotNull("BundleStateMBean not null", bundleState);
 
-   @Test
-   public void testUpdateBundle() throws Exception
-   {
-      FrameworkMBean fw = getRuntime().getFrameworkMBean();
-      BundleStateMBean bs = getRuntime().getBundleStateMBean();
+        TabularData bundleData = bundleState.listBundles();
+        assertNotNull("TabularData not null", bundleData);
+        assertFalse("TabularData not empty", bundleData.isEmpty());
+    }
 
-      // Install and start a bundle via JMX that exports a package
-      URL bundleURL = getTestArchiveURL("example-jmx-update1.jar");
-      long bundleId = fw.installBundle(bundleURL.toString());
-      fw.startBundle(bundleId);
+    @Test
+    public void testUpdateBundle() throws Exception {
+        FrameworkMBean fw = getRuntime().getFrameworkMBean();
+        BundleStateMBean bs = getRuntime().getBundleStateMBean();
 
-      // Obtain the exported packages through JMX
-      assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update1;0.0.0]",
-            Arrays.toString(bs.getExportedPackages(bundleId)));
-      long lm = bs.getLastModified(bundleId);
+        // Install and start a bundle via JMX that exports a package
+        URL bundleURL = getTestArchiveURL("example-jmx-update1.jar");
+        long bundleId = fw.installBundle(bundleURL.toString());
+        fw.startBundle(bundleId);
 
-      // Update the bundle into a new bundle
-      URL updatedURL = getTestArchiveURL("example-jmx-update2.jar");
-      fw.updateBundleFromURL(bundleId, updatedURL.toString());
+        // Obtain the exported packages through JMX
+        assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update1;0.0.0]", Arrays.toString(bs.getExportedPackages(bundleId)));
+        long lm = bs.getLastModified(bundleId);
 
-      assertTrue("The lastmodified should be changed", lm < bs.getLastModified(bundleId));
-      // The bundle should now export both the old and the new packages...
-      assertTrue(Arrays.toString(bs.getExportedPackages(bundleId)).contains("org.jboss.test.osgi.example.jmx.bundle.update2;"));
-      assertTrue(Arrays.toString(bs.getExportedPackages(bundleId)).contains("org.jboss.test.osgi.example.jmx.bundle.update1;"));
+        // Update the bundle into a new bundle
+        URL updatedURL = getTestArchiveURL("example-jmx-update2.jar");
+        fw.updateBundleFromURL(bundleId, updatedURL.toString());
 
-      // Refreshing the bundle should get rid of the old packages that were exported
-      fw.refreshBundle(bundleId);
+        assertTrue("The lastmodified should be changed", lm < bs.getLastModified(bundleId));
+        // The bundle should now export both the old and the new packages...
+        assertTrue(Arrays.toString(bs.getExportedPackages(bundleId)).contains("org.jboss.test.osgi.example.jmx.bundle.update2;"));
+        assertTrue(Arrays.toString(bs.getExportedPackages(bundleId)).contains("org.jboss.test.osgi.example.jmx.bundle.update1;"));
 
-      // PackageAdmin refreshBundles is async, so we have to wait on a condition
-      waitForExportedPackagesCondition(bs, bundleId);
+        // Refreshing the bundle should get rid of the old packages that were exported
+        fw.refreshBundle(bundleId);
 
-      assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]",
-            Arrays.toString(bs.getExportedPackages(bundleId)));
+        // PackageAdmin refreshBundles is async, so we have to wait on a condition
+        waitForExportedPackagesCondition(bs, bundleId);
 
-      // Install a bundle that depends on the updated bundle
-      OSGiBundle depBundle = getRuntime().installBundle("example-jmx-update2-user.jar");
-      depBundle.start();
-      long depId = depBundle.getBundleId();
-      assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]",
-            Arrays.toString(bs.getImportedPackages(depId)));
-      assertEquals("ACTIVE", bs.getState(depId));
+        assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]", Arrays.toString(bs.getExportedPackages(bundleId)));
 
-      // Install an unrelated bundle, this should return to active when refreshed
-      OSGiBundle bundle3 = getRuntime().installBundle("example-jmx-update3.jar");
-      bundle3.start();
-      long b3Id = bundle3.getBundleId();
-      assertEquals("ACTIVE", bs.getState(b3Id));
+        // Install a bundle that depends on the updated bundle
+        OSGiBundle depBundle = getRuntime().installBundle("example-jmx-update2-user.jar");
+        depBundle.start();
+        long depId = depBundle.getBundleId();
+        assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]", Arrays.toString(bs.getImportedPackages(depId)));
+        assertEquals("ACTIVE", bs.getState(depId));
 
-      // Uninstall the updated bundle, because it has dependencies it will remain to be
-      // available until we call refreshBundle...
-      fw.uninstallBundle(bundleId);
-      assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]",
-            Arrays.toString(bs.getExportedPackages(bundleId)));
-      assertEquals("ACTIVE", bs.getState(depId));
+        // Install an unrelated bundle, this should return to active when refreshed
+        OSGiBundle bundle3 = getRuntime().installBundle("example-jmx-update3.jar");
+        bundle3.start();
+        long b3Id = bundle3.getBundleId();
+        assertEquals("ACTIVE", bs.getState(b3Id));
 
-      // Refresh the uninstalled bundle and the unrelated bundle, this should really  
-      // remove it and unresolve the dependent bundle. The unrelated bundle should go back
-      // to being active.
-      fw.refreshBundles(new long[] { bundleId, b3Id });
-      waitForBundleStateCondition(bs, depId, "INSTALLED");
-      assertEquals("INSTALLED", bs.getState(depId));
+        // Uninstall the updated bundle, because it has dependencies it will remain to be
+        // available until we call refreshBundle...
+        fw.uninstallBundle(bundleId);
+        assertEquals("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]", Arrays.toString(bs.getExportedPackages(bundleId)));
+        assertEquals("ACTIVE", bs.getState(depId));
 
-      waitForBundleStateCondition(bs, b3Id, "ACTIVE");
-      assertEquals("ACTIVE", bs.getState(b3Id));
-   }
+        // Refresh the uninstalled bundle and the unrelated bundle, this should really
+        // remove it and unresolve the dependent bundle. The unrelated bundle should go back
+        // to being active.
+        fw.refreshBundles(new long[] { bundleId, b3Id });
+        waitForBundleStateCondition(bs, depId, "INSTALLED");
+        assertEquals("INSTALLED", bs.getState(depId));
 
-   private void waitForExportedPackagesCondition(BundleStateMBean bs, long bundleId) throws Exception
-   {
-      int secs = 10;
-      while (secs > 0)
-      {
-         String exported = Arrays.toString(bs.getExportedPackages(bundleId));
-         if ("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]".equals(exported))
-            return;
+        waitForBundleStateCondition(bs, b3Id, "ACTIVE");
+        assertEquals("ACTIVE", bs.getState(b3Id));
+    }
 
-         secs--;
-         SECONDS.sleep(1);
-      }
-      fail("Did not reach the expected state with packages refreshed");
-   }
+    private void waitForExportedPackagesCondition(BundleStateMBean bs, long bundleId) throws Exception {
+        int secs = 10;
+        while (secs > 0) {
+            String exported = Arrays.toString(bs.getExportedPackages(bundleId));
+            if ("[org.jboss.test.osgi.example.jmx.bundle.update2;0.0.0]".equals(exported))
+                return;
 
-   private void waitForBundleStateCondition(BundleStateMBean bs, long bundleId, String expectedState) throws Exception
-   {
-      int secs = 10;
-      while (secs > 0)
-      {
-         String state = bs.getState(bundleId);
-         if (expectedState.equals(state))
-            return;
+            secs--;
+            SECONDS.sleep(1);
+        }
+        fail("Did not reach the expected state with packages refreshed");
+    }
 
-         secs--;
-         SECONDS.sleep(1);
-      }
-      fail("Did not reach the expected state with packages refreshed");
-   }
+    private void waitForBundleStateCondition(BundleStateMBean bs, long bundleId, String expectedState) throws Exception {
+        int secs = 10;
+        while (secs > 0) {
+            String state = bs.getState(bundleId);
+            if (expectedState.equals(state))
+                return;
+
+            secs--;
+            SECONDS.sleep(1);
+        }
+        fail("Did not reach the expected state with packages refreshed");
+    }
 }

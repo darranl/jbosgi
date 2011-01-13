@@ -21,18 +21,14 @@
  */
 package org.jboss.test.osgi.jbosgi99.bundle;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi99Activator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      throw new IllegalStateException("Fail on start");
-   }
+public class OSGi99Activator implements BundleActivator {
+    public void start(BundleContext context) {
+        throw new IllegalStateException("Fail on start");
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

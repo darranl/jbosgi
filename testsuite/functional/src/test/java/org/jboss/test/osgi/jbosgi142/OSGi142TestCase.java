@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi142;
 
-
 import org.jboss.osgi.testing.OSGiFrameworkTest;
 import org.jboss.test.osgi.jbosgi142.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi142.bundleB.BeanB;
@@ -35,43 +34,39 @@ import org.osgi.framework.BundleContext;
  * 
  * https://jira.jboss.org/jira/browse/JBOSGI-142
  * 
- * A imports X
- * B imports X
+ * A imports X B imports X
  * 
- * Can X load a class from A or B?
- * Can A load a class from B and vice versa?
+ * Can X load a class from A or B? Can A load a class from B and vice versa?
  * 
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2009
  */
-public class OSGi142TestCase extends OSGiFrameworkTest
-{
-   @Test
-   public void testLoadClass() throws Exception
-   {
-      BundleContext sysContext = getFramework().getBundleContext();
-      Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleX.jar").toExternalForm());
-      bundleX.start();
+public class OSGi142TestCase extends OSGiFrameworkTest {
+    @Test
+    public void testLoadClass() throws Exception {
+        BundleContext sysContext = getFramework().getBundleContext();
+        Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleX.jar").toExternalForm());
+        bundleX.start();
 
-      assertLoadClass(bundleX, BeanX.class.getName());
+        assertLoadClass(bundleX, BeanX.class.getName());
 
-      Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleA.jar").toExternalForm());
-      bundleA.start();
+        Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleA.jar").toExternalForm());
+        bundleA.start();
 
-      assertLoadClass(bundleA, BeanA.class.getName());
+        assertLoadClass(bundleA, BeanA.class.getName());
 
-      Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleB.jar").toExternalForm());
-      bundleB.start();
+        Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi142-bundleB.jar").toExternalForm());
+        bundleB.start();
 
-      assertLoadClass(bundleB, BeanB.class.getName());
+        assertLoadClass(bundleB, BeanB.class.getName());
 
-      assertLoadClass(bundleA, BeanX.class.getName());
-      assertLoadClass(bundleB, BeanX.class.getName());
+        assertLoadClass(bundleA, BeanX.class.getName());
+        assertLoadClass(bundleB, BeanX.class.getName());
 
-      assertLoadClassFail(bundleX, BeanA.class.getName());
-      assertLoadClassFail(bundleX, BeanB.class.getName());
+        assertLoadClassFail(bundleX, BeanA.class.getName());
+        assertLoadClassFail(bundleX, BeanB.class.getName());
 
-      assertLoadClassFail(bundleA, BeanB.class.getName());
-      assertLoadClassFail(bundleB, BeanA.class.getName());
-   }
+        assertLoadClassFail(bundleA, BeanB.class.getName());
+        assertLoadClassFail(bundleB, BeanA.class.getName());
+    }
 }

@@ -22,19 +22,17 @@
 package org.jboss.osgi.test.performance;
 
 /**
- * A chart type refers to an actual chart in the performance report.
- * The information provided is used to describe the axes and title of the 
- * report as created by the performance-report.xsl sheet.
+ * A chart type refers to an actual chart in the performance report. The information provided is used to describe the axes and
+ * title of the report as created by the performance-report.xsl sheet.
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public interface ChartType
-{
-   String getName();
+public interface ChartType {
+    String getName();
 
-   String getChartTitle();
+    String getChartTitle();
 
-   String getXAxisLabel();
+    String getXAxisLabel();
 
-   String getYAxisLabel();
+    String getYAxisLabel();
 }

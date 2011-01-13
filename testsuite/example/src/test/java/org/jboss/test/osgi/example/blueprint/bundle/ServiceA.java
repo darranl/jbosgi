@@ -23,14 +23,12 @@ package org.jboss.test.osgi.example.blueprint.bundle;
 
 import javax.management.MBeanServer;
 
-
 /**
  * A basic service
  * 
  * @author thomas.diesler@jboss.com
  * @since 13-May-2009
  */
-public interface ServiceA 
-{
-   MBeanServer getMbeanServer();
+public interface ServiceA {
+    MBeanServer getMbeanServer();
 }

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-
 import java.io.IOException;
 import java.util.Properties;
 
@@ -38,51 +37,42 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
-public class ParserInterceptor extends AbstractLifecycleInterceptor
-{
-   // Provide logging
-   private static final Logger log = Logger.getLogger(ParserInterceptor.class);
+public class ParserInterceptor extends AbstractLifecycleInterceptor {
+    // Provide logging
+    private static final Logger log = Logger.getLogger(ParserInterceptor.class);
 
-   ParserInterceptor()
-   {
-      // Add the provided output
-      addOutput(HttpMetadata.class);
-   }
+    ParserInterceptor() {
+        // Add the provided output
+        addOutput(HttpMetadata.class);
+    }
 
-   public void invoke(int state, InvocationContext context)
-   {
-      // Do nothing if the metadata is already available  
-      HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
-      if (metadata != null)
-         return;
+    public void invoke(int state, InvocationContext context) {
+        // Do nothing if the metadata is already available
+        HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+        if (metadata != null)
+            return;
 
-      // Parse and create metadta on STARTING
-      if (state == Bundle.STARTING)
-      {
-         try
-         {
-            VirtualFile root = context.getRoot();
-            VirtualFile propsFile = root.getChild("/http-metadata.properties");
-            if (propsFile != null)
-            {
-               log.info("Create and attach HttpMetadata");
-               metadata = createHttpMetadata(propsFile);
-               context.addAttachment(HttpMetadata.class, metadata);
+        // Parse and create metadta on STARTING
+        if (state == Bundle.STARTING) {
+            try {
+                VirtualFile root = context.getRoot();
+                VirtualFile propsFile = root.getChild("/http-metadata.properties");
+                if (propsFile != null) {
+                    log.info("Create and attach HttpMetadata");
+                    metadata = createHttpMetadata(propsFile);
+                    context.addAttachment(HttpMetadata.class, metadata);
+                }
+            } catch (IOException ex) {
+                throw new LifecycleInterceptorException("Cannot parse metadata", ex);
             }
-         }
-         catch (IOException ex)
-         {
-            throw new LifecycleInterceptorException("Cannot parse metadata", ex);
-         }
-      }
-   }
+        }
+    }
 
-   private HttpMetadata createHttpMetadata(VirtualFile propsFile) throws IOException
-   {
-      Properties props = new Properties();
-      props.load(propsFile.openStream());
+    private HttpMetadata createHttpMetadata(VirtualFile propsFile) throws IOException {
+        Properties props = new Properties();
+        props.load(propsFile.openStream());
 
-      HttpMetadata metadata = new HttpMetadata(props.getProperty("servlet.name"));
-      return metadata;
-   }
+        HttpMetadata metadata = new HttpMetadata(props.getProperty("servlet.name"));
+        return metadata;
+    }
 }

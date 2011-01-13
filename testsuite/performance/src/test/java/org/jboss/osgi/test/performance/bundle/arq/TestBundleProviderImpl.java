@@ -31,18 +31,15 @@ import org.jboss.osgi.test.performance.bundle.TestBundleProvider;
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class TestBundleProviderImpl implements TestBundleProvider
-{
-   private OSGiContainer container;
+public class TestBundleProviderImpl implements TestBundleProvider {
+    private OSGiContainer container;
 
-   public TestBundleProviderImpl(OSGiContainer container)
-   {
-      this.container = container;
-   }
+    public TestBundleProviderImpl(OSGiContainer container) {
+        this.container = container;
+    }
 
-   @Override
-   public InputStream getTestArchiveStream(String name)
-   {
-      return container.getTestArchiveStream(name);
-   }
+    @Override
+    public InputStream getTestArchiveStream(String name) {
+        return container.getTestArchiveStream(name);
+    }
 }

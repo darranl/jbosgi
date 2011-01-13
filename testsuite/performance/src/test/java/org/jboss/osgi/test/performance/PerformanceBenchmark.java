@@ -27,7 +27,6 @@ import java.io.File;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public interface PerformanceBenchmark
-{
-   void reportXML(File targetFile, Parameter... parameters) throws Exception;
+public interface PerformanceBenchmark {
+    void reportXML(File targetFile, Parameter... parameters) throws Exception;
 }

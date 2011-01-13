@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi38.bundleB;
 
-
 import org.jboss.test.osgi.jbosgi38.bundleX.SomePojo;
 
 /**
@@ -30,10 +29,8 @@ import org.jboss.test.osgi.jbosgi38.bundleX.SomePojo;
  * @author thomas.diesler@jboss.com
  * @since 02-Mar-2009
  */
-public class ServiceB 
-{
-  public String doStuffInB(SomePojo obj)
-  {
-     return obj.toString();
-  }
+public class ServiceB {
+    public String doStuffInB(SomePojo obj) {
+        return obj.toString();
+    }
 }

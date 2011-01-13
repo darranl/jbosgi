@@ -27,24 +27,20 @@ package org.jboss.osgi.test.performance;
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class Parameter
-{
-   private final String key;
-   private final Object value;
+public class Parameter {
+    private final String key;
+    private final Object value;
 
-   public Parameter(String key, Object value)
-   {
-      this.key = key;
-      this.value = value;
-   }
+    public Parameter(String key, Object value) {
+        this.key = key;
+        this.value = value;
+    }
 
-   public String getName()
-   {
-      return key;
-   }
+    public String getName() {
+        return key;
+    }
 
-   public Object getValue()
-   {
-      return value;
-   }
+    public Object getValue() {
+        return value;
+    }
 }

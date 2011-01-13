@@ -21,26 +21,22 @@
  */
 package org.jboss.test.osgi.jbosgi108.bundleB;
 
-
 import org.jboss.test.osgi.jbosgi108.bundleA.SomeBean;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi108ActivatorB implements BundleActivator
-{
-   private SomeBean bean = new SomeBean();
-   
-   public void start(BundleContext context)
-   {
-      ClassLoader cl = getClass().getClassLoader();
-      String msg = "start with " + cl + " - hashCode: " + cl.hashCode();
-      bean.addMessage(msg);
-   }
+public class OSGi108ActivatorB implements BundleActivator {
+    private SomeBean bean = new SomeBean();
 
-   public void stop(BundleContext context)
-   {
-      ClassLoader cl = getClass().getClassLoader();
-      String msg = "stop with " + cl + " - hashCode: " + cl.hashCode();
-      bean.addMessage(msg);
-   }
+    public void start(BundleContext context) {
+        ClassLoader cl = getClass().getClassLoader();
+        String msg = "start with " + cl + " - hashCode: " + cl.hashCode();
+        bean.addMessage(msg);
+    }
+
+    public void stop(BundleContext context) {
+        ClassLoader cl = getClass().getClassLoader();
+        String msg = "stop with " + cl + " - hashCode: " + cl.hashCode();
+        bean.addMessage(msg);
+    }
 }

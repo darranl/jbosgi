@@ -30,45 +30,41 @@ import org.osgi.framework.BundleContext;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class BundlePerfTestActivator implements BundleActivator
-{
-   @Override
-   public void start(BundleContext context) throws Exception
-   {
-      String common = CommonClass.getStaticValue();
-      VersionedInterface vi = VersionedClass.create();
-      String versioned = vi.getValue();
-      String utilVal = vi.getUtilValue();
-      // System.out.println("*** Common: " + common + " Versioned: " + versioned + " Util: " + utilVal);
+public class BundlePerfTestActivator implements BundleActivator {
+    @Override
+    public void start(BundleContext context) throws Exception {
+        String common = CommonClass.getStaticValue();
+        VersionedInterface vi = VersionedClass.create();
+        String versioned = vi.getValue();
+        String utilVal = vi.getUtilValue();
+        // System.out.println("*** Common: " + common + " Versioned: " + versioned + " Util: " + utilVal);
 
-      if (!common.equals(versioned))
-         throw new IllegalStateException("Expected the same version of the common and versioned classes, found. Found: common " +
-               common + ", versioned: " + versioned);
+        if (!common.equals(versioned))
+            throw new IllegalStateException("Expected the same version of the common and versioned classes, found. Found: common " + common + ", versioned: "
+                    + versioned);
 
-      if (!utilVal.equals(versioned))
-         throw new IllegalStateException("Expected the same number for version of the versioned and util class, found. Found: util " +
-               utilVal + ", versioned: " + versioned);
+        if (!utilVal.equals(versioned))
+            throw new IllegalStateException("Expected the same number for version of the versioned and util class, found. Found: util " + utilVal + ", versioned: "
+                    + versioned);
 
-      String bsn = context.getBundle().getSymbolicName();
-      String threadName = getThreadName(bsn);
-      synchronized (threadName.intern()) // VM-Global lock, outside of measuring section
-      {
-         String propName = threadName + "started-bundles";
-         int num = Integer.parseInt(System.getProperty(propName, "0"));
-         System.setProperty(propName, "" + (num + 1));
-      }
-   }
+        String bsn = context.getBundle().getSymbolicName();
+        String threadName = getThreadName(bsn);
+        synchronized (threadName.intern()) // VM-Global lock, outside of measuring section
+        {
+            String propName = threadName + "started-bundles";
+            int num = Integer.parseInt(System.getProperty(propName, "0"));
+            System.setProperty(propName, "" + (num + 1));
+        }
+    }
 
-   @Override
-   public void stop(BundleContext context) throws Exception
-   {
-   }
+    @Override
+    public void stop(BundleContext context) throws Exception {
+    }
 
-   private static String getThreadName(String bsn)
-   {
-      int idx1 = bsn.indexOf('-');
-      int idx2 = bsn.lastIndexOf('-');
+    private static String getThreadName(String bsn) {
+        int idx1 = bsn.indexOf('-');
+        int idx2 = bsn.lastIndexOf('-');
 
-      return bsn.substring(idx1 + 1, idx2);
-   }
+        return bsn.substring(idx1 + 1, idx2);
+    }
 }

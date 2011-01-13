@@ -21,19 +21,15 @@
  */
 package org.jboss.test.osgi.jbosgi39.bundleX;
 
+public class OSGi39BeanX {
+    private String message;
 
-public class OSGi39BeanX
-{
-   private String message;
-   
-   public OSGi39BeanX(String message)
-   {
-      this.message = message;
-   }
+    public OSGi39BeanX(String message) {
+        this.message = message;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "[" + message + "]";
-   }
+    @Override
+    public String toString() {
+        return "[" + message + "]";
+    }
 }

@@ -35,48 +35,36 @@ import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
- * Abstract Base Class for the Arquillian-based performance tests. Provides a basic 
- * test.jar which contains shared classes and provides a number of utility methods.
+ * Abstract Base Class for the Arquillian-based performance tests. Provides a basic test.jar which contains shared classes and
+ * provides a number of utility methods.
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public abstract class AbstractPerformanceTestCase
-{
-   protected static JavaArchive getTestBundleArchive()
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar");
-      archive.addClasses(AbstractBenchmark.class,
-            AbstractPerformanceTestCase.class,
-            AbstractThreadedBenchmark.class,
-            ChartType.class,
-            ChartTypeImpl.class,
-            Parameter.class,
-            PerformanceBenchmark.class);
-      return archive;
-   }
+public abstract class AbstractPerformanceTestCase {
+    protected static JavaArchive getTestBundleArchive() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar");
+        archive.addClasses(AbstractBenchmark.class, AbstractPerformanceTestCase.class, AbstractThreadedBenchmark.class, ChartType.class, ChartTypeImpl.class,
+                Parameter.class, PerformanceBenchmark.class);
+        return archive;
+    }
 
-   protected File getResultsDir()
-   {
-      File f = new File(System.getProperty("basedir") + "/target/performance-results");
-      f.mkdirs();
-      return f;
-   }
+    protected File getResultsDir() {
+        File f = new File(System.getProperty("basedir") + "/target/performance-results");
+        f.mkdirs();
+        return f;
+    }
 
-   protected <T> T getService(BundleContext bc, Class<T> c) throws InterruptedException
-   {
-      ServiceTracker st = new ServiceTracker(bc, c.getName(), null);
-      st.open();
-      try
-      {
-         Object svc = st.waitForService(100000);
-         if (svc == null)
-            throw new NullPointerException("Service not available: " + c.getName());
+    protected <T> T getService(BundleContext bc, Class<T> c) throws InterruptedException {
+        ServiceTracker st = new ServiceTracker(bc, c.getName(), null);
+        st.open();
+        try {
+            Object svc = st.waitForService(100000);
+            if (svc == null)
+                throw new NullPointerException("Service not available: " + c.getName());
 
-         return c.cast(svc);
-      }
-      finally
-      {
-         st.close();
-      }
-   }
+            return c.cast(svc);
+        } finally {
+            st.close();
+        }
+    }
 }

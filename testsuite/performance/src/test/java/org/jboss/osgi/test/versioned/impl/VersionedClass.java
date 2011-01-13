@@ -26,36 +26,30 @@ import org.jboss.osgi.test.versioned.VersionedInterface;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class VersionedClass implements VersionedInterface
-{
-   private static final String staticValue;
-   static
-   {
-      synchronized (VersionedClass.class.getName().intern())
-      {
-         int counter = Integer.parseInt(System.getProperty(VersionedClass.class.getName(), "0"));
-         counter++;
-         System.setProperty(VersionedClass.class.getName(), "" + counter);
-         staticValue = "" + counter;
-      }
-   }
+public class VersionedClass implements VersionedInterface {
+    private static final String staticValue;
+    static {
+        synchronized (VersionedClass.class.getName().intern()) {
+            int counter = Integer.parseInt(System.getProperty(VersionedClass.class.getName(), "0"));
+            counter++;
+            System.setProperty(VersionedClass.class.getName(), "" + counter);
+            staticValue = "" + counter;
+        }
+    }
 
-   @Override
-   public String getValue()
-   {
-      return staticValue;
-   }
+    @Override
+    public String getValue() {
+        return staticValue;
+    }
 
-   @Override
-   public String getUtilValue() throws Exception
-   {
-      Class<?> cls = getClass().getClassLoader().loadClass("org.jboss.osgi.test.util" + getValue() + ".Util" + getValue());
-      String name = cls.getName();
-      return name.substring(name.length() - 1, name.length());
-   }
+    @Override
+    public String getUtilValue() throws Exception {
+        Class<?> cls = getClass().getClassLoader().loadClass("org.jboss.osgi.test.util" + getValue() + ".Util" + getValue());
+        String name = cls.getName();
+        return name.substring(name.length() - 1, name.length());
+    }
 
-   public static VersionedInterface create()
-   {
-      return new VersionedClass();
-   }
+    public static VersionedInterface create() {
+        return new VersionedClass();
+    }
 }

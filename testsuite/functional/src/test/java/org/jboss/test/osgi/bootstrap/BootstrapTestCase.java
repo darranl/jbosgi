@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.bootstrap;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
@@ -38,32 +37,26 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 25-Feb-2009
  */
-public class BootstrapTestCase extends OSGiTest
-{
-   @Test
-   public void testFrameworkBootstrap() throws Exception
-   {
-      OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
-      Framework framework = bootProvider.getFramework();
-      try
-      {
-         assertNotNull("Framework not null", framework);
+public class BootstrapTestCase extends OSGiTest {
+    @Test
+    public void testFrameworkBootstrap() throws Exception {
+        OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
+        Framework framework = bootProvider.getFramework();
+        try {
+            assertNotNull("Framework not null", framework);
 
-         assertEquals("BundleId == 0", 0, framework.getBundleId());
-         assertNotNull("SymbolicName not null", framework.getSymbolicName());
-      }
-      finally
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-      }
-   }
+            assertEquals("BundleId == 0", 0, framework.getBundleId());
+            assertNotNull("SymbolicName not null", framework.getSymbolicName());
+        } finally {
+            framework.stop();
+            framework.waitForStop(2000);
+        }
+    }
 
-   @Test
-   public void testGetBootstrapProvider() throws Exception
-   {
-      OSGiBootstrapProvider bp1 = OSGiBootstrap.getBootstrapProvider();
-      OSGiBootstrapProvider bp2 = OSGiBootstrap.getBootstrapProvider();
-      assertNotSame("Multiple provider instances", bp1, bp2);
-   }
+    @Test
+    public void testGetBootstrapProvider() throws Exception {
+        OSGiBootstrapProvider bp1 = OSGiBootstrap.getBootstrapProvider();
+        OSGiBootstrapProvider bp2 = OSGiBootstrap.getBootstrapProvider();
+        assertNotSame("Multiple provider instances", bp1, bp2);
+    }
 }

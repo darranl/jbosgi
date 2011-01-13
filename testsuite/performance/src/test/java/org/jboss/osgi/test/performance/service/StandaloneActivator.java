@@ -26,64 +26,48 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
 /**
- * This activator can be used to run the service performance test outside of a test framework.
- * Just start the bundle that contains this activator in an OSGi framework.
- * The test benchmark subsystem will report to the screen where the results can be found.
- *  
+ * This activator can be used to run the service performance test outside of a test framework. Just start the bundle that
+ * contains this activator in an OSGi framework. The test benchmark subsystem will report to the screen where the results can be
+ * found.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class StandaloneActivator implements BundleActivator
-{
-   private static final String PERFORMANCE_TEST_SERVICE_SIZE = "org.jboss.osgi.test.performance.service.size";
+public class StandaloneActivator implements BundleActivator {
+    private static final String PERFORMANCE_TEST_SERVICE_SIZE = "org.jboss.osgi.test.performance.service.size";
 
-   @Override
-   public void start(final BundleContext context) throws Exception
-   {
-      new Thread(new Runnable()
-      {
-         @Override
-         public void run()
-         {
-            CreateAndLookupBenchmark bm = new CreateAndLookupBenchmark(context);
-            try
-            {
-               int size;
-               try
-               {
-                  size = Integer.parseInt(System.getProperty(PERFORMANCE_TEST_SERVICE_SIZE, "25"));
-               }
-               catch (Throwable th)
-               {
-                  size = 25;
-               }
-               System.out.println("*** Running service benchmark with size: " + size);
-               System.out.println("*** For other propulations set system property:\n    " + PERFORMANCE_TEST_SERVICE_SIZE);
+    @Override
+    public void start(final BundleContext context) throws Exception {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CreateAndLookupBenchmark bm = new CreateAndLookupBenchmark(context);
+                try {
+                    int size;
+                    try {
+                        size = Integer.parseInt(System.getProperty(PERFORMANCE_TEST_SERVICE_SIZE, "25"));
+                    } catch (Throwable th) {
+                        size = 25;
+                    }
+                    System.out.println("*** Running service benchmark with size: " + size);
+                    System.out.println("*** For other propulations set system property:\n    " + PERFORMANCE_TEST_SERVICE_SIZE);
 
-               int processors = Runtime.getRuntime().availableProcessors();
-               bm.run(processors, size / processors);
+                    int processors = Runtime.getRuntime().availableProcessors();
+                    bm.run(processors, size / processors);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        context.getBundle().stop();
+                        System.out.println("*** Performance test finished, stopped bundle");
+                    } catch (BundleException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            catch (Exception e)
-            {
-               e.printStackTrace();
-            }
-            finally
-            {
-               try
-               {
-                  context.getBundle().stop();
-                  System.out.println("*** Performance test finished, stopped bundle");
-               }
-               catch (BundleException e)
-               {
-                  e.printStackTrace();
-               }
-            }
-         }
-      }).start();
-   }
+        }).start();
+    }
 
-   @Override
-   public void stop(BundleContext context) throws Exception
-   {
-   }
+    @Override
+    public void stop(BundleContext context) throws Exception {
+    }
 }

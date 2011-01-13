@@ -31,38 +31,32 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
 
 /**
- * This test exercises the Bundle Performance test code in a very basic manner to
- * ensure that it works. Passing this test is a precondition for running the real 
- * Bundle Performance tests.
+ * This test exercises the Bundle Performance test code in a very basic manner to ensure that it works. Passing this test is a
+ * precondition for running the real Bundle Performance tests.
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class BundleSmokeTestCase extends BundleTestBase
-{
-   @Inject
-   public OSGiContainer container;
+public class BundleSmokeTestCase extends BundleTestBase {
+    @Inject
+    public OSGiContainer container;
 
-   OSGiContainer getOSGiContainer()
-   {
-      return container;
-   }
+    OSGiContainer getOSGiContainer() {
+        return container;
+    }
 
-   @Inject
-   public BundleContext bundleContext;
+    @Inject
+    public BundleContext bundleContext;
 
-   BundleContext getBundleContext()
-   {
-      return bundleContext;
-   }
+    BundleContext getBundleContext() {
+        return bundleContext;
+    }
 
-   @Test
-   public void test5() throws Exception
-   {
-      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(
-            new TestBundleProviderImpl(getOSGiContainer()), getBundleContext());
-      bm.prepareTest(1, 5);
-      bm.runThread("Thread_1", 5);
-      bm.cleanUp();
-   }
+    @Test
+    public void test5() throws Exception {
+        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(new TestBundleProviderImpl(getOSGiContainer()), getBundleContext());
+        bm.prepareTest(1, 5);
+        bm.runThread("Thread_1", 5);
+        bm.cleanUp();
+    }
 }

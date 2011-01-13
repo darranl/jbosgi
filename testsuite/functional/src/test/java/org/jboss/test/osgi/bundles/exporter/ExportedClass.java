@@ -24,6 +24,5 @@ package org.jboss.test.osgi.bundles.exporter;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class ExportedClass
-{
+public class ExportedClass {
 }

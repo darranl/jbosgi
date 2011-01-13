@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.http;
 
-
 import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,58 +41,50 @@ import org.osgi.service.http.HttpService;
  * @author thomas.diesler@jboss.com
  * @since 23-Jan-2009
  */
-public class HttpServiceTestCase extends OSGiRuntimeTest
-{
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      runtime.addCapability(new HttpServiceCapability());
+public class HttpServiceTestCase extends OSGiRuntimeTest {
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        runtime.addCapability(new HttpServiceCapability());
 
-      // Allow 10s for the HttpService to become available
-      OSGiServiceReference sref = runtime.getServiceReference(HttpService.class.getName(), 10000);
-      assertNotNull("HttpService not null", sref);
+        // Allow 10s for the HttpService to become available
+        OSGiServiceReference sref = runtime.getServiceReference(HttpService.class.getName(), 10000);
+        assertNotNull("HttpService not null", sref);
 
-      runtime.installBundle("example-http.jar").start();
-   }
+        runtime.installBundle("example-http.jar").start();
+    }
 
-   @Test
-   public void testServletAccess() throws Exception
-   {
-      String line = getHttpResponse("/servlet?test=plain", 5000);
-      assertEquals("Hello from Servlet", line);
-   }
+    @Test
+    public void testServletAccess() throws Exception {
+        String line = getHttpResponse("/servlet?test=plain", 5000);
+        assertEquals("Hello from Servlet", line);
+    }
 
-   @Test
-   public void testServletInitProps() throws Exception
-   {
-      String line = getHttpResponse("/servlet?test=initProp", 5000);
-      assertEquals("initProp=SomeValue", line);
-   }
+    @Test
+    public void testServletInitProps() throws Exception {
+        String line = getHttpResponse("/servlet?test=initProp", 5000);
+        assertEquals("initProp=SomeValue", line);
+    }
 
-   @Test
-   public void testServletBundleContext() throws Exception
-   {
-      String line = getHttpResponse("/servlet?test=context", 5000);
-      assertEquals("example-http", line);
-   }
+    @Test
+    public void testServletBundleContext() throws Exception {
+        String line = getHttpResponse("/servlet?test=context", 5000);
+        assertEquals("example-http", line);
+    }
 
-   @Test
-   public void testServletStartLevel() throws Exception
-   {
-      String line = getHttpResponse("/servlet?test=startLevel", 5000);
-      assertEquals("startLevel=1", line);
-   }
+    @Test
+    public void testServletStartLevel() throws Exception {
+        String line = getHttpResponse("/servlet?test=startLevel", 5000);
+        assertEquals("startLevel=1", line);
+    }
 
-   @Test
-   public void testResourceAccess() throws Exception
-   {
-      String line = getHttpResponse("/file/message.txt", 5000);
-      assertEquals("Hello from Resource", line);
-   }
+    @Test
+    public void testResourceAccess() throws Exception {
+        String line = getHttpResponse("/file/message.txt", 5000);
+        assertEquals("Hello from Resource", line);
+    }
 
-   private String getHttpResponse(String reqPath, int timeout) throws IOException
-   {
-      return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
-   }
+    private String getHttpResponse(String reqPath, int timeout) throws IOException {
+        return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
+    }
 }

@@ -24,13 +24,11 @@ package org.jboss.osgi.test.performance.bundle;
 import java.io.InputStream;
 
 /**
- * This interface decouples the API that is used to obtain a test bundle
- * from the Arquillian API, so that it can be used in a standalone context
- * where Arquillian is not present.
- *   
+ * This interface decouples the API that is used to obtain a test bundle from the Arquillian API, so that it can be used in a
+ * standalone context where Arquillian is not present.
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public interface TestBundleProvider
-{
-   InputStream getTestArchiveStream(String name);
+public interface TestBundleProvider {
+    InputStream getTestArchiveStream(String name);
 }

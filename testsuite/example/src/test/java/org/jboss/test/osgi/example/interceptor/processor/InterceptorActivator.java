@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorService;
 import org.osgi.framework.BundleActivator;
@@ -33,19 +32,16 @@ import org.osgi.framework.BundleContext;
  * @author thomas.diesler@jboss.com
  * @since 20-Oct-2009
  */
-public class InterceptorActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      LifecycleInterceptor publisher = new PublisherInterceptor();
-      LifecycleInterceptor parser = new ParserInterceptor();
-      
-      // Add the interceptors, the order of which is handles by the service
-      context.registerService(LifecycleInterceptor.class.getName(), publisher, null);
-      context.registerService(LifecycleInterceptor.class.getName(), parser, null);
-   }
+public class InterceptorActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        LifecycleInterceptor publisher = new PublisherInterceptor();
+        LifecycleInterceptor parser = new ParserInterceptor();
 
-   public void stop(BundleContext context)
-   {
-   }
+        // Add the interceptors, the order of which is handles by the service
+        context.registerService(LifecycleInterceptor.class.getName(), publisher, null);
+        context.registerService(LifecycleInterceptor.class.getName(), parser, null);
+    }
+
+    public void stop(BundleContext context) {
+    }
 }

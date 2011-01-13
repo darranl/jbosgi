@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.xml.jaxb;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -50,90 +49,82 @@ import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * A test that uses JAXB to read an XML document.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
-public class JAXBTestCase
-{
-   @Inject
-   public BundleContext context;
+public class JAXBTestCase {
+    @Inject
+    public BundleContext context;
 
-   @Inject
-   public Bundle bundle;
+    @Inject
+    public Bundle bundle;
 
-   @Deployment
-   public static JavaArchive createdeployment()
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-jaxb");
-      archive.addClasses(CompanyType.class, ContactType.class, CourseBooking.class, ObjectFactory.class, StudentType.class);
-      archive.addResource("xml/jaxb/booking.xml", "booking.xml");
-      archive.addResource("xml/jaxb/booking.xsd", "booking.xsd");
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleManifestVersion(2);
-            builder.addImportPackages("com.sun.xml.bind.v2", "javax.xml.bind", "javax.xml.bind.annotation");
-            builder.addImportPackages("javax.xml.datatype", "javax.xml.namespace", "org.apache.xerces.jaxp.datatype", "org.jboss.osgi.xml");
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    @Deployment
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-jaxb");
+        archive.addClasses(CompanyType.class, ContactType.class, CourseBooking.class, ObjectFactory.class, StudentType.class);
+        archive.addResource("xml/jaxb/booking.xml", "booking.xml");
+        archive.addResource("xml/jaxb/booking.xsd", "booking.xsd");
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addImportPackages("com.sun.xml.bind.v2", "javax.xml.bind", "javax.xml.bind.annotation");
+                builder.addImportPackages("javax.xml.datatype", "javax.xml.namespace", "org.apache.xerces.jaxp.datatype", "org.jboss.osgi.xml");
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 
-   @Test
-   public void testWiring() throws Exception
-   {
-      ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
-      PackageAdmin packageAdmin = (PackageAdmin)context.getService(sref);
+    @Test
+    public void testWiring() throws Exception {
+        ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
+        PackageAdmin packageAdmin = (PackageAdmin) context.getService(sref);
 
-      Bundle serviceBundle = packageAdmin.getBundle(JAXBService.class);
-      Bundle contextBundle = packageAdmin.getBundle(JAXBContext.class);
+        Bundle serviceBundle = packageAdmin.getBundle(JAXBService.class);
+        Bundle contextBundle = packageAdmin.getBundle(JAXBContext.class);
 
-      // Test that the JAXBService as well as the JAXBContext come from the provided bundle
-      assertEquals("jboss-osgi-jaxb", serviceBundle.getSymbolicName());
-      assertEquals("jboss-osgi-jaxb", serviceBundle, contextBundle);
-   }
+        // Test that the JAXBService as well as the JAXBContext come from the provided bundle
+        assertEquals("jboss-osgi-jaxb", serviceBundle.getSymbolicName());
+        assertEquals("jboss-osgi-jaxb", serviceBundle, contextBundle);
+    }
 
-   @Test
-   @SuppressWarnings("unchecked")
-   public void testUnmarshaller() throws Exception
-   {
-      bundle.start();
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testUnmarshaller() throws Exception {
+        bundle.start();
 
-      JAXBContext jaxbContext = getJAXBContext();
-      Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-      URL resURL = bundle.getResource("booking.xml");
-      JAXBElement<CourseBooking> rootElement = (JAXBElement<CourseBooking>)unmarshaller.unmarshal(resURL.openStream());
-      assertNotNull("root element not null", rootElement);
+        JAXBContext jaxbContext = getJAXBContext();
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        URL resURL = bundle.getResource("booking.xml");
+        JAXBElement<CourseBooking> rootElement = (JAXBElement<CourseBooking>) unmarshaller.unmarshal(resURL.openStream());
+        assertNotNull("root element not null", rootElement);
 
-      CourseBooking booking = rootElement.getValue();
-      assertNotNull("booking not null", booking);
+        CourseBooking booking = rootElement.getValue();
+        assertNotNull("booking not null", booking);
 
-      CompanyType company = booking.getCompany();
-      assertNotNull("company not null", company);
-      assertEquals("ACME Consulting", company.getName());
-   }
+        CompanyType company = booking.getCompany();
+        assertNotNull("company not null", company);
+        assertEquals("ACME Consulting", company.getName());
+    }
 
-   private JAXBService getJAXBService() throws JAXBException
-   {
-      // This service gets registerd by the jboss-osgi-jaxb activator
-      BundleContext context = bundle.getBundleContext();
-      ServiceReference sref = context.getServiceReference(JAXBService.class.getName());
-      if (sref == null)
-         throw new IllegalStateException("JAXBService not available");
+    private JAXBService getJAXBService() throws JAXBException {
+        // This service gets registerd by the jboss-osgi-jaxb activator
+        BundleContext context = bundle.getBundleContext();
+        ServiceReference sref = context.getServiceReference(JAXBService.class.getName());
+        if (sref == null)
+            throw new IllegalStateException("JAXBService not available");
 
-      JAXBService jaxbService = (JAXBService)context.getService(sref);
-      return jaxbService;
-   }
+        JAXBService jaxbService = (JAXBService) context.getService(sref);
+        return jaxbService;
+    }
 
-   private JAXBContext getJAXBContext() throws JAXBException
-   {
-      JAXBContext jaxbContext = getJAXBService().newJAXBContext(getClass().getPackage().getName());
-      return jaxbContext;
-   }
+    private JAXBContext getJAXBContext() throws JAXBException {
+        JAXBContext jaxbContext = getJAXBService().newJAXBContext(getClass().getPackage().getName());
+        return jaxbContext;
+    }
 }

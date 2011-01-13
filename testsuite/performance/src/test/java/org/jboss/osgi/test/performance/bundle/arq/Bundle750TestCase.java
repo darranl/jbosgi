@@ -35,28 +35,24 @@ import org.osgi.framework.BundleContext;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class Bundle750TestCase extends BundleTestBase
-{
-   @Inject
-   public OSGiContainer container;
+public class Bundle750TestCase extends BundleTestBase {
+    @Inject
+    public OSGiContainer container;
 
-   OSGiContainer getOSGiContainer()
-   {
-      return container;
-   }
+    OSGiContainer getOSGiContainer() {
+        return container;
+    }
 
-   @Inject
-   public BundleContext bundleContext;
+    @Inject
+    public BundleContext bundleContext;
 
-   @Override
-   BundleContext getBundleContext()
-   {
-      return bundleContext;
-   }
+    @Override
+    BundleContext getBundleContext() {
+        return bundleContext;
+    }
 
-   @Test
-   public void test750Bundles() throws Exception
-   {
-      testPerformance(750);
-   }
+    @Test
+    public void test750Bundles() throws Exception {
+        testPerformance(750);
+    }
 }

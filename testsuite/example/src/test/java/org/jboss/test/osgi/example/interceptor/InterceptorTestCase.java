@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -39,51 +38,46 @@ import org.junit.Test;
 import org.osgi.service.http.HttpService;
 
 /**
- * A test that deployes a bundle that contains some metadata and an interceptor bundle 
- * that processes the metadata and registeres an http endpoint from it.
+ * A test that deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and
+ * registeres an http endpoint from it.
  * 
- * The idea is that the bundle does not process its own metadata. Instead this work
- * is delegated to some specialized metadata processor (i.e. the interceptor)
+ * The idea is that the bundle does not process its own metadata. Instead this work is delegated to some specialized metadata
+ * processor (i.e. the interceptor)
  * 
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
-public class InterceptorTestCase extends OSGiRuntimeTest
-{
-   private static OSGiRuntime runtime;
+public class InterceptorTestCase extends OSGiRuntimeTest {
+    private static OSGiRuntime runtime;
 
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new HttpServiceCapability());
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        runtime = createDefaultRuntime();
+        runtime.addCapability(new HttpServiceCapability());
 
-      // Allow 10s for the HttpService to become available
-      OSGiServiceReference sref = runtime.getServiceReference(HttpService.class.getName(), 10000);
-      assertNotNull("HttpService not null", sref);
+        // Allow 10s for the HttpService to become available
+        OSGiServiceReference sref = runtime.getServiceReference(HttpService.class.getName(), 10000);
+        assertNotNull("HttpService not null", sref);
 
-      runtime.installBundle("example-interceptor.jar").start();
-      runtime.installBundle("example-interceptor-bundle.jar").start();
-   }
+        runtime.installBundle("example-interceptor.jar").start();
+        runtime.installBundle("example-interceptor-bundle.jar").start();
+    }
 
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        runtime.shutdown();
+        runtime = null;
+    }
 
-   @Test
-   public void testServletAccess() throws Exception
-   {
-      String line = getHttpResponse("/servlet");
-      assertEquals("Hello from Servlet", line);
-   }
+    @Test
+    public void testServletAccess() throws Exception {
+        String line = getHttpResponse("/servlet");
+        assertEquals("Hello from Servlet", line);
+    }
 
-   private String getHttpResponse(String reqPath) throws Exception
-   {
-      URL url = new URL("http://" + runtime.getServerHost() + ":8090" + reqPath);
-      BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-      return br.readLine();
-   }
+    private String getHttpResponse(String reqPath) throws Exception {
+        URL url = new URL("http://" + runtime.getServerHost() + ":8090" + reqPath);
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        return br.readLine();
+    }
 }

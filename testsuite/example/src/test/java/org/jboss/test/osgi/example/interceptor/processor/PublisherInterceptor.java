@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-
 import javax.servlet.http.HttpServlet;
 
 import org.jboss.logging.Logger;
@@ -39,68 +38,57 @@ import org.osgi.service.http.HttpService;
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
-public class PublisherInterceptor extends AbstractLifecycleInterceptor
-{
-   // Provide logging
-   private static final Logger log = Logger.getLogger(PublisherInterceptor.class);
+public class PublisherInterceptor extends AbstractLifecycleInterceptor {
+    // Provide logging
+    private static final Logger log = Logger.getLogger(PublisherInterceptor.class);
 
-   PublisherInterceptor()
-   {
-      // Add the required input
-      addInput(HttpMetadata.class);
-   }
+    PublisherInterceptor() {
+        // Add the required input
+        addInput(HttpMetadata.class);
+    }
 
-   public void invoke(int state, InvocationContext context)
-   {
-      // HttpMetadata is guaratied to be available because we registered
-      // this type as required input
-      HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+    public void invoke(int state, InvocationContext context) {
+        // HttpMetadata is guaratied to be available because we registered
+        // this type as required input
+        HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
 
-      // Register HttpMetadata on STARTING 
-      if (state == Bundle.STARTING)
-      {
-         String servletName = metadata.getServletName();
-         try
-         {
-            log.info("Publish HttpMetadata: " + metadata);
+        // Register HttpMetadata on STARTING
+        if (state == Bundle.STARTING) {
+            String servletName = metadata.getServletName();
+            try {
+                log.info("Publish HttpMetadata: " + metadata);
 
-            // Load the endpoint servlet from the bundle
-            Bundle bundle = context.getBundle();
-            Class<?> servletClass = bundle.loadClass(servletName);
-            HttpServlet servlet = (HttpServlet)servletClass.newInstance();
+                // Load the endpoint servlet from the bundle
+                Bundle bundle = context.getBundle();
+                Class<?> servletClass = bundle.loadClass(servletName);
+                HttpServlet servlet = (HttpServlet) servletClass.newInstance();
 
-            // Register the servlet with the HttpService
-            HttpService httpService = getHttpService(context, true);
-            httpService.registerServlet("/servlet", servlet, null, null);
-         }
-         catch (RuntimeException rte)
-         {
-            throw rte;
-         }
-         catch (Exception ex)
-         {
-            throw new LifecycleInterceptorException("Cannot publish: " + servletName, ex);
-         }
-      }
+                // Register the servlet with the HttpService
+                HttpService httpService = getHttpService(context, true);
+                httpService.registerServlet("/servlet", servlet, null, null);
+            } catch (RuntimeException rte) {
+                throw rte;
+            } catch (Exception ex) {
+                throw new LifecycleInterceptorException("Cannot publish: " + servletName, ex);
+            }
+        }
 
-      // Unregister the endpoint on STOPPING 
-      else if (state == Bundle.STOPPING)
-      {
-         log.info("Unpublish HttpMetadata: " + metadata);
-         HttpService httpService = getHttpService(context, false);
-         if (httpService != null)
-            httpService.unregister("/servlet");
-      }
-   }
+        // Unregister the endpoint on STOPPING
+        else if (state == Bundle.STOPPING) {
+            log.info("Unpublish HttpMetadata: " + metadata);
+            HttpService httpService = getHttpService(context, false);
+            if (httpService != null)
+                httpService.unregister("/servlet");
+        }
+    }
 
-   private HttpService getHttpService(InvocationContext context, boolean required)
-   {
-      BundleContext bndContext = context.getBundle().getBundleContext();
-      ServiceReference sref = bndContext.getServiceReference(HttpService.class.getName());
-      if (sref == null && required == true)
-         throw new IllegalStateException("Required HttpService not available");
+    private HttpService getHttpService(InvocationContext context, boolean required) {
+        BundleContext bndContext = context.getBundle().getBundleContext();
+        ServiceReference sref = bndContext.getServiceReference(HttpService.class.getName());
+        if (sref == null && required == true)
+            throw new IllegalStateException("Required HttpService not available");
 
-      HttpService httpService = (HttpService)bndContext.getService(sref);
-      return httpService;
-   }
+        HttpService httpService = (HttpService) bndContext.getService(sref);
+        return httpService;
+    }
 }

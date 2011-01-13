@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jndi.bundle;
 
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -35,41 +34,31 @@ import org.osgi.framework.ServiceReference;
  * @author thomas.diesler@jboss.com
  * @since 05-May-2009
  */
-public class JNDIExampleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      try
-      {
-         InitialContext iniCtx = getInitialContext(context);
-         iniCtx.createSubcontext("test").bind("Foo", new String("Bar"));
-      }
-      catch (NamingException ex)
-      {
-         throw new IllegalStateException("Cannot bind to JNDI", ex);
-      }
-   }
+public class JNDIExampleActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        try {
+            InitialContext iniCtx = getInitialContext(context);
+            iniCtx.createSubcontext("test").bind("Foo", new String("Bar"));
+        } catch (NamingException ex) {
+            throw new IllegalStateException("Cannot bind to JNDI", ex);
+        }
+    }
 
-   public void stop(BundleContext context)
-   {
-      try
-      {
-         InitialContext iniCtx = getInitialContext(context);
-         iniCtx.unbind("test");
-      }
-      catch (NamingException ex)
-      {
-         throw new IllegalStateException("Cannot unbind from JNDI", ex);
-      }
-   }
+    public void stop(BundleContext context) {
+        try {
+            InitialContext iniCtx = getInitialContext(context);
+            iniCtx.unbind("test");
+        } catch (NamingException ex) {
+            throw new IllegalStateException("Cannot unbind from JNDI", ex);
+        }
+    }
 
-   private InitialContext getInitialContext(BundleContext context)
-   {
-      ServiceReference sref = context.getServiceReference(InitialContext.class.getName());
-      if (sref == null)
-         throw new IllegalStateException("Cannot access the InitialContext");
-      
-      InitialContext initContext = (InitialContext)context.getService(sref);
-      return initContext;
-   }
+    private InitialContext getInitialContext(BundleContext context) {
+        ServiceReference sref = context.getServiceReference(InitialContext.class.getName());
+        if (sref == null)
+            throw new IllegalStateException("Cannot access the InitialContext");
+
+        InitialContext initContext = (InitialContext) context.getService(sref);
+        return initContext;
+    }
 }

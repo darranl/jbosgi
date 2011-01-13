@@ -57,57 +57,54 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
- * This is the base class for the Service Performance tests. 
- * The actual testing is delegated to the {@link CreateAndLookupBenchmark}.<p/>
+ * This is the base class for the Service Performance tests. The actual testing is delegated to the
+ * {@link CreateAndLookupBenchmark}.
+ * <p/>
  * 
- * This test is abstract. Every population is isolated in a unique subclass. This is
- * to enable maven to run every test in a separate VM (when forkMode=always is specified).
+ * This test is abstract. Every population is isolated in a unique subclass. This is to enable maven to run every test in a
+ * separate VM (when forkMode=always is specified).
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public abstract class ServiceTestBase extends AbstractPerformanceTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      final JavaArchive archive = getTestBundleArchive();
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleManifestVersion(2);
-            builder.addBundleActivator(CreateAndLookupTestActivator.class.getName());
-            builder.addExportPackages(ServiceTestBase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
-            builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
-            builder.addImportPackages("org.junit", "org.junit.runner");
-            builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
-            builder.addImportPackages("javax.inject");
-            return builder.openStream();
-         }
-      });
-      archive.addClasses(CreateAndLookupTestActivator.class, CreateAndLookupBenchmark.class, ServiceTestBase.class);
-      archive.addClasses(SvcCls.class, SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class);
-      archive.addClasses(SvcCls6.class, SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class);
-      archive.addClasses(SvcCls11.class, SvcCls12.class, SvcCls13.class, SvcCls14.class, SvcCls15.class);
-      archive.addClasses(SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class);
-      return archive;
-   }
+public abstract class ServiceTestBase extends AbstractPerformanceTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        final JavaArchive archive = getTestBundleArchive();
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addBundleActivator(CreateAndLookupTestActivator.class.getName());
+                builder.addExportPackages(ServiceTestBase.class);
+                builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
+                builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
+                builder.addImportPackages("org.junit", "org.junit.runner");
+                builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
+                builder.addImportPackages("javax.inject");
+                return builder.openStream();
+            }
+        });
+        archive.addClasses(CreateAndLookupTestActivator.class, CreateAndLookupBenchmark.class, ServiceTestBase.class);
+        archive.addClasses(SvcCls.class, SvcCls1.class, SvcCls2.class, SvcCls3.class, SvcCls4.class, SvcCls5.class);
+        archive.addClasses(SvcCls6.class, SvcCls7.class, SvcCls8.class, SvcCls9.class, SvcCls10.class);
+        archive.addClasses(SvcCls11.class, SvcCls12.class, SvcCls13.class, SvcCls14.class, SvcCls15.class);
+        archive.addClasses(SvcCls16.class, SvcCls17.class, SvcCls18.class, SvcCls19.class, SvcCls20.class);
+        return archive;
+    }
 
-   abstract Bundle getBundle();
+    abstract Bundle getBundle();
 
-   void testPerformance(int size) throws Exception
-   {
-      getBundle().start();
+    void testPerformance(int size) throws Exception {
+        getBundle().start();
 
-      BundleContext bc = getBundle().getBundleContext();
-      CreateAndLookupBenchmark tc = getService(bc, CreateAndLookupBenchmark.class);
-      int processors = Runtime.getRuntime().availableProcessors();
-      tc.run(processors, size / processors);
-      File f = new File(getResultsDir(), "testPerformance" + size + "-" + System.currentTimeMillis() + ".xml");
-      tc.reportXML(f, new Parameter("Threads", processors), new Parameter("Population", size));
+        BundleContext bc = getBundle().getBundleContext();
+        CreateAndLookupBenchmark tc = getService(bc, CreateAndLookupBenchmark.class);
+        int processors = Runtime.getRuntime().availableProcessors();
+        tc.run(processors, size / processors);
+        File f = new File(getResultsDir(), "testPerformance" + size + "-" + System.currentTimeMillis() + ".xml");
+        tc.reportXML(f, new Parameter("Threads", processors), new Parameter("Population", size));
 
-      getBundle().stop();
-   }
+        getBundle().stop();
+    }
 }

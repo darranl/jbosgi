@@ -35,22 +35,17 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class MBeanServerTestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testMBeanAccess() throws Exception
-   {
-      OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar");
-      try
-      {
-         bundle.start();
+public class MBeanServerTestCase extends OSGiRuntimeTest {
+    @Test
+    public void testMBeanAccess() throws Exception {
+        OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar");
+        try {
+            bundle.start();
 
-         FooMBean foo = getRuntime().getMBeanProxy(MBEAN_NAME, FooMBean.class);
-         assertEquals("hello", foo.echo("hello"));
-      }
-      finally
-      {
-         bundle.uninstall();
-      }
-   }
+            FooMBean foo = getRuntime().getMBeanProxy(MBEAN_NAME, FooMBean.class);
+            assertEquals("hello", foo.echo("hello"));
+        } finally {
+            bundle.uninstall();
+        }
+    }
 }

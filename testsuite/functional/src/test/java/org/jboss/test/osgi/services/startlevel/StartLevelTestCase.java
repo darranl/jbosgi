@@ -56,167 +56,147 @@ import org.osgi.service.startlevel.StartLevel;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class StartLevelTestCase
-{
-   @Inject
-   public OSGiContainer container;
+public class StartLevelTestCase {
+    @Inject
+    public OSGiContainer container;
 
-   @Inject
-   public BundleContext context;
+    @Inject
+    public BundleContext context;
 
-   private CountDownLatch startLevelLatch;
+    private CountDownLatch startLevelLatch;
 
-   @Test
-   public void testStartLevel() throws Exception
-   {
-      ServiceReference sref = context.getServiceReference(StartLevel.class.getName());
-      StartLevel sls = (StartLevel)context.getService(sref);
-      assertEquals(1, sls.getStartLevel());
+    @Test
+    public void testStartLevel() throws Exception {
+        ServiceReference sref = context.getServiceReference(StartLevel.class.getName());
+        StartLevel sls = (StartLevel) context.getService(sref);
+        assertEquals(1, sls.getStartLevel());
 
-      assertEquals(1, sls.getInitialBundleStartLevel());
+        assertEquals(1, sls.getInitialBundleStartLevel());
 
-      Bundle ba = null;
-      Bundle bb = null;
-      FrameworkListener frameworkListener = null;
-      try
-      {
-         // In this try block the state of the framework is modified. Any modifications
-         // need to be reverted in the finally block as the OSGi runtime is reused for 
-         // subsequent tests.
-         sls.setInitialBundleStartLevel(5);
-         ba = container.installBundle(container.getTestArchive("BundleA"));
-         bb = container.installBundle(container.getTestArchive("BundleB"));
+        Bundle ba = null;
+        Bundle bb = null;
+        FrameworkListener frameworkListener = null;
+        try {
+            // In this try block the state of the framework is modified. Any modifications
+            // need to be reverted in the finally block as the OSGi runtime is reused for
+            // subsequent tests.
+            sls.setInitialBundleStartLevel(5);
+            ba = container.installBundle(container.getTestArchive("BundleA"));
+            bb = container.installBundle(container.getTestArchive("BundleB"));
 
-         setStartLevelLatch(new CountDownLatch(1));
-         frameworkListener = new FrameworkListener()
-         {
-            @Override
-            public void frameworkEvent(FrameworkEvent event)
-            {
-               if (event.getType() == FrameworkEvent.STARTLEVEL_CHANGED)
-               {
-                  getStartLevelLatch().countDown();
-                  setStartLevelLatch(new CountDownLatch(1));
-               }
+            setStartLevelLatch(new CountDownLatch(1));
+            frameworkListener = new FrameworkListener() {
+                @Override
+                public void frameworkEvent(FrameworkEvent event) {
+                    if (event.getType() == FrameworkEvent.STARTLEVEL_CHANGED) {
+                        getStartLevelLatch().countDown();
+                        setStartLevelLatch(new CountDownLatch(1));
+                    }
+                }
+            };
+            context.addFrameworkListener(frameworkListener);
+
+            assertEquals(5, sls.getBundleStartLevel(ba));
+            assertEquals(5, sls.getBundleStartLevel(bb));
+            ba.start();
+            assertTrue("Bundle should not yet be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+            assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+
+            CountDownLatch latch = getStartLevelLatch();
+            sls.setStartLevel(5);
+
+            assertTrue(latch.await(60, SECONDS));
+            assertTrue("Bundle should be started", (ba.getState() & Bundle.ACTIVE) != 0);
+            assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+
+            final CountDownLatch bundleStoppedLatch = new CountDownLatch(1);
+            BundleListener bl = new BundleListener() {
+                @Override
+                public void bundleChanged(BundleEvent event) {
+                    if (event.getType() == BundleEvent.STOPPED) {
+                        bundleStoppedLatch.countDown();
+                    }
+                }
+            };
+            context.addBundleListener(bl);
+
+            sls.setBundleStartLevel(ba, 10);
+            assertTrue(bundleStoppedLatch.await(60, SECONDS));
+            assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+            assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+
+            bb.start();
+            assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+            assertTrue("Bundle should be started", (bb.getState() & Bundle.ACTIVE) != 0);
+
+            latch = getStartLevelLatch();
+            sls.setStartLevel(1);
+            assertTrue(latch.await(60, SECONDS));
+            assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+            assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
+        } finally {
+            sls.setInitialBundleStartLevel(1);
+            sls.setStartLevel(1);
+
+            if (frameworkListener != null)
+                context.removeFrameworkListener(frameworkListener);
+
+            if (ba != null)
+                ba.uninstall();
+
+            if (bb != null)
+                bb.uninstall();
+        }
+    }
+
+    private synchronized CountDownLatch getStartLevelLatch() {
+        return startLevelLatch;
+    }
+
+    private synchronized void setStartLevelLatch(CountDownLatch l) {
+        startLevelLatch = l;
+    }
+
+    @ArchiveProvider
+    public static JavaArchive getTestArchive(String name) {
+        if ("BundleA".equals(name))
+            return getTestBundleA();
+        else if ("BundleB".equals(name))
+            return getTestBundleB();
+        return null;
+    }
+
+    private static JavaArchive getTestBundleA() {
+        // Bundle-SymbolicName: simple-bundleA
+        // Bundle-Activator: org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleA");
+        archive.addClasses(SimpleActivatorA.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleActivator(SimpleActivatorA.class);
+                return builder.openStream();
             }
-         };
-         context.addFrameworkListener(frameworkListener);
+        });
+        return archive;
+    }
 
-         assertEquals(5, sls.getBundleStartLevel(ba));
-         assertEquals(5, sls.getBundleStartLevel(bb));
-         ba.start();
-         assertTrue("Bundle should not yet be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-         assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-
-         CountDownLatch latch = getStartLevelLatch();
-         sls.setStartLevel(5);
-
-         assertTrue(latch.await(60, SECONDS));
-         assertTrue("Bundle should be started", (ba.getState() & Bundle.ACTIVE) != 0);
-         assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-
-         final CountDownLatch bundleStoppedLatch = new CountDownLatch(1);
-         BundleListener bl = new BundleListener()
-         {
-            @Override
-            public void bundleChanged(BundleEvent event)
-            {
-               if (event.getType() == BundleEvent.STOPPED)
-               {
-                  bundleStoppedLatch.countDown();
-               }
+    private static JavaArchive getTestBundleB() {
+        // Bundle-SymbolicName: simple-bundleB
+        // Bundle-Activator: org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleB");
+        archive.addClasses(SimpleActivatorB.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleActivator(SimpleActivatorB.class);
+                return builder.openStream();
             }
-         };
-         context.addBundleListener(bl);
-
-         sls.setBundleStartLevel(ba, 10);
-         assertTrue(bundleStoppedLatch.await(60, SECONDS));
-         assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-         assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-
-         bb.start();
-         assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-         assertTrue("Bundle should be started", (bb.getState() & Bundle.ACTIVE) != 0);
-
-         latch = getStartLevelLatch();
-         sls.setStartLevel(1);
-         assertTrue(latch.await(60, SECONDS));
-         assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-         assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
-      }
-      finally
-      {
-         sls.setInitialBundleStartLevel(1);
-         sls.setStartLevel(1);
-
-         if (frameworkListener != null)
-            context.removeFrameworkListener(frameworkListener);
-
-         if (ba != null)
-            ba.uninstall();
-
-         if (bb != null)
-            bb.uninstall();
-      }
-   }
-
-   private synchronized CountDownLatch getStartLevelLatch()
-   {
-      return startLevelLatch;
-   }
-
-   private synchronized void setStartLevelLatch(CountDownLatch l)
-   {
-      startLevelLatch = l;
-   }
-
-   @ArchiveProvider
-   public static JavaArchive getTestArchive(String name)
-   {
-      if ("BundleA".equals(name))
-         return getTestBundleA();
-      else if ("BundleB".equals(name))
-         return getTestBundleB();
-      return null;
-   }
-
-   private static JavaArchive getTestBundleA()
-   {
-      //Bundle-SymbolicName: simple-bundleA
-      //Bundle-Activator: org.jboss.test.osgi.bundles.bundleA.SimpleActivatorA
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleA");
-      archive.addClasses(SimpleActivatorA.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleActivator(SimpleActivatorA.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
-
-   private static JavaArchive getTestBundleB()
-   {
-      //Bundle-SymbolicName: simple-bundleB
-      //Bundle-Activator: org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-bundleB");
-      archive.addClasses(SimpleActivatorB.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleActivator(SimpleActivatorB.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+        });
+        return archive;
+    }
 }

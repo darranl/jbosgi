@@ -21,14 +21,11 @@
  */
 package org.jboss.test.osgi.jbosgi214;
 
-
-
 /**
  * A service interface on the system classpath
  * 
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */
-public interface SomeService
-{
+public interface SomeService {
 }

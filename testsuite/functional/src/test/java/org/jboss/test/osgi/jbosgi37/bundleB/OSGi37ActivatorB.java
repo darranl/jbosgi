@@ -21,19 +21,15 @@
  */
 package org.jboss.test.osgi.jbosgi37.bundleB;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi37ActivatorB implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      ServiceB service = new ServiceB(context);
-      context.registerService(ServiceB.class.getName(), service, null);
-   }
+public class OSGi37ActivatorB implements BundleActivator {
+    public void start(BundleContext context) {
+        ServiceB service = new ServiceB(context);
+        context.registerService(ServiceB.class.getName(), service, null);
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

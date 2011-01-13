@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi108;
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -43,113 +42,107 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
-public class OSGi108TestCase extends OSGiRuntimeTest
-{
-   @BeforeClass
-   public static void beforeClass() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      runtime.addCapability(new LogServiceCapability());
-      runtime.addCapability(new JMXCapability());
-   }
+public class OSGi108TestCase extends OSGiRuntimeTest {
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        runtime.addCapability(new LogServiceCapability());
+        runtime.addCapability(new JMXCapability());
+    }
 
-   @Test
-   public void testRedeploySingle() throws Exception
-   {
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+    @Test
+    public void testRedeploySingle() throws Exception {
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
 
-      bundleA.start();
+        bundleA.start();
 
-      SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
-      List<String> messages = report(someBean.getMessages());
-      assertEquals("Start messages", 1, messages.size());
+        SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+        List<String> messages = report(someBean.getMessages());
+        assertEquals("Start messages", 1, messages.size());
 
-      bundleA.uninstall();
+        bundleA.uninstall();
 
-      // Reinstall bundleA
-      bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
-      bundleA.start();
+        // Reinstall bundleA
+        bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+        bundleA.start();
 
-      // The static in bundleA.SomeBean is expected to be recreated
+        // The static in bundleA.SomeBean is expected to be recreated
 
-      messages = report(someBean.getMessages());
-      assertEquals("Start messages", 1, messages.size());
+        messages = report(someBean.getMessages());
+        assertEquals("Start messages", 1, messages.size());
 
-      bundleA.uninstall();
-   }
+        bundleA.uninstall();
+    }
 
-   @Test
-   public void testRedeployWithReference() throws Exception
-   {
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
-      OSGiBundle bundleB = getRuntime().installBundle("jbosgi108-bundleB.jar");
+    @Test
+    public void testRedeployWithReference() throws Exception {
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+        OSGiBundle bundleB = getRuntime().installBundle("jbosgi108-bundleB.jar");
 
-      bundleA.start();
-      bundleB.start();
+        bundleA.start();
+        bundleB.start();
 
-      SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
-      List<String> messages = report(someBean.getMessages());
-      assertEquals("Start messages", 2, messages.size());
+        SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+        List<String> messages = report(someBean.getMessages());
+        assertEquals("Start messages", 2, messages.size());
 
-      bundleA.uninstall();
+        bundleA.uninstall();
 
-      // After uninstall bundleA, bundleB still holds a reference on
-      // bundleA.SomeBean
+        // After uninstall bundleA, bundleB still holds a reference on
+        // bundleA.SomeBean
 
-      // Reinstall bundleA
-      bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
-      bundleA.start();
+        // Reinstall bundleA
+        bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+        bundleA.start();
 
-      // The static in bundleA.SomeBean is expected to be reused
+        // The static in bundleA.SomeBean is expected to be reused
 
-      messages = report(someBean.getMessages());
-      assertEquals("Start messages", 4, messages.size());
+        messages = report(someBean.getMessages());
+        assertEquals("Start messages", 4, messages.size());
 
-      bundleB.uninstall();
-      bundleA.uninstall();
-   }
+        bundleB.uninstall();
+        bundleA.uninstall();
+    }
 
-   @Test
-   public void testRedeployWithReferenceAndRefresh() throws Exception
-   {
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
-      OSGiBundle bundleB = getRuntime().installBundle("jbosgi108-bundleB.jar");
+    @Test
+    public void testRedeployWithReferenceAndRefresh() throws Exception {
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+        OSGiBundle bundleB = getRuntime().installBundle("jbosgi108-bundleB.jar");
 
-      bundleA.start();
-      bundleB.start();
+        bundleA.start();
+        bundleB.start();
 
-      SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
-      List<String> messages = report(someBean.getMessages());
-      assertEquals("Start messages", 2, messages.size());
+        SomeBeanMBean someBean = getRuntime().getMBeanProxy(SomeBeanMBean.MBEAN_NAME, SomeBeanMBean.class);
+        List<String> messages = report(someBean.getMessages());
+        assertEquals("Start messages", 2, messages.size());
 
-      bundleA.uninstall();
+        bundleA.uninstall();
 
-      // After uninstall bundleA, bundleB still holds a reference on
-      // bundleA.SomeBean
+        // After uninstall bundleA, bundleB still holds a reference on
+        // bundleA.SomeBean
 
-      // Refresh bundleA, bundleB
-      getRuntime().refreshPackages(new OSGiBundle[] { bundleA, bundleB });
+        // Refresh bundleA, bundleB
+        getRuntime().refreshPackages(new OSGiBundle[] { bundleA, bundleB });
 
-      // Reinstall bundleA
-      bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
-      bundleA.start();
+        // Reinstall bundleA
+        bundleA = getRuntime().installBundle("jbosgi108-bundleA.jar");
+        bundleA.start();
 
-      // The static in bundleA.SomeBean is expected to be recreated
+        // The static in bundleA.SomeBean is expected to be recreated
 
-      messages = report(someBean.getMessages());
-      assertEquals("Start messages", 1, messages.size());
+        messages = report(someBean.getMessages());
+        assertEquals("Start messages", 1, messages.size());
 
-      bundleB.uninstall();
-      bundleA.uninstall();
-   }
+        bundleB.uninstall();
+        bundleA.uninstall();
+    }
 
-   private List<String> report(List<String> messages)
-   {
-      // System.out.println(">>>>>>>>>>>>");
-      // for (String aux : messages)
-      //    System.out.println(aux);
-      // System.out.println("<<<<<<<<<<<");
+    private List<String> report(List<String> messages) {
+        // System.out.println(">>>>>>>>>>>>");
+        // for (String aux : messages)
+        // System.out.println(aux);
+        // System.out.println("<<<<<<<<<<<");
 
-      return messages;
-   }
+        return messages;
+    }
 }

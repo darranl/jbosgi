@@ -21,17 +21,13 @@
  */
 package org.jboss.test.osgi.jbosgi112.bundleB;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi112ActivatorB implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-   }
+public class OSGi112ActivatorB implements BundleActivator {
+    public void start(BundleContext context) {
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

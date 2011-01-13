@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi112;
 
-
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.junit.Test;
@@ -36,26 +35,24 @@ import org.osgi.framework.SynchronousBundleListener;
  * @author thomas.diesler@jboss.com
  * @since 19-Jun-2009
  */
-public class OSGi112TestCase extends OSGiRuntimeTest
-{
-   /**
-    * BundleA registers a {@link SynchronousBundleListener} which throws an exception. 
-    * Start of BundleB is started and expected to be ACTIVE.
-    */
-   @Test
-   public void testInstallBundles() throws Exception
-   {
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi112-bundleA.jar");
-      bundleA.start();
+public class OSGi112TestCase extends OSGiRuntimeTest {
+    /**
+     * BundleA registers a {@link SynchronousBundleListener} which throws an exception. Start of BundleB is started and expected
+     * to be ACTIVE.
+     */
+    @Test
+    public void testInstallBundles() throws Exception {
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi112-bundleA.jar");
+        bundleA.start();
 
-      OSGiBundle bundleB = getRuntime().installBundle("jbosgi112-bundleB.jar");
-      bundleB.start();
-      
-      // Exceptions thrown from listeners are logged but otherwise ignored. 
-      // Throwing an exception from a listener will not prevent the bundle from proceeding with starting.
-      // If the BP extender detects some issue with the BP configuration, it can/should log this information 
-      // but it cannot prevent the bundle from starting.
-      
-      assertBundleState(Bundle.ACTIVE, bundleB.getState());
-   }
+        OSGiBundle bundleB = getRuntime().installBundle("jbosgi112-bundleB.jar");
+        bundleB.start();
+
+        // Exceptions thrown from listeners are logged but otherwise ignored.
+        // Throwing an exception from a listener will not prevent the bundle from proceeding with starting.
+        // If the BP extender detects some issue with the BP configuration, it can/should log this information
+        // but it cannot prevent the bundle from starting.
+
+        assertBundleState(Bundle.ACTIVE, bundleB.getState());
+    }
 }

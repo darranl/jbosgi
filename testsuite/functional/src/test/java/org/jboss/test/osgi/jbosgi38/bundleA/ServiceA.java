@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi38.bundleA;
 
-
 import org.jboss.test.osgi.jbosgi38.bundleB.ServiceB;
 import org.jboss.test.osgi.jbosgi38.bundleX.SomePojo;
 import org.osgi.framework.BundleContext;
@@ -34,20 +33,16 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 02-Mar-2009
  */
-public class ServiceA
-{
-   ServiceA(BundleContext context)
-   {
-      ServiceTracker tracker = new ServiceTracker(context, ServiceB.class.getName(), null)
-      {
-         @Override
-         public Object addingService(ServiceReference sref)
-         {
-            ServiceB serviceB = (ServiceB)super.addingService(sref);
-            serviceB.doStuffInB(new SomePojo("hello"));
-            return serviceB;
-         }
-      };
-      tracker.open();
-   }
+public class ServiceA {
+    ServiceA(BundleContext context) {
+        ServiceTracker tracker = new ServiceTracker(context, ServiceB.class.getName(), null) {
+            @Override
+            public Object addingService(ServiceReference sref) {
+                ServiceB serviceB = (ServiceB) super.addingService(sref);
+                serviceB.doStuffInB(new SomePojo("hello"));
+                return serviceB;
+            }
+        };
+        tracker.open();
+    }
 }

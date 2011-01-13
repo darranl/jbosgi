@@ -46,65 +46,60 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.osgi.framework.BundleContext;
 
 /**
- * This is the base class for the Bundle Performance tests. 
- * The actual testing is delegated to the {@link BundleInstallAndStartBenchmark}.<p/>
+ * This is the base class for the Bundle Performance tests. The actual testing is delegated to the
+ * {@link BundleInstallAndStartBenchmark}.
+ * <p/>
  * 
- * This test is abstract. Every population is isolated in a unique subclass. This is
- * to enable maven to run every test in a separate VM (when forkMode=always is specified).
+ * This test is abstract. Every population is isolated in a unique subclass. This is to enable maven to run every test in a
+ * separate VM (when forkMode=always is specified).
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public abstract class BundleTestBase extends AbstractPerformanceTestCase
-{
-   @Deployment
-   public static JavaArchive createDeployment()
-   {
-      final JavaArchive archive = getTestBundleArchive();
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleManifestVersion(2);
-            builder.addExportPackages(BundleTestBase.class);
-            builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
-            // builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
-            builder.addImportPackages("org.junit", "org.junit.runner");
-            builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
-            builder.addImportPackages("javax.inject");
-            builder.addImportPackages("org.jboss.osgi.testing");
-            return builder.openStream();
-         }
-      });
-      archive.addClasses(BundleTestBase.class, TestBundleProvider.class);
-      archive.addClasses(BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
-      archive.addClasses(TestBundleProviderImpl.class);
-      archive.addClasses(CommonClass.class, VersionedInterface.class, VersionedClass.class);
-      archive.addClasses(Util1.class, Util2.class, Util3.class, Util4.class, Util5.class);
-      return archive;
-   }
+public abstract class BundleTestBase extends AbstractPerformanceTestCase {
+    @Deployment
+    public static JavaArchive createDeployment() {
+        final JavaArchive archive = getTestBundleArchive();
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addExportPackages(BundleTestBase.class);
+                builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
+                // builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
+                builder.addImportPackages("org.junit", "org.junit.runner");
+                builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
+                builder.addImportPackages("javax.inject");
+                builder.addImportPackages("org.jboss.osgi.testing");
+                return builder.openStream();
+            }
+        });
+        archive.addClasses(BundleTestBase.class, TestBundleProvider.class);
+        archive.addClasses(BundlePerfTestActivator.class, BundleInstallAndStartBenchmark.class);
+        archive.addClasses(TestBundleProviderImpl.class);
+        archive.addClasses(CommonClass.class, VersionedInterface.class, VersionedClass.class);
+        archive.addClasses(Util1.class, Util2.class, Util3.class, Util4.class, Util5.class);
+        return archive;
+    }
 
-   abstract OSGiContainer getOSGiContainer();
+    abstract OSGiContainer getOSGiContainer();
 
-   abstract BundleContext getBundleContext();
+    abstract BundleContext getBundleContext();
 
-   void testPerformance(int size) throws Exception
-   {
-      BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(
-            new TestBundleProviderImpl(getOSGiContainer()), getBundleContext());
+    void testPerformance(int size) throws Exception {
+        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(new TestBundleProviderImpl(getOSGiContainer()), getBundleContext());
 
-      // There is a problem with concurrent bundle installs it seems
-      // int threads = Runtime.getRuntime().availableProcessors();
-      int threads = 1;
-      bm.run(threads, size / threads);
-      
-      File f = new File(getResultsDir(), "testBundlePerf" + size + "-" + System.currentTimeMillis() + ".xml");
-      bm.reportXML(f, new Parameter("Threads", threads), new Parameter("Population", size));
-   }
+        // There is a problem with concurrent bundle installs it seems
+        // int threads = Runtime.getRuntime().availableProcessors();
+        int threads = 1;
+        bm.run(threads, size / threads);
 
-   @ArchiveProvider
-   public static JavaArchive getTestArchive(String name)
-   {
-      return new BundleArchiveProvider().getTestArchive(name);
-   }
+        File f = new File(getResultsDir(), "testBundlePerf" + size + "-" + System.currentTimeMillis() + ".xml");
+        bm.reportXML(f, new Parameter("Threads", threads), new Parameter("Population", size));
+    }
+
+    @ArchiveProvider
+    public static JavaArchive getTestArchive(String name) {
+        return new BundleArchiveProvider().getTestArchive(name);
+    }
 }

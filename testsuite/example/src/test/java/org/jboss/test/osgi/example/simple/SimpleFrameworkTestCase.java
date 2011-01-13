@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
@@ -41,63 +40,58 @@ import org.osgi.framework.ServiceReference;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class SimpleFrameworkTestCase extends OSGiFrameworkTest
-{
-   @Test
-   public void testSimpleBundle() throws Exception
-   {
-      // Get the bundle location
-      URL url = getTestArchiveURL("example-simple.jar");
-      
-      // Install the Bundle
-      BundleContext sysContext = getFramework().getBundleContext();
-      Bundle bundle = sysContext.installBundle(url.toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundle.getState());
+public class SimpleFrameworkTestCase extends OSGiFrameworkTest {
+    @Test
+    public void testSimpleBundle() throws Exception {
+        // Get the bundle location
+        URL url = getTestArchiveURL("example-simple.jar");
 
-      // Check that the BundleContext is still null
-      BundleContext context = bundle.getBundleContext();
-      assertNull("BundleContext null", context);
-      
-      // Start the bundle
-      bundle.start();
-      assertBundleState(Bundle.ACTIVE, bundle.getState());
+        // Install the Bundle
+        BundleContext sysContext = getFramework().getBundleContext();
+        Bundle bundle = sysContext.installBundle(url.toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      // Check that the BundleContext is not null
-      context = bundle.getBundleContext();
-      assertNotNull("BundleContext not null", context);
-      
-      // Get a service from the bundle's context
-      ServiceReference sref = context.getServiceReference(SimpleService.class.getName());
-      assertNotNull("ServiceReference not null", sref);
-      Object service = context.getService(sref);
-      assertNotNull("Service not null", service);
-      
-      // Get a service from the system context
-      sref = sysContext.getServiceReference(SimpleService.class.getName());
-      assertNotNull("ServiceReference not null", sref);
-      service = context.getService(sref);
-      assertNotNull("Service not null", service);
-      
-      // Stop the bundle
-      bundle.stop();
-      assertBundleState(Bundle.RESOLVED, bundle.getState());
-      
-      try
-      {
-         context.getServiceReference(SimpleService.class.getName());
-         fail("Invalid BundleContext expected");
-      }
-      catch (IllegalStateException ex)
-      {
-         // expected
-      }
-      
-      // Get a service from the system context
-      sref = sysContext.getServiceReference(SimpleService.class.getName());
-      assertNull("ServiceReference null", sref);
-      
-      // Uninstall the bundle
-      bundle.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-   }
+        // Check that the BundleContext is still null
+        BundleContext context = bundle.getBundleContext();
+        assertNull("BundleContext null", context);
+
+        // Start the bundle
+        bundle.start();
+        assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+        // Check that the BundleContext is not null
+        context = bundle.getBundleContext();
+        assertNotNull("BundleContext not null", context);
+
+        // Get a service from the bundle's context
+        ServiceReference sref = context.getServiceReference(SimpleService.class.getName());
+        assertNotNull("ServiceReference not null", sref);
+        Object service = context.getService(sref);
+        assertNotNull("Service not null", service);
+
+        // Get a service from the system context
+        sref = sysContext.getServiceReference(SimpleService.class.getName());
+        assertNotNull("ServiceReference not null", sref);
+        service = context.getService(sref);
+        assertNotNull("Service not null", service);
+
+        // Stop the bundle
+        bundle.stop();
+        assertBundleState(Bundle.RESOLVED, bundle.getState());
+
+        try {
+            context.getServiceReference(SimpleService.class.getName());
+            fail("Invalid BundleContext expected");
+        } catch (IllegalStateException ex) {
+            // expected
+        }
+
+        // Get a service from the system context
+        sref = sysContext.getServiceReference(SimpleService.class.getName());
+        assertNull("ServiceReference null", sref);
+
+        // Uninstall the bundle
+        bundle.uninstall();
+        assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+    }
 }

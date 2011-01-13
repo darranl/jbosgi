@@ -36,46 +36,40 @@ import org.jboss.test.osgi.example.xservice.api.Echo;
 
 /**
  * A simple MSC service that provides an echo method
- *
+ * 
  * @author Thomas.Diesler@jboss.org
  * @since 09-Nov-2010
  */
-public class EchoService implements Echo, Service<Echo>
-{
-   private static final Logger log = Logger.getLogger(EchoService.class);
-   public static final ServiceName SERVICE_NAME = ServiceName.JBOSS.append("osgi", "xservice", "target");
+public class EchoService implements Echo, Service<Echo> {
+    private static final Logger log = Logger.getLogger(EchoService.class);
+    public static final ServiceName SERVICE_NAME = ServiceName.JBOSS.append("osgi", "xservice", "target");
 
-   public static void addService(ServiceTarget serviceTarget)
-   {
-      // Add the service with an alias that the OSGi layer can use to lookup the service
-      ServiceBuilder<Echo> serviceBuilder = serviceTarget.addService(SERVICE_NAME, new EchoService());
-      serviceBuilder.addAliases(ServiceName.of(Constants.JBOSGI_PREFIX, Echo.class.getName()));
-      serviceBuilder.setInitialMode(Mode.ACTIVE);
-      serviceBuilder.install();
-      log.infof("Service added: %s", SERVICE_NAME);
-      log.infof("Echo Loader: %s", Echo.class.getClassLoader());
-   }
+    public static void addService(ServiceTarget serviceTarget) {
+        // Add the service with an alias that the OSGi layer can use to lookup the service
+        ServiceBuilder<Echo> serviceBuilder = serviceTarget.addService(SERVICE_NAME, new EchoService());
+        serviceBuilder.addAliases(ServiceName.of(Constants.JBOSGI_PREFIX, Echo.class.getName()));
+        serviceBuilder.setInitialMode(Mode.ACTIVE);
+        serviceBuilder.install();
+        log.infof("Service added: %s", SERVICE_NAME);
+        log.infof("Echo Loader: %s", Echo.class.getClassLoader());
+    }
 
-   @Override
-   public String echo(String message)
-   {
-      log.infof("Echo: %s", message);
-      return message;
-   }
+    @Override
+    public String echo(String message) {
+        log.infof("Echo: %s", message);
+        return message;
+    }
 
-   @Override
-   public void start(StartContext context) throws StartException
-   {
-   }
+    @Override
+    public void start(StartContext context) throws StartException {
+    }
 
-   @Override
-   public void stop(StopContext context)
-   {
-   }
+    @Override
+    public void stop(StopContext context) {
+    }
 
-   @Override
-   public Echo getValue() throws IllegalStateException
-   {
-      return this;
-   }
+    @Override
+    public Echo getValue() throws IllegalStateException {
+        return this;
+    }
 }

@@ -21,65 +21,60 @@
  */
 package org.jboss.test.osgi.jbosgi161.bundle;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoggingDelegate
-{
-   public static void assertJBossLogging(String message)
-   {
-      org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(LoggingDelegate.class);
+public class LoggingDelegate {
+    public static void assertJBossLogging(String message) {
+        org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(LoggingDelegate.class);
 
-      String loggerClass = log.getClass().getName();
-      
-      List<String> expected = new ArrayList<String>();
-      expected.add("org.jboss.logging.Log4jLogger"); // Runtime
-      expected.add("org.jboss.logging.JBossLogManagerLogger"); // AS7
-      
-      if (expected.contains(loggerClass) == false)
-         throw new IllegalStateException("Unexpected logger: " + loggerClass);
-      
-      log.info("*******************************************");
-      log.info("* jboss: " + message);
-      log.info("*******************************************");
-   }
+        String loggerClass = log.getClass().getName();
 
-   public static void assertCommonsLogging(String message)
-   {
-      org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(LoggingDelegate.class);
+        List<String> expected = new ArrayList<String>();
+        expected.add("org.jboss.logging.Log4jLogger"); // Runtime
+        expected.add("org.jboss.logging.JBossLogManagerLogger"); // AS7
 
-      String loggerClass = log.getClass().getName();
-      
-      List<String> expected = new ArrayList<String>();
-      expected.add("org.apache.commons.logging.impl.SLF4JLog");
-      expected.add("org.apache.commons.logging.impl.Log4JLogger");
-      expected.add("org.apache.commons.logging.impl.SLF4JLocationAwareLog");
-      
-      if (expected.contains(loggerClass) == false)
-         throw new IllegalStateException("Unexpected logger: " + loggerClass);
-      
-      log.info("*******************************************");
-      log.info("* jcl: " + message);
-      log.info("*******************************************");
-   }
+        if (expected.contains(loggerClass) == false)
+            throw new IllegalStateException("Unexpected logger: " + loggerClass);
 
-   public static void assertSL4J(String message)
-   {
-      org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LoggingDelegate.class);
+        log.info("*******************************************");
+        log.info("* jboss: " + message);
+        log.info("*******************************************");
+    }
 
-      String loggerClass = log.getClass().getName();
+    public static void assertCommonsLogging(String message) {
+        org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(LoggingDelegate.class);
 
-      List<String> expected = new ArrayList<String>();
-      expected.add("org.jboss.slf4j.JBossLoggerAdapter");
-      expected.add("org.slf4j.impl.Log4jLoggerAdapter");
-      expected.add("org.slf4j.impl.Slf4jLogger");
-      
-      if (expected.contains(loggerClass) == false)
-         throw new IllegalStateException("Unexpected logger: " + loggerClass);
-      
-      log.info("*******************************************");
-      log.info("* slf4j: " + message);
-      log.info("*******************************************");
-   }
+        String loggerClass = log.getClass().getName();
+
+        List<String> expected = new ArrayList<String>();
+        expected.add("org.apache.commons.logging.impl.SLF4JLog");
+        expected.add("org.apache.commons.logging.impl.Log4JLogger");
+        expected.add("org.apache.commons.logging.impl.SLF4JLocationAwareLog");
+
+        if (expected.contains(loggerClass) == false)
+            throw new IllegalStateException("Unexpected logger: " + loggerClass);
+
+        log.info("*******************************************");
+        log.info("* jcl: " + message);
+        log.info("*******************************************");
+    }
+
+    public static void assertSL4J(String message) {
+        org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LoggingDelegate.class);
+
+        String loggerClass = log.getClass().getName();
+
+        List<String> expected = new ArrayList<String>();
+        expected.add("org.jboss.slf4j.JBossLoggerAdapter");
+        expected.add("org.slf4j.impl.Log4jLoggerAdapter");
+        expected.add("org.slf4j.impl.Slf4jLogger");
+
+        if (expected.contains(loggerClass) == false)
+            throw new IllegalStateException("Unexpected logger: " + loggerClass);
+
+        log.info("*******************************************");
+        log.info("* slf4j: " + message);
+        log.info("*******************************************");
+    }
 }

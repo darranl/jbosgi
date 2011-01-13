@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi112.bundleA;
 
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -29,28 +28,21 @@ import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
 import org.osgi.framework.SynchronousBundleListener;
 
-public class OSGi112ActivatorA implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      BundleListener listener = new SynchronousBundleListener()
-      {
-         public void bundleChanged(BundleEvent evt)
-         {
-            if (BundleEvent.STARTING == evt.getType())
-            {
-               Bundle bundle = evt.getBundle();
-               if ("jbosgi112-bundleB".equals(bundle.getSymbolicName()))
-               {
-                  throw new RuntimeException("Cannot start bundle: " + bundle);
-               }
+public class OSGi112ActivatorA implements BundleActivator {
+    public void start(BundleContext context) {
+        BundleListener listener = new SynchronousBundleListener() {
+            public void bundleChanged(BundleEvent evt) {
+                if (BundleEvent.STARTING == evt.getType()) {
+                    Bundle bundle = evt.getBundle();
+                    if ("jbosgi112-bundleB".equals(bundle.getSymbolicName())) {
+                        throw new RuntimeException("Cannot start bundle: " + bundle);
+                    }
+                }
             }
-         }
-      };
-      context.addBundleListener(listener);
-   }
+        };
+        context.addBundleListener(listener);
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

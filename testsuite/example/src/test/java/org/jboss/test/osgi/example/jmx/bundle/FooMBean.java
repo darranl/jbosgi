@@ -25,10 +25,8 @@ import javax.management.ObjectName;
 
 import org.jboss.osgi.jmx.ObjectNameFactory;
 
+public interface FooMBean {
+    ObjectName MBEAN_NAME = ObjectNameFactory.create("jboss.osgi:service=mbean-test-service");
 
-public interface FooMBean 
-{
-	ObjectName MBEAN_NAME = ObjectNameFactory.create("jboss.osgi:service=mbean-test-service");
-
-   String echo(String msg);
+    String echo(String msg);
 }

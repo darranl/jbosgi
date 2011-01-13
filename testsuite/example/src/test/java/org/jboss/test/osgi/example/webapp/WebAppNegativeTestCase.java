@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.webapp;
 
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -42,39 +41,32 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 26-Oct-2009
  */
-public class WebAppNegativeTestCase extends OSGiRuntimeTest
-{
-   private static OSGiRuntime runtime;
+public class WebAppNegativeTestCase extends OSGiRuntimeTest {
+    private static OSGiRuntime runtime;
 
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      runtime = createDefaultRuntime();
-      runtime.addCapability(new WebAppCapability());
-   }
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        runtime = createDefaultRuntime();
+        runtime.addCapability(new WebAppCapability());
+    }
 
-   @AfterClass
-   public static void tearDownClass() throws Exception
-   {
-      runtime.shutdown();
-      runtime = null;
-   }
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        runtime.shutdown();
+        runtime = null;
+    }
 
-   @Test
-   public void testServletAccess() throws Exception
-   {
-      OSGiBundle bundle = runtime.installBundle("example-webapp-negative.war");
-      assertBundleState(Bundle.INSTALLED, bundle.getState());
+    @Test
+    public void testServletAccess() throws Exception {
+        OSGiBundle bundle = runtime.installBundle("example-webapp-negative.war");
+        assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      try
-      {
-         bundle.start();
-         fail("BundleException expected");
-      }
-      catch (BundleException ex)
-      {
-         Throwable cause = ex.getCause();
-         assertTrue(cause instanceof LifecycleInterceptorException);
-      }
-   }
+        try {
+            bundle.start();
+            fail("BundleException expected");
+        } catch (BundleException ex) {
+            Throwable cause = ex.getCause();
+            assertTrue(cause instanceof LifecycleInterceptorException);
+        }
+    }
 }

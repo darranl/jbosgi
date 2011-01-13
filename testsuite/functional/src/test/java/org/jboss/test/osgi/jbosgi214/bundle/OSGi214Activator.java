@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi214.bundle;
 
-
 import org.jboss.test.osgi.jbosgi214.SomeService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -32,15 +31,12 @@ import org.osgi.framework.BundleContext;
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */
-public class OSGi214Activator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      // Register a service that is bound to an interface from the system classpath
-      context.registerService(SomeService.class.getName(), new SomeServiceImpl(), null);
-   }
+public class OSGi214Activator implements BundleActivator {
+    public void start(BundleContext context) {
+        // Register a service that is bound to an interface from the system classpath
+        context.registerService(SomeService.class.getName(), new SomeServiceImpl(), null);
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

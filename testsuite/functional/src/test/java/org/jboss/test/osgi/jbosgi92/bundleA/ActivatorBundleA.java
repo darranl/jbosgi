@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi92.bundleA;
 
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -29,28 +28,24 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.xml.XMLParserActivator;
 
-public class ActivatorBundleA extends XMLParserActivator
-{
+public class ActivatorBundleA extends XMLParserActivator {
 
-   public void start(BundleContext context) throws Exception
-   {
-      super.start(context);
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
 
-      logSAXParserFactory(context);
-      logDOMParserFactory(context);
-   }
+        logSAXParserFactory(context);
+        logDOMParserFactory(context);
+    }
 
-   private void logSAXParserFactory(BundleContext context)
-   {
-      ServiceReference saxRef = context.getServiceReference(SAXParserFactory.class.getName());
-      if (saxRef == null)
-         throw new IllegalStateException("No SAXParserFactory registered");
-   }
+    private void logSAXParserFactory(BundleContext context) {
+        ServiceReference saxRef = context.getServiceReference(SAXParserFactory.class.getName());
+        if (saxRef == null)
+            throw new IllegalStateException("No SAXParserFactory registered");
+    }
 
-   private void logDOMParserFactory(BundleContext context)
-   {
-      ServiceReference domRef = context.getServiceReference(DocumentBuilderFactory.class.getName());
-      if (domRef == null)
-         throw new IllegalStateException("No DocumentBuilderFactory registered");
-   }
+    private void logDOMParserFactory(BundleContext context) {
+        ServiceReference domRef = context.getServiceReference(DocumentBuilderFactory.class.getName());
+        if (domRef == null)
+            throw new IllegalStateException("No DocumentBuilderFactory registered");
+    }
 }

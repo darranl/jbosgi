@@ -21,8 +21,5 @@
  */
 package org.jboss.test.osgi.jbosgi284.bundleB;
 
-
-
-public class SomePojo
-{
+public class SomePojo {
 }

@@ -21,8 +21,5 @@
  */
 package org.jboss.test.osgi.fragments.fragA;
 
-
-
-public class FragBeanA
-{
+public class FragBeanA {
 }

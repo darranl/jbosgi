@@ -29,34 +29,27 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * This {@link TestBundleProvider} provides the test bundles for a local directory where they were 
- * created in advance. This is done with the 
- * {@link org.jboss.osgi.test.performance.bundle.tool.BundleCreator} tool.
+ * This {@link TestBundleProvider} provides the test bundles for a local directory where they were created in advance. This is
+ * done with the {@link org.jboss.osgi.test.performance.bundle.tool.BundleCreator} tool.
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class LocalTestBundleProviderImpl implements TestBundleProvider
-{
-   private final File bundlesDir;
+public class LocalTestBundleProviderImpl implements TestBundleProvider {
+    private final File bundlesDir;
 
-   public LocalTestBundleProviderImpl()
-   {
-      bundlesDir = new File(System.getProperty(PERFORMANCE_TEST_BUNDLES_DIR), ".");
-      System.out.println("*** Reading test bundles from: " + bundlesDir);
-      System.out.println("*** To read test bundles from a different directory, set the system property:");
-      System.out.println("    " + PERFORMANCE_TEST_BUNDLES_DIR);
-   }
+    public LocalTestBundleProviderImpl() {
+        bundlesDir = new File(System.getProperty(PERFORMANCE_TEST_BUNDLES_DIR), ".");
+        System.out.println("*** Reading test bundles from: " + bundlesDir);
+        System.out.println("*** To read test bundles from a different directory, set the system property:");
+        System.out.println("    " + PERFORMANCE_TEST_BUNDLES_DIR);
+    }
 
-   @Override
-   public InputStream getTestArchiveStream(String name)
-   {
-      try
-      {
-         return new FileInputStream(new File(bundlesDir, name + ".jar"));
-      }
-      catch (FileNotFoundException e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
+    @Override
+    public InputStream getTestArchiveStream(String name) {
+        try {
+            return new FileInputStream(new File(bundlesDir, name + ".jar"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

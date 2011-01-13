@@ -36,41 +36,36 @@ import org.jboss.test.osgi.example.xservice.api.Echo;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-public class EchoInvokerService implements Service<Void>
-{
-   private static final Logger log = Logger.getLogger(EchoInvokerService.class);
-   public static final ServiceName SERVICE_NAME = ServiceName.parse("jboss.osgi.xservice.invoker");
+public class EchoInvokerService implements Service<Void> {
+    private static final Logger log = Logger.getLogger(EchoInvokerService.class);
+    public static final ServiceName SERVICE_NAME = ServiceName.parse("jboss.osgi.xservice.invoker");
 
-   private InjectedValue<BundleContext> injectedBundleContext = new InjectedValue<BundleContext>();
+    private InjectedValue<BundleContext> injectedBundleContext = new InjectedValue<BundleContext>();
 
-   public static void addService(ServiceTarget serviceTarget)
-   {
-      EchoInvokerService service = new EchoInvokerService();
-      ServiceBuilder<?> serviceBuilder = serviceTarget.addService(SERVICE_NAME, service);
-      serviceBuilder.addDependency(ServiceName.parse("jboss.osgi.context"), BundleContext.class, service.injectedBundleContext);
-      serviceBuilder.setInitialMode(Mode.ACTIVE);
-      serviceBuilder.install();
-      log.infof("Service added: %s", SERVICE_NAME);
-      log.infof("Echo Loader: %s", Echo.class.getClassLoader());
-   }
+    public static void addService(ServiceTarget serviceTarget) {
+        EchoInvokerService service = new EchoInvokerService();
+        ServiceBuilder<?> serviceBuilder = serviceTarget.addService(SERVICE_NAME, service);
+        serviceBuilder.addDependency(ServiceName.parse("jboss.osgi.context"), BundleContext.class, service.injectedBundleContext);
+        serviceBuilder.setInitialMode(Mode.ACTIVE);
+        serviceBuilder.install();
+        log.infof("Service added: %s", SERVICE_NAME);
+        log.infof("Echo Loader: %s", Echo.class.getClassLoader());
+    }
 
-   @Override
-   public void start(StartContext context) throws StartException
-   {
-      BundleContext systemContext = injectedBundleContext.getValue();
-      ServiceReference sref = systemContext.getServiceReference(Echo.class.getName());
-      Echo service = (Echo)systemContext.getService(sref);
-      service.echo("hello world");
-   }
+    @Override
+    public void start(StartContext context) throws StartException {
+        BundleContext systemContext = injectedBundleContext.getValue();
+        ServiceReference sref = systemContext.getServiceReference(Echo.class.getName());
+        Echo service = (Echo) systemContext.getService(sref);
+        service.echo("hello world");
+    }
 
-   @Override
-   public void stop(StopContext context)
-   {
-   }
+    @Override
+    public void stop(StopContext context) {
+    }
 
-   @Override
-   public Void getValue() throws IllegalStateException
-   {
-      return null;
-   }
+    @Override
+    public Void getValue() throws IllegalStateException {
+        return null;
+    }
 }

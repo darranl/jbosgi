@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi214.bundle;
 
-
 import org.jboss.test.osgi.jbosgi214.SomeService;
 
 /**
@@ -30,6 +29,5 @@ import org.jboss.test.osgi.jbosgi214.SomeService;
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */
-public class SomeServiceImpl implements SomeService
-{
+public class SomeServiceImpl implements SomeService {
 }

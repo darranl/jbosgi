@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.webapp;
 
-
 import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
 
@@ -34,54 +33,47 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test that deployes a WAR bundle 
+ * A test that deployes a WAR bundle
  * 
- * Due to the nature of asynchronous event processing by the
- * extender pattern, we cannot assume that the endpoint is
- * available immediately
+ * Due to the nature of asynchronous event processing by the extender pattern, we cannot assume that the endpoint is available
+ * immediately
  * 
  * @author thomas.diesler@jboss.com
  * @since 06-Oct-2009
  */
-public class WebAppExtenderTestCase extends OSGiRuntimeTest
-{
-   @BeforeClass
-   public static void beforeClass() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      runtime.addCapability(new HttpServiceCapability());
+public class WebAppExtenderTestCase extends OSGiRuntimeTest {
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        runtime.addCapability(new HttpServiceCapability());
 
-      // Conditionally install the webapp extender in case we test against
-      // a runtime where it is not installed already
-      if (runtime.getBundle("org.ops4j.pax.web.pax-web-extender-war", null) == null)
-         runtime.installBundle("bundles/pax-web-extender-war.jar").start();
-      
-      runtime.installBundle("example-webapp.war").start();
-   }
-   
-   @Test
-   public void testServletAccess() throws Exception
-   {
-      String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
-      assertEquals("Hello from Servlet", line);
-   }
+        // Conditionally install the webapp extender in case we test against
+        // a runtime where it is not installed already
+        if (runtime.getBundle("org.ops4j.pax.web.pax-web-extender-war", null) == null)
+            runtime.installBundle("bundles/pax-web-extender-war.jar").start();
 
-   @Test
-   public void testServletInitProps() throws Exception
-   {
-      String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
-      assertEquals("initProp=SomeValue", line);
-   }
+        runtime.installBundle("example-webapp.war").start();
+    }
 
-   @Test
-   public void testResourceAccess() throws Exception
-   {
-      String line = getHttpResponse("/example-webapp/message.txt", 5000);
-      assertEquals("Hello from Resource", line);
-   }
+    @Test
+    public void testServletAccess() throws Exception {
+        String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
+        assertEquals("Hello from Servlet", line);
+    }
 
-   private String getHttpResponse(String reqPath, int timeout) throws IOException
-   {
-      return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
-   }
+    @Test
+    public void testServletInitProps() throws Exception {
+        String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
+        assertEquals("initProp=SomeValue", line);
+    }
+
+    @Test
+    public void testResourceAccess() throws Exception {
+        String line = getHttpResponse("/example-webapp/message.txt", 5000);
+        assertEquals("Hello from Resource", line);
+    }
+
+    private String getHttpResponse(String reqPath, int timeout) throws IOException {
+        return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
+    }
 }

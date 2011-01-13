@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.event;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -48,66 +47,60 @@ import org.osgi.service.event.EventHandler;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
 @RunWith(Arquillian.class)
-public class EventAdminTestCase
-{
-   static String TOPIC = "org/jboss/test/osgi/example/event";
+public class EventAdminTestCase {
+    static String TOPIC = "org/jboss/test/osgi/example/event";
 
-   @Inject
-   public Bundle bundle;
+    @Inject
+    public Bundle bundle;
 
-   @Inject
-   public OSGiContainer container;
+    @Inject
+    public OSGiContainer container;
 
-   @Before
-   public void setUp() throws BundleException
-   {
-      if (container != null)
-      {
-         // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
-         Bundle eventadmin = container.installBundle("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
-         eventadmin.start();
-      }
-   }
+    @Before
+    public void setUp() throws BundleException {
+        if (container != null) {
+            // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
+            Bundle eventadmin = container.installBundle("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
+            eventadmin.start();
+        }
+    }
 
-   @Test
-   @SuppressWarnings({ "unchecked", "rawtypes" })
-   public void testEventHandler() throws Exception
-   {
-      assertNotNull("Bundle injected", bundle);
+    @Test
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public void testEventHandler() throws Exception {
+        assertNotNull("Bundle injected", bundle);
 
-      bundle.start();
-      assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
+        bundle.start();
+        assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-      BundleContext context = bundle.getBundleContext();
+        BundleContext context = bundle.getBundleContext();
 
-      // Register the EventHandler
-      Dictionary param = new Hashtable();
-      param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
-      TestEventHandler eventHandler = new TestEventHandler();
-      context.registerService(EventHandler.class.getName(), eventHandler, param);
+        // Register the EventHandler
+        Dictionary param = new Hashtable();
+        param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
+        TestEventHandler eventHandler = new TestEventHandler();
+        context.registerService(EventHandler.class.getName(), eventHandler, param);
 
-      // Send event through the the EventAdmin
-      ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
-      EventAdmin eventAdmin = (EventAdmin)context.getService(sref);
-      eventAdmin.sendEvent(new Event(TOPIC, (Dictionary)null));
+        // Send event through the the EventAdmin
+        ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
+        EventAdmin eventAdmin = (EventAdmin) context.getService(sref);
+        eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
 
-      // Verify received event
-      assertEquals("Event received", 1, eventHandler.received.size());
-      assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
-   }
+        // Verify received event
+        assertEquals("Event received", 1, eventHandler.received.size());
+        assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+    }
 
-   static class TestEventHandler implements EventHandler
-   {
-      List<Event> received = new ArrayList<Event>();
+    static class TestEventHandler implements EventHandler {
+        List<Event> received = new ArrayList<Event>();
 
-      public void handleEvent(Event event)
-      {
-         received.add(event);
-      }
-   }
+        public void handleEvent(Event event) {
+            received.add(event);
+        }
+    }
 }

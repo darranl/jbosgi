@@ -21,20 +21,16 @@
  */
 package org.jboss.test.osgi.fragments.hostB;
 
-
 import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class HostBActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      SubBeanA subBean = new SubBeanA();
-      subBean.getProvider(context);
-   }
+public class HostBActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        SubBeanA subBean = new SubBeanA();
+        subBean.getProvider(context);
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

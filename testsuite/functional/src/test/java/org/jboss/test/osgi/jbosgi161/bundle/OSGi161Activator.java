@@ -21,22 +21,18 @@
  */
 package org.jboss.test.osgi.jbosgi161.bundle;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi161Activator implements BundleActivator
-{
-   public void start(BundleContext context) throws Exception
-   {
-      String logmsg = context.getBundle().getSymbolicName();
-      
-      LoggingDelegate.assertJBossLogging(logmsg);
-      LoggingDelegate.assertCommonsLogging(logmsg);
-      LoggingDelegate.assertSL4J(logmsg);
-   }
+public class OSGi161Activator implements BundleActivator {
+    public void start(BundleContext context) throws Exception {
+        String logmsg = context.getBundle().getSymbolicName();
 
-   public void stop(BundleContext context) throws Exception
-   {
-   }
+        LoggingDelegate.assertJBossLogging(logmsg);
+        LoggingDelegate.assertCommonsLogging(logmsg);
+        LoggingDelegate.assertSL4J(logmsg);
+    }
+
+    public void stop(BundleContext context) throws Exception {
+    }
 }

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi143;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -37,55 +36,45 @@ import org.osgi.framework.BundleContext;
  * 
  * https://jira.jboss.org/jira/browse/JBOSGI-143
  * 
- * A imports X
- * X has DynamicImport-Package: *
+ * A imports X X has DynamicImport-Package: *
  * 
  * Can X load a class from A?
  * 
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2009
  */
-public class OSGi143TestCase extends OSGiFrameworkTest
-{
-   @Test
-   public void testLoadClass() throws Exception
-   {
-      BundleContext sysContext = getFramework().getBundleContext();
-      Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
-      bundleX.start();
+public class OSGi143TestCase extends OSGiFrameworkTest {
+    @Test
+    public void testLoadClass() throws Exception {
+        BundleContext sysContext = getFramework().getBundleContext();
+        Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
+        bundleX.start();
 
-      assertBundleLoadClass(bundleX, BeanX.class, true);
+        assertBundleLoadClass(bundleX, BeanX.class, true);
 
-      Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleA.jar").toExternalForm());
-      bundleA.start();
+        Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleA.jar").toExternalForm());
+        bundleA.start();
 
-      assertBundleLoadClass(bundleA, BeanA.class, true);
+        assertBundleLoadClass(bundleA, BeanA.class, true);
 
-      assertBundleLoadClass(bundleA, BeanX.class, true);
-      assertBundleLoadClass(bundleX, BeanA.class, true);
-   }
+        assertBundleLoadClass(bundleA, BeanX.class, true);
+        assertBundleLoadClass(bundleX, BeanA.class, true);
+    }
 
-   private void assertBundleLoadClass(Bundle bundle, Class<?> expClazz, boolean success)
-   {
-      String message = bundle.getSymbolicName() + " loads " + expClazz.getName();
+    private void assertBundleLoadClass(Bundle bundle, Class<?> expClazz, boolean success) {
+        String message = bundle.getSymbolicName() + " loads " + expClazz.getName();
 
-      Class<?> wasClass;
-      try
-      {
-         wasClass = bundle.loadClass(expClazz.getName());
-         if (success)
-         {
-            assertEquals(message, expClazz.getName(), wasClass.getName());
-         }
-         else
-         {
-            fail("ClassNotFoundException expected for: " + message);
-         }
-      }
-      catch (ClassNotFoundException ex)
-      {
-         if (success)
-            fail("Unexpected ClassNotFoundException for: " + message);
-      }
-   }
+        Class<?> wasClass;
+        try {
+            wasClass = bundle.loadClass(expClazz.getName());
+            if (success) {
+                assertEquals(message, expClazz.getName(), wasClass.getName());
+            } else {
+                fail("ClassNotFoundException expected for: " + message);
+            }
+        } catch (ClassNotFoundException ex) {
+            if (success)
+                fail("Unexpected ClassNotFoundException for: " + message);
+        }
+    }
 }

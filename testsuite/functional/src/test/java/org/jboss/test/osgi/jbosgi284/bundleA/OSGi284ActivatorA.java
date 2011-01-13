@@ -21,17 +21,13 @@
  */
 package org.jboss.test.osgi.jbosgi284.bundleA;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi284ActivatorA implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-   }
+public class OSGi284ActivatorA implements BundleActivator {
+    public void start(BundleContext context) {
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.xml.parser;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -56,51 +55,47 @@ import org.w3c.dom.Node;
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
-public class DOMParserTestCase
-{
-   @Inject
-   public Bundle bundle;
+public class DOMParserTestCase {
+    @Inject
+    public Bundle bundle;
 
-   @Deployment
-   public static JavaArchive createdeployment()
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
-      archive.addResource("xml/parser/example-xml-parser.xml", "example-xml-parser.xml");
-      return archive;
-   }
-   
-   @Test
-   public void testDOMParser() throws Exception
-   {
-      bundle.start();
-      
-      DocumentBuilder domBuilder = getDocumentBuilder();
-      URL resURL = bundle.getResource("example-xml-parser.xml");
-      Document dom = domBuilder.parse(resURL.openStream());
-      assertNotNull("Document not null", dom);
-      
-      Element root = dom.getDocumentElement();
-      assertEquals("root", root.getLocalName());
-      
-      Node child = root.getFirstChild();
-      assertEquals("child", child.getLocalName());
-      assertEquals("content", child.getTextContent());
-   }
+    @Deployment
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
+        archive.addResource("xml/parser/example-xml-parser.xml", "example-xml-parser.xml");
+        return archive;
+    }
 
-   private DocumentBuilder getDocumentBuilder() throws ParserConfigurationException, InvalidSyntaxException
-   {
-      BundleContext context = bundle.getBundleContext();
-      
-      // This service gets registerd by the jboss-osgi-apache-xerces service
-      String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
-      ServiceReference[] srefs = context.getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
-      if (srefs == null)
-         throw new IllegalStateException("DocumentBuilderFactory not available");
-      
-      DocumentBuilderFactory factory = (DocumentBuilderFactory)context.getService(srefs[0]);
-      factory.setValidating(false);
-      
-      DocumentBuilder domBuilder = factory.newDocumentBuilder();
-      return domBuilder;
-   }
+    @Test
+    public void testDOMParser() throws Exception {
+        bundle.start();
+
+        DocumentBuilder domBuilder = getDocumentBuilder();
+        URL resURL = bundle.getResource("example-xml-parser.xml");
+        Document dom = domBuilder.parse(resURL.openStream());
+        assertNotNull("Document not null", dom);
+
+        Element root = dom.getDocumentElement();
+        assertEquals("root", root.getLocalName());
+
+        Node child = root.getFirstChild();
+        assertEquals("child", child.getLocalName());
+        assertEquals("content", child.getTextContent());
+    }
+
+    private DocumentBuilder getDocumentBuilder() throws ParserConfigurationException, InvalidSyntaxException {
+        BundleContext context = bundle.getBundleContext();
+
+        // This service gets registerd by the jboss-osgi-apache-xerces service
+        String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
+        ServiceReference[] srefs = context.getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
+        if (srefs == null)
+            throw new IllegalStateException("DocumentBuilderFactory not available");
+
+        DocumentBuilderFactory factory = (DocumentBuilderFactory) context.getService(srefs[0]);
+        factory.setValidating(false);
+
+        DocumentBuilder domBuilder = factory.newDocumentBuilder();
+        return domBuilder;
+    }
 }

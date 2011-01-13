@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.services;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -42,97 +41,86 @@ import org.osgi.framework.ServiceRegistration;
  * @author thomas.diesler@jboss.com
  * @since 20-Mar-2010
  */
-public class ServiceRegistrationTestCase extends OSGiFrameworkTest
-{
-   @Test
-   public void testUsingBundles() throws Exception
-   {
-      Runnable exp = new Runnable()
-      {
-         public void run()
-         {
-         }
-      };
-
-      BundleContext context = getFramework().getBundleContext();
-      ServiceRegistration sreg = context.registerService(Runnable.class.getName(), exp, null);
-      ServiceReference sref = sreg.getReference();
-
-      Bundle[] users = sref.getUsingBundles();
-      assertNull("Null users", users);
-
-      Runnable was = (Runnable)context.getService(sref);
-      users = sref.getUsingBundles();
-      assertSame(exp, was);
-      assertEquals(1, users.length);
-      assertEquals(context.getBundle(), users[0]);
-
-      was = (Runnable)context.getService(sref);
-      users = sref.getUsingBundles();
-      assertSame(exp, was);
-      assertEquals(1, users.length);
-      assertEquals(context.getBundle(), users[0]);
-   }
-
-   @Test
-   public void testServiceFactoryUsingBundles() throws Exception
-   {
-      final boolean[] allGood = new boolean[2];
-      ServiceFactory factory = new ServiceFactory()
-      {
-         @Override
-         public Object getService(Bundle bundle, ServiceRegistration sreg)
-         {
-            ServiceReference sref = sreg.getReference();
-            Bundle[] users = sref.getUsingBundles();
-            assertNotNull("Users not null", users);
-            assertEquals(1, users.length);
-            assertEquals(bundle, users[0]);
-            allGood[0] = true;
-            return new Runnable()
-            {
-               public void run()
-               {
-               }
-            };
-         }
-
-         @Override
-         public void ungetService(Bundle bundle, ServiceRegistration sreg, Object service)
-         {
-            ServiceReference sref = sreg.getReference();
-            Bundle[] users = sref.getUsingBundles();
-            
-            System.out.println("FIXME [JBOSGI-305] Clarify ServiceReference.getUsingBundles() in ServiceFactory.ungetService()");
-            if ("equinox".equals(getFrameworkName()) == false)
-            {
-               assertNotNull("Users not null", users);
-               assertEquals(1, users.length);
-               assertEquals(bundle, users[0]);
+public class ServiceRegistrationTestCase extends OSGiFrameworkTest {
+    @Test
+    public void testUsingBundles() throws Exception {
+        Runnable exp = new Runnable() {
+            public void run() {
             }
-            
-            allGood[1] = true;
-         }
-      };
-      BundleContext context = getFramework().getBundleContext();
-      ServiceRegistration sreg = context.registerService(Runnable.class.getName(), factory, null);
-      ServiceReference sref = sreg.getReference();
+        };
 
-      Bundle[] users = sref.getUsingBundles();
-      assertNull("Null users", users);
+        BundleContext context = getFramework().getBundleContext();
+        ServiceRegistration sreg = context.registerService(Runnable.class.getName(), exp, null);
+        ServiceReference sref = sreg.getReference();
 
-      Runnable was = (Runnable)context.getService(sref);
-      assertNotNull("Service not null", was);
-      users = sref.getUsingBundles();
-      assertNotNull("Users not null", users);
-      assertEquals(1, users.length);
-      assertEquals(context.getBundle(), users[0]);
-      assertTrue("getService good", allGood[0]);
-      
-      sreg.unregister();
-      
-      was = (Runnable)context.getService(sref);
-      assertNull("Service null", was);
-      assertTrue("ungetService good", allGood[1]);
-   }
+        Bundle[] users = sref.getUsingBundles();
+        assertNull("Null users", users);
+
+        Runnable was = (Runnable) context.getService(sref);
+        users = sref.getUsingBundles();
+        assertSame(exp, was);
+        assertEquals(1, users.length);
+        assertEquals(context.getBundle(), users[0]);
+
+        was = (Runnable) context.getService(sref);
+        users = sref.getUsingBundles();
+        assertSame(exp, was);
+        assertEquals(1, users.length);
+        assertEquals(context.getBundle(), users[0]);
+    }
+
+    @Test
+    public void testServiceFactoryUsingBundles() throws Exception {
+        final boolean[] allGood = new boolean[2];
+        ServiceFactory factory = new ServiceFactory() {
+            @Override
+            public Object getService(Bundle bundle, ServiceRegistration sreg) {
+                ServiceReference sref = sreg.getReference();
+                Bundle[] users = sref.getUsingBundles();
+                assertNotNull("Users not null", users);
+                assertEquals(1, users.length);
+                assertEquals(bundle, users[0]);
+                allGood[0] = true;
+                return new Runnable() {
+                    public void run() {
+                    }
+                };
+            }
+
+            @Override
+            public void ungetService(Bundle bundle, ServiceRegistration sreg, Object service) {
+                ServiceReference sref = sreg.getReference();
+                Bundle[] users = sref.getUsingBundles();
+
+                System.out.println("FIXME [JBOSGI-305] Clarify ServiceReference.getUsingBundles() in ServiceFactory.ungetService()");
+                if ("equinox".equals(getFrameworkName()) == false) {
+                    assertNotNull("Users not null", users);
+                    assertEquals(1, users.length);
+                    assertEquals(bundle, users[0]);
+                }
+
+                allGood[1] = true;
+            }
+        };
+        BundleContext context = getFramework().getBundleContext();
+        ServiceRegistration sreg = context.registerService(Runnable.class.getName(), factory, null);
+        ServiceReference sref = sreg.getReference();
+
+        Bundle[] users = sref.getUsingBundles();
+        assertNull("Null users", users);
+
+        Runnable was = (Runnable) context.getService(sref);
+        assertNotNull("Service not null", was);
+        users = sref.getUsingBundles();
+        assertNotNull("Users not null", users);
+        assertEquals(1, users.length);
+        assertEquals(context.getBundle(), users[0]);
+        assertTrue("getService good", allGood[0]);
+
+        sreg.unregister();
+
+        was = (Runnable) context.getService(sref);
+        assertNull("Service null", was);
+        assertTrue("ungetService good", allGood[1]);
+    }
 }

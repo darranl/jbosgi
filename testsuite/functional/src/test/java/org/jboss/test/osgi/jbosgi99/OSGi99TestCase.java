@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi99;
 
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -41,168 +40,142 @@ import org.osgi.framework.BundleException;
 
 /**
  * [JBOSGI-99] No explicit control over bundle.start()
- *
+ * 
  * https://jira.jboss.org/jira/browse/JBOSGI-99
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 08-Jul-2009
  */
-public class OSGi99TestCase extends OSGiRuntimeTest
-{
-   // Provide logging
-   private static final Logger log = Logger.getLogger(OSGi99TestCase.class);
+public class OSGi99TestCase extends OSGiRuntimeTest {
+    // Provide logging
+    private static final Logger log = Logger.getLogger(OSGi99TestCase.class);
 
-   @Test
-   public void testAllGood() throws Exception
-   {
-      OSGiBundle bundle = getRuntime().installBundle("jbosgi99-allgood.jar");
-      try
-      {
-         assertBundleState(Bundle.INSTALLED, bundle.getState());
-
-         bundle.start();
-         assertBundleState(Bundle.ACTIVE, bundle.getState());
-      }
-      finally
-      {
-         bundle.uninstall();
-         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-      }
-   }
-
-   @Test
-   public void testFailOnResolve() throws Exception
-   {
-      OSGiBundle bundle = getRuntime().installBundle("jbosgi99-failonresolve.jar");
-      try
-      {
-         assertBundleState(Bundle.INSTALLED, bundle.getState());
-
-         try
-         {
-            bundle.start();
-            fail("BundleException expected");
-         }
-         catch (BundleException ex)
-         {
-            log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
+    @Test
+    public void testAllGood() throws Exception {
+        OSGiBundle bundle = getRuntime().installBundle("jbosgi99-allgood.jar");
+        try {
             assertBundleState(Bundle.INSTALLED, bundle.getState());
-         }
-      }
-      finally
-      {
-         bundle.uninstall();
-         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-      }
-  }
 
-   @Test
-   public void testFailOnStart() throws Exception
-   {
-      OSGiBundle bundle = getRuntime().installBundle("jbosgi99-failonstart.jar");
-      try
-      {
-         assertBundleState(Bundle.INSTALLED, bundle.getState());
-
-         try
-         {
             bundle.start();
-            fail("BundleException expected");
-         }
-         catch (BundleException ex)
-         {
-            log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
-            assertBundleState(Bundle.RESOLVED, bundle.getState());
-         }
-      }
-      finally
-      {
-         bundle.uninstall();
-         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-      }
-   }
+            assertBundleState(Bundle.ACTIVE, bundle.getState());
+        } finally {
+            bundle.uninstall();
+            assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+        }
+    }
 
-   @Test
-   public void testHotDeploy() throws Exception
-   {
-      String targetContainer = getTargetContainer();
-      if (targetContainer == null)
-         return;
+    @Test
+    public void testFailOnResolve() throws Exception {
+        OSGiBundle bundle = getRuntime().installBundle("jbosgi99-failonresolve.jar");
+        try {
+            assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      String depoydir = null;
-      if (targetContainer.equals("runtime"))
-         depoydir = "deploy";
-      else if (targetContainer.startsWith("jboss70"))
-         depoydir = "deployments";
-      else
-         fail("Unsupported target container: " + targetContainer);
-      
-      // [JBOSGI-210] Bundle installed but not started with hot deploy
-      File inFile = getTestArchiveFile("jbosgi99-allgood.jar");
+            try {
+                bundle.start();
+                fail("BundleException expected");
+            } catch (BundleException ex) {
+                log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
+                assertBundleState(Bundle.INSTALLED, bundle.getState());
+            }
+        } finally {
+            bundle.uninstall();
+            assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+        }
+    }
 
-      // Copy the bundle to the data directory
-      String outPath = getRuntime().getBundle(0).getDataFile("jbosgi99-allgood.jar").getAbsolutePath();
-      File outFile = new File(outPath);
-      copyfile(inFile, outFile);
+    @Test
+    public void testFailOnStart() throws Exception {
+        OSGiBundle bundle = getRuntime().installBundle("jbosgi99-failonstart.jar");
+        try {
+            assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      // Move the bundle to the deploy directory
-      outPath = outPath.substring(0, outPath.indexOf("data/osgi-store"));
-      File deployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar");
-      outFile.renameTo(deployFile);
-      try
-      {
-         int timeout = 8000;
-         OSGiBundle bundle = null;
-         while (timeout > 0)
-         {
-            bundle = getRuntime().getBundle("jbosgi99-allgood", null);
-            if (bundle != null && bundle.getState() == Bundle.ACTIVE)
-               break;
+            try {
+                bundle.start();
+                fail("BundleException expected");
+            } catch (BundleException ex) {
+                log.error("State on error: " + ConstantsHelper.bundleState(bundle.getState()), ex);
+                assertBundleState(Bundle.RESOLVED, bundle.getState());
+            }
+        } finally {
+            bundle.uninstall();
+            assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+        }
+    }
 
-            Thread.sleep(200);
-            timeout -= 200;
-         }
+    @Test
+    public void testHotDeploy() throws Exception {
+        String targetContainer = getTargetContainer();
+        if (targetContainer == null)
+            return;
 
-         assertNotNull("Bundle not null", bundle);
-         assertBundleState(Bundle.ACTIVE, bundle.getState());
+        String depoydir = null;
+        if (targetContainer.equals("runtime"))
+            depoydir = "deploy";
+        else if (targetContainer.startsWith("jboss70"))
+            depoydir = "deployments";
+        else
+            fail("Unsupported target container: " + targetContainer);
 
-         // Adjust the deployment file for jboss70x
-         if (deployFile.exists() == false)
-            deployFile = new File(deployFile + ".deployed");
-         
-         // Delete the bundle from the deploy directory
-         assertTrue("Deployment file exists: " + deployFile, deployFile.exists());
-         deployFile.delete();
+        // [JBOSGI-210] Bundle installed but not started with hot deploy
+        File inFile = getTestArchiveFile("jbosgi99-allgood.jar");
 
-         timeout = 8000;
-         while (timeout > 0)
-         {
-            if (bundle.getState() == Bundle.UNINSTALLED)
-               break;
+        // Copy the bundle to the data directory
+        String outPath = getRuntime().getBundle(0).getDataFile("jbosgi99-allgood.jar").getAbsolutePath();
+        File outFile = new File(outPath);
+        copyfile(inFile, outFile);
 
-            Thread.sleep(200);
-            timeout -= 200;
-         }
+        // Move the bundle to the deploy directory
+        outPath = outPath.substring(0, outPath.indexOf("data/osgi-store"));
+        File deployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar");
+        outFile.renameTo(deployFile);
+        try {
+            int timeout = 8000;
+            OSGiBundle bundle = null;
+            while (timeout > 0) {
+                bundle = getRuntime().getBundle("jbosgi99-allgood", null);
+                if (bundle != null && bundle.getState() == Bundle.ACTIVE)
+                    break;
 
-         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-      }
-      finally
-      {
-         if (deployFile.exists())
+                Thread.sleep(200);
+                timeout -= 200;
+            }
+
+            assertNotNull("Bundle not null", bundle);
+            assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+            // Adjust the deployment file for jboss70x
+            if (deployFile.exists() == false)
+                deployFile = new File(deployFile + ".deployed");
+
+            // Delete the bundle from the deploy directory
+            assertTrue("Deployment file exists: " + deployFile, deployFile.exists());
             deployFile.delete();
-      }
-   }
 
-   private void copyfile(File inFile, File outFile) throws IOException
-   {
-      FileInputStream in = new FileInputStream(inFile);
-      FileOutputStream out = new FileOutputStream(outFile);
+            timeout = 8000;
+            while (timeout > 0) {
+                if (bundle.getState() == Bundle.UNINSTALLED)
+                    break;
 
-      int c;
-      while ((c = in.read()) != -1)
-         out.write(c);
+                Thread.sleep(200);
+                timeout -= 200;
+            }
 
-      in.close();
-      out.close();
-   }
+            assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+        } finally {
+            if (deployFile.exists())
+                deployFile.delete();
+        }
+    }
+
+    private void copyfile(File inFile, File outFile) throws IOException {
+        FileInputStream in = new FileInputStream(inFile);
+        FileOutputStream out = new FileOutputStream(outFile);
+
+        int c;
+        while ((c = in.read()) != -1)
+            out.write(c);
+
+        in.close();
+        out.close();
+    }
 }

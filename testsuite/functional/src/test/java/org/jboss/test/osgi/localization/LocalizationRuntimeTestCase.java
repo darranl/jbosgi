@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.localization;
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.Dictionary;
@@ -39,62 +38,59 @@ import org.osgi.framework.Constants;
  * @author thomas.diesler@jboss.com
  * @since 25-Jan-2010
  */
-public class LocalizationRuntimeTestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testHostLocalization() throws Exception
-   {
-      OSGiBundle host = getRuntime().installBundle("localization-simple-host.jar");
-      assertBundleState(Bundle.INSTALLED, host.getState());
+public class LocalizationRuntimeTestCase extends OSGiRuntimeTest {
+    @Test
+    public void testHostLocalization() throws Exception {
+        OSGiBundle host = getRuntime().installBundle("localization-simple-host.jar");
+        assertBundleState(Bundle.INSTALLED, host.getState());
 
-      // Test default locale
-      Dictionary<String, String> headers = host.getHeaders();
-      String bundleName = headers.get(Constants.BUNDLE_NAME);
-      assertEquals("English Bundle Name", bundleName);
+        // Test default locale
+        Dictionary<String, String> headers = host.getHeaders();
+        String bundleName = headers.get(Constants.BUNDLE_NAME);
+        assertEquals("English Bundle Name", bundleName);
 
-      // Test explicit default locale
-      headers = host.getHeaders(null);
-      bundleName = headers.get(Constants.BUNDLE_NAME);
-      assertEquals("English Bundle Name", bundleName);
+        // Test explicit default locale
+        headers = host.getHeaders(null);
+        bundleName = headers.get(Constants.BUNDLE_NAME);
+        assertEquals("English Bundle Name", bundleName);
 
-      // Test raw headers
-      headers = host.getHeaders("");
-      bundleName = headers.get(Constants.BUNDLE_NAME);
-      assertEquals("%bundle-name", bundleName);
+        // Test raw headers
+        headers = host.getHeaders("");
+        bundleName = headers.get(Constants.BUNDLE_NAME);
+        assertEquals("%bundle-name", bundleName);
 
-      host.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, host.getState());
+        host.uninstall();
+        assertBundleState(Bundle.UNINSTALLED, host.getState());
 
-      // Test default locale after uninstall
-      headers = host.getHeaders();
-      bundleName = headers.get(Constants.BUNDLE_NAME);
-      assertEquals("English Bundle Name", bundleName);
-   }
+        // Test default locale after uninstall
+        headers = host.getHeaders();
+        bundleName = headers.get(Constants.BUNDLE_NAME);
+        assertEquals("English Bundle Name", bundleName);
+    }
 
-   @Test
-   public void testFragmentLocalization() throws Exception
-   {
-      OSGiBundle host = getRuntime().installBundle("localization-simple-host.jar");
-      OSGiBundle frag = getRuntime().installBundle("localization-simple-frag.jar");
+    @Test
+    public void testFragmentLocalization() throws Exception {
+        OSGiBundle host = getRuntime().installBundle("localization-simple-host.jar");
+        OSGiBundle frag = getRuntime().installBundle("localization-simple-frag.jar");
 
-      host.start();
-      assertBundleState(Bundle.ACTIVE, host.getState());
-      assertBundleState(Bundle.RESOLVED, frag.getState());
+        host.start();
+        assertBundleState(Bundle.ACTIVE, host.getState());
+        assertBundleState(Bundle.RESOLVED, frag.getState());
 
-      // Test explicit locale
-      Dictionary<String, String> headers = host.getHeaders(Locale.GERMAN.toString());
-      String bundleName = headers.get(Constants.BUNDLE_NAME);
-      assertEquals("Deutscher Bundle Name", bundleName);
+        // Test explicit locale
+        Dictionary<String, String> headers = host.getHeaders(Locale.GERMAN.toString());
+        String bundleName = headers.get(Constants.BUNDLE_NAME);
+        assertEquals("Deutscher Bundle Name", bundleName);
 
-      host.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, host.getState());
+        host.uninstall();
+        assertBundleState(Bundle.UNINSTALLED, host.getState());
 
-      frag.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, frag.getState());
+        frag.uninstall();
+        assertBundleState(Bundle.UNINSTALLED, frag.getState());
 
-      // Test default locale after uninstall
-      headers = host.getHeaders();
-      bundleName = headers.get(Constants.BUNDLE_NAME);
-      assertEquals("English Bundle Name", bundleName);
-   }
+        // Test default locale after uninstall
+        headers = host.getHeaders();
+        bundleName = headers.get(Constants.BUNDLE_NAME);
+        assertEquals("English Bundle Name", bundleName);
+    }
 }

@@ -34,19 +34,16 @@ import org.osgi.framework.Bundle;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class Service500TestCase extends ServiceTestBase
-{
-   @Inject
-   public Bundle bundle;
+public class Service500TestCase extends ServiceTestBase {
+    @Inject
+    public Bundle bundle;
 
-   Bundle getBundle()
-   {
-      return bundle;
-   }
-   
-   @Test
-   public void test500() throws Exception
-   {
-      testPerformance(500);
-   }
+    Bundle getBundle() {
+        return bundle;
+    }
+
+    @Test
+    public void test500() throws Exception {
+        testPerformance(500);
+    }
 }

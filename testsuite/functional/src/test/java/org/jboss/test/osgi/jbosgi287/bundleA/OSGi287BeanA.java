@@ -21,11 +21,7 @@
  */
 package org.jboss.test.osgi.jbosgi287.bundleA;
 
-
-
-public class OSGi287BeanA
-{
-   public OSGi287BeanA()
-   {
-   }
+public class OSGi287BeanA {
+    public OSGi287BeanA() {
+    }
 }

@@ -29,19 +29,16 @@ import org.osgi.framework.ServiceRegistration;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class CreateAndLookupTestActivator implements BundleActivator
-{
-   private ServiceRegistration reg;
+public class CreateAndLookupTestActivator implements BundleActivator {
+    private ServiceRegistration reg;
 
-   @Override
-   public void start(BundleContext context) throws Exception
-   {
-      reg = context.registerService(CreateAndLookupBenchmark.class.getName(), new CreateAndLookupBenchmark(context), null);
-   }
+    @Override
+    public void start(BundleContext context) throws Exception {
+        reg = context.registerService(CreateAndLookupBenchmark.class.getName(), new CreateAndLookupBenchmark(context), null);
+    }
 
-   @Override
-   public void stop(BundleContext context) throws Exception
-   {
-      reg.unregister();
-   }
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        reg.unregister();
+    }
 }

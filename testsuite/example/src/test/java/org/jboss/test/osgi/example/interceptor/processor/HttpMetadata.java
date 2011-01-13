@@ -21,31 +21,25 @@
  */
 package org.jboss.test.osgi.example.interceptor.processor;
 
-
-
 /**
  * Metadata the represent an Http endpoint
  * 
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
-public class HttpMetadata 
-{
-   private String servletName;
+public class HttpMetadata {
+    private String servletName;
 
-   HttpMetadata(String servletName)
-   {
-      this.servletName = servletName;
-   }
+    HttpMetadata(String servletName) {
+        this.servletName = servletName;
+    }
 
-   public String getServletName()
-   {
-      return servletName;
-   }
+    public String getServletName() {
+        return servletName;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "HttpMetadata [servletName=" + servletName + "]";
-   }
+    @Override
+    public String toString() {
+        return "HttpMetadata [servletName=" + servletName + "]";
+    }
 }

@@ -21,54 +21,44 @@
  */
 package org.jboss.test.osgi.jbosgi108.bundleA;
 
-
 import javax.management.MBeanServer;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-public class OSGi108ActivatorA implements BundleActivator
-{
-   private SomeBean bean;
-   
-   public void start(BundleContext context)
-   {
-      bean = new SomeBean();
-      
-      // Register the MBean
-      try
-      {
-         ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-         MBeanServer service = (MBeanServer)context.getService(sref);
-         service.registerMBean(bean, SomeBean.MBEAN_NAME);
-      }
-      catch (Exception ex)
-      {
-         throw new IllegalStateException(ex);
-      }
-      
-      ClassLoader cl = getClass().getClassLoader();
-      String msg = "start with " + cl + " - hashCode: " + cl.hashCode();
-      bean.addMessage(msg);
-   }
+public class OSGi108ActivatorA implements BundleActivator {
+    private SomeBean bean;
 
-   public void stop(BundleContext context)
-   {
-      ClassLoader cl = getClass().getClassLoader();
-      String msg = "stop with " + cl + " - hashCode: " + cl.hashCode();
-      bean.addMessage(msg);
+    public void start(BundleContext context) {
+        bean = new SomeBean();
 
-      // Register the MBean
-      try
-      {
-         ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-         MBeanServer service = (MBeanServer)context.getService(sref);
-         service.unregisterMBean(SomeBean.MBEAN_NAME);
-      }
-      catch (Exception ex)
-      {
-         throw new IllegalStateException(ex);
-      }
-   }
+        // Register the MBean
+        try {
+            ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+            MBeanServer service = (MBeanServer) context.getService(sref);
+            service.registerMBean(bean, SomeBean.MBEAN_NAME);
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+
+        ClassLoader cl = getClass().getClassLoader();
+        String msg = "start with " + cl + " - hashCode: " + cl.hashCode();
+        bean.addMessage(msg);
+    }
+
+    public void stop(BundleContext context) {
+        ClassLoader cl = getClass().getClassLoader();
+        String msg = "stop with " + cl + " - hashCode: " + cl.hashCode();
+        bean.addMessage(msg);
+
+        // Register the MBean
+        try {
+            ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+            MBeanServer service = (MBeanServer) context.getService(sref);
+            service.unregisterMBean(SomeBean.MBEAN_NAME);
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
 }

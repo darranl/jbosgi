@@ -5,7 +5,6 @@
 // Generated on: 2009.07.21 at 10:48:55 AM CEST 
 //
 
-
 package org.jboss.test.osgi.example.xml.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for studentType complex type.
+ * <p>
+ * Java class for studentType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="studentType">
@@ -44,10 +44,8 @@ public class StudentType {
     /**
      * Gets the value of the firstName property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getFirstName() {
         return firstName;
@@ -56,10 +54,8 @@ public class StudentType {
     /**
      * Sets the value of the firstName property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * @param value allowed object is {@link String }
+     * 
      */
     public void setFirstName(String value) {
         this.firstName = value;
@@ -68,10 +64,8 @@ public class StudentType {
     /**
      * Gets the value of the surname property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getSurname() {
         return surname;
@@ -80,10 +74,8 @@ public class StudentType {
     /**
      * Sets the value of the surname property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * @param value allowed object is {@link String }
+     * 
      */
     public void setSurname(String value) {
         this.surname = value;

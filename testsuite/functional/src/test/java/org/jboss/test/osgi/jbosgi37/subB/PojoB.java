@@ -21,20 +21,15 @@
  */
 package org.jboss.test.osgi.jbosgi37.subB;
 
+public class PojoB {
+    private String message;
 
+    public PojoB(String message) {
+        this.message = message;
+    }
 
-public class PojoB
-{
-   private String message;
-   
-   public PojoB(String message)
-   {
-      this.message = message;
-   }
-
-   @Override
-   public String toString()
-   {
-      return "[" + message + "]";
-   }
+    @Override
+    public String toString() {
+        return "[" + message + "]";
+    }
 }

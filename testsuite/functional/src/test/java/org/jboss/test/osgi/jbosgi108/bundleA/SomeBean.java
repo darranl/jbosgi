@@ -21,22 +21,18 @@
  */
 package org.jboss.test.osgi.jbosgi108.bundleA;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SomeBean implements SomeBeanMBean
-{
-   private static List<String> messages = new ArrayList<String>();
-   
-   public void addMessage(String msg)
-   {
-      messages.add(msg);
-   }
-   
-   public List<String> getMessages()
-   {
-      return Collections.unmodifiableList(messages);
-   }
+public class SomeBean implements SomeBeanMBean {
+    private static List<String> messages = new ArrayList<String>();
+
+    public void addMessage(String msg) {
+        messages.add(msg);
+    }
+
+    public List<String> getMessages() {
+        return Collections.unmodifiableList(messages);
+    }
 }

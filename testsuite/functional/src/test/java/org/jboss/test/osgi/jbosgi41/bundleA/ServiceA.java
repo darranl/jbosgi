@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi41.bundleA;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,22 +34,17 @@ import org.osgi.framework.BundleContext;
  * @author thomas.diesler@jboss.com
  * @since 05-Mar-2009
  */
-public class ServiceA
-{
-   ServiceA(BundleContext context)
-   {
-      context.getDataFile("config").mkdirs();
-      
-      File dataFile = context.getDataFile("config/jbosgi41.txt");
-      try
-      {
-         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(dataFile));
-         out.write(context.getBundle().getSymbolicName());
-         out.close();
-      }
-      catch (IOException ex)
-      {
-         throw new RuntimeException(ex);
-      }
-   }
+public class ServiceA {
+    ServiceA(BundleContext context) {
+        context.getDataFile("config").mkdirs();
+
+        File dataFile = context.getDataFile("config/jbosgi41.txt");
+        try {
+            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(dataFile));
+            out.write(context.getBundle().getSymbolicName());
+            out.close();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

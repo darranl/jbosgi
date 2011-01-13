@@ -24,9 +24,8 @@ package org.jboss.osgi.test.versioned;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public interface VersionedInterface
-{
-   String getValue();
+public interface VersionedInterface {
+    String getValue();
 
-   String getUtilValue() throws Exception;
+    String getUtilValue() throws Exception;
 }

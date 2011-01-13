@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi286.bundle;
 
-
 import javax.xml.bind.JAXBContext;
 
 import org.osgi.framework.Bundle;
@@ -30,20 +29,17 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.packageadmin.PackageAdmin;
 
-public class OSGi286Activator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
-      PackageAdmin packageAdmin = (PackageAdmin)context.getService(sref);
-      
-      // Verify that the javax.xml.bind.JAXBContext is wired to jboss-osgi-jaxb
-      Bundle exporter = packageAdmin.getBundle(JAXBContext.class);
-      if (exporter == null || "jboss-osgi-jaxb".equals(exporter.getSymbolicName()) == false)
-         throw new IllegalStateException("Invalid exporter: " + exporter);
-   }
+public class OSGi286Activator implements BundleActivator {
+    public void start(BundleContext context) {
+        ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
+        PackageAdmin packageAdmin = (PackageAdmin) context.getService(sref);
 
-   public void stop(BundleContext context)
-   {
-   }
+        // Verify that the javax.xml.bind.JAXBContext is wired to jboss-osgi-jaxb
+        Bundle exporter = packageAdmin.getBundle(JAXBContext.class);
+        if (exporter == null || "jboss-osgi-jaxb".equals(exporter.getSymbolicName()) == false)
+            throw new IllegalStateException("Invalid exporter: " + exporter);
+    }
+
+    public void stop(BundleContext context) {
+    }
 }

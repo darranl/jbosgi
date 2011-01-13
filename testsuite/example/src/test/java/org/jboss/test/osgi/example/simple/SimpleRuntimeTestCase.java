@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
@@ -34,31 +33,26 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class SimpleRuntimeTestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testSimpleBundle() throws Exception
-   {
-      // Get the default runtime
-      OSGiRuntime runtime = getRuntime();
-      try
-      {
-         // Install the bundle
-         OSGiBundle bundle = runtime.installBundle("example-simple.jar");
-         assertBundleState(Bundle.INSTALLED, bundle.getState());
+public class SimpleRuntimeTestCase extends OSGiRuntimeTest {
+    @Test
+    public void testSimpleBundle() throws Exception {
+        // Get the default runtime
+        OSGiRuntime runtime = getRuntime();
+        try {
+            // Install the bundle
+            OSGiBundle bundle = runtime.installBundle("example-simple.jar");
+            assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-         // Start the bundle
-         bundle.start();
-         assertBundleState(Bundle.ACTIVE, bundle.getState());
+            // Start the bundle
+            bundle.start();
+            assertBundleState(Bundle.ACTIVE, bundle.getState());
 
-         // Uninstall the bundle
-         bundle.uninstall();
-         assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-      }
-      finally
-      {
-         // Shutdown the runtime 
-         runtime.shutdown();
-      }
-   }
+            // Uninstall the bundle
+            bundle.uninstall();
+            assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+        } finally {
+            // Shutdown the runtime
+            runtime.shutdown();
+        }
+    }
 }

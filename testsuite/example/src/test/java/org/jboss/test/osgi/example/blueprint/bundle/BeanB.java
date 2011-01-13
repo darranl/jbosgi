@@ -21,29 +21,23 @@
  */
 package org.jboss.test.osgi.example.blueprint.bundle;
 
-
-
 /**
  * A basic bean
  * 
  * @author thomas.diesler@jboss.com
  * @since 13-May-2009
  */
-public class BeanB implements ServiceB
-{
-   private BeanA beanA;
+public class BeanB implements ServiceB {
+    private BeanA beanA;
 
-   public BeanB()
-   {
-   }
+    public BeanB() {
+    }
 
-   public BeanA getBeanA()
-   {
-      return beanA;
-   }
+    public BeanA getBeanA() {
+        return beanA;
+    }
 
-   public void setBeanA(BeanA beanA)
-   {
-      this.beanA = beanA;
-   }
+    public void setBeanA(BeanA beanA) {
+        this.beanA = beanA;
+    }
 }

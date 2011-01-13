@@ -28,21 +28,18 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-public class ClientBundleActivator implements BundleActivator
-{
-   private static final Logger log = Logger.getLogger(ClientBundleActivator.class);
+public class ClientBundleActivator implements BundleActivator {
+    private static final Logger log = Logger.getLogger(ClientBundleActivator.class);
 
-   @Override
-   public void start(final BundleContext context) throws Exception
-   {
-      log.infof("Echo Loader: %s", Echo.class.getClassLoader());
-      ServiceReference sref = context.getServiceReference(Echo.class.getName());
-      Echo service = (Echo)context.getService(sref);
-      service.echo("hello world");
-   }
+    @Override
+    public void start(final BundleContext context) throws Exception {
+        log.infof("Echo Loader: %s", Echo.class.getClassLoader());
+        ServiceReference sref = context.getServiceReference(Echo.class.getName());
+        Echo service = (Echo) context.getService(sref);
+        service.echo("hello world");
+    }
 
-   @Override
-   public void stop(BundleContext context) throws Exception
-   {
-   }
+    @Override
+    public void stop(BundleContext context) throws Exception {
+    }
 }

@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi39;
 
-
 import static org.junit.Assert.fail;
 
 import java.io.InputStream;
@@ -49,186 +48,168 @@ import org.osgi.framework.BundleException;
  * 
  * Bundle B depends on bundle X.
  * 
- * B ---> X 
+ * B ---> X
  * 
  * @author thomas.diesler@jboss.com
  * @since 04-Mar-2009
  */
-public class OSGi39TestCase extends OSGiRuntimeTest
-{
-   @BeforeClass
-   public static void beforeClass() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      runtime.addCapability(new LogServiceCapability());
-      runtime.addCapability(new JMXCapability());
-   }
+public class OSGi39TestCase extends OSGiRuntimeTest {
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        runtime.addCapability(new LogServiceCapability());
+        runtime.addCapability(new JMXCapability());
+    }
 
-   @Test
-   public void testVerifyUnresolved() throws Exception
-   {
-      OSGiBundle bundleB1 = getRuntime().installBundle(getBundleB1());
-      assertBundleState(Bundle.INSTALLED, bundleB1.getState());
+    @Test
+    public void testVerifyUnresolved() throws Exception {
+        OSGiBundle bundleB1 = getRuntime().installBundle(getBundleB1());
+        assertBundleState(Bundle.INSTALLED, bundleB1.getState());
 
-      try
-      {
-         bundleB1.start();
-         fail("Unresolved constraint expected");
-      }
-      catch (BundleException ex)
-      {
-         // expected
-      }
+        try {
+            bundleB1.start();
+            fail("Unresolved constraint expected");
+        } catch (BundleException ex) {
+            // expected
+        }
 
-      OSGiBundle bundleX = getRuntime().installBundle(getBundleX());
+        OSGiBundle bundleX = getRuntime().installBundle(getBundleX());
 
-      bundleB1.start();
+        bundleB1.start();
 
-      assertBundleState(Bundle.RESOLVED, bundleX.getState());
-      assertBundleState(Bundle.ACTIVE, bundleB1.getState());
+        assertBundleState(Bundle.RESOLVED, bundleX.getState());
+        assertBundleState(Bundle.ACTIVE, bundleB1.getState());
 
-      bundleB1.uninstall();
-      bundleX.uninstall();
-   }
+        bundleB1.uninstall();
+        bundleX.uninstall();
+    }
 
-   /*
-    * 4.3.11 Uninstalling Bundles
-    * 
-    * Once this method returns, the state of the OSGi Service Platform must be the same as if the bundle had never been installed, unless:
-    * 
-    * - The uninstalled bundle has exported any packages (via its Export-Package manifest header)
-    * - The uninstalled bundle was selected by the Framework as the exporter of these packages.
-    * 
-    * If none of the old exports are used, then the old exports must be removed. Otherwise, all old exports must remain available
-    * for existing bundles and future resolves until the refreshPackages method is called or the Framework is restarted.
-    */
-   @Test
-   public void testWiringToUninstalled() throws Exception
-   {
-      OSGiBundle bundleX = getRuntime().installBundle(getBundleX());
-      OSGiBundle bundleB1 = getRuntime().installBundle(getBundleB1());
+    /*
+     * 4.3.11 Uninstalling Bundles
+     * 
+     * Once this method returns, the state of the OSGi Service Platform must be the same as if the bundle had never been
+     * installed, unless:
+     * 
+     * - The uninstalled bundle has exported any packages (via its Export-Package manifest header) - The uninstalled bundle was
+     * selected by the Framework as the exporter of these packages.
+     * 
+     * If none of the old exports are used, then the old exports must be removed. Otherwise, all old exports must remain
+     * available for existing bundles and future resolves until the refreshPackages method is called or the Framework is
+     * restarted.
+     */
+    @Test
+    public void testWiringToUninstalled() throws Exception {
+        OSGiBundle bundleX = getRuntime().installBundle(getBundleX());
+        OSGiBundle bundleB1 = getRuntime().installBundle(getBundleB1());
 
-      bundleB1.start();
+        bundleB1.start();
 
-      assertBundleState(Bundle.RESOLVED, bundleX.getState());
-      assertBundleState(Bundle.ACTIVE, bundleB1.getState());
+        assertBundleState(Bundle.RESOLVED, bundleX.getState());
+        assertBundleState(Bundle.ACTIVE, bundleB1.getState());
 
-      // Uninstall X
-      bundleX.uninstall();
+        // Uninstall X
+        bundleX.uninstall();
 
-      // Install B without X
-      OSGiBundle bundleB2 = getRuntime().installBundle(getBundleB2());
+        // Install B without X
+        OSGiBundle bundleB2 = getRuntime().installBundle(getBundleB2());
 
-      bundleB2.start();
+        bundleB2.start();
 
-      assertBundleState(Bundle.ACTIVE, bundleB2.getState());
+        assertBundleState(Bundle.ACTIVE, bundleB2.getState());
 
-      bundleB1.uninstall();
-      bundleB2.uninstall();
-   }
+        bundleB1.uninstall();
+        bundleB2.uninstall();
+    }
 
-   @Test
-   public void testWiringToUninstalledPackageAdmin() throws Exception
-   {
-      OSGiBundle bundleX = getRuntime().installBundle(getBundleX());
-      OSGiBundle bundleB1 = getRuntime().installBundle(getBundleB1());
+    @Test
+    public void testWiringToUninstalledPackageAdmin() throws Exception {
+        OSGiBundle bundleX = getRuntime().installBundle(getBundleX());
+        OSGiBundle bundleB1 = getRuntime().installBundle(getBundleB1());
 
-      bundleB1.start();
+        bundleB1.start();
 
-      assertBundleState(Bundle.RESOLVED, bundleX.getState());
-      assertBundleState(Bundle.ACTIVE, bundleB1.getState());
+        assertBundleState(Bundle.RESOLVED, bundleX.getState());
+        assertBundleState(Bundle.ACTIVE, bundleB1.getState());
 
-      // Uninstall X
-      bundleX.uninstall();
+        // Uninstall X
+        bundleX.uninstall();
 
-      // Forces the update (replacement) or removal of packages exported by the specified bundles.
-      getRuntime().refreshPackages(new OSGiBundle[] { bundleB1, bundleX });
+        // Forces the update (replacement) or removal of packages exported by the specified bundles.
+        getRuntime().refreshPackages(new OSGiBundle[] { bundleB1, bundleX });
 
-      assertBundleState(Bundle.UNINSTALLED, bundleX.getState());
-      assertBundleState(Bundle.INSTALLED, bundleB1.getState());
+        assertBundleState(Bundle.UNINSTALLED, bundleX.getState());
+        assertBundleState(Bundle.INSTALLED, bundleB1.getState());
 
-      try
-      {
-         bundleB1.start();
-         fail("Unresolved constraint expected");
-      }
-      catch (BundleException ex)
-      {
-         // expected
-      }
+        try {
+            bundleB1.start();
+            fail("Unresolved constraint expected");
+        } catch (BundleException ex) {
+            // expected
+        }
 
-      bundleX = getRuntime().installBundle(getBundleX());
+        bundleX = getRuntime().installBundle(getBundleX());
 
-      bundleB1.start();
+        bundleB1.start();
 
-      assertBundleState(Bundle.RESOLVED, bundleX.getState());
-      assertBundleState(Bundle.ACTIVE, bundleB1.getState());
+        assertBundleState(Bundle.RESOLVED, bundleX.getState());
+        assertBundleState(Bundle.ACTIVE, bundleB1.getState());
 
-      bundleB1.uninstall();
-      bundleX.uninstall();
-   }
+        bundleB1.uninstall();
+        bundleX.uninstall();
+    }
 
-   private JavaArchive getBundleB1()
-   {
-      // Bundle-SymbolicName: jbosgi39-bundleB1
-      // Bundle-Activator: org.jboss.test.osgi.jbosgi39.bundleB.OSGi39ActivatorB
-      // Import-Package: org.jboss.test.osgi.jbosgi39.bundleX
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi39-bundleB1");
-      archive.addClasses(OSGi39ActivatorB.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleActivator(OSGi39ActivatorB.class);
-            builder.addImportPackages(OSGi39BeanX.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    private JavaArchive getBundleB1() {
+        // Bundle-SymbolicName: jbosgi39-bundleB1
+        // Bundle-Activator: org.jboss.test.osgi.jbosgi39.bundleB.OSGi39ActivatorB
+        // Import-Package: org.jboss.test.osgi.jbosgi39.bundleX
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi39-bundleB1");
+        archive.addClasses(OSGi39ActivatorB.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleActivator(OSGi39ActivatorB.class);
+                builder.addImportPackages(OSGi39BeanX.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 
-   private JavaArchive getBundleB2()
-   {
-      // Bundle-SymbolicName: jbosgi39-bundleB2
-      // Bundle-Activator: org.jboss.test.osgi.jbosgi39.bundleB.OSGi39ActivatorB
-      // Import-Package: org.jboss.test.osgi.jbosgi39.bundleX
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi39-bundleB2");
-      archive.addClasses(OSGi39ActivatorB.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleActivator(OSGi39ActivatorB.class);
-            builder.addImportPackages(OSGi39BeanX.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    private JavaArchive getBundleB2() {
+        // Bundle-SymbolicName: jbosgi39-bundleB2
+        // Bundle-Activator: org.jboss.test.osgi.jbosgi39.bundleB.OSGi39ActivatorB
+        // Import-Package: org.jboss.test.osgi.jbosgi39.bundleX
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi39-bundleB2");
+        archive.addClasses(OSGi39ActivatorB.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleActivator(OSGi39ActivatorB.class);
+                builder.addImportPackages(OSGi39BeanX.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 
-   private JavaArchive getBundleX()
-   {
-      // Bundle-SymbolicName: jbosgi39-bundleX
-      // Export-Package: org.jboss.test.osgi.jbosgi39.bundleX
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi39-bundleX");
-      archive.addClasses(OSGi39BeanX.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addExportPackages(OSGi39BeanX.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    private JavaArchive getBundleX() {
+        // Bundle-SymbolicName: jbosgi39-bundleX
+        // Export-Package: org.jboss.test.osgi.jbosgi39.bundleX
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi39-bundleX");
+        archive.addClasses(OSGi39BeanX.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addExportPackages(OSGi39BeanX.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 }

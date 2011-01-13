@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi286;
 
-
 import org.jboss.osgi.jaxb.JAXBCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
@@ -38,20 +37,18 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */
-public class OSGi286TestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testJAXBContextWiring() throws Exception
-   {
-      getRuntime().addCapability(new JAXBCapability());
+public class OSGi286TestCase extends OSGiRuntimeTest {
+    @Test
+    public void testJAXBContextWiring() throws Exception {
+        getRuntime().addCapability(new JAXBCapability());
 
-      OSGiBundle bundleX = getRuntime().installBundle("jbosgi286-bundle.jar");
-      assertBundleState(Bundle.INSTALLED, bundleX.getState());
+        OSGiBundle bundleX = getRuntime().installBundle("jbosgi286-bundle.jar");
+        assertBundleState(Bundle.INSTALLED, bundleX.getState());
 
-      bundleX.start();
-      assertBundleState(Bundle.ACTIVE, bundleX.getState());
+        bundleX.start();
+        assertBundleState(Bundle.ACTIVE, bundleX.getState());
 
-      bundleX.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, bundleX.getState());
-   }
+        bundleX.uninstall();
+        assertBundleState(Bundle.UNINSTALLED, bundleX.getState());
+    }
 }

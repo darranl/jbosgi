@@ -21,12 +21,9 @@
  */
 package org.jboss.test.osgi.jbosgi151.bundleA;
 
-
 import org.jboss.test.osgi.jbosgi151.bundleB.BeanB;
 
-public class BeanA
-{
-   public BeanA(BeanB bean)
-   {
-   }
+public class BeanA {
+    public BeanA(BeanB bean) {
+    }
 }

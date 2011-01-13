@@ -20,7 +20,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-
 package org.jboss.test.osgi.capabilities;
 
 import static org.junit.Assert.assertEquals;
@@ -51,109 +50,92 @@ import org.junit.Test;
  * @author thomas.diesler@jboss.com
  * @since 23-Jan-2009
  */
-public class CapabilityTestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testXMLParserCapability() throws Exception
-   {
-      OSGiRuntime runtime = createEmbeddedRuntime();
-      try
-      {
-         runtime.addCapability(new LogServiceCapability());
-         
-         OSGiBundle bundle = runtime.getBundle("jboss-osgi-apache-xerces", null);
-         assertNull("Test bundle null", bundle);
-         
-         runtime.addCapability(new XMLParserCapability());
-         
-         String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
-         OSGiServiceReference[] saxRefs = runtime.getServiceReferences(SAXParserFactory.class.getName(), filter);
-         assertNotNull("SAXParserFactory registered", saxRefs);
-         assertEquals("SAXParserFactory registered", 1, saxRefs.length);
-         
-         OSGiServiceReference saxRef = saxRefs[0];
-         assertEquals("namespaceAware", Boolean.TRUE, saxRef.getProperty("parser.namespaceAware"));
-         assertEquals("validating", Boolean.TRUE, saxRef.getProperty("parser.validating"));
-         assertEquals("xincludeAware", Boolean.TRUE, saxRef.getProperty("parser.xincludeAware"));
-         
-         OSGiServiceReference[] domRefs = runtime.getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
-         assertNotNull("DocumentBuilderFactory registered", domRefs);
-         assertEquals("DocumentBuilderFactory registered", 1, domRefs.length);
-         
-         OSGiServiceReference domRef = domRefs[0];
-         assertEquals("namespaceAware", Boolean.TRUE, domRef.getProperty("parser.namespaceAware"));
-         assertEquals("validating", Boolean.TRUE, domRef.getProperty("parser.validating"));
-         assertEquals("xincludeAware", Boolean.TRUE, domRef.getProperty("parser.xincludeAware"));
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
-   
-   @Test
-   public void testJAXBCapability() throws Exception
-   {
-      OSGiRuntime runtime = createEmbeddedRuntime();
-      try
-      {
-         runtime.addCapability(new LogServiceCapability());
-         
-         OSGiBundle bundle = runtime.getBundle("jboss-osgi-jaxb", null);
-         assertNull("Test bundle null", bundle);
-         
-         runtime.addCapability(new JAXBCapability());
-         
-         OSGiServiceReference sref = runtime.getServiceReference(JAXBService.class.getName());
-         assertNotNull("JAXBService registered", sref);
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
-   
-   @Test
-   public void testJNDICapability() throws Exception
-   {
-      OSGiRuntime runtime = createEmbeddedRuntime();
-      try
-      {
-         runtime.addCapability(new LogServiceCapability());
-         
-         OSGiBundle bundle = runtime.getBundle("jboss-osgi-jndi", null);
-         assertNull("Test bundle null", bundle);
-         
-         runtime.addCapability(new JNDICapability());
-         
-         OSGiServiceReference sref = runtime.getServiceReference(InitialContext.class.getName());
-         assertNotNull("InitialContext registered", sref);
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
-   
-   @Test
-   public void testJMXCapability() throws Exception
-   {
-      OSGiRuntime runtime = createEmbeddedRuntime();
-      try
-      {
-         runtime.addCapability(new CompendiumCapability());
-         
-         OSGiBundle bundle = runtime.getBundle("jboss-osgi-jmx", null);
-         assertNull("Test bundle null", bundle);
-         
-         runtime.addCapability(new JMXCapability());
-         
-         OSGiServiceReference sref = runtime.getServiceReference(MBeanServer.class.getName());
-         assertNotNull("MBeanServer registered", sref);
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
+public class CapabilityTestCase extends OSGiRuntimeTest {
+    @Test
+    public void testXMLParserCapability() throws Exception {
+        OSGiRuntime runtime = createEmbeddedRuntime();
+        try {
+            runtime.addCapability(new LogServiceCapability());
+
+            OSGiBundle bundle = runtime.getBundle("jboss-osgi-apache-xerces", null);
+            assertNull("Test bundle null", bundle);
+
+            runtime.addCapability(new XMLParserCapability());
+
+            String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
+            OSGiServiceReference[] saxRefs = runtime.getServiceReferences(SAXParserFactory.class.getName(), filter);
+            assertNotNull("SAXParserFactory registered", saxRefs);
+            assertEquals("SAXParserFactory registered", 1, saxRefs.length);
+
+            OSGiServiceReference saxRef = saxRefs[0];
+            assertEquals("namespaceAware", Boolean.TRUE, saxRef.getProperty("parser.namespaceAware"));
+            assertEquals("validating", Boolean.TRUE, saxRef.getProperty("parser.validating"));
+            assertEquals("xincludeAware", Boolean.TRUE, saxRef.getProperty("parser.xincludeAware"));
+
+            OSGiServiceReference[] domRefs = runtime.getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
+            assertNotNull("DocumentBuilderFactory registered", domRefs);
+            assertEquals("DocumentBuilderFactory registered", 1, domRefs.length);
+
+            OSGiServiceReference domRef = domRefs[0];
+            assertEquals("namespaceAware", Boolean.TRUE, domRef.getProperty("parser.namespaceAware"));
+            assertEquals("validating", Boolean.TRUE, domRef.getProperty("parser.validating"));
+            assertEquals("xincludeAware", Boolean.TRUE, domRef.getProperty("parser.xincludeAware"));
+        } finally {
+            runtime.shutdown();
+        }
+    }
+
+    @Test
+    public void testJAXBCapability() throws Exception {
+        OSGiRuntime runtime = createEmbeddedRuntime();
+        try {
+            runtime.addCapability(new LogServiceCapability());
+
+            OSGiBundle bundle = runtime.getBundle("jboss-osgi-jaxb", null);
+            assertNull("Test bundle null", bundle);
+
+            runtime.addCapability(new JAXBCapability());
+
+            OSGiServiceReference sref = runtime.getServiceReference(JAXBService.class.getName());
+            assertNotNull("JAXBService registered", sref);
+        } finally {
+            runtime.shutdown();
+        }
+    }
+
+    @Test
+    public void testJNDICapability() throws Exception {
+        OSGiRuntime runtime = createEmbeddedRuntime();
+        try {
+            runtime.addCapability(new LogServiceCapability());
+
+            OSGiBundle bundle = runtime.getBundle("jboss-osgi-jndi", null);
+            assertNull("Test bundle null", bundle);
+
+            runtime.addCapability(new JNDICapability());
+
+            OSGiServiceReference sref = runtime.getServiceReference(InitialContext.class.getName());
+            assertNotNull("InitialContext registered", sref);
+        } finally {
+            runtime.shutdown();
+        }
+    }
+
+    @Test
+    public void testJMXCapability() throws Exception {
+        OSGiRuntime runtime = createEmbeddedRuntime();
+        try {
+            runtime.addCapability(new CompendiumCapability());
+
+            OSGiBundle bundle = runtime.getBundle("jboss-osgi-jmx", null);
+            assertNull("Test bundle null", bundle);
+
+            runtime.addCapability(new JMXCapability());
+
+            OSGiServiceReference sref = runtime.getServiceReference(MBeanServer.class.getName());
+            assertNotNull("MBeanServer registered", sref);
+        } finally {
+            runtime.shutdown();
+        }
+    }
 }

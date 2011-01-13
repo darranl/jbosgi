@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi287;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -40,111 +39,100 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */
-public class OSGi287TestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testUnresolvedOptionalImport() throws Exception
-   {
-      // Bundle-SymbolicName: jbosgi287-bundleA
-      // Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
-      // Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleA.jar");
-      
-      OSGiBundle exporterA = bundleA.loadClass(OSGi287BeanA.class.getName());
-      assertEquals(Bundle.RESOLVED, bundleA.getState());
-      assertEquals(bundleA, exporterA);
+public class OSGi287TestCase extends OSGiRuntimeTest {
+    @Test
+    public void testUnresolvedOptionalImport() throws Exception {
+        // Bundle-SymbolicName: jbosgi287-bundleA
+        // Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
+        // Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleA.jar");
 
-      try
-      {
-         bundleA.loadClass(OSGi287BeanB.class.getName());
-         fail("ClassNotFoundException expected");
-      }
-      catch (ClassNotFoundException ex)
-      {
-         // expected
-      }
-      bundleA.uninstall();
-   }
+        OSGiBundle exporterA = bundleA.loadClass(OSGi287BeanA.class.getName());
+        assertEquals(Bundle.RESOLVED, bundleA.getState());
+        assertEquals(bundleA, exporterA);
 
-   @Test
-   public void testResolvedOptionalImport() throws Exception
-   {
-      // Bundle-SymbolicName: jbosgi287-bundleB
-      // Export-Package: org.jboss.test.osgi.jbosgi287.bundleB
-      OSGiBundle bundleB = getRuntime().installBundle("jbosgi287-bundleB.jar");
+        try {
+            bundleA.loadClass(OSGi287BeanB.class.getName());
+            fail("ClassNotFoundException expected");
+        } catch (ClassNotFoundException ex) {
+            // expected
+        }
+        bundleA.uninstall();
+    }
 
-      // Bundle-SymbolicName: jbosgi287-bundleA
-      // Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
-      // Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleA.jar");
+    @Test
+    public void testResolvedOptionalImport() throws Exception {
+        // Bundle-SymbolicName: jbosgi287-bundleB
+        // Export-Package: org.jboss.test.osgi.jbosgi287.bundleB
+        OSGiBundle bundleB = getRuntime().installBundle("jbosgi287-bundleB.jar");
 
-      OSGiBundle exporterB = bundleB.loadClass(OSGi287BeanB.class.getName());
-      assertEquals(Bundle.RESOLVED, bundleB.getState());
-      assertEquals(bundleB, exporterB);
+        // Bundle-SymbolicName: jbosgi287-bundleA
+        // Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
+        // Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleA.jar");
 
-      OSGiBundle exporterA = bundleA.loadClass(OSGi287BeanA.class.getName());
-      assertEquals(Bundle.RESOLVED, bundleA.getState());
-      assertEquals(bundleA, exporterA);
+        OSGiBundle exporterB = bundleB.loadClass(OSGi287BeanB.class.getName());
+        assertEquals(Bundle.RESOLVED, bundleB.getState());
+        assertEquals(bundleB, exporterB);
 
-      // Load B through A 
-      exporterB = bundleA.loadClass(OSGi287BeanB.class.getName());
-      assertEquals(bundleB, exporterB);
-      
-      bundleA.uninstall();
-      bundleB.uninstall();
-   }
+        OSGiBundle exporterA = bundleA.loadClass(OSGi287BeanA.class.getName());
+        assertEquals(Bundle.RESOLVED, bundleA.getState());
+        assertEquals(bundleA, exporterA);
 
-   @Test
-   public void testResolvedOptionalImportReverse() throws Exception
-   {
-      // Bundle-SymbolicName: jbosgi287-bundleA
-      // Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
-      // Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleA.jar");
+        // Load B through A
+        exporterB = bundleA.loadClass(OSGi287BeanB.class.getName());
+        assertEquals(bundleB, exporterB);
 
-      // Bundle-SymbolicName: jbosgi287-bundleB
-      // Export-Package: org.jboss.test.osgi.jbosgi287.bundleB
-      OSGiBundle bundleB = getRuntime().installBundle("jbosgi287-bundleB.jar");
+        bundleA.uninstall();
+        bundleB.uninstall();
+    }
 
-      OSGiBundle exporterA = bundleA.loadClass(OSGi287BeanA.class.getName());
-      assertEquals(Bundle.RESOLVED, bundleA.getState());
-      assertEquals(bundleA, exporterA);
+    @Test
+    public void testResolvedOptionalImportReverse() throws Exception {
+        // Bundle-SymbolicName: jbosgi287-bundleA
+        // Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
+        // Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleA.jar");
 
-      OSGiBundle exporterB = bundleB.loadClass(OSGi287BeanB.class.getName());
-      assertEquals(Bundle.RESOLVED, bundleB.getState());
-      assertEquals(bundleB, exporterB);
+        // Bundle-SymbolicName: jbosgi287-bundleB
+        // Export-Package: org.jboss.test.osgi.jbosgi287.bundleB
+        OSGiBundle bundleB = getRuntime().installBundle("jbosgi287-bundleB.jar");
 
-      // Load B through A 
-      exporterB = bundleA.loadClass(OSGi287BeanB.class.getName());
-      assertEquals(bundleB, exporterB);
-      
-      bundleA.uninstall();
-      bundleB.uninstall();
-   }
+        OSGiBundle exporterA = bundleA.loadClass(OSGi287BeanA.class.getName());
+        assertEquals(Bundle.RESOLVED, bundleA.getState());
+        assertEquals(bundleA, exporterA);
 
-   @Test
-   public void testMessagingAPI() throws Exception
-   {
-      // Bundle-SymbolicName: jbosgi287-bundleC
-      // Export-Package: javax.xml.ws
-      // Import-Package: javax.xml.ws
-      OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleC.jar");
+        OSGiBundle exporterB = bundleB.loadClass(OSGi287BeanB.class.getName());
+        assertEquals(Bundle.RESOLVED, bundleB.getState());
+        assertEquals(bundleB, exporterB);
 
-      OSGiBundle exporterA = bundleA.loadClass("javax.jms.JMSException");
-      assertEquals(Bundle.RESOLVED, bundleA.getState());
-      assertEquals(bundleA, exporterA);
+        // Load B through A
+        exporterB = bundleA.loadClass(OSGi287BeanB.class.getName());
+        assertEquals(bundleB, exporterB);
 
-      // Try to load a class that is not part of the bundle
-      try
-      {
-         bundleA.loadClass("javax.jms.MessageProducer");
-         fail("ClassNotFoundException expected");
-      }
-      catch (ClassNotFoundException ex)
-      {
-         // expected
-      }
-      
-      bundleA.uninstall();
-   }
+        bundleA.uninstall();
+        bundleB.uninstall();
+    }
+
+    @Test
+    public void testMessagingAPI() throws Exception {
+        // Bundle-SymbolicName: jbosgi287-bundleC
+        // Export-Package: javax.xml.ws
+        // Import-Package: javax.xml.ws
+        OSGiBundle bundleA = getRuntime().installBundle("jbosgi287-bundleC.jar");
+
+        OSGiBundle exporterA = bundleA.loadClass("javax.jms.JMSException");
+        assertEquals(Bundle.RESOLVED, bundleA.getState());
+        assertEquals(bundleA, exporterA);
+
+        // Try to load a class that is not part of the bundle
+        try {
+            bundleA.loadClass("javax.jms.MessageProducer");
+            fail("ClassNotFoundException expected");
+        } catch (ClassNotFoundException ex) {
+            // expected
+        }
+
+        bundleA.uninstall();
+    }
 }

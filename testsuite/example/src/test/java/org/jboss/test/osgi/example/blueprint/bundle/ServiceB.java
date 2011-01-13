@@ -21,14 +21,12 @@
  */
 package org.jboss.test.osgi.example.blueprint.bundle;
 
-
 /**
  * A basic service
  * 
  * @author thomas.diesler@jboss.com
  * @since 13-May-2009
  */
-public interface ServiceB 
-{
-   BeanA getBeanA();
+public interface ServiceB {
+    BeanA getBeanA();
 }

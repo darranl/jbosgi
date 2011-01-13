@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.framework;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -36,37 +35,29 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 29-Jul-2009
  */
-public class FrameworkTestCase extends OSGiFrameworkTest
-{
-   @Test
-   public void testGetBundleId() throws BundleException
-   {
-      assertEquals("BundleId == 0", 0, getFramework().getBundleId());
-   }
+public class FrameworkTestCase extends OSGiFrameworkTest {
+    @Test
+    public void testGetBundleId() throws BundleException {
+        assertEquals("BundleId == 0", 0, getFramework().getBundleId());
+    }
 
-   @Test
-   public void testGetSymbolicName() throws BundleException
-   {
-      assertNotNull("SymbolicName not null", getFramework().getSymbolicName());
-   }
+    @Test
+    public void testGetSymbolicName() throws BundleException {
+        assertNotNull("SymbolicName not null", getFramework().getSymbolicName());
+    }
 
-   @Test
-   public void testGetLocation() throws BundleException
-   {
-      assertEquals("System Bundle", getFramework().getLocation());
-   }
+    @Test
+    public void testGetLocation() throws BundleException {
+        assertEquals("System Bundle", getFramework().getLocation());
+    }
 
-   @Test
-   public void testUninstall()
-   {
-      try
-      {
-         getFramework().uninstall();
-         fail("BundleException expected");
-      }
-      catch (BundleException ex)
-      {
-         // expected
-      }
-   }
+    @Test
+    public void testUninstall() {
+        try {
+            getFramework().uninstall();
+            fail("BundleException expected");
+        } catch (BundleException ex) {
+            // expected
+        }
+    }
 }

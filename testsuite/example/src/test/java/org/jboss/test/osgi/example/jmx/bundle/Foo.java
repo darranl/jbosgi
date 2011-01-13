@@ -21,14 +21,8 @@
  */
 package org.jboss.test.osgi.example.jmx.bundle;
 
-
-
-
-
-public class Foo implements FooMBean
-{
-	public String echo(String msg)
-	{
-		return msg;
-	}
+public class Foo implements FooMBean {
+    public String echo(String msg) {
+        return msg;
+    }
 }

@@ -44,85 +44,73 @@ import org.osgi.framework.Version;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
-public class BundleUpdateTestCase extends OSGiTest
-{
-   @Inject
-   public OSGiContainer container;
+public class BundleUpdateTestCase extends OSGiTest {
+    @Inject
+    public OSGiContainer container;
 
-   @Test
-   public void testUpdateBundle() throws Exception
-   {
-      Bundle bundle = container.installBundle(container.getTestArchive("initial"));
-      try
-      {
-         bundle.start();
-         assertLoadClass(bundle, "org.jboss.test.osgi.bundles.update1.A1");
-         assertLoadClassFail(bundle, "org.jboss.test.osgi.bundles.update2.A2");
+    @Test
+    public void testUpdateBundle() throws Exception {
+        Bundle bundle = container.installBundle(container.getTestArchive("initial"));
+        try {
+            bundle.start();
+            assertLoadClass(bundle, "org.jboss.test.osgi.bundles.update1.A1");
+            assertLoadClassFail(bundle, "org.jboss.test.osgi.bundles.update2.A2");
 
-         InputStream is = container.getTestArchiveStream("updated");
-         bundle.update(is);
-         assertLoadClass(bundle, "org.jboss.test.osgi.bundles.update2.A2");
-         assertLoadClassFail(bundle, "org.jboss.test.osgi.bundles.update1.A1");
-      }
-      finally
-      {
-         bundle.uninstall();
-      }
-   }
+            InputStream is = container.getTestArchiveStream("updated");
+            bundle.update(is);
+            assertLoadClass(bundle, "org.jboss.test.osgi.bundles.update2.A2");
+            assertLoadClassFail(bundle, "org.jboss.test.osgi.bundles.update1.A1");
+        } finally {
+            bundle.uninstall();
+        }
+    }
 
-   @ArchiveProvider
-   public static JavaArchive getTestArchive(String name)
-   {
-      if ("initial".equals(name))
-         return getInitialBundle();
-      else if ("updated".equals(name))
-         return getUpdatedBundle();
-      return null;
-   }
+    @ArchiveProvider
+    public static JavaArchive getTestArchive(String name) {
+        if ("initial".equals(name))
+            return getInitialBundle();
+        else if ("updated".equals(name))
+            return getUpdatedBundle();
+        return null;
+    }
 
-   private static JavaArchive getInitialBundle()
-   {
-      // Bundle-SymbolicName: update-test
-      // Bundle-Version: 1
-      // Export-Package: org.jboss.test.osgi.bundles.update1
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
-      archive.addClass(A1.class);
-      archive.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleVersion(Version.parseVersion("1"));
-            builder.addExportPackages(A1.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    private static JavaArchive getInitialBundle() {
+        // Bundle-SymbolicName: update-test
+        // Bundle-Version: 1
+        // Export-Package: org.jboss.test.osgi.bundles.update1
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
+        archive.addClass(A1.class);
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleVersion(Version.parseVersion("1"));
+                builder.addExportPackages(A1.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 
-   private static JavaArchive getUpdatedBundle()
-   {
-      // Bundle-SymbolicName: update-test
-      // Bundle-Version: 2
-      // Export-Package: org.jboss.test.osgi.bundles.update2
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
-      archive.addClass(A2.class);
-      archive.setManifest(new Asset()
-      {
-         @Override
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleVersion(Version.parseVersion("2"));
-            builder.addExportPackages(A2.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    private static JavaArchive getUpdatedBundle() {
+        // Bundle-SymbolicName: update-test
+        // Bundle-Version: 2
+        // Export-Package: org.jboss.test.osgi.bundles.update2
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
+        archive.addClass(A2.class);
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleVersion(Version.parseVersion("2"));
+                builder.addExportPackages(A2.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 }

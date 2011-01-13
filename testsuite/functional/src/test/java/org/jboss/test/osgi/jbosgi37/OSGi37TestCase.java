@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi37;
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -42,37 +41,31 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 09-Apr-2009
  */
-public class OSGi37TestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testNestedBundle() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      try
-      {
-         runtime.addCapability(new CompendiumCapability());
-         
-         OSGiBundle bundleA = runtime.installBundle("jbosgi37-bundleA.jar");
-         bundleA.start();
-         
-         assertBundleState(Bundle.ACTIVE, bundleA.getState());
-         
-         List<String> relevant = new ArrayList<String>();
-         for (OSGiBundle bundle : runtime.getBundles())
-         {
-            String symbolicName = bundle.getSymbolicName();
-            if (symbolicName.startsWith("jbosgi37"))
-               relevant.add(symbolicName);
-         }
+public class OSGi37TestCase extends OSGiRuntimeTest {
+    @Test
+    public void testNestedBundle() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        try {
+            runtime.addCapability(new CompendiumCapability());
 
-         assertEquals("No Sub Bundle", 1, relevant.size());
-         assertEquals("jbosgi37-bundleA", relevant.get(0));
-         
-         bundleA.uninstall();
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
+            OSGiBundle bundleA = runtime.installBundle("jbosgi37-bundleA.jar");
+            bundleA.start();
+
+            assertBundleState(Bundle.ACTIVE, bundleA.getState());
+
+            List<String> relevant = new ArrayList<String>();
+            for (OSGiBundle bundle : runtime.getBundles()) {
+                String symbolicName = bundle.getSymbolicName();
+                if (symbolicName.startsWith("jbosgi37"))
+                    relevant.add(symbolicName);
+            }
+
+            assertEquals("No Sub Bundle", 1, relevant.size());
+            assertEquals("jbosgi37-bundleA", relevant.get(0));
+
+            bundleA.uninstall();
+        } finally {
+            runtime.shutdown();
+        }
+    }
 }

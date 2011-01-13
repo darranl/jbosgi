@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi161;
 
-
 import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
@@ -38,35 +37,29 @@ import org.osgi.framework.Bundle;
  * @author thomas.diesler@jboss.com
  * @since 07-Oct-2009
  */
-public class OSGi161TestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testClientLogging() throws Exception
-   {
-      String logmsg = "testClientLogging";
-      
-      LoggingDelegate.assertJBossLogging(logmsg);
-      LoggingDelegate.assertCommonsLogging(logmsg);
-      LoggingDelegate.assertSL4J(logmsg);
-   }
-   
-   @Test
-   public void testFrameworkLogging() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      try
-      {
-         runtime.addCapability(new LogServiceCapability());
-         
-         OSGiBundle bundleA = runtime.installBundle("jbosgi161-bundle.jar");
-         bundleA.start();
-         
-         assertBundleState(Bundle.ACTIVE, bundleA.getState());
-         bundleA.uninstall();
-      }
-      finally
-      {
-         runtime.shutdown();
-      }
-   }
+public class OSGi161TestCase extends OSGiRuntimeTest {
+    @Test
+    public void testClientLogging() throws Exception {
+        String logmsg = "testClientLogging";
+
+        LoggingDelegate.assertJBossLogging(logmsg);
+        LoggingDelegate.assertCommonsLogging(logmsg);
+        LoggingDelegate.assertSL4J(logmsg);
+    }
+
+    @Test
+    public void testFrameworkLogging() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        try {
+            runtime.addCapability(new LogServiceCapability());
+
+            OSGiBundle bundleA = runtime.installBundle("jbosgi161-bundle.jar");
+            bundleA.start();
+
+            assertBundleState(Bundle.ACTIVE, bundleA.getState());
+            bundleA.uninstall();
+        } finally {
+            runtime.shutdown();
+        }
+    }
 }

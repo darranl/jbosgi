@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.webapp;
 
-
 import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
 
@@ -36,47 +35,41 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test that deployes a WAR bundle 
+ * A test that deployes a WAR bundle
  * 
  * @author thomas.diesler@jboss.com
  * @since 06-Oct-2009
  */
-public class WebAppInterceptorTestCase extends OSGiRuntimeTest
-{
-   @BeforeClass
-   public static void setUpClass() throws Exception
-   {
-      OSGiRuntime runtime = createDefaultRuntime();
-      runtime.addCapability(new WebAppCapability());
+public class WebAppInterceptorTestCase extends OSGiRuntimeTest {
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        OSGiRuntime runtime = createDefaultRuntime();
+        runtime.addCapability(new WebAppCapability());
 
-      OSGiBundle bundle = runtime.installBundle("example-webapp.war");
-      bundle.start();
-   }
+        OSGiBundle bundle = runtime.installBundle("example-webapp.war");
+        bundle.start();
+    }
 
-   @Test
-   public void testResourceAccess() throws Exception
-   {
-      // FIXME: http://issues.ops4j.org/browse/PAXWEB-182
-      String line = getHttpResponse("/example-webapp/message.txt", 20000);
-      assertEquals("Hello from Resource", line);
-   }
+    @Test
+    public void testResourceAccess() throws Exception {
+        // FIXME: http://issues.ops4j.org/browse/PAXWEB-182
+        String line = getHttpResponse("/example-webapp/message.txt", 20000);
+        assertEquals("Hello from Resource", line);
+    }
 
-   @Test
-   public void testServletAccess() throws Exception
-   {
-      String line = getHttpResponse("/example-webapp/servlet?test=plain", 20000);
-      assertEquals("Hello from Servlet", line);
-   }
+    @Test
+    public void testServletAccess() throws Exception {
+        String line = getHttpResponse("/example-webapp/servlet?test=plain", 20000);
+        assertEquals("Hello from Servlet", line);
+    }
 
-   @Test
-   public void testServletInitProps() throws Exception
-   {
-      String line = getHttpResponse("/example-webapp/servlet?test=initProp", 20000);
-      assertEquals("initProp=SomeValue", line);
-   }
+    @Test
+    public void testServletInitProps() throws Exception {
+        String line = getHttpResponse("/example-webapp/servlet?test=initProp", 20000);
+        assertEquals("initProp=SomeValue", line);
+    }
 
-   private String getHttpResponse(String reqPath, int timeout) throws IOException
-   {
-      return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
-   }
+    private String getHttpResponse(String reqPath, int timeout) throws IOException {
+        return HttpServiceCapability.getHttpResponse(getServerHost(), DEFAULT_HTTP_SERVICE_PORT, reqPath, timeout);
+    }
 }

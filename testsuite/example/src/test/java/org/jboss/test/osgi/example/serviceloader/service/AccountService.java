@@ -21,21 +21,19 @@
  */
 package org.jboss.test.osgi.example.serviceloader.service;
 
-
 /**
- * A simple bank account service 
+ * A simple bank account service
  * 
  * @author thomas.diesler@jboss.com
  * @since 26-Jan-2010
  */
-public interface AccountService
-{
-   /** Get the current balance */
-   long getBalance();
+public interface AccountService {
+    /** Get the current balance */
+    long getBalance();
 
-   /** Credit the given amount and return the current balance */
-   long credit(long amount);
+    /** Credit the given amount and return the current balance */
+    long credit(long amount);
 
-   /** Withdraw the given amount and return the current balance */
-   long withdraw(long amount);
+    /** Withdraw the given amount and return the current balance */
+    long withdraw(long amount);
 }

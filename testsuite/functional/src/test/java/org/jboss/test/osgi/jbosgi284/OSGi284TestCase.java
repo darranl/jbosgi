@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi284;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -42,85 +41,66 @@ import org.osgi.framework.launch.Framework;
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2010
  */
-public class OSGi284TestCase extends OSGiRuntimeTest
-{
-   @Test
-   public void testVersionParser() throws Exception
-   {
-      Version dotAlpha = Version.parseVersion("1.0.0.Alpha");
-      assertEquals("1.0.0.Alpha", dotAlpha.toString());
-      
-      Version dotBeta = Version.parseVersion("1.0.0.Beta");
-      assertEquals("1.0.0.Beta", dotBeta.toString());
-      
-      try
-      {
-         Version.parseVersion("1.0.0-Alpha");
-         fail("NumberFormatException expected");
-      }
-      catch (NumberFormatException ex)
-      {
-         // expected
-      }
-   }
-   
-   @Test
-   public void testInstallInvalidBundleVersion() throws Exception
-   {
-      OSGiBootstrapProvider provider = OSGiBootstrap.getBootstrapProvider();
-      Framework framework = provider.getFramework();
-      try
-      {
-         framework.start();
-         
-         BundleContext context = framework.getBundleContext();
-         try
-         {
-            // Bundle-SymbolicName: jbosgi284-bundleA
-            // Bundle-Version: 1.0.0-Alpha
-            // Bundle-Activator: org.jboss.test.osgi.jbosgi284.bundleA.OSGi284ActivatorA
-            // Import-Package: org.osgi.framework
-            context.installBundle(getTestArchiveURL("jbosgi284-bundleA.jar").toExternalForm());
-            fail("BundleException expected");
-         }
-         catch (BundleException ex)
-         {
-            // expected
-         }
-      }
-      finally
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-      }
-   }
+public class OSGi284TestCase extends OSGiRuntimeTest {
+    @Test
+    public void testVersionParser() throws Exception {
+        Version dotAlpha = Version.parseVersion("1.0.0.Alpha");
+        assertEquals("1.0.0.Alpha", dotAlpha.toString());
 
-   @Test
-   public void testExportInvalidPackageVersion() throws Exception
-   {
-      OSGiBootstrapProvider provider = OSGiBootstrap.getBootstrapProvider();
-      Framework framework = provider.getFramework();
-      try
-      {
-         framework.start();
-         
-         BundleContext context = framework.getBundleContext();
-         try
-         {
-            // Bundle-SymbolicName: jbosgi284-bundleB
-            // Export-Package: org.jboss.test.osgi.jbosgi284.bundleB;version="1.0.0-Alpha1"
-            context.installBundle(getTestArchiveURL("jbosgi284-bundleB.jar").toExternalForm());
-            fail("BundleException expected");
-         }
-         catch (BundleException ex)
-         {
+        Version dotBeta = Version.parseVersion("1.0.0.Beta");
+        assertEquals("1.0.0.Beta", dotBeta.toString());
+
+        try {
+            Version.parseVersion("1.0.0-Alpha");
+            fail("NumberFormatException expected");
+        } catch (NumberFormatException ex) {
             // expected
-         }
-      }
-      finally
-      {
-         framework.stop();
-         framework.waitForStop(2000);
-      }
-   }
+        }
+    }
+
+    @Test
+    public void testInstallInvalidBundleVersion() throws Exception {
+        OSGiBootstrapProvider provider = OSGiBootstrap.getBootstrapProvider();
+        Framework framework = provider.getFramework();
+        try {
+            framework.start();
+
+            BundleContext context = framework.getBundleContext();
+            try {
+                // Bundle-SymbolicName: jbosgi284-bundleA
+                // Bundle-Version: 1.0.0-Alpha
+                // Bundle-Activator: org.jboss.test.osgi.jbosgi284.bundleA.OSGi284ActivatorA
+                // Import-Package: org.osgi.framework
+                context.installBundle(getTestArchiveURL("jbosgi284-bundleA.jar").toExternalForm());
+                fail("BundleException expected");
+            } catch (BundleException ex) {
+                // expected
+            }
+        } finally {
+            framework.stop();
+            framework.waitForStop(2000);
+        }
+    }
+
+    @Test
+    public void testExportInvalidPackageVersion() throws Exception {
+        OSGiBootstrapProvider provider = OSGiBootstrap.getBootstrapProvider();
+        Framework framework = provider.getFramework();
+        try {
+            framework.start();
+
+            BundleContext context = framework.getBundleContext();
+            try {
+                // Bundle-SymbolicName: jbosgi284-bundleB
+                // Export-Package: org.jboss.test.osgi.jbosgi284.bundleB;version="1.0.0-Alpha1"
+                context.installBundle(getTestArchiveURL("jbosgi284-bundleB.jar").toExternalForm());
+                fail("BundleException expected");
+            } catch (BundleException ex) {
+                // expected
+            }
+        } finally {
+            framework.stop();
+            framework.waitForStop(2000);
+        }
+    }
 }

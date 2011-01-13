@@ -21,7 +21,5 @@
  */
 package org.jboss.test.osgi.jbosgi143.bundleX;
 
-
-public class BeanX
-{
+public class BeanX {
 }

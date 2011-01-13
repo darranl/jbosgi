@@ -24,7 +24,6 @@ package org.jboss.osgi.test.util1;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class Util1
-{
+public class Util1 {
 
 }

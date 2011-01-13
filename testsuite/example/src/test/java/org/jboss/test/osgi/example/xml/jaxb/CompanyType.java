@@ -5,7 +5,6 @@
 // Generated on: 2009.07.21 at 10:48:55 AM CEST 
 //
 
-
 package org.jboss.test.osgi.example.xml.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for companyType complex type.
+ * <p>
+ * Java class for companyType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="companyType">
@@ -37,10 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "companyType", propOrder = {
-    "address",
-    "contact"
-})
+@XmlType(name = "companyType", propOrder = { "address", "contact" })
 public class CompanyType {
 
     @XmlElement(required = true)
@@ -53,10 +50,8 @@ public class CompanyType {
     /**
      * Gets the value of the address property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
+     * @return possible object is {@link Object }
+     * 
      */
     public Object getAddress() {
         return address;
@@ -65,10 +60,8 @@ public class CompanyType {
     /**
      * Sets the value of the address property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
+     * @param value allowed object is {@link Object }
+     * 
      */
     public void setAddress(Object value) {
         this.address = value;
@@ -77,10 +70,8 @@ public class CompanyType {
     /**
      * Gets the value of the contact property.
      * 
-     * @return
-     *     possible object is
-     *     {@link ContactType }
-     *     
+     * @return possible object is {@link ContactType }
+     * 
      */
     public ContactType getContact() {
         return contact;
@@ -89,10 +80,8 @@ public class CompanyType {
     /**
      * Sets the value of the contact property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link ContactType }
-     *     
+     * @param value allowed object is {@link ContactType }
+     * 
      */
     public void setContact(ContactType value) {
         this.contact = value;
@@ -101,10 +90,8 @@ public class CompanyType {
     /**
      * Gets the value of the name property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     * @return possible object is {@link String }
+     * 
      */
     public String getName() {
         return name;
@@ -113,10 +100,8 @@ public class CompanyType {
     /**
      * Sets the value of the name property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * @param value allowed object is {@link String }
+     * 
      */
     public void setName(String value) {
         this.name = value;

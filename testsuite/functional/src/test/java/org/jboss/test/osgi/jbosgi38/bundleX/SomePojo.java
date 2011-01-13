@@ -21,20 +21,15 @@
  */
 package org.jboss.test.osgi.jbosgi38.bundleX;
 
+public class SomePojo {
+    private String message;
 
+    public SomePojo(String message) {
+        this.message = message;
+    }
 
-public class SomePojo
-{
-   private String message;
-   
-   public SomePojo(String message)
-   {
-      this.message = message;
-   }
-
-   @Override
-   public String toString()
-   {
-      return "[" + message + "]";
-   }
+    @Override
+    public String toString() {
+        return "[" + message + "]";
+    }
 }

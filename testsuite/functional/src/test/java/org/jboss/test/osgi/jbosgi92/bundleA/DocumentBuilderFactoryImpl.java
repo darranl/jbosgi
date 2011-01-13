@@ -21,38 +21,31 @@
  */
 package org.jboss.test.osgi.jbosgi92.bundleA;
 
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class DocumentBuilderFactoryImpl extends DocumentBuilderFactory
-{
-   @Override
-   public Object getAttribute(String name) throws IllegalArgumentException
-   {
-      return null;
-   }
+public class DocumentBuilderFactoryImpl extends DocumentBuilderFactory {
+    @Override
+    public Object getAttribute(String name) throws IllegalArgumentException {
+        return null;
+    }
 
-   @Override
-   public boolean getFeature(String name) throws ParserConfigurationException
-   {
-      return false;
-   }
+    @Override
+    public boolean getFeature(String name) throws ParserConfigurationException {
+        return false;
+    }
 
-   @Override
-   public DocumentBuilder newDocumentBuilder() throws ParserConfigurationException
-   {
-      return null;
-   }
+    @Override
+    public DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
+        return null;
+    }
 
-   @Override
-   public void setAttribute(String name, Object value) throws IllegalArgumentException
-   {
-   }
+    @Override
+    public void setAttribute(String name, Object value) throws IllegalArgumentException {
+    }
 
-   @Override
-   public void setFeature(String name, boolean value) throws ParserConfigurationException
-   {
-   }
+    @Override
+    public void setFeature(String name, boolean value) throws ParserConfigurationException {
+    }
 }

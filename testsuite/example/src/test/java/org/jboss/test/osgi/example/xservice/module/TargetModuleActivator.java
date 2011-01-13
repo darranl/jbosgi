@@ -31,22 +31,20 @@ import org.jboss.msc.service.ServiceTarget;
 
 /**
  * A simple MSC service activator
- *
+ * 
  * @author Thomas.Diesler@jboss.org
  * @since 09-Nov-2010
  */
-public class TargetModuleActivator implements ServiceActivator
-{
-   private static final Logger log = Logger.getLogger(TargetModuleActivator.class);
+public class TargetModuleActivator implements ServiceActivator {
+    private static final Logger log = Logger.getLogger(TargetModuleActivator.class);
 
-   @Override
-   public void activate(ServiceActivatorContext context)
-   {
-      ServiceTarget serviceTarget = context.getServiceTarget();
-      EchoService.addService(serviceTarget);
+    @Override
+    public void activate(ServiceActivatorContext context) {
+        ServiceTarget serviceTarget = context.getServiceTarget();
+        EchoService.addService(serviceTarget);
 
-      ModuleClassLoader classLoader = (ModuleClassLoader)getClass().getClassLoader();
-      ModuleIdentifier identifier = classLoader.getModule().getIdentifier();
-      log.infof("ModuleIdentifier: %s", identifier);
-   }
+        ModuleClassLoader classLoader = (ModuleClassLoader) getClass().getClassLoader();
+        ModuleIdentifier identifier = classLoader.getModule().getIdentifier();
+        log.infof("ModuleIdentifier: %s", identifier);
+    }
 }

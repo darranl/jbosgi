@@ -23,34 +23,29 @@ package org.jboss.test.osgi.example.serviceloader.service.internal;
 
 import org.jboss.test.osgi.example.serviceloader.service.AccountService;
 
-
 /**
- * A simple bank account service 
+ * A simple bank account service
  * 
  * @author thomas.diesler@jboss.com
  * @since 26-Jan-2010
  */
-public class AccountServiceImpl implements AccountService
-{
-   private long balance;
+public class AccountServiceImpl implements AccountService {
+    private long balance;
 
-   public long credit(long amount)
-   {
-      balance += amount;
-      return balance;
-   }
+    public long credit(long amount) {
+        balance += amount;
+        return balance;
+    }
 
-   public long getBalance()
-   {
-      return balance;
-   }
+    public long getBalance() {
+        return balance;
+    }
 
-   public long withdraw(long amount)
-   {
-      if (balance - amount < 0)
-         throw new IllegalArgumentException("Insufficient funds: " + balance);
-      
-      balance -= amount;
-      return balance;
-   }
+    public long withdraw(long amount) {
+        if (balance - amount < 0)
+            throw new IllegalArgumentException("Insufficient funds: " + balance);
+
+        balance -= amount;
+        return balance;
+    }
 }

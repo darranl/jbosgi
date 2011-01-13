@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple.bundle;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -31,15 +30,12 @@ import org.osgi.framework.BundleContext;
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */
-public class SimpleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      // Register a service
-      context.registerService(SimpleService.class.getName(), new SimpleService(), null);
-   }
+public class SimpleActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        // Register a service
+        context.registerService(SimpleService.class.getName(), new SimpleService(), null);
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

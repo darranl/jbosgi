@@ -24,22 +24,18 @@ package org.jboss.osgi.test.common;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class CommonClass
-{
-   private static final String staticValue;
-   static
-   {
-      synchronized (CommonClass.class.getName().intern())
-      {
-         int counter = Integer.parseInt(System.getProperty(CommonClass.class.getName(), "0"));
-         counter++;
-         System.setProperty(CommonClass.class.getName(), "" + counter);
-         staticValue = "" + counter;
-      }
-   }
+public class CommonClass {
+    private static final String staticValue;
+    static {
+        synchronized (CommonClass.class.getName().intern()) {
+            int counter = Integer.parseInt(System.getProperty(CommonClass.class.getName(), "0"));
+            counter++;
+            System.setProperty(CommonClass.class.getName(), "" + counter);
+            staticValue = "" + counter;
+        }
+    }
 
-   public static String getStaticValue()
-   {
-      return staticValue;
-   }
+    public static String getStaticValue() {
+        return staticValue;
+    }
 }

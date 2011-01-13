@@ -21,20 +21,16 @@
  */
 package org.jboss.test.osgi.jbosgi39.bundleB;
 
-
 import org.jboss.test.osgi.jbosgi39.bundleX.OSGi39BeanX;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class OSGi39ActivatorB implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      OSGi39BeanX beanX = new OSGi39BeanX(context.getBundle().getSymbolicName());
-      beanX.toString();
-   }
+public class OSGi39ActivatorB implements BundleActivator {
+    public void start(BundleContext context) {
+        OSGi39BeanX beanX = new OSGi39BeanX(context.getBundle().getSymbolicName());
+        beanX.toString();
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

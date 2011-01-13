@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.jbosgi41.bundleA;
 
-
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -39,52 +38,42 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 05-Mar-2009
  */
-public class ServiceB implements ManagedService
-{
-   private ConfigurationAdmin configAdmin;
+public class ServiceB implements ManagedService {
+    private ConfigurationAdmin configAdmin;
 
-   ServiceB(BundleContext context)
-   {
-      ServiceTracker tracker = new ServiceTracker(context, ConfigurationAdmin.class.getName(), null)
-      {
-         @Override
-         public Object addingService(ServiceReference sref)
-         {
-            configAdmin = (ConfigurationAdmin)super.addingService(sref);
-            return configAdmin;
-         }
-      };
-      tracker.open();
-   }
+    ServiceB(BundleContext context) {
+        ServiceTracker tracker = new ServiceTracker(context, ConfigurationAdmin.class.getName(), null) {
+            @Override
+            public Object addingService(ServiceReference sref) {
+                configAdmin = (ConfigurationAdmin) super.addingService(sref);
+                return configAdmin;
+            }
+        };
+        tracker.open();
+    }
 
-   @SuppressWarnings({ "unchecked", "rawtypes" })
-   public void updateConfig(String key, String value)
-   {
-      if (configAdmin != null)
-      {
-         try
-         {
-            Configuration config = configAdmin.getConfiguration(ServiceB.class.getName());
-            Dictionary props = config.getProperties();
-            
-            if (props == null)
-               props = new Hashtable<String, String>();
-            
-            props.put(key, value);
-            
-            config.update(props);
-            
-            configAdmin.listConfigurations(null);
-         }
-         catch (Exception ex)
-         {
-            throw new RuntimeException("Cannot access ConfigurationAdmin", ex);
-         }
-      }
-   }
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public void updateConfig(String key, String value) {
+        if (configAdmin != null) {
+            try {
+                Configuration config = configAdmin.getConfiguration(ServiceB.class.getName());
+                Dictionary props = config.getProperties();
 
-   @SuppressWarnings("rawtypes")
-   public void updated(Dictionary props) throws ConfigurationException
-   {
-   }
+                if (props == null)
+                    props = new Hashtable<String, String>();
+
+                props.put(key, value);
+
+                config.update(props);
+
+                configAdmin.listConfigurations(null);
+            } catch (Exception ex) {
+                throw new RuntimeException("Cannot access ConfigurationAdmin", ex);
+            }
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    public void updated(Dictionary props) throws ConfigurationException {
+    }
 }

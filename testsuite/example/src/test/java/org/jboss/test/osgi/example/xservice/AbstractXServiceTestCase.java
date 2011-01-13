@@ -42,114 +42,90 @@ import org.osgi.jmx.framework.FrameworkMBean;
 
 /**
  * Abstract base for XService testing.
- *
+ * 
  * @author Thomas.Diesler@jboss.com
  * @since 14-Oct-2010
  */
-public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest
-{
-   private static ObjectName SERVICE_CONTAINER_OBJECTNAME = ObjectNameFactory.create("jboss.internal", "mbean", "ServiceContainer");
-   private OSGiRemoteRuntime runtime;
+public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest {
+    private static ObjectName SERVICE_CONTAINER_OBJECTNAME = ObjectNameFactory.create("jboss.internal", "mbean", "ServiceContainer");
+    private OSGiRemoteRuntime runtime;
 
-   @Before
-   public void setUp() throws Exception
-   {
-      super.setUp();
-      runtime = (OSGiRemoteRuntime)getRuntime();
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        runtime = (OSGiRemoteRuntime) getRuntime();
 
-      MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-      activateBundleContextService(mbeanServer);
-   }
+        MBeanServerConnection mbeanServer = runtime.getMBeanServer();
+        activateBundleContextService(mbeanServer);
+    }
 
-   public OSGiRemoteRuntime getRemoteRuntime()
-   {
-      return runtime;
-   }
+    public OSGiRemoteRuntime getRemoteRuntime() {
+        return runtime;
+    }
 
-   protected long registerModule(ModuleIdentifier moduleId) throws Exception
-   {
-      ObjectName oname = ObjectNameFactory.create("jboss.osgi:service=jmx,type=BundleManager");
-      MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-      if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
-         throw new InstanceNotFoundException(oname.getCanonicalName());
+    protected long registerModule(ModuleIdentifier moduleId) throws Exception {
+        ObjectName oname = ObjectNameFactory.create("jboss.osgi:service=jmx,type=BundleManager");
+        MBeanServerConnection mbeanServer = runtime.getMBeanServer();
+        if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
+            throw new InstanceNotFoundException(oname.getCanonicalName());
 
-      try
-      {
-         Object[] params = new Object[] { moduleId };
-         String[] signature = new String[] { ModuleIdentifier.class.getName() };
-         Long bundleId = (Long)mbeanServer.invoke(oname, "installBundle", params, signature);
-         return bundleId;
-      }
-      catch (MBeanException ex)
-      {
-         throw ex.getTargetException();
-      }
-   }
+        try {
+            Object[] params = new Object[] { moduleId };
+            String[] signature = new String[] { ModuleIdentifier.class.getName() };
+            Long bundleId = (Long) mbeanServer.invoke(oname, "installBundle", params, signature);
+            return bundleId;
+        } catch (MBeanException ex) {
+            throw ex.getTargetException();
+        }
+    }
 
-   protected State getServiceState(ServiceName serviceName, State expState, long timeout) throws Exception
-   {
-      MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-      Object[] params = new Object[] { serviceName.getCanonicalName() };
-      String[] signature = new String[] { String.class.getName() };
-      String state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
-      while ((state == null || state != expState.toString()) && timeout > 0)
-      {
-         try
-         {
-            Thread.sleep(100);
-         }
-         catch (InterruptedException ex)
-         {
-            // ignore
-         }
-         state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
-         timeout -= 100;
-      }
-      return state != null ? State.valueOf(state) : null;
-   }
+    protected State getServiceState(ServiceName serviceName, State expState, long timeout) throws Exception {
+        MBeanServerConnection mbeanServer = runtime.getMBeanServer();
+        Object[] params = new Object[] { serviceName.getCanonicalName() };
+        String[] signature = new String[] { String.class.getName() };
+        String state = (String) mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
+        while ((state == null || state != expState.toString()) && timeout > 0) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                // ignore
+            }
+            state = (String) mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
+            timeout -= 100;
+        }
+        return state != null ? State.valueOf(state) : null;
+    }
 
-   private void activateBundleContextService(MBeanServerConnection mbeanServer)
-   {
-      try
-      {
-         Object[] params = new Object[] { "jboss.osgi.context" };
-         String[] signature = new String[] { String.class.getName() };
-         String state = (String)mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
-         if (State.UP != State.valueOf(state))
-         {
-            params = new Object[] { "jboss.osgi.context", "ACTIVE" };
-            signature = new String[] { String.class.getName(), String.class.getName() };
-            mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "setMode", params, signature);
-         }
-         FrameworkMBean frameworkMBean = runtime.getFrameworkMBean();
-         assertNotNull("FrameworkMBean not null", frameworkMBean);
-      }
-      catch (RuntimeException rte)
-      {
-         throw rte;
-      }
-      catch (Exception ex)
-      {
-         throw new RuntimeException("Cannot activate BundleContextService", ex);
-      }
-   }
+    private void activateBundleContextService(MBeanServerConnection mbeanServer) {
+        try {
+            Object[] params = new Object[] { "jboss.osgi.context" };
+            String[] signature = new String[] { String.class.getName() };
+            String state = (String) mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getState", params, signature);
+            if (State.UP != State.valueOf(state)) {
+                params = new Object[] { "jboss.osgi.context", "ACTIVE" };
+                signature = new String[] { String.class.getName(), String.class.getName() };
+                mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "setMode", params, signature);
+            }
+            FrameworkMBean frameworkMBean = runtime.getFrameworkMBean();
+            assertNotNull("FrameworkMBean not null", frameworkMBean);
+        } catch (RuntimeException rte) {
+            throw rte;
+        } catch (Exception ex) {
+            throw new RuntimeException("Cannot activate BundleContextService", ex);
+        }
+    }
 
-   private boolean isRegisteredWithTimeout(MBeanServerConnection mbeanServer, ObjectName objectName, int timeout) throws IOException
-   {
-      boolean registered = mbeanServer.isRegistered(objectName);
-      while (registered == false && timeout > 0)
-      {
-         try
-         {
-            Thread.sleep(100);
-         }
-         catch (InterruptedException ex)
-         {
-            // ignore
-         }
-         registered = mbeanServer.isRegistered(objectName);
-         timeout -= 100;
-      }
-      return registered;
-   }
+    private boolean isRegisteredWithTimeout(MBeanServerConnection mbeanServer, ObjectName objectName, int timeout) throws IOException {
+        boolean registered = mbeanServer.isRegistered(objectName);
+        while (registered == false && timeout > 0) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                // ignore
+            }
+            registered = mbeanServer.isRegistered(objectName);
+            timeout -= 100;
+        }
+        return registered;
+    }
 }

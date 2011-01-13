@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.jmx.bundle;
 
-
 import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
 
 import javax.management.JMException;
@@ -38,61 +37,46 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */
-public class JMXExampleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null)
-      {
-         public Object addingService(ServiceReference reference)
-         {
-            MBeanServer mbeanServer = (MBeanServer)super.addingService(reference);
-            registerMBean(mbeanServer);
-            return mbeanServer;
-         }
+public class JMXExampleActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null) {
+            public Object addingService(ServiceReference reference) {
+                MBeanServer mbeanServer = (MBeanServer) super.addingService(reference);
+                registerMBean(mbeanServer);
+                return mbeanServer;
+            }
 
-         @Override
-         public void removedService(ServiceReference reference, Object service)
-         {
-            unregisterMBean((MBeanServer)service);
-            super.removedService(reference, service);
-         }
-      };
-      tracker.open();
-   }
+            @Override
+            public void removedService(ServiceReference reference, Object service) {
+                unregisterMBean((MBeanServer) service);
+                super.removedService(reference, service);
+            }
+        };
+        tracker.open();
+    }
 
-   public void stop(BundleContext context)
-   {
-      ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-      if (sref != null)
-      {
-         MBeanServer mbeanServer = (MBeanServer)context.getService(sref);
-         unregisterMBean(mbeanServer);
-      }
-   }
+    public void stop(BundleContext context) {
+        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+        if (sref != null) {
+            MBeanServer mbeanServer = (MBeanServer) context.getService(sref);
+            unregisterMBean(mbeanServer);
+        }
+    }
 
-   private void registerMBean(MBeanServer mbeanServer)
-   {
-      try
-      {
-         mbeanServer.registerMBean(new Foo(), MBEAN_NAME);
-      }
-      catch (JMException ex)
-      {
-         throw new IllegalStateException(ex);
-      }
-   }
+    private void registerMBean(MBeanServer mbeanServer) {
+        try {
+            mbeanServer.registerMBean(new Foo(), MBEAN_NAME);
+        } catch (JMException ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
 
-   private void unregisterMBean(MBeanServer mbeanServer)
-   {
-      try
-      {
-         if (mbeanServer.isRegistered(MBEAN_NAME))
-            mbeanServer.unregisterMBean(MBEAN_NAME);
-      }
-      catch (JMException ex)
-      {
-         throw new IllegalStateException(ex);
-      }
-   }
+    private void unregisterMBean(MBeanServer mbeanServer) {
+        try {
+            if (mbeanServer.isRegistered(MBEAN_NAME))
+                mbeanServer.unregisterMBean(MBEAN_NAME);
+        } catch (JMException ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
 }

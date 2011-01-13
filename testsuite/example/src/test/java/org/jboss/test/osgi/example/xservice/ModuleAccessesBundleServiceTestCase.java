@@ -45,96 +45,80 @@ import org.osgi.framework.Bundle;
 
 /**
  * A test that shows how a module can access an OSGi service.
- *
+ * 
  * @author Thomas.Diesler@jboss.com
  * @since 14-Oct-2010
  */
-public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCase
-{
-   @Test
-   public void moduleInvokesBundleService() throws Exception
-   {
-      // Deploy the module that contains the API
-      JavaArchive apiArchive = getAPIModuleArchive();
-      String apiDeploymentName = getRemoteRuntime().deploy(apiArchive);
-      assertNotNull("Deployment name not null", apiDeploymentName);
-      try
-      {
-         // Register the API module with the OSGi layer
-         registerModule(ModuleIdentifier.create("deployment." + apiDeploymentName));
+public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCase {
+    @Test
+    public void moduleInvokesBundleService() throws Exception {
+        // Deploy the module that contains the API
+        JavaArchive apiArchive = getAPIModuleArchive();
+        String apiDeploymentName = getRemoteRuntime().deploy(apiArchive);
+        assertNotNull("Deployment name not null", apiDeploymentName);
+        try {
+            // Register the API module with the OSGi layer
+            registerModule(ModuleIdentifier.create("deployment." + apiDeploymentName));
 
-         // Install the bundle that contains the target service
-         OSGiBundle targetBundle = getRemoteRuntime().installBundle(getTargetBundleArchive());
-         assertBundleState(Bundle.INSTALLED, targetBundle.getState());
-         try
-         {
-            // Start the target service bundle
-            targetBundle.start();
-            assertBundleState(Bundle.ACTIVE, targetBundle.getState());
+            // Install the bundle that contains the target service
+            OSGiBundle targetBundle = getRemoteRuntime().installBundle(getTargetBundleArchive());
+            assertBundleState(Bundle.INSTALLED, targetBundle.getState());
+            try {
+                // Start the target service bundle
+                targetBundle.start();
+                assertBundleState(Bundle.ACTIVE, targetBundle.getState());
 
-            // Deploy the non-osgi client module
-            String clientDeploymentName = getRemoteRuntime().deploy(getClientModuleArchive());
-            assertNotNull("Deployment name not null", clientDeploymentName);
-            try
-            {
-               // Wait for the client service to come up. Check the console log for echo message
-               State state = getServiceState(EchoInvokerService.SERVICE_NAME, State.UP, 5000);
-               assertEquals("EchoInvokerService is UP", State.UP, state);
+                // Deploy the non-osgi client module
+                String clientDeploymentName = getRemoteRuntime().deploy(getClientModuleArchive());
+                assertNotNull("Deployment name not null", clientDeploymentName);
+                try {
+                    // Wait for the client service to come up. Check the console log for echo message
+                    State state = getServiceState(EchoInvokerService.SERVICE_NAME, State.UP, 5000);
+                    assertEquals("EchoInvokerService is UP", State.UP, state);
+                } finally {
+                    // Undeploy the client module
+                    getRemoteRuntime().undeploy(clientDeploymentName);
+                }
+            } finally {
+                // Uninstall the target bundle
+                targetBundle.uninstall();
             }
-            finally
-            {
-               // Undeploy the client module
-               getRemoteRuntime().undeploy(clientDeploymentName);
+        } finally {
+            // Undeploy the API module
+            getRemoteRuntime().undeploy(apiDeploymentName);
+        }
+    }
+
+    private JavaArchive getAPIModuleArchive() throws Exception {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-api-module");
+        archive.addClasses(Echo.class);
+        archive.addDirectory("META-INF");
+        return archive;
+    }
+
+    private JavaArchive getTargetBundleArchive() throws Exception {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-target-bundle");
+        archive.addClass(TargetBundleActivator.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleVersion("1.0.0");
+                builder.addBundleActivator(TargetBundleActivator.class);
+                builder.addImportPackages(Echo.class);
+                return builder.openStream();
             }
-         }
-         finally
-         {
-            // Uninstall the target bundle
-            targetBundle.uninstall();
-         }
-      }
-      finally
-      {
-         // Undeploy the API module
-         getRemoteRuntime().undeploy(apiDeploymentName);
-      }
-   }
+        });
+        return archive;
+    }
 
-   private JavaArchive getAPIModuleArchive() throws Exception
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-api-module");
-      archive.addClasses(Echo.class);
-      archive.addDirectory("META-INF");
-      return archive;
-   }
-
-   private JavaArchive getTargetBundleArchive() throws Exception
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-target-bundle");
-      archive.addClass(TargetBundleActivator.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleManifestVersion(2);
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleVersion("1.0.0");
-            builder.addBundleActivator(TargetBundleActivator.class);
-            builder.addImportPackages(Echo.class);
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
-
-   private JavaArchive getClientModuleArchive() throws Exception
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-client-module");
-      archive.addClasses(EchoInvokerService.class, ClientModuleActivator.class);
-      String activatorPath = "META-INF/services/" + ServiceActivator.class.getName();
-      archive.addResource(getResourceFile("xservice/client-module/" + activatorPath), activatorPath);
-      archive.setManifest(getResourceFile("xservice/client-module/" + JarFile.MANIFEST_NAME));
-      return archive;
-   }
+    private JavaArchive getClientModuleArchive() throws Exception {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xservice-client-module");
+        archive.addClasses(EchoInvokerService.class, ClientModuleActivator.class);
+        String activatorPath = "META-INF/services/" + ServiceActivator.class.getName();
+        archive.addResource(getResourceFile("xservice/client-module/" + activatorPath), activatorPath);
+        archive.setManifest(getResourceFile("xservice/client-module/" + JarFile.MANIFEST_NAME));
+        return archive;
+    }
 }

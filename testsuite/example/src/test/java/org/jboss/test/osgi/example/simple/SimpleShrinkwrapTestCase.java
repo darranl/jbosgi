@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-
 import static org.junit.Assert.assertNull;
 
 import java.io.InputStream;
@@ -41,42 +40,38 @@ import org.osgi.framework.BundleContext;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class SimpleShrinkwrapTestCase extends OSGiFrameworkTest
-{
-   @Test
-   public void testSimpleBundle() throws Exception
-   {
-      // Build the bundle with shrinkwrap
-      JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-simple");
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName("example-simple");
-            builder.addBundleManifestVersion(2);
-            return builder.openStream();
-         }
-      });
+public class SimpleShrinkwrapTestCase extends OSGiFrameworkTest {
+    @Test
+    public void testSimpleBundle() throws Exception {
+        // Build the bundle with shrinkwrap
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-simple");
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName("example-simple");
+                builder.addBundleManifestVersion(2);
+                return builder.openStream();
+            }
+        });
 
-      // Install the Bundle
-      Bundle bundle = installBundle(archive);
-      assertBundleState(Bundle.INSTALLED, bundle.getState());
+        // Install the Bundle
+        Bundle bundle = installBundle(archive);
+        assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-      // Check that the BundleContext is still null
-      BundleContext context = bundle.getBundleContext();
-      assertNull("BundleContext null", context);
+        // Check that the BundleContext is still null
+        BundleContext context = bundle.getBundleContext();
+        assertNull("BundleContext null", context);
 
-      // Start the bundle
-      bundle.start();
-      assertBundleState(Bundle.ACTIVE, bundle.getState());
+        // Start the bundle
+        bundle.start();
+        assertBundleState(Bundle.ACTIVE, bundle.getState());
 
-      // Stop the bundle
-      bundle.stop();
-      assertBundleState(Bundle.RESOLVED, bundle.getState());
+        // Stop the bundle
+        bundle.stop();
+        assertBundleState(Bundle.RESOLVED, bundle.getState());
 
-      // Uninstall the bundle
-      bundle.uninstall();
-      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
-   }
+        // Uninstall the bundle
+        bundle.uninstall();
+        assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+    }
 }

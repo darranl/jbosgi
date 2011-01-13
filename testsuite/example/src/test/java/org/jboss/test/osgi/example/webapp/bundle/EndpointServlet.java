@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.webapp.bundle;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -31,33 +30,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class EndpointServlet extends HttpServlet
-{
-   public EndpointServlet()
-   {
-      super();
-   }
+public class EndpointServlet extends HttpServlet {
+    public EndpointServlet() {
+        super();
+    }
 
-   @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
-   {
-      PrintWriter out = res.getWriter();
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        PrintWriter out = res.getWriter();
 
-      String testParam = req.getParameter("test");
-      if ("plain".equals(testParam))
-      {
-         out.println("Hello from Servlet");
-      }
-      else if ("initProp".equals(testParam))
-      {
-         String value = getInitParameter(testParam);
-         out.println(testParam + "=" + value);
-      }
-      else
-      {
-         throw new IllegalArgumentException("Invalid 'test' parameter: " + testParam);
-      }
+        String testParam = req.getParameter("test");
+        if ("plain".equals(testParam)) {
+            out.println("Hello from Servlet");
+        } else if ("initProp".equals(testParam)) {
+            String value = getInitParameter(testParam);
+            out.println(testParam + "=" + value);
+        } else {
+            throw new IllegalArgumentException("Invalid 'test' parameter: " + testParam);
+        }
 
-      out.close();
-   }
+        out.close();
+    }
 }

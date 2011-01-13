@@ -21,13 +21,10 @@
  */
 package org.jboss.test.osgi.jbosgi142.bundleB;
 
-
 import org.jboss.test.osgi.jbosgi142.bundleX.BeanX;
 
-public class BeanB
-{
-   public BeanB(BeanX bean)
-   {
-   }
-   
+public class BeanB {
+    public BeanB(BeanX bean) {
+    }
+
 }

@@ -21,19 +21,15 @@
  */
 package org.jboss.test.osgi.fragments.hostC;
 
-
 import org.jboss.test.osgi.fragments.fragA.FragBeanA;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class HostCActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      new FragBeanA();
-   }
+public class HostCActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        new FragBeanA();
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

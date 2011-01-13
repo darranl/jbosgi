@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.blueprint;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -50,75 +49,68 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
  * @since 12-Jul-2009
  */
 @RunWith(Arquillian.class)
-public class BlueprintTestCase 
-{
-   @Inject
-   public BundleContext context;
+public class BlueprintTestCase {
+    @Inject
+    public BundleContext context;
 
-   @Inject
-   public Bundle bundle;
+    @Inject
+    public Bundle bundle;
 
-   @Deployment
-   public static JavaArchive createdeployment()
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-blueprint");
-      archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
-      archive.addResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
-      return archive;
-   }
-   
-   @Test
-   public void testBlueprintContainerAvailable() throws Exception
-   {
-      bundle.start();
-      assertEquals("example-blueprint", bundle.getSymbolicName());
-      
-      BlueprintContainer bpContainer = getBlueprintContainer();
-      assertNotNull("BlueprintContainer available", bpContainer);
-   }
+    @Deployment
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-blueprint");
+        archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
+        archive.addResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
+        return archive;
+    }
 
-   @Test
-   public void testServiceA() throws Exception
-   {
-      bundle.start();
-      ServiceReference sref = context.getServiceReference(ServiceA.class.getName());
-      assertNotNull("ServiceA not null", sref);
-      
-      ServiceA service = (ServiceA)context.getService(sref);
-      MBeanServer mbeanServer = service.getMbeanServer();
-      assertNotNull("MBeanServer not null", mbeanServer);
-   }
+    @Test
+    public void testBlueprintContainerAvailable() throws Exception {
+        bundle.start();
+        assertEquals("example-blueprint", bundle.getSymbolicName());
 
-   @Test
-   public void testServiceB() throws Exception
-   {
-      bundle.start();
-      ServiceReference sref = context.getServiceReference(ServiceB.class.getName());
-      assertNotNull("ServiceB not null", sref);
-      
-      ServiceB service = (ServiceB)context.getService(sref);
-      BeanA beanA = service.getBeanA();
-      assertNotNull("BeanA not null", beanA);
-   }
+        BlueprintContainer bpContainer = getBlueprintContainer();
+        assertNotNull("BlueprintContainer available", bpContainer);
+    }
 
-   private BlueprintContainer getBlueprintContainer() throws Exception
-   {
-      // 10sec for processing of STARTING event
-      int timeout = 10000;
-      
-      ServiceReference sref = null;
-      while (sref == null && 0 < (timeout -= 200))
-      {
-         String filter = "(osgi.blueprint.container.symbolicname=example-blueprint)";
-         ServiceReference[] srefs = context.getServiceReferences(BlueprintContainer.class.getName(), filter);
-         if (srefs != null && srefs.length > 0)
-            sref = srefs[0];
-         
-         Thread.sleep(200);
-      }
-      assertNotNull("BlueprintContainer not null", sref);
-      
-      BlueprintContainer bpContainer = (BlueprintContainer)context.getService(sref);
-      return bpContainer;
-   }
+    @Test
+    public void testServiceA() throws Exception {
+        bundle.start();
+        ServiceReference sref = context.getServiceReference(ServiceA.class.getName());
+        assertNotNull("ServiceA not null", sref);
+
+        ServiceA service = (ServiceA) context.getService(sref);
+        MBeanServer mbeanServer = service.getMbeanServer();
+        assertNotNull("MBeanServer not null", mbeanServer);
+    }
+
+    @Test
+    public void testServiceB() throws Exception {
+        bundle.start();
+        ServiceReference sref = context.getServiceReference(ServiceB.class.getName());
+        assertNotNull("ServiceB not null", sref);
+
+        ServiceB service = (ServiceB) context.getService(sref);
+        BeanA beanA = service.getBeanA();
+        assertNotNull("BeanA not null", beanA);
+    }
+
+    private BlueprintContainer getBlueprintContainer() throws Exception {
+        // 10sec for processing of STARTING event
+        int timeout = 10000;
+
+        ServiceReference sref = null;
+        while (sref == null && 0 < (timeout -= 200)) {
+            String filter = "(osgi.blueprint.container.symbolicname=example-blueprint)";
+            ServiceReference[] srefs = context.getServiceReferences(BlueprintContainer.class.getName(), filter);
+            if (srefs != null && srefs.length > 0)
+                sref = srefs[0];
+
+            Thread.sleep(200);
+        }
+        assertNotNull("BlueprintContainer not null", sref);
+
+        BlueprintContainer bpContainer = (BlueprintContainer) context.getService(sref);
+        return bpContainer;
+    }
 }

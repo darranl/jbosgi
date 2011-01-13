@@ -38,58 +38,50 @@ import org.osgi.framework.Bundle;
 
 /**
  * Test the arquillian callback to a client provided archive
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 09-Sep-2010
  */
 @RunWith(Arquillian.class)
-public class SimpleArchiveProviderTestCase
-{
-   @Inject
-   public OSGiContainer container;
+public class SimpleArchiveProviderTestCase {
+    @Inject
+    public OSGiContainer container;
 
-   @Test
-   public void testBundleInjection() throws Exception
-   {
-      Archive<?> archive = container.getTestArchive("example-archive-provider");
-      Bundle bundle = container.installBundle(archive);
-      try
-      {
+    @Test
+    public void testBundleInjection() throws Exception {
+        Archive<?> archive = container.getTestArchive("example-archive-provider");
+        Bundle bundle = container.installBundle(archive);
+        try {
 
-         // Assert that the bundle is in state INSTALLED
-         assertEquals("Bundle INSTALLED", Bundle.INSTALLED, bundle.getState());
+            // Assert that the bundle is in state INSTALLED
+            assertEquals("Bundle INSTALLED", Bundle.INSTALLED, bundle.getState());
 
-         // Start the bundle
-         bundle.start();
-         assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
+            // Start the bundle
+            bundle.start();
+            assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-         // Stop the bundle
-         bundle.stop();
-         assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
-      }
-      finally
-      {
-         bundle.uninstall();
-         assertEquals("Bundle UNINSTALLED", Bundle.UNINSTALLED, bundle.getState());
-      }
-   }
+            // Stop the bundle
+            bundle.stop();
+            assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
+        } finally {
+            bundle.uninstall();
+            assertEquals("Bundle UNINSTALLED", Bundle.UNINSTALLED, bundle.getState());
+        }
+    }
 
-   @ArchiveProvider
-   public static JavaArchive getTestArchive(String name)
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, name);
-      archive.addClasses(SimpleActivator.class, SimpleService.class);
-      archive.setManifest(new Asset()
-      {
-         public InputStream openStream()
-         {
-            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-            builder.addBundleSymbolicName(archive.getName());
-            builder.addBundleManifestVersion(2);
-            builder.addBundleActivator(SimpleActivator.class.getName());
-            return builder.openStream();
-         }
-      });
-      return archive;
-   }
+    @ArchiveProvider
+    public static JavaArchive getTestArchive(String name) {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, name);
+        archive.addClasses(SimpleActivator.class, SimpleService.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addBundleActivator(SimpleActivator.class.getName());
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
 }

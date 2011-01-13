@@ -27,10 +27,8 @@ import javax.management.ObjectName;
 
 import org.jboss.osgi.jmx.ObjectNameFactory;
 
+public interface SomeBeanMBean {
+    ObjectName MBEAN_NAME = ObjectNameFactory.create("jboss.osgi:bean=SomeBean");
 
-public interface SomeBeanMBean
-{
-   ObjectName MBEAN_NAME = ObjectNameFactory.create("jboss.osgi:bean=SomeBean");
-   
-   List<String> getMessages();
+    List<String> getMessages();
 }

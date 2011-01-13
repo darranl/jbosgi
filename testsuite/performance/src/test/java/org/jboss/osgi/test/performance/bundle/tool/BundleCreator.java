@@ -36,49 +36,44 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 
 /**
- * This tool creates test bundles for use in a the standalone case. When this test is run
- * as a pure standalone bundle. 
+ * This tool creates test bundles for use in a the standalone case. When this test is run as a pure standalone bundle.
+ * 
  * @see {@link LocalTestBundleProviderImpl}, {@link TestBundleProvider}
  * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class BundleCreator
-{
-   public static void main(String[] args)
-   {
-      if (args.length < 2)
-         throw new IllegalArgumentException("Please provide the following command line arguments: <#bundles> <directory>");
-      
-      int numBundles = Integer.parseInt(args[0]);
-      File targetDir = new File(args[1]);
-      targetDir.mkdirs();
-      
-      System.out.println("Generating " + numBundles + " test bundles and a number of additional bundles\nin directory: " + targetDir);
+public class BundleCreator {
+    public static void main(String[] args) {
+        if (args.length < 2)
+            throw new IllegalArgumentException("Please provide the following command line arguments: <#bundles> <directory>");
 
-      BundleArchiveProvider bap = new BundleArchiveProvider();
-      for (int i = 1; i <= 5; i++)
-      {
-         writeBundle(targetDir, bap.getTestArchive(COMMON_BUNDLE_PREFIX + i));
-         writeBundle(targetDir, bap.getTestArchive(UTIL_BUNDLE_PREFIX + i));
-         writeBundle(targetDir, bap.getTestArchive(VERSIONED_INTF_BUNDLE_PREFIX + i));
-         writeBundle(targetDir, bap.getTestArchive(VERSIONED_IMPL_BUNDLE_PREFIX + i));
-      }
+        int numBundles = Integer.parseInt(args[0]);
+        File targetDir = new File(args[1]);
+        targetDir.mkdirs();
 
-      for (int i = 0; i < numBundles; i++)
-      {
-         writeBundle(targetDir, bap.getTestArchive(TEST_BUNDLE_PREFIX + "Thread_1" + "#" + i));
-      }
-   }
+        System.out.println("Generating " + numBundles + " test bundles and a number of additional bundles\nin directory: " + targetDir);
 
-   private static void writeBundle(File targetDir, Archive<?> testArchive)
-   {
-      ZipExporter ze = testArchive.as(ZipExporter.class);
-      String name = testArchive.getName() + ".jar";
-      File bundleFile = new File(targetDir, name);
-      if (bundleFile.exists())
-         return;
+        BundleArchiveProvider bap = new BundleArchiveProvider();
+        for (int i = 1; i <= 5; i++) {
+            writeBundle(targetDir, bap.getTestArchive(COMMON_BUNDLE_PREFIX + i));
+            writeBundle(targetDir, bap.getTestArchive(UTIL_BUNDLE_PREFIX + i));
+            writeBundle(targetDir, bap.getTestArchive(VERSIONED_INTF_BUNDLE_PREFIX + i));
+            writeBundle(targetDir, bap.getTestArchive(VERSIONED_IMPL_BUNDLE_PREFIX + i));
+        }
 
-      System.out.println("Generating " + name);
-      ze.exportZip(bundleFile);
-   }
+        for (int i = 0; i < numBundles; i++) {
+            writeBundle(targetDir, bap.getTestArchive(TEST_BUNDLE_PREFIX + "Thread_1" + "#" + i));
+        }
+    }
+
+    private static void writeBundle(File targetDir, Archive<?> testArchive) {
+        ZipExporter ze = testArchive.as(ZipExporter.class);
+        String name = testArchive.getName() + ".jar";
+        File bundleFile = new File(targetDir, name);
+        if (bundleFile.exists())
+            return;
+
+        System.out.println("Generating " + name);
+        ze.exportZip(bundleFile);
+    }
 }

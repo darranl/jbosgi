@@ -40,69 +40,60 @@ import org.osgi.jmx.framework.FrameworkMBean;
 
 /**
  * [TODO]
- *
+ * 
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class StartLevelTestCase extends OSGiRuntimeTest
-{
-   @Test
-   @SuppressWarnings("unchecked")
-   public void testStartLevelMBean() throws Exception
-   {
-      FrameworkMBean fw = getRuntime().getFrameworkMBean();
-      try
-      {
-         fw.setInitialBundleStartLevel(2);
+public class StartLevelTestCase extends OSGiRuntimeTest {
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testStartLevelMBean() throws Exception {
+        FrameworkMBean fw = getRuntime().getFrameworkMBean();
+        try {
+            fw.setInitialBundleStartLevel(2);
 
-         Assert.assertEquals(1, fw.getFrameworkStartLevel());
-         OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar"); // TODO maybe use another bundle
+            Assert.assertEquals(1, fw.getFrameworkStartLevel());
+            OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar"); // TODO maybe use another bundle
 
-         BundleStateMBean bs = getRuntime().getBundleStateMBean();
-         TabularData td = bs.listBundles();
+            BundleStateMBean bs = getRuntime().getBundleStateMBean();
+            TabularData td = bs.listBundles();
 
-         long bundleId = -1;
-         for (CompositeData row : (Collection<CompositeData>)td.values())
-         {
-            if (bundle.getSymbolicName().equals(row.get("SymbolicName")))
-            {
-               bundleId = Long.parseLong(row.get("Identifier").toString());
-               break;
+            long bundleId = -1;
+            for (CompositeData row : (Collection<CompositeData>) td.values()) {
+                if (bundle.getSymbolicName().equals(row.get("SymbolicName"))) {
+                    bundleId = Long.parseLong(row.get("Identifier").toString());
+                    break;
+                }
             }
-         }
-         assertTrue("Could not find test bundle through JMX", bundleId != -1);
+            assertTrue("Could not find test bundle through JMX", bundleId != -1);
 
-         fw.startBundle(bundleId);
+            fw.startBundle(bundleId);
 
-         assertEquals(2, bs.getStartLevel(bundleId));
-         fw.setBundleStartLevel(bundleId, 5);
-         assertEquals(5, bs.getStartLevel(bundleId));
-         waitForBundleState("INSTALLED", bs, bundleId);
+            assertEquals(2, bs.getStartLevel(bundleId));
+            fw.setBundleStartLevel(bundleId, 5);
+            assertEquals(5, bs.getStartLevel(bundleId));
+            waitForBundleState("INSTALLED", bs, bundleId);
 
-         fw.setFrameworkStartLevel(10);
-         waitForBundleState("ACTIVE", bs, bundleId);
+            fw.setFrameworkStartLevel(10);
+            waitForBundleState("ACTIVE", bs, bundleId);
 
-         bundle.uninstall();
-      }
-      finally
-      {
-         // reset the start level old value
-         fw.setInitialBundleStartLevel(1);
-         fw.setFrameworkStartLevel(1);
-      }
-   }
+            bundle.uninstall();
+        } finally {
+            // reset the start level old value
+            fw.setInitialBundleStartLevel(1);
+            fw.setFrameworkStartLevel(1);
+        }
+    }
 
-   private void waitForBundleState(String state, BundleStateMBean bs, long bundleId) throws Exception
-   {
-      int secs = 10;
-      while (secs > 0)
-      {
-         String s = bs.getState(bundleId);
-         if (state.equals(s))
-            return;
+    private void waitForBundleState(String state, BundleStateMBean bs, long bundleId) throws Exception {
+        int secs = 10;
+        while (secs > 0) {
+            String s = bs.getState(bundleId);
+            if (state.equals(s))
+                return;
 
-         secs--;
-         SECONDS.sleep(1);
-      }
-      Assert.fail("Did not reach bundle state " + state);
-   }
+            secs--;
+            SECONDS.sleep(1);
+        }
+        Assert.fail("Did not reach bundle state " + state);
+    }
 }

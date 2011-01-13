@@ -21,17 +21,14 @@
  */
 package org.jboss.test.osgi.jbosgi37.bundleB;
 
-
 import org.jboss.test.osgi.jbosgi37.subB.PojoB;
 import org.osgi.framework.BundleContext;
 
 /**
  * ServiceB has a dependecy on PojoB
  */
-public class ServiceB
-{
-   ServiceB(BundleContext context)
-   {
-      new PojoB(context.getBundle().getSymbolicName());
-   }
+public class ServiceB {
+    ServiceB(BundleContext context) {
+        new PojoB(context.getBundle().getSymbolicName());
+    }
 }

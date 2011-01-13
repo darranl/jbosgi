@@ -36,129 +36,116 @@ import org.osgi.framework.BundleContext;
  * 
  * https://jira.jboss.org/jira/browse/JBOSGI-151
  * 
- * BundleA 
- *  exports A
- *  imports B
- *  
- * BundleB 
- *  exports B
- *  imports A
- *  
- * BundleC 
- *  exports A, B
- *  imports A
+ * BundleA exports A imports B
  * 
- * BundleD 
- *  exports A,
- *  imports A, B
+ * BundleB exports B imports A
+ * 
+ * BundleC exports A, B imports A
+ * 
+ * BundleD exports A, imports A, B
  * 
  * @author thomas.diesler@jboss.com
  * @since 07-Sep-2009
  */
-public class OSGi151TestCase extends OSGiFrameworkTest
-{
-   @After
-   public void tearDown() throws Exception
-   {
-      shutdownFramework();
-   }
-   
-   @Test
-   public void testCircularNoSelfDependency() throws Exception
-   {
-      BundleContext sysContext = getFramework().getBundleContext();
-      
-      // Bundle-SymbolicName: jbosgi151-bundleA
-      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
-      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleB
-      Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleA.jar").toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundleA.getState());
+public class OSGi151TestCase extends OSGiFrameworkTest {
+    @After
+    public void tearDown() throws Exception {
+        shutdownFramework();
+    }
 
-      // Bundle-SymbolicName: jbosgi151-bundleB
-      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleB
-      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
-      Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleB.jar").toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundleB.getState());
-      
-      bundleB.start();
-      assertBundleState(Bundle.ACTIVE, bundleB.getState());
-      assertBundleState(Bundle.RESOLVED, bundleA.getState());
-      
-      Class<?> classAA = bundleA.loadClass(BeanA.class.getName());
-      Class<?> classAB = bundleB.loadClass(BeanA.class.getName());
-      assertEquals("Class for BeanA", classAA, classAB);
-      
-      Class<?> classBA = bundleA.loadClass(BeanB.class.getName());
-      Class<?> classBB = bundleB.loadClass(BeanB.class.getName());
-      assertEquals("Class for BeanB", classBA, classBB);
-      
-      bundleB.uninstall();
-      bundleA.uninstall();
-   }
+    @Test
+    public void testCircularNoSelfDependency() throws Exception {
+        BundleContext sysContext = getFramework().getBundleContext();
 
-   @Test
-   public void testCircularInstallCbeforeD() throws Exception
-   {
-      BundleContext sysContext = getFramework().getBundleContext();
-      
-      // Bundle-SymbolicName: jbosgi151-bundleC
-      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
-      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
-      Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundleC.getState());
+        // Bundle-SymbolicName: jbosgi151-bundleA
+        // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
+        // Import-Package: org.jboss.test.osgi.jbosgi151.bundleB
+        Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleA.jar").toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundleA.getState());
 
-      // Bundle-SymbolicName: jbosgi151-bundleD
-      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
-      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
-      Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundleD.getState());
-      
-      bundleD.start();
-      assertBundleState(Bundle.ACTIVE, bundleD.getState());
-      assertBundleState(Bundle.RESOLVED, bundleC.getState());
-      
-      Class<?> classBC = bundleC.loadClass(BeanB.class.getName());
-      Class<?> classBD = bundleD.loadClass(BeanB.class.getName());
-      assertEquals("Class for BeanB", classBC, classBD);
-      
-      Class<?> classAC = bundleC.loadClass(BeanA.class.getName());
-      Class<?> classAD = bundleD.loadClass(BeanA.class.getName());
-      assertEquals("Class for BeanA", classAC, classAD);
-      
-      bundleD.uninstall();
-      bundleC.uninstall();
-   }
+        // Bundle-SymbolicName: jbosgi151-bundleB
+        // Export-Package: org.jboss.test.osgi.jbosgi151.bundleB
+        // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
+        Bundle bundleB = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleB.jar").toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundleB.getState());
 
-   @Test
-   public void testCircularInstallDbeforeC() throws Exception
-   {
-      BundleContext sysContext = getFramework().getBundleContext();
-      
-      // Bundle-SymbolicName: jbosgi151-bundleD
-      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
-      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
-      Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundleD.getState());
-      
-      // Bundle-SymbolicName: jbosgi151-bundleC
-      // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
-      // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
-      Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
-      assertBundleState(Bundle.INSTALLED, bundleC.getState());
+        bundleB.start();
+        assertBundleState(Bundle.ACTIVE, bundleB.getState());
+        assertBundleState(Bundle.RESOLVED, bundleA.getState());
 
-      bundleD.start();
-      assertBundleState(Bundle.ACTIVE, bundleD.getState());
-      assertBundleState(Bundle.RESOLVED, bundleC.getState());
-      
-      Class<?> classBC = bundleC.loadClass(BeanB.class.getName());
-      Class<?> classBD = bundleD.loadClass(BeanB.class.getName());
-      assertEquals("Class for BeanB", classBC, classBD);
-      
-      Class<?> classAC = bundleC.loadClass(BeanA.class.getName());
-      Class<?> classAD = bundleD.loadClass(BeanA.class.getName());
-      assertEquals("Class for BeanA", classAC, classAD);
-      
-      bundleD.uninstall();
-      bundleC.uninstall();
-   }
+        Class<?> classAA = bundleA.loadClass(BeanA.class.getName());
+        Class<?> classAB = bundleB.loadClass(BeanA.class.getName());
+        assertEquals("Class for BeanA", classAA, classAB);
+
+        Class<?> classBA = bundleA.loadClass(BeanB.class.getName());
+        Class<?> classBB = bundleB.loadClass(BeanB.class.getName());
+        assertEquals("Class for BeanB", classBA, classBB);
+
+        bundleB.uninstall();
+        bundleA.uninstall();
+    }
+
+    @Test
+    public void testCircularInstallCbeforeD() throws Exception {
+        BundleContext sysContext = getFramework().getBundleContext();
+
+        // Bundle-SymbolicName: jbosgi151-bundleC
+        // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
+        // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
+        Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundleC.getState());
+
+        // Bundle-SymbolicName: jbosgi151-bundleD
+        // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
+        // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
+        Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundleD.getState());
+
+        bundleD.start();
+        assertBundleState(Bundle.ACTIVE, bundleD.getState());
+        assertBundleState(Bundle.RESOLVED, bundleC.getState());
+
+        Class<?> classBC = bundleC.loadClass(BeanB.class.getName());
+        Class<?> classBD = bundleD.loadClass(BeanB.class.getName());
+        assertEquals("Class for BeanB", classBC, classBD);
+
+        Class<?> classAC = bundleC.loadClass(BeanA.class.getName());
+        Class<?> classAD = bundleD.loadClass(BeanA.class.getName());
+        assertEquals("Class for BeanA", classAC, classAD);
+
+        bundleD.uninstall();
+        bundleC.uninstall();
+    }
+
+    @Test
+    public void testCircularInstallDbeforeC() throws Exception {
+        BundleContext sysContext = getFramework().getBundleContext();
+
+        // Bundle-SymbolicName: jbosgi151-bundleD
+        // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
+        // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
+        Bundle bundleD = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleD.jar").toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundleD.getState());
+
+        // Bundle-SymbolicName: jbosgi151-bundleC
+        // Export-Package: org.jboss.test.osgi.jbosgi151.bundleA, org.jboss.test.osgi.jbosgi151.bundleB
+        // Import-Package: org.jboss.test.osgi.jbosgi151.bundleA
+        Bundle bundleC = sysContext.installBundle(getTestArchiveURL("jbosgi151-bundleC.jar").toExternalForm());
+        assertBundleState(Bundle.INSTALLED, bundleC.getState());
+
+        bundleD.start();
+        assertBundleState(Bundle.ACTIVE, bundleD.getState());
+        assertBundleState(Bundle.RESOLVED, bundleC.getState());
+
+        Class<?> classBC = bundleC.loadClass(BeanB.class.getName());
+        Class<?> classBD = bundleD.loadClass(BeanB.class.getName());
+        assertEquals("Class for BeanB", classBC, classBD);
+
+        Class<?> classAC = bundleC.loadClass(BeanA.class.getName());
+        Class<?> classAD = bundleD.loadClass(BeanA.class.getName());
+        assertEquals("Class for BeanA", classAC, classAD);
+
+        bundleD.uninstall();
+        bundleC.uninstall();
+    }
 }

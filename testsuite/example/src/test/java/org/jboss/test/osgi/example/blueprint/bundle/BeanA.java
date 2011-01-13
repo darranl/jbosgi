@@ -23,29 +23,23 @@ package org.jboss.test.osgi.example.blueprint.bundle;
 
 import javax.management.MBeanServer;
 
-
-
 /**
  * A basic bean
  * 
  * @author thomas.diesler@jboss.com
  * @since 13-May-2009
  */
-public class BeanA implements ServiceA 
-{
-   private MBeanServer mbeanServer;
+public class BeanA implements ServiceA {
+    private MBeanServer mbeanServer;
 
-   public BeanA()
-   {
-   }
+    public BeanA() {
+    }
 
-   public MBeanServer getMbeanServer()
-   {
-      return mbeanServer;
-   }
+    public MBeanServer getMbeanServer() {
+        return mbeanServer;
+    }
 
-   public void setMbeanServer(MBeanServer mbeanServer)
-   {
-      this.mbeanServer = mbeanServer;
-   }
+    public void setMbeanServer(MBeanServer mbeanServer) {
+        this.mbeanServer = mbeanServer;
+    }
 }

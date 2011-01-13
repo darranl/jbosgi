@@ -24,7 +24,6 @@ package org.jboss.osgi.test.util3;
 /**
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
-public class Util3
-{
+public class Util3 {
 
 }

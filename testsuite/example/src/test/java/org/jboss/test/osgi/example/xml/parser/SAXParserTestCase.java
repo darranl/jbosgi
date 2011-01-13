@@ -21,7 +21,6 @@
  */
 package org.jboss.test.osgi.example.xml.parser;
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -54,62 +53,55 @@ import org.xml.sax.helpers.DefaultHandler;
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
-public class SAXParserTestCase
-{
-   @Inject
-   public Bundle bundle;
+public class SAXParserTestCase {
+    @Inject
+    public Bundle bundle;
 
-   @Deployment
-   public static JavaArchive createdeployment()
-   {
-      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
-      archive.addResource("xml/parser/example-xml-parser.xml", "example-xml-parser.xml");
-      return archive;
-   }
-   
-   @Test
-   public void testSAXParser() throws Exception
-   {
-      bundle.start();
-      
-      SAXParser saxParser = getSAXParser();
-      URL resURL = bundle.getResource("example-xml-parser.xml");
-      
-      SAXHandler saxHandler = new SAXHandler();
-      saxParser.parse(resURL.openStream(), saxHandler);
-      assertEquals("content", saxHandler.getContent());
-   }
+    @Deployment
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
+        archive.addResource("xml/parser/example-xml-parser.xml", "example-xml-parser.xml");
+        return archive;
+    }
 
-   private SAXParser getSAXParser() throws SAXException, ParserConfigurationException, InvalidSyntaxException
-   {
-      BundleContext context = bundle.getBundleContext();
-      
-      // This service gets registerd by the jboss-osgi-apache-xerces service
-      String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
-      ServiceReference[] srefs = context.getServiceReferences(SAXParserFactory.class.getName(), filter);
-      if (srefs == null)
-         throw new IllegalStateException("SAXParserFactory not available");
-      
-      SAXParserFactory factory = (SAXParserFactory)context.getService(srefs[0]);
-      factory.setValidating(false);
-      
-      SAXParser saxParser = factory.newSAXParser();
-      return saxParser;
-   }
-   
-   static class SAXHandler extends DefaultHandler
-   {
-      private String content;
+    @Test
+    public void testSAXParser() throws Exception {
+        bundle.start();
 
-      @Override
-      public void characters(char[] ch, int start, int length) throws SAXException
-      {
-         content = new String(ch, start, length);
-      }
+        SAXParser saxParser = getSAXParser();
+        URL resURL = bundle.getResource("example-xml-parser.xml");
 
-      public String getContent()
-      {
-         return content;
-      }
-   }
+        SAXHandler saxHandler = new SAXHandler();
+        saxParser.parse(resURL.openStream(), saxHandler);
+        assertEquals("content", saxHandler.getContent());
+    }
+
+    private SAXParser getSAXParser() throws SAXException, ParserConfigurationException, InvalidSyntaxException {
+        BundleContext context = bundle.getBundleContext();
+
+        // This service gets registerd by the jboss-osgi-apache-xerces service
+        String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
+        ServiceReference[] srefs = context.getServiceReferences(SAXParserFactory.class.getName(), filter);
+        if (srefs == null)
+            throw new IllegalStateException("SAXParserFactory not available");
+
+        SAXParserFactory factory = (SAXParserFactory) context.getService(srefs[0]);
+        factory.setValidating(false);
+
+        SAXParser saxParser = factory.newSAXParser();
+        return saxParser;
+    }
+
+    static class SAXHandler extends DefaultHandler {
+        private String content;
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            content = new String(ch, start, length);
+        }
+
+        public String getContent() {
+            return content;
+        }
+    }
 }

@@ -31,7 +31,6 @@ import java.net.URL;
 
 import org.jboss.osgi.jmx.BundleStateMBeanExt;
 import org.jboss.osgi.jmx.JMXCapability;
-import org.jboss.osgi.spi.capability.LogServiceCapability;
 import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiRuntime;
@@ -53,15 +52,15 @@ import org.osgi.framework.BundleException;
 
 /**
  * Test Fragment functionality
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 07-Jan-2010
  */
 public class FragmentRuntimeTest extends OSGiRuntimeTest {
+
     @BeforeClass
     public static void beforeClass() throws Exception {
         OSGiRuntime runtime = createDefaultRuntime();
-        runtime.addCapability(new LogServiceCapability());
         runtime.addCapability(new JMXCapability());
     }
 
@@ -256,6 +255,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest {
 
     @Test
     public void testFragmentRequireBundle() throws Exception {
+
         // Bundle-SymbolicName: simple-hostA
         // Private-Package: org.jboss.test.osgi.fragments.hostA, org.jboss.test.osgi.fragments.subA
         OSGiBundle hostA = getRuntime().installBundle(getHostA());

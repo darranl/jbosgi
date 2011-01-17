@@ -47,12 +47,13 @@ import org.osgi.service.event.EventHandler;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
 @RunWith(Arquillian.class)
 public class EventAdminTestCase {
+
     static String TOPIC = "org/jboss/test/osgi/example/event";
 
     @Inject
@@ -73,6 +74,7 @@ public class EventAdminTestCase {
     @Test
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void testEventHandler() throws Exception {
+
         assertNotNull("Bundle injected", bundle);
 
         bundle.start();

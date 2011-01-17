@@ -54,7 +54,7 @@
     <version.aqute.bnd.sp>0.0.365.SP1</version.aqute.bnd.sp>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
-    <version.jboss.arquillian>1.0.0.Alpha4.SP5</version.jboss.arquillian>
+    <version.jboss.arquillian>1.0.0.Alpha4.SP6-SNAPSHOT</version.jboss.arquillian>
     <version.jboss.logmanager>1.2.0.CR7</version.jboss.logmanager>
     <version.jboss.modules>1.0.0.Beta12</version.jboss.modules>
     <version.jboss.msc>1.0.0.Beta5</version.jboss.msc>
@@ -492,7 +492,10 @@
       </build>
     </profile>
 
-    <!-- Name: jpda Descr: Enable JPDA remote debuging -->
+    <!-- 
+        Name: jpda 
+        Descr: Enable JPDA remote debuging 
+    -->
     <profile>
       <id>jpda</id>
       <activation>
@@ -505,7 +508,10 @@
       </properties>
     </profile>
 
-    <!-- Name: yourkit Descr: Enable YourKit remote profiling -->
+    <!-- 
+        Name: yourkit 
+        Descr: Enable YourKit remote profiling 
+    -->
     <profile>
       <id>yourkit</id>
       <activation>
@@ -518,7 +524,10 @@
       </properties>
     </profile>
 
-    <!-- Name: embedded-testing Descr: Setup for embedded integration testing -->
+    <!-- 
+        Name: embedded-testing 
+        Descr: Setup for embedded integration testing 
+    -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -553,10 +562,8 @@
                   <value>${jboss.osgi.framework.properties}</value>
                 </property>
                 <property>
-                  <!-- In embedded mode we don't have sufficient control over class path ordering. META-INF/services/javax.xml.parsers.DocumentBuilderFactory gets loaded 
-                    from xercesImpl. With this hack we force the DocumentBuilderFactory from jboss-osgi-xerces. -->
-                  <name>javax.xml.parsers.DocumentBuilderFactory</name>
-                  <value>org.jboss.osgi.xml.DocumentBuilderFactoryImpl</value>
+                  <name>jboss.osgi.vfs.leakDebugging</name>
+                  <value>true</value>
                 </property>
                 <property>
                   <name>test.archive.directory</name>
@@ -569,7 +576,10 @@
       </build>
     </profile>
 
-    <!-- Name: remote-testing Descr: Setup for remote integration testing -->
+    <!-- 
+        Name: remote-testing 
+        Descr: Setup for remote integration testing 
+    -->
     <profile>
       <id>remote-testing</id>
       <activation>
@@ -602,6 +612,10 @@
                 <property>
                   <name>jboss.osgi.framework.properties</name>
                   <value>${jboss.osgi.framework.properties}</value>
+                </property>
+                <property>
+                  <name>jboss.osgi.vfs.leakDebugging</name>
+                  <value>true</value>
                 </property>
                 <property>
                   <name>jndi.server.port</name>

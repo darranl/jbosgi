@@ -16,8 +16,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.InputStream;
 
 import javax.inject.Inject;
@@ -26,6 +24,7 @@ import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.osgi.testing.OSGiTest;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -38,12 +37,13 @@ import org.osgi.framework.Bundle;
 
 /**
  * Test the arquillian callback to a client provided archive
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 09-Sep-2010
  */
 @RunWith(Arquillian.class)
-public class SimpleArchiveProviderTestCase {
+public class SimpleArchiveProviderTestCase extends OSGiTest {
+
     @Inject
     public OSGiContainer container;
 
@@ -52,20 +52,16 @@ public class SimpleArchiveProviderTestCase {
         Archive<?> archive = container.getTestArchive("example-archive-provider");
         Bundle bundle = container.installBundle(archive);
         try {
+            assertBundleState(Bundle.INSTALLED, bundle.getState());
 
-            // Assert that the bundle is in state INSTALLED
-            assertEquals("Bundle INSTALLED", Bundle.INSTALLED, bundle.getState());
-
-            // Start the bundle
             bundle.start();
-            assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
+            assertBundleState(Bundle.ACTIVE, bundle.getState());
 
-            // Stop the bundle
             bundle.stop();
-            assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
+            assertBundleState(Bundle.RESOLVED, bundle.getState());
         } finally {
             bundle.uninstall();
-            assertEquals("Bundle UNINSTALLED", Bundle.UNINSTALLED, bundle.getState());
+            assertBundleState(Bundle.UNINSTALLED, bundle.getState());
         }
     }
 

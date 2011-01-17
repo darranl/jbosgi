@@ -383,14 +383,10 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBAS-8599] Provide JNDI InitialContext as OSGi services -->
-                <exclude>org/jboss/test/osgi/example/jndi/**</exclude>
-                <!-- [JBAS-8585] Provide TransactionManager & UserTransaction as OSGi services -->
-                <exclude>org/jboss/test/osgi/example/jta/**</exclude>
-                <!-- [JBOSGI-420] Unexpected null wiring for JAXBContext -->
-                <exclude>org/jboss/test/osgi/example/xml/jaxb/**</exclude>
-                <!-- [JBOSGI-393] Provide installer support for AS7 -->
-                <exclude>org/jboss/test/osgi/example/xservice/**</exclude>
+                <!-- [JBAS-8730] Hudson testsuite hangs because of Null deploymentHash -->
+                <exclude>org/jboss/test/osgi/example/xservice/ModuleAccessesBundleServiceTestCase.*</exclude>
+                <!-- [JBAS-8634] ManagementRequest is not thread safe -->
+                <exclude>org/jboss/test/osgi/example/xservice/BundleAccessesModuleServiceTestCase.*</exclude>
               </excludes>
             </configuration>
           </plugin>        
@@ -421,8 +417,6 @@
                 <exclude>org/jboss/test/osgi/example/xservice/ModuleAccessesBundleServiceTestCase.*</exclude>
                 <!-- [JBAS-8634] ManagementRequest is not thread safe -->
                 <exclude>org/jboss/test/osgi/example/xservice/BundleAccessesModuleServiceTestCase.*</exclude>
-                <!-- example-webapp.war re-deploy causes DuplicateServiceException. Wait for DUP refactoring. -->
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppExtenderTestCase.*</exclude>
               </excludes>
             </configuration>
           </plugin>        

@@ -390,11 +390,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <exclude>org/jboss/test/osgi/jbosgi99/**</exclude>
-                <exclude>org/jboss/test/osgi/jbosgi161/**</exclude>
-                <exclude>org/jboss/test/osgi/jbosgi286/**</exclude>
-                <!-- [JBOSGI-429] BundleUpdateTestCase tests throws NoClassDefFoundError -->
-                <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
               </excludes>
             </configuration>
           </plugin>        

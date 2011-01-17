@@ -45,7 +45,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * A test that deployes a bundle that binds a String to JNDI
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 05-May-2009
  */
@@ -83,14 +83,19 @@ public class JNDITestCase {
         bundle.uninstall();
 
         // Wait a little for dependent services to come down
-        Thread.sleep(200);
-
-        try {
-            iniCtx.lookup("test/Foo");
-            fail("NameNotFoundException expected");
-        } catch (NameNotFoundException ex) {
-            // expected
+        long timeout = 10000;
+        boolean unbound = false;
+        while (timeout > 0 && unbound == false) {
+            Thread.sleep(200);
+            timeout -= 200;
+            try {
+                iniCtx.lookup("test/Foo");
+            } catch (NameNotFoundException ex) {
+                unbound = true;
+            }
         }
+        if (unbound == false)
+            fail("NameNotFoundException expected");
     }
 
     private InitialContext getInitialContext(BundleContext context) {

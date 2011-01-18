@@ -45,13 +45,15 @@ import org.osgi.framework.Bundle;
 
 /**
  * A test that shows how a module can access an OSGi service.
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @since 14-Oct-2010
  */
 public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCase {
+
     @Test
     public void moduleInvokesBundleService() throws Exception {
+
         // Deploy the module that contains the API
         JavaArchive apiArchive = getAPIModuleArchive();
         String apiDeploymentName = getRemoteRuntime().deploy(apiArchive);

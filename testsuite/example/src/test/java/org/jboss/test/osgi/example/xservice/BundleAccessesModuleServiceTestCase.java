@@ -43,11 +43,12 @@ import org.osgi.framework.Bundle;
 
 /**
  * A test that shows how a bundle can access an MSC service.
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @since 14-Oct-2010
  */
 public class BundleAccessesModuleServiceTestCase extends AbstractXServiceTestCase {
+
     @Test
     public void bundleInvokesModuleService() throws Exception {
         // Deploy the non-OSGi module which contains the target service

@@ -30,11 +30,12 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * A Service Activator
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 05-May-2009
  */
 public class JNDIExampleActivator implements BundleActivator {
+
     public void start(BundleContext context) {
         try {
             InitialContext iniCtx = getInitialContext(context);
@@ -55,9 +56,6 @@ public class JNDIExampleActivator implements BundleActivator {
 
     private InitialContext getInitialContext(BundleContext context) {
         ServiceReference sref = context.getServiceReference(InitialContext.class.getName());
-        if (sref == null)
-            throw new IllegalStateException("Cannot access the InitialContext");
-
         InitialContext initContext = (InitialContext) context.getService(sref);
         return initContext;
     }

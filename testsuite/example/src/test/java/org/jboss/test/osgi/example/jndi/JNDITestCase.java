@@ -22,7 +22,6 @@
 package org.jboss.test.osgi.example.jndi;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 
@@ -81,28 +80,15 @@ public class JNDITestCase {
 
         // Uninstall should unbind the object
         bundle.uninstall();
-
-        // Wait a little for dependent services to come down
-        long timeout = 10000;
-        boolean unbound = false;
-        while (timeout > 0 && unbound == false) {
-            Thread.sleep(200);
-            timeout -= 200;
-            try {
-                iniCtx.lookup("test/Foo");
-            } catch (NameNotFoundException ex) {
-                unbound = true;
-            }
+        try {
+            iniCtx.lookup("test/Foo");
+        } catch (NameNotFoundException ex) {
+            // expected
         }
-        if (unbound == false)
-            fail("NameNotFoundException expected");
     }
 
     private InitialContext getInitialContext(BundleContext context) {
         ServiceReference sref = context.getServiceReference(InitialContext.class.getName());
-        if (sref == null)
-            throw new IllegalStateException("Cannot access the InitialContext");
-
         InitialContext initContext = (InitialContext) context.getService(sref);
         return initContext;
     }

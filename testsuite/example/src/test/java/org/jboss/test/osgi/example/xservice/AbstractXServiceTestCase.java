@@ -25,13 +25,15 @@ package org.jboss.test.osgi.example.xservice;
 import java.io.IOException;
 
 import javax.management.InstanceNotFoundException;
-import javax.management.MBeanException;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
+import javax.management.openmbean.CompositeData;
 
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.ServiceController.State;
 import org.jboss.msc.service.ServiceName;
+import org.jboss.osgi.framework.BundleManagerMBean;
+import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.jmx.ObjectNameFactory;
 import org.jboss.osgi.testing.OSGiRemoteRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
@@ -45,6 +47,7 @@ import org.junit.Before;
  */
 public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest {
     private static ObjectName SERVICE_CONTAINER_OBJECTNAME = ObjectNameFactory.create("jboss.msc:type=container,name=jboss-as");
+    private BundleManagerMBean bundleManager;
     private OSGiRemoteRuntime runtime;
 
     @Before
@@ -58,36 +61,44 @@ public abstract class AbstractXServiceTestCase extends OSGiRuntimeTest {
     }
 
     protected long registerModule(ModuleIdentifier moduleId) throws Exception {
-        ObjectName oname = ObjectNameFactory.create("jboss.osgi:service=jmx,type=BundleManager");
-        MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-        if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
-            throw new InstanceNotFoundException(oname.getCanonicalName());
+        return getBundleManager().installBundle(moduleId);
+    }
 
-        try {
-            Object[] params = new Object[] { moduleId };
-            String[] signature = new String[] { ModuleIdentifier.class.getName() };
-            Long bundleId = (Long) mbeanServer.invoke(oname, "installBundle", params, signature);
-            return bundleId;
-        } catch (MBeanException ex) {
-            throw ex.getTargetException();
+    private BundleManagerMBean getBundleManager() throws IOException, InstanceNotFoundException {
+        if (bundleManager == null) {
+            MBeanServerConnection mbeanServer = runtime.getMBeanServer();
+            ObjectName oname = ObjectNameFactory.create(BundleManagerMBean.OBJECT_NAME);
+            if (isRegisteredWithTimeout(mbeanServer, oname, 10000) == false)
+                throw new InstanceNotFoundException(oname.getCanonicalName());
+
+            bundleManager = MBeanProxy.get(mbeanServer, oname, BundleManagerMBean.class);
         }
+        return bundleManager;
     }
 
     protected State getServiceState(ServiceName serviceName, State expState, long timeout) throws Exception {
-        MBeanServerConnection mbeanServer = runtime.getMBeanServer();
-        Object[] params = new Object[] { serviceName.getCanonicalName() };
-        String[] signature = new String[] { String.class.getName() };
-        String state = (String) mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getServiceState", params, signature);
-        while ((state == null || state != expState.toString()) && timeout > 0) {
+        State state = getServiceStateInternal(serviceName);
+        while ((state == null || state != expState) && timeout > 0) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
                 // ignore
             }
-            state = (String) mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getServiceState", params, signature);
+            state = getServiceStateInternal(serviceName);
             timeout -= 100;
         }
-        return state != null ? State.valueOf(state) : null;
+        return state;
+    }
+
+    private State getServiceStateInternal(ServiceName serviceName) throws Exception {
+        MBeanServerConnection mbeanServer = runtime.getMBeanServer();
+        Object[] params = new Object[] { serviceName.getCanonicalName() };
+        String[] signature = new String[] { String.class.getName() };
+        CompositeData data = (CompositeData) mbeanServer.invoke(SERVICE_CONTAINER_OBJECTNAME, "getServiceStatus", params, signature);
+        if (data == null) {
+            return null;
+        }
+        return State.valueOf((String) (data.get("stateName")));
     }
 
     private boolean isRegisteredWithTimeout(MBeanServerConnection mbeanServer, ObjectName objectName, int timeout) throws IOException {

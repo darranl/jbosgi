@@ -61,7 +61,7 @@
     <version.jboss.osgi.blueprint>1.0.2</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
-    <version.jboss.osgi.deployment>1.0.9</version.jboss.osgi.deployment>
+    <version.jboss.osgi.deployment>1.0.10-SNAPSHOT</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
     <version.jboss.osgi.framework>1.0.0.Alpha17-SNAPSHOT</version.jboss.osgi.framework>

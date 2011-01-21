@@ -7,3 +7,6 @@
 [submodule "reactor/jbosgi-deployment"]
 	path = reactor/jbosgi-deployment
 	url = git://github.com/jbosgi/jbosgi-deployment.git
+[submodule "reactor/jbosgi-resolver"]
+	path = reactor/jbosgi-resolver
+	url = git://github.com/jbosgi/jbosgi-resolver.git

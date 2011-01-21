@@ -72,7 +72,7 @@
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
     <version.jboss.osgi.reflect>2.2.0.Alpha9</version.jboss.osgi.reflect>
-    <version.jboss.osgi.resolver>1.0.6</version.jboss.osgi.resolver>
+    <version.jboss.osgi.resolver>1.0.7-SNAPSHOT</version.jboss.osgi.resolver>
     <version.jboss.osgi.serviceloader>1.0.3</version.jboss.osgi.serviceloader>
     <version.jboss.osgi.spi>1.0.22-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.5</version.jboss.osgi.vfs>

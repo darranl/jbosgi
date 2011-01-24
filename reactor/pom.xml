@@ -55,9 +55,6 @@
         </property>
       </activation>
       <modules>
-        <module>jbosgi-spi</module>
-        <module>jbosgi-deployment</module>
-        <module>jbosgi-resolver</module>
         <module>jbosgi-framework</module>
       </modules>
     </profile>

@@ -466,8 +466,9 @@
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.jboss.osgi.spi</groupId>
-          <artifactId>jbosgi-spi-plugin-jbossas7</artifactId>
+          <groupId>org.jboss.as</groupId>
+          <artifactId>jboss-as-osgi-plugin</artifactId>
+          <version>7.0.0.Alpha2-SNAPSHOT</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -492,8 +493,9 @@
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.jboss.osgi.spi</groupId>
-          <artifactId>jbosgi-spi-plugin-jbossas7</artifactId>
+          <groupId>org.jboss.as</groupId>
+          <artifactId>jboss-as-osgi-plugin</artifactId>
+          <version>7.0.0.Alpha2-SNAPSHOT</version>
           <scope>test</scope>
         </dependency>
       </dependencies>

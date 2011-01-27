@@ -21,10 +21,12 @@
  */
 package org.jboss.osgi.test.performance.bundle;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ import org.osgi.framework.BundleContext;
 /**
  * This Benchmark tests how much time it takes to install and start bundles in a number of class-spaces. It creates the
  * following configuration:
- * 
+ *
  * 5 (Versioned) Common Bundles - Exports org.jboss.osgi.test.common;version=x 5 Numbered (but not versioned) Util Bundles -
  * Imports org.jboss.osgi.test.common;version=[x,x] - Exports org.jboss.osgi.test.util[x];uses="org.jboss.osgi.test.common" 5
  * Versioned Interfaces Bundles - Exports org.jboss.osgi.test.versioned;version=x 5 Versioned Impl Bundles - Imports
@@ -48,15 +50,15 @@ import org.osgi.framework.BundleContext;
  * org.jboss.osgi.test.util[x] - Exports org.jboss.osgi.test.versioned.impl;version=x;uses=org.jboss.osgi.test.util[x] a large
  * number of test bundles - Imports org.jboss.osgi.test.common;version=[x,x] - Imports
  * org.jboss.osgi.test.versioned;version=[x,x] - Imports org.jboss.osgi.test.versioned.impl;version=[x,x]
- * 
+ *
  * Each test bundle loads a class of each of its 3 dependency packages in its activator. This also triggers an indirect load on
  * the Util[x] class.
- * 
+ *
  * Time is measured for installing and activating of all the bundles.
- * 
+ *
  * The original intention was to make the Common Bundles all of the same version, but this caused issues with the jbossmc
  * resolver.
- * 
+ *
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<Integer> {
@@ -84,7 +86,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
 
     /**
      * This method kicks off the test.
-     * 
+     *
      * @param numThreads number of concurrent threads to use.
      * @param numBundlesPerThread number of bundles to install in each thread.
      * @throws Exception if anything goes wrong.
@@ -131,6 +133,10 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
         System.out.println("Starting at " + new Date());
         long start = System.currentTimeMillis();
         for (int i = 0; i < numBundlesPerThread; i++) {
+            // david: DEBUGGING open files
+            if (i == 650)
+                printLSOF();
+
             URI uri = new File(bundleStorage, threadName + "_" + i + ".jar").toURI();
             Bundle bundle = bundleContext.installBundle(uri.toString());
             bundle.start();
@@ -150,6 +156,24 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
         System.out.println("Installed Bundles " + new Date());
 
         addedBundles(installedBundles);
+    }
+
+    // This method is added for debugging purposes and should be removed once the file handle investigation is done.
+    private void printLSOF() throws Exception {
+        if (System.getProperty("os.name").toLowerCase().startsWith("win"))
+            return;
+
+        Process process = new ProcessBuilder("lsof").start();
+        InputStream is = process.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+        System.out.println("**** Running lsof:");
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        process.waitFor();
+        System.out.println("**** Finished running lsof:");
     }
 
     private InputStream getCommonBundle(final String version) throws Exception {

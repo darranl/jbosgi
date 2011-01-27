@@ -74,7 +74,7 @@ fi
       <properties>
       test=Service100TestCase,Service500TestCase,Service1000TestCase,Service5000TestCase,Bundle100TestCase,Bundle500TestCase,Bundle750TestCase
       bench=true
-      framework=jbmsc
+      framework=jboss
       </properties>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>

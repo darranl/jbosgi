@@ -233,15 +233,15 @@
     </profile>
     
     <!--
-      Name: framework-jbmsc
+      Name: framework-jboss
       Descr: Setup for MSC Framework integration testing
     -->
     <profile>
-      <id>framework-jbmsc</id>
+      <id>framework-jboss</id>
       <activation>
         <property>
           <name>framework</name>
-          <value>jbmsc</value>
+          <value>jboss</value>
         </property>
       </activation>
       <build>

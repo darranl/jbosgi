@@ -163,7 +163,7 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
         if (System.getProperty("os.name").toLowerCase().startsWith("win"))
             return;
 
-        Process process = new ProcessBuilder("sh", "-c", "sudo /usr/sbin/lsof 2>&1").start();
+        Process process = new ProcessBuilder("lsof").start();
         InputStream is = process.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 

@@ -1,3 +1,2 @@
-org.jboss.osgi.framework.launch.BootstrapProviderImpl           # The MSC Framework bootstrap provider
 org.jboss.osgi.equinox.EquinoxBootstrapProvider                 # The Equinox bootstrap provider  
 org.jboss.osgi.felix.FelixBootstrapProvider                     # The Felix bootstrap provider

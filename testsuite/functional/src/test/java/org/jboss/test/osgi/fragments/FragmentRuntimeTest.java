@@ -48,7 +48,9 @@ import org.jboss.test.osgi.fragments.subA.SubBeanA;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleException;
+import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Test Fragment functionality
@@ -311,6 +313,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(HostAActivator.class);
+                builder.addImportPackages(BundleActivator.class, PackageAdmin.class);
                 return builder.openStream();
             }
         });
@@ -330,6 +333,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(HostBActivator.class);
                 builder.addExportPackages(SubBeanA.class);
+                builder.addImportPackages(BundleActivator.class, PackageAdmin.class);
                 return builder.openStream();
             }
         });
@@ -348,7 +352,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(HostCActivator.class);
-                builder.addImportPackages(FragBeanA.class);
+                builder.addImportPackages(BundleActivator.class, FragBeanA.class);
                 return builder.openStream();
             }
         });

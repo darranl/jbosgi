@@ -35,6 +35,7 @@ import org.jboss.test.osgi.example.simple.bundle.SimpleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 
 /**
  * Test the arquillian callback to a client provided archive
@@ -76,6 +77,7 @@ public class SimpleArchiveProviderTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(SimpleActivator.class.getName());
+                builder.addImportPackages(BundleActivator.class);
                 return builder.openStream();
             }
         });

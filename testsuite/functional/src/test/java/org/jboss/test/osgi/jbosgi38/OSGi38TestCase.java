@@ -40,7 +40,9 @@ import org.jboss.test.osgi.jbosgi38.bundleB.ServiceB;
 import org.jboss.test.osgi.jbosgi38.bundleX.SomePojo;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleException;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * [JBOSGI-38] Investigate bundle install/start behaviour with random deployment order
@@ -249,6 +251,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest {
                 builder.addBundleActivator(OSGi38ActivatorA.class);
                 builder.addExportPackages("org.jboss.test.osgi.jbosgi38.bundleA");
                 builder.addImportPackages("org.jboss.test.osgi.jbosgi38.bundleB", "org.jboss.test.osgi.jbosgi38.bundleX");
+                builder.addImportPackages(BundleActivator.class, ServiceTracker.class);
                 return builder.openStream();
             }
         });
@@ -270,6 +273,7 @@ public class OSGi38TestCase extends OSGiRuntimeTest {
                 builder.addBundleActivator(OSGi38ActivatorB.class);
                 builder.addExportPackages("org.jboss.test.osgi.jbosgi38.bundleB");
                 builder.addImportPackages("org.jboss.test.osgi.jbosgi38.bundleX");
+                builder.addImportPackages(BundleActivator.class);
                 return builder.openStream();
             }
         });

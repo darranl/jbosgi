@@ -42,6 +42,7 @@ import org.jboss.test.osgi.bundles.bundleB.SimpleActivatorB;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
@@ -57,6 +58,7 @@ import org.osgi.service.startlevel.StartLevel;
  */
 @RunWith(Arquillian.class)
 public class StartLevelTestCase {
+    
     @Inject
     public OSGiContainer container;
 
@@ -67,11 +69,11 @@ public class StartLevelTestCase {
 
     @Test
     public void testStartLevel() throws Exception {
-        ServiceReference sref = context.getServiceReference(StartLevel.class.getName());
-        StartLevel sls = (StartLevel) context.getService(sref);
-        assertEquals(1, sls.getStartLevel());
+        
+        StartLevel startLevel = getStartLevel();
+        assertEquals(1, startLevel.getStartLevel());
 
-        assertEquals(1, sls.getInitialBundleStartLevel());
+        assertEquals(1, startLevel.getInitialBundleStartLevel());
 
         Bundle ba = null;
         Bundle bb = null;
@@ -80,7 +82,7 @@ public class StartLevelTestCase {
             // In this try block the state of the framework is modified. Any modifications
             // need to be reverted in the finally block as the OSGi runtime is reused for
             // subsequent tests.
-            sls.setInitialBundleStartLevel(5);
+            startLevel.setInitialBundleStartLevel(5);
             ba = container.installBundle(container.getTestArchive("BundleA"));
             bb = container.installBundle(container.getTestArchive("BundleB"));
 
@@ -96,14 +98,14 @@ public class StartLevelTestCase {
             };
             context.addFrameworkListener(frameworkListener);
 
-            assertEquals(5, sls.getBundleStartLevel(ba));
-            assertEquals(5, sls.getBundleStartLevel(bb));
+            assertEquals(5, startLevel.getBundleStartLevel(ba));
+            assertEquals(5, startLevel.getBundleStartLevel(bb));
             ba.start();
             assertTrue("Bundle should not yet be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
             assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
 
             CountDownLatch latch = getStartLevelLatch();
-            sls.setStartLevel(5);
+            startLevel.setStartLevel(5);
 
             assertTrue(latch.await(60, SECONDS));
             assertTrue("Bundle should be started", (ba.getState() & Bundle.ACTIVE) != 0);
@@ -120,7 +122,7 @@ public class StartLevelTestCase {
             };
             context.addBundleListener(bl);
 
-            sls.setBundleStartLevel(ba, 10);
+            startLevel.setBundleStartLevel(ba, 10);
             assertTrue(bundleStoppedLatch.await(60, SECONDS));
             assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
             assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
@@ -130,13 +132,13 @@ public class StartLevelTestCase {
             assertTrue("Bundle should be started", (bb.getState() & Bundle.ACTIVE) != 0);
 
             latch = getStartLevelLatch();
-            sls.setStartLevel(1);
+            startLevel.setStartLevel(1);
             assertTrue(latch.await(60, SECONDS));
             assertTrue("Bundle should not be started", (ba.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
             assertTrue("Bundle should not be started", (bb.getState() & (Bundle.RESOLVED | Bundle.INSTALLED)) != 0);
         } finally {
-            sls.setInitialBundleStartLevel(1);
-            sls.setStartLevel(1);
+            startLevel.setInitialBundleStartLevel(1);
+            startLevel.setStartLevel(1);
 
             if (frameworkListener != null)
                 context.removeFrameworkListener(frameworkListener);
@@ -147,6 +149,12 @@ public class StartLevelTestCase {
             if (bb != null)
                 bb.uninstall();
         }
+    }
+
+    private StartLevel getStartLevel() {
+        ServiceReference sref = context.getServiceReference(StartLevel.class.getName());
+        StartLevel sls = (StartLevel) context.getService(sref);
+        return sls;
     }
 
     private synchronized CountDownLatch getStartLevelLatch() {
@@ -177,6 +185,7 @@ public class StartLevelTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(SimpleActivatorA.class);
+                builder.addImportPackages(BundleActivator.class);
                 return builder.openStream();
             }
         });
@@ -194,6 +203,7 @@ public class StartLevelTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(SimpleActivatorB.class);
+                builder.addImportPackages(BundleActivator.class);
                 return builder.openStream();
             }
         });

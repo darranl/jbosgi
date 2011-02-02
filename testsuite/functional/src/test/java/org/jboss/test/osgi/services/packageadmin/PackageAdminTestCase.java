@@ -60,8 +60,6 @@ public class PackageAdminTestCase {
 
     @Test
     public void testRefreshPackages() throws Exception {
-        // Bundle bundle = container.installBundle(container.getTestArchive("initial"));
-        // try
         Bundle importing = null, exporting = null;
         FrameworkListener frameworkListener = null;
         try {
@@ -93,9 +91,8 @@ public class PackageAdminTestCase {
             };
             context.addFrameworkListener(frameworkListener);
 
-            ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
-            PackageAdmin pa = (PackageAdmin) context.getService(sref);
-            pa.refreshPackages(new Bundle[] { importing });
+            PackageAdmin packageAdmin = getPackageAdmin();
+            packageAdmin.refreshPackages(new Bundle[] { importing });
 
             latch.await(60, SECONDS);
 
@@ -110,6 +107,11 @@ public class PackageAdminTestCase {
             if (exporting != null)
                 exporting.uninstall();
         }
+    }
+
+    private PackageAdmin getPackageAdmin() {
+        ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
+        return (PackageAdmin) context.getService(sref);
     }
 
     @ArchiveProvider

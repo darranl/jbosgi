@@ -39,6 +39,7 @@ import org.jboss.test.osgi.jbosgi39.bundleX.OSGi39BeanX;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleException;
 
 /**
@@ -170,7 +171,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(OSGi39ActivatorB.class);
-                builder.addImportPackages(OSGi39BeanX.class);
+                builder.addImportPackages(BundleActivator.class, OSGi39BeanX.class);
                 return builder.openStream();
             }
         });
@@ -189,7 +190,7 @@ public class OSGi39TestCase extends OSGiRuntimeTest {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleActivator(OSGi39ActivatorB.class);
-                builder.addImportPackages(OSGi39BeanX.class);
+                builder.addImportPackages(BundleActivator.class, OSGi39BeanX.class);
                 return builder.openStream();
             }
         });

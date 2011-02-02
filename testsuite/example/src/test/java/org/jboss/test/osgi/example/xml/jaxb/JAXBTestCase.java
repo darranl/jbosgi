@@ -74,6 +74,7 @@ public class JAXBTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages("com.sun.xml.bind.v2", "javax.xml.bind", "javax.xml.bind.annotation");
                 builder.addImportPackages("javax.xml.datatype", "javax.xml.namespace", "org.apache.xerces.jaxp.datatype", "org.jboss.osgi.xml");
+                builder.addImportPackages(PackageAdmin.class);
                 return builder.openStream();
             }
         });

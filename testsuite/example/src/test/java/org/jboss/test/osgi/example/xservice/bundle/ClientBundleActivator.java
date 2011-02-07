@@ -29,6 +29,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 public class ClientBundleActivator implements BundleActivator {
+
     private static final Logger log = Logger.getLogger(ClientBundleActivator.class);
 
     @Override

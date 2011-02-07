@@ -28,6 +28,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
+import org.jboss.logging.Logger;
 import org.jboss.modules.ModuleIdentifier;
 import org.jboss.msc.service.ServiceActivator;
 import org.jboss.msc.service.ServiceController.State;
@@ -42,6 +43,7 @@ import org.jboss.test.osgi.example.xservice.module.ClientModuleActivator;
 import org.jboss.test.osgi.example.xservice.module.EchoInvokerService;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 
 /**
  * A test that shows how a module can access an OSGi service.
@@ -108,7 +110,7 @@ public class ModuleAccessesBundleServiceTestCase extends AbstractXServiceTestCas
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleVersion("1.0.0");
                 builder.addBundleActivator(TargetBundleActivator.class);
-                builder.addImportPackages(Echo.class);
+                builder.addImportPackages(BundleActivator.class, Logger.class, Echo.class);
                 return builder.openStream();
             }
         });

@@ -31,8 +31,8 @@ import java.util.concurrent.CountDownLatch;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.ArchiveProvider;
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -52,8 +52,9 @@ import org.osgi.service.packageadmin.PackageAdmin;
  */
 @RunWith(Arquillian.class)
 public class PackageAdminTestCase {
+   
     @Inject
-    public OSGiContainer container;
+    public DeploymentProvider provider;
 
     @Inject
     public BundleContext context;
@@ -63,7 +64,8 @@ public class PackageAdminTestCase {
         Bundle importing = null, exporting = null;
         FrameworkListener frameworkListener = null;
         try {
-            importing = container.installBundle(container.getTestArchive("importing"));
+            InputStream input = provider.getClientDeploymentAsStream("importing");
+            importing = context.installBundle("importing", input);
             importing.start();
             try {
                 importing.loadClass("org.jboss.test.osgi.bundles.exporter.ExportedClass");
@@ -72,7 +74,8 @@ public class PackageAdminTestCase {
                 // good
             }
 
-            exporting = container.installBundle(container.getTestArchive("exporting"));
+            input = provider.getClientDeploymentAsStream("exporting");
+            exporting = context.installBundle("exporting", input);
             exporting.start();
             try {
                 importing.loadClass("org.jboss.test.osgi.bundles.exporter.ExportedClass");

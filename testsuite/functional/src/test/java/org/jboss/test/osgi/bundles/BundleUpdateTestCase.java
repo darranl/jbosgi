@@ -26,8 +26,8 @@ import java.io.InputStream;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.ArchiveProvider;
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiTest;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -38,6 +38,7 @@ import org.jboss.test.osgi.bundles.update2.A2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.Version;
 
 /**
@@ -45,18 +46,23 @@ import org.osgi.framework.Version;
  */
 @RunWith(Arquillian.class)
 public class BundleUpdateTestCase extends OSGiTest {
+
     @Inject
-    public OSGiContainer container;
+    public BundleContext context;
+
+    @Inject
+    public DeploymentProvider provider;
 
     @Test
     public void testUpdateBundle() throws Exception {
-        Bundle bundle = container.installBundle(container.getTestArchive("initial"));
+        InputStream input = provider.getClientDeploymentAsStream("initial");
+        Bundle bundle = context.installBundle("initial", input);
         try {
             bundle.start();
             assertLoadClass(bundle, "org.jboss.test.osgi.bundles.update1.A1");
             assertLoadClassFail(bundle, "org.jboss.test.osgi.bundles.update2.A2");
 
-            InputStream is = container.getTestArchiveStream("updated");
+            InputStream is = provider.getClientDeploymentAsStream("updated");
             bundle.update(is);
             assertLoadClass(bundle, "org.jboss.test.osgi.bundles.update2.A2");
             assertLoadClassFail(bundle, "org.jboss.test.osgi.bundles.update1.A1");

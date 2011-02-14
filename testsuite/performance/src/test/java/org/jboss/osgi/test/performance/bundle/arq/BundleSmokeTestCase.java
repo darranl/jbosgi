@@ -23,8 +23,8 @@ package org.jboss.osgi.test.performance.bundle.arq;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.test.performance.bundle.BundleInstallAndStartBenchmark;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,15 +38,17 @@ import org.osgi.framework.BundleContext;
  */
 @RunWith(Arquillian.class)
 public class BundleSmokeTestCase extends BundleTestBase {
+    
     @Inject
-    public OSGiContainer container;
-
-    OSGiContainer getOSGiContainer() {
-        return container;
-    }
+    public DeploymentProvider provider;
 
     @Inject
     public BundleContext bundleContext;
+
+    @Override
+    DeploymentProvider getDeploymentProvider() {
+        return provider;
+    }
 
     BundleContext getBundleContext() {
         return bundleContext;
@@ -54,7 +56,7 @@ public class BundleSmokeTestCase extends BundleTestBase {
 
     @Test
     public void test5() throws Exception {
-        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(new TestBundleProviderImpl(getOSGiContainer()), getBundleContext());
+        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(new TestBundleProviderImpl(getDeploymentProvider()), getBundleContext());
         bm.prepareTest(1, 5);
         bm.runThread("Thread_1", 5);
         bm.cleanUp();

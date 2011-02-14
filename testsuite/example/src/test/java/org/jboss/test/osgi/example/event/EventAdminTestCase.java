@@ -24,6 +24,7 @@ package org.jboss.test.osgi.example.event;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -31,8 +32,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,13 +61,17 @@ public class EventAdminTestCase {
     public Bundle bundle;
 
     @Inject
-    public OSGiContainer container;
+    public DeploymentProvider provider;
+
+    @Inject
+    public BundleContext context;
 
     @Before
     public void setUp() throws BundleException {
-        if (container != null) {
+        if (provider != null) {
             // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
-            Bundle eventadmin = container.installBundle("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
+            URL archiveURL = provider.getArchiveURL("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
+            Bundle eventadmin = context.installBundle(archiveURL.toExternalForm());
             eventadmin.start();
         }
     }

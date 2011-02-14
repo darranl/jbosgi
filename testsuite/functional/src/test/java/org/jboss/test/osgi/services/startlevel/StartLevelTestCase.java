@@ -31,8 +31,8 @@ import java.util.concurrent.CountDownLatch;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.ArchiveProvider;
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -60,7 +60,7 @@ import org.osgi.service.startlevel.StartLevel;
 public class StartLevelTestCase {
     
     @Inject
-    public OSGiContainer container;
+    public DeploymentProvider provider;
 
     @Inject
     public BundleContext context;
@@ -83,8 +83,8 @@ public class StartLevelTestCase {
             // need to be reverted in the finally block as the OSGi runtime is reused for
             // subsequent tests.
             startLevel.setInitialBundleStartLevel(5);
-            ba = container.installBundle(container.getTestArchive("BundleA"));
-            bb = container.installBundle(container.getTestArchive("BundleB"));
+            ba = context.installBundle("BundleA", provider.getClientDeploymentAsStream("BundleA"));
+            bb = context.installBundle("BundleB", provider.getClientDeploymentAsStream("BundleB"));
 
             setStartLevelLatch(new CountDownLatch(1));
             frameworkListener = new FrameworkListener() {

@@ -23,8 +23,8 @@ package org.jboss.osgi.test.performance.bundle.arq;
 
 import javax.inject.Inject;
 
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -36,19 +36,21 @@ import org.osgi.framework.BundleContext;
  */
 @RunWith(Arquillian.class)
 public class Bundle100TestCase extends BundleTestBase {
+    
     @Inject
-    public OSGiContainer container;
-
-    OSGiContainer getOSGiContainer() {
-        return container;
-    }
+    public DeploymentProvider provider;
 
     @Inject
-    public BundleContext bundleContext;
+    public BundleContext context;
 
     @Override
     BundleContext getBundleContext() {
-        return bundleContext;
+        return context;
+    }
+
+    @Override
+    DeploymentProvider getDeploymentProvider() {
+        return provider;
     }
 
     @Test

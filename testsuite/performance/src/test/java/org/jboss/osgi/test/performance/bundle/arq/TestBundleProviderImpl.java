@@ -23,7 +23,7 @@ package org.jboss.osgi.test.performance.bundle.arq;
 
 import java.io.InputStream;
 
-import org.jboss.arquillian.osgi.OSGiContainer;
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.osgi.test.performance.bundle.TestBundleProvider;
 
 /**
@@ -32,14 +32,15 @@ import org.jboss.osgi.test.performance.bundle.TestBundleProvider;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class TestBundleProviderImpl implements TestBundleProvider {
-    private OSGiContainer container;
+    
+    private DeploymentProvider provider;
 
-    public TestBundleProviderImpl(OSGiContainer container) {
-        this.container = container;
+    public TestBundleProviderImpl(DeploymentProvider container) {
+        this.provider = container;
     }
 
     @Override
     public InputStream getTestArchiveStream(String name) {
-        return container.getTestArchiveStream(name);
+        return provider.getClientDeploymentAsStream(name);
     }
 }

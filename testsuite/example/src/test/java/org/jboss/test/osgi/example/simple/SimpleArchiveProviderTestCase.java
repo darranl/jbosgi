@@ -23,10 +23,9 @@ import java.io.InputStream;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.ArchiveProvider;
+import org.jboss.arquillian.jmx.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.osgi.OSGiContainer;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -36,6 +35,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
 
 /**
  * Test the arquillian callback to a client provided archive
@@ -46,13 +46,16 @@ import org.osgi.framework.BundleActivator;
 @RunWith(Arquillian.class)
 public class SimpleArchiveProviderTestCase {
 
-    @Inject
-    public OSGiContainer container;
+   @Inject
+   public DeploymentProvider provider;
+
+   @Inject
+   public BundleContext context;
 
     @Test
     public void testBundleInjection() throws Exception {
-        Archive<?> archive = container.getTestArchive("example-archive-provider");
-        Bundle bundle = container.installBundle(archive);
+        InputStream input = provider.getClientDeploymentAsStream("example-archive-provider");
+        Bundle bundle = context.installBundle("example-archive-provider", input);
         try {
             assertEquals("Bundle INSTALLED", Bundle.INSTALLED, bundle.getState());
 

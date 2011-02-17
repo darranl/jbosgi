@@ -26,7 +26,7 @@ import java.io.InputStream;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.ArchiveProvider;
-import org.jboss.arquillian.jmx.DeploymentProvider;
+import org.jboss.arquillian.api.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.testing.OSGiTest;

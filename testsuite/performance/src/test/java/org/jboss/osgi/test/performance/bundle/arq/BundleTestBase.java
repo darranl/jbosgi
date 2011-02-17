@@ -26,7 +26,7 @@ import java.io.InputStream;
 
 import org.jboss.arquillian.api.ArchiveProvider;
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.jmx.DeploymentProvider;
+import org.jboss.arquillian.api.DeploymentProvider;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;

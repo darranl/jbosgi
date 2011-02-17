@@ -23,7 +23,7 @@ package org.jboss.osgi.test.performance.bundle.arq;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.jmx.DeploymentProvider;
+import org.jboss.arquillian.api.DeploymentProvider;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.performance.bundle.BundleInstallAndStartBenchmark;
 import org.junit.Test;

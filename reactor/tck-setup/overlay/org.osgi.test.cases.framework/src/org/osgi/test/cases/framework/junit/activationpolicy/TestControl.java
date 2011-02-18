@@ -38,8 +38,6 @@ import org.osgi.test.support.compatibility.DefaultTestBundleControl;
 /**
  * Disabled test:
  *    
- *    testClassCircularity        - [MODULES-65] Deadlock when LocalLoader attempts a circular class load
- *                                  (https://issues.jboss.org/browse/MODULES-65)
  *    testActivationPolicyChain02 - [BUG-1848] Too many assumptions on class load ordering
  *                                  (https://www.osgi.org/members/bugzilla/show_bug.cgi?id=1848)  
  */
@@ -773,7 +771,7 @@ public class TestControl extends DefaultTestBundleControl {
 	 * This tests that a ClassCircularityError is not generated when the "trigger" class is loaded while a bundle
 	 * is being activated as a result of a lazy activation policy
 	 */
-	public void _testClassCircularity() throws Exception {
+	public void testClassCircularity() throws Exception {
 		Bundle tblazy5 = installBundle(getWebServer()
 				+ "activationpolicy.tblazy5.jar", false);
 		Bundle tblazy6 = installBundle(getWebServer()

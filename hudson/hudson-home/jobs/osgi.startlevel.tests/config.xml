@@ -72,7 +72,7 @@ cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final
 
 # Setup the TCK
 cd $TCKSETUP; cp ant.properties.example ant.properties
-ant clean setup.ri
+ant setup.ri
 
 # Run the startlevel tests
 ant run-startlevel-tests

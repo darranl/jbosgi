@@ -1,0 +1,141 @@
+<chapter xml:id="ChapASIntegration">
+
+  <title>Application Server Integration</title>
+  
+  <sect1 xml:id="SecASOverview">
+  
+    <title>Overview</title>
+    
+    <para>The JBoss OSGi framework is fully integrated into the <ulink url="http://http://jboss.org/jbossas">
+    JBoss Application Server</ulink>. OSGi bundles can be deployed like any other deployment that 
+    is supported by AS. Hot deployment is supported by dropping an OSGi bundle into the 
+    'deployments' folder. The <link linkend="SecWebConsole">
+    OSGi managment console</link> is also supported.</para>
+    
+    <para>OSGi components can interact with non OSGi services that are natively provided by AS. This
+    includes, but is not limited to, the Transaction Service and Naming Service (JNDI).</para>
+    
+    <para>Standard OSGi Config Admin functionality is supported and integrated with the general AS 
+    management layer.</para>
+    
+    <para>By default the OSGi subsystem is activated on-demand. Only when there is an OSGi bundle
+    deployment the subsystem activate and the respective OSGi services become available.</para>
+    
+  </sect1>
+  
+  <sect1 xml:id="SecASConfiguration">
+  
+    <title>Configuration</title>
+    
+    <para>The OSGi subsystem is configured like any other subsystem in the standalone/domain XML
+    descriptor. The configuration options are:</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold">Subsystem Activation</emphasis> - By default the OSGi
+      subsystem is activated on-demand. The activation attribute can be set to 'eager' to 
+      initialize the subsystem on serrver startup.</listitem>
+      
+      <listitem><emphasis role="bold">Framework Properties</emphasis> - OSGi supports the notion
+      of framework properties. These can be configured in free form. Property values are of type string.
+      A typical configuration includes a set of packages that are provided by the server directly. 
+      Please refer to the OSGi core specification for a list of standard OSGi properties.</listitem>
+      
+      <listitem><emphasis role="bold">Module Dependencies</emphasis> -
+      The Framework can export packages from server system modules. The property
+      'org.jboss.osgi.system.modules' contains a list of module identifiers that are setup as
+      dependencies of the OSGi Framework.</listitem>
+      
+      <listitem><emphasis role="bold">Preinstalled Bundles</emphasis> -
+      OSGi bundles can be installed from their respective module identifier as part of OSGi subsystem startup.</listitem>
+      
+      <listitem><emphasis role="bold">Config Admin properties</emphasis> -
+      Supported are multiple configurations identified by persistent id (PID). Each configuration may 
+      contain multiple configuration key/value pairs.</listitem>
+      
+    </itemizedlist>
+    
+    <para>Below is a sample configuration for the OSGi subsystem</para>
+    
+    <programlisting role="XML"><![CDATA[
+        <subsystem xmlns="urn:jboss:domain:osgi:1.0" activation="lazy">
+            <configuration pid="org.apache.felix.webconsole.internal.servlet.OsgiManager">
+                <property name="manager.root">jboss-osgi</property>
+            </configuration>        
+            <properties>
+                <property name="org.jboss.osgi.system.modules">
+                org.apache.log4j,
+                javax.inject.api,
+                </property>
+                <property name="org.osgi.framework.system.packages.extra">
+                org.apache.log4j;version=1.2,
+                javax.inject
+                </property> 
+            </properties>
+            <modules>
+                <module identifier="org.osgi.compendium"/>
+                <module identifier="org.apache.aries.util"/>
+                <module identifier="org.apache.aries.jmx" start="true"/>
+                <module identifier="org.jboss.osgi.jmx" start="true"/>
+            </modules> 
+        </subsystem>               
+    ]]></programlisting>
+  </sect1>
+  
+  <sect1 xml:id="SecASFeatures">
+  
+    <title>Features</title>
+    
+    <para>The current JBoss OSGi feature set in AS includes</para>
+    
+    <itemizedlist>
+      <listitem><emphasis role="bold">Hot Deployement</emphasis> -
+      Similar to <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> there is a deployment scanner that scans
+      the 'deploy' folder for new or removed bundles.</listitem>
+      
+      <listitem><emphasis role="bold">Local and Remote JMX Support</emphasis> - 
+      There is local as well as remote JSR160 support for JMX. 
+      </listitem>
+      
+      <listitem><emphasis role="bold">JNDI Support</emphasis> -
+      Components can access the JNDI InitialContext as a service from the registry.
+      </listitem>
+      
+      <listitem><emphasis role="bold">JTA Support</emphasis> -
+      Components can interact with the JTA TransactionManager and UserTransaction service.
+      </listitem>
+      
+      <listitem><emphasis role="bold">SAX/DOM Parser Support</emphasis> - 
+      The Runtime comes with an implementation of an <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/util/xml/XMLParserActivator.html">XMLParserActivator</ulink>
+      which provides access to a SAXParserFactory and DocumentBuilderFactory.
+      </listitem>
+      
+      <listitem><emphasis role="bold">JAXB Support</emphasis> - 
+      There is a bundle that provides JAXB support.
+      </listitem>
+      
+      <listitem><emphasis role="bold">HttpService and WebApp Support</emphasis> -
+      HttpService and WebApp support is provided by <ulink url="http://wiki.ops4j.org/display/paxweb/Pax+Web">Pax Web</ulink>. 
+      </listitem>
+      
+      <listitem><emphasis role="bold">ConfigAdmin Support</emphasis> - 
+      ConfigAdmin support is provided by the <ulink url="http://felix.apache.org/site/apache-felix-configuration-admin-service.html">Apache Felix Configuration Admin Service</ulink>. 
+      </listitem>
+      
+      <listitem><emphasis role="bold">EventAdmin Support</emphasis> - 
+      EventAdmin support is provided by the <ulink url="http://felix.apache.org/site/apache-felix-event-admin.html">Apache Felix Event Admin Service</ulink>. 
+      </listitem>
+      
+      <listitem><emphasis role="bold">Logging System</emphasis> -
+      The logging bridge writes OSGi LogEntries to the server log file'.
+      </listitem>
+      
+      <listitem><emphasis role="bold">Blueprint Container Support</emphasis> -
+      The <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</ulink> service allows bundles 
+      to contain standard blueprint descriptors, which can be used for component wiring and injection of blueprint components.
+      The idea is to use a plain POJO programming model and let Blueprint do the wiring for you. There should be
+      no need for OSGi API to "pollute" your application logic.</listitem>
+    </itemizedlist>
+  </sect1>
+  
+</chapter>
+  

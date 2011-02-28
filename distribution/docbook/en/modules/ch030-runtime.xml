@@ -1,6 +1,6 @@
 <chapter xml:id="ChapRuntime">
 
-  <title>JBoss OSGi Runtime</title>
+  <title>Standalone Runtime</title>
   
   <sect1 xml:id="SecRuntimeOverview">
   
@@ -25,13 +25,6 @@
     Similar to <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> it supports hot-deployment by dropping bundles
     into the 'deploy' folder. Management of the runtime is provided through a <link linkend="SecWebConsole">Web Console</link></para>
      
-    <!--  
-    <para>Integration of the <ulink url="http://www.jboss.org/jbossmc">JBoss Microcontainer</ulink> as an OSGi service allows you 
-    to write your applications in a POJO programming model without much "pollution" of OSGi specific API - the MC will do the
-    wiring for you. JBoss OSGi also comes with an implementation of 
-    <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Service (RFC-124)</ulink>, 
-    which standardizes this idea and takes it further.</para>
-    -->
     <para>JBoss OSGi comes with an implementation of 
     <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Service</ulink>, 
     which standardizes a POJO programming model without much "pollution" of OSGi specific API.</para>
@@ -41,12 +34,6 @@
     Access to the Runtime has been abstracted sufficiently that you can run the same test case against an embedded (bootstrapped from within the test case) 
     as well as a remote instance of the Runtime. You can run your OSGi tests from <ulink url="http://maven.apache.org">Maven</ulink>, 
     <ulink url="http://ant.apache.org">Ant</ulink>, <ulink url="http://www.eclipse.org">Eclipse</ulink> or any other test runner that supports JUnit4.</para>
-    
-    <!-- 
-    <para>JBoss OSGi Runtime can be installed as a <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> service with abstractions
-    of the available OSGi services. The JBoss OSGi testsuite in fact runs the same set of tests against the embedded, standalone and AS integrated 
-    instance of the Runtime</para>
-    -->
     
   </sect1>
   
@@ -108,15 +95,6 @@
       <listitem><emphasis role="bold">Logging System</emphasis> -
       The logging bridge writes OSGi LogEntries to the configured logging framework (e.g. Log4J).
       </listitem>
-      
-      <!-- 
-      <listitem><emphasis role="bold">Microcontainer Support</emphasis> -
-      The <ulink url="http://www.jboss.org/jbossmc">Microcontainer</ulink> service allows bundles to contain a *-beans.xml descriptor,
-      which can be used for component wiring and injection of base services. It also comes with a set of <link linkend="SecDeployers">deployers</link> 
-      - so instead of simply installing a bundle to the underlying OSGi framework it passes to the chain of deployers which each deal with a specific
-      aspect of bundle deployment.    
-      </listitem>
-      -->
       
       <listitem><emphasis role="bold">Blueprint Container Support</emphasis> -
       The <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</ulink> service allows bundles 

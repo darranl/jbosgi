@@ -125,10 +125,9 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <!-- 
-              [JBOSGI-435] Restore performance test matrix 
-              <forkMode>always</forkMode> 
-              -->
+              <useSystemClassLoader>true</useSystemClassLoader>
+              <useManifestOnlyJar>false</useManifestOnlyJar>
+              <forkMode>always</forkMode>
               <includes>
                 <include>**/basic/*TestCase.java</include>
                 <include>**/*SmokeTestCase.java</include>

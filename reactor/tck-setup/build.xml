@@ -25,7 +25,11 @@
     <fail message="Cannot find ant.properties. Did you copy/edit ant.properties.example?" unless="ant.properties.available" />
 
     <property file="${basedir}/ant.properties" />
-
+  	
+  	<!-- Get the framework version from the POM -->
+  	<xmlproperty file="${basedir}/../../pom.xml"/>
+    <property name="framework.version" value="${project.properties.version.jboss.osgi.framework}" />
+  	
     <!-- Setup property defaults -->
     <property environment="env" />
     <property name="username" value="${env.USER}" />

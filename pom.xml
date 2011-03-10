@@ -374,6 +374,16 @@
             <groupId>org.jboss.osgi</groupId>
             <artifactId>jboss-osgi-spi</artifactId>
           </exclusion>
+          <!-- 
+          <exclusion>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>xml-resolver</groupId>
+            <artifactId>xml-resolver</artifactId>
+          </exclusion>
+          -->
         </exclusions>
         <version>${version.jboss.osgi.xerces}</version>
       </dependency>

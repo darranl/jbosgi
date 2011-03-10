@@ -2,8 +2,6 @@
 # A sample ant properties file
 #
 # 
-# The JBoss OSGi framework version
-framework.version=1.0.0.Alpha20-SNAPSHOT
 
 # The aQute Bnd version 
 aQute.bnd.version=0.0.365.SP1

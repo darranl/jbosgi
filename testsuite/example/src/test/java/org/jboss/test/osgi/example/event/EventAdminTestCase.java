@@ -48,7 +48,7 @@ import org.osgi.service.event.EventHandler;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
@@ -68,11 +68,20 @@ public class EventAdminTestCase {
 
     @Before
     public void setUp() throws BundleException {
-        if (provider != null) {
-            // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
-            URL archiveURL = provider.getArchiveURL("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
-            Bundle eventadmin = context.installBundle(archiveURL.toExternalForm());
-            eventadmin.start();
+        if (context != null) {
+            Bundle eventadmin = null;
+            for (Bundle bundle : context.getBundles()) {
+                if (bundle.getSymbolicName().equals("org.apache.felix.eventadmin")) {
+                    eventadmin = bundle;
+                    break;
+                }
+            }
+            if (eventadmin == null) {
+                // Note, groupId and version only needed for remote testing where the bundle is not on the classpath
+                URL archiveURL = provider.getArchiveURL("org.apache.felix", "org.apache.felix.eventadmin", "1.2.6");
+                eventadmin = context.installBundle(archiveURL.toExternalForm());
+                eventadmin.start();
+            }
         }
     }
 

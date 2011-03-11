@@ -109,10 +109,6 @@
       which provides access to a SAXParserFactory and DocumentBuilderFactory.
       </listitem>
       
-      <listitem><emphasis role="bold">JAXB Support</emphasis> - 
-      There is a bundle that provides JAXB support.
-      </listitem>
-      
       <listitem><emphasis role="bold">HttpService and WebApp Support</emphasis> -
       HttpService and WebApp support is provided by <ulink url="http://wiki.ops4j.org/display/paxweb/Pax+Web">Pax Web</ulink>. 
       </listitem>

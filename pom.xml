@@ -67,7 +67,6 @@
     <version.jboss.osgi.framework>1.0.0.Alpha21-SNAPSHOT</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.9</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.1</version.jboss.osgi.http>
-    <version.jboss.osgi.jaxb>2.1.10.SP5</version.jboss.osgi.jaxb>
     <version.jboss.osgi.jmx>1.0.9</version.jboss.osgi.jmx>
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
@@ -232,17 +231,6 @@
           </exclusion>
         </exclusions>
         <version>${version.jboss.osgi.http}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.jaxb</groupId>
-        <artifactId>jboss-osgi-jaxb</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.osgi.jaxb}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.jmx</groupId>

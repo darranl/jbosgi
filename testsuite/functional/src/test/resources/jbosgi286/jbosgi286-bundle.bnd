@@ -1,7 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi286-bundleA.jar src/test/resources/jbosgi286/bundle.bnd
-
-Bundle-SymbolicName: jbosgi286-bundle
-Bundle-Activator: org.jboss.test.osgi.jbosgi286.bundle.OSGi286Activator
-Import-Package: javax.xml.bind, org.osgi.framework, org.osgi.service.packageadmin
-Private-Package: org.jboss.test.osgi.jbosgi286.bundle
-

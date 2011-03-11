@@ -52,21 +52,6 @@
     
   </sect1>
   
-  <sect1 xml:id="SecBundleJAXB">  
-    <title>JAXB Service</title>
-    
-    <para>The JBoss OSGi <emphasis role="bold">jboss-osgi-jaxb.jar</emphasis> bundle provides a service 
-    to create <ulink url="http://java.sun.com/javase/6/docs/api/javax/xml/bind/JAXBContext.html">JAXBContext</ulink>
-    instances.</para>
-
-    <para>The service is registered with the Framework under the name</para>
-    
-    <itemizedlist>
-      <listitem><emphasis role="bold"><ulink url="../../apidocs/org/jboss/osgi/jaxb/JAXBService.html">org.jboss.osgi.jaxb.JAXBService</ulink></emphasis></listitem>
-    </itemizedlist>
-    
-  </sect1>
-
   <sect1 xml:id="SecBundleJMX">  
     <title>JMX Service</title>
     

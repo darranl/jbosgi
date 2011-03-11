@@ -20,7 +20,6 @@
         <include>*:jboss-osgi-common:jar</include>
         <include>*:jboss-osgi-common-core:jar</include>
         <include>*:jboss-osgi-http:jar</include>
-        <include>*:jboss-osgi-jaxb:jar</include>
         <include>*:jboss-osgi-jmx:jar</include>
         <include>*:jboss-osgi-jndi:jar</include>
         <include>*:jboss-osgi-jta:jar</include>

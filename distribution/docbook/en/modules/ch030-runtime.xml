@@ -72,10 +72,6 @@
       which provides access to a SAXParserFactory and DocumentBuilderFactory.
       </listitem>
       
-      <listitem><emphasis role="bold">JAXB Support</emphasis> - 
-      There is a bundle that provides JAXB support.
-      </listitem>
-      
       <listitem><emphasis role="bold">HttpService and WebApp Support</emphasis> -
       HttpService and WebApp support is provided by <ulink url="http://wiki.ops4j.org/display/paxweb/Pax+Web">Pax Web</ulink>. 
       </listitem>
@@ -177,13 +173,12 @@ $ bin/run.sh -c minimal
 
     <emphasis role="bold">All Profile</emphasis>
     
-    <para>The 'all' profile extends the 'web' profile by SAX/DOM, JAXB</para>
+    <para>The 'all' profile extends the 'web' profile by SAX/DOM, JTA, Blueprint</para>
     
     <para>These additional bundles are installed:</para>
   
     <itemizedlist>
       <listitem><emphasis role="bold">arquillian-osgi-bundle.jar</emphasis> - Arquillian test support</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-jaxb.jar</emphasis> - JAXB support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jta.jar</emphasis> - JTA support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-xerces.jar</emphasis> - Apache Xerces support</listitem>
       <listitem><emphasis role="bold">jbosgi-blueprint.jar</emphasis> - Blueprint Container support</listitem>

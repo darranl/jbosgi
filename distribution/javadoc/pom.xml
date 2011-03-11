@@ -80,12 +80,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jaxb</groupId>
-      <artifactId>jboss-osgi-jaxb</artifactId>
-      <version>${version.jboss.osgi.jaxb}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
       <version>${version.jboss.osgi.jmx}</version>

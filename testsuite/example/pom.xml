@@ -173,8 +173,6 @@
             <configuration>
               <excludes>
                 <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-145] JAXB classes are loaded from the system classpath -->
-                <exclude>org/jboss/test/osgi/example/xml/jaxb/**</exclude>
                 <!-- [JBOSGI-236] XML Binding example fails in JBossAS -->
                 <exclude>org/jboss/test/osgi/example/xml/jbossxb/**</exclude>
                 <!-- Functionality not supported in Equinox -->                

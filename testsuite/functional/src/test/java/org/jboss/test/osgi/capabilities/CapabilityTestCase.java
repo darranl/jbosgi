@@ -31,8 +31,6 @@ import javax.naming.InitialContext;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.jboss.osgi.jaxb.JAXBCapability;
-import org.jboss.osgi.jaxb.JAXBService;
 import org.jboss.osgi.jmx.JMXCapability;
 import org.jboss.osgi.jndi.JNDICapability;
 import org.jboss.osgi.spi.capability.CompendiumCapability;
@@ -80,24 +78,6 @@ public class CapabilityTestCase extends OSGiRuntimeTest {
             assertEquals("namespaceAware", Boolean.TRUE, domRef.getProperty("parser.namespaceAware"));
             assertEquals("validating", Boolean.TRUE, domRef.getProperty("parser.validating"));
             assertEquals("xincludeAware", Boolean.TRUE, domRef.getProperty("parser.xincludeAware"));
-        } finally {
-            runtime.shutdown();
-        }
-    }
-
-    @Test
-    public void testJAXBCapability() throws Exception {
-        OSGiRuntime runtime = createEmbeddedRuntime();
-        try {
-            runtime.addCapability(new LogServiceCapability());
-
-            OSGiBundle bundle = runtime.getBundle("jboss-osgi-jaxb", null);
-            assertNull("Test bundle null", bundle);
-
-            runtime.addCapability(new JAXBCapability());
-
-            OSGiServiceReference sref = runtime.getServiceReference(JAXBService.class.getName());
-            assertNotNull("JAXBService registered", sref);
         } finally {
             runtime.shutdown();
         }

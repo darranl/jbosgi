@@ -23,7 +23,6 @@
         <include>*:jbosgi-blueprint:jar:sources</include>
         <include>*:jboss-osgi-common:jar:sources</include>
         <include>*:jboss-osgi-http:jar:sources</include>
-        <include>*:jboss-osgi-jaxb:jar:sources</include>
         <include>*:jboss-osgi-jmx-api:jar:sources</include>
         <include>*:jboss-osgi-jndi-api:jar:sources</include>
         <include>*:jboss-osgi-jta:jar:sources</include>

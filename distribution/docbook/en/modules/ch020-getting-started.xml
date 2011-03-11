@@ -161,7 +161,6 @@ $ bin/run.sh
       <listitem><emphasis role="bold">serviceloader</emphasis> - Autoregister META-INF/services</listitem>
       <listitem><emphasis role="bold">simple</emphasis> - Simple OSGi examples (start here)</listitem>
       <listitem><emphasis role="bold">webapp</emphasis> - WebApplication (WAR) examples</listitem>
-      <listitem><emphasis role="bold">xml jaxb</emphasis> - JAXB examples</listitem>
       <listitem><emphasis role="bold">xml parser</emphasis> - SAX/DOM parser examples</listitem>
     </itemizedlist>
     

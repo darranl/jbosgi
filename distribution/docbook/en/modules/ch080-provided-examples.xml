@@ -192,28 +192,6 @@ httpService.registerResources("/file", "/res", null);
     <para>The test then verifies that the registered servlet context and the registered resource can be accessed.</para>
   </sect1>
   
-  <sect1 xml:id="SecJAXBServiceExample">  
-    <title>JAXB Service</title>
-
-    <para>The <emphasis role="bold">example-xml-jaxb.jar</emphasis> bundle gets the JAXBContext from the JAXBService
-    and unmarshalls an XML document using JAXB
-    </para>
-    
-    <programlisting role="JAVA">
-ServiceReference sref = context.getServiceReference(JAXBService.class.getName());
-if (sref == null)
-   throw new IllegalStateException("JAXBService not available");
-
-JAXBService service = (JAXBService)context.getService(sref);
-JAXBContext jaxbContext = service.newJAXBContext(getClass().getPackage().getName());
-Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-URL resURL = context.getBundle().getResource("booking.xml");
-JAXBElement rootElement = unmarshaller.unmarshal(resURL.openStream());
-assertNotNull("root element not null", rootElement);
-    </programlisting>
-  </sect1>
-  
   <sect1 xml:id="SecJMXServiceExample">  
     <title>JMX Service</title>
 

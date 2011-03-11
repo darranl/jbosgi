@@ -145,11 +145,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jaxb</groupId>
-      <artifactId>jboss-osgi-jaxb</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.jmx</groupId>
       <artifactId>jboss-osgi-jmx</artifactId>
       <scope>provided</scope>

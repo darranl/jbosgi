@@ -21,12 +21,10 @@
  */
 package org.jboss.osgi.test.performance.bundle;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
@@ -133,10 +131,6 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
         System.out.println("Starting at " + new Date());
         long start = System.currentTimeMillis();
         for (int i = 0; i < numBundlesPerThread; i++) {
-            // david: DEBUGGING open files
-            if (i == 650)
-                printLSOF();
-
             URI uri = new File(bundleStorage, threadName + "_" + i + ".jar").toURI();
             Bundle bundle = bundleContext.installBundle(uri.toString());
             bundle.start();
@@ -156,24 +150,6 @@ public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<In
         System.out.println("Installed Bundles " + new Date());
 
         addedBundles(installedBundles);
-    }
-
-    // This method is added for debugging purposes and should be removed once the file handle investigation is done.
-    private void printLSOF() throws Exception {
-        if (System.getProperty("os.name").toLowerCase().startsWith("win"))
-            return;
-
-        Process process = new ProcessBuilder("lsof").start();
-        InputStream is = process.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
-        System.out.println("**** Running lsof:");
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
-        }
-        process.waitFor();
-        System.out.println("**** Finished running lsof:");
     }
 
     private InputStream getCommonBundle(final String version) throws Exception {

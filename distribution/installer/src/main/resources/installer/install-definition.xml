@@ -137,7 +137,7 @@
       <description>Standalone JBossOSGi Runtime</description>
 
       <!-- JBossOSGi Bin -->
-      <fileset dir="@{runtime.dir}/bin" targetdir="$INSTALL_PATH/runtime/bin" override="true" />
+      <fileset dir="@{resources.dir}/runtime/bin" targetdir="$INSTALL_PATH/runtime/bin" override="true" />
       <executable targetfile="$INSTALL_PATH/runtime/bin/run.sh" stage="never" keep="true" />
 
       <!-- JBossOSGi Lib -->
@@ -167,10 +167,10 @@
       </fileset>
       
       <!-- Server Minimal -->
-      <fileset dir="@{runtime.dir}/server/minimal/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
+      <fileset dir="@{resources.dir}/runtime/server/minimal/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
         <include name="jboss-osgi-framework.properties" />
       </fileset>
-      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
+      <fileset dir="@{resources.dir}/runtime/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/minimal/conf" override="true" >
         <include name="log4j.xml" />
       </fileset>
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/runtime/server/minimal/deploy" override="true">
@@ -183,7 +183,7 @@
       </fileset>
 
       <!-- Server Default -->
-      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/default/conf" override="true" >
+      <fileset dir="@{resources.dir}/runtime/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/default/conf" override="true" >
         <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
@@ -199,7 +199,7 @@
       </fileset>
 
       <!-- Server Web -->
-      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/web/conf" override="true" >
+      <fileset dir="@{resources.dir}/runtime/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/web/conf" override="true" >
         <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
@@ -221,7 +221,7 @@
       </fileset>
 
       <!-- Server All -->
-      <fileset dir="@{runtime.dir}/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/all/conf" override="true" >
+      <fileset dir="@{resources.dir}/runtime/server/default/conf" targetdir="$INSTALL_PATH/runtime/server/all/conf" override="true" >
         <include name="jboss-osgi-framework.properties" />
         <include name="log4j.xml" />
       </fileset>
@@ -274,6 +274,19 @@
         <include name="org.apache.felix.log.jar" />
         <include name="org.apache.felix.metatype.jar" />
         <include name="org.apache.felix.webconsole.jar" />
+      </fileset>
+      <fileset dir="@{resources.dir}/jbossas/deployments" targetdir="${jbossInstallPath}/standalone/deployments" override="true">
+        <include name="jbosgi-blueprint.jar.dodeploy" />
+        <include name="jboss-osgi-common-core.jar.dodeploy" />
+        <include name="jboss-osgi-http.jar.dodeploy" />
+        <include name="jboss-osgi-reflect.jar.dodeploy" />
+        <include name="jboss-osgi-webapp.jar.dodeploy" />
+        <include name="jbosgi-webconsole.jar.dodeploy" />
+        <include name="jboss-osgi-xerces.jar.dodeploy" />
+        <include name="org.apache.felix.eventadmin.jar.dodeploy" />
+        <include name="org.apache.felix.log.jar.dodeploy" />
+        <include name="org.apache.felix.metatype.jar.dodeploy" />
+        <include name="org.apache.felix.webconsole.jar.dodeploy" />
       </fileset>
 
     </pack>

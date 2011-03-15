@@ -22,13 +22,14 @@
 package org.jboss.test.osgi.jbosgi99;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import org.jboss.logging.Logger;
 import org.jboss.osgi.spi.util.ConstantsHelper;
@@ -108,10 +109,13 @@ public class OSGi99TestCase extends OSGiRuntimeTest {
         if (targetContainer == null)
             return;
 
+        boolean isRuntimeTarget = targetContainer.equals("runtime");
+        boolean isAS7Target = targetContainer.startsWith("jboss70");
+
         String depoydir = null;
-        if (targetContainer.equals("runtime"))
+        if (isRuntimeTarget == true)
             depoydir = "deploy";
-        else if (targetContainer.startsWith("jboss70"))
+        else if (isAS7Target == true)
             depoydir = "deployments";
         else
             fail("Unsupported target container: " + targetContainer);
@@ -128,6 +132,19 @@ public class OSGi99TestCase extends OSGiRuntimeTest {
         outPath = outPath.substring(0, outPath.indexOf("data/osgi-store"));
         File deployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar");
         outFile.renameTo(deployFile);
+
+        // Write the .dodeploy marker file
+        if (isAS7Target == true) {
+            File undeployedFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar.undeployed");
+            if (undeployedFile.exists())
+                undeployedFile.delete();
+            
+            File dodeployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar.dodeploy");
+            FileOutputStream fos = new FileOutputStream(dodeployFile);
+            new OutputStreamWriter(fos).write("*.dodeploy marker");
+            fos.close();
+        }
+
         try {
             int timeout = 8000;
             OSGiBundle bundle = null;
@@ -143,13 +160,17 @@ public class OSGi99TestCase extends OSGiRuntimeTest {
             assertNotNull("Bundle not null", bundle);
             assertBundleState(Bundle.ACTIVE, bundle.getState());
 
-            // Adjust the deployment file for jboss70x
-            if (deployFile.exists() == false)
-                deployFile = new File(deployFile + ".deployed");
-
             // Delete the bundle from the deploy directory
-            assertTrue("Deployment file exists: " + deployFile, deployFile.exists());
-            deployFile.delete();
+            String[] fileList = new File(outPath + depoydir).list(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.startsWith("jbosgi99-allgood");
+                }
+            });
+            for (String filename : fileList) {
+                File file = new File(outPath + depoydir + "/" + filename);
+                file.delete();
+            }
 
             timeout = 8000;
             while (timeout > 0) {

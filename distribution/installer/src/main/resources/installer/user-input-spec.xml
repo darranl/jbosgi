@@ -4,8 +4,8 @@
     <field type="radio" variable="jbossSelection">
       <description align="left" txt="Please choose your target container" />
       <spec>
-        <!-- choice txt="JBoss-7.0.0.Alpha1" value="jboss700" set="true"/-->
-        <choice txt="JBoss-7.0.0.Alpha2-SNAPSHOT" value="jboss70x" set="true"/>
+        <choice txt="JBoss-7.0.0.Beta1" value="jboss700" set="true"/>
+        <choice txt="JBoss-7.0.0.Beta2-SNAPSHOT" value="jboss70x" />
       </spec>
     </field>
   </panel>

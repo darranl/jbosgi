@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>http://github.com/jbosgi/jboss-as</projectUrl>
+      <projectUrl>http://github.com/jbossas/jboss-as</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Workspace:anonymous</permission>
@@ -64,7 +64,7 @@
     </hudson.tasks.Maven>
     <hudson.tasks.Shell>
       <command>
-JBOSS_VERSION=jboss-7.0.0.Alpha2
+JBOSS_VERSION=jboss-7.0.0.Beta2
 JBOSS_ZIP=$WORKSPACE/build/target/distribution/$JBOSS_VERSION-SNAPSHOT.zip
 TARGET_DIR=$HUDSON_HOME/userContent
 

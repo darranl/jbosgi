@@ -54,9 +54,11 @@
           <name>!noreactor</name>
         </property>
       </activation>
+      <!--
       <modules>
         <module>jbosgi-framework</module>
       </modules>
+      -->
     </profile>
     
   </profiles>

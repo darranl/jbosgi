@@ -463,7 +463,7 @@
         <dependency>
           <groupId>org.jboss.as</groupId>
           <artifactId>jboss-as-osgi-plugin</artifactId>
-          <version>7.0.0.Alpha2-SNAPSHOT</version>
+          <version>7.0.0.Beta1</version>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -490,7 +490,7 @@
         <dependency>
           <groupId>org.jboss.as</groupId>
           <artifactId>jboss-as-osgi-plugin</artifactId>
-          <version>7.0.0.Alpha2-SNAPSHOT</version>
+          <version>7.0.0.Beta2-SNAPSHOT</version>
           <scope>test</scope>
         </dependency>
       </dependencies>

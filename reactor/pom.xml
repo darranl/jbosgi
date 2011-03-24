@@ -54,11 +54,11 @@
           <name>!noreactor</name>
         </property>
       </activation>
-      <!--
       <modules>
+        <module>jbosgi-spi</module>
+        <module>jbosgi-hotdeploy</module>
         <module>jbosgi-framework</module>
       </modules>
-      -->
     </profile>
     
   </profiles>

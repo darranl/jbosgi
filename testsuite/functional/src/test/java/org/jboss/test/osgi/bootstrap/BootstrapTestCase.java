@@ -29,6 +29,7 @@ import org.jboss.osgi.spi.framework.OSGiBootstrap;
 import org.jboss.osgi.spi.framework.OSGiBootstrapProvider;
 import org.jboss.osgi.testing.OSGiTest;
 import org.junit.Test;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.launch.Framework;
 
 /**
@@ -42,11 +43,15 @@ public class BootstrapTestCase extends OSGiTest {
     public void testFrameworkBootstrap() throws Exception {
         OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
         Framework framework = bootProvider.getFramework();
+        assertNotNull("Framework not null", framework);
         try {
-            assertNotNull("Framework not null", framework);
-
+            assertBundleState(Bundle.INSTALLED, framework.getState());
             assertEquals("BundleId == 0", 0, framework.getBundleId());
             assertNotNull("SymbolicName not null", framework.getSymbolicName());
+            
+            framework.init();
+            assertBundleState(Bundle.STARTING, framework.getState());
+            
         } finally {
             framework.stop();
             framework.waitForStop(2000);

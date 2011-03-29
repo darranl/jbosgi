@@ -1,9 +1,3 @@
 [submodule "reactor/jbosgi-framework"]
 	path = reactor/jbosgi-framework
 	url = git://github.com/jbosgi/jbosgi-framework.git
-[submodule "reactor/jbosgi-spi"]
-	path = reactor/jbosgi-spi
-	url = git://github.com/jbosgi/jbosgi-spi.git
-[submodule "reactor/jbosgi-hotdeploy"]
-	path = reactor/jbosgi-hotdeploy
-	url = git://github.com/jbosgi/jbosgi-hotdeploy.git

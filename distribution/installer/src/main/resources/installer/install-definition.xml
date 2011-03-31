@@ -275,6 +275,7 @@
         <include name="org.apache.felix.metatype.jar" />
         <include name="org.apache.felix.webconsole.jar" />
       </fileset>
+      <!-- 
       <fileset dir="@{resources.dir}/jbossas/deployments" targetdir="${jbossInstallPath}/standalone/deployments" override="true">
         <include name="jbosgi-blueprint.jar.dodeploy" />
         <include name="jboss-osgi-common-core.jar.dodeploy" />
@@ -288,6 +289,7 @@
         <include name="org.apache.felix.metatype.jar.dodeploy" />
         <include name="org.apache.felix.webconsole.jar.dodeploy" />
       </fileset>
+      -->
 
     </pack>
     

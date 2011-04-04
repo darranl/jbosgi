@@ -18,7 +18,7 @@
     <para>To run the installer execute the following command:</para>
     
     <programlisting>
-    java -jar jboss-osgi-installer-1.0.0.Beta9.jar
+    java -jar jboss-osgi-installer-1.0.0.Beta10.jar
     </programlisting>
       
     <para>The installer first shows a welcome screen</para>
@@ -52,7 +52,6 @@
       <!-- listitem><emphasis role="bold">JBossAS Integration</emphasis> - Integration with an existing JBossAS instance</listitem -->
     </itemizedlist>
     
-    <!-- 
     <para>In case you have selected 'JBossAS Integration', you will be presented with the choice of supported target containers.</para>
     
     <mediaobject>
@@ -68,7 +67,6 @@
         <imagedata align="center" width="90%" fileref="images/izpack25-jboss-home.png"/> 
       </imageobject>
     </mediaobject>
-    -->
     
     <para>You can then verify the selected installation options and proceed with the actual installation.</para>
     
@@ -118,7 +116,7 @@ $ bin/run.sh
 
   JBossOSGi Bootstrap Environment
 
-  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta9/runtime
+  OSGI_HOME: /home/tdiesler/jboss-osgi-1.0.0.Beta10/runtime
 
   JAVA: /usr/java/jdk1.6/bin/java
 
@@ -126,21 +124,20 @@ $ bin/run.sh
 
 =========================================================================
 
-12:27:07,406 INFO  JBossOSGi Framework Core - 1.0.0.Alpha8
-12:27:07,515 INFO  Bundle STARTED: system.bundle:0.0.0
-12:27:08,079 INFO  Bundle STARTED: org.apache.felix.log:1.0.0
-12:27:08,182 INFO  Bundle STARTED: jboss-osgi-common:1.0.6
-12:27:08,239 INFO  Bundle STARTED: jbosgi-hotdeploy:1.0.8
-12:27:08,244 INFO  JBossOSGi Runtime booted in 0.837sec
-12:27:08,459 INFO  Bundle STARTED: org.apache.aries.util:0.1.0.incubating
-12:27:08,608 INFO  Bundle STARTED: org.apache.aries.jmx:0.1.0.incubating
-12:27:08,690 INFO  Bundle STARTED: org.apache.felix.configadmin:1.2.4
-12:27:08,839 INFO  Bundle STARTED: org.apache.felix.eventadmin:1.2.2
-12:27:09,288 INFO  Bundle STARTED: jboss-osgi-jndi:1.0.4
-12:27:09,291 INFO  Bundle STARTED: jboss-osgi-common-core:2.2.17.SP1
-12:27:09,493 INFO  Bundle STARTED: jboss-osgi-jmx:1.0.8
+12:08:37,172 INFO  JBossOSGi Framework Core - 1.0.0.Alpha23
+12:08:37,722 INFO  Starting bundles for start level: 1
+12:08:37,860 INFO  Bundle started: org.apache.felix.log:1.0.0
+12:08:37,904 INFO  Bundle started: jboss-osgi-common:1.0.6
+12:08:37,923 INFO  Bundle started: jbosgi-hotdeploy:1.0.9
+12:08:37,925 INFO  JBossOSGi Runtime booted in 0.674sec
+12:08:38,343 INFO  Bundle started: jboss-osgi-jmx:1.0.9
+12:08:38,411 INFO  Bundle started: org.apache.felix.configadmin:1.2.8
+12:08:38,498 INFO  Bundle started: jboss-osgi-jndi:1.0.4
+12:08:38,567 INFO  Bundle started: org.apache.aries.util:0.1.0.incubating
+12:08:38,659 INFO  Bundle started: org.apache.felix.eventadmin:1.2.6
+12:08:38,661 INFO  Bundle started: jboss-osgi-common-core:2.2.17.SP1
 ...
-<emphasis role="bold">12:27:09,493 INFO JBossOSGi Runtime started in 1.264sec</emphasis>
+<emphasis role="bold">12:08:38,696 INFO  JBossOSGi Runtime started in 0.741000sec</emphasis>
     </programlisting>
   </sect1>
     
@@ -245,13 +242,12 @@ scm.http.url.jbosgi=http://github.com/jbosgi/jbosgi
 
 # JDK settings
 # ------------
-java.home.jdk15=/usr/java/jdk1.5.0_22
-java.home.jdk16=/usr/java/jdk1.6.0_17
+java.home.jdk16=/usr/java/jdk1.6.0_21
 
 # Maven settings
 # --------------
-maven.name=apache-maven-2.2.1
-maven.path=/usr/java/apache-maven-2.2.1
+maven.name=apache-maven-3.0
+maven.path=/usr/java/apache-maven
 
 # The JBoss settings
 # ------------------
@@ -260,13 +256,10 @@ jboss.bind.address=127.0.0.1
 
 # Hudson Default settings
 # -----------------------
-# hudson.root=/home/username/workspace/hudson/jboss-osgi
-# hudson.admin=username
-# hudson.version=1.355
-
-# JBoss Distributions
-# -------------------
-# hudson.jboss600.zip=file:///home/username/Downloads/java/jboss/jboss-6.0.0.M3.zip
+hudson.home=/usr/share/tomcat6/workspace/hudson-home
+hudson.version=1.382
+github.plugin.version=0.2
+git.plugin.version=1.1
     </programlisting>
 
     <emphasis role="bold">Run Hudson Setup</emphasis>

@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-testsuite</artifactId>
-    <version>1.0.0.Beta10</version>
+    <version>1.0.0.Beta11-SNAPSHOT</version>
   </parent>
 
   <groupId>org.jboss.osgi.testsuite</groupId>

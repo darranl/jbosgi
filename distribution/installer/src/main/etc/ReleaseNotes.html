@@ -1,91 +1,102 @@
 <body>
 
 
-        Release Notes - JBoss OSGi - Version JBossOSGi 1.0.0 Beta9
+
+        Release Notes - JBoss OSGi - Version JBossOSGi 1.0.0 Beta10
     
 <h2>        Bug
 </h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-331'>JBOSGI-331</a>] -         Activator cannot change bundle start level
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-366'>JBOSGI-366</a>] -         Add Equinox to performance matrix
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-339'>JBOSGI-339</a>] -         Fragment failures in functional runtime tests
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-392'>JBOSGI-392</a>] -         VFS layer leaks files in /tmp/vfs 
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-346'>JBOSGI-346</a>] -         Attached fragment hides private package in host 
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-402'>JBOSGI-402</a>] -         Host importing package from Fragment doesn&#39;t resolve
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-354'>JBOSGI-354</a>] -         Initial Bundle Start Level initialization is done in the wrong place.
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-412'>JBOSGI-412</a>] -         Propriatary API leaks in StartLevelTestCase
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-356'>JBOSGI-356</a>] -         JBoss OSGi has implicit imports
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-415'>JBOSGI-415</a>] -         Unable to deploy iPOJO bundle
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-367'>JBOSGI-367</a>] -         JTA BundleActivator cannot find DocumentBuilderFactory
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-431'>JBOSGI-431</a>] -         Fragments do not use Host ClassLoader
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-373'>JBOSGI-373</a>] -         Cannot load service through java.util.ServiceLoader
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-432'>JBOSGI-432</a>] -         Fragments do not have a seperate ProtectionDomain
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-383'>JBOSGI-383</a>] -         Cannot refresh uninstalled bundle through FrameworkMBean
-</li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-387'>JBOSGI-387</a>] -         Potential problem with refreshing uninstalled bundles via JMX
-</li>
-</ul>
-        
-<h2>        Feature Request
-</h2>
-<ul>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-209'>JBOSGI-209</a>] -         Implement resolver preferences
-</li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-376'>JBOSGI-376</a>] -         Initial OSGi / Modules dependency implementation
-</li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-380'>JBOSGI-380</a>] -         Initial Arquillian test integration
-</li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-386'>JBOSGI-386</a>] -         Invoking Refresh Packages on the framework from Web Console causes issues
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-436'>JBOSGI-436</a>] -         Classloading issues when using JBoss OSGi on Windows
 </li>
 </ul>
                     
+<h2>        Feature Request
+</h2>
+<ul>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-75'>JBOSGI-75</a>] -         Implement URLStreamHandlerService
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-105'>JBOSGI-105</a>] -         Lazy bundle activation policy for runtime bundles
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-201'>JBOSGI-201</a>] -         Add bundle:// protocol handler
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-207'>JBOSGI-207</a>] -         Implement persistent bundle startup
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-393'>JBOSGI-393</a>] -         Provide installer support for AS7
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-411'>JBOSGI-411</a>] -         Provide out-of-the-box jconsole access to all target containers
+</li>
+</ul>
+                        
 <h2>        Task
 </h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-258'>JBOSGI-258</a>] -         [TCK] Start Level
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-256'>JBOSGI-256</a>] -         [TCK] Package Admin
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-336'>JBOSGI-336</a>] -         Implement PackageAdmin.refreshPackages(Bundle[])
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-257'>JBOSGI-257</a>] -         [TCK] URL Handler
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-343'>JBOSGI-343</a>] -         Comprehensive PackageAdmin test coverage
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-389'>JBOSGI-389</a>] -         Bundle classloader does not implement BundleReference 
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-359'>JBOSGI-359</a>] -         Comprehensive Bundle API test coverage
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-394'>JBOSGI-394</a>] -         Consolidate jbosgi examples that are supported in AS7
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-360'>JBOSGI-360</a>] -         Integrate jbosgi-container into jbosgi umbrella
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-395'>JBOSGI-395</a>] -         Add AS7 support to remote container matrix
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-361'>JBOSGI-361</a>] -         TCK setup for MSC Core Framework
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-397'>JBOSGI-397</a>] -         Optimize Framework logging
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-362'>JBOSGI-362</a>] -         Integrate the MSC Framework with the Installer
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-400'>JBOSGI-400</a>] -         Provide stress test bundles suitable for profiling the framework
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-363'>JBOSGI-363</a>] -         Update resolver to Apache Felix-3.0.x
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-403'>JBOSGI-403</a>] -         Add modules and msc apidocs to aggregated view
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-369'>JBOSGI-369</a>] -         Add support for fragments to Package Admin
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-404'>JBOSGI-404</a>] -         Update Felix Resolver to version 3.0.2 (or later)
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-374'>JBOSGI-374</a>] -         Release 1.0.0.Beta9
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-405'>JBOSGI-405</a>] -         Update to jboss-msc-1.0.0.Beta7
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-375'>JBOSGI-375</a>] -         Restore fragment, native code, service hook support
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-407'>JBOSGI-407</a>] -         Install module/bundle from LocalModuleLoader
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-378'>JBOSGI-378</a>] -         OSGi Performance Analysis
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-409'>JBOSGI-409</a>] -         Update to jboss-modules-1.0.0.Beta16
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-379'>JBOSGI-379</a>] -         Implement Bundle.update()
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-410'>JBOSGI-410</a>] -         Test example bundles in OSGi / AS by deploying them through WebConsole
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-388'>JBOSGI-388</a>] -         Migrate all remaining Husky tests to Arquillian
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-422'>JBOSGI-422</a>] -         Update to Felix Config Admin 1.2.8 
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-423'>JBOSGI-423</a>] -         Update to Felix Event Admin 1.2.6
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-428'>JBOSGI-428</a>] -         Update to Felix WebConsole 3.1.6
 </li>
 </ul>
-            
+        
 <h2>        Sub-task
 </h2>
 <ul>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-241'>JBOSGI-241</a>] -         [TCK] Framework classpath
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-239'>JBOSGI-239</a>] -         [TCK] Framework activation policy
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-244'>JBOSGI-244</a>] -         [TCK] Framework filter
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-240'>JBOSGI-240</a>] -         [TCK] Framework classloading
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-247'>JBOSGI-247</a>] -         [TCK] Framework service hooks
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-242'>JBOSGI-242</a>] -         [TCK] Framework basic functionality (div)
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-248'>JBOSGI-248</a>] -         [TCK] Framework lifecycle
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-243'>JBOSGI-243</a>] -         [TCK] Framework dynamic package import
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-251'>JBOSGI-251</a>] -         [TCK] Framework services
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-245'>JBOSGI-245</a>] -         [TCK] Framework fragments
 </li>
-<li>[<a href='https://jira.jboss.org/browse/JBOSGI-252'>JBOSGI-252</a>] -         [TCK] Framework bundle listener
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-246'>JBOSGI-246</a>] -         [TCK] Framework util
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-250'>JBOSGI-250</a>] -         [TCK] Framework resource loading
+</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-253'>JBOSGI-253</a>] -         [TCK] Framework launch
 </li>
 </ul>
 

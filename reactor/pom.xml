@@ -55,7 +55,7 @@
         </property>
       </activation>
       <modules>
-        <module>jbosgi-framework</module>
+        <!--module>jbosgi-framework</module-->
       </modules>
     </profile>
     

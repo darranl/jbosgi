@@ -11,14 +11,14 @@ HUDSONBIN=$HUDSONDIR/hudson-home/bin
 
 case "$CONTAINER" in
   'jboss700')
-    JBOSS_BUILD=jboss-7.0.0.Beta1
+    JBOSS_BUILD=jboss-7.0.0.Beta2
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD.zip
     CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
     CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log
     rm -rf $CONTAINER_HOME; unzip -q $JBOSS_ZIP -d $WORKSPACE
   ;;
   'jboss70x')
-    JBOSS_BUILD=jboss-7.0.0.Beta2
+    JBOSS_BUILD=jboss-7.0.0.Beta3
     JBOSS_ZIP=$HUDSON_HOME/userContent/$JBOSS_BUILD-SNAPSHOT.zip
     CONTAINER_HOME=$WORKSPACE/$JBOSS_BUILD
     CONTAINER_LOG=$CONTAINER_HOME/standalone/log/boot.log

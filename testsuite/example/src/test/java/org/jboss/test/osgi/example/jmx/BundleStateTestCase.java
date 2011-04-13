@@ -48,6 +48,7 @@ import org.osgi.jmx.framework.FrameworkMBean;
  * @since 15-Feb-2010
  */
 public class BundleStateTestCase extends OSGiRuntimeTest {
+    
     @Test
     public void testBundleStateMBean() throws Exception {
         BundleStateMBean bundleState = getRuntime().getBundleStateMBean();

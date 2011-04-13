@@ -41,15 +41,15 @@ import org.junit.Test;
  * @since 06-Oct-2009
  */
 public class WebAppInterceptorTestCase extends OSGiRuntimeTest {
+    
     @BeforeClass
     public static void setUpClass() throws Exception {
         OSGiRuntime runtime = createDefaultRuntime();
         runtime.addCapability(new WebAppCapability());
-
         OSGiBundle bundle = runtime.installBundle("example-webapp.war");
         bundle.start();
     }
-
+    
     @Test
     public void testResourceAccess() throws Exception {
         // FIXME: http://issues.ops4j.org/browse/PAXWEB-182

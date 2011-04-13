@@ -42,6 +42,7 @@ import org.junit.Test;
  * @since 06-Oct-2009
  */
 public class WebAppExtenderTestCase extends OSGiRuntimeTest {
+    
     @BeforeClass
     public static void beforeClass() throws Exception {
         OSGiRuntime runtime = createDefaultRuntime();

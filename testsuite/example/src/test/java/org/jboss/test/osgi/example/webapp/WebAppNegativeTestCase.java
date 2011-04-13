@@ -29,7 +29,6 @@ import org.jboss.osgi.testing.OSGiBundle;
 import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.webapp.WebAppCapability;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
@@ -42,25 +41,17 @@ import org.osgi.framework.BundleException;
  * @since 26-Oct-2009
  */
 public class WebAppNegativeTestCase extends OSGiRuntimeTest {
-    private static OSGiRuntime runtime;
-
+    
     @BeforeClass
     public static void setUpClass() throws Exception {
-        runtime = createDefaultRuntime();
+        OSGiRuntime runtime = createDefaultRuntime();
         runtime.addCapability(new WebAppCapability());
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-        runtime.shutdown();
-        runtime = null;
     }
 
     @Test
     public void testServletAccess() throws Exception {
-        OSGiBundle bundle = runtime.installBundle("example-webapp-negative.war");
+        OSGiBundle bundle = getRuntime().installBundle("example-webapp-negative.war");
         assertBundleState(Bundle.INSTALLED, bundle.getState());
-
         try {
             bundle.start();
             fail("BundleException expected");

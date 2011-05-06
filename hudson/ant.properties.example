@@ -22,7 +22,6 @@ maven.path=/usr/java/apache-maven
 
 # The JBoss settings
 # ------------------
-jboss.server.instance=default
 jboss.bind.address=127.0.0.1
 
 # Hudson Default settings

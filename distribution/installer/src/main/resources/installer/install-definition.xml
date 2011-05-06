@@ -31,43 +31,14 @@
 
   <!-- Resources -->
   <resources>
-    <res id="AntActionsSpec.xml" src="@{filtered.resources.dir}/ant-actions-spec.xml" />
-    <res id="antBuild.xml" src="@{filtered.resources.dir}/ant-jbossas-integration.xml" type="ant"/>
-    <res id="userInputSpec.xml" src="@{filtered.resources.dir}/user-input-spec.xml" />
     <res id="TargetPanel.dir" src="@{filtered.resources.dir}/target-panel-dir.txt" />
   </resources>
-
-  <!-- Variables -->
-  <variables>
-    <variable name="jboss700.home" value="@{jboss700.home}" />
-    <variable name="jboss70x.home" value="@{jboss70x.home}" />
-  </variables>
-
-  <!-- Dynamic Variables -->
-  <dynamicvariables>
-    <variable name="jboss.home" value="${jboss700.home}" condition="isJBoss700" />
-    <variable name="jboss.home" value="${jboss70x.home}" condition="isJBoss70x" />
-  </dynamicvariables>
-
-  <!-- Conditions -->
-  <conditions>
-    <condition type="variable" id="isJBoss700">
-      <name>jbossSelection</name>
-      <value>jboss700</value>
-    </condition>
-    <condition type="variable" id="isJBoss70x">
-      <name>jbossSelection</name>
-      <value>jboss70x</value>
-    </condition>
-  </conditions>
 
   <!-- Panels -->
   <panels>
     <panel classname="HelloPanel" />
     <panel classname="TargetPanel" />
     <panel classname="TreePacksPanel" />
-    <panel classname="UserInputPanel" id="jbossas.select.jbossmc" />
-    <panel classname="UserInputPanel" id="jboss.home.select" />
     <panel classname="SummaryPanel" />
     <panel classname="InstallPanel" />
     <panel classname="FinishPanel" />
@@ -249,48 +220,5 @@
 
     </pack>
 
-    <!--
-      ********************************* 
-      *                               *
-      * JBossAS Integration           *
-      *                               *
-      *********************************
-    -->
-
-    <pack name="JBossAS Integration" required="no" preselected="yes">
-
-      <description>Integration with an existing JBossAS instance</description>
-
-      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="${jbossInstallPath}/standalone/deployments" override="true">
-        <include name="jbosgi-blueprint.jar" />
-        <include name="jboss-osgi-common-core.jar" />
-        <include name="jboss-osgi-http.jar" />
-        <include name="jboss-osgi-reflect.jar" />
-        <include name="jboss-osgi-webapp.jar" />
-        <include name="jbosgi-webconsole.jar" />
-        <include name="jboss-osgi-xerces.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
-        <include name="org.apache.felix.log.jar" />
-        <include name="org.apache.felix.metatype.jar" />
-        <include name="org.apache.felix.webconsole.jar" />
-      </fileset>
-      <!-- 
-      <fileset dir="@{resources.dir}/jbossas/deployments" targetdir="${jbossInstallPath}/standalone/deployments" override="true">
-        <include name="jbosgi-blueprint.jar.dodeploy" />
-        <include name="jboss-osgi-common-core.jar.dodeploy" />
-        <include name="jboss-osgi-http.jar.dodeploy" />
-        <include name="jboss-osgi-reflect.jar.dodeploy" />
-        <include name="jboss-osgi-webapp.jar.dodeploy" />
-        <include name="jbosgi-webconsole.jar.dodeploy" />
-        <include name="jboss-osgi-xerces.jar.dodeploy" />
-        <include name="org.apache.felix.eventadmin.jar.dodeploy" />
-        <include name="org.apache.felix.log.jar.dodeploy" />
-        <include name="org.apache.felix.metatype.jar.dodeploy" />
-        <include name="org.apache.felix.webconsole.jar.dodeploy" />
-      </fileset>
-      -->
-
-    </pack>
-    
   </packs>
 </installation>

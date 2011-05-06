@@ -52,22 +52,6 @@
       <!-- listitem><emphasis role="bold">JBossAS Integration</emphasis> - Integration with an existing JBossAS instance</listitem -->
     </itemizedlist>
     
-    <para>In case you have selected 'JBossAS Integration', you will be presented with the choice of supported target containers.</para>
-    
-    <mediaobject>
-      <imageobject>
-        <imagedata align="center" width="90%" fileref="images/izpack20-target-container.png"/> 
-      </imageobject>
-    </mediaobject>
-    
-    <para>You will then have to point the installer to your existing <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink> installation.</para>
-    
-    <mediaobject>
-      <imageobject>
-        <imagedata align="center" width="90%" fileref="images/izpack25-jboss-home.png"/> 
-      </imageobject>
-    </mediaobject>
-    
     <para>You can then verify the selected installation options and proceed with the actual installation.</para>
     
     <mediaobject>
@@ -91,8 +75,6 @@
     
     <para>If you selected <link linkend="ChapRuntime">JBoss OSGi Runtime</link> during installation you should see a <emphasis role="bold">runtime</emphasis> folder, which contains 
     the JBoss OSGi Runtime distribution. The JBoss OSGi Runtime is an OSGi container onto which services and applications can be deployed.</para>
-    
-    <para>The layout of the JBoss OSGi Runtime after installation is similar to what you know from <ulink url="http://http://jboss.org/jbossas">JBossAS</ulink>.</para>
     
     <mediaobject>
       <imageobject>

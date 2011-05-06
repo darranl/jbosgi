@@ -6,18 +6,7 @@
   <com.izforge.izpack.panels.TreePacksPanel>
     <pack name="JBossOSGi Distribution" index="0" selected="true" />
     <pack name="JBossOSGi Runtime" index="1" selected="true" />
-    <pack name="JBossAS Integration" index="2" selected="@jboss.integration@" />
   </com.izforge.izpack.panels.TreePacksPanel>
-  <com.izforge.izpack.panels.UserInputPanel>
-    <userInput>
-      <entry key="jbossSelection" value="@target.container@" />
-    </userInput>
-  </com.izforge.izpack.panels.UserInputPanel>
-  <com.izforge.izpack.panels.UserInputPanel>
-    <userInput>
-      <entry key="jbossInstallPath" value="@jboss.home@" />
-    </userInput>
-  </com.izforge.izpack.panels.UserInputPanel>
   <com.izforge.izpack.panels.SummaryPanel />
   <com.izforge.izpack.panels.InstallPanel />
   <com.izforge.izpack.panels.FinishPanel />

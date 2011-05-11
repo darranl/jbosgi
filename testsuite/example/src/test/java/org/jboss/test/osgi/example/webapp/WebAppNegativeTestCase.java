@@ -30,7 +30,6 @@ import org.jboss.osgi.testing.OSGiRuntime;
 import org.jboss.osgi.testing.OSGiRuntimeTest;
 import org.jboss.osgi.webapp.WebAppCapability;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -41,7 +40,6 @@ import org.osgi.framework.BundleException;
  * @author thomas.diesler@jboss.com
  * @since 26-Oct-2009
  */
-@Ignore("[JBOSGI-443] Intermittent WebAppNegativeTestCase failure")
 public class WebAppNegativeTestCase extends OSGiRuntimeTest {
     
     @BeforeClass

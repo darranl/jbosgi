@@ -23,6 +23,7 @@ package org.jboss.test.osgi.example.webapp;
 
 import static org.jboss.osgi.http.HttpServiceCapability.DEFAULT_HTTP_SERVICE_PORT;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
@@ -42,12 +43,14 @@ import org.junit.Test;
  */
 public class WebAppInterceptorTestCase extends OSGiRuntimeTest {
     
+    static OSGiBundle webappBundle;
+    
     @BeforeClass
     public static void setUpClass() throws Exception {
         OSGiRuntime runtime = createDefaultRuntime();
         runtime.addCapability(new WebAppCapability());
-        OSGiBundle bundle = runtime.installBundle("example-webapp.war");
-        bundle.start();
+        webappBundle = runtime.installBundle("example-webapp.war");
+        webappBundle.start();
     }
     
     @Test
@@ -67,6 +70,18 @@ public class WebAppInterceptorTestCase extends OSGiRuntimeTest {
     public void testServletInitProps() throws Exception {
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 20000);
         assertEquals("initProp=SomeValue", line);
+    }
+
+    @Test
+    public void testServletAccessAfterStop() throws Exception {
+        webappBundle.stop();
+        try {
+            getHttpResponse("/example-webapp/servlet?test=plain", 20000);
+            fail("IOException expected");
+        }
+        catch (IOException ex) {
+            // expected
+        }
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {

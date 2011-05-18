@@ -55,7 +55,6 @@
         </property>
       </activation>
       <modules>
-        <module>jboss-modules</module>
         <module>jbosgi-framework</module>
       </modules>
     </profile>

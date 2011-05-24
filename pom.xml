@@ -43,8 +43,8 @@
   <!-- Properties -->
   <properties>
     <version.apache.ant>1.7.0</version.apache.ant>
-    <version.apache.aries.jmx>0.1-incubating</version.apache.aries.jmx>
-    <version.apache.aries.util>0.1-incubating</version.apache.aries.util>
+    <version.apache.aries.jmx>0.3</version.apache.aries.jmx>
+    <version.apache.aries.util>0.3</version.apache.aries.util>
     <version.apache.felix.configadmin>1.2.8</version.apache.felix.configadmin>
     <version.apache.felix.core>1.4.0</version.apache.felix.core>
     <version.apache.felix.eventadmin>1.2.6</version.apache.felix.eventadmin>

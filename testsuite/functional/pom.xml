@@ -41,21 +41,6 @@
   <!-- Dependencies -->
   <dependencies>
     <dependency>
-      <groupId>org.jboss.kernel</groupId>
-      <artifactId>jboss-aop-mc-int</artifactId>
-      <version>${version.jboss.aop.mc.int}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss.kernel</groupId>
-          <artifactId>jboss-kernel</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javassist</groupId>
-          <artifactId>javassist</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb-api</artifactId>
       <version>${version.javax.ejb}</version>

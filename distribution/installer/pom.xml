@@ -36,7 +36,7 @@
       <artifactId>ant</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.protocol</groupId>
+      <groupId>org.jboss.arquillian.osgi</groupId>
       <artifactId>arquillian-osgi-bundle</artifactId>
     </dependency>
     <dependency>
@@ -86,24 +86,12 @@
       <artifactId>jboss-osgi-jmx</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jta</groupId>
-      <artifactId>jboss-osgi-jta</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.reflect</groupId>
       <artifactId>jboss-osgi-reflect</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.resolver</groupId>
       <artifactId>jbosgi-resolver-felix</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.serviceloader</groupId>
-      <artifactId>jboss-osgi-serviceloader</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.spi</groupId>
@@ -119,7 +107,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
-      <artifactId>jboss-osgi-webapp</artifactId>
+      <artifactId>jbosgi-webapp</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.webconsole</groupId>
@@ -166,14 +154,6 @@
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.webconsole</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.compendium</artifactId>
     </dependency>
     
     <!-- JBossMSC Dependencies -->
@@ -231,9 +211,6 @@
                 <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
                 <property name="framework" value="${framework}" />
                 <!-- ${jboss.home} is available in the hudson run  -->
-                <property name="jboss.home" value="${jboss.home}" />
-                <property name="jboss700.home" value="${jboss700.home}" />
-                <property name="jboss70x.home" value="${jboss70x.home}" />
                 <property name="product.name" value="${project.name}" />
                 <property name="product.short.name" value="${artifactId}" />
                 <property name="product.version" value="${project.version}" />

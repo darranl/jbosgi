@@ -26,9 +26,6 @@
   <!-- Initialization                                                     -->
   <!-- ================================================================== -->
   <target name="init">
-    <echo message="jboss.home=${jboss.home}"/>
-    <echo message="jboss700.home=${jboss700.home}"/>
-    <echo message="jboss70x.home=${jboss70x.home}"/>
   </target>
 
   <!-- ================================================================== -->

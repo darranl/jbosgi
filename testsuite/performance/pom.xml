@@ -43,16 +43,10 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>org.jboss.arquillian.protocol</groupId>
+                  <groupId>org.jboss.arquillian.osgi</groupId>
                   <artifactId>arquillian-osgi-bundle</artifactId>
-                  <version>${version.jboss.arquillian}</version>
+                  <version>${version.jboss.arquillian.osgi}</version>
                   <destFileName>arquillian-osgi-bundle.jar</destFileName>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>org.osgi</groupId>
-                  <artifactId>org.osgi.compendium</artifactId>
-                  <version>${version.osgi}</version>
-                  <destFileName>org.osgi.compendium.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.felix</groupId>
@@ -77,6 +71,12 @@
                   <artifactId>org.eclipse.osgi.util</artifactId>
                   <version>${version.jboss.osgi.equinox}</version>
                   <destFileName>org.eclipse.osgi.util.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.osgi</groupId>
+                  <artifactId>org.osgi.compendium</artifactId>
+                  <version>${version.osgi}</version>
+                  <destFileName>org.osgi.compendium.jar</destFileName>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}/test-libs/bundles</outputDirectory>
@@ -210,58 +210,6 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-              </excludes>
-            </configuration>
-          </plugin>        
-        </plugins>
-      </build>
-    </profile>
-    
-    <!-- 
-      Name: jboss700
-      Descr: Setup for jboss700 integration testing
-    -->
-    <profile>
-      <id>jboss700</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss700</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-              </excludes>
-            </configuration>
-          </plugin>        
-        </plugins>
-      </build>
-    </profile>
-    
-    <!-- 
-      Name: jboss70x
-      Descr: Setup for jboss70x integration testing
-    -->
-    <profile>
-      <id>jboss70x</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss70x</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- [JBOSGI-418] Fix Arquillian OSGiContainer callback -->
-                <exclude>org/jboss/osgi/test/performance/**</exclude>
               </excludes>
             </configuration>
           </plugin>        

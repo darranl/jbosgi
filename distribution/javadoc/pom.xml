@@ -92,24 +92,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi-api</artifactId>
-      <version>${version.jboss.osgi.jndi}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jta</groupId>
-      <artifactId>jboss-osgi-jta</artifactId>
-      <version>${version.jboss.osgi.jta}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.resolver</groupId>
       <artifactId>jbosgi-resolver-api</artifactId>
       <version>${version.jboss.osgi.resolver}</version>
@@ -128,12 +110,6 @@
       <classifier>sources</classifier>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.serviceloader</groupId>
-      <artifactId>jboss-osgi-serviceloader</artifactId>
-      <version>${version.jboss.osgi.serviceloader}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.vfs</groupId>
       <artifactId>jbosgi-vfs</artifactId>
       <version>${version.jboss.osgi.vfs}</version>
@@ -147,7 +123,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
-      <artifactId>jboss-osgi-webapp</artifactId>
+      <artifactId>jbosgi-webapp</artifactId>
       <version>${version.jboss.osgi.webapp}</version>
       <classifier>sources</classifier>
     </dependency>

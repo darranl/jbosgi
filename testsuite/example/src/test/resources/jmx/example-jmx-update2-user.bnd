@@ -1,5 +1,0 @@
-Bundle-SymbolicName: jmx-update-user
-Bundle-Version: 1.0.0
-Import-Package: org.jboss.test.osgi.example.jmx.bundle.update2
-Private-Package: org.jboss.test.osgi.example.jmx.bundle.update4
-

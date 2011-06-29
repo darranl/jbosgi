@@ -1,7 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/example-serviceloader-client.jar src/test/resources/example/serviceloader/example-serviceloader-client.bnd
-
-Bundle-SymbolicName: example-serviceloader-client
-Bundle-Activator: org.jboss.test.osgi.example.serviceloader.client.ServiceLoaderClientActivator
-Import-Package: org.osgi.framework, org.osgi.util.tracker, org.jboss.osgi.spi.util, org.jboss.test.osgi.example.serviceloader.service;version="[1.0,2.0)"
-Private-Package: org.jboss.test.osgi.example.serviceloader.client
-

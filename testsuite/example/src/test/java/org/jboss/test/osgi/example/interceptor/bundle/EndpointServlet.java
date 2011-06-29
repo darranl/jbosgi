@@ -19,27 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.simple.bundle;
+package org.jboss.test.osgi.example.interceptor.bundle;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-/**
- * A Service Activator
- * 
- * @author thomas.diesler@jboss.com
- * @since 24-Apr-2009
- */
-public class SimpleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      // Register a service
-      context.registerService(SimpleService.class.getName(), new SimpleService(), null);
-   }
+@SuppressWarnings("serial")
+public class EndpointServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        PrintWriter out = res.getWriter();
 
-   public void stop(BundleContext context)
-   {
-   }
+        out.println("Hello from Servlet");
+
+        out.close();
+    }
 }

@@ -1,5 +1,0 @@
-Bundle-ManifestVersion: 2
-Bundle-SymbolicName: example-webapp
-Bundle-ClassPath: .,WEB-INF/classes
-Web-ContextPath: example-webapp
-Import-Package: javax.servlet,javax.servlet.http,org.osgi.service.http,org.ops4j.pax.web.service

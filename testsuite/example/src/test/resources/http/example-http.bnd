@@ -1,7 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/example/example-http.jar src/test/resources/example/http/example-http.bnd
-
-Bundle-SymbolicName: example-http
-Bundle-Activator: org.jboss.test.osgi.example.http.bundle.HttpExampleActivator
-Export-Package: org.jboss.test.osgi.example.http.bundle
-Import-Package: javax.servlet, javax.servlet.http, org.jboss.osgi.common.log, org.osgi.framework, org.osgi.service.http, org.osgi.service.startlevel, org.osgi.service.log, org.osgi.util.tracker
-Include-Resource: res/message.txt=message.txt

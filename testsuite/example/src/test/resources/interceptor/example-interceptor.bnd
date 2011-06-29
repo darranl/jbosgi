@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/example/example-interceptor.jar src/test/resources/example/interceptor/example-interceptor.bnd
-
-Bundle-SymbolicName: example-interceptor
-Bundle-Activator: org.jboss.test.osgi.example.interceptor.processor.InterceptorActivator
-Export-Package: org.jboss.test.osgi.example.interceptor.processor

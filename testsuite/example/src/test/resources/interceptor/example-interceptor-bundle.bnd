@@ -1,7 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/example/example-interceptor-bundle.jar src/test/resources/example/interceptor/example-interceptor-bundle.bnd
-
-Bundle-SymbolicName: example-interceptor-bundle
-Export-Package: org.jboss.test.osgi.example.interceptor.endpoint
-Import-Package: javax.servlet, javax.servlet.http
-
-Include-Resource: http-metadata.properties

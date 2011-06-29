@@ -80,8 +80,8 @@ public class OSGi92TestCase extends OSGiRuntimeTest {
         // Export-Package: org.jboss.test.osgi.jbosgi92.bundleA
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi92-bundleA");
         archive.addClasses(ActivatorBundleA.class, DocumentBuilderFactoryImpl.class, SAXParserFactoryImpl.class);
-        archive.addResource("jbosgi92/javax.xml.parsers.DocumentBuilderFactory", "META-INF/services/javax.xml.parsers.DocumentBuilderFactory");
-        archive.addResource("jbosgi92/javax.xml.parsers.SAXParserFactory", "META-INF/services/javax.xml.parsers.SAXParserFactory");
+        archive.addAsResource("jbosgi92/javax.xml.parsers.DocumentBuilderFactory", "META-INF/services/javax.xml.parsers.DocumentBuilderFactory");
+        archive.addAsResource("jbosgi92/javax.xml.parsers.SAXParserFactory", "META-INF/services/javax.xml.parsers.SAXParserFactory");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();

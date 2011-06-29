@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
+<!-- ====================================================================== -->
+<!-- -->
+<!-- JBoss, the OpenSource J2EE webOS -->
+<!-- -->
+<!-- Distributable under LGPL license. -->
+<!-- See terms of license at http://www.gnu.org. -->
+<!-- -->
+<!-- ====================================================================== -->
 
-  <!--
-    Set these VM properties in your IDE debugger
-     
-     -Dlog4j.output.dir=${workspace_loc:jboss-osgi-testsuite-example/target}
-     -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-example/target}/test-libs
-  -->
+<!-- Set these VM properties in your IDE debugger -Dlog4j.output.dir=${workspace_loc:jboss-osgi-testsuite-example/target} 
+  -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-example/target}/test-libs -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <name>JBossOSGi Testsuite Examples</name>
@@ -76,25 +73,6 @@
         </executions>
       </plugin>
       <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>build-test-jars</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
-                <property name="tests.output.dir" value="${project.build.directory}" />
-                <ant antfile="scripts/antrun-test-jars.xml" />
-              </tasks>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
@@ -120,10 +98,7 @@
 
   <!-- Repositories -->
   <repositories>
-    <!-- 
-      Also define the JBoss Repository here because 
-      the examples are distributed standalone 
-    -->
+    <!-- Define the JBoss Repository here because the examples are distributed standalone -->
     <repository>
       <id>jboss-public-repository-group</id>
       <name>JBoss Public Maven Repository Group</name>
@@ -134,10 +109,6 @@
   <!-- Profiles -->
   <profiles>
 
-    <!--
-      Name: framework-equinox
-      Descr: Setup for Equinox framework integration testing
-    -->
     <profile>
       <id>framework-equinox</id>
       <activation>
@@ -172,12 +143,8 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-236] XML Binding example fails in JBossAS -->
-                <exclude>org/jboss/test/osgi/example/xml/jbossxb/**</exclude>
-                <!-- Functionality not supported in Equinox -->                
+                <!-- Functionality not supported in Equinox -->
                 <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
-                <exclude>org/jboss/test/osgi/example/serviceloader/**</exclude>
                 <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
                 <exclude>org/jboss/test/osgi/example/webapp/WebAppInterceptorTestCase.class</exclude>
               </excludes>
@@ -187,10 +154,6 @@
       </build>
     </profile>
 
-    <!--
-      Name: framework-felix
-      Descr: Setup for Felix framework integration testing
-    -->
     <profile>
       <id>framework-felix</id>
       <activation>
@@ -225,12 +188,8 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes>
-                <exclude>${target.container.excludes}</exclude>
-                <!-- [JBOSGI-293] Cannot start example-jndi on Felix -->
-                <exclude>org/jboss/test/osgi/example/jndi/**</exclude>
-                <!-- Functionality not supported in Felix -->                
+                <!-- Functionality not supported in Felix -->
                 <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
-                <exclude>org/jboss/test/osgi/example/serviceloader/**</exclude>
                 <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
                 <exclude>org/jboss/test/osgi/example/webapp/WebAppInterceptorTestCase.class</exclude>
               </excludes>
@@ -240,44 +199,6 @@
       </build>
     </profile>
 
-    <!--
-      Name: framework-jboss
-      Descr: Setup for MSC Framework integration testing
-    -->
-    <profile>
-      <id>framework-jboss</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>jboss</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-        
     <profile>
       <id>framework-default</id>
       <activation>
@@ -311,10 +232,6 @@
       </build>
     </profile>
 
-    <!-- 
-      Name: embedded-testing 
-      Descr: Setup for embedded integration testing 
-    -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -327,19 +244,27 @@
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <excludes>
-                <exclude>${target.container.excludes}</exclude>
-              </excludes>
+              <argLine>${surefire.system.args}</argLine>
+              <systemProperties>
+                <property>
+                  <name>java.util.logging.manager</name>
+                  <value>org.jboss.logmanager.LogManager</value>
+                </property>
+                <property>
+                  <name>test.archive.directory</name>
+                  <value>${project.build.directory}/test-libs</value>
+                </property>
+                <property>
+                  <name>jboss.osgi.vfs.leakDebugging</name>
+                  <value>true</value>
+                </property>
+              </systemProperties>
             </configuration>
-          </plugin>        
+          </plugin>
         </plugins>
       </build>
     </profile>
-    
-    <!-- 
-      Name: runtime-testing 
-      Descr: Setup for runtime integration testing 
-    -->
+
     <profile>
       <id>runtime-testing</id>
       <activation>
@@ -353,66 +278,12 @@
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <excludes>
-                <exclude>${target.container.excludes}</exclude>
-              </excludes>
             </configuration>
-          </plugin>        
+          </plugin>
         </plugins>
       </build>
     </profile>
-    
-    <!-- 
-      Name: jboss700
-      Descr: Setup for jboss700 integration testing
-    -->
-    <profile>
-      <id>jboss700</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss700</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <exclude>${target.container.excludes}</exclude>
-              </excludes>
-            </configuration>
-          </plugin>        
-        </plugins>
-      </build>
-    </profile>
-    
-    <!-- 
-      Name: jboss70x
-      Descr: Setup for jboss70x integration testing
-    -->
-    <profile>
-      <id>jboss70x</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss70x</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <exclude>${target.container.excludes}</exclude>
-              </excludes>
-            </configuration>
-          </plugin>        
-        </plugins>
-      </build>
-    </profile>
+
   </profiles>
 
 </project>

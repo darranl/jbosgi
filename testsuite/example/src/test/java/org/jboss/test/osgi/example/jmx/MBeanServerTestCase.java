@@ -21,31 +21,72 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-import static org.jboss.test.osgi.example.jmx.bundle.FooMBean.MBEAN_NAME;
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
+import java.io.InputStream;
+
+import javax.inject.Inject;
+import javax.management.MBeanServer;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.jmx.MBeanProxy;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.example.jmx.bundle.Foo;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
+import org.jboss.test.osgi.example.jmx.bundle.MBeanActivator;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.startlevel.StartLevel;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A test that deployes a bundle that registeres an MBean
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
-public class MBeanServerTestCase extends OSGiRuntimeTest {
+@RunWith(Arquillian.class)
+public class MBeanServerTestCase {
+
+    @Inject
+    public BundleContext context;
+
+    @Inject
+    public Bundle bundle;
+
+    @Deployment
+    public static JavaArchive createdeployment() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-mbean");
+        archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addBundleActivator(MBeanActivator.class);
+                builder.addImportPackages(BundleActivator.class, ServiceTracker.class);
+                builder.addImportPackages(StartLevel.class, MBeanServer.class, MBeanProxy.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
+
     @Test
     public void testMBeanAccess() throws Exception {
-        OSGiBundle bundle = getRuntime().installBundle("example-jmx.jar");
-        try {
-            bundle.start();
-
-            FooMBean foo = getRuntime().getMBeanProxy(MBEAN_NAME, FooMBean.class);
-            assertEquals("hello", foo.echo("hello"));
-        } finally {
-            bundle.uninstall();
-        }
+        bundle.start();
+        BundleContext context = bundle.getBundleContext();
+        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+        MBeanServer server = (MBeanServer) context.getService(sref);
+        FooMBean foo = MBeanProxy.get(server, FooMBean.MBEAN_NAME, FooMBean.class);
+        assertEquals("hello", foo.echo("hello"));
     }
 }

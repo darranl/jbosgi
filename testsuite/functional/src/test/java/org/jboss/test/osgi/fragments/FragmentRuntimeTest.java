@@ -365,7 +365,7 @@ public class FragmentRuntimeTest extends OSGiRuntimeTest {
         // Fragment-Host: simple-hostA
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "simple-fragA");
         archive.addClasses(FragBeanA.class);
-        archive.addResource(getResourceFile("fragments/resource.txt"));
+        archive.addAsResource(getResourceFile("fragments/resource.txt"));
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();

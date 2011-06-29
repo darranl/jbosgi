@@ -46,7 +46,6 @@
     <version.apache.aries.jmx>0.3</version.apache.aries.jmx>
     <version.apache.aries.util>0.3</version.apache.aries.util>
     <version.apache.felix.configadmin>1.2.8</version.apache.felix.configadmin>
-    <version.apache.felix.core>1.4.0</version.apache.felix.core>
     <version.apache.felix.eventadmin>1.2.6</version.apache.felix.eventadmin>
     <version.apache.felix.log>1.0.0</version.apache.felix.log>
     <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
@@ -54,32 +53,28 @@
     <version.aqute.bnd.sp>0.0.365.SP1</version.aqute.bnd.sp>
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
-    <version.jboss.arquillian>1.0.0.Alpha4.SP10</version.jboss.arquillian>
+    <version.jboss.arquillian.core>1.0.0.CR1</version.jboss.arquillian.core>
+    <version.jboss.arquillian.osgi>1.0.0.CR2-SNAPSHOT</version.jboss.arquillian.osgi>
     <version.jboss.logmanager>1.2.0.CR8</version.jboss.logmanager>
-    <version.jboss.modules>1.0.0.CR3</version.jboss.modules>
-    <version.jboss.msc>1.0.0.Beta8</version.jboss.msc>
+    <version.jboss.modules>1.0.0.CR4</version.jboss.modules>
+    <version.jboss.msc>1.0.0.CR2</version.jboss.msc>
     <version.jboss.osgi.blueprint>1.0.2</version.jboss.osgi.blueprint>
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.10</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.CR4-SNAPSHOT</version.jboss.osgi.framework>
+    <version.jboss.osgi.framework>1.0.0.CR6</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.10</version.jboss.osgi.hotdeploy>
-    <version.jboss.osgi.http>1.0.1</version.jboss.osgi.http>
+    <version.jboss.osgi.http>1.0.3</version.jboss.osgi.http>
     <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
-    <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
-    <version.jboss.osgi.jta>4.6.1.SP2</version.jboss.osgi.jta>
-    <version.jboss.osgi.reflect>2.2.0.Alpha9</version.jboss.osgi.reflect>
     <version.jboss.osgi.resolver>1.0.9</version.jboss.osgi.resolver>
-    <version.jboss.osgi.serviceloader>1.0.3</version.jboss.osgi.serviceloader>
-    <version.jboss.osgi.spi>1.0.26</version.jboss.osgi.spi>
+    <version.jboss.osgi.spi>1.0.27</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.6</version.jboss.osgi.vfs>
-    <version.jboss.osgi.webapp>1.0.1</version.jboss.osgi.webapp>
+    <version.jboss.osgi.webapp>1.0.3-SNAPSHOT</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
-    <version.jboss.shrinkwrap>1.0.0-alpha-11</version.jboss.shrinkwrap>
-    <version.ops4j.pax.web>0.7.2</version.ops4j.pax.web>
+    <version.jboss.shrinkwrap>1.0.0-beta2</version.jboss.shrinkwrap>
     <version.osgi>4.2.0</version.osgi>
 
     <surefire.memory.args>-Xmx512m</surefire.memory.args>
@@ -118,37 +113,29 @@
 
       <!-- Arquillian -->
       <dependency>
-        <groupId>org.jboss.arquillian.protocol</groupId>
+        <groupId>org.jboss.arquillian.container</groupId>
+        <artifactId>arquillian-container-test-api</artifactId>
+        <version>${version.jboss.arquillian.core}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jboss.arquillian.junit</groupId>
+          <artifactId>arquillian-junit-core</artifactId>
+          <version>${version.jboss.arquillian.core}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian.osgi</groupId>
         <artifactId>arquillian-osgi-bundle</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.arquillian}</version>
+        <version>${version.jboss.arquillian.osgi}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.container</groupId>
-        <artifactId>arquillian-osgi-embedded</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.arquillian}</version>
+        <artifactId>arquillian-container-osgi-embedded</artifactId>
+        <version>${version.jboss.arquillian.osgi}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.container</groupId>
-        <artifactId>arquillian-osgi-remote</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.arquillian}</version>
+        <artifactId>arquillian-container-osgi-remote</artifactId>
+        <version>${version.jboss.arquillian.osgi}</version>
       </dependency>
 
       <!-- jboss -->
@@ -244,28 +231,6 @@
         <version>${version.jboss.osgi.jmx}</version>
       </dependency>
       <dependency>
-        <groupId>org.jboss.osgi.jndi</groupId>
-        <artifactId>jboss-osgi-jndi</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.osgi.jndi}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.jta</groupId>
-        <artifactId>jboss-osgi-jta</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.osgi.jta}</version>
-      </dependency>
-      <dependency>
         <groupId>org.jboss.osgi.reflect</groupId>
         <artifactId>jboss-osgi-reflect</artifactId>
         <exclusions>
@@ -310,21 +275,6 @@
         <version>${version.jboss.osgi.resolver}</version>
       </dependency>
       <dependency>
-        <groupId>org.jboss.osgi.serviceloader</groupId>
-        <artifactId>jboss-osgi-serviceloader</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.osgi.deployment</groupId>
-            <artifactId>jboss-osgi-deployment</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.osgi.serviceloader}</version>
-      </dependency>
-      <dependency>
         <groupId>org.jboss.osgi.vfs</groupId>
         <artifactId>jbosgi-vfs</artifactId>
         <version>${version.jboss.osgi.vfs}</version>
@@ -336,17 +286,7 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.webapp</groupId>
-        <artifactId>jboss-osgi-webapp</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.osgi.deployment</groupId>
-            <artifactId>jboss-osgi-deployment</artifactId>
-          </exclusion>
-        </exclusions>
+        <artifactId>jbosgi-webapp</artifactId>
         <version>${version.jboss.osgi.webapp}</version>
       </dependency>
       <dependency>
@@ -414,29 +354,12 @@
         <artifactId>org.apache.felix.webconsole</artifactId>
         <version>${version.apache.felix.webconsole}</version>
       </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.osgi.core</artifactId>
-        <version>${version.apache.felix.core}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>org.osgi.compendium</artifactId>
-        <version>${version.apache.felix.core}</version>
-      </dependency>
 
       <!-- Framework Dependencies -->
       <dependency>
         <groupId>org.jboss.osgi.framework</groupId>
         <artifactId>jbosgi-framework-core</artifactId>
         <version>${version.jboss.osgi.framework}</version>
-      </dependency>
-
-      <!-- OPS4J -->
-      <dependency>
-        <groupId>org.ops4j.pax.web</groupId>
-        <artifactId>pax-web-extender-war</artifactId>
-        <version>${version.ops4j.pax.web}</version>
       </dependency>
 
       <!-- javax.* -->
@@ -531,121 +454,6 @@
       </properties>
     </profile>
 
-    <!-- 
-        Name: embedded-testing 
-        Descr: Setup for embedded integration testing 
-    -->
-    <profile>
-      <id>embedded-testing</id>
-      <activation>
-        <property>
-          <name>!target.container</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <systemProperties>
-                <property>
-                  <name>framework</name>
-                  <value>${framework}</value>
-                </property>
-                <property>
-                  <name>java.protocol.handler.pkgs</name>
-                  <value>org.jboss.vfs.protocol</value>
-                </property>
-                <property>
-                  <name>java.util.logging.manager</name>
-                  <value>org.jboss.logmanager.LogManager</value>
-                </property>
-                <property>
-                  <name>jndi.server.port</name>
-                  <value>1099</value>
-                </property>
-                <property>
-                  <name>jboss.osgi.framework.properties</name>
-                  <value>${jboss.osgi.framework.properties}</value>
-                </property>
-                <property>
-                  <name>jboss.osgi.vfs.leakDebugging</name>
-                  <value>true</value>
-                </property>
-                <property>
-                  <name>test.archive.directory</name>
-                  <value>${project.build.directory}/test-libs</value>
-                </property>
-              </systemProperties>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <!-- 
-        Name: remote-testing 
-        Descr: Setup for remote integration testing 
-    -->
-    <profile>
-      <id>remote-testing</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <systemProperties>
-                <property>
-                  <name>framework</name>
-                  <value>${framework}</value>
-                </property>
-                <property>
-                  <name>java.protocol.handler.pkgs</name>
-                  <value>org.jboss.net.protocol|org.jboss.virtual.protocol</value>
-                </property>
-                <property>
-                  <name>java.util.logging.manager</name>
-                  <value>org.jboss.logmanager.LogManager</value>
-                </property>
-                <property>
-                  <name>jboss.bind.address</name>
-                  <value>${jboss.bind.address}</value>
-                </property>
-                <property>
-                  <name>jboss.osgi.framework.properties</name>
-                  <value>${jboss.osgi.framework.properties}</value>
-                </property>
-                <property>
-                  <name>jboss.osgi.vfs.leakDebugging</name>
-                  <value>true</value>
-                </property>
-                <property>
-                  <name>jndi.server.port</name>
-                  <value>1099</value>
-                </property>
-                <property>
-                  <name>org.apache.xerces.xni.parser.XMLParserConfiguration</name>
-                  <value>org.apache.xerces.parsers.XIncludeAwareParserConfiguration</value>
-                </property>
-                <property>
-                  <name>target.container</name>
-                  <value>${target.container}</value>
-                </property>
-                <property>
-                  <name>test.archive.directory</name>
-                  <value>${project.build.directory}/test-libs</value>
-                </property>
-              </systemProperties>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 
 </project>

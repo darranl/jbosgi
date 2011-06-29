@@ -19,27 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.simple.bundle;
+package org.jboss.test.osgi.example.interceptor.bundle;
 
-
+import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
+import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
- * A Service Activator
+ * Registers the interceptors with the {@link LifecycleInterceptorService}
  * 
  * @author thomas.diesler@jboss.com
- * @since 24-Apr-2009
+ * @since 20-Oct-2009
  */
-public class SimpleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      // Register a service
-      context.registerService(SimpleService.class.getName(), new SimpleService(), null);
-   }
+public class InterceptorActivator implements BundleActivator {
+    public void start(BundleContext context) {
+        LifecycleInterceptor publisher = new PublisherInterceptor();
+        LifecycleInterceptor parser = new ParserInterceptor();
 
-   public void stop(BundleContext context)
-   {
-   }
+        // Add the interceptors, the order of which is handles by the service
+        context.registerService(LifecycleInterceptor.class.getName(), publisher, null);
+        context.registerService(LifecycleInterceptor.class.getName(), parser, null);
+    }
+
+    public void stop(BundleContext context) {
+    }
 }

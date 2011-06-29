@@ -21,11 +21,8 @@
         <include>*:jboss-osgi-common-core:jar</include>
         <include>*:jboss-osgi-http:jar</include>
         <include>*:jboss-osgi-jmx:jar</include>
-        <include>*:jboss-osgi-jndi:jar</include>
-        <include>*:jboss-osgi-jta:jar</include>
         <include>*:jboss-osgi-reflect:jar</include>
-        <include>*:jboss-osgi-serviceloader:jar</include>
-        <include>*:jboss-osgi-webapp:jar</include>
+        <include>*:jbosgi-webapp:jar</include>
         <include>*:jbosgi-webconsole:jar</include>
         <include>*:jboss-osgi-xerces:jar</include>
         <include>*:org.apache.aries.jmx:jar</include>
@@ -34,7 +31,6 @@
         <include>*:org.apache.felix.eventadmin:jar</include>
         <include>*:org.apache.felix.log:jar</include>
         <include>*:org.apache.felix.metatype:jar</include>
-        <include>*:pax-web-extender-war:jar</include>
       </includes>
       <useStrictFiltering>true</useStrictFiltering>
       <scope>provided</scope>

@@ -153,7 +153,6 @@ $ bin/run.sh -c minimal
     <itemizedlist>
       <listitem><emphasis role="bold">jboss-osgi-common-core.jar</emphasis> - JBoss Common Core functionality</listitem>
       <listitem><emphasis role="bold">jboss-osgi-jmx.jar</emphasis> - JBoss OSGi JMX service</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-jndi.jar</emphasis> - JBoss OSGi JNDI service</listitem>
       <listitem><emphasis role="bold">org.apache.aries.jmx.jar</emphasis> - Apache Aries JMX services</listitem>
       <listitem><emphasis role="bold">org.apache.felix.configadmin.jar</emphasis> - Apache Config Admin service</listitem>
       <listitem><emphasis role="bold">org.apache.felix.eventadmin.jar</emphasis> - Apache Event Admin service</listitem>
@@ -167,7 +166,7 @@ $ bin/run.sh -c minimal
   
     <itemizedlist>
       <listitem><emphasis role="bold">jboss-osgi-http.jar</emphasis> - JBoss OSGi HttpService</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-webapp.jar</emphasis> - JBoss OSGi WebApp Support</listitem>
+      <listitem><emphasis role="bold">jbosgi-webapp.jar</emphasis> - JBoss OSGi WebApp Support</listitem>
       <listitem><emphasis role="bold">jbosgi-webconsole.jar</emphasis> - JBoss OSGi Web Console</listitem>
     </itemizedlist>
 
@@ -179,7 +178,6 @@ $ bin/run.sh -c minimal
   
     <itemizedlist>
       <listitem><emphasis role="bold">arquillian-osgi-bundle.jar</emphasis> - Arquillian test support</listitem>
-      <listitem><emphasis role="bold">jboss-osgi-jta.jar</emphasis> - JTA support</listitem>
       <listitem><emphasis role="bold">jboss-osgi-xerces.jar</emphasis> - Apache Xerces support</listitem>
       <listitem><emphasis role="bold">jbosgi-blueprint.jar</emphasis> - Blueprint Container support</listitem>
     </itemizedlist>

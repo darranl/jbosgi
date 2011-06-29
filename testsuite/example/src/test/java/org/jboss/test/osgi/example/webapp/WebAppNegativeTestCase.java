@@ -24,34 +24,67 @@ package org.jboss.test.osgi.example.webapp;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.InputStream;
+import java.util.jar.JarFile;
+
+import javax.inject.Inject;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
-import org.jboss.osgi.testing.OSGiBundle;
-import org.jboss.osgi.testing.OSGiRuntime;
-import org.jboss.osgi.testing.OSGiRuntimeTest;
-import org.jboss.osgi.webapp.WebAppCapability;
-import org.junit.BeforeClass;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
+import org.osgi.framework.Constants;
+import org.osgi.service.startlevel.StartLevel;
 
 /**
  * A test that deployes a WAR bundle that contains no WEB-INF/web.xml
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 26-Oct-2009
  */
-public class WebAppNegativeTestCase extends OSGiRuntimeTest {
-    
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-        OSGiRuntime runtime = createDefaultRuntime();
-        runtime.addCapability(new WebAppCapability());
+@RunWith(Arquillian.class)
+public class WebAppNegativeTestCase {
+
+    @Inject
+    public BundleContext context;
+
+    @Inject
+    public Bundle bundle;
+
+    @Deployment
+    public static WebArchive createdeployment() {
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp-negative");
+        archive.addClasses(EndpointServlet.class);
+        archive.addAsResource("webapp/message.txt", "message.txt");
+        // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
+        archive.add(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
+                builder.addManifestHeader("Web-ContextPath", "example-webapp");
+                builder.addImportPackages(LifecycleInterceptorException.class);
+                builder.addImportPackages(StartLevel.class, HttpServlet.class, Servlet.class);
+                return builder.openStream();
+            }
+        }, JarFile.MANIFEST_NAME);
+        return archive;
     }
 
     @Test
     public void testServletAccess() throws Exception {
-        OSGiBundle bundle = getRuntime().installBundle("example-webapp-negative.war");
-        assertBundleState(Bundle.INSTALLED, bundle.getState());
         try {
             bundle.start();
             fail("BundleException expected");

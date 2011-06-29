@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ====================================================================== -->
-<!--                                                                        -->
-<!-- JBoss, the OpenSource J2EE webOS                                       -->
-<!--                                                                        -->
-<!-- Distributable under LGPL license.                                      -->
-<!-- See terms of license at http://www.gnu.org.                            -->
-<!--                                                                        -->
+<!-- -->
+<!-- JBoss, the OpenSource J2EE webOS -->
+<!-- -->
+<!-- Distributable under LGPL license. -->
+<!-- See terms of license at http://www.gnu.org. -->
+<!-- -->
 <!-- ====================================================================== -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <name>JBossOSGi Testsuite</name>
@@ -28,12 +29,11 @@
   <modules>
     <module>example</module>
     <module>functional</module>
-    <module>performance</module>
+    <!-- module>performance</module -->
   </modules>
 
   <!-- Properties -->
   <properties>
-    <version.jnp.client>5.0.1.GA</version.jnp.client>
     <surefire.system.args>-da ${surefire.memory.args} ${surefire.jpda.args} ${surefire.profiler.args}</surefire.system.args>
   </properties>
 
@@ -80,15 +80,10 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- 
-      Contains classes from org.osgi.util.tracker that must come after the framework provided ones. 
-      Equinox chokes with SecurityException. 
-    <dependency> 
-      <groupId>org.apache.felix</groupId> 
-      <artifactId>org.apache.felix.configadmin</artifactId> 
-      <scope>provided</scope> 
-    </dependency> 
-    -->
+    <!-- Contains classes from org.osgi.util.tracker that must come after 
+      the framework provided ones. Equinox chokes with SecurityException. <dependency> 
+      <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.configadmin</artifactId> 
+      <scope>provided</scope> </dependency> -->
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.eventadmin</artifactId>
@@ -120,7 +115,7 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.protocol</groupId>
+      <groupId>org.jboss.arquillian.osgi</groupId>
       <artifactId>arquillian-osgi-bundle</artifactId>
       <scope>provided</scope>
     </dependency>
@@ -150,28 +145,8 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jta</groupId>
-      <artifactId>jboss-osgi-jta</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.reflect</groupId>
-      <artifactId>jboss-osgi-reflect</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.serviceloader</groupId>
-      <artifactId>jboss-osgi-serviceloader</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
-      <artifactId>jboss-osgi-webapp</artifactId>
+      <artifactId>jbosgi-webapp</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -191,34 +166,21 @@
       <artifactId>servlet-api</artifactId>
     </dependency>
 
-    <!-- OPS4J -->
-    <dependency>
-      <groupId>org.ops4j.pax.web</groupId>
-      <artifactId>pax-web-extender-war</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
     <!-- Test Dependencies -->
     <dependency>
-      <groupId>org.jboss.naming</groupId>
-      <artifactId>jnp-client</artifactId>
-      <version>${version.jnp.client}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss</groupId>
-          <artifactId>jboss-common-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.logging</groupId>
-          <artifactId>jboss-logging-spi</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.jboss.arquillian.container</groupId>
+      <artifactId>arquillian-container-test-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.jboss.logmanager</groupId>
-        <artifactId>jboss-logmanager</artifactId>
-        <scope>test</scope>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.logmanager</groupId>
+      <artifactId>jboss-logmanager</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -231,22 +193,14 @@
       </testResource>
     </testResources>
     <plugins>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>${surefire.system.args}</argLine>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
   <!-- Profiles -->
   <profiles>
 
-    <!-- 
-      Name: framework-equinox 
-      Descr: Setup for Equinox framework integration testing 
-    -->
+    <!-- Name: framework-equinox Descr: Setup for Equinox framework integration 
+      testing -->
     <profile>
       <id>framework-equinox</id>
       <activation>
@@ -272,10 +226,8 @@
       </dependencies>
     </profile>
 
-    <!-- 
-      Name: framework-felix 
-      Descr: Setup for Felix framework integration testing 
-    -->
+    <!-- Name: framework-felix Descr: Setup for Felix framework integration 
+      testing -->
     <profile>
       <id>framework-felix</id>
       <activation>
@@ -301,39 +253,6 @@
       </dependencies>
     </profile>
 
-    <!-- 
-      Name: framework-jboss 
-      Descr: Setup for MSC Framework integration testing 
-    -->
-    <profile>
-      <id>framework-jboss</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>jboss</value>
-        </property>
-      </activation>
-      <properties>
-        <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.osgi.framework</groupId>
-          <artifactId>jbosgi-framework-core</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.resolver</groupId>
-          <artifactId>jbosgi-resolver-felix</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.osgi.vfs</groupId>
-          <artifactId>jbosgi-vfs30</artifactId>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
     <profile>
       <id>default-framework</id>
       <activation>
@@ -372,10 +291,8 @@
         </property>
       </activation>
       <dependencies>
-        <!-- 
-           Contains classes from org.osgi.util.tracker that must come after the framework provided ones. 
-           Equinox chokes with SecurityException. 
-        -->
+        <!-- Contains classes from org.osgi.util.tracker that must come after 
+          the framework provided ones. Equinox chokes with SecurityException. -->
         <dependency>
           <groupId>org.apache.felix</groupId>
           <artifactId>org.apache.felix.configadmin</artifactId>
@@ -394,10 +311,7 @@
       </dependencies>
     </profile>
 
-    <!-- 
-      Name: embedded-testing 
-      Descr: Setup for embedded integration testing 
-    -->
+    <!-- Name: embedded-testing Descr: Setup for embedded integration testing -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -405,22 +319,40 @@
           <name>!target.container</name>
         </property>
       </activation>
-      <properties>
-        <target.container.excludes>org/jboss/test/osgi/example/xservice/**</target.container.excludes>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-osgi-embedded</artifactId>
+          <artifactId>arquillian-container-osgi-embedded</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <argLine>${surefire.system.args}</argLine>
+              <systemProperties>
+                <property>
+                  <name>java.util.logging.manager</name>
+                  <value>org.jboss.logmanager.LogManager</value>
+                </property>
+                <property>
+                  <name>test.archive.directory</name>
+                  <value>${project.build.directory}/test-libs</value>
+                </property>
+                <property>
+                  <name>jboss.osgi.vfs.leakDebugging</name>
+                  <value>true</value>
+                </property>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
-    <!-- 
-      Name: runtime-testing 
-      Descr: Setup for runtime integration testing 
-    -->
+    <!-- Name: runtime-testing Descr: Setup for runtime integration testing -->
     <profile>
       <id>runtime-testing</id>
       <activation>
@@ -429,71 +361,14 @@
           <value>runtime</value>
         </property>
       </activation>
-      <properties>
-        <target.container.excludes>org/jboss/test/osgi/example/xservice/**</target.container.excludes>
-      </properties>
       <dependencies>
         <dependency>
           <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-osgi-remote</artifactId>
+          <artifactId>arquillian-container-osgi-remote</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>
 
-    <!-- 
-      Name: jboss700 
-      Descr: Setup for jboss700 integration testing
-      TODO: this one should move up one level 
-    -->
-    <profile>
-      <id>jboss700</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss700</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-osgi-remote</artifactId>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.as</groupId>
-          <artifactId>jboss-as-osgi-plugin</artifactId>
-          <version>7.0.0.Beta2</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    
-    <!-- 
-      Name: jboss70x
-      Descr: Setup for jboss70x integration testing
-    -->
-    <profile>
-      <id>jboss70x</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>jboss70x</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-osgi-remote</artifactId>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.as</groupId>
-          <artifactId>jboss-as-osgi-plugin</artifactId>
-          <version>7.0.0.Beta3-SNAPSHOT</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
   </profiles>
 </project>

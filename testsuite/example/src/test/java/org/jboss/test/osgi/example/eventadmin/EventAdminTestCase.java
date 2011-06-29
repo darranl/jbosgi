@@ -19,55 +19,61 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.jmx;
+package org.jboss.test.osgi.example.eventadmin;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.List;
 
 import javax.inject.Inject;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.openmbean.TabularData;
 
-import org.apache.aries.jmx.framework.BundleState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.jmx.MBeanProxy;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.osgi.jmx.framework.BundleStateMBean;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 import org.osgi.service.startlevel.StartLevel;
 
 /**
- * Test {@link BundleState} functionality
+ * A test that deployes the EventAdmin and sends/receives messages on a topic.
  *
  * @author thomas.diesler@jboss.com
- * @since 15-Feb-2010
+ * @since 08-Dec-2009
  */
 @RunWith(Arquillian.class)
-public class BundleStateTestCase {
+public class EventAdminTestCase {
+
+    static String TOPIC = "org/jboss/test/osgi/example/event";
+
+    @Inject
+    public Bundle bundle;
 
     @Inject
     public BundleContext context;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-bundlestate");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-eventadmin");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(BundleStateMBean.class);
-                builder.addImportPackages(StartLevel.class, MBeanServer.class, MBeanProxy.class);
+                builder.addImportPackages(StartLevel.class, EventAdmin.class);
                 return builder.openStream();
             }
         });
@@ -75,17 +81,35 @@ public class BundleStateTestCase {
     }
 
     @Test
-    public void testBundleStateMBean() throws Exception {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public void testEventHandler() throws Exception {
 
-        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-        MBeanServer server = (MBeanServer) context.getService(sref);
+        bundle.start();
+        assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-        ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
-        BundleStateMBean bundleState = MBeanProxy.get(server, oname, BundleStateMBean.class);
-        assertNotNull("BundleStateMBean not null", bundleState);
+        BundleContext context = bundle.getBundleContext();
 
-        TabularData bundleData = bundleState.listBundles();
-        assertNotNull("TabularData not null", bundleData);
-        assertFalse("TabularData not empty", bundleData.isEmpty());
+        // Register the EventHandler
+        Dictionary param = new Hashtable();
+        param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
+        TestEventHandler eventHandler = new TestEventHandler();
+        context.registerService(EventHandler.class.getName(), eventHandler, param);
+
+        // Send event through the the EventAdmin
+        ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
+        EventAdmin eventAdmin = (EventAdmin) context.getService(sref);
+        eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
+
+        // Verify received event
+        assertEquals("Event received", 1, eventHandler.received.size());
+        assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+    }
+
+    static class TestEventHandler implements EventHandler {
+        List<Event> received = new ArrayList<Event>();
+
+        public void handleEvent(Event event) {
+            received.add(event);
+        }
     }
 }

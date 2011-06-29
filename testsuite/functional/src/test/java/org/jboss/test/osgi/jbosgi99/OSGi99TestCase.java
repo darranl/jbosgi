@@ -29,7 +29,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 import org.jboss.logging.Logger;
 import org.jboss.osgi.spi.util.ConstantsHelper;
@@ -41,9 +40,9 @@ import org.osgi.framework.BundleException;
 
 /**
  * [JBOSGI-99] No explicit control over bundle.start()
- * 
+ *
  * https://jira.jboss.org/jira/browse/JBOSGI-99
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 08-Jul-2009
  */
@@ -109,16 +108,7 @@ public class OSGi99TestCase extends OSGiRuntimeTest {
         if (targetContainer == null)
             return;
 
-        boolean isRuntimeTarget = targetContainer.equals("runtime");
-        boolean isAS7Target = targetContainer.startsWith("jboss70");
-
-        String depoydir = null;
-        if (isRuntimeTarget == true)
-            depoydir = "deploy";
-        else if (isAS7Target == true)
-            depoydir = "deployments";
-        else
-            fail("Unsupported target container: " + targetContainer);
+        String depoydir = "deploy";
 
         // [JBOSGI-210] Bundle installed but not started with hot deploy
         File inFile = getTestArchiveFile("jbosgi99-allgood.jar");
@@ -132,18 +122,6 @@ public class OSGi99TestCase extends OSGiRuntimeTest {
         outPath = outPath.substring(0, outPath.indexOf("data/osgi-store"));
         File deployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar");
         outFile.renameTo(deployFile);
-
-        // Write the .dodeploy marker file
-        if (isAS7Target == true) {
-            File undeployedFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar.undeployed");
-            if (undeployedFile.exists())
-                undeployedFile.delete();
-            
-            File dodeployFile = new File(outPath + depoydir + "/jbosgi99-allgood.jar.dodeploy");
-            FileOutputStream fos = new FileOutputStream(dodeployFile);
-            new OutputStreamWriter(fos).write("*.dodeploy marker");
-            fos.close();
-        }
 
         try {
             int timeout = 8000;

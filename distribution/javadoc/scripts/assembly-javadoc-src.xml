@@ -24,10 +24,8 @@
         <include>*:jboss-osgi-common:jar:sources</include>
         <include>*:jboss-osgi-http:jar:sources</include>
         <include>*:jboss-osgi-jmx-api:jar:sources</include>
-        <include>*:jboss-osgi-jndi-api:jar:sources</include>
-        <include>*:jboss-osgi-jta:jar:sources</include>
         <include>*:jbosgi-vfs:jar:sources</include>
-        <include>*:jboss-osgi-webapp:jar:sources</include>
+        <include>*:jbosgi-webapp:jar:sources</include>
         <include>*:jboss-osgi-xerces:jar:sources</include>
       </includes>
       <unpack>true</unpack>

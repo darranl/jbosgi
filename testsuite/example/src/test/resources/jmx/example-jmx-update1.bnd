@@ -1,3 +1,0 @@
-Bundle-SymbolicName: jmx-update
-Bundle-Version: 1.0.0
-Export-Package: org.jboss.test.osgi.example.jmx.bundle.update1 

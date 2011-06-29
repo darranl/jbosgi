@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/example-jmx.jar src/test/resources/jmx/example-jmx.bnd
-
-Bundle-SymbolicName: example-jmx
-Bundle-Activator: org.jboss.test.osgi.example.jmx.bundle.JMXExampleActivator
-Export-Package: org.jboss.test.osgi.example.jmx.bundle 

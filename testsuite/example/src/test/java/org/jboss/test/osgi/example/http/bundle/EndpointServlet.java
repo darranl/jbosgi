@@ -30,8 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.service.startlevel.StartLevel;
-import org.osgi.util.tracker.ServiceTracker;
 
 @SuppressWarnings("serial")
 public class EndpointServlet extends HttpServlet {
@@ -54,12 +52,6 @@ public class EndpointServlet extends HttpServlet {
             out.println(testParam + "=" + value);
         } else if ("context".equals(testParam)) {
             out.println(context.getBundle().getSymbolicName());
-        } else if ("startLevel".equals(testParam)) {
-            ServiceTracker tracker = new ServiceTracker(context, StartLevel.class.getName(), null);
-            tracker.open();
-
-            StartLevel service = (StartLevel) tracker.getService();
-            out.println("startLevel=" + (service != null ? service.getStartLevel() : 1));
         } else {
             throw new IllegalArgumentException("Invalid 'test' parameter: " + testParam);
         }

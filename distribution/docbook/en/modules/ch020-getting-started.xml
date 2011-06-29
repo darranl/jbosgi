@@ -114,7 +114,6 @@ $ bin/run.sh
 12:08:37,925 INFO  JBossOSGi Runtime booted in 0.674sec
 12:08:38,343 INFO  Bundle started: jboss-osgi-jmx:1.0.9
 12:08:38,411 INFO  Bundle started: org.apache.felix.configadmin:1.2.8
-12:08:38,498 INFO  Bundle started: jboss-osgi-jndi:1.0.4
 12:08:38,567 INFO  Bundle started: org.apache.aries.util:0.1.0.incubating
 12:08:38,659 INFO  Bundle started: org.apache.felix.eventadmin:1.2.6
 12:08:38,661 INFO  Bundle started: jboss-osgi-common-core:2.2.17.SP1
@@ -137,7 +136,6 @@ $ bin/run.sh
       <listitem><emphasis role="bold">jmx</emphasis> - Standard and extended JMX examples</listitem>
       <listitem><emphasis role="bold">jndi</emphasis> - Bind objects to the Naming Service</listitem>
       <listitem><emphasis role="bold">jta</emphasis> - Transaction examples</listitem>
-      <listitem><emphasis role="bold">serviceloader</emphasis> - Autoregister META-INF/services</listitem>
       <listitem><emphasis role="bold">simple</emphasis> - Simple OSGi examples (start here)</listitem>
       <listitem><emphasis role="bold">webapp</emphasis> - WebApplication (WAR) examples</listitem>
       <listitem><emphasis role="bold">xml parser</emphasis> - SAX/DOM parser examples</listitem>

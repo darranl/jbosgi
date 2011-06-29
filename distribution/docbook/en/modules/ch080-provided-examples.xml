@@ -620,19 +620,6 @@ public void testServletAccess() throws Exception
 
   </sect1>
   
-  <sect1 xml:id="SecServiceLoaderExample">  
-    <title>ServiceLoader Example</title>
-
-    <para>The ServiceLoader example uses three bundles - <emphasis role="bold">example-serviceloader-api.jar, example-serviceloader-impl.jar, example-serviceloader-client.jar</emphasis>. 
-    The implementation bundle contains a traditional service defined in META-INF/services. This service definition gets picked up by the ServiceLoader Interceptor and
-    is automatically registered with the OSGi Framework. 
-    </para>
-    
-    <para>For details and more background information, please hava a look at <ulink url="http://jbossosgi.blogspot.com/2010/01/suns-serviceloader-and-how-it-relates.html">
-    ServiceLoader and how it relates to OSGi</ulink>.</para>
-    
-  </sect1>
-  
   <sect1 xml:id="SecXMLParserServiceExample">  
     <title>XML Parser Service</title>
 

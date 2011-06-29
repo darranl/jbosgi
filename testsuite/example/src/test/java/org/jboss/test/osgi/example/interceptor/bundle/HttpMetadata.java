@@ -19,27 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.simple.bundle;
-
-
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
+package org.jboss.test.osgi.example.interceptor.bundle;
 
 /**
- * A Service Activator
+ * Metadata the represent an Http endpoint
  * 
  * @author thomas.diesler@jboss.com
- * @since 24-Apr-2009
+ * @since 23-Oct-2009
  */
-public class SimpleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      // Register a service
-      context.registerService(SimpleService.class.getName(), new SimpleService(), null);
-   }
+public class HttpMetadata {
+    private String servletName;
 
-   public void stop(BundleContext context)
-   {
-   }
+    HttpMetadata(String servletName) {
+        this.servletName = servletName;
+    }
+
+    public String getServletName() {
+        return servletName;
+    }
+
+    @Override
+    public String toString() {
+        return "HttpMetadata [servletName=" + servletName + "]";
+    }
 }

@@ -24,12 +24,16 @@ package org.jboss.test.osgi.example.blueprint;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.InputStream;
+
 import javax.inject.Inject;
 import javax.management.MBeanServer;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
@@ -41,15 +45,17 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.blueprint.container.BlueprintContainer;
+import org.osgi.service.startlevel.StartLevel;
 
 /**
  * A simple Blueprint Container test.
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 12-Jul-2009
  */
 @RunWith(Arquillian.class)
 public class BlueprintTestCase {
+
     @Inject
     public BundleContext context;
 
@@ -60,12 +66,22 @@ public class BlueprintTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-blueprint");
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
-        archive.addResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
+        archive.addAsResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addImportPackages(StartLevel.class, BlueprintContainer.class);
+                return builder.openStream();
+            }
+        });
         return archive;
     }
 
     @Test
     public void testBlueprintContainerAvailable() throws Exception {
+
         bundle.start();
         assertEquals("example-blueprint", bundle.getSymbolicName());
 

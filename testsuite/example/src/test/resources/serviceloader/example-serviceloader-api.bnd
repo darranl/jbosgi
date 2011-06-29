@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/example-serviceloader-api.jar src/test/resources/example/serviceloader/example-serviceloader-api.bnd
-
-Bundle-SymbolicName: example-serviceloader-api
-
-Export-Package: org.jboss.test.osgi.example.serviceloader.service;version="1.0"
-

@@ -71,7 +71,7 @@
     <version.jboss.osgi.resolver>1.0.9</version.jboss.osgi.resolver>
     <version.jboss.osgi.spi>1.0.27</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.6</version.jboss.osgi.vfs>
-    <version.jboss.osgi.webapp>1.0.3-SNAPSHOT</version.jboss.osgi.webapp>
+    <version.jboss.osgi.webapp>1.0.2</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
     <version.jboss.shrinkwrap>1.0.0-beta2</version.jboss.shrinkwrap>
@@ -162,11 +162,6 @@
         <version>${version.jboss.osgi.spi}</version>
       </dependency>
       <dependency>
-        <groupId>org.jboss.osgi.spi</groupId>
-        <artifactId>jbosgi-spi-plugin-jbossas7</artifactId>
-        <version>${version.jboss.osgi.spi}</version>
-      </dependency>
-      <dependency>
         <groupId>org.jboss.osgi.blueprint</groupId>
         <artifactId>jbosgi-blueprint</artifactId>
         <version>${version.jboss.osgi.blueprint}</version>
@@ -229,17 +224,6 @@
           </exclusion>
         </exclusions>
         <version>${version.jboss.osgi.jmx}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.reflect</groupId>
-        <artifactId>jboss-osgi-reflect</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.osgi.reflect}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>

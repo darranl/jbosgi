@@ -208,7 +208,6 @@
         <!-- all -->
         <include name="arquillian-osgi-bundle.jar" />
         <include name="jbosgi-blueprint.jar" />
-        <include name="jboss-osgi-reflect.jar" />
         <include name="jboss-osgi-xerces.jar" />
       </fileset>
 

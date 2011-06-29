@@ -86,10 +86,6 @@
       <artifactId>jboss-osgi-jmx</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.osgi.reflect</groupId>
-      <artifactId>jboss-osgi-reflect</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.resolver</groupId>
       <artifactId>jbosgi-resolver-felix</artifactId>
     </dependency>

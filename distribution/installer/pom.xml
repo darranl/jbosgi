@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
+<!-- ====================================================================== -->
+<!-- -->
+<!-- JBoss, the OpenSource J2EE webOS -->
+<!-- -->
+<!-- Distributable under LGPL license. -->
+<!-- See terms of license at http://www.gnu.org. -->
+<!-- -->
+<!-- ====================================================================== -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <name>JBossOSGi Distribution Installer</name>
@@ -86,6 +87,10 @@
       <artifactId>jboss-osgi-jmx</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.jndi</groupId>
+      <artifactId>jboss-osgi-jndi</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.resolver</groupId>
       <artifactId>jbosgi-resolver-felix</artifactId>
     </dependency>
@@ -119,7 +124,7 @@
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
     </dependency>
-    
+
     <!-- Aries Dependencies -->
     <dependency>
       <groupId>org.apache.aries.jmx</groupId>
@@ -129,7 +134,7 @@
       <groupId>org.apache.aries</groupId>
       <artifactId>org.apache.aries.util</artifactId>
     </dependency>
-    
+
     <!-- Felix Dependencies -->
     <dependency>
       <groupId>org.apache.felix</groupId>
@@ -151,7 +156,7 @@
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.webconsole</artifactId>
     </dependency>
-    
+
     <!-- JBossMSC Dependencies -->
     <dependency>
       <groupId>org.jboss.osgi.framework</groupId>
@@ -161,7 +166,7 @@
       <groupId>org.jboss.logging</groupId>
       <artifactId>jboss-logging</artifactId>
     </dependency>
-    
+
     <!-- izpack -->
     <dependency>
       <groupId>org.codehaus.izpack</groupId>
@@ -169,7 +174,7 @@
       <version>${version.izpack}</version>
     </dependency>
   </dependencies>
-  
+
   <!-- Plugins -->
   <build>
     <plugins>
@@ -206,7 +211,7 @@
               <tasks>
                 <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
                 <property name="framework" value="${framework}" />
-                <!-- ${jboss.home} is available in the hudson run  -->
+                <!-- ${jboss.home} is available in the hudson run -->
                 <property name="product.name" value="${project.name}" />
                 <property name="product.short.name" value="${artifactId}" />
                 <property name="product.version" value="${project.version}" />

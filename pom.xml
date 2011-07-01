@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ====================================================================== -->
-<!--                                                                        -->
-<!-- JBoss, the OpenSource J2EE webOS                                       -->
-<!--                                                                        -->
-<!-- Distributable under LGPL license.                                      -->
-<!-- See terms of license at http://www.gnu.org.                            -->
-<!--                                                                        -->
+<!-- -->
+<!-- JBoss, the OpenSource J2EE webOS -->
+<!-- -->
+<!-- Distributable under LGPL license. -->
+<!-- See terms of license at http://www.gnu.org. -->
+<!-- -->
 <!-- ====================================================================== -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -68,6 +69,7 @@
     <version.jboss.osgi.hotdeploy>1.0.10</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.3</version.jboss.osgi.http>
     <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
+    <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.resolver>1.0.9</version.jboss.osgi.resolver>
     <version.jboss.osgi.spi>1.0.27</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.6</version.jboss.osgi.vfs>
@@ -217,6 +219,17 @@
         <version>${version.jboss.osgi.jmx}</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.osgi.jndi</groupId>
+        <artifactId>jboss-osgi-jndi</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>jboss-osgi-spi</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${version.jboss.osgi.jndi}</version>
+      </dependency>
+      <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>
         <artifactId>jbosgi-resolver-api</artifactId>
         <exclusions>
@@ -277,16 +290,9 @@
             <groupId>org.jboss.osgi</groupId>
             <artifactId>jboss-osgi-spi</artifactId>
           </exclusion>
-          <!-- 
-          <exclusion>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>xml-resolver</groupId>
-            <artifactId>xml-resolver</artifactId>
-          </exclusion>
-          -->
+          <!-- <exclusion> <groupId>xerces</groupId> <artifactId>xercesImpl</artifactId> 
+            </exclusion> <exclusion> <groupId>xml-resolver</groupId> <artifactId>xml-resolver</artifactId> 
+            </exclusion> -->
         </exclusions>
         <version>${version.jboss.osgi.xerces}</version>
       </dependency>

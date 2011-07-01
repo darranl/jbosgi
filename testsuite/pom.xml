@@ -334,6 +334,10 @@
                   <name>jboss.osgi.vfs.leakDebugging</name>
                   <value>true</value>
                 </property>
+                <property>
+                  <name>org.jboss.osgi.framework.start.timeout</name>
+                  <value>20000</value>
+                </property>
               </systemProperties>
             </configuration>
           </plugin>

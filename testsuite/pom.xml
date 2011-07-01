@@ -366,6 +366,14 @@
                   <name>arquillian.xml</name>
                   <value>arquillian-remote.xml</value>
                 </property>
+                <property>
+                  <name>java.util.logging.manager</name>
+                  <value>org.jboss.logmanager.LogManager</value>
+                </property>
+                <property>
+                  <name>test.archive.directory</name>
+                  <value>${project.build.directory}/test-libs</value>
+                </property>
               </systemProperties>
             </configuration>
           </plugin>

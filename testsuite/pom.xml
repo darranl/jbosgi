@@ -34,7 +34,7 @@
 
   <!-- Properties -->
   <properties>
-    <surefire.system.args>-da ${surefire.memory.args} ${surefire.jpda.args} ${surefire.profiler.args}</surefire.system.args>
+    <surefire.system.args>-da -Xmx512m</surefire.system.args>
   </properties>
 
   <!-- Dependencies -->
@@ -168,13 +168,8 @@
 
     <!-- Test Dependencies -->
     <dependency>
-      <groupId>org.jboss.arquillian.container</groupId>
-      <artifactId>arquillian-container-test-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-core</artifactId>
+      <artifactId>arquillian-junit-container</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -199,8 +194,6 @@
   <!-- Profiles -->
   <profiles>
 
-    <!-- Name: framework-equinox Descr: Setup for Equinox framework integration 
-      testing -->
     <profile>
       <id>framework-equinox</id>
       <activation>
@@ -226,8 +219,6 @@
       </dependencies>
     </profile>
 
-    <!-- Name: framework-felix Descr: Setup for Felix framework integration 
-      testing -->
     <profile>
       <id>framework-felix</id>
       <activation>
@@ -285,7 +276,6 @@
     <profile>
       <id>dependency-order</id>
       <activation>
-        <!-- activeByDefault>true</activeByDefault -->
         <property>
           <name>user.home</name>
         </property>
@@ -311,7 +301,6 @@
       </dependencies>
     </profile>
 
-    <!-- Name: embedded-testing Descr: Setup for embedded integration testing -->
     <profile>
       <id>embedded-testing</id>
       <activation>
@@ -352,7 +341,6 @@
       </build>
     </profile>
 
-    <!-- Name: runtime-testing Descr: Setup for runtime integration testing -->
     <profile>
       <id>runtime-testing</id>
       <activation>
@@ -368,7 +356,21 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <property>
+                  <name>arquillian.xml</name>
+                  <value>arquillian-remote.xml</value>
+                </property>
+              </systemProperties>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
-
   </profiles>
 </project>

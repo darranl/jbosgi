@@ -127,6 +127,7 @@
         <include name="jbosgi-vfs.jar" />
         <include name="jbosgi-vfs30.jar" />
         <include name="jboss-vfs.jar" />
+        <include name="junit.jar" />
         <include name="log4j.jar" />
         <include name="shrinkwrap-api.jar" />
       </fileset>

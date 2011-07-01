@@ -232,58 +232,6 @@
       </build>
     </profile>
 
-    <profile>
-      <id>embedded-testing</id>
-      <activation>
-        <property>
-          <name>!target.container</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <argLine>${surefire.system.args}</argLine>
-              <systemProperties>
-                <property>
-                  <name>java.util.logging.manager</name>
-                  <value>org.jboss.logmanager.LogManager</value>
-                </property>
-                <property>
-                  <name>test.archive.directory</name>
-                  <value>${project.build.directory}/test-libs</value>
-                </property>
-                <property>
-                  <name>jboss.osgi.vfs.leakDebugging</name>
-                  <value>true</value>
-                </property>
-              </systemProperties>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>runtime-testing</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>runtime</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
   </profiles>
 
 </project>

@@ -119,8 +119,5 @@ public class SimpleStartLevelTestCase {
 
         bundle.stop();
         assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
-
-        bundle.uninstall();
-        assertEquals("Bundle UNINSTALLED", Bundle.UNINSTALLED, bundle.getState());
     }
 }

@@ -215,64 +215,6 @@
       </build>
     </profile>
 
-    <profile>
-      <id>embedded-testing</id>
-      <activation>
-        <property>
-          <name>!target.container</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>default-test</id>
-                <configuration>
-                  <excludes>
-                    <exclude>org/jboss/test/osgi/arquillian/**/*TestCase.*</exclude>
-                  </excludes>
-                </configuration>
-              </execution>
-              <execution>
-                <id>arquillian</id>
-                <configuration>
-                  <includes>
-                    <include>org/jboss/test/osgi/arquillian/**/*TestCase.*</include>
-                  </includes>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <!-- Name: runtime-testing Descr: Setup for runtime integration testing -->
-    <profile>
-      <id>runtime-testing</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>runtime</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- [JBOSGI-429] BundleUpdateTestCase tests throws NoClassDefFoundError -->
-                <exclude>org/jboss/test/osgi/bundles/BundleUpdateTestCase.*</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
   </profiles>
 
 </project>

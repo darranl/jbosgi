@@ -145,6 +145,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.jndi</groupId>
+      <artifactId>jboss-osgi-jndi</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
       <artifactId>jbosgi-webapp</artifactId>
       <scope>provided</scope>

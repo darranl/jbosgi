@@ -21,6 +21,7 @@
         <include>*:jboss-osgi-common-core:jar</include>
         <include>*:jboss-osgi-http:jar</include>
         <include>*:jboss-osgi-jmx:jar</include>
+        <include>*:jboss-osgi-jndi:jar</include>
         <include>*:jbosgi-webapp:jar</include>
         <include>*:jbosgi-webconsole:jar</include>
         <include>*:jboss-osgi-xerces:jar</include>

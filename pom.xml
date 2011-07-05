@@ -37,7 +37,6 @@
 
   <!-- Modules -->
   <modules>
-    <module>reactor</module>
     <module>testsuite</module>
   </modules>
 

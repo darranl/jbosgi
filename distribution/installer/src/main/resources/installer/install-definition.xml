@@ -160,10 +160,11 @@
         <!-- default -->
         <include name="jboss-osgi-common-core.jar" />
         <include name="jboss-osgi-jmx.jar" />
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.felix.scr.jar" />
       </fileset>
 
       <!-- Server Web -->
@@ -175,11 +176,12 @@
         <!-- default -->
         <include name="jboss-osgi-common-core.jar" />
         <include name="jboss-osgi-jmx.jar" />
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
-        <include name="org.apache.felix.webconsole.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.felix.scr.jar" />
+        <include name="org.apache.felix.webconsole.jar" />
         <!-- web -->
         <include name="org.apache.felix.metatype.jar" />
         <include name="jboss-osgi-http.jar" />
@@ -196,11 +198,12 @@
         <!-- default -->
         <include name="jboss-osgi-common-core.jar" />
         <include name="jboss-osgi-jmx.jar" />
-        <include name="org.apache.felix.configadmin.jar" />
-        <include name="org.apache.felix.eventadmin.jar" />
-        <include name="org.apache.felix.webconsole.jar" />
         <include name="org.apache.aries.jmx.jar" />
         <include name="org.apache.aries.util.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.felix.scr.jar" />
+        <include name="org.apache.felix.webconsole.jar" />
         <!-- web -->
         <include name="org.apache.felix.metatype.jar" />
         <include name="jboss-osgi-http.jar" />

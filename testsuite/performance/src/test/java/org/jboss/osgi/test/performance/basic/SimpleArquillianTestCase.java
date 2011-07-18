@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -37,7 +37,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * Test the embedded OSGi framework
- * 
+ *
  * @author thomas.diesler@jboss.com
  */
 @RunWith(Arquillian.class)

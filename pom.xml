@@ -37,6 +37,7 @@
 
   <!-- Modules -->
   <modules>
+    <module>reactor</module>
     <module>testsuite</module>
   </modules>
 
@@ -65,7 +66,7 @@
     <version.jboss.osgi.deployment>1.0.10</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.CR8</version.jboss.osgi.framework>
+    <version.jboss.osgi.framework>1.0.0.CR9-SNAPSHOT</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.10</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.3</version.jboss.osgi.http>
     <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
@@ -369,13 +370,6 @@
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.webconsole</artifactId>
         <version>${version.apache.felix.webconsole}</version>
-      </dependency>
-
-      <!-- Framework Dependencies -->
-      <dependency>
-        <groupId>org.jboss.osgi.framework</groupId>
-        <artifactId>jbosgi-framework-core</artifactId>
-        <version>${version.jboss.osgi.framework}</version>
       </dependency>
 
       <!-- javax.* -->

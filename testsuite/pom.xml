@@ -29,7 +29,7 @@
   <modules>
     <module>example</module>
     <module>functional</module>
-    <!-- module>performance</module -->
+    <module>performance</module>
   </modules>
 
   <!-- Properties -->
@@ -224,6 +224,36 @@
       </dependencies>
     </profile>
 
+    <profile>
+      <id>framework-jboss</id>
+      <activation>
+        <property>
+          <name>framework</name>
+          <value>jboss</value>
+        </property>
+      </activation>
+      <properties>
+        <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.osgi.framework</groupId>
+          <artifactId>jbosgi-framework-core</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.resolver</groupId>
+          <artifactId>jbosgi-resolver-felix</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.osgi.vfs</groupId>
+          <artifactId>jbosgi-vfs30</artifactId>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+      
     <profile>
       <id>default-framework</id>
       <activation>

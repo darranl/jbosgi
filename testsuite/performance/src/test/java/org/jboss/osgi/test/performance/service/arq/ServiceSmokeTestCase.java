@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.service.CreateAndLookupBenchmark;
@@ -62,7 +62,7 @@ import org.osgi.framework.BundleContext;
 /**
  * This test exercises the Service Performance test code in a very basic manner to ensure that it works. Passing this test is a
  * precondition for running the real Service Performance tests.
- * 
+ *
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)

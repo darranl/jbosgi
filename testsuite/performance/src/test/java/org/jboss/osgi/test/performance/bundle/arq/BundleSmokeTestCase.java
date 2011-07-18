@@ -23,9 +23,11 @@ package org.jboss.osgi.test.performance.bundle.arq;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.DeploymentProvider;
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.test.performance.bundle.BundleInstallAndStartBenchmark;
+import org.jboss.osgi.test.performance.bundle.TestBundleProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
@@ -33,30 +35,31 @@ import org.osgi.framework.BundleContext;
 /**
  * This test exercises the Bundle Performance test code in a very basic manner to ensure that it works. Passing this test is a
  * precondition for running the real Bundle Performance tests.
- * 
+ *
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 @RunWith(Arquillian.class)
 public class BundleSmokeTestCase extends BundleTestBase {
-    
-    @Inject
-    public DeploymentProvider provider;
+    @ArquillianResource
+    public Deployer deployer;
 
     @Inject
     public BundleContext bundleContext;
 
     @Override
-    DeploymentProvider getDeploymentProvider() {
-        return provider;
+    Deployer getDeploymentProvider() {
+        return deployer;
     }
 
+    @Override
     BundleContext getBundleContext() {
         return bundleContext;
     }
 
     @Test
     public void test5() throws Exception {
-        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(new TestBundleProviderImpl(getDeploymentProvider()), getBundleContext());
+        TestBundleProvider testBP = new TestBundleProviderImpl(getDeploymentProvider(), getBundleContext());
+        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(testBP, getBundleContext());
         bm.prepareTest(1, 5);
         bm.runThread("Thread_1", 5);
         bm.cleanUp();

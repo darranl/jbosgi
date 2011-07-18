@@ -24,7 +24,7 @@ package org.jboss.osgi.test.performance.service.arq;
 import java.io.File;
 import java.io.InputStream;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.service.CreateAndLookupBenchmark;
@@ -60,10 +60,10 @@ import org.osgi.framework.BundleContext;
  * This is the base class for the Service Performance tests. The actual testing is delegated to the
  * {@link CreateAndLookupBenchmark}.
  * <p/>
- * 
+ *
  * This test is abstract. Every population is isolated in a unique subclass. This is to enable maven to run every test in a
  * separate VM (when forkMode=always is specified).
- * 
+ *
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public abstract class ServiceTestBase extends AbstractPerformanceTestCase {

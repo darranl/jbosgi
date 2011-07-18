@@ -41,13 +41,26 @@ import org.osgi.framework.BundleContext;
  * This Benchmark tests how much time it takes to install and start bundles in a number of class-spaces. It creates the
  * following configuration:
  *
- * 5 (Versioned) Common Bundles - Exports org.jboss.osgi.test.common;version=x 5 Numbered (but not versioned) Util Bundles -
- * Imports org.jboss.osgi.test.common;version=[x,x] - Exports org.jboss.osgi.test.util[x];uses="org.jboss.osgi.test.common" 5
- * Versioned Interfaces Bundles - Exports org.jboss.osgi.test.versioned;version=x 5 Versioned Impl Bundles - Imports
- * org.jboss.osgi.test.common;version=[x,x] - Imports org.jboss.osgi.test.versioned;version=[x,x] - Imports
- * org.jboss.osgi.test.util[x] - Exports org.jboss.osgi.test.versioned.impl;version=x;uses=org.jboss.osgi.test.util[x] a large
- * number of test bundles - Imports org.jboss.osgi.test.common;version=[x,x] - Imports
- * org.jboss.osgi.test.versioned;version=[x,x] - Imports org.jboss.osgi.test.versioned.impl;version=[x,x]
+ * 5 (Versioned) Common Bundles
+ * - Exports org.jboss.osgi.test.common;version=x
+ *
+ * 5 Numbered (but not versioned) Util Bundles
+ * - Imports org.jboss.osgi.test.common;version=[x,x]
+ * - Exports org.jboss.osgi.test.util[x];uses="org.jboss.osgi.test.common"
+ *
+ * 5 Versioned Interfaces Bundles
+ * - Exports org.jboss.osgi.test.versioned;version=x
+ *
+ * 5 Versioned Impl Bundles
+ * - Imports org.jboss.osgi.test.common;version=[x,x]
+ * - Imports org.jboss.osgi.test.versioned;version=[x,x]
+ * - Imports org.jboss.osgi.test.util[x]
+ * - Exports org.jboss.osgi.test.versioned.impl;version=x;uses=org.jboss.osgi.test.util[x]
+ *
+ * a large number of test bundles
+ * - Imports org.jboss.osgi.test.common;version=[x,x]
+ * - Imports org.jboss.osgi.test.versioned;version=[x,x]
+ * - Imports org.jboss.osgi.test.versioned.impl;version=[x,x]
  *
  * Each test bundle loads a class of each of its 3 dependency packages in its activator. This also triggers an indirect load on
  * the Util[x] class.
@@ -60,11 +73,12 @@ import org.osgi.framework.BundleContext;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public class BundleInstallAndStartBenchmark extends AbstractThreadedBenchmark<Integer> {
-    public static final String COMMON_BUNDLE_PREFIX = "commonBundle#";
-    public static final String UTIL_BUNDLE_PREFIX = "utilBundle#";
-    public static final String VERSIONED_IMPL_BUNDLE_PREFIX = "versionedImplBundle#";
-    public static final String VERSIONED_INTF_BUNDLE_PREFIX = "versionedIntfBundle#";
-    public static final String TEST_BUNDLE_PREFIX = "testBundle#";
+    public static final String PREFIX_SEPARATOR = "_";
+    public static final String COMMON_BUNDLE_PREFIX = "commonBundle" + PREFIX_SEPARATOR;
+    public static final String UTIL_BUNDLE_PREFIX = "utilBundle" + PREFIX_SEPARATOR;
+    public static final String VERSIONED_IMPL_BUNDLE_PREFIX = "versionedImplBundle" + PREFIX_SEPARATOR;
+    public static final String VERSIONED_INTF_BUNDLE_PREFIX = "versionedIntfBundle" + PREFIX_SEPARATOR;
+    public static final String TEST_BUNDLE_PREFIX = "testBundle" + PREFIX_SEPARATOR;
 
     private static final ChartType INSTALL_START = new ChartTypeImpl("IS", "Bundle Install and Start Time", "Number of Bundles", "Time (ms)");
     private final File bundleStorage;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!-- ====================================================================== -->
+  <!--                                                                        -->
+  <!--  JBoss, the OpenSource J2EE webOS                                      -->
+  <!--                                                                        -->
+  <!--  Distributable under LGPL license.                                     -->
+  <!--  See terms of license at http://www.gnu.org.                           -->
+  <!--                                                                        -->
+  <!-- ====================================================================== -->
+
+  <!--
+
+    The reactor is used to pull in external subprojects and build them as part of this maven reactor build. 
+    It is a one-stop entry point to build, test and deploy dependent SNAPSHOTs. 
+    
+    To pull in a particular subproject, set one or more svn:external definitions. For example
+     
+      ../../projects/runtime/framework/trunk framework 
+    
+      <module>framework</module>
+    
+    A release MUST NOT contain any svn:external definitions.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>JBossOSGi Reactor</name>
+
+  <groupId>org.jboss.osgi</groupId>
+  <artifactId>jboss-osgi-reactor</artifactId>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>org.jboss.osgi</groupId>
+    <artifactId>jboss-osgi</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <!-- Profiles -->
+  <profiles>
+
+    <!--
+      Name: reactor
+      Descr: Build the reactor modules
+      
+      git submodule add git://github.com/jbosgi/jbosgi-framework.git reactor/jbosgi-framework
+    -->
+    <profile>
+      <id>reactor</id>
+      <activation>
+        <property>
+          <name>!noreactor</name>
+        </property>
+      </activation>
+      <modules>
+        <module>jbosgi-framework</module>
+      </modules>
+    </profile>
+  </profiles>
+</project>
+

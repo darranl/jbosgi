@@ -41,7 +41,6 @@
   <!-- Modules -->
   <modules>
     <module>javadoc</module>
-    <module>docbook</module>
     <module>installer</module>
   </modules>
 

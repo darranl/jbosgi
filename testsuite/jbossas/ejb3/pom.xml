@@ -48,7 +48,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Dependencies>org.osgi.core,deployment.jboss-osgi-example-jbossas-bundle:0.0.0</Dependencies>
+              <Dependencies>org.osgi.core,deployment.jboss-osgi-example-jbossas-bundle:1.0.0</Dependencies>
             </manifestEntries>
           </archive>
         </configuration>

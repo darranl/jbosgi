@@ -45,6 +45,9 @@ public class SimpleStatelessSessionBean {
         ClassLoader classLoader = PaymentService.class.getClassLoader();
         Bundle bundle = ((BundleReference) classLoader).getBundle();
         BundleContext context = bundle.getBundleContext();
+        if (context == null)
+            return "PaymentService not available";
+
 
         // Get and invoke the payment service
         ServiceReference sref = context.getServiceReference(PaymentService.class.getName());

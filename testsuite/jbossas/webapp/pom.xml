@@ -60,7 +60,7 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <archive>
             <manifestEntries>
-              <Dependencies>org.osgi.core,deployment.jboss-osgi-example-jbossas-bundle:0.0.0,deployment.jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT.jar</Dependencies>
+              <Dependencies>org.osgi.core,deployment.jboss-osgi-example-jbossas-bundle:1.0.0,deployment.jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT.jar</Dependencies>
             </manifestEntries>
           </archive>
         </configuration>

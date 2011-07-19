@@ -50,7 +50,7 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>
-            <Bundle-Version>0.0.0</Bundle-Version>
+            <Bundle-Version>1.0.0</Bundle-Version>
             <Bundle-Activator>org.jboss.test.osgi.jbossas.example.payment.internal.PaymentActivator</Bundle-Activator>
             <Export-Package>
               org.jboss.test.osgi.jbossas.example.payment;version=${version}

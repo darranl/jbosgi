@@ -24,27 +24,60 @@ package org.jboss.test.osgi.jbossas.example.webapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jboss.logging.Logger;
+import org.jboss.test.osgi.jbossas.example.payment.BundleContextProvider;
 import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleReference;
 import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A simple servlet.
  *
  * @author thomas.diesler@jboss.com
  */
-@WebServlet(name="SimpleClientServlet", urlPatterns={"/simple"})
-public class SimpleClientServlet  extends HttpServlet {
+@WebServlet(name = "SimpleClientServlet", urlPatterns = { "/simple" })
+public class SimpleClientServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+    // Provide logging
+    static final Logger log = Logger.getLogger(SimpleClientServlet.class);
+
+    private PaymentService service;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+
+        // [TODO] should be an injectable resource
+        final BundleContext context = BundleContextProvider.getBundleContext();
+        final SimpleClientServlet servlet = this;
+
+        // Track {@link PaymentService} implementations
+        ServiceTracker tracker = new ServiceTracker(context, PaymentService.class.getName(), null) {
+
+            @Override
+            public Object addingService(ServiceReference sref) {
+                log.infof("Adding service: %s to %s", sref, servlet);
+                service = (PaymentService) super.addingService(sref);
+                return service;
+            }
+
+            @Override
+            public void removedService(ServiceReference sref, Object sinst) {
+                super.removedService(sref, service);
+                log.infof("Removing service: %s from %s", sref, servlet);
+                service = null;
+            }
+        };
+        tracker.open();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -55,17 +88,12 @@ public class SimpleClientServlet  extends HttpServlet {
     }
 
     private String process(String account, String amount) {
-        // Get the bundle context
-        // TODO: have it injected as resource
-        ClassLoader classLoader = PaymentService.class.getClassLoader();
-        Bundle bundle = ((BundleReference) classLoader).getBundle();
-        BundleContext context = bundle.getBundleContext();
-        if (context == null)
+
+        if (service == null)
             return "PaymentService not available";
 
-        // Get and invoke the payment service
-        ServiceReference sref = context.getServiceReference(PaymentService.class.getName());
-        PaymentService service = (PaymentService) context.getService(sref);
         return "Calling PaymentService: " + service.process(account, amount != null ? Float.valueOf(amount) : null);
     }
+
+    private static final long serialVersionUID = 1L;
 }

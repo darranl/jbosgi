@@ -13,10 +13,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <name>JBossOSGi Example JBossAS7 Bundle</name>
+  <name>JBossOSGi Example JBossAS7 API</name>
 
   <groupId>org.jboss.osgi.testsuite</groupId>
-  <artifactId>jboss-osgi-example-jbossas-bundle</artifactId>
+  <artifactId>jboss-osgi-example-jbossas-api</artifactId>
   <packaging>bundle</packaging>
 
   <parent>
@@ -31,10 +31,6 @@
 
   <!-- Dependencies -->
   <dependencies>
-    <dependency>
-      <groupId>org.jboss.logging</groupId>
-      <artifactId>jboss-logging</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
@@ -51,13 +47,11 @@
           <instructions>
             <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>
             <Bundle-Version>1.0.0</Bundle-Version>
-            <Bundle-Activator>org.jboss.test.osgi.jbossas.example.payment.internal.PaymentActivator</Bundle-Activator>
             <Export-Package>
-              org.jboss.test.osgi.jbossas.example.payment;version=${version}
+              org.jboss.test.osgi.jbossas.example.payment;version=1.0.0
             </Export-Package>
             <Import-Package>
-              org.osgi.framework;version="[1.5,2.0)",
-              org.jboss.logging;version="[3.0,4.0)"
+              org.osgi.framework;version="[1.5,2.0)"
             </Import-Package>
           </instructions>
         </configuration>

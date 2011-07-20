@@ -19,31 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.jbossas.example.payment.internal;
+package org.jboss.test.osgi.jbossas.example.payment;
 
-import org.jboss.logging.Logger;
-import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
-import org.osgi.framework.BundleActivator;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleReference;
 
 /**
- * A simple payment service activator
+ * A provider for the system bundle context.
+ *
+ * [TODO] should be provided as injectable resource
  *
  * @author thomas.diesler@jboss.com
  * @since 18-Jul-2011
  */
-public class PaymentActivator implements BundleActivator {
+public abstract class BundleContextProvider {
 
-    // Provide logging
-    static final Logger log = Logger.getLogger(PaymentActivator.class);
-
-    public void start(BundleContext context) {
-        log.infof("Start PaymentService");
-        PaymentService service = new PaymentService();
-        context.registerService(PaymentService.class.getName(), service, null);
-    }
-
-    public void stop(BundleContext context) {
-        log.infof("Stop PaymentService");
-    }
+    public static BundleContext getBundleContext() {
+        ClassLoader classLoader = BundleContextProvider.class.getClassLoader();
+        Bundle bundle = ((BundleReference) classLoader).getBundle();
+        BundleContext context = bundle.getBundleContext();
+        return context.getBundle(0).getBundleContext();
+    };
 }

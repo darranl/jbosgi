@@ -21,14 +21,16 @@
  */
 package org.jboss.test.osgi.jbossas.example.ejb3;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import org.jboss.logging.Logger;
+import org.jboss.test.osgi.jbossas.example.payment.BundleContextProvider;
 import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleReference;
 import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A simple stateless session bean.
@@ -39,19 +41,43 @@ import org.osgi.framework.ServiceReference;
 @LocalBean
 public class SimpleStatelessSessionBean {
 
+    // Provide logging
+    static final Logger log = Logger.getLogger(SimpleStatelessSessionBean.class);
+
+    private PaymentService service;
+
+    @PostConstruct
+    public void init() {
+
+        // [TODO] should be an injectable resource
+        final BundleContext context = BundleContextProvider.getBundleContext();
+        final SimpleStatelessSessionBean bean = this;
+
+        // Track {@link PaymentService} implementations
+        ServiceTracker tracker = new ServiceTracker(context, PaymentService.class.getName(), null) {
+
+            @Override
+            public Object addingService(ServiceReference sref) {
+                log.infof("Adding service: %s to %s", sref, bean);
+                service = (PaymentService) super.addingService(sref);
+                return service;
+            }
+
+            @Override
+            public void removedService(ServiceReference sref, Object sinst) {
+                super.removedService(sref, service);
+                log.infof("Removing service: %s from %s", sref, bean);
+                service = null;
+            }
+        };
+        tracker.open();
+    }
+
     public String process(String account, String amount) {
-        // Get the bundle context
-        // TODO: have it injected as resource
-        ClassLoader classLoader = PaymentService.class.getClassLoader();
-        Bundle bundle = ((BundleReference) classLoader).getBundle();
-        BundleContext context = bundle.getBundleContext();
-        if (context == null)
+
+        if (service == null)
             return "PaymentService not available";
 
-
-        // Get and invoke the payment service
-        ServiceReference sref = context.getServiceReference(PaymentService.class.getName());
-        PaymentService service = (PaymentService) context.getService(sref);
         return service.process(account, amount != null ? Float.valueOf(amount) : null);
     }
 }

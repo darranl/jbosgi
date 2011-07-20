@@ -27,9 +27,7 @@ package org.jboss.test.osgi.jbossas.example.payment;
  * @author thomas.diesler@jboss.com
  * @since 18-Jul-2011
  */
-public class PaymentService {
+public interface PaymentService {
 
-    public String process(String account, Float amount) {
-        return "Charged $" + amount + " to account '" + account + "'";
-    }
+    String process(String account, Float amount);
 }

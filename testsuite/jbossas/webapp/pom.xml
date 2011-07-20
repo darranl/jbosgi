@@ -29,7 +29,7 @@
   <dependencies>
     <dependency>
       <groupId>org.jboss.osgi.testsuite</groupId>
-      <artifactId>jboss-osgi-example-jbossas-bundle</artifactId>
+      <artifactId>jboss-osgi-example-jbossas-api</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
@@ -60,7 +60,7 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <archive>
             <manifestEntries>
-              <Dependencies>org.osgi.core,deployment.jboss-osgi-example-jbossas-bundle:1.0.0,deployment.jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT.jar</Dependencies>
+              <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.jboss-osgi-example-jbossas-api:1.0.0,deployment.jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT.jar</Dependencies>
             </manifestEntries>
           </archive>
         </configuration>

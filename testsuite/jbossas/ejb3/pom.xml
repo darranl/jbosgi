@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-example-jbossas</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
 
   <!-- Dependencies -->

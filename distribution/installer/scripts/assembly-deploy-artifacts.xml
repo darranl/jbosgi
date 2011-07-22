@@ -10,15 +10,6 @@
   <!-- Dependency Sets -->
   <dependencySets>
   
-    <!-- docs -->
-    <dependencySet>
-      <outputDirectory>docs</outputDirectory>
-      <useStrictFiltering>true</useStrictFiltering>
-      <includes>
-        <include>*:jboss-osgi-userguide:jdocbook</include>
-      </includes>
-    </dependencySet>
-    
     <!-- lib -->
     <dependencySet>
       <outputDirectory>lib</outputDirectory>

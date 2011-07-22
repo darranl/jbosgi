@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-example-jbossas</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
 
   <!-- Dependencies -->
@@ -60,7 +60,7 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <archive>
             <manifestEntries>
-              <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.jboss-osgi-example-jbossas-api:1.0.0,deployment.jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT.jar</Dependencies>
+              <Dependencies>org.osgi.core,org.jboss.osgi.framework,deployment.jboss-osgi-example-jbossas-api:1.0.0,deployment.jboss-osgi-example-jbossas-ejb3-1.0.0.jar</Dependencies>
             </manifestEntries>
           </archive>
         </configuration>

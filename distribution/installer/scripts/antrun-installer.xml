@@ -60,15 +60,8 @@
     <property name="izpack.temp.dir" value="${output.dir}/izpack-temp" />
     <mkdir dir="${izpack.temp.dir}" />
 
-    <!-- 
-    	Installed target artefact not compatible with dependency-plugin
-    	https://jira.jboss.org/jira/browse/MPJDOCBOOK-31 
-    -->
-    <unzip src="${deploy.artifacts.dir}/docs/jboss-osgi-userguide-${product.version}.jdocbook" dest="${deploy.artifacts.dir}/docs/userguide">
-      <patternset>
-        <exclude name="META-INF/**"/>
-      </patternset>
-    </unzip>
+    <!-- Copy the User Guide --> 
+    <copy file="${basedir}/../User_Guide-${product.version}.pdf" todir="${deploy.artifacts.dir}/docs/userguide"/>
     
     <!-- Run installer build -->
     <echo message="Running IzPack to build the installer..." />

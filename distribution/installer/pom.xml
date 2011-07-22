@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.jboss.osgi.distribution</groupId>
     <artifactId>jboss-osgi-distribution</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
 
   <!-- Dependencies -->
@@ -55,12 +55,6 @@
       </exclusions>
       <version>${project.version}</version>
       <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.distribution</groupId>
-      <artifactId>jboss-osgi-userguide</artifactId>
-      <version>${project.version}</version>
-      <type>jdocbook</type>
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.blueprint</groupId>

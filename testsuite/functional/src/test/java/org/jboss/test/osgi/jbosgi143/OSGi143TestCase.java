@@ -21,60 +21,70 @@
  */
 package org.jboss.test.osgi.jbosgi143;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import java.io.InputStream;
 
 import org.jboss.osgi.testing.OSGiFrameworkTest;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.jbosgi143.bundleA.BeanA;
 import org.jboss.test.osgi.jbosgi143.bundleX.BeanX;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 
 /**
  * [JBOSGI-143] Add initial support for DynamicImport-Package
- * 
+ *
  * https://jira.jboss.org/jira/browse/JBOSGI-143
- * 
- * A imports X X has DynamicImport-Package: *
- * 
- * Can X load a class from A?
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2009
  */
 public class OSGi143TestCase extends OSGiFrameworkTest {
+
     @Test
     public void testLoadClass() throws Exception {
-        BundleContext sysContext = getFramework().getBundleContext();
-        Bundle bundleX = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleX.jar").toExternalForm());
-        bundleX.start();
 
-        assertBundleLoadClass(bundleX, BeanX.class, true);
+        Bundle bundleX = installBundle(getBundleX());
+        Bundle bundleA = installBundle(getBundleA());
 
-        Bundle bundleA = sysContext.installBundle(getTestArchiveURL("jbosgi143-bundleA.jar").toExternalForm());
-        bundleA.start();
+        assertLoadClass(bundleX, BeanA.class.getName());
+        assertLoadClass(bundleX, BeanX.class.getName());
 
-        assertBundleLoadClass(bundleA, BeanA.class, true);
-
-        assertBundleLoadClass(bundleA, BeanX.class, true);
-        assertBundleLoadClass(bundleX, BeanA.class, true);
+        bundleA.uninstall();
+        bundleX.uninstall();
     }
 
-    private void assertBundleLoadClass(Bundle bundle, Class<?> expClazz, boolean success) {
-        String message = bundle.getSymbolicName() + " loads " + expClazz.getName();
-
-        Class<?> wasClass;
-        try {
-            wasClass = bundle.loadClass(expClazz.getName());
-            if (success) {
-                assertEquals(message, expClazz.getName(), wasClass.getName());
-            } else {
-                fail("ClassNotFoundException expected for: " + message);
+    private JavaArchive getBundleA() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi143-bundleA");
+        archive.addClasses(BeanA.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addExportPackages(BeanA.class);
+                builder.addImportPackages(BeanX.class);
+                return builder.openStream();
             }
-        } catch (ClassNotFoundException ex) {
-            if (success)
-                fail("Unexpected ClassNotFoundException for: " + message);
-        }
+        });
+        return archive;
+    }
+
+    private JavaArchive getBundleX() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jbosgi143-bundleX");
+        archive.addClasses(BeanX.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleManifestVersion(2);
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addExportPackages(BeanX.class);
+                builder.addDynamicImportPackages("*");
+                return builder.openStream();
+            }
+        });
+        return archive;
     }
 }

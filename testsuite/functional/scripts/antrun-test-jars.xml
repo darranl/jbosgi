@@ -94,10 +94,6 @@
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi142-bundleB.jar" files="${tests.resources.dir}/jbosgi142/jbosgi142-bundleB.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi142-bundleX.jar" files="${tests.resources.dir}/jbosgi142/jbosgi142-bundleX.bnd" />
 
-    <!-- jbosgi143 -->
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi143-bundleA.jar" files="${tests.resources.dir}/jbosgi143/jbosgi143-bundleA.bnd" />
-    <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi143-bundleX.jar" files="${tests.resources.dir}/jbosgi143/jbosgi143-bundleX.bnd" />
-
     <!-- jbosgi151 -->
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi151-bundleA.jar" files="${tests.resources.dir}/jbosgi151/jbosgi151-bundleA.bnd" />
     <bnd classpath="${tests.classes.dir}" output="${tests.output.dir}/test-libs/jbosgi151-bundleB.jar" files="${tests.resources.dir}/jbosgi151/jbosgi151-bundleB.bnd" />

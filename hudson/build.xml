@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<project>
+  
+  <property name="hudson.dir" value="${basedir}"/>
+  <property name="hudson.target.dir" value="${hudson.dir}/target"/>
+  <property name="project.root.dir" value="${basedir}/.."/>
+
+  <!-- ================================================================== -->
+  <!-- Initialization                                                     -->
+  <!-- ================================================================== -->
+  
+  <target name="init">
+    
+    <!-- Check if ant.properties is available -->
+    <available property="ant.properties.available" file="${basedir}/ant.properties"/>
+    <fail message="Cannot find ant.properties. Did you copy/edit ant.properties.example?" unless="ant.properties.available"/>
+    
+    <property file="${basedir}/ant.properties"/>
+    
+  	<!-- Setup property defaults -->
+  	<property environment="env"/>
+    <property name="username" value="${env.USER}" />
+    <property name="hudson.admin" value="${username}" />
+    <property name="hudson.home" value="/home/${username}/workspace/hudson-home" />
+    
+    <xmlproperty file="${project.root.dir}/pom.xml"/>
+    <property name="version.id" value="${project.version}"/>
+  </target>
+  
+  <target name="init-hudson" depends="init">
+    
+    <echo/>
+    <echo message="tomcat.base = ${tomcat.base}"/>
+    <echo message="hudson.home = ${hudson.home}"/>
+    <echo/>
+    
+    <available file="${hudson.home}" property="hudson.home.available"/>
+    <fail message="HUDSON_HOME not available: ${hudson.home}" unless="hudson.home.available"/>
+    <available file="${tomcat.base}" property="tomcat.base.available"/>
+    <fail message="Tomcat base not available: ${tomcat.base}" unless="tomcat.base.available"/>
+    <available file="${tomcat.conf}" property="tomcat.conf.available"/>
+    <fail message="Tomcat conf not available: ${tomcat.conf}" unless="tomcat.conf.available"/>
+  </target>
+  
+  <target name="init-thirdparty" depends="init-hudson">
+    <property name="thirdparty.dir" value="${hudson.target.dir}/thirdparty"/>
+    <mkdir dir="${thirdparty.dir}"/>
+    <available property="hudson.war.available" file="${thirdparty.dir}/hudson.war"/>
+  </target>
+	
+  <!-- 
+    Get thirdparty dependencies 
+  -->
+  <target name="thirdparty" depends="init-thirdparty,get-hudson">
+  </target>
+  <target name="get-hudson" depends="init-thirdparty" unless="hudson.war.available">
+    <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="true" verbose="true"/>
+    <get src="http://hudson-ci.org/download/plugins/github/${github.plugin.version}/github.hpi" dest="${thirdparty.dir}/github.hpi" usetimestamp="true" verbose="true"/>
+    <get src="http://hudson-ci.org/download/plugins/git/${git.plugin.version}/git.hpi" dest="${thirdparty.dir}/git.hpi" usetimestamp="true" verbose="true"/>
+  </target>
+  
+  <!-- 
+    Setup the Hudson Tomcat instance 
+  -->
+  <target name="hudson-tomcat-setup" depends="thirdparty">
+    
+    <property file="${tomcat.conf}"/>
+    <fail unless="HUDSON_HOME">
+      HUDSON_HOME not available in: ${tomcat.conf}
+      echo 'HUDSON_HOME=${hudson.home}' >> ${tomcat.conf}
+    </fail>
+    
+    <!-- Install Hudson -->
+    <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war"/>
+    <copy todir="${hudson.home}/plugins" file="${thirdparty.dir}/github.hpi"/>
+    <copy todir="${hudson.home}/plugins" file="${thirdparty.dir}/git.hpi"/>
+  </target>
+  
+  <!-- 
+    Update the Hudson version
+  -->
+  <target name="hudson-update" depends="init-thirdparty">
+    <get src="http://hudson-ci.org/download/war/${hudson.version}/hudson.war" dest="${thirdparty.dir}/hudson.war" usetimestamp="false" verbose="true"/>
+    <delete dir="${tomcat.base}/webapps/hudson"/>
+    <copy todir="${tomcat.base}/webapps" file="${thirdparty.dir}/hudson.war" overwrite="true"/>
+  </target>
+
+  <!-- 
+    Setup the Hudson QA environment
+  -->
+  <target name="hudson-setup" depends="init-hudson,hudson-tomcat-setup"  description="Setup the Hudson QA environment">
+    
+    <!-- Configure Hudson Home -->
+    <copy todir="${hudson.home}" overwrite="true">
+      <fileset dir="${hudson.dir}/hudson-home">
+        <include name="*.xml"/>
+      </fileset>
+      <filterset>
+        <filter token="username" value="${username}"/>
+        <filter token="version.id" value="${version.id}"/>
+        <filter token="hudson.admin" value="${hudson.admin}"/>
+        <filtersfile file="${hudson.dir}/ant.properties"/>
+      </filterset>
+    </copy>
+
+    <!-- Configure Hudson Jobs -->
+    <copyjobs/>
+
+    <echo/>
+    <echo message="*************************************"/>
+    <echo message="* Hudson setup successfully          "/>
+    <echo message="* sudo service tomcat6 restart       "/>
+    <echo message="*************************************"/>
+    <echo/>
+    <echo message="tail -f /usr/share/tomcat6/logs/catalina.out"/>
+    <echo/>
+
+  </target>
+  
+  <!-- ================================================================== -->
+  <!-- Hudson Jobs                                                        -->
+  <!-- ================================================================== -->
+  <macrodef name="copyjobs">
+    <sequential>
+      <copy todir="${hudson.home}/jobs" overwrite="true">
+        <fileset dir="${hudson.dir}/hudson-home/jobs">
+          <include name="*/config.xml"/>
+        </fileset>
+        <filterset>
+          <filter token="scm.git.url.jbosgi" value="${scm.git.url.jbosgi}"/>
+          <filter token="version.id" value="${version.id}"/>
+          <filter token="username" value="${username}"/>
+          <filtersfile file="${hudson.dir}/ant.properties"/>
+        </filterset>
+      </copy>
+    </sequential>
+  </macrodef>
+  
+</project>

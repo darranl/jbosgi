@@ -41,31 +41,20 @@
   <disabled>false</disabled>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>jdk1.6</jdk>
-  <triggers class="vector">
-    <hudson.triggers.TimerTrigger>
-      <spec>0 19 * * *</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>export TCKCHECKOUT=$WORKSPACE/tck-checkout
-export TCKSETUP=$WORKSPACE/jbosgi/reactor/tck-setup
+      <command>
+export TCKCHECKOUT=$WORKSPACE/tck-checkout
+export TCKSETUP=$WORKSPACE/tcksetup
 
 # Clone the TCK repo 
 if [ ! -d $TCKCHECKOUT ]; then
-  git clone ~@username@/git/osgitck $TCKCHECKOUT
-fi
-
-# Clone the jbosgi repo 
-if [ ! -d $TCKSETUP ]; then
-  git clone git://github.com/jbosgi/jbosgi.git 
-else
-  cd jbosgi; git pull origin master
+  git clone ~@username@/git/osgi/build/master $TCKCHECKOUT
 fi
 
 # Build and Install the Framework
-cd $WORKSPACE; mvn -fae -Pall clean install
+cd $WORKSPACE; mvn -Pall clean install
 
 # Switch to known tck-checkout tag 
 cd $TCKCHECKOUT; git checkout r4v42-core-cmpn-final

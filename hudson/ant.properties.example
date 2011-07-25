@@ -13,7 +13,7 @@ scm.http.url.jbosgi=http://github.com/jbosgi/jbosgi
 
 # JDK settings
 # ------------
-java.home.jdk16=/usr/java/jdk1.6.0_21
+java.home.jdk16=/usr/java/jdk1.6.0_25
 
 # Maven settings
 # --------------

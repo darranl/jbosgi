@@ -53,8 +53,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>-fae clean install</targets>
-      <mavenName>apache-maven-3.0-beta-1</mavenName>
+      <targets>-Pall clean install</targets>
+      <mavenName>@maven.name@</mavenName>
       <usePrivateRepository>false</usePrivateRepository>
     </hudson.tasks.Maven>
   </builders>

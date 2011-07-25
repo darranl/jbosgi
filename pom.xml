@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.jboss.osgi</groupId>
     <artifactId>jboss-osgi-parent</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
   </parent>
 
   <!-- Source Control -->
@@ -56,7 +56,7 @@
     <version.izpack>4.3.1</version.izpack>
     <version.javax.servlet>2.5</version.javax.servlet>
     <version.jboss.arquillian.core>1.0.0.CR1</version.jboss.arquillian.core>
-    <version.jboss.arquillian.osgi>1.0.0.CR3-SNAPSHOT</version.jboss.arquillian.osgi>
+    <version.jboss.arquillian.osgi>1.0.0.CR3</version.jboss.arquillian.osgi>
     <version.jboss.logmanager>1.2.0.CR8</version.jboss.logmanager>
     <version.jboss.modules>1.0.0.CR4</version.jboss.modules>
     <version.jboss.msc>1.0.0.CR2</version.jboss.msc>
@@ -64,9 +64,9 @@
     <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.10</version.jboss.osgi.deployment>
-    <version.jboss.osgi.equinox>3.5.2.SP1-SNAPSHOT</version.jboss.osgi.equinox>
+    <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
     <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-    <version.jboss.osgi.framework>1.0.0.CR9-SNAPSHOT</version.jboss.osgi.framework>
+    <version.jboss.osgi.framework>1.0.0</version.jboss.osgi.framework>
     <version.jboss.osgi.hotdeploy>1.0.10</version.jboss.osgi.hotdeploy>
     <version.jboss.osgi.http>1.0.3</version.jboss.osgi.http>
     <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
@@ -78,6 +78,7 @@
     <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>
     <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
     <version.jboss.shrinkwrap>1.0.0-beta2</version.jboss.shrinkwrap>
+    <version.log4j>1.2.14</version.log4j>
     <version.osgi>4.2.0</version.osgi>
   </properties>
 
@@ -374,6 +375,11 @@
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>${version.javax.servlet}</version>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${version.log4j}</version>
       </dependency>
 
       <!-- org.osgi -->

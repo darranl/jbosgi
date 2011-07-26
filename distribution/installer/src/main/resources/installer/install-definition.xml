@@ -210,7 +210,6 @@
         <include name="jbosgi-webapp.jar" />
         <include name="jbosgi-webconsole.jar" />
         <!-- all -->
-        <include name="arquillian-osgi-bundle.jar" />
         <include name="jbosgi-blueprint.jar" />
         <include name="jboss-osgi-jndi.jar" />
         <include name="jboss-osgi-xerces.jar" />

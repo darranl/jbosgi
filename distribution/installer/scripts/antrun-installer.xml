@@ -61,7 +61,11 @@
     <mkdir dir="${izpack.temp.dir}" />
 
     <!-- Copy the User Guide --> 
-    <copy file="${basedir}/../User_Guide-${product.version}.pdf" todir="${deploy.artifacts.dir}/docs/userguide"/>
+    <copy todir="${deploy.artifacts.dir}/docs/userguide" overwrite="true">
+      <fileset dir="${basedir}/.." >
+    	<include name="*.pdf" />
+      </fileset>
+    </copy>
     
     <!-- Run installer build -->
     <echo message="Running IzPack to build the installer..." />

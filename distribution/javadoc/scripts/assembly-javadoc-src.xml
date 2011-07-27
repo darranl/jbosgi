@@ -18,8 +18,6 @@
         <include>*:jbosgi-resolver-spi:jar:sources</include>
         <include>*:jbosgi-resolver-metadata:jar:sources</include>
         <include>*:jbosgi-spi:jar:sources</include>
-        <include>*:jboss-modules:jar:sources</include>
-        <include>*:jboss-msc:jar:sources</include>
         <include>*:jbosgi-blueprint:jar:sources</include>
         <include>*:jboss-osgi-common:jar:sources</include>
         <include>*:jboss-osgi-http:jar:sources</include>

@@ -35,6 +35,10 @@
 
   <!-- Dependencies -->
   <dependencies>
+    <dependency>
+      <groupId>biz.aQute</groupId>
+      <artifactId>bnd</artifactId>
+    </dependency>
   </dependencies>
 
   <!-- Profiles -->

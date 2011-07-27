@@ -33,23 +33,6 @@
   <!-- Dependencies -->
   <dependencies>
     <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-      <version>${version.javax.inject}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.modules</groupId>
-      <artifactId>jboss-modules</artifactId>
-      <version>${version.jboss.modules}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.msc</groupId>
-      <artifactId>jboss-msc</artifactId>
-      <version>${version.jboss.msc}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.osgi.spi</groupId>
       <artifactId>jbosgi-spi</artifactId>
       <version>${version.jboss.osgi.spi}</version>

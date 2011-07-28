@@ -72,7 +72,7 @@ public class BlueprintTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, BlueprintContainer.class);
+                builder.addImportPackages(StartLevel.class, BlueprintContainer.class, MBeanServer.class);
                 return builder.openStream();
             }
         });

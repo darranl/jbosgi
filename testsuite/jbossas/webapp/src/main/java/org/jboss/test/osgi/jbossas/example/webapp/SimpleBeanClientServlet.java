@@ -43,7 +43,7 @@ public class SimpleBeanClientServlet  extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    @EJB(lookup = "java:global/jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT/SimpleStatelessSessionBean")
+    @EJB(lookup = "java:global/jboss-osgi-example-jbossas-ejb3-1.0.1/SimpleStatelessSessionBean")
     private SimpleStatelessSessionBean bean;
 
     @Override

@@ -24,6 +24,7 @@ package org.jboss.test.osgi.jbossas.example.webapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.logging.Logger;
-import org.jboss.test.osgi.jbossas.example.payment.BundleContextProvider;
 import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -49,14 +49,15 @@ public class SimpleClientServlet extends HttpServlet {
     // Provide logging
     static final Logger log = Logger.getLogger(SimpleClientServlet.class);
 
+    @Resource
+    private BundleContext context;
+
     private PaymentService service;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
-        // [TODO] should be an injectable resource
-        final BundleContext context = BundleContextProvider.getBundleContext();
         final SimpleClientServlet servlet = this;
 
         // Track {@link PaymentService} implementations

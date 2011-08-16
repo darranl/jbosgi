@@ -19,11 +19,13 @@
   <artifactId>jboss-osgi-example-jbossas</artifactId>
   <packaging>pom</packaging>
 
+  <!-- [AS7-1134] OSGi XService intergration cannot be used with Maven snapshots -->
+  <version>1.0.1</version>
+  
   <parent>
-    <groupId>org.jboss.osgi</groupId>
-    <artifactId>jboss-osgi</artifactId>
+    <groupId>org.jboss.osgi.testsuite</groupId>
+    <artifactId>jboss-osgi-testsuite</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <!-- Properties -->

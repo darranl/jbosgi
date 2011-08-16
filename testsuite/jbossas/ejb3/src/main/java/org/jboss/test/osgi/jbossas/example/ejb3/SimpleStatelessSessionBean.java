@@ -22,11 +22,11 @@
 package org.jboss.test.osgi.jbossas.example.ejb3;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import org.jboss.logging.Logger;
-import org.jboss.test.osgi.jbossas.example.payment.BundleContextProvider;
 import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -44,14 +44,17 @@ public class SimpleStatelessSessionBean {
     // Provide logging
     static final Logger log = Logger.getLogger(SimpleStatelessSessionBean.class);
 
+    @Resource
+    private BundleContext context;
+
     private PaymentService service;
 
     @PostConstruct
     public void init() {
 
-        // [TODO] should be an injectable resource
-        final BundleContext context = BundleContextProvider.getBundleContext();
         final SimpleStatelessSessionBean bean = this;
+
+        log.infof("BundleContext symbolic name: %s", context.getBundle().getSymbolicName());
 
         // Track {@link PaymentService} implementations
         ServiceTracker tracker = new ServiceTracker(context, PaymentService.class.getName(), null) {

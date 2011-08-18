@@ -100,20 +100,17 @@ if [ "x$SERVER_SET" = "x" ]; then
 
     # Check for SUN(tm) JVM w/ HotSpot support
     if [ "x$HAS_HOTSPOT" = "x" ]; then
-   HAS_HOTSPOT=`"$JAVA" -version 2>&1 | $GREP -i HotSpot`
+        HAS_HOTSPOT=`"$JAVA" -version 2>&1 | $GREP -i HotSpot`
     fi
 
     # Enable -server if we have Hotspot, unless we can't
     if [ "x$HAS_HOTSPOT" != "x" ]; then
-   # MacOS does not support -server flag
-   if [ "$darwin" != "true" ]; then
-       JAVA_OPTS="-server $JAVA_OPTS"
-   fi
+        # MacOS does not support -server flag neither does it generally exist on Windows
+        if [[ "$darwin" != "true" && "$cygwin" != "true" ]]; then
+            JAVA_OPTS="-server $JAVA_OPTS"
+        fi
     fi
 fi
-
-# Setup JBoss specific properties
-JAVA_OPTS="-Dprogram.name=$PROGNAME -Dosgi.home=$OSGI_HOME $JAVA_OPTS"
 
 # For Cygwin, switch paths to Windows format before running java
 if $cygwin; then
@@ -121,6 +118,9 @@ if $cygwin; then
     JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
     OSGI_CLASSPATH=`cygpath --path --windows "$OSGI_CLASSPATH"`
 fi
+
+# Setup JBoss specific properties
+JAVA_OPTS="-Dprogram.name=$PROGNAME -Dosgi.home=$OSGI_HOME $JAVA_OPTS"
 
 # Display our environment
 echo "========================================================================="

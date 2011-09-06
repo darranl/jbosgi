@@ -43,16 +43,6 @@
     <dependency>
       <groupId>org.jboss.osgi.distribution</groupId>
       <artifactId>jboss-osgi-javadoc</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss.osgi</groupId>
-          <artifactId>jboss-osgi-spi</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.osgi.deployment</groupId>
-          <artifactId>jboss-osgi-deployment</artifactId>
-        </exclusion>
-      </exclusions>
       <version>${project.version}</version>
       <classifier>javadoc</classifier>
     </dependency>

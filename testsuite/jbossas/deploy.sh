@@ -1,9 +1,22 @@
 #!/bin/sh
 
-JBOSS_HOME="$HOME/git/jboss-as-7.0.0.Final/build/target/jboss-as-7.0.0.Final"
+# Verify JBOSS_HOME
+if [ "x$JBOSS_HOME" = "x" ]; then
+   echo "JBOSS_HOME not set"
+   exit 1
+fi
 
-cp api/target/jboss-osgi-example-jbossas-api-1.0.0-SNAPSHOT.jar $JBOSS_HOME/standalone/deployments
-cp service/target/jboss-osgi-example-jbossas-service-1.0.0-SNAPSHOT.jar $JBOSS_HOME/standalone/deployments
-cp ejb3/target/jboss-osgi-example-jbossas-ejb3-1.0.0-SNAPSHOT.jar $JBOSS_HOME/standalone/deployments
-cp webapp/target/jboss-osgi-example-jbossas-webapp-1.0.0-SNAPSHOT.war $JBOSS_HOME/standalone/deployments
+# Verify deployments dir
+DEPLOYMENTS_DIR="$JBOSS_HOME/standalone/deployments"
+if [ ! -d $DEPLOYMENTS_DIR ]; then
+   echo "Deployments dir does not exist: $DEPLOYMENTS_DIR"
+   exit 1
+fi
 
+# Find and deploy the target files
+for TARGET in "api" "service"  "ejb3" "webapp"
+do
+	TARGET_FILE="`find $TARGET -type f -name jboss-osgi-example-jbossas* | grep -v sources`"
+	echo "Deploying $TARGET_FILE"
+	cp $TARGET_FILE $DEPLOYMENTS_DIR
+done 

@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-example-jbossas</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
 
   <!-- Properties -->
@@ -46,7 +46,7 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${artifactId}</Bundle-SymbolicName>
-            <Bundle-Version>1.0.0</Bundle-Version>
+            <Bundle-Version>${project.version}</Bundle-Version>
             <Export-Package>
               org.jboss.test.osgi.jbossas.example.payment;version=1.0.0
             </Export-Package>

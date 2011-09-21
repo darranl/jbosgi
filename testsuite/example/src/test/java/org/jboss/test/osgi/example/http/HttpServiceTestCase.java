@@ -32,8 +32,8 @@ import javax.servlet.http.HttpServlet;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.common.log.LogServiceTracker;
 import org.jboss.osgi.http.HttpServiceCapability;
+import org.jboss.osgi.logging.LogServiceTracker;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;

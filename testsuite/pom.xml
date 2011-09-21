@@ -97,11 +97,6 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.osgi.common</groupId>
-      <artifactId>jboss-osgi-common</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.common</groupId>
       <artifactId>jboss-osgi-common-core</artifactId>
       <scope>provided</scope>
     </dependency>
@@ -121,6 +116,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.jboss.osgi.logging</groupId>
+      <artifactId>jboss-osgi-logging</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.osgi.webapp</groupId>
       <artifactId>jbosgi-webapp</artifactId>
       <scope>provided</scope>
@@ -133,6 +133,23 @@
     <dependency>
       <groupId>org.jboss.osgi.xerces</groupId>
       <artifactId>jboss-osgi-xerces</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- SLF4J Dependencies -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
       <scope>provided</scope>
     </dependency>
 

@@ -58,7 +58,6 @@
     <version.jboss.arquillian.osgi>1.0.0.CR3</version.jboss.arquillian.osgi>
     <version.jboss.logmanager>1.2.0.CR8</version.jboss.logmanager>
     <version.jboss.osgi.blueprint>1.0.2</version.jboss.osgi.blueprint>
-    <version.jboss.osgi.common>1.0.6</version.jboss.osgi.common>
     <version.jboss.osgi.common.core>2.2.17.SP1</version.jboss.osgi.common.core>
     <version.jboss.osgi.deployment>1.0.10</version.jboss.osgi.deployment>
     <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
@@ -68,8 +67,9 @@
     <version.jboss.osgi.http>1.0.3</version.jboss.osgi.http>
     <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
+    <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
     <version.jboss.osgi.resolver>1.0.9</version.jboss.osgi.resolver>
-    <version.jboss.osgi.spi>1.0.28</version.jboss.osgi.spi>
+    <version.jboss.osgi.spi>1.0.29-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.6</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.2</version.jboss.osgi.webapp>
     <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>
@@ -77,6 +77,7 @@
     <version.jboss.shrinkwrap>1.0.0-beta2</version.jboss.shrinkwrap>
     <version.log4j>1.2.14</version.log4j>
     <version.osgi>4.2.0</version.osgi>
+    <version.slf4j>1.6.1</version.slf4j>
   </properties>
 
   <!-- DependencyManagement -->
@@ -144,17 +145,6 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.common</groupId>
-        <artifactId>jboss-osgi-common</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>jboss-osgi-spi</artifactId>
-          </exclusion>
-        </exclusions>
-        <version>${version.jboss.osgi.common}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.osgi.common</groupId>
         <artifactId>jboss-osgi-common-core</artifactId>
         <exclusions>
           <exclusion>
@@ -211,6 +201,11 @@
           </exclusion>
         </exclusions>
         <version>${version.jboss.osgi.jndi}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.osgi.logging</groupId>
+        <artifactId>jboss-osgi-logging</artifactId>
+        <version>${version.jboss.osgi.logging}</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.osgi.resolver</groupId>
@@ -373,6 +368,24 @@
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.compendium</artifactId>
         <version>${version.osgi}</version>
+      </dependency>
+
+
+      <!-- org.slf4j -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${version.slf4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${version.slf4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${version.slf4j}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

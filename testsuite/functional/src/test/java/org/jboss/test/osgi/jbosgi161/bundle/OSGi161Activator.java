@@ -29,7 +29,8 @@ public class OSGi161Activator implements BundleActivator {
         String logmsg = context.getBundle().getSymbolicName();
 
         LoggingDelegate.assertJBossLogging(logmsg);
-        LoggingDelegate.assertCommonsLogging(logmsg);
+        // Revisit in conjunction with AS7-439
+        // LoggingDelegate.assertCommonsLogging(logmsg);
         LoggingDelegate.assertSL4J(logmsg);
     }
 

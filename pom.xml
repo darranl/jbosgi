@@ -68,7 +68,7 @@
     <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
     <version.jboss.osgi.jndi>1.0.4</version.jboss.osgi.jndi>
     <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
-    <version.jboss.osgi.resolver>1.0.9</version.jboss.osgi.resolver>
+    <version.jboss.osgi.resolver>1.0.10</version.jboss.osgi.resolver>
     <version.jboss.osgi.spi>1.0.29-SNAPSHOT</version.jboss.osgi.spi>
     <version.jboss.osgi.vfs>1.0.6</version.jboss.osgi.vfs>
     <version.jboss.osgi.webapp>1.0.2</version.jboss.osgi.webapp>

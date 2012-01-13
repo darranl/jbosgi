@@ -59,10 +59,7 @@
         <version.jboss.logmanager>1.2.0.GA</version.jboss.logmanager>
         <version.jboss.osgi.blueprint>1.0.3</version.jboss.osgi.blueprint>
         <version.jboss.osgi.deployment>1.0.10</version.jboss.osgi.deployment>
-        <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
-        <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
         <version.jboss.osgi.framework>1.1.0</version.jboss.osgi.framework>
-        <version.jboss.osgi.hotdeploy>1.0.10</version.jboss.osgi.hotdeploy>
         <version.jboss.osgi.http>1.0.5</version.jboss.osgi.http>
         <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
@@ -223,19 +220,7 @@
                 <version>${version.jboss.osgi.xerces}</version>
             </dependency>
 
-            <!-- Equinox Dependencies -->
-            <dependency>
-                <groupId>org.jboss.osgi.equinox</groupId>
-                <artifactId>jboss-osgi-equinox</artifactId>
-                <version>${version.jboss.osgi.equinox}</version>
-            </dependency>
-
             <!-- Felix Dependencies -->
-            <dependency>
-                <groupId>org.jboss.osgi.felix</groupId>
-                <artifactId>jboss-osgi-felix</artifactId>
-                <version>${version.jboss.osgi.felix}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.configadmin</artifactId>

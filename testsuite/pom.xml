@@ -66,10 +66,11 @@
             <artifactId>org.apache.felix.log</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- Contains classes from org.osgi.util.tracker that must come after
-      the framework provided ones. Equinox chokes with SecurityException. <dependency> 
-      <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.configadmin</artifactId> 
-      <scope>provided</scope> </dependency> -->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.eventadmin</artifactId>
@@ -183,86 +184,6 @@
     <profiles>
 
         <profile>
-            <id>framework-equinox</id>
-            <activation>
-                <property>
-                    <name>framework</name>
-                    <value>equinox</value>
-                </property>
-            </activation>
-            <properties>
-                <jboss.osgi.framework.properties>jboss-osgi-equinox.properties</jboss.osgi.framework.properties>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.osgi.equinox</groupId>
-                    <artifactId>jboss-osgi-equinox</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.osgi.vfs</groupId>
-                    <artifactId>jbosgi-vfs30</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>framework-felix</id>
-            <activation>
-                <property>
-                    <name>framework</name>
-                    <value>felix</value>
-                </property>
-            </activation>
-            <properties>
-                <jboss.osgi.framework.properties>jboss-osgi-felix.properties</jboss.osgi.framework.properties>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.osgi.felix</groupId>
-                    <artifactId>jboss-osgi-felix</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.osgi.vfs</groupId>
-                    <artifactId>jbosgi-vfs30</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>framework-jboss</id>
-            <activation>
-                <property>
-                    <name>framework</name>
-                    <value>jboss</value>
-                </property>
-            </activation>
-            <properties>
-                <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.osgi.framework</groupId>
-                    <artifactId>jbosgi-framework-core</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.osgi.resolver</groupId>
-                    <artifactId>jbosgi-resolver-felix</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.osgi.vfs</groupId>
-                    <artifactId>jbosgi-vfs30</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
             <id>default-framework</id>
             <activation>
                 <property>
@@ -287,34 +208,6 @@
                     <groupId>org.jboss.osgi.vfs</groupId>
                     <artifactId>jbosgi-vfs30</artifactId>
                     <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>dependency-order</id>
-            <activation>
-                <property>
-                    <name>user.home</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- Contains classes from org.osgi.util.tracker that must come after
-        the framework provided ones. Equinox chokes with SecurityException. -->
-                <dependency>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>org.apache.felix.configadmin</artifactId>
-                    <scope>provided</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.apache.felix</groupId>
-                            <artifactId>org.osgi.core</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>org.apache.felix</groupId>
-                            <artifactId>org.osgi.compendium</artifactId>
-                        </exclusion>
-                    </exclusions>
                 </dependency>
             </dependencies>
         </profile>

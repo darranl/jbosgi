@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi99-bundleA.jar src/test/resources/jbosgi99/jbosgi99-bundleA.bnd
-
-Bundle-SymbolicName: jbosgi99-failonstart
-Bundle-Activator: org.jboss.test.osgi.jbosgi99.bundle.OSGi99Activator
-Private-Package: org.jboss.test.osgi.jbosgi99.bundle
-

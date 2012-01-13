@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-SymbolicName: jbosgi284-bundleB
-Export-Package: org.jboss.test.osgi.jbosgi284.bundleB;version="1.0.0-Alpha1"
-

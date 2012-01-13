@@ -73,26 +73,6 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>build-test-jars</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <tasks>
-                    <property name="maven.runtime.classpath"
-                      refid="maven.runtime.classpath" />
-                    <property name="tests.output.dir" value="${project.build.directory}" />
-                    <ant antfile="scripts/antrun-test-jars.xml" />
-                  </tasks>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
         </plugins>
       </build>
     </profile>

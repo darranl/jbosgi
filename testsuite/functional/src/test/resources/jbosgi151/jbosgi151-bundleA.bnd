@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi151-bundleA.jar src/test/resources/jbosgi151/bundleA.bnd
-
-Bundle-SymbolicName: jbosgi151-bundleA
-Export-Package: org.jboss.test.osgi.jbosgi151.bundleA
-Import-Package: org.jboss.test.osgi.jbosgi151.bundleB

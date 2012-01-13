@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi214-bundle.jar src/test/resources/jbosgi214/jbosgi214-bundle.bnd
-
-Bundle-SymbolicName: jbosgi214-bundle
-Bundle-Activator: org.jboss.test.osgi.jbosgi214.bundle.OSGi214Activator
-Export-Package: org.jboss.test.osgi.jbosgi214.bundle
-Import-Package: org.jboss.test.osgi.jbosgi214, org.osgi.framework

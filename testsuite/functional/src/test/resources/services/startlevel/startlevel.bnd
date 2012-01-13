@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/service-startlevel.jar src/test/resources/services/startlevel/startlevel.bnd
-
-Bundle-SymbolicName: service-startlevel
-Bundle-Activator: org.jboss.test.osgi.services.startlevel.StartLevelActivator
-Export-Package: org.jboss.test.osgi.services.startlevel

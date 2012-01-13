@@ -1,8 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/simple-l10n.jar src/test/resources/localization/localization-simple-host.bnd
-
-Bundle-SymbolicName: localization-simple-host
-Bundle-Name: %bundle-name
-Include-Resource: OSGI-INF/l10n/bundle_en.properties=OSGI-INF/l10n/bundle_en.properties
-
--removeheaders: Include-Resource
-

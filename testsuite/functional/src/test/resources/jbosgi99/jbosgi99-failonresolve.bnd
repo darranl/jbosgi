@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi99-bundleA.jar src/test/resources/jbosgi99/jbosgi99-bundleA.bnd
-
-Bundle-SymbolicName: jbosgi99-failonresolve
-Export-Package: org.jboss.test.osgi.jbosgi99.bundle
-Import-Package: org.osgi.framework, org.jboss.test.osgi.jbosgi99.package.does.not.exist
-

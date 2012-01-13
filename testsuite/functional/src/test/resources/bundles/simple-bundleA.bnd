@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/bundles-simple-bundleA.jar src/test/resources/bundles/simple-bundleA.bnd
-
-Bundle-SymbolicName: simple-bundleA
-Bundle-Activator: org.jboss.test.osgi.bundles.bundleA.SimpleActivator
-Private-Package: org.jboss.test.osgi.bundles.bundleA 
-

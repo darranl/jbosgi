@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi142-bundleX.jar src/test/resources/jbosgi142/bundleX.bnd
-
-Bundle-SymbolicName: jbosgi142-bundleX
-Export-Package: org.jboss.test.osgi.jbosgi142.bundleX
-

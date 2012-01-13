@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi161-bundle.jar src/test/resources/jbosgi161/bundle.bnd
-
-Bundle-SymbolicName: jbosgi161-bundle
-Bundle-Activator: org.jboss.test.osgi.jbosgi161.bundle.OSGi161Activator
-Private-Package: org.jboss.test.osgi.jbosgi161.bundle
-Import-Package: org.apache.commons.logging, org.slf4j, org.jboss.logging, org.osgi.framework

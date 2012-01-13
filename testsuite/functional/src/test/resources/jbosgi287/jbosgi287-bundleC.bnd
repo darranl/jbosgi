@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi287-bundleB.jar src/test/resources/jbosgi287/jbosgi287-bundle.bnd
-
-Bundle-SymbolicName: jbosgi287-bundleC
-Export-Package: javax.jms
-Import-Package: javax.jms
-

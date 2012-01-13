@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi112-bundleA.jar src/test/resources/jbosgi112/jbosgi112-bundleA.bnd
-
-Bundle-SymbolicName: jbosgi112-bundleA
-Bundle-Activator: org.jboss.test.osgi.jbosgi112.bundleA.OSGi112ActivatorA
-Export-Package: org.jboss.test.osgi.jbosgi112.bundleA
-

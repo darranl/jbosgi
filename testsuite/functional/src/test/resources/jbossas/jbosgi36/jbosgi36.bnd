@@ -1,7 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi36-bundle.jar src/test/resources/jbosgi36/jbosgi36.bnd
-
-Bundle-SymbolicName: jbosgi36
-Bundle-Activator: org.jboss.test.osgi.jbossas.jbosgi36.bundle.internal.OSGi36Activator
-Export-Package: org.jboss.test.osgi.jbossas.jbosgi36.bundle
-Private-Package: org.jboss.test.osgi.jbossas.jbosgi36.bundle.internal
-

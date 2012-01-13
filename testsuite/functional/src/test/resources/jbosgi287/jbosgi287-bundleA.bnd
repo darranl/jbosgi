@@ -1,6 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi287-bundleA.jar src/test/resources/jbosgi287/bundle.bnd
-
-Bundle-SymbolicName: jbosgi287-bundleA
-Export-Package: org.jboss.test.osgi.jbosgi287.bundleA
-Import-Package: org.jboss.test.osgi.jbosgi287.bundleB;resolution:=optional
-

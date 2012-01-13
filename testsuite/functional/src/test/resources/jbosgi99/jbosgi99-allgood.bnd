@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi99-allgood.jar src/test/resources/jbosgi99/jbosgi99-allgood.bnd
-
-Bundle-SymbolicName: jbosgi99-allgood
-Export-Package: org.jboss.test.osgi.jbosgi99.bundle
-

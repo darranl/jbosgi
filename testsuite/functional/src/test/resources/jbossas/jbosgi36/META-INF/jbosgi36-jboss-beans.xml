@@ -1,6 +1,0 @@
-<deployment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:jboss:bean-deployer:2.0 bean-deployer_2_0.xsd" xmlns="urn:jboss:bean-deployer:2.0">
-
- <bean name="Foo" class="org.jboss.test.osgi.jbossas.jbosgi36.mbean.Foo"/>
-
-</deployment>
-

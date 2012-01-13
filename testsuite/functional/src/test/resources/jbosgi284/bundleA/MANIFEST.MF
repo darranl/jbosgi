@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-SymbolicName: jbosgi284-bundleA
-Bundle-Version: 1.0.0-Alpha
-Bundle-Activator: org.jboss.test.osgi.jbosgi284.bundleA.OSGi284ActivatorA
-Private-Package: org.jboss.test.osgi.jbosgi284.bundleA
-Import-Package: org.osgi.framework
-

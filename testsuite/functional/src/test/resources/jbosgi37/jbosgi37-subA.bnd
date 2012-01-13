@@ -1,5 +1,0 @@
-# bnd build -classpath target/test-classes -output target/test-libs/jbosgi37-subA.jar src/test/resources/jbosgi37/jbosgi37-subA.bnd
-
-Bundle-SymbolicName: jbosgi37-subA
-Export-Package: org.jboss.test.osgi.jbosgi37.subA
-

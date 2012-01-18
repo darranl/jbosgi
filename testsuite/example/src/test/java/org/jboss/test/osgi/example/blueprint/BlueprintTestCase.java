@@ -39,6 +39,7 @@ import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceA;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceB;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -54,6 +55,7 @@ import org.osgi.service.startlevel.StartLevel;
  * @since 12-Jul-2009
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class BlueprintTestCase {
 
     @Inject

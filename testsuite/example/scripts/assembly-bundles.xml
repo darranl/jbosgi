@@ -17,25 +17,7 @@
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}
             </outputFileNameMapping>
             <includes>
-                <include>*:arquillian-osgi-bundle:jar</include>
-                <include>*:jbosgi-blueprint:jar</include>
-                <include>*:jbosgi-http:jar</include>
-                <include>*:jbosgi-http-api:jar</include>
-                <include>*:jbosgi-webapp:jar</include>
-                <include>*:jboss-osgi-jmx:jar</include>
-                <include>*:jboss-osgi-logging:jar</include>
-                <include>*:jbosgi-webconsole:jar</include>
-                <include>*:jboss-osgi-xerces:jar</include>
-                <include>*:slf4j-api:jar</include>
-                <include>*:slf4j-log4j12:jar</include>
-                <include>*:jcl-over-slf4j:jar</include>
-                <include>*:org.apache.aries.jmx:jar</include>
-                <include>*:org.apache.aries.util:jar</include>
-                <include>*:org.apache.felix.configadmin:jar</include>
-                <include>*:org.apache.felix.eventadmin:jar</include>
-                <include>*:org.apache.felix.log:jar</include>
-                <include>*:org.apache.felix.metatype:jar</include>
-                <include>*:org.apache.felix.scr:jar</include>
+                <include>*:jbosgi-repository-maven:jar</include>
             </includes>
             <useStrictFiltering>true</useStrictFiltering>
             <scope>provided</scope>

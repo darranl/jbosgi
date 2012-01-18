@@ -38,6 +38,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.jmx.bundle.Foo;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.jboss.test.osgi.example.jmx.bundle.MBeanActivator;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -53,6 +54,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
+@Ignore
 @RunWith(Arquillian.class)
 public class MBeanServerTestCase {
 

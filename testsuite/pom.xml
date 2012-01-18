@@ -77,11 +77,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.arquillian.osgi</groupId>
             <artifactId>arquillian-osgi-bundle</artifactId>
             <scope>provided</scope>
@@ -258,8 +253,16 @@
                                     <value>${version.apache.felix.configadmin}</value>
                                 </property>
                                 <property>
+                                    <name>org.apache.felix:org.apache.felix.scr</name>
+                                    <value>${version.apache.felix.scr}</value>
+                                </property>
+                                <property>
                                     <name>org.jboss.osgi.http:jbosgi-http</name>
                                     <value>${version.jboss.osgi.http}</value>
+                                </property>
+                                <property>
+                                    <name>org.jboss.osgi.webapp:jbosgi-webapp</name>
+                                    <value>${version.jboss.osgi.webapp}</value>
                                 </property>
                                 <property>
                                     <name>org.jboss.osgi.xerces:jboss-osgi-xerces</name>

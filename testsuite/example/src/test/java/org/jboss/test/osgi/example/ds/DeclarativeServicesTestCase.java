@@ -31,16 +31,21 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
+import org.jboss.test.osgi.example.AbstractExampleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Resource;
+import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -49,9 +54,8 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 06-Jul-2011
  */
-@Ignore
 @RunWith(Arquillian.class)
-public class DeclarativeServicesTestCase {
+public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
 
     @Inject
     public BundleContext context;
@@ -62,7 +66,7 @@ public class DeclarativeServicesTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-ds");
-        archive.addClasses(SampleComparator.class);
+        archive.addClasses(SampleComparator.class, AbstractExampleTestCase.class);
         archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
@@ -71,6 +75,7 @@ public class DeclarativeServicesTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
                 builder.addImportPackages(ServiceTracker.class);
+                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -79,6 +84,8 @@ public class DeclarativeServicesTestCase {
 
     @Test
     public void testImmediateService() throws Exception {
+
+        provideDeclarativeServices(context);
 
         bundle.start();
 
@@ -95,5 +102,11 @@ public class DeclarativeServicesTestCase {
 
         if (latch.await(2, TimeUnit.SECONDS) == false)
             throw new TimeoutException("Timeout tracking Comparator service");
+    }
+
+    private void provideDeclarativeServices(BundleContext context) throws BundleException {
+        if (context.getServiceReference("org.apache.felix.scr.ScrService") == null) {
+            installSupportBundle(context, getCoordinates(context, APACHE_FELIX_SCR)).start();
+        }
     }
 }

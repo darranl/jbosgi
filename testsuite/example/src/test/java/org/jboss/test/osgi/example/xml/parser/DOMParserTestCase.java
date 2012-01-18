@@ -21,35 +21,36 @@
  */
 package org.jboss.test.osgi.example.xml.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.InputStream;
-import java.net.URL;
-
-import javax.inject.Inject;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.osgi.xml.XMLParserCapability;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
+import org.jboss.test.osgi.example.AbstractExampleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Resource;
+import org.osgi.service.repository.Repository;
 import org.osgi.service.startlevel.StartLevel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import javax.inject.Inject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
+import java.net.URL;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * A test that uses a DOM parser to read an XML document.
@@ -59,9 +60,8 @@ import org.w3c.dom.Node;
  * @author thomas.diesler@jboss.com
  * @since 21-Jul-2009
  */
-@Ignore
 @RunWith(Arquillian.class)
-public class DOMParserTestCase {
+public class DOMParserTestCase extends AbstractExampleTestCase {
 
     @Inject
     public BundleContext context;
@@ -72,6 +72,7 @@ public class DOMParserTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
+        archive.addClasses(AbstractExampleTestCase.class);
         archive.addAsResource("xml/example-xml-parser.xml", "example-xml-parser.xml");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
@@ -79,6 +80,7 @@ public class DOMParserTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(StartLevel.class, DocumentBuilder.class, Document.class);
+                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -103,19 +105,23 @@ public class DOMParserTestCase {
         assertEquals("content", child.getTextContent());
     }
 
-    private DocumentBuilder getDocumentBuilder() throws ParserConfigurationException, InvalidSyntaxException {
+    private DocumentBuilder getDocumentBuilder() throws Exception {
         BundleContext context = bundle.getBundleContext();
 
-        // This service gets registerd by the jboss-osgi-apache-xerces service
-        String filter = "(" + XMLParserCapability.PARSER_PROVIDER + "=" + XMLParserCapability.PROVIDER_JBOSS_OSGI + ")";
-        ServiceReference[] srefs = context.getServiceReferences(DocumentBuilderFactory.class.getName(), filter);
-        if (srefs == null)
-            throw new IllegalStateException("DocumentBuilderFactory not available");
-
-        DocumentBuilderFactory factory = (DocumentBuilderFactory) context.getService(srefs[0]);
+        DocumentBuilderFactory factory = provideDocumentBuilderFactory(context);
         factory.setValidating(false);
 
         DocumentBuilder domBuilder = factory.newDocumentBuilder();
         return domBuilder;
     }
+
+    private DocumentBuilderFactory provideDocumentBuilderFactory(BundleContext context) throws BundleException {
+        ServiceReference sref = context.getServiceReference(DocumentBuilderFactory.class.getName());
+        if (sref == null) {
+            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_XERCES)).start();
+            sref = context.getServiceReference(DocumentBuilderFactory.class.getName());
+        }
+        return (DocumentBuilderFactory) context.getService(sref);
+    }
+
 }

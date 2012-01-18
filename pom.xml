@@ -214,24 +214,8 @@
                 <artifactId>jbosgi-webconsole</artifactId>
                 <version>${version.jboss.osgi.webconsole}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.xerces</groupId>
-                <artifactId>jboss-osgi-xerces</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jboss.osgi</groupId>
-                        <artifactId>jboss-osgi-spi</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${version.jboss.osgi.xerces}</version>
-            </dependency>
 
             <!-- Felix Dependencies -->
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.configadmin</artifactId>
-                <version>${version.apache.felix.configadmin}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.eventadmin</artifactId>

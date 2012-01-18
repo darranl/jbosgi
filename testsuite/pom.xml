@@ -68,11 +68,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.eventadmin</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -134,11 +129,6 @@
         <dependency>
             <groupId>org.jboss.osgi.webconsole</groupId>
             <artifactId>jbosgi-webconsole</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.xerces</groupId>
-            <artifactId>jboss-osgi-xerces</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -268,6 +258,14 @@
                                     <name>org.jboss.osgi.framework.start.timeout</name>
                                     <value>20000</value>
                                 </property>
+                                <property>
+                                    <name>org.apache.felix:org.apache.felix.configadmin</name>
+                                    <value>${version.apache.felix.configadmin}</value>
+                                </property>
+                                <property>
+                                    <name>org.jboss.osgi.xerces:jboss-osgi-xerces</name>
+                                    <value>${version.jboss.osgi.xerces}</value>
+                                </property>
                             </systemProperties>
                         </configuration>
                     </plugin>
@@ -275,44 +273,5 @@
             </build>
         </profile>
 
-        <profile>
-            <id>runtime-testing</id>
-            <activation>
-                <property>
-                    <name>target.container</name>
-                    <value>runtime</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-container-osgi-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemProperties>
-                                <property>
-                                    <name>arquillian.xml</name>
-                                    <value>arquillian-remote.xml</value>
-                                </property>
-                                <property>
-                                    <name>java.util.logging.manager</name>
-                                    <value>org.jboss.logmanager.LogManager</value>
-                                </property>
-                                <property>
-                                    <name>test.archive.directory</name>
-                                    <value>${project.build.directory}/test-libs</value>
-                                </property>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>

@@ -44,14 +44,14 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
- * Example for Dynamic Services
+ * Example for Declarative Services
  *
  * @author thomas.diesler@jboss.com
  * @since 06-Jul-2011
  */
 @Ignore
 @RunWith(Arquillian.class)
-public class DynamicServicesTestCase {
+public class DeclarativeServicesTestCase {
 
     @Inject
     public BundleContext context;

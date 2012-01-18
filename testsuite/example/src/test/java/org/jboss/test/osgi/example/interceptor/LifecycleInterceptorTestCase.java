@@ -21,40 +21,44 @@
  */
 package org.jboss.test.osgi.example.interceptor;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.inject.Inject;
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServlet;
-
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
-import org.jboss.osgi.http.HttpServiceCapability;
+import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.jboss.test.osgi.example.HttpTestSupport;
 import org.jboss.test.osgi.example.interceptor.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.interceptor.bundle.HttpMetadata;
 import org.jboss.test.osgi.example.interceptor.bundle.InterceptorActivator;
 import org.jboss.test.osgi.example.interceptor.bundle.ParserInterceptor;
 import org.jboss.test.osgi.example.interceptor.bundle.PublisherInterceptor;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
-import org.osgi.service.startlevel.StartLevel;
+import org.osgi.service.repository.Repository;
+
+import javax.inject.Inject;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and
@@ -66,9 +70,8 @@ import org.osgi.service.startlevel.StartLevel;
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
-@Ignore
 @RunWith(Arquillian.class)
-public class LifecycleInterceptorTestCase {
+public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
 
     static final String PROCESSOR_NAME = "interceptor-processor";
     static final String ENDPOINT_NAME = "interceptor-endpoint";
@@ -82,12 +85,13 @@ public class LifecycleInterceptorTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
+        archive.addClasses(AbstractExampleTestCase.class, HttpTestSupport.class);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, HttpServiceCapability.class);
+                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -96,7 +100,7 @@ public class LifecycleInterceptorTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-
+        provideHttpService(context);
         Bundle procBundle = context.installBundle(PROCESSOR_NAME, deployer.getDeployment(PROCESSOR_NAME));
         try {
             procBundle.start();
@@ -151,7 +155,16 @@ public class LifecycleInterceptorTestCase {
         return archive;
     }
 
+    private HttpService provideHttpService(BundleContext context) throws BundleException {
+        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
+        if (sref == null) {
+            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_HTTP)).start();
+            sref = context.getServiceReference(HttpService.class.getName());
+        }
+        return (HttpService) context.getService(sref);
+    }
+
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpServiceCapability.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 }

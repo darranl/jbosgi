@@ -40,6 +40,7 @@ import org.osgi.service.repository.Repository;
 public abstract class AbstractExampleTestCase {
 
     public static final String APACHE_FELIX_CONFIGADMIN = "org.apache.felix:org.apache.felix.configadmin";
+    public static final String JBOSS_OSGI_HTTP = "org.jboss.osgi.http:jbosgi-http";
     public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
 
     protected Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {

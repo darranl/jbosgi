@@ -18,6 +18,7 @@
             </outputFileNameMapping>
             <includes>
                 <include>*:jbosgi-repository-maven:jar</include>
+                <include>*:jbosgi-http-api:jar</include>
             </includes>
             <useStrictFiltering>true</useStrictFiltering>
             <scope>provided</scope>

@@ -93,11 +93,6 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.http</groupId>
-            <artifactId>jbosgi-http</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.http</groupId>
             <artifactId>jbosgi-http-api</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -261,6 +256,10 @@
                                 <property>
                                     <name>org.apache.felix:org.apache.felix.configadmin</name>
                                     <value>${version.apache.felix.configadmin}</value>
+                                </property>
+                                <property>
+                                    <name>org.jboss.osgi.http:jbosgi-http</name>
+                                    <value>${version.jboss.osgi.http}</value>
                                 </property>
                                 <property>
                                     <name>org.jboss.osgi.xerces:jboss-osgi-xerces</name>

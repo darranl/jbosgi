@@ -151,11 +151,6 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.http</groupId>
-                <artifactId>jbosgi-http</artifactId>
-                <version>${version.jboss.osgi.http}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.http</groupId>
                 <artifactId>jbosgi-http-api</artifactId>
                 <version>${version.jboss.osgi.http}</version>
             </dependency>

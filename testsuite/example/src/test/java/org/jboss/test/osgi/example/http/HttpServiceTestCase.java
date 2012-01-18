@@ -21,35 +21,39 @@
  */
 package org.jboss.test.osgi.example.http;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.inject.Inject;
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServlet;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.http.HttpServiceCapability;
-import org.jboss.osgi.logging.LogServiceTracker;
+import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.jboss.test.osgi.example.HttpTestSupport;
 import org.jboss.test.osgi.example.http.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.http.bundle.HttpExampleActivator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.log.LogService;
+import org.osgi.service.repository.Repository;
 import org.osgi.service.startlevel.StartLevel;
 import org.osgi.util.tracker.ServiceTracker;
+
+import javax.inject.Inject;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes a bundle that containes a HttpServlet which is registered through the OSGi HttpService
@@ -57,9 +61,8 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author thomas.diesler@jboss.com
  * @since 23-Jan-2009
  */
-@Ignore
 @RunWith(Arquillian.class)
-public class HttpServiceTestCase {
+public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Inject
     public BundleContext context;
@@ -70,7 +73,7 @@ public class HttpServiceTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-http");
-        archive.addClasses(HttpExampleActivator.class, EndpointServlet.class);
+        archive.addClasses(HttpExampleActivator.class, EndpointServlet.class, AbstractExampleTestCase.class, HttpTestSupport.class);
         archive.addAsResource("http/message.txt", "res/message.txt");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
@@ -78,9 +81,9 @@ public class HttpServiceTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(HttpExampleActivator.class);
-                builder.addImportPackages(StartLevel.class, HttpService.class, LogService.class, BundleActivator.class, ServiceTracker.class);
-                builder.addImportPackages(HttpServiceCapability.class, LogServiceTracker.class);
+                builder.addImportPackages(HttpService.class, BundleActivator.class, ServiceTracker.class);
                 builder.addImportPackages(HttpServlet.class, Servlet.class);
+                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -89,6 +92,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
+        provideHttpService(context);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
@@ -96,6 +100,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testServletInitProps() throws Exception {
+        provideHttpService(context);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -103,6 +108,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testServletBundleContext() throws Exception {
+        provideHttpService(context);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=context", 5000);
         assertEquals("example-http", line);
@@ -110,12 +116,22 @@ public class HttpServiceTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
+        provideHttpService(context);
         bundle.start();
         String line = getHttpResponse("/example-http/file/message.txt", 5000);
         assertEquals("Hello from Resource", line);
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpServiceCapability.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+    }
+
+    private HttpService provideHttpService(BundleContext context) throws BundleException {
+        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
+        if (sref == null) {
+            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_HTTP)).start();
+            sref = context.getServiceReference(HttpService.class.getName());
+        }
+        return (HttpService) context.getService(sref);
     }
 }

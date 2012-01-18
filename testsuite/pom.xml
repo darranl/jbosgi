@@ -13,17 +13,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>JBossOSGi Testsuite</name>
-
-    <groupId>org.jboss.osgi.testsuite</groupId>
-    <artifactId>jboss-osgi-testsuite</artifactId>
-    <packaging>pom</packaging>
-
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jboss-osgi</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
+
+    <name>JBossOSGi Testsuite</name>
+
+    <groupId>org.jboss.osgi.testsuite</groupId>
+    <artifactId>jboss-osgi-testsuite</artifactId>
+    <packaging>pom</packaging>
 
     <!-- Modules -->
     <modules>
@@ -40,23 +40,8 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
-            <groupId>org.jboss.osgi.spi</groupId>
-            <artifactId>jbosgi-spi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.deployment</groupId>
-            <artifactId>jbosgi-deployment</artifactId>
-        </dependency>
-
-        <!-- Apache Aries Dependencies -->
-        <dependency>
-            <groupId>org.apache.aries.jmx</groupId>
-            <artifactId>org.apache.aries.jmx</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.aries</groupId>
-            <artifactId>org.apache.aries.util</artifactId>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-core</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -67,33 +52,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.eventadmin</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.metatype</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.osgi</groupId>
-            <artifactId>arquillian-osgi-bundle</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.blueprint</groupId>
-            <artifactId>jbosgi-blueprint</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.osgi.http</groupId>
             <artifactId>jbosgi-http-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.jmx</groupId>
-            <artifactId>jboss-osgi-jmx</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -111,38 +71,11 @@
             <artifactId>jbosgi-repository-maven</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.webapp</groupId>
-            <artifactId>jbosgi-webapp</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.webconsole</groupId>
-            <artifactId>jbosgi-webconsole</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
-        <!-- SLF4J Dependencies -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.enterprise</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- javax.* -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -172,35 +105,6 @@
 
     <!-- Profiles -->
     <profiles>
-
-        <profile>
-            <id>default-framework</id>
-            <activation>
-                <property>
-                    <name>!framework</name>
-                </property>
-            </activation>
-            <properties>
-                <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.osgi.framework</groupId>
-                    <artifactId>jbosgi-framework-core</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.osgi.resolver</groupId>
-                    <artifactId>jbosgi-resolver-felix</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.osgi.vfs</groupId>
-                    <artifactId>jbosgi-vfs30</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
 
         <profile>
             <id>embedded-testing</id>
@@ -237,10 +141,6 @@
                                     <value>${project.build.directory}/test-libs</value>
                                 </property>
                                 <property>
-                                    <name>jboss.osgi.framework.properties</name>
-                                    <value>${jboss.osgi.framework.properties}</value>
-                                </property>
-                                <property>
                                     <name>jboss.osgi.vfs.leakDebugging</name>
                                     <value>true</value>
                                 </property>
@@ -249,8 +149,20 @@
                                     <value>20000</value>
                                 </property>
                                 <property>
+                                    <name>org.apache.aries.jmx:org.apache.aries.jmx</name>
+                                    <value>${version.apache.aries.jmx}</value>
+                                </property>
+                                <property>
+                                    <name>org.apache.aries:org.apache.aries.util</name>
+                                    <value>${version.apache.aries.util}</value>
+                                </property>
+                                <property>
                                     <name>org.apache.felix:org.apache.felix.configadmin</name>
                                     <value>${version.apache.felix.configadmin}</value>
+                                </property>
+                                <property>
+                                    <name>org.apache.felix:org.apache.felix.eventadmin</name>
+                                    <value>${version.apache.felix.eventadmin}</value>
                                 </property>
                                 <property>
                                     <name>org.apache.felix:org.apache.felix.scr</name>
@@ -259,6 +171,10 @@
                                 <property>
                                     <name>org.jboss.osgi.http:jbosgi-http</name>
                                     <value>${version.jboss.osgi.http}</value>
+                                </property>
+                                <property>
+                                    <name>org.jboss.osgi.jmx:jboss-osgi-jmx</name>
+                                    <value>${version.jboss.osgi.jmx}</value>
                                 </property>
                                 <property>
                                     <name>org.jboss.osgi.webapp:jbosgi-webapp</name>

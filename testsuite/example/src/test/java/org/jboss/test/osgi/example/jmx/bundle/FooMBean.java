@@ -21,12 +21,9 @@
  */
 package org.jboss.test.osgi.example.jmx.bundle;
 
-import javax.management.ObjectName;
-
-import org.jboss.osgi.jmx.ObjectNameFactory;
-
 public interface FooMBean {
-    ObjectName MBEAN_NAME = ObjectNameFactory.create("jboss.osgi:service=mbean-test-service");
+
+    String MBEAN_NAME = "jboss.osgi:service=mbean-test-service";
 
     String echo(String msg);
 }

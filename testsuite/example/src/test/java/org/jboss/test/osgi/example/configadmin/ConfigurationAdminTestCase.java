@@ -45,7 +45,6 @@ import org.osgi.service.cm.ConfigurationEvent;
 import org.osgi.service.cm.ConfigurationListener;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.repository.Repository;
-import org.osgi.service.startlevel.StartLevel;
 
 import javax.inject.Inject;
 import java.io.InputStream;
@@ -83,7 +82,7 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, ConfigurationAdmin.class);
+                builder.addImportPackages(ConfigurationAdmin.class);
                 builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
@@ -140,7 +139,7 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
         }
     }
 
-    protected ConfigurationAdmin provideConfigurationAdmin(BundleContext context) throws BundleException {
+    private ConfigurationAdmin provideConfigurationAdmin(BundleContext context) throws BundleException {
         ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
         if (sref == null) {
             installSupportBundle(context, getCoordinates(context, APACHE_FELIX_CONFIGADMIN)).start();

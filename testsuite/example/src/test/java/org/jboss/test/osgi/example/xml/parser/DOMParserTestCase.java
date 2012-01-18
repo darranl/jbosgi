@@ -38,7 +38,6 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.repository.Repository;
-import org.osgi.service.startlevel.StartLevel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -79,7 +78,7 @@ public class DOMParserTestCase extends AbstractExampleTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, DocumentBuilder.class, Document.class);
+                builder.addImportPackages(DocumentBuilder.class, Document.class);
                 builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }

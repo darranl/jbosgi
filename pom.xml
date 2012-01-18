@@ -11,8 +11,13 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.osgi</groupId>
+        <artifactId>jboss-osgi-parent</artifactId>
+        <version>1.0.10</version>
+    </parent>
 
     <name>JBossOSGi</name>
 
@@ -21,12 +26,6 @@
     <packaging>pom</packaging>
 
     <version>1.0.1-SNAPSHOT</version>
-
-    <parent>
-        <groupId>org.jboss.osgi</groupId>
-        <artifactId>jboss-osgi-parent</artifactId>
-        <version>1.0.10</version>
-    </parent>
 
     <!-- Source Control -->
     <scm>
@@ -51,7 +50,6 @@
         <version.apache.felix.log>1.0.0</version.apache.felix.log>
         <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
-        <version.apache.felix.webconsole>3.1.6.SP1</version.apache.felix.webconsole>
         <version.izpack>4.3.1</version.izpack>
         <version.javax.servlet>2.5</version.javax.servlet>
         <version.jboss.arquillian.core>1.0.0.CR7</version.jboss.arquillian.core>
@@ -65,10 +63,8 @@
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.resolver>1.0.10</version.jboss.osgi.resolver>
         <version.jboss.osgi.repository>1.0.0-SNAPSHOT</version.jboss.osgi.repository>
-        <version.jboss.osgi.spi>1.0.28</version.jboss.osgi.spi>
         <version.jboss.osgi.vfs>1.0.6</version.jboss.osgi.vfs>
         <version.jboss.osgi.webapp>1.0.5</version.jboss.osgi.webapp>
-        <version.jboss.osgi.webconsole>1.0.6</version.jboss.osgi.webconsole>
         <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
         <version.jboss.shrinkwrap>1.0.0-cr-1</version.jboss.shrinkwrap>
         <version.log4j>1.2.14</version.log4j>
@@ -85,18 +81,6 @@
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
                 <version>${version.apache.ant}</version>
-            </dependency>
-
-            <!-- apache aries -->
-            <dependency>
-                <groupId>org.apache.aries.jmx</groupId>
-                <artifactId>org.apache.aries.jmx</artifactId>
-                <version>${version.apache.aries.jmx}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.aries</groupId>
-                <artifactId>org.apache.aries.util</artifactId>
-                <version>${version.apache.aries.util}</version>
             </dependency>
 
             <!-- Arquillian -->
@@ -130,11 +114,6 @@
 
             <!-- jboss.osgi -->
             <dependency>
-                <groupId>org.jboss.osgi.spi</groupId>
-                <artifactId>jbosgi-spi</artifactId>
-                <version>${version.jboss.osgi.spi}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jboss.osgi.blueprint</groupId>
                 <artifactId>jbosgi-blueprint</artifactId>
                 <version>${version.jboss.osgi.blueprint}</version>
@@ -153,11 +132,6 @@
                 <groupId>org.jboss.osgi.http</groupId>
                 <artifactId>jbosgi-http-api</artifactId>
                 <version>${version.jboss.osgi.http}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.jmx</groupId>
-                <artifactId>jboss-osgi-jmx</artifactId>
-                <version>${version.jboss.osgi.jmx}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.logging</groupId>
@@ -199,33 +173,8 @@
                 <artifactId>jbosgi-vfs30</artifactId>
                 <version>${version.jboss.osgi.vfs}</version>
             </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.webapp</groupId>
-                <artifactId>jbosgi-webapp</artifactId>
-                <version>${version.jboss.osgi.webapp}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.webconsole</groupId>
-                <artifactId>jbosgi-webconsole</artifactId>
-                <version>${version.jboss.osgi.webconsole}</version>
-            </dependency>
 
             <!-- Felix Dependencies -->
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.eventadmin</artifactId>
-                <version>${version.apache.felix.eventadmin}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.osgi</groupId>
-                        <artifactId>org.osgi.core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.osgi</groupId>
-                        <artifactId>org.osgi.compendium</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.log</artifactId>
@@ -256,11 +205,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.webconsole</artifactId>
-                <version>${version.apache.felix.webconsole}</version>
-            </dependency>
 
             <!-- javax.* -->
             <dependency>
@@ -285,7 +229,11 @@
                 <artifactId>org.osgi.compendium</artifactId>
                 <version>${version.osgi}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.enterprise</artifactId>
+                <version>${version.osgi}</version>
+            </dependency>
 
             <!-- org.slf4j -->
             <dependency>

@@ -21,33 +21,36 @@
  */
 package org.jboss.test.osgi.example.eventadmin;
 
-import static org.junit.Assert.assertEquals;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XResource;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Resource;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
+import org.osgi.service.repository.Repository;
 
+import javax.inject.Inject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.Asset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventAdmin;
-import org.osgi.service.event.EventConstants;
-import org.osgi.service.event.EventHandler;
-import org.osgi.service.startlevel.StartLevel;
+import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.
@@ -55,9 +58,8 @@ import org.osgi.service.startlevel.StartLevel;
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
-@Ignore
 @RunWith(Arquillian.class)
-public class EventAdminTestCase {
+public class EventAdminTestCase extends AbstractExampleTestCase {
 
     static String TOPIC = "org/jboss/test/osgi/example/event";
 
@@ -70,12 +72,14 @@ public class EventAdminTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-eventadmin");
+        archive.addClasses(AbstractExampleTestCase.class);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, EventAdmin.class);
+                builder.addImportPackages(EventAdmin.class);
+                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -98,13 +102,21 @@ public class EventAdminTestCase {
         context.registerService(EventHandler.class.getName(), eventHandler, param);
 
         // Send event through the the EventAdmin
-        ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
-        EventAdmin eventAdmin = (EventAdmin) context.getService(sref);
+        EventAdmin eventAdmin = provideEventAdmin(context);
         eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
 
         // Verify received event
         assertEquals("Event received", 1, eventHandler.received.size());
         assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+    }
+
+    private EventAdmin provideEventAdmin(BundleContext context) throws BundleException {
+        ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
+        if (sref == null) {
+            installSupportBundle(context, getCoordinates(context, APACHE_FELIX_EVENTADMIN)).start();
+            sref = context.getServiceReference(EventAdmin.class.getName());
+        }
+        return (EventAdmin) context.getService(sref);
     }
 
     static class TestEventHandler implements EventHandler {

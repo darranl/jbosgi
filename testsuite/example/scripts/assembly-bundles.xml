@@ -17,6 +17,8 @@
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}
             </outputFileNameMapping>
             <includes>
+                <include>*:org.apache.felix.log:jar</include>
+                <include>*:org.osgi.enterprise:jar</include>
                 <include>*:jbosgi-repository-maven:jar</include>
                 <include>*:jbosgi-http-api:jar</include>
                 <include>*:jboss-osgi-logging:jar</include>

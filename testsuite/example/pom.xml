@@ -17,225 +17,89 @@
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <name>JBossOSGi Testsuite Examples</name>
+    <parent>
+        <groupId>org.jboss.osgi.testsuite</groupId>
+        <artifactId>jboss-osgi-testsuite</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
 
-  <groupId>org.jboss.osgi.testsuite</groupId>
-  <artifactId>jboss-osgi-testsuite-example</artifactId>
-  <packaging>jar</packaging>
+    <name>JBossOSGi Testsuite Examples</name>
 
-  <parent>
     <groupId>org.jboss.osgi.testsuite</groupId>
-    <artifactId>jboss-osgi-testsuite</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+    <artifactId>jboss-osgi-testsuite-example</artifactId>
+    <packaging>jar</packaging>
 
-  <!-- Properties -->
-  <properties>
-  </properties>
-
-  <!-- Dependencies -->
-  <dependencies>
-  </dependencies>
-
-  <!-- Build -->
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>bundles</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>directory-single</goal>
-            </goals>
-            <configuration>
-              <finalName>test-libs</finalName>
-              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>scripts/assembly-bundles.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-          <execution>
-            <id>examples</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>scripts/assembly-examples-zip.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-artifacts</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>target/${project.artifactId}-${project.version}.zip</file>
-                  <type>zip</type>
-                </artifact>
-              </artifacts>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
-  <!-- Repositories -->
-  <repositories>
-    <!-- Define the JBoss Repository here because the examples are distributed standalone -->
-    <repository>
-      <id>jboss-public-repository-group</id>
-      <name>JBoss Public Maven Repository Group</name>
-      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-    </repository>
-  </repositories>
-
-  <!-- Profiles -->
-  <profiles>
-
-    <profile>
-      <id>framework-equinox</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>equinox</value>
-        </property>
-      </activation>
-      <build>
+    <!-- Build -->
+    <build>
         <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium-equinox.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- Functionality not supported in Equinox -->
-                <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppInterceptorTestCase.class</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundles</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>directory-single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>test-libs</finalName>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-bundles.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>examples</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-examples-zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>target/${project.artifactId}-${project.version}.zip</file>
+                                    <type>zip</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
+    </build>
 
-    <profile>
-      <id>framework-felix</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>felix</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- Functionality not supported in Felix -->
-                <exclude>org/jboss/test/osgi/example/interceptor/**</exclude>
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppNegativeTestCase.class</exclude>
-                <exclude>org/jboss/test/osgi/example/webapp/WebAppInterceptorTestCase.class</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>framework-default</id>
-      <activation>
-        <property>
-          <name>!framework</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-  </profiles>
+    <!-- Repositories -->
+    <repositories>
+        <!-- Define the JBoss Repository here because the examples are distributed standalone -->
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
 </project>

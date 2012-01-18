@@ -21,14 +21,6 @@
  */
 package org.jboss.test.osgi.example.blueprint;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.InputStream;
-
-import javax.inject.Inject;
-import javax.management.MBeanServer;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
@@ -46,7 +38,13 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.blueprint.container.BlueprintContainer;
-import org.osgi.service.startlevel.StartLevel;
+
+import javax.inject.Inject;
+import javax.management.MBeanServer;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * A simple Blueprint Container test.
@@ -74,7 +72,7 @@ public class BlueprintTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, BlueprintContainer.class, MBeanServer.class);
+                builder.addImportPackages(BlueprintContainer.class, MBeanServer.class);
                 return builder.openStream();
             }
         });

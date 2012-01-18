@@ -23,6 +23,7 @@ package org.jboss.test.osgi.example.jmx.bundle;
 
 import javax.management.JMException;
 import javax.management.MBeanServer;
+import javax.management.ObjectName;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -63,7 +64,8 @@ public class MBeanActivator implements BundleActivator {
 
     private void registerMBean(MBeanServer mbeanServer) {
         try {
-            mbeanServer.registerMBean(new Foo(), FooMBean.MBEAN_NAME);
+            ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
+            mbeanServer.registerMBean(new Foo(), oname);
         } catch (JMException ex) {
             throw new IllegalStateException(ex);
         }
@@ -71,8 +73,9 @@ public class MBeanActivator implements BundleActivator {
 
     private void unregisterMBean(MBeanServer mbeanServer) {
         try {
-            if (mbeanServer.isRegistered(FooMBean.MBEAN_NAME))
-                mbeanServer.unregisterMBean(FooMBean.MBEAN_NAME);
+            ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
+            if (mbeanServer.isRegistered(oname))
+                mbeanServer.unregisterMBean(oname);
         } catch (JMException ex) {
             throw new IllegalStateException(ex);
         }

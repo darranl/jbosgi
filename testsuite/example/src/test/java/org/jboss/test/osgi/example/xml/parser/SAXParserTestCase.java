@@ -39,7 +39,6 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.repository.Repository;
-import org.osgi.service.startlevel.StartLevel;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -78,7 +77,7 @@ public class SAXParserTestCase extends AbstractExampleTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(StartLevel.class, SAXParser.class, DefaultHandler.class, SAXException.class);
+                builder.addImportPackages(SAXParser.class, DefaultHandler.class, SAXException.class);
                 builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }

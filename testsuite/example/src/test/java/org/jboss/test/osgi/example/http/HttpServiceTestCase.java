@@ -42,9 +42,7 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
-import org.osgi.service.log.LogService;
 import org.osgi.service.repository.Repository;
-import org.osgi.service.startlevel.StartLevel;
 import org.osgi.util.tracker.ServiceTracker;
 
 import javax.inject.Inject;

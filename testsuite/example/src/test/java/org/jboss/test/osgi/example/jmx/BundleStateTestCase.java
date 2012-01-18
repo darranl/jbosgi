@@ -21,31 +21,34 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.InputStream;
-
-import javax.inject.Inject;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.openmbean.TabularData;
-
-import org.apache.aries.jmx.framework.BundleState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.jmx.MBeanProxy;
+import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
+import org.jboss.test.osgi.example.AbstractExampleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Resource;
 import org.osgi.jmx.framework.BundleStateMBean;
-import org.osgi.service.startlevel.StartLevel;
+import org.osgi.service.repository.Repository;
+
+import javax.inject.Inject;
+import javax.management.MBeanServer;
+import javax.management.MBeanServerConnection;
+import javax.management.MBeanServerInvocationHandler;
+import javax.management.ObjectName;
+import javax.management.openmbean.TabularData;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test {@link BundleState} functionality
@@ -53,9 +56,8 @@ import org.osgi.service.startlevel.StartLevel;
  * @author thomas.diesler@jboss.com
  * @since 15-Feb-2010
  */
-@Ignore
 @RunWith(Arquillian.class)
-public class BundleStateTestCase {
+public class BundleStateTestCase extends AbstractExampleTestCase {
 
     @Inject
     public BundleContext context;
@@ -63,13 +65,15 @@ public class BundleStateTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-bundlestate");
+        archive.addClasses(AbstractExampleTestCase.class);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(BundleStateMBean.class);
-                builder.addImportPackages(StartLevel.class, MBeanServer.class, MBeanProxy.class, TabularData.class);
+                builder.addImportPackages(MBeanServer.class, TabularData.class);
+                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -79,15 +83,30 @@ public class BundleStateTestCase {
     @Test
     public void testBundleStateMBean() throws Exception {
 
-        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-        MBeanServer server = (MBeanServer) context.getService(sref);
+        MBeanServer server = provideMBeanServer(context);
 
         ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
-        BundleStateMBean bundleState = MBeanProxy.get(server, oname, BundleStateMBean.class);
+        BundleStateMBean bundleState = getMBeanProxy(server, oname, BundleStateMBean.class);
         assertNotNull("BundleStateMBean not null", bundleState);
 
         TabularData bundleData = bundleState.listBundles();
         assertNotNull("TabularData not null", bundleData);
         assertFalse("TabularData not empty", bundleData.isEmpty());
+    }
+
+    private MBeanServer provideMBeanServer(BundleContext context) throws BundleException {
+        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+        if (sref == null) {
+            installSupportBundle(context, getCoordinates(context, APACHE_ARIES_UTIL)).start();
+            installSupportBundle(context, getCoordinates(context, APACHE_ARIES_JMX)).start();
+            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_JMX)).start();
+            sref = context.getServiceReference(MBeanServer.class.getName());
+        }
+        return (MBeanServer) context.getService(sref);
+    }
+
+    private <T> T getMBeanProxy(MBeanServerConnection server, ObjectName name, Class<T> interf)
+    {
+        return (T) MBeanServerInvocationHandler.newProxyInstance(server, name, interf, false);
     }
 }

@@ -40,7 +40,6 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.repository.Repository;
-import org.osgi.service.startlevel.StartLevel;
 
 import javax.inject.Inject;
 import javax.servlet.Servlet;
@@ -80,7 +79,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
-                builder.addImportPackages(StartLevel.class, HttpServlet.class, Servlet.class);
+                builder.addImportPackages(HttpServlet.class, Servlet.class);
                 builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
@@ -98,6 +97,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletInitProps() throws Exception {
+        provideWebappSupport(context);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -105,6 +105,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
+        provideWebappSupport(context);
         bundle.start();
         String line = getHttpResponse("/example-webapp/message.txt", 5000);
         assertEquals("Hello from Resource", line);

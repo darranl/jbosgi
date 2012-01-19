@@ -9,196 +9,40 @@
 <!-- -->
 <!-- ====================================================================== -->
 
-<!-- Set these VM properties in your IDE debugger -Dlog4j.output.dir=${workspace_loc:jboss-osgi-testsuite-functional/target} 
-  -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-functional/target}/test-libs -->
+<!--
+    Set these VM properties in your IDE debugger
+
+    -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-functional/target}/test-libs
+-->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <name>JBossOSGi Testsuite Functional</name>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.jboss.osgi.testsuite</groupId>
-  <artifactId>jboss-osgi-testsuite-functional</artifactId>
-  <packaging>jar</packaging>
+    <name>JBossOSGi Testsuite Functional</name>
 
-  <parent>
     <groupId>org.jboss.osgi.testsuite</groupId>
-    <artifactId>jboss-osgi-testsuite</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+    <artifactId>jboss-osgi-testsuite-functional</artifactId>
+    <packaging>jar</packaging>
 
-  <!-- Properties -->
-  <properties>
-  </properties>
+    <parent>
+        <groupId>org.jboss.osgi.testsuite</groupId>
+        <artifactId>jboss-osgi-testsuite</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
 
-  <!-- Dependencies -->
-  <dependencies>
-    <dependency>
-      <groupId>biz.aQute</groupId>
-      <artifactId>bnd</artifactId>
-    </dependency>
-  </dependencies>
-
-  <!-- Profiles -->
-  <profiles>
-
-    <profile>
-      <id>noprepare</id>
-      <activation>
-        <property>
-          <name>!noprepare</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>bundles</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-bundles.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>framework-equinox</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>equinox</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium-equinox.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- [JBOSGI-206] Wire to an already uninstalled bundle -->
-                <exclude>org/jboss/test/osgi/jbosgi39/**</exclude>
-                <!-- [JBOSGI-108] Investigate statics on PackageAdmin.refresh -->
-                <exclude>org/jboss/test/osgi/jbosgi108/**</exclude>
-                <!-- [JBOSGI-214] Cannot repeatedly register service bound 
-                  to an interface from the system classpath -->
-                <exclude>org/jboss/test/osgi/jbosgi214/**</exclude>
-                <!-- [JBOSGI-286] Investigate classloading of javax.* classes -->
-                <exclude>org/jboss/test/osgi/jbosgi286/**</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>framework-felix</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>felix</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>framework-default</id>
-      <activation>
-        <property>
-          <name>!framework</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-  </profiles>
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>biz.aQute</groupId>
+            <artifactId>bnd</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

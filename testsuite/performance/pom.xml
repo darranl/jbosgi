@@ -1,300 +1,281 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
 
-  <!-- 
-     Set these VM properties in your IDE debugger 
-    
-      -Dlog4j.output.dir=${workspace_loc:jboss-osgi-testsuite-performance/target}
-      -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-performance/target}/test-libs
-  -->
-  
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
+<!--
+   Set these VM properties in your IDE debugger
+
+    -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-performance/target}/test-libs
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.osgi.testsuite</groupId>
+        <artifactId>jboss-osgi-testsuite</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+
+    <name>JBossOSGi Testsuite Performance</name>
+
     <groupId>org.jboss.osgi.testsuite</groupId>
-    <artifactId>jboss-osgi-testsuite</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+    <artifactId>jboss-osgi-testsuite-performance</artifactId>
 
-  <groupId>org.jboss.osgi.testsuite</groupId>
-  <artifactId>jboss-osgi-testsuite-performance</artifactId>
-  <name>JBossOSGi Testsuite Performance</name>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>bundles</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>directory-single</goal>
-            </goals>
-            <configuration>
-              <finalName>test-libs</finalName>
-              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>scripts/assembly-bundles.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
-  <profiles>
     <!-- Profiles -->
+    <profiles>
 
-    <profile>
-      <id>framework-equinox</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>equinox</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium-equinox.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>framework-felix</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>felix</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>framework-jboss</id>
-      <activation>
-        <property>
-          <name>framework</name>
-          <value>jboss</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>default-framework</id>
-      <activation>
-        <property>
-          <name>!framework</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compendium</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>directory-single</goal>
-                </goals>
-                <configuration>
-                  <finalName>test-libs</finalName>
-                  <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-                  <appendAssemblyId>false</appendAssemblyId>
-                  <descriptors>
-                    <descriptor>scripts/assembly-compendium.xml</descriptor>
-                  </descriptors>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <!-- Smoke Tests Profile -->
-    <profile>
-      <id>default-no-bench</id>
-      <activation>
-        <property>
-          <name>!bench</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <forkMode>always</forkMode>
-              <useSystemClassLoader>true</useSystemClassLoader>
-              <useManifestOnlyJar>false</useManifestOnlyJar>
-              <includes>
-                <include>**/basic/*TestCase.java</include>
-                <include>**/*SmokeTestCase.java</include>
-              </includes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    
-    <!-- Benchmark Profile -->
-    <profile>
-      <id>bench</id>
-      <activation>
-        <property>
-          <name>bench</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <argLine>-da -Xms1024m -Xmx1536m -Dframework=${framework}</argLine>
-              <forkMode>always</forkMode>
-              <useSystemClassLoader>true</useSystemClassLoader>
-              <useManifestOnlyJar>false</useManifestOnlyJar>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
+        <profile>
+            <id>framework-equinox</id>
+            <activation>
+                <property>
+                    <name>framework</name>
+                    <value>equinox</value>
+                </property>
+            </activation>
             <dependencies>
-              <dependency>
-                <groupId>ant</groupId>
-                <artifactId>ant-trax</artifactId>
-                <version>1.6.5</version>
-              </dependency>
+                <dependency>
+                    <groupId>org.jboss.osgi.equinox</groupId>
+                    <artifactId>jboss-osgi-equinox</artifactId>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <configuration>
-                  <tasks>
-                    <property name="testsfile" value="target/performance-tests.xml" />
-                    <echo message="&lt;tests&gt;" file="${testsfile}" />
-                    <concat destfile="${testsfile}" append="true">
-                      <fileset dir="target/performance-results" includes="*.xml" />
-                    </concat>
-                    <echo message="&lt;/tests&gt;" file="${testsfile}" append="true" />
-                    <xslt in="${testsfile}" out="target/performance-report.html" style="src/test/xslt/performance-report.xsl" />
-                  </tasks>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>compendium</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>directory-single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>test-libs</finalName>
+                                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <descriptors>
+                                        <descriptor>scripts/assembly-compendium-equinox.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-    <!-- 
-      Name: runtime-testing 
-      Descr: Setup for runtime integration testing 
-    -->
-    <profile>
-      <id>runtime-testing</id>
-      <activation>
-        <property>
-          <name>target.container</name>
-          <value>runtime</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-              </excludes>
-            </configuration>
-          </plugin>        
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+        <profile>
+            <id>framework-felix</id>
+            <activation>
+                <property>
+                    <name>framework</name>
+                    <value>felix</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.osgi.felix</groupId>
+                    <artifactId>jboss-osgi-felix</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>compendium</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>directory-single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>test-libs</finalName>
+                                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <descriptors>
+                                        <descriptor>scripts/assembly-compendium.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>framework-jboss</id>
+            <activation>
+                <property>
+                    <name>framework</name>
+                    <value>jboss</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.osgi.framework</groupId>
+                    <artifactId>jbosgi-framework-core</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>compendium</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>directory-single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>test-libs</finalName>
+                                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <descriptors>
+                                        <descriptor>scripts/assembly-compendium.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>default-framework</id>
+            <activation>
+                <property>
+                    <name>!framework</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.osgi.framework</groupId>
+                    <artifactId>jbosgi-framework-core</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>compendium</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>directory-single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>test-libs</finalName>
+                                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <descriptors>
+                                        <descriptor>scripts/assembly-compendium.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Smoke Tests Profile -->
+        <profile>
+            <id>default-no-bench</id>
+            <activation>
+                <property>
+                    <name>!bench</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <forkMode>always</forkMode>
+                            <useSystemClassLoader>true</useSystemClassLoader>
+                            <useManifestOnlyJar>false</useManifestOnlyJar>
+                            <includes>
+                                <include>**/basic/*TestCase.java</include>
+                                <include>**/*SmokeTestCase.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Benchmark Profile -->
+        <profile>
+            <id>bench</id>
+            <activation>
+                <property>
+                    <name>bench</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>-da -Xms1024m -Xmx1536m -Dframework=${framework}</argLine>
+                            <forkMode>always</forkMode>
+                            <useSystemClassLoader>true</useSystemClassLoader>
+                            <useManifestOnlyJar>false</useManifestOnlyJar>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+                                <groupId>ant</groupId>
+                                <artifactId>ant-trax</artifactId>
+                                <version>1.6.5</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <configuration>
+                                    <tasks>
+                                        <property name="testsfile" value="target/performance-tests.xml"/>
+                                        <echo message="&lt;tests&gt;" file="${testsfile}"/>
+                                        <concat destfile="${testsfile}" append="true">
+                                            <fileset dir="target/performance-results" includes="*.xml"/>
+                                        </concat>
+                                        <echo message="&lt;/tests&gt;" file="${testsfile}" append="true"/>
+                                        <xslt in="${testsfile}" out="target/performance-report.html"
+                                              style="src/test/xslt/performance-report.xsl"/>
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -39,11 +39,6 @@
 
     <!-- Dependencies -->
     <dependencies>
-        <dependency>
-            <groupId>org.jboss.osgi.framework</groupId>
-            <artifactId>jbosgi-framework-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- Bundle Dependencies -->
         <dependency>
@@ -143,10 +138,6 @@
                                 <property>
                                     <name>jboss.osgi.vfs.leakDebugging</name>
                                     <value>true</value>
-                                </property>
-                                <property>
-                                    <name>org.jboss.osgi.framework.start.timeout</name>
-                                    <value>20000</value>
                                 </property>
                                 <property>
                                     <name>org.apache.aries.jmx:org.apache.aries.jmx</name>

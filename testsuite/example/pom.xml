@@ -32,6 +32,15 @@
     <artifactId>jboss-osgi-testsuite-example</artifactId>
     <packaging>jar</packaging>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <!-- Build -->
     <build>
         <plugins>

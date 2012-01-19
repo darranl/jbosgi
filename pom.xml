@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jboss-osgi-parent</artifactId>
-        <version>1.0.10</version>
+        <version>1.0.12</version>
     </parent>
 
     <name>JBossOSGi</name>
@@ -50,6 +50,7 @@
         <version.apache.felix.log>1.0.0</version.apache.felix.log>
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
         <version.izpack>4.3.1</version.izpack>
+        <version.jbossas.710>7.1.0.Final-SNAPSHOT</version.jbossas.710>
         <version.jboss.arquillian.core>1.0.0.CR7</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>1.0.0.CR5</version.jboss.arquillian.osgi>
         <version.jboss.logmanager>1.2.0.GA</version.jboss.logmanager>

@@ -38,11 +38,24 @@
             <groupId>biz.aQute</groupId>
             <artifactId>bnd</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.framework</groupId>
-            <artifactId>jbosgi-framework-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+            <id>embedded-testing</id>
+            <activation>
+                <property>
+                    <name>!target.container</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.osgi.framework</groupId>
+                    <artifactId>jbosgi-framework-core</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>

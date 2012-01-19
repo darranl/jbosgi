@@ -63,7 +63,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository-maven</artifactId>
+            <artifactId>jbosgi-repository</artifactId>
             <scope>provided</scope>
         </dependency>
 

@@ -24,7 +24,6 @@ package org.jboss.test.osgi.example.xml.parser;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -78,7 +77,7 @@ public class SAXParserTestCase extends AbstractExampleTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(SAXParser.class, DefaultHandler.class, SAXException.class);
-                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -110,7 +109,7 @@ public class SAXParserTestCase extends AbstractExampleTestCase {
     private SAXParserFactory provideSAXParserFactory(BundleContext context) throws BundleException, InvalidSyntaxException {
         ServiceReference sref = context.getServiceReference(SAXParserFactory.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_XERCES)).start();
+            installSupportBundle(context, getCoordinates(JBOSS_OSGI_XERCES)).start();
             sref = context.getServiceReference(SAXParserFactory.class.getName());
         }
         return (SAXParserFactory) context.getService(sref);

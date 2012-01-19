@@ -30,7 +30,13 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.resource.Capability;
+import org.osgi.framework.resource.Requirement;
 import org.osgi.service.repository.Repository;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -49,20 +55,34 @@ public abstract class AbstractExampleTestCase {
     public static final String JBOSS_OSGI_WEBAPP = "org.jboss.osgi.webapp:jbosgi-webapp";
     public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
 
+    // [TODO] generate this map from the POM somehow
+    private static Map<String, String> versionmap = new HashMap<String,String>();
+    static {
+        versionmap.put(APACHE_ARIES_JMX, "0.3");
+        versionmap.put(APACHE_ARIES_UTIL, "0.3");
+        versionmap.put(APACHE_FELIX_CONFIGADMIN, "1.2.8");
+        versionmap.put(APACHE_FELIX_EVENTADMIN, "1.2.6");
+        versionmap.put(APACHE_FELIX_SCR, "1.6.0");
+        versionmap.put(JBOSS_OSGI_HTTP, "1.0.5");
+        versionmap.put(JBOSS_OSGI_JMX, "1.0.10");
+        versionmap.put(JBOSS_OSGI_WEBAPP, "1.0.5");
+        versionmap.put(JBOSS_OSGI_XERCES, "2.9.1.SP7");
+    }
+
     protected Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
-        XRepository repository = getRepository(context);
+        XRepository repository = (XRepository) getRepository(context);
         RequirementBuilder builder = repository.getRequirementBuilder();
-        XRequirement req = builder.createArtifactRequirement(coordinates);
-        XCapability cap = repository.findProvider(req);
+        Requirement req = builder.createArtifactRequirement(coordinates);
+        Capability cap = repository.findProviders(req).iterator().next();
         return context.installBundle(coordinates, cap.getResource().getContent());
     }
 
-    protected XRepository getRepository(BundleContext context) {
+    protected Repository getRepository(BundleContext context) {
         ServiceReference sref = context.getServiceReference(Repository.class.getName());
-        return (XRepository) context.getService(sref);
+        return (Repository) context.getService(sref);
     }
 
-    protected String getCoordinates(BundleContext context, String artifactid) {
-        return artifactid + ":" + context.getProperty(artifactid);
+    protected String getCoordinates(String artifactid) {
+        return artifactid + ":" + versionmap.get(artifactid);
     }
 }

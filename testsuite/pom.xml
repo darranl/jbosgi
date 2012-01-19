@@ -109,42 +109,6 @@
                             <value>true</value>
                         </property>
                         <property>
-                            <name>org.apache.aries.jmx:org.apache.aries.jmx</name>
-                            <value>${version.apache.aries.jmx}</value>
-                        </property>
-                        <property>
-                            <name>org.apache.aries:org.apache.aries.util</name>
-                            <value>${version.apache.aries.util}</value>
-                        </property>
-                        <property>
-                            <name>org.apache.felix:org.apache.felix.configadmin</name>
-                            <value>${version.apache.felix.configadmin}</value>
-                        </property>
-                        <property>
-                            <name>org.apache.felix:org.apache.felix.eventadmin</name>
-                            <value>${version.apache.felix.eventadmin}</value>
-                        </property>
-                        <property>
-                            <name>org.apache.felix:org.apache.felix.scr</name>
-                            <value>${version.apache.felix.scr}</value>
-                        </property>
-                        <property>
-                            <name>org.jboss.osgi.http:jbosgi-http</name>
-                            <value>${version.jboss.osgi.http}</value>
-                        </property>
-                        <property>
-                            <name>org.jboss.osgi.jmx:jboss-osgi-jmx</name>
-                            <value>${version.jboss.osgi.jmx}</value>
-                        </property>
-                        <property>
-                            <name>org.jboss.osgi.webapp:jbosgi-webapp</name>
-                            <value>${version.jboss.osgi.webapp}</value>
-                        </property>
-                        <property>
-                            <name>org.jboss.osgi.xerces:jboss-osgi-xerces</name>
-                            <value>${version.jboss.osgi.xerces}</value>
-                        </property>
-                        <property>
                             <name>test.archive.directory</name>
                             <value>${project.build.directory}/test-libs</value>
                         </property>

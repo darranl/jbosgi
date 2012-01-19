@@ -28,7 +28,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -91,7 +90,7 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -158,7 +157,7 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
     private HttpService provideHttpService(BundleContext context) throws BundleException {
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(context, getCoordinates(JBOSS_OSGI_HTTP)).start();
             sref = context.getServiceReference(HttpService.class.getName());
         }
         return (HttpService) context.getService(sref);

@@ -25,7 +25,6 @@ package org.jboss.test.osgi.example.configadmin;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -83,7 +82,7 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(ConfigurationAdmin.class);
-                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -142,7 +141,7 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
     private ConfigurationAdmin provideConfigurationAdmin(BundleContext context) throws BundleException {
         ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(context, APACHE_FELIX_CONFIGADMIN)).start();
+            installSupportBundle(context, getCoordinates(APACHE_FELIX_CONFIGADMIN)).start();
             sref = context.getServiceReference(ConfigurationAdmin.class.getName());
         }
         return (ConfigurationAdmin) context.getService(sref);

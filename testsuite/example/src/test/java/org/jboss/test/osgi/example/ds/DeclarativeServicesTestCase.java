@@ -21,18 +21,9 @@
  */
 package org.jboss.test.osgi.example.ds;
 
-import java.io.InputStream;
-import java.util.Comparator;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -47,6 +38,13 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
+
+import javax.inject.Inject;
+import java.io.InputStream;
+import java.util.Comparator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Example for Declarative Services
@@ -75,7 +73,7 @@ public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
                 builder.addImportPackages(ServiceTracker.class);
-                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -106,7 +104,7 @@ public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
 
     private void provideDeclarativeServices(BundleContext context) throws BundleException {
         if (context.getServiceReference("org.apache.felix.scr.ScrService") == null) {
-            installSupportBundle(context, getCoordinates(context, APACHE_FELIX_SCR)).start();
+            installSupportBundle(context, getCoordinates(APACHE_FELIX_SCR)).start();
         }
     }
 }

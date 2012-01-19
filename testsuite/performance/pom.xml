@@ -34,6 +34,25 @@
     <profiles>
 
         <profile>
+            <id>remote-target-container</id>
+            <activation>
+                <property>
+                    <name>target.container</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
             <id>framework-equinox</id>
             <activation>
                 <property>

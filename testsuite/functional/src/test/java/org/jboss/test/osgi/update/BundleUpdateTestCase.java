@@ -21,16 +21,12 @@
  */
 package org.jboss.test.osgi.update;
 
-import java.io.InputStream;
-
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.osgi.testing.OSGiTest;
+import org.jboss.osgi.testing.OSGiTestHelper;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -42,11 +38,20 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Version;
 
+import javax.inject.Inject;
+import java.io.InputStream;
+
+import static org.jboss.osgi.testing.OSGiTestHelper.assertLoadClass;
+import static org.jboss.osgi.testing.OSGiTestHelper.assertLoadClassFail;
+
 /**
+ * Test Bundle.update();
+ *
  * @author <a href="david@redhat.com">David Bosschaert</a>
+ * @author Thomas.Diesler@jboss.com
  */
 @RunWith(Arquillian.class)
-public class BundleUpdateTestCase extends OSGiTest {
+public class BundleUpdateTestCase {
 
     @Inject
     public BundleContext context;
@@ -56,7 +61,17 @@ public class BundleUpdateTestCase extends OSGiTest {
 
     @Deployment
     public static JavaArchive create() {
-        return ShrinkWrap.create(JavaArchive.class, "bundle-update-test");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bundle-update-test");
+        archive.addClasses(OSGiTestHelper.class);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                return builder.openStream();
+            }
+        });
+        return archive;
     }
 
     @Test

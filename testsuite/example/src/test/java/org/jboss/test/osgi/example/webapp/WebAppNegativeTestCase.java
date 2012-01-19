@@ -25,7 +25,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.v2.XResource;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -80,7 +79,7 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
                 builder.addImportPackages(LifecycleInterceptorException.class);
                 builder.addImportPackages(HttpServlet.class, Servlet.class);
-                builder.addImportPackages(XRepository.class, XResource.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         }, JarFile.MANIFEST_NAME);
@@ -101,13 +100,13 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
 
     private void provideHttpService(BundleContext context) throws BundleException {
         if (context.getServiceReference("org.osgi.service.http.HttpService") == null)
-            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(context, getCoordinates(JBOSS_OSGI_HTTP)).start();
     }
 
     private void provideWebappSupport(BundleContext context) throws BundleException {
         provideHttpService(context);
         if (context.getServiceReference("org.jboss.osgi.webapp.WebAppService") == null) {
-            installSupportBundle(context, getCoordinates(context, JBOSS_OSGI_WEBAPP)).start();
+            installSupportBundle(context, getCoordinates(JBOSS_OSGI_WEBAPP)).start();
         }
     }
 }

@@ -22,10 +22,9 @@
 
 package org.jboss.test.osgi.example;
 
-import org.jboss.osgi.repository.RequirementBuilder;
+import org.jboss.osgi.repository.MavenCoordinates;
+import org.jboss.osgi.repository.RepositoryRequirementBuilder;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.v2.XCapability;
-import org.jboss.osgi.resolver.v2.XRequirement;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -34,7 +33,6 @@ import org.osgi.framework.resource.Capability;
 import org.osgi.framework.resource.Requirement;
 import org.osgi.service.repository.Repository;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,8 +69,8 @@ public abstract class AbstractExampleTestCase {
 
     protected Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
         XRepository repository = (XRepository) getRepository(context);
-        RequirementBuilder builder = repository.getRequirementBuilder();
-        Requirement req = builder.createArtifactRequirement(coordinates);
+        RepositoryRequirementBuilder builder = repository.getRequirementBuilder();
+        Requirement req = builder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
         Capability cap = repository.findProviders(req).iterator().next();
         return context.installBundle(coordinates, cap.getResource().getContent());
     }

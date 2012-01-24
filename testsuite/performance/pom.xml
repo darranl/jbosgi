@@ -229,9 +229,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <forkMode>always</forkMode>
-                            <useSystemClassLoader>true</useSystemClassLoader>
-                            <useManifestOnlyJar>false</useManifestOnlyJar>
                             <includes>
                                 <include>**/basic/*TestCase.java</include>
                                 <include>**/*SmokeTestCase.java</include>

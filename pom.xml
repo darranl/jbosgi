@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jboss-osgi-parent</artifactId>
-        <version>1.0.13</version>
+        <version>1.0.15</version>
     </parent>
 
     <name>JBossOSGi</name>
@@ -60,7 +60,7 @@
         <version.jboss.osgi.http>1.0.5</version.jboss.osgi.http>
         <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
-        <version.jboss.osgi.repository>1.0.1</version.jboss.osgi.repository>
+        <version.jboss.osgi.repository>1.0.2</version.jboss.osgi.repository>
         <version.jboss.osgi.webapp>1.0.5</version.jboss.osgi.webapp>
         <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
         <version.osgi>4.2.0</version.osgi>
@@ -135,6 +135,12 @@
                 <groupId>org.jboss.osgi.felix</groupId>
                 <artifactId>jboss-osgi-felix</artifactId>
                 <version>${version.jboss.osgi.felix}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.jboss.osgi</groupId>
+                        <artifactId>jboss-osgi-spi</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>

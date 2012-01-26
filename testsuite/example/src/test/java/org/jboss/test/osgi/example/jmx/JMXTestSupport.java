@@ -47,7 +47,7 @@ public final class JMXTestSupport {
     public static MBeanServer provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
         ServiceReference sref = syscontext.getServiceReference(PackageAdmin.class.getName());
         PackageAdmin padmin = (PackageAdmin) syscontext.getService(sref);
-        if (padmin.getBundles("jboss-osgi-jmx", null) == null) {
+        if (padmin.getBundles("jbosgi-jmx", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
             installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();

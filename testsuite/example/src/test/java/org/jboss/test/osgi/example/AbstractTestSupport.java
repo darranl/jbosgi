@@ -55,7 +55,7 @@ public abstract class AbstractTestSupport {
     public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
     public static final String APACHE_FELIX_SCR = "org.apache.felix:org.apache.felix.scr";
     public static final String JBOSS_OSGI_HTTP = "org.jboss.osgi.http:jbosgi-http";
-    public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jboss-osgi-jmx";
+    public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jbosgi-jmx";
     public static final String JBOSS_OSGI_WEBAPP = "org.jboss.osgi.webapp:jbosgi-webapp";
     public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
 

@@ -58,7 +58,7 @@
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
         <version.jboss.osgi.framework>1.1.1-SNAPSHOT</version.jboss.osgi.framework>
         <version.jboss.osgi.http>1.0.5</version.jboss.osgi.http>
-        <version.jboss.osgi.jmx>1.0.10</version.jboss.osgi.jmx>
+        <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.repository>1.0.2</version.jboss.osgi.repository>
         <version.jboss.osgi.webapp>1.0.5</version.jboss.osgi.webapp>

@@ -31,6 +31,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.AbstractTestSupport;
 import org.jboss.test.osgi.example.http.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.http.bundle.HttpExampleActivator;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;

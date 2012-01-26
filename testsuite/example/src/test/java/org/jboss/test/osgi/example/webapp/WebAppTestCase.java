@@ -38,6 +38,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
+import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 import javax.inject.Inject;
@@ -80,7 +81,7 @@ public class WebAppTestCase extends AbstractTestSupport {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
-                builder.addImportPackages(HttpService.class, HttpServlet.class, Servlet.class);
+                builder.addImportPackages(PackageAdmin.class, HttpService.class, HttpServlet.class, Servlet.class);
                 builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }

@@ -61,9 +61,11 @@
         <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.repository>1.0.2</version.jboss.osgi.repository>
-        <version.jboss.osgi.webapp>1.0.5</version.jboss.osgi.webapp>
         <version.jboss.osgi.xerces>2.9.1.SP7</version.jboss.osgi.xerces>
+        <version.ops4j.paxlogging>1.6.4</version.ops4j.paxlogging>
+        <version.ops4j.pax.web>1.1.2</version.ops4j.pax.web>
         <version.osgi>4.2.0</version.osgi>
+        <version.slf4j>1.6.4</version.slf4j>
     </properties>
 
     <!-- DependencyManagement -->
@@ -89,14 +91,26 @@
                 <version>${version.jboss.arquillian.osgi}</version>
             </dependency>
 
-            <!-- jboss -->
+            <!-- Aries -->
+            <dependency>
+                <groupId>org.apache.aries.jmx</groupId>
+                <artifactId>org.apache.aries.jmx</artifactId>
+                <version>${version.apache.aries.jmx}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries</groupId>
+                <artifactId>org.apache.aries.util</artifactId>
+                <version>${version.apache.aries.jmx}</version>
+            </dependency>
+
+            <!-- JBoss -->
             <dependency>
                 <groupId>org.jboss.logmanager</groupId>
                 <artifactId>jboss-logmanager</artifactId>
                 <version>${version.jboss.logmanager}</version>
             </dependency>
 
-            <!-- jboss.osgi -->
+            <!-- JBOSGi -->
             <dependency>
                 <groupId>org.jboss.osgi.framework</groupId>
                 <artifactId>jbosgi-framework-core</artifactId>
@@ -106,6 +120,11 @@
                 <groupId>org.jboss.osgi.http</groupId>
                 <artifactId>jbosgi-http-api</artifactId>
                 <version>${version.jboss.osgi.http}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.osgi.jmx</groupId>
+                <artifactId>jbosgi-jmx</artifactId>
+                <version>${version.jboss.osgi.jmx}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.logging</groupId>
@@ -122,15 +141,26 @@
                 <artifactId>jbosgi-repository</artifactId>
                 <version>${version.jboss.osgi.repository}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.osgi.xerces</groupId>
+                <artifactId>jboss-osgi-xerces</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.jboss.osgi</groupId>
+                        <artifactId>jboss-osgi-spi</artifactId>
+                    </exclusion>
+                </exclusions>
+                <version>${version.jboss.osgi.xerces}</version>
+            </dependency>
 
-            <!-- Equinox Dependencies -->
+            <!-- Equinox -->
             <dependency>
                 <groupId>org.jboss.osgi.equinox</groupId>
                 <artifactId>jboss-osgi-equinox</artifactId>
                 <version>${version.jboss.osgi.equinox}</version>
             </dependency>
 
-            <!-- Felix Dependencies -->
+            <!-- Felix -->
             <dependency>
                 <groupId>org.jboss.osgi.felix</groupId>
                 <artifactId>jboss-osgi-felix</artifactId>
@@ -142,7 +172,16 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.configadmin</artifactId>
+                <version>${version.apache.felix.configadmin}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.eventadmin</artifactId>
+                <version>${version.apache.felix.eventadmin}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.log</artifactId>
@@ -158,6 +197,28 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr</artifactId>
+                <version>${version.apache.felix.scr}</version>
+            </dependency>
+
+            <!-- OPS4J -->
+            <dependency>
+                <groupId>org.ops4j.pax.web</groupId>
+                <artifactId>pax-web-extender-war</artifactId>
+                <version>${version.ops4j.pax.web}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.web</groupId>
+                <artifactId>pax-web-jetty-bundle</artifactId>
+                <version>${version.ops4j.pax.web}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.web</groupId>
+                <artifactId>pax-web-jsp</artifactId>
+                <version>${version.ops4j.pax.web}</version>
+            </dependency>
 
             <!-- org.osgi -->
             <dependency>
@@ -167,13 +228,15 @@
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.compendium</artifactId>
-                <version>${version.osgi}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.enterprise</artifactId>
                 <version>${version.osgi}</version>
+            </dependency>
+
+            <!-- SLF4J -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${version.slf4j}</version>
             </dependency>
 
         </dependencies>

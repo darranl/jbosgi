@@ -32,9 +32,6 @@ import javax.management.MBeanServerConnection;
 import javax.management.MBeanServerInvocationHandler;
 import javax.management.ObjectName;
 
-import static org.jboss.test.osgi.example.AbstractTestSupport.APACHE_ARIES_JMX;
-import static org.jboss.test.osgi.example.AbstractTestSupport.APACHE_ARIES_UTIL;
-import static org.jboss.test.osgi.example.AbstractTestSupport.JBOSS_OSGI_JMX;
 import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
 import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
 
@@ -43,6 +40,10 @@ import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBund
  * @since 26-Jan-2012
  */
 public final class JMXTestSupport {
+
+    public static final String APACHE_ARIES_JMX = "org.apache.aries.jmx:org.apache.aries.jmx";
+    public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
+    public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jbosgi-jmx";
 
     public static MBeanServer provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
         ServiceReference sref = syscontext.getServiceReference(PackageAdmin.class.getName());

@@ -25,11 +25,11 @@ import org.jboss.test.osgi.example.http.HttpTestSupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.packageadmin.PackageAdmin;
 
-import static org.jboss.test.osgi.example.AbstractTestSupport.JBOSS_OSGI_WEBAPP;
 import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
 import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author thomas.diesler@jboss.com
@@ -37,10 +37,14 @@ import static org.junit.Assert.assertEquals;
  */
 public final class WebAppSupport {
 
+    public static final String OPS4J_PAXWEB_EXTENDER = "org.ops4j.pax.web:pax-web-extender-war";
+
     public static void provideWebappSupport(BundleContext syscontext, Bundle bundle) throws BundleException {
         HttpTestSupport.provideHttpService(syscontext, bundle);
-        if (syscontext.getServiceReference("org.jboss.osgi.webapp.WebAppService") == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_WEBAPP)).start();
+        ServiceReference sref = syscontext.getServiceReference(PackageAdmin.class.getName());
+        PackageAdmin padmin = (PackageAdmin) syscontext.getService(sref);
+        if (padmin.getBundles("pax-web-extender-war", null) == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, OPS4J_PAXWEB_EXTENDER)).start();
         }
     }
 }

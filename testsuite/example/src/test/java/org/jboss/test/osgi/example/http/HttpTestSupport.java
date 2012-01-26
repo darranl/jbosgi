@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import static org.jboss.test.osgi.example.AbstractTestSupport.JBOSS_OSGI_HTTP;
 import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
 import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
 
@@ -45,10 +44,14 @@ import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBund
  */
 public final class HttpTestSupport {
 
+    public static final String OPS4J_PAXWEB_JETTY = "org.ops4j.pax.web:pax-web-jetty-bundle";
+    public static final String OPS4J_PAXWEB_JSP = "org.ops4j.pax.web:pax-web-jsp";
+
     public static HttpService provideHttpService(BundleContext syscontext, Bundle bundle) throws BundleException {
         ServiceReference sref = syscontext.getServiceReference(HttpService.class.getName());
         if (sref == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(syscontext, getCoordinates(bundle, OPS4J_PAXWEB_JSP)).start();
+            installSupportBundle(syscontext, getCoordinates(bundle, OPS4J_PAXWEB_JETTY)).start();
             sref = syscontext.getServiceReference(HttpService.class.getName());
         }
         return (HttpService) syscontext.getService(sref);

@@ -49,13 +49,9 @@ public abstract class AbstractTestSupport {
 
     public static final String BUNDLE_VERSIONS_FILE = "3rdparty-bundle.versions";
 
-    public static final String APACHE_ARIES_JMX = "org.apache.aries.jmx:org.apache.aries.jmx";
-    public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
     public static final String APACHE_FELIX_CONFIGADMIN = "org.apache.felix:org.apache.felix.configadmin";
     public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
     public static final String APACHE_FELIX_SCR = "org.apache.felix:org.apache.felix.scr";
-    public static final String JBOSS_OSGI_HTTP = "org.jboss.osgi.http:jbosgi-http";
-    public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jbosgi-jmx";
     public static final String JBOSS_OSGI_WEBAPP = "org.jboss.osgi.webapp:jbosgi-webapp";
     public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
 

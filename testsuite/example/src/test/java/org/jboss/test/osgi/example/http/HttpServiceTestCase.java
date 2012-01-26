@@ -28,8 +28,7 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
-import org.jboss.test.osgi.example.HttpTestSupport;
+import org.jboss.test.osgi.example.AbstractTestSupport;
 import org.jboss.test.osgi.example.http.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.http.bundle.HttpExampleActivator;
 import org.junit.Test;
@@ -37,8 +36,6 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.repository.Repository;
@@ -50,6 +47,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.jboss.test.osgi.example.http.HttpTestSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -59,7 +57,7 @@ import static org.junit.Assert.assertEquals;
  * @since 23-Jan-2009
  */
 @RunWith(Arquillian.class)
-public class HttpServiceTestCase extends AbstractExampleTestCase  {
+public class HttpServiceTestCase extends AbstractTestSupport {
 
     @Inject
     public BundleContext context;
@@ -70,7 +68,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-http");
-        archive.addClasses(HttpExampleActivator.class, EndpointServlet.class, AbstractExampleTestCase.class, HttpTestSupport.class);
+        archive.addClasses(HttpExampleActivator.class, EndpointServlet.class, AbstractTestSupport.class, HttpTestSupport.class);
         archive.addAsResource("http/message.txt", "res/message.txt");
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -90,7 +88,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideHttpService(bundle);
+        provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
@@ -98,7 +96,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testServletInitProps() throws Exception {
-        provideHttpService(bundle);
+        provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -106,7 +104,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testServletBundleContext() throws Exception {
-        provideHttpService(bundle);
+        provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=context", 5000);
         assertEquals("example-http", line);
@@ -114,7 +112,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testResourceAccess() throws Exception {
-        provideHttpService(bundle);
+        provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/file/message.txt", 5000);
         assertEquals("Hello from Resource", line);
@@ -122,14 +120,5 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
         return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
-    }
-
-    private HttpService provideHttpService(Bundle bundle) throws BundleException {
-        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
-        if (sref == null) {
-            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
-            sref = context.getServiceReference(HttpService.class.getName());
-        }
-        return (HttpService) context.getService(sref);
     }
 }

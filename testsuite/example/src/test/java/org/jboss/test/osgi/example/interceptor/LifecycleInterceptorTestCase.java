@@ -33,8 +33,8 @@ import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
-import org.jboss.test.osgi.example.HttpTestSupport;
+import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.http.HttpTestSupport;
 import org.jboss.test.osgi.example.interceptor.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.interceptor.bundle.HttpMetadata;
 import org.jboss.test.osgi.example.interceptor.bundle.InterceptorActivator;
@@ -45,8 +45,6 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.repository.Repository;
@@ -57,6 +55,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static org.jboss.test.osgi.example.http.HttpTestSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -70,7 +69,7 @@ import static org.junit.Assert.assertEquals;
  * @since 23-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
+public class LifecycleInterceptorTestCase extends AbstractTestSupport {
 
     static final String PROCESSOR_NAME = "interceptor-processor";
     static final String ENDPOINT_NAME = "interceptor-endpoint";
@@ -87,14 +86,14 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
-        archive.addClasses(AbstractExampleTestCase.class, HttpTestSupport.class);
+        archive.addClasses(AbstractTestSupport.class, HttpTestSupport.class);
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(HttpService.class, XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -103,7 +102,7 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideHttpService(bundle);
+        provideHttpService(context, bundle);
         Bundle procBundle = context.installBundle(PROCESSOR_NAME, deployer.getDeployment(PROCESSOR_NAME));
         try {
             procBundle.start();
@@ -156,15 +155,6 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
             }
         });
         return archive;
-    }
-
-    private HttpService provideHttpService(Bundle bundle) throws BundleException {
-        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
-        if (sref == null) {
-            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
-            sref = context.getServiceReference(HttpService.class.getName());
-        }
-        return (HttpService) context.getService(sref);
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {

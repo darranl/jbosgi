@@ -19,24 +19,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example;
+package org.jboss.test.osgi.example.http;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.http.HttpService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import static org.jboss.test.osgi.example.AbstractTestSupport.JBOSS_OSGI_HTTP;
+import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
+import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
+
 
 /**
  * HTTP integration test support.
  *
  * @author thomas.diesler@jboss.com
- * @since 09-Nov-2011
+ * @since 26-Jan-2012
  */
 public final class HttpTestSupport {
 
-    // Hide ctor
-    private HttpTestSupport() {
+    public static HttpService provideHttpService(BundleContext syscontext, Bundle bundle) throws BundleException {
+        ServiceReference sref = syscontext.getServiceReference(HttpService.class.getName());
+        if (sref == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
+            sref = syscontext.getServiceReference(HttpService.class.getName());
+        }
+        return (HttpService) syscontext.getService(sref);
     }
 
     /**

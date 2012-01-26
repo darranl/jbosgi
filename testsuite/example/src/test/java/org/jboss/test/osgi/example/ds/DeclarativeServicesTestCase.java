@@ -28,7 +28,7 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.jboss.test.osgi.example.AbstractTestSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -53,7 +53,7 @@ import java.util.concurrent.TimeoutException;
  * @since 06-Jul-2011
  */
 @RunWith(Arquillian.class)
-public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
+public class DeclarativeServicesTestCase extends AbstractTestSupport {
 
     @Inject
     public BundleContext context;
@@ -64,7 +64,7 @@ public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-ds");
-        archive.addClasses(SampleComparator.class, AbstractExampleTestCase.class);
+        archive.addClasses(SampleComparator.class, AbstractTestSupport.class);
         archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {

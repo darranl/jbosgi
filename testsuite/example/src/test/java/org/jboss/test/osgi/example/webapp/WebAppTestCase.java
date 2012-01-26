@@ -28,16 +28,16 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
-import org.jboss.test.osgi.example.HttpTestSupport;
+import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.http.HttpTestSupport;
 import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.resource.Resource;
+import org.osgi.service.http.HttpService;
 import org.osgi.service.repository.Repository;
 
 import javax.inject.Inject;
@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
+import static org.jboss.test.osgi.example.webapp.WebAppSupport.provideWebappSupport;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -56,7 +57,7 @@ import static org.junit.Assert.assertEquals;
  * @since 06-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class WebAppTestCase extends AbstractExampleTestCase {
+public class WebAppTestCase extends AbstractTestSupport {
 
     @Inject
     public BundleContext context;
@@ -67,7 +68,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp");
-        archive.addClasses(EndpointServlet.class, AbstractExampleTestCase.class, HttpTestSupport.class);
+        archive.addClasses(EndpointServlet.class, AbstractTestSupport.class, HttpTestSupport.class, WebAppSupport.class);
         archive.addAsWebResource("webapp/message.txt", "message.txt");
         archive.addAsWebInfResource("webapp/web.xml", "web.xml");
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
@@ -79,7 +80,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
-                builder.addImportPackages(HttpServlet.class, Servlet.class);
+                builder.addImportPackages(HttpService.class, HttpServlet.class, Servlet.class);
                 builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
@@ -89,7 +90,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideWebappSupport(bundle);
+        provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
@@ -97,7 +98,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletInitProps() throws Exception {
-        provideWebappSupport(bundle);
+        provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -105,7 +106,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
-        provideWebappSupport(bundle);
+        provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/message.txt", 5000);
         assertEquals("Hello from Resource", line);
@@ -113,17 +114,5 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
         return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
-    }
-
-    private void provideHttpService(Bundle bundle) throws BundleException {
-        if (context.getServiceReference("org.osgi.service.http.HttpService") == null)
-            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
-    }
-
-    private void provideWebappSupport(Bundle bundle) throws BundleException {
-        provideHttpService(bundle);
-        if (context.getServiceReference("org.jboss.osgi.webapp.WebAppService") == null) {
-            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_WEBAPP)).start();
-        }
     }
 }

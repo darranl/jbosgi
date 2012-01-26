@@ -45,7 +45,7 @@ import static org.junit.Assert.fail;
  * @author Thomas.Diesler@jboss.com
  * @since 16-Jan-2012
  */
-public abstract class AbstractExampleTestCase {
+public abstract class AbstractTestSupport {
 
     public static final String BUNDLE_VERSIONS_FILE = "3rdparty-bundle.versions";
 
@@ -59,7 +59,7 @@ public abstract class AbstractExampleTestCase {
     public static final String JBOSS_OSGI_WEBAPP = "org.jboss.osgi.webapp:jbosgi-webapp";
     public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
 
-    protected Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
+    public static Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
         XRepository repository = (XRepository) getRepository(context);
         RepositoryRequirementBuilder builder = repository.getRequirementBuilder();
         Requirement req = builder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
@@ -70,12 +70,12 @@ public abstract class AbstractExampleTestCase {
         return context.installBundle(coordinates, cap.getResource().getContent());
     }
 
-    protected Repository getRepository(BundleContext context) {
+    public static Repository getRepository(BundleContext context) {
         ServiceReference sref = context.getServiceReference(Repository.class.getName());
         return (Repository) context.getService(sref);
     }
 
-    protected String getCoordinates(Bundle bundle, String artifactid) {
+    public static String getCoordinates(Bundle bundle, String artifactid) {
         Properties props = new Properties();
         URL entry = bundle.getEntry("META-INF/" + BUNDLE_VERSIONS_FILE);
         try {

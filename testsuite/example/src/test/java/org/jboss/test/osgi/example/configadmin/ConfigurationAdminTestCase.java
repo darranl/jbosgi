@@ -29,7 +29,7 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.jboss.test.osgi.example.AbstractTestSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -64,7 +64,7 @@ import static org.junit.Assert.assertNotNull;
  * @since 11-Dec-2010
  */
 @RunWith(Arquillian.class)
-public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
+public class ConfigurationAdminTestCase extends AbstractTestSupport {
 
     @Inject
     public BundleContext context;
@@ -75,7 +75,7 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-configadmin");
-        archive.addClasses(ConfiguredService.class, AbstractExampleTestCase.class);
+        archive.addClasses(ConfiguredService.class, AbstractTestSupport.class);
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
@@ -129,8 +129,8 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
                 throw new TimeoutException();
 
             // Verify service property
-            ServiceReference sref = context.getServiceReference(ConfiguredService.class.getName());
-            ConfiguredService service = (ConfiguredService) context.getService(sref);
+            ServiceReference sref = bundlecontext.getServiceReference(ConfiguredService.class.getName());
+            ConfiguredService service = (ConfiguredService) bundlecontext.getService(sref);
             assertEquals("bar", service.getValue("foo"));
         }
         finally

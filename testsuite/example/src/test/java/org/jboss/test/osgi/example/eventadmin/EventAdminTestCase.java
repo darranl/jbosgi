@@ -28,7 +28,7 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.jboss.test.osgi.example.AbstractTestSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -58,7 +58,7 @@ import static org.junit.Assert.assertEquals;
  * @since 08-Dec-2009
  */
 @RunWith(Arquillian.class)
-public class EventAdminTestCase extends AbstractExampleTestCase {
+public class EventAdminTestCase extends AbstractTestSupport {
 
     static String TOPIC = "org/jboss/test/osgi/example/event";
 
@@ -71,7 +71,7 @@ public class EventAdminTestCase extends AbstractExampleTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-eventadmin");
-        archive.addClasses(AbstractExampleTestCase.class);
+        archive.addClasses(AbstractTestSupport.class);
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {

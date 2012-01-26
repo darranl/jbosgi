@@ -29,7 +29,8 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.AbstractExampleTestCase;
+import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.http.HttpTestSupport;
 import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +39,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.resource.Resource;
+import org.osgi.service.http.HttpService;
 import org.osgi.service.repository.Repository;
 
 import javax.inject.Inject;
@@ -46,6 +48,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
+import static org.jboss.test.osgi.example.webapp.WebAppSupport.provideWebappSupport;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -56,7 +59,7 @@ import static org.junit.Assert.fail;
  * @since 26-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class WebAppNegativeTestCase extends AbstractExampleTestCase {
+public class WebAppNegativeTestCase extends AbstractTestSupport {
 
     @Inject
     public BundleContext context;
@@ -67,7 +70,7 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp-negative");
-        archive.addClasses(EndpointServlet.class, AbstractExampleTestCase.class);
+        archive.addClasses(EndpointServlet.class, AbstractTestSupport.class, WebAppSupport.class, HttpTestSupport.class);
         archive.addAsResource("webapp/message.txt", "message.txt");
         archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
@@ -79,7 +82,7 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
                 builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
                 builder.addImportPackages(LifecycleInterceptorException.class);
-                builder.addImportPackages(HttpServlet.class, Servlet.class);
+                builder.addImportPackages(HttpService.class, HttpServlet.class, Servlet.class);
                 builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
@@ -90,24 +93,12 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
     @Test
     public void testServletAccess() throws Exception {
         try {
-            provideWebappSupport(bundle);
+            provideWebappSupport(context, bundle);
             bundle.start();
             fail("BundleException expected");
         } catch (BundleException ex) {
             Throwable cause = ex.getCause();
             assertTrue(cause instanceof LifecycleInterceptorException);
-        }
-    }
-
-    private void provideHttpService(Bundle bundle) throws BundleException {
-        if (context.getServiceReference("org.osgi.service.http.HttpService") == null)
-            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
-    }
-
-    private void provideWebappSupport(Bundle bundle) throws BundleException {
-        provideHttpService(bundle);
-        if (context.getServiceReference("org.jboss.osgi.webapp.WebAppService") == null) {
-            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_WEBAPP)).start();
         }
     }
 }

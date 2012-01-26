@@ -72,6 +72,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-http");
         archive.addClasses(HttpExampleActivator.class, EndpointServlet.class, AbstractExampleTestCase.class, HttpTestSupport.class);
         archive.addAsResource("http/message.txt", "res/message.txt");
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -89,7 +90,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideHttpService(context);
+        provideHttpService(bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
@@ -97,7 +98,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testServletInitProps() throws Exception {
-        provideHttpService(context);
+        provideHttpService(bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -105,7 +106,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testServletBundleContext() throws Exception {
-        provideHttpService(context);
+        provideHttpService(bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=context", 5000);
         assertEquals("example-http", line);
@@ -113,7 +114,7 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
 
     @Test
     public void testResourceAccess() throws Exception {
-        provideHttpService(context);
+        provideHttpService(bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/file/message.txt", 5000);
         assertEquals("Hello from Resource", line);
@@ -123,10 +124,10 @@ public class HttpServiceTestCase extends AbstractExampleTestCase  {
         return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 
-    private HttpService provideHttpService(BundleContext context) throws BundleException {
+    private HttpService provideHttpService(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
             sref = context.getServiceReference(HttpService.class.getName());
         }
         return (HttpService) context.getService(sref);

@@ -31,6 +31,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.AbstractExampleTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
@@ -62,10 +63,14 @@ public class BundleStateTestCase extends AbstractExampleTestCase {
     @Inject
     public BundleContext context;
 
+    @Inject
+    public Bundle bundle;
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-bundlestate");
         archive.addClasses(AbstractExampleTestCase.class);
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -83,7 +88,7 @@ public class BundleStateTestCase extends AbstractExampleTestCase {
     @Test
     public void testBundleStateMBean() throws Exception {
 
-        MBeanServer server = provideMBeanServer(context);
+        MBeanServer server = provideMBeanServer(bundle);
 
         ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
         BundleStateMBean bundleState = getMBeanProxy(server, oname, BundleStateMBean.class);
@@ -94,13 +99,13 @@ public class BundleStateTestCase extends AbstractExampleTestCase {
         assertFalse("TabularData not empty", bundleData.isEmpty());
     }
 
-    private MBeanServer provideMBeanServer(BundleContext context) throws BundleException {
+    private MBeanServer provideMBeanServer(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
         PackageAdmin padmin = (PackageAdmin) context.getService(sref);
         if (padmin.getBundles("jboss-osgi-jmx", null) == null) {
-            installSupportBundle(context, getCoordinates(APACHE_ARIES_UTIL)).start();
-            installSupportBundle(context, getCoordinates(APACHE_ARIES_JMX)).start();
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_JMX)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();
         }
         sref = context.getServiceReference(MBeanServer.class.getName());
         return (MBeanServer) context.getService(sref);

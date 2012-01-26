@@ -70,6 +70,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
         archive.addClasses(EndpointServlet.class, AbstractExampleTestCase.class, HttpTestSupport.class);
         archive.addAsWebResource("webapp/message.txt", "message.txt");
         archive.addAsWebInfResource("webapp/web.xml", "web.xml");
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
         archive.add(new Asset() {
             public InputStream openStream() {
@@ -88,7 +89,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideWebappSupport(context);
+        provideWebappSupport(bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
@@ -96,7 +97,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletInitProps() throws Exception {
-        provideWebappSupport(context);
+        provideWebappSupport(bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -104,7 +105,7 @@ public class WebAppTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
-        provideWebappSupport(context);
+        provideWebappSupport(bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/message.txt", 5000);
         assertEquals("Hello from Resource", line);
@@ -114,15 +115,15 @@ public class WebAppTestCase extends AbstractExampleTestCase {
         return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 
-    private void provideHttpService(BundleContext context) throws BundleException {
+    private void provideHttpService(Bundle bundle) throws BundleException {
         if (context.getServiceReference("org.osgi.service.http.HttpService") == null)
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
     }
 
-    private void provideWebappSupport(BundleContext context) throws BundleException {
-        provideHttpService(context);
+    private void provideWebappSupport(Bundle bundle) throws BundleException {
+        provideHttpService(bundle);
         if (context.getServiceReference("org.jboss.osgi.webapp.WebAppService") == null) {
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_WEBAPP)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_WEBAPP)).start();
         }
     }
 }

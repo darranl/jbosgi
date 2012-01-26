@@ -66,6 +66,7 @@ public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-ds");
         archive.addClasses(SampleComparator.class, AbstractExampleTestCase.class);
         archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -83,9 +84,8 @@ public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
     @Test
     public void testImmediateService() throws Exception {
 
-        provideDeclarativeServices(context);
-
         bundle.start();
+        provideDeclarativeServices(bundle);
 
         final CountDownLatch latch = new CountDownLatch(1);
         ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
@@ -102,9 +102,9 @@ public class DeclarativeServicesTestCase extends AbstractExampleTestCase {
             throw new TimeoutException("Timeout tracking Comparator service");
     }
 
-    private void provideDeclarativeServices(BundleContext context) throws BundleException {
+    private void provideDeclarativeServices(Bundle bundle) throws BundleException {
         if (context.getServiceReference("org.apache.felix.scr.ScrService") == null) {
-            installSupportBundle(context, getCoordinates(APACHE_FELIX_SCR)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_FELIX_SCR)).start();
         }
     }
 }

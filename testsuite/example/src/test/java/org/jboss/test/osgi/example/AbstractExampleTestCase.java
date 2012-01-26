@@ -33,15 +33,21 @@ import org.osgi.framework.resource.Capability;
 import org.osgi.framework.resource.Requirement;
 import org.osgi.service.repository.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Properties;
+
+import static org.junit.Assert.fail;
 
 /**
- *
  * @author Thomas.Diesler@jboss.com
  * @since 16-Jan-2012
  */
 public abstract class AbstractExampleTestCase {
+
+    public static final String BUNDLE_VERSIONS_FILE = "3rdparty-bundle.versions";
 
     public static final String APACHE_ARIES_JMX = "org.apache.aries.jmx:org.apache.aries.jmx";
     public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
@@ -53,25 +59,14 @@ public abstract class AbstractExampleTestCase {
     public static final String JBOSS_OSGI_WEBAPP = "org.jboss.osgi.webapp:jbosgi-webapp";
     public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
 
-    // [TODO] generate this map from the POM somehow
-    private static Map<String, String> versionmap = new HashMap<String,String>();
-    static {
-        versionmap.put(APACHE_ARIES_JMX, "0.3");
-        versionmap.put(APACHE_ARIES_UTIL, "0.3");
-        versionmap.put(APACHE_FELIX_CONFIGADMIN, "1.2.8");
-        versionmap.put(APACHE_FELIX_EVENTADMIN, "1.2.6");
-        versionmap.put(APACHE_FELIX_SCR, "1.6.0");
-        versionmap.put(JBOSS_OSGI_HTTP, "1.0.5");
-        versionmap.put(JBOSS_OSGI_JMX, "1.0.10");
-        versionmap.put(JBOSS_OSGI_WEBAPP, "1.0.5");
-        versionmap.put(JBOSS_OSGI_XERCES, "2.9.1.SP7");
-    }
-
     protected Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
         XRepository repository = (XRepository) getRepository(context);
         RepositoryRequirementBuilder builder = repository.getRequirementBuilder();
         Requirement req = builder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
-        Capability cap = repository.findProviders(req).iterator().next();
+        Collection<Capability> caps = repository.findProviders(req);
+        if (caps.isEmpty())
+            fail("Cannot find capability for: " + req);
+        Capability cap = caps.iterator().next();
         return context.installBundle(coordinates, cap.getResource().getContent());
     }
 
@@ -80,7 +75,16 @@ public abstract class AbstractExampleTestCase {
         return (Repository) context.getService(sref);
     }
 
-    protected String getCoordinates(String artifactid) {
-        return artifactid + ":" + versionmap.get(artifactid);
+    protected String getCoordinates(Bundle bundle, String artifactid) {
+        Properties props = new Properties();
+        URL entry = bundle.getEntry("META-INF/" + BUNDLE_VERSIONS_FILE);
+        try {
+            InputStream input = entry.openStream();
+            props.load(input);
+            input.close();
+        } catch (IOException ex) {
+            fail(ex.getMessage());
+        }
+        return artifactid + ":" + props.getProperty(artifactid);
     }
 }

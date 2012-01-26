@@ -72,6 +72,7 @@ public class DOMParserTestCase extends AbstractExampleTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
         archive.addClasses(AbstractExampleTestCase.class);
         archive.addAsResource("xml/example-xml-parser.xml", "example-xml-parser.xml");
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -106,17 +107,17 @@ public class DOMParserTestCase extends AbstractExampleTestCase {
     private DocumentBuilder getDocumentBuilder() throws Exception {
         BundleContext context = bundle.getBundleContext();
 
-        DocumentBuilderFactory factory = provideDocumentBuilderFactory(context);
+        DocumentBuilderFactory factory = provideDocumentBuilderFactory(bundle);
         factory.setValidating(false);
 
         DocumentBuilder domBuilder = factory.newDocumentBuilder();
         return domBuilder;
     }
 
-    private DocumentBuilderFactory provideDocumentBuilderFactory(BundleContext context) throws BundleException {
+    private DocumentBuilderFactory provideDocumentBuilderFactory(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(DocumentBuilderFactory.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_XERCES)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_XERCES)).start();
             sref = context.getServiceReference(DocumentBuilderFactory.class.getName());
         }
         return (DocumentBuilderFactory) context.getService(sref);

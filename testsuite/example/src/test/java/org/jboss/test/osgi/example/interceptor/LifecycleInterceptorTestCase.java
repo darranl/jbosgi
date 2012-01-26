@@ -78,6 +78,9 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
     @Inject
     public BundleContext context;
 
+    @Inject
+    public Bundle bundle;
+
     @ArquillianResource
     public Deployer deployer;
 
@@ -85,6 +88,7 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
         archive.addClasses(AbstractExampleTestCase.class, HttpTestSupport.class);
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -99,7 +103,7 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideHttpService(context);
+        provideHttpService(bundle);
         Bundle procBundle = context.installBundle(PROCESSOR_NAME, deployer.getDeployment(PROCESSOR_NAME));
         try {
             procBundle.start();
@@ -154,10 +158,10 @@ public class LifecycleInterceptorTestCase extends AbstractExampleTestCase {
         return archive;
     }
 
-    private HttpService provideHttpService(BundleContext context) throws BundleException {
+    private HttpService provideHttpService(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
             sref = context.getServiceReference(HttpService.class.getName());
         }
         return (HttpService) context.getService(sref);

@@ -72,6 +72,7 @@ public class MBeanServerTestCase extends AbstractExampleTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-mbean");
         archive.addClasses(AbstractExampleTestCase.class, Foo.class, FooMBean.class, MBeanActivator.class);
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -90,19 +91,19 @@ public class MBeanServerTestCase extends AbstractExampleTestCase {
     @Test
     public void testMBeanAccess() throws Exception {
         bundle.start();
-        MBeanServer server = provideMBeanServer(context);
+        MBeanServer server = provideMBeanServer(bundle);
         ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
         FooMBean foo = getMBeanProxy(server, oname, FooMBean.class);
         assertEquals("hello", foo.echo("hello"));
     }
 
-    private MBeanServer provideMBeanServer(BundleContext context) throws BundleException {
+    private MBeanServer provideMBeanServer(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(PackageAdmin.class.getName());
         PackageAdmin padmin = (PackageAdmin) context.getService(sref);
         if (padmin.getBundles("jboss-osgi-jmx", null) == null) {
-            installSupportBundle(context, getCoordinates(APACHE_ARIES_UTIL)).start();
-            installSupportBundle(context, getCoordinates(APACHE_ARIES_JMX)).start();
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_JMX)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();
         }
         sref = context.getServiceReference(MBeanServer.class.getName());
         return (MBeanServer) context.getService(sref);

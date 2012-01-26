@@ -69,6 +69,7 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp-negative");
         archive.addClasses(EndpointServlet.class, AbstractExampleTestCase.class);
         archive.addAsResource("webapp/message.txt", "message.txt");
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
         archive.add(new Asset() {
             public InputStream openStream() {
@@ -89,7 +90,7 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
     @Test
     public void testServletAccess() throws Exception {
         try {
-            provideWebappSupport(context);
+            provideWebappSupport(bundle);
             bundle.start();
             fail("BundleException expected");
         } catch (BundleException ex) {
@@ -98,15 +99,15 @@ public class WebAppNegativeTestCase extends AbstractExampleTestCase {
         }
     }
 
-    private void provideHttpService(BundleContext context) throws BundleException {
+    private void provideHttpService(Bundle bundle) throws BundleException {
         if (context.getServiceReference("org.osgi.service.http.HttpService") == null)
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_HTTP)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_HTTP)).start();
     }
 
-    private void provideWebappSupport(BundleContext context) throws BundleException {
-        provideHttpService(context);
+    private void provideWebappSupport(Bundle bundle) throws BundleException {
+        provideHttpService(bundle);
         if (context.getServiceReference("org.jboss.osgi.webapp.WebAppService") == null) {
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_WEBAPP)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_WEBAPP)).start();
         }
     }
 }

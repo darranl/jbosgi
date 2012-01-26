@@ -76,6 +76,7 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-configadmin");
         archive.addClasses(ConfiguredService.class, AbstractExampleTestCase.class);
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -92,12 +93,11 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
     @Test
     public void testManagedService() throws Exception {
 
+        // Get the {@link ConfigurationAdmin}
+        ConfigurationAdmin configAdmin = provideConfigurationAdmin(bundle);
+
         // Start the test bundle
         bundle.start();
-        BundleContext context = bundle.getBundleContext();
-
-        // Get the {@link ConfigurationAdmin}
-        ConfigurationAdmin configAdmin = provideConfigurationAdmin(context);
 
         final CountDownLatch latch = new CountDownLatch(1);
         ConfigurationListener listener = new ConfigurationListener() {
@@ -107,7 +107,8 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
                     latch.countDown();
             }
         };
-        context.registerService(ConfigurationListener.class.getName(), listener, null);
+        BundleContext bundlecontext = bundle.getBundleContext();
+        bundlecontext.registerService(ConfigurationListener.class.getName(), listener, null);
 
         // Get the {@link Configuration} for the given PID
         Configuration config = configAdmin.getConfiguration(ConfiguredService.SERVICE_PID);
@@ -138,10 +139,10 @@ public class ConfigurationAdminTestCase extends AbstractExampleTestCase {
         }
     }
 
-    private ConfigurationAdmin provideConfigurationAdmin(BundleContext context) throws BundleException {
+    private ConfigurationAdmin provideConfigurationAdmin(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(APACHE_FELIX_CONFIGADMIN)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_FELIX_CONFIGADMIN)).start();
             sref = context.getServiceReference(ConfigurationAdmin.class.getName());
         }
         return (ConfigurationAdmin) context.getService(sref);

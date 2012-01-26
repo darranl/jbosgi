@@ -71,6 +71,7 @@ public class SAXParserTestCase extends AbstractExampleTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
         archive.addClasses(AbstractExampleTestCase.class);
         archive.addAsResource("xml/example-xml-parser.xml", "example-xml-parser.xml");
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -99,17 +100,17 @@ public class SAXParserTestCase extends AbstractExampleTestCase {
     private SAXParser getSAXParser() throws Exception {
         BundleContext context = bundle.getBundleContext();
 
-        SAXParserFactory factory = provideSAXParserFactory(context);
+        SAXParserFactory factory = provideSAXParserFactory(bundle);
         factory.setValidating(false);
 
         SAXParser saxParser = factory.newSAXParser();
         return saxParser;
     }
 
-    private SAXParserFactory provideSAXParserFactory(BundleContext context) throws BundleException, InvalidSyntaxException {
+    private SAXParserFactory provideSAXParserFactory(Bundle bundle) throws BundleException, InvalidSyntaxException {
         ServiceReference sref = context.getServiceReference(SAXParserFactory.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(JBOSS_OSGI_XERCES)).start();
+            installSupportBundle(context, getCoordinates(bundle, JBOSS_OSGI_XERCES)).start();
             sref = context.getServiceReference(SAXParserFactory.class.getName());
         }
         return (SAXParserFactory) context.getService(sref);

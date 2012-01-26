@@ -72,6 +72,7 @@ public class EventAdminTestCase extends AbstractExampleTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-eventadmin");
         archive.addClasses(AbstractExampleTestCase.class);
+        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -101,7 +102,7 @@ public class EventAdminTestCase extends AbstractExampleTestCase {
         context.registerService(EventHandler.class.getName(), eventHandler, param);
 
         // Send event through the the EventAdmin
-        EventAdmin eventAdmin = provideEventAdmin(context);
+        EventAdmin eventAdmin = provideEventAdmin(bundle);
         eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
 
         // Verify received event
@@ -109,10 +110,10 @@ public class EventAdminTestCase extends AbstractExampleTestCase {
         assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
     }
 
-    private EventAdmin provideEventAdmin(BundleContext context) throws BundleException {
+    private EventAdmin provideEventAdmin(Bundle bundle) throws BundleException {
         ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
         if (sref == null) {
-            installSupportBundle(context, getCoordinates(APACHE_FELIX_EVENTADMIN)).start();
+            installSupportBundle(context, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
             sref = context.getServiceReference(EventAdmin.class.getName());
         }
         return (EventAdmin) context.getService(sref);

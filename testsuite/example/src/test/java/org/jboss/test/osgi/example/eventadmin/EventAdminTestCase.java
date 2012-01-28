@@ -23,18 +23,17 @@ package org.jboss.test.osgi.example.eventadmin;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.EventAdminSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
@@ -58,7 +57,7 @@ import static org.junit.Assert.assertEquals;
  * @since 08-Dec-2009
  */
 @RunWith(Arquillian.class)
-public class EventAdminTestCase extends AbstractTestSupport {
+public class EventAdminTestCase {
 
     static String TOPIC = "org/jboss/test/osgi/example/event";
 
@@ -71,15 +70,15 @@ public class EventAdminTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-eventadmin");
-        archive.addClasses(AbstractTestSupport.class);
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addClasses(EventAdminSupport.class, RepositorySupport.class);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(EventAdmin.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -102,21 +101,12 @@ public class EventAdminTestCase extends AbstractTestSupport {
         context.registerService(EventHandler.class.getName(), eventHandler, param);
 
         // Send event through the the EventAdmin
-        EventAdmin eventAdmin = provideEventAdmin(bundle);
+        EventAdmin eventAdmin = EventAdminSupport.provideEventAdmin(context, bundle);
         eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
 
         // Verify received event
         assertEquals("Event received", 1, eventHandler.received.size());
         assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
-    }
-
-    private EventAdmin provideEventAdmin(Bundle bundle) throws BundleException {
-        ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
-        if (sref == null) {
-            installSupportBundle(context, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
-            sref = context.getServiceReference(EventAdmin.class.getName());
-        }
-        return (EventAdmin) context.getService(sref);
     }
 
     static class TestEventHandler implements EventHandler {

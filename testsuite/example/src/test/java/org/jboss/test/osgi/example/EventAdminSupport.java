@@ -19,32 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.webapp;
+package org.jboss.test.osgi.example;
 
-import org.jboss.test.osgi.example.http.HttpTestSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.packageadmin.PackageAdmin;
-
-import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
-import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
+import org.osgi.service.event.EventAdmin;
 
 /**
  * @author thomas.diesler@jboss.com
- * @since 26-Jan-2012
+ * @since 28-Jan-2012
  */
-public final class WebAppSupport {
+public class EventAdminSupport extends RepositorySupport {
 
-    public static final String OPS4J_PAXWEB_EXTENDER = "org.ops4j.pax.web:pax-web-extender-war";
+    public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
 
-    public static void provideWebappSupport(BundleContext syscontext, Bundle bundle) throws BundleException {
-        HttpTestSupport.provideHttpService(syscontext, bundle);
-        ServiceReference sref = syscontext.getServiceReference(PackageAdmin.class.getName());
-        PackageAdmin padmin = (PackageAdmin) syscontext.getService(sref);
-        if (padmin.getBundles("pax-web-extender-war", null) == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, OPS4J_PAXWEB_EXTENDER)).start();
+    public static EventAdmin provideEventAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
+        ServiceReference sref = syscontext.getServiceReference(EventAdmin.class.getName());
+        if (sref == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
+            sref = syscontext.getServiceReference(EventAdmin.class.getName());
         }
+        return (EventAdmin) syscontext.getService(sref);
     }
 }

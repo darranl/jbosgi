@@ -23,17 +23,17 @@ package org.jboss.test.osgi.example.ds;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.DeclarativeServicesSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.repository.Repository;
@@ -46,6 +46,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import static org.jboss.test.osgi.example.DeclarativeServicesSupport.provideDeclarativeServices;
+
 /**
  * Example for Declarative Services
  *
@@ -53,7 +55,7 @@ import java.util.concurrent.TimeoutException;
  * @since 06-Jul-2011
  */
 @RunWith(Arquillian.class)
-public class DeclarativeServicesTestCase extends AbstractTestSupport {
+public class DeclarativeServicesTestCase {
 
     @Inject
     public BundleContext context;
@@ -64,9 +66,9 @@ public class DeclarativeServicesTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-ds");
-        archive.addClasses(SampleComparator.class, AbstractTestSupport.class);
+        archive.addClasses(SampleComparator.class, DeclarativeServicesSupport.class, RepositorySupport.class);
         archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -74,7 +76,7 @@ public class DeclarativeServicesTestCase extends AbstractTestSupport {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
                 builder.addImportPackages(ServiceTracker.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -85,7 +87,7 @@ public class DeclarativeServicesTestCase extends AbstractTestSupport {
     public void testImmediateService() throws Exception {
 
         bundle.start();
-        provideDeclarativeServices(bundle);
+        provideDeclarativeServices(context, bundle);
 
         final CountDownLatch latch = new CountDownLatch(1);
         ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
@@ -100,11 +102,5 @@ public class DeclarativeServicesTestCase extends AbstractTestSupport {
 
         if (latch.await(2, TimeUnit.SECONDS) == false)
             throw new TimeoutException("Timeout tracking Comparator service");
-    }
-
-    private void provideDeclarativeServices(Bundle bundle) throws BundleException {
-        if (context.getServiceReference("org.apache.felix.scr.ScrService") == null) {
-            installSupportBundle(context, getCoordinates(bundle, APACHE_FELIX_SCR)).start();
-        }
     }
 }

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.http;
+package org.jboss.test.osgi.example;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -32,9 +32,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
-import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
-
 
 /**
  * HTTP integration test support.
@@ -42,7 +39,7 @@ import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBund
  * @author thomas.diesler@jboss.com
  * @since 26-Jan-2012
  */
-public final class HttpTestSupport {
+public final class HttpServiceSupport extends RepositorySupport {
 
     public static final String OPS4J_PAXWEB_JETTY = "org.ops4j.pax.web:pax-web-jetty-bundle";
     public static final String OPS4J_PAXWEB_JSP = "org.ops4j.pax.web:pax-web-jsp";

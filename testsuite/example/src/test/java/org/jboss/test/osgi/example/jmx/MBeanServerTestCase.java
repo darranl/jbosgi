@@ -23,12 +23,14 @@ package org.jboss.test.osgi.example.jmx;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.AriesSupport;
+import org.jboss.test.osgi.example.ManagementSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
 import org.jboss.test.osgi.example.jmx.bundle.Foo;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.jboss.test.osgi.example.jmx.bundle.MBeanActivator;
@@ -56,7 +58,7 @@ import static org.junit.Assert.assertEquals;
  * @since 12-Feb-2009
  */
 @RunWith(Arquillian.class)
-public class MBeanServerTestCase extends AbstractTestSupport {
+public class MBeanServerTestCase {
 
     @Inject
     public BundleContext context;
@@ -67,8 +69,9 @@ public class MBeanServerTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-mbean");
-        archive.addClasses(AbstractTestSupport.class, JMXTestSupport.class, Foo.class, FooMBean.class, MBeanActivator.class);
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
+        archive.addClasses(RepositorySupport.class, ManagementSupport.class, AriesSupport.class);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -77,7 +80,7 @@ public class MBeanServerTestCase extends AbstractTestSupport {
                 builder.addBundleActivator(MBeanActivator.class);
                 builder.addImportPackages(PackageAdmin.class, BundleActivator.class, ServiceTracker.class);
                 builder.addImportPackages(MBeanServer.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -86,10 +89,10 @@ public class MBeanServerTestCase extends AbstractTestSupport {
 
     @Test
     public void testMBeanAccess() throws Exception {
-        MBeanServer server = JMXTestSupport.provideMBeanServer(context, bundle);
+        MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
         bundle.start();
         ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
-        FooMBean foo = JMXTestSupport.getMBeanProxy(server, oname, FooMBean.class);
+        FooMBean foo = ManagementSupport.getMBeanProxy(server, oname, FooMBean.class);
         assertEquals("hello", foo.echo("hello"));
     }
 }

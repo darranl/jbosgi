@@ -23,15 +23,15 @@ package org.jboss.test.osgi.example.http;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.example.HttpServiceSupport;
 import org.jboss.test.osgi.example.http.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.http.bundle.HttpExampleActivator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -48,7 +48,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.jboss.test.osgi.example.http.HttpTestSupport.provideHttpService;
+import static org.jboss.test.osgi.example.HttpServiceSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -58,7 +58,7 @@ import static org.junit.Assert.assertEquals;
  * @since 23-Jan-2009
  */
 @RunWith(Arquillian.class)
-public class HttpServiceTestCase extends AbstractTestSupport {
+public class HttpServiceTestCase {
 
     @Inject
     public BundleContext context;
@@ -69,9 +69,9 @@ public class HttpServiceTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-http");
-        archive.addClasses(HttpExampleActivator.class, EndpointServlet.class, AbstractTestSupport.class, HttpTestSupport.class);
+        archive.addClasses(HttpExampleActivator.class, EndpointServlet.class, RepositorySupport.class, HttpServiceSupport.class);
         archive.addAsResource("http/message.txt", "res/message.txt");
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -80,7 +80,7 @@ public class HttpServiceTestCase extends AbstractTestSupport {
                 builder.addBundleActivator(HttpExampleActivator.class);
                 builder.addImportPackages(HttpService.class, BundleActivator.class, ServiceTracker.class);
                 builder.addImportPackages(HttpServlet.class, Servlet.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -120,6 +120,6 @@ public class HttpServiceTestCase extends AbstractTestSupport {
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpServiceSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 }

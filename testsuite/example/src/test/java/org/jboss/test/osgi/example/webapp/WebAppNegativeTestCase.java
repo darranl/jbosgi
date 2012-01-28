@@ -24,13 +24,14 @@ package org.jboss.test.osgi.example.webapp;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
-import org.jboss.test.osgi.example.http.HttpTestSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.example.HttpServiceSupport;
+import org.jboss.test.osgi.example.WebAppSupport;
 import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +50,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
-import static org.jboss.test.osgi.example.webapp.WebAppSupport.provideWebappSupport;
+import static org.jboss.test.osgi.example.WebAppSupport.provideWebappSupport;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -60,7 +61,7 @@ import static org.junit.Assert.fail;
  * @since 26-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class WebAppNegativeTestCase extends AbstractTestSupport {
+public class WebAppNegativeTestCase {
 
     @Inject
     public BundleContext context;
@@ -71,9 +72,9 @@ public class WebAppNegativeTestCase extends AbstractTestSupport {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp-negative");
-        archive.addClasses(EndpointServlet.class, AbstractTestSupport.class, WebAppSupport.class, HttpTestSupport.class);
+        archive.addClasses(EndpointServlet.class, RepositorySupport.class, WebAppSupport.class, HttpServiceSupport.class);
         archive.addAsResource("webapp/message.txt", "message.txt");
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
         archive.add(new Asset() {
             public InputStream openStream() {
@@ -84,7 +85,7 @@ public class WebAppNegativeTestCase extends AbstractTestSupport {
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
                 builder.addImportPackages(LifecycleInterceptorException.class);
                 builder.addImportPackages(PackageAdmin.class, HttpService.class, HttpServlet.class, Servlet.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         }, JarFile.MANIFEST_NAME);

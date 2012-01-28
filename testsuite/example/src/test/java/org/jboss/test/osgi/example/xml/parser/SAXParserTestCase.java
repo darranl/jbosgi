@@ -23,12 +23,13 @@ package org.jboss.test.osgi.example.xml.parser;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.example.xml.XMLParserSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -55,7 +56,7 @@ import static org.junit.Assert.assertEquals;
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
-public class SAXParserTestCase extends AbstractTestSupport {
+public class SAXParserTestCase {
 
     @Inject
     public BundleContext context;
@@ -66,16 +67,16 @@ public class SAXParserTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-xml-parser");
-        archive.addClasses(AbstractTestSupport.class, XMLParserSupport.class);
+        archive.addClasses(RepositorySupport.class, XMLParserSupport.class);
         archive.addAsResource("xml/example-xml-parser.xml", "example-xml-parser.xml");
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(SAXParser.class, DefaultHandler.class, SAXException.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });

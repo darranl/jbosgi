@@ -27,14 +27,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
-import org.jboss.test.osgi.example.http.HttpTestSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.example.HttpServiceSupport;
 import org.jboss.test.osgi.example.interceptor.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.interceptor.bundle.HttpMetadata;
 import org.jboss.test.osgi.example.interceptor.bundle.InterceptorActivator;
@@ -55,7 +55,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.jboss.test.osgi.example.http.HttpTestSupport.provideHttpService;
+import static org.jboss.test.osgi.example.HttpServiceSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -69,7 +69,7 @@ import static org.junit.Assert.assertEquals;
  * @since 23-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class LifecycleInterceptorTestCase extends AbstractTestSupport {
+public class LifecycleInterceptorTestCase {
 
     static final String PROCESSOR_NAME = "interceptor-processor";
     static final String ENDPOINT_NAME = "interceptor-endpoint";
@@ -86,14 +86,14 @@ public class LifecycleInterceptorTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
-        archive.addClasses(AbstractTestSupport.class, HttpTestSupport.class);
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addClasses(RepositorySupport.class, HttpServiceSupport.class);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(HttpService.class, XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(HttpService.class, XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -158,6 +158,6 @@ public class LifecycleInterceptorTestCase extends AbstractTestSupport {
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpServiceSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 }

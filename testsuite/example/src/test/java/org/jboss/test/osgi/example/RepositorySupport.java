@@ -22,15 +22,15 @@
 
 package org.jboss.test.osgi.example;
 
-import org.jboss.osgi.repository.MavenCoordinates;
-import org.jboss.osgi.repository.RepositoryRequirementBuilder;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.MavenCoordinates;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Capability;
 import org.osgi.framework.resource.Requirement;
+import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 import java.io.IOException;
@@ -45,20 +45,23 @@ import static org.junit.Assert.fail;
  * @author Thomas.Diesler@jboss.com
  * @since 16-Jan-2012
  */
-public abstract class AbstractTestSupport {
+public class RepositorySupport {
 
     public static final String BUNDLE_VERSIONS_FILE = "3rdparty-bundle.versions";
 
-    public static final String APACHE_FELIX_CONFIGADMIN = "org.apache.felix:org.apache.felix.configadmin";
-    public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
-    public static final String APACHE_FELIX_SCR = "org.apache.felix:org.apache.felix.scr";
-    public static final String JBOSS_OSGI_WEBAPP = "org.jboss.osgi.webapp:jbosgi-webapp";
-    public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
+    public static Repository getRepository(BundleContext context) {
+        ServiceReference sref = context.getServiceReference(Repository.class.getName());
+        return (Repository) context.getService(sref);
+    }
+
+    public static PackageAdmin getPackageAdmin(BundleContext syscontext) {
+        ServiceReference sref = syscontext.getServiceReference(PackageAdmin.class.getName());
+        return (PackageAdmin) syscontext.getService(sref);
+    }
 
     public static Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
-        XRepository repository = (XRepository) getRepository(context);
-        RepositoryRequirementBuilder builder = repository.getRequirementBuilder();
-        Requirement req = builder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
+        Repository repository = getRepository(context);
+        Requirement req = XRequirementBuilder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
         Collection<Capability> caps = repository.findProviders(req);
         if (caps.isEmpty())
             fail("Cannot find capability for: " + req);
@@ -66,14 +69,11 @@ public abstract class AbstractTestSupport {
         return context.installBundle(coordinates, cap.getResource().getContent());
     }
 
-    public static Repository getRepository(BundleContext context) {
-        ServiceReference sref = context.getServiceReference(Repository.class.getName());
-        return (Repository) context.getService(sref);
-    }
-
     public static String getCoordinates(Bundle bundle, String artifactid) {
         Properties props = new Properties();
         URL entry = bundle.getEntry("META-INF/" + BUNDLE_VERSIONS_FILE);
+        if (entry == null)
+            fail("Cannot find resource: META-INF/" + BUNDLE_VERSIONS_FILE);
         try {
             InputStream input = entry.openStream();
             props.load(input);

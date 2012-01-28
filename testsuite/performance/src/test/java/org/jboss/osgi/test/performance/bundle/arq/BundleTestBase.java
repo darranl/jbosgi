@@ -31,6 +31,7 @@ import java.io.InputStream;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
@@ -44,7 +45,6 @@ import org.jboss.osgi.test.util4.Util4;
 import org.jboss.osgi.test.util5.Util5;
 import org.jboss.osgi.test.versioned.VersionedInterface;
 import org.jboss.osgi.test.versioned.impl.VersionedClass;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

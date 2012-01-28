@@ -24,17 +24,17 @@ package org.jboss.test.osgi.example.configadmin;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.ConfigurationAdminSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.resource.Resource;
@@ -53,6 +53,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import static org.jboss.test.osgi.example.ConfigurationAdminSupport.provideConfigurationAdmin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -64,7 +65,7 @@ import static org.junit.Assert.assertNotNull;
  * @since 11-Dec-2010
  */
 @RunWith(Arquillian.class)
-public class ConfigurationAdminTestCase extends AbstractTestSupport {
+public class ConfigurationAdminTestCase {
 
     @Inject
     public BundleContext context;
@@ -75,15 +76,15 @@ public class ConfigurationAdminTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-configadmin");
-        archive.addClasses(ConfiguredService.class, AbstractTestSupport.class);
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addClasses(ConfiguredService.class, ConfigurationAdminSupport.class, RepositorySupport.class);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(ConfigurationAdmin.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -94,7 +95,7 @@ public class ConfigurationAdminTestCase extends AbstractTestSupport {
     public void testManagedService() throws Exception {
 
         // Get the {@link ConfigurationAdmin}
-        ConfigurationAdmin configAdmin = provideConfigurationAdmin(bundle);
+        ConfigurationAdmin configAdmin = provideConfigurationAdmin(context, bundle);
 
         // Start the test bundle
         bundle.start();
@@ -137,14 +138,5 @@ public class ConfigurationAdminTestCase extends AbstractTestSupport {
         {
             config.delete();
         }
-    }
-
-    private ConfigurationAdmin provideConfigurationAdmin(Bundle bundle) throws BundleException {
-        ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
-        if (sref == null) {
-            installSupportBundle(context, getCoordinates(bundle, APACHE_FELIX_CONFIGADMIN)).start();
-            sref = context.getServiceReference(ConfigurationAdmin.class.getName());
-        }
-        return (ConfigurationAdmin) context.getService(sref);
     }
 }

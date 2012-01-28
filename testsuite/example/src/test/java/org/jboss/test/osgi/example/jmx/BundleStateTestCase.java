@@ -23,12 +23,14 @@ package org.jboss.test.osgi.example.jmx;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
+import org.jboss.test.osgi.example.AriesSupport;
+import org.jboss.test.osgi.example.ManagementSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -54,7 +56,7 @@ import static org.junit.Assert.assertNotNull;
  * @since 15-Feb-2010
  */
 @RunWith(Arquillian.class)
-public class BundleStateTestCase extends AbstractTestSupport {
+public class BundleStateTestCase {
 
     @Inject
     public BundleContext context;
@@ -65,8 +67,8 @@ public class BundleStateTestCase extends AbstractTestSupport {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-bundlestate");
-        archive.addClasses(AbstractTestSupport.class, JMXTestSupport.class);
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addClasses(RepositorySupport.class, ManagementSupport.class, AriesSupport.class);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -74,7 +76,7 @@ public class BundleStateTestCase extends AbstractTestSupport {
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(PackageAdmin.class);
                 builder.addImportPackages(BundleStateMBean.class, MBeanServer.class, TabularData.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -84,10 +86,10 @@ public class BundleStateTestCase extends AbstractTestSupport {
     @Test
     public void testBundleStateMBean() throws Exception {
 
-        MBeanServer server = JMXTestSupport.provideMBeanServer(context, bundle);
+        MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
 
         ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
-        BundleStateMBean bundleState =  JMXTestSupport.getMBeanProxy(server, oname, BundleStateMBean.class);
+        BundleStateMBean bundleState =  ManagementSupport.getMBeanProxy(server, oname, BundleStateMBean.class);
         assertNotNull("BundleStateMBean not null", bundleState);
 
         TabularData bundleData = bundleState.listBundles();

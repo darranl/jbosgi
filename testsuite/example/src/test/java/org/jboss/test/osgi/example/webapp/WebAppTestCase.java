@@ -23,13 +23,14 @@ package org.jboss.test.osgi.example.webapp;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRepository;
+import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.AbstractTestSupport;
-import org.jboss.test.osgi.example.http.HttpTestSupport;
+import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.example.HttpServiceSupport;
+import org.jboss.test.osgi.example.WebAppSupport;
 import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +49,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
-import static org.jboss.test.osgi.example.webapp.WebAppSupport.provideWebappSupport;
+import static org.jboss.test.osgi.example.WebAppSupport.provideWebappSupport;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -58,7 +59,7 @@ import static org.junit.Assert.assertEquals;
  * @since 06-Oct-2009
  */
 @RunWith(Arquillian.class)
-public class WebAppTestCase extends AbstractTestSupport {
+public class WebAppTestCase {
 
     @Inject
     public BundleContext context;
@@ -69,10 +70,10 @@ public class WebAppTestCase extends AbstractTestSupport {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp");
-        archive.addClasses(EndpointServlet.class, AbstractTestSupport.class, HttpTestSupport.class, WebAppSupport.class);
+        archive.addClasses(EndpointServlet.class, RepositorySupport.class, HttpServiceSupport.class, WebAppSupport.class);
         archive.addAsWebResource("webapp/message.txt", "message.txt");
         archive.addAsWebInfResource("webapp/web.xml", "web.xml");
-        archive.addAsManifestResource(BUNDLE_VERSIONS_FILE);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
         archive.add(new Asset() {
             public InputStream openStream() {
@@ -82,7 +83,7 @@ public class WebAppTestCase extends AbstractTestSupport {
                 builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
                 builder.addImportPackages(PackageAdmin.class, HttpService.class, HttpServlet.class, Servlet.class);
-                builder.addImportPackages(XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         }, JarFile.MANIFEST_NAME);
@@ -114,6 +115,6 @@ public class WebAppTestCase extends AbstractTestSupport {
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpTestSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpServiceSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 }

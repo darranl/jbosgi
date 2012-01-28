@@ -19,8 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.jmx;
+package org.jboss.test.osgi.example;
 
+import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.example.AriesSupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -32,28 +34,22 @@ import javax.management.MBeanServerConnection;
 import javax.management.MBeanServerInvocationHandler;
 import javax.management.ObjectName;
 
-import static org.jboss.test.osgi.example.AbstractTestSupport.getCoordinates;
-import static org.jboss.test.osgi.example.AbstractTestSupport.installSupportBundle;
-
 /**
  * @author thomas.diesler@jboss.com
  * @since 26-Jan-2012
  */
-public final class JMXTestSupport {
+public final class ManagementSupport extends RepositorySupport {
 
     public static final String APACHE_ARIES_JMX = "org.apache.aries.jmx:org.apache.aries.jmx";
-    public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
     public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jbosgi-jmx";
 
     public static MBeanServer provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference sref = syscontext.getServiceReference(PackageAdmin.class.getName());
-        PackageAdmin padmin = (PackageAdmin) syscontext.getService(sref);
-        if (padmin.getBundles("jbosgi-jmx", null) == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
+        AriesSupport.provideAriesUtil(syscontext, bundle);
+        if (getPackageAdmin(syscontext).getBundles("jbosgi-jmx", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
             installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();
         }
-        sref = syscontext.getServiceReference(MBeanServer.class.getName());
+        ServiceReference sref = syscontext.getServiceReference(MBeanServer.class.getName());
         return (MBeanServer) syscontext.getService(sref);
     }
 

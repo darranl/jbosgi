@@ -101,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.xerces</groupId>
-            <artifactId>jboss-osgi-xerces</artifactId>
+            <artifactId>jbosgi-xerces</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

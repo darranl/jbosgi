@@ -29,7 +29,8 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.RepositorySupport;
-import org.jboss.test.osgi.example.xml.XMLParserSupport;
+import org.jboss.test.osgi.example.XMLParserSupport;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -58,7 +59,7 @@ import static org.junit.Assert.assertNotNull;
  * @since 21-Jul-2009
  */
 @RunWith(Arquillian.class)
-public class DOMParserTestCase {
+public class DocumentBuilderTestCase {
 
     @Inject
     public BundleContext context;
@@ -87,9 +88,6 @@ public class DOMParserTestCase {
 
     @Test
     public void testDOMParser() throws Exception {
-
-        bundle.start();
-
         DocumentBuilder domBuilder = getDocumentBuilder();
         URL resURL = bundle.getResource("example-xml-parser.xml");
         Document dom = domBuilder.parse(resURL.openStream());
@@ -106,8 +104,6 @@ public class DOMParserTestCase {
     private DocumentBuilder getDocumentBuilder() throws Exception {
         DocumentBuilderFactory factory = XMLParserSupport.provideDocumentBuilderFactory(context, bundle);
         factory.setValidating(false);
-
-        DocumentBuilder domBuilder = factory.newDocumentBuilder();
-        return domBuilder;
+        return factory.newDocumentBuilder();
     }
 }

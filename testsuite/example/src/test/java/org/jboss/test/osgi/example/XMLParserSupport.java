@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.xml;
+package org.jboss.test.osgi.example;
 
 import org.jboss.test.osgi.example.RepositorySupport;
 import org.osgi.framework.Bundle;
@@ -37,7 +37,7 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class XMLParserSupport extends RepositorySupport {
 
-    public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jboss-osgi-xerces";
+    public static final String JBOSS_OSGI_XERCES = "org.jboss.osgi.xerces:jbosgi-xerces";
 
     public static SAXParserFactory provideSAXParserFactory(BundleContext syscontext, Bundle bundle) throws BundleException, InvalidSyntaxException {
         ServiceReference sref = syscontext.getServiceReference(SAXParserFactory.class.getName());

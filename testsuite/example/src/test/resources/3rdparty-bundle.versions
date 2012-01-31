@@ -5,6 +5,7 @@ org.apache.aries\:org.apache.aries.util=@version.apache.aries.util@
 org.apache.felix\:org.apache.felix.configadmin=@version.apache.felix.configadmin@
 org.apache.felix\:org.apache.felix.eventadmin=@version.apache.felix.eventadmin@
 org.apache.felix\:org.apache.felix.scr=@version.apache.felix.scr@
+org.jboss.osgi.http\:jbosgi-http-api=@version.jboss.osgi.http@
 org.jboss.osgi.jmx\:jbosgi-jmx=@version.jboss.osgi.jmx@
 org.jboss.osgi.xerces\:jbosgi-xerces=@version.jboss.osgi.xerces@
 org.ops4j.pax.logging\:pax-logging-api=@version.ops4j.paxlogging@

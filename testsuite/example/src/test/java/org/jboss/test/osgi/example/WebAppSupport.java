@@ -39,7 +39,7 @@ public final class WebAppSupport extends RepositorySupport {
 
     public static void provideWebappSupport(BundleContext syscontext, Bundle bundle) throws BundleException {
         HttpServiceSupport.provideHttpService(syscontext, bundle);
-        if (getPackageAdmin(syscontext).getBundles("pax-web-extender-war", null) == null) {
+        if (getPackageAdmin(syscontext).getBundles("org.ops4j.pax.web.pax-web-extender-war", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, OPS4J_PAXWEB_EXTENDER)).start();
         }
     }

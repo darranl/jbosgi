@@ -39,6 +39,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
+import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -78,8 +79,8 @@ public class HttpServiceTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(HttpExampleActivator.class);
-                builder.addImportPackages(HttpService.class, BundleActivator.class, ServiceTracker.class);
-                builder.addImportPackages(HttpServlet.class, Servlet.class);
+                builder.addImportPackages(BundleActivator.class, PackageAdmin.class, ServiceTracker.class);
+                builder.addImportPackages(HttpService.class, HttpServlet.class, Servlet.class);
                 builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }

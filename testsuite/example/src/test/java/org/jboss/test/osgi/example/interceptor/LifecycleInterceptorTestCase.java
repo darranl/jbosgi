@@ -47,6 +47,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.resource.Resource;
 import org.osgi.service.http.HttpService;
+import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 import javax.inject.Inject;
@@ -93,7 +94,8 @@ public class LifecycleInterceptorTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(HttpService.class, XRequirementBuilder.class, Repository.class, Resource.class);
+                builder.addImportPackages(PackageAdmin.class, HttpService.class);
+                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });

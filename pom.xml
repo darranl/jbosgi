@@ -63,7 +63,7 @@
         <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.repository>1.0.3</version.jboss.osgi.repository>
-        <version.jboss.osgi.xerces>2.10.0-SNAPSHOT</version.jboss.osgi.xerces>
+        <version.jboss.osgi.xerces>2.10.0</version.jboss.osgi.xerces>
         <version.ops4j.paxlogging>1.6.4</version.ops4j.paxlogging>
         <version.ops4j.pax.web>1.1.2</version.ops4j.pax.web>
         <version.osgi>4.2.0</version.osgi>

@@ -33,6 +33,7 @@ import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.example.HttpSupport;
 import org.jboss.test.osgi.example.RepositorySupport;
 import org.jboss.test.osgi.example.HttpServiceSupport;
 import org.jboss.test.osgi.example.interceptor.bundle.EndpointServlet;
@@ -87,7 +88,7 @@ public class LifecycleInterceptorTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
-        archive.addClasses(RepositorySupport.class, HttpServiceSupport.class);
+        archive.addClasses(RepositorySupport.class, HttpServiceSupport.class, HttpSupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
@@ -160,6 +161,6 @@ public class LifecycleInterceptorTestCase {
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpServiceSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 }

@@ -19,10 +19,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.jbossas.example.webapp;
+package org.jboss.test.osgi.example.jbossas.webapp;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.jboss.test.osgi.example.jbossas.ejb3.SimpleStatelessSessionBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -30,8 +29,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.jboss.test.osgi.jbossas.example.ejb3.SimpleStatelessSessionBean;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * A simple SLSB client servlet.
@@ -43,7 +42,7 @@ public class SimpleBeanClientServlet  extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    @EJB(lookup = "java:global/jboss-osgi-example-jbossas-ejb3-1.0.1/SimpleStatelessSessionBean")
+    @EJB(lookup = "java:global/example-javaee-ejb3/SimpleStatelessSessionBean")
     private SimpleStatelessSessionBean bean;
 
     @Override

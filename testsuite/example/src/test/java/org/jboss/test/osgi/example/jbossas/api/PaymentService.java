@@ -19,37 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.jbossas.example.payment.internal;
-
-import org.jboss.logging.Logger;
-import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
+package org.jboss.test.osgi.example.jbossas.api;
 
 /**
- * A simple payment service activator
+ * A simple payment service
  *
  * @author thomas.diesler@jboss.com
  * @since 18-Jul-2011
  */
-public class PaymentActivator implements BundleActivator {
+public interface PaymentService {
 
-    // Provide logging
-    static final Logger log = Logger.getLogger(PaymentActivator.class);
-
-    public void start(BundleContext context) {
-        log.infof("Start PaymentService");
-
-        PaymentService service = new PaymentService() {
-            public String process(String account, Float amount) {
-                return "Charged $" + amount + " to account '" + account + "'";
-            }
-        };
-
-        context.registerService(PaymentService.class.getName(), service, null);
-    }
-
-    public void stop(BundleContext context) {
-        log.infof("Stop PaymentService");
-    }
+    String process(String account, Float amount);
 }

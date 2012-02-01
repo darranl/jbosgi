@@ -27,11 +27,6 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-
 
 /**
  * HTTP integration test support.
@@ -52,41 +47,5 @@ public final class HttpServiceSupport extends RepositorySupport {
             sref = syscontext.getServiceReference(HttpService.class.getName());
         }
         return (HttpService) syscontext.getService(sref);
-    }
-
-    /**
-     * Execute a HTTP request.
-     */
-    public static String getHttpResponse(String host, int port, String reqpath) throws IOException {
-        URL url = new URL("http://" + host + ":" + port + reqpath);
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-        String line = br.readLine();
-        br.close();
-        return line;
-    }
-
-    /**
-     * Execute a HTTP request with a given timeout in milliseconds.
-     */
-    public static String getHttpResponse(String host, int port, String reqpath, int timeout) throws IOException {
-        int fraction = 200;
-        String line = null;
-        IOException lastException = null;
-        while (line == null && 0 < (timeout -= fraction)) {
-            try {
-                line = getHttpResponse(host, port, reqpath);
-            } catch (IOException ex) {
-                lastException = ex;
-                try {
-                    Thread.sleep(fraction);
-                } catch (InterruptedException ie) {
-                    // ignore
-                }
-            }
-        }
-        if (line == null && lastException != null) {
-            throw lastException;
-        }
-        return line;
     }
 }

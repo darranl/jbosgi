@@ -28,6 +28,7 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.test.osgi.example.HttpSupport;
 import org.jboss.test.osgi.example.RepositorySupport;
 import org.jboss.test.osgi.example.HttpServiceSupport;
 import org.jboss.test.osgi.example.WebAppSupport;
@@ -70,7 +71,7 @@ public class WebAppTestCase {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp");
-        archive.addClasses(EndpointServlet.class, RepositorySupport.class, HttpServiceSupport.class, WebAppSupport.class);
+        archive.addClasses(EndpointServlet.class, RepositorySupport.class, HttpServiceSupport.class, HttpSupport.class, WebAppSupport.class);
         archive.addAsWebResource("webapp/message.txt", "message.txt");
         archive.addAsWebInfResource("webapp/web.xml", "web.xml");
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
@@ -115,6 +116,6 @@ public class WebAppTestCase {
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpServiceSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
     }
 }

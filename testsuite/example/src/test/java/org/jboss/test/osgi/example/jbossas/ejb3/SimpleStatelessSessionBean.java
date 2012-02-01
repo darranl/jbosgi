@@ -19,53 +19,49 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.jbossas.example.webapp;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package org.jboss.test.osgi.example.jbossas.ejb3;
 
 import org.jboss.logging.Logger;
-import org.jboss.test.osgi.jbossas.example.payment.PaymentService;
+import org.jboss.test.osgi.example.jbossas.api.PaymentService;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
 /**
- * A simple servlet.
+ * A simple stateless session bean.
  *
  * @author thomas.diesler@jboss.com
  */
-@WebServlet(name = "SimpleClientServlet", urlPatterns = { "/simple" })
-public class SimpleClientServlet extends HttpServlet {
+@Stateless
+@LocalBean
+public class SimpleStatelessSessionBean {
 
     // Provide logging
-    static final Logger log = Logger.getLogger(SimpleClientServlet.class);
+    static final Logger log = Logger.getLogger(SimpleStatelessSessionBean.class);
 
     @Resource
     private BundleContext context;
 
     private PaymentService service;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    @PostConstruct
+    public void init() {
 
-        final SimpleClientServlet servlet = this;
+        final SimpleStatelessSessionBean bean = this;
+
+        log.infof("BundleContext symbolic name: %s", context.getBundle().getSymbolicName());
 
         // Track {@link PaymentService} implementations
         ServiceTracker tracker = new ServiceTracker(context, PaymentService.class.getName(), null) {
 
             @Override
             public Object addingService(ServiceReference sref) {
-                log.infof("Adding service: %s to %s", sref, servlet);
+                log.infof("Adding service: %s to %s", sref, bean);
                 service = (PaymentService) super.addingService(sref);
                 return service;
             }
@@ -73,28 +69,18 @@ public class SimpleClientServlet extends HttpServlet {
             @Override
             public void removedService(ServiceReference sref, Object sinst) {
                 super.removedService(sref, service);
-                log.infof("Removing service: %s from %s", sref, servlet);
+                log.infof("Removing service: %s from %s", sref, bean);
                 service = null;
             }
         };
         tracker.open();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String message = process(req.getParameter("account"), req.getParameter("amount"));
-        PrintWriter out = res.getWriter();
-        out.println(message);
-        out.close();
-    }
-
-    private String process(String account, String amount) {
+    public String process(String account, String amount) {
 
         if (service == null)
             return "PaymentService not available";
 
-        return "Calling PaymentService: " + service.process(account, amount != null ? Float.valueOf(amount) : null);
+        return service.process(account, amount != null ? Float.valueOf(amount) : null);
     }
-
-    private static final long serialVersionUID = 1L;
 }

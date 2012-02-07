@@ -19,33 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example;
+package org.jboss.test.osgi;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.packageadmin.PackageAdmin;
+import org.osgi.service.event.EventAdmin;
 
 /**
  * @author thomas.diesler@jboss.com
- * @since 26-Jan-2012
+ * @since 28-Jan-2012
  */
-public final class AriesSupport extends RepositorySupport {
+public class EventAdminSupport extends RepositorySupport {
 
-    public static final String APACHE_ARIES_PROXY = "org.apache.aries.proxy:org.apache.aries.proxy";
-    public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
+    public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
 
-    public static void provideAriesUtil(BundleContext syscontext, Bundle bundle) throws BundleException {
-        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.util", null) == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
+    public static EventAdmin provideEventAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
+        ServiceReference sref = syscontext.getServiceReference(EventAdmin.class.getName());
+        if (sref == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
+            sref = syscontext.getServiceReference(EventAdmin.class.getName());
         }
-    }
-
-    public static void provideAriesProxy(BundleContext syscontext, Bundle bundle) throws BundleException {
-        AriesSupport.provideAriesUtil(syscontext, bundle);
-        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.proxy", null) == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_PROXY)).start();
-        }
+        return (EventAdmin) syscontext.getService(sref);
     }
 }

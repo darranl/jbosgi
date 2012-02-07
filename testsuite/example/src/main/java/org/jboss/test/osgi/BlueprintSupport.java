@@ -20,29 +20,24 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.osgi.example;
+package org.jboss.test.osgi;
 
-import org.jboss.test.osgi.example.RepositorySupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.cm.ConfigurationAdmin;
 
 /**
  * @author Thomas.Diesler@jboss.com
  * @since 28-Jan-2012
  */
-public class ConfigurationAdminSupport extends RepositorySupport {
+public class BlueprintSupport extends RepositorySupport {
 
-    public static final String APACHE_FELIX_CONFIGADMIN = "org.apache.felix:org.apache.felix.configadmin";
+    public static final String APACHE_ARIES_BLUEPRINT = "org.apache.aries.blueprint:org.apache.aries.blueprint";
 
-    public static ConfigurationAdmin provideConfigurationAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference sref = syscontext.getServiceReference(ConfigurationAdmin.class.getName());
-        if (sref == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_CONFIGADMIN)).start();
-            sref = syscontext.getServiceReference(ConfigurationAdmin.class.getName());
+    public static void provideBlueprint(BundleContext syscontext, Bundle bundle) throws BundleException {
+        AriesSupport.provideAriesProxy(syscontext, bundle);
+        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.blueprint", null) == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_BLUEPRINT)).start();
         }
-        return (ConfigurationAdmin) syscontext.getService(sref);
     }
 }

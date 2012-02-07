@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scr:component xmlns:scr='http://www.osgi.org/xmlns/scr/v1.1.0' name='Service2' immediate='true' activate='activate' deactivate='deactivate'>
+    <implementation class='org.jboss.test.osgi.jbosgi508.bundle2.Service2'/>
+    <service>
+        <provide interface='org.jboss.test.osgi.jbosgi508.bundle2.Service2'/>
+    </service>
+    <reference name='service1' interface='org.jboss.test.osgi.jbosgi508.bundle1.Service1' bind='setService1'/>
+</scr:component>

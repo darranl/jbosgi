@@ -19,15 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example;
+package org.jboss.test.osgi;
 
-import org.jboss.test.osgi.example.RepositorySupport;
-import org.jboss.test.osgi.example.HttpServiceSupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * @author thomas.diesler@jboss.com

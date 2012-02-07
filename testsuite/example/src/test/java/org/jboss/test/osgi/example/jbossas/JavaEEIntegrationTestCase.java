@@ -32,7 +32,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.HttpSupport;
+import org.jboss.test.osgi.HttpSupport;
 import org.jboss.test.osgi.example.jbossas.api.PaymentService;
 import org.jboss.test.osgi.example.jbossas.ejb3.SimpleStatelessSessionBean;
 import org.jboss.test.osgi.example.jbossas.service.PaymentActivator;

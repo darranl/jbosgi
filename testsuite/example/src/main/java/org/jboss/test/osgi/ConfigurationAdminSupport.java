@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2005, JBoss Inc., and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2010, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -19,29 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example;
 
-import org.jboss.test.osgi.example.RepositorySupport;
+package org.jboss.test.osgi;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.event.EventAdmin;
+import org.osgi.service.cm.ConfigurationAdmin;
 
 /**
- * @author thomas.diesler@jboss.com
+ * @author Thomas.Diesler@jboss.com
  * @since 28-Jan-2012
  */
-public class EventAdminSupport extends RepositorySupport {
+public class ConfigurationAdminSupport extends RepositorySupport {
 
-    public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
+    public static final String APACHE_FELIX_CONFIGADMIN = "org.apache.felix:org.apache.felix.configadmin";
 
-    public static EventAdmin provideEventAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference sref = syscontext.getServiceReference(EventAdmin.class.getName());
+    public static ConfigurationAdmin provideConfigurationAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
+        ServiceReference sref = syscontext.getServiceReference(ConfigurationAdmin.class.getName());
         if (sref == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
-            sref = syscontext.getServiceReference(EventAdmin.class.getName());
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_CONFIGADMIN)).start();
+            sref = syscontext.getServiceReference(ConfigurationAdmin.class.getName());
         }
-        return (EventAdmin) syscontext.getService(sref);
+        return (ConfigurationAdmin) syscontext.getService(sref);
     }
 }

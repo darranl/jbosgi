@@ -29,8 +29,8 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.ConfigurationAdminSupport;
-import org.jboss.test.osgi.example.RepositorySupport;
+import org.jboss.test.osgi.ConfigurationAdminSupport;
+import org.jboss.test.osgi.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -53,7 +53,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import static org.jboss.test.osgi.example.ConfigurationAdminSupport.provideConfigurationAdmin;
+import static org.jboss.test.osgi.ConfigurationAdminSupport.provideConfigurationAdmin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

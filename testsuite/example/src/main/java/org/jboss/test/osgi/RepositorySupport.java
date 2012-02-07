@@ -20,10 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.osgi.example;
+package org.jboss.test.osgi;
 
 import org.jboss.osgi.resolver.v2.MavenCoordinates;
 import org.jboss.osgi.resolver.v2.XRequirementBuilder;
+import org.junit.Assert;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -38,8 +39,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Properties;
-
-import static org.junit.Assert.fail;
 
 /**
  * @author Thomas.Diesler@jboss.com
@@ -64,7 +63,7 @@ public class RepositorySupport {
         Requirement req = XRequirementBuilder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
         Collection<Capability> caps = repository.findProviders(req);
         if (caps.isEmpty())
-            fail("Cannot find capability for: " + req);
+            Assert.fail("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();
         return context.installBundle(coordinates, cap.getResource().getContent());
     }
@@ -73,13 +72,13 @@ public class RepositorySupport {
         Properties props = new Properties();
         URL entry = bundle.getEntry("META-INF/" + BUNDLE_VERSIONS_FILE);
         if (entry == null)
-            fail("Cannot find resource: META-INF/" + BUNDLE_VERSIONS_FILE);
+            Assert.fail("Cannot find resource: META-INF/" + BUNDLE_VERSIONS_FILE);
         try {
             InputStream input = entry.openStream();
             props.load(input);
             input.close();
         } catch (IOException ex) {
-            fail(ex.getMessage());
+            Assert.fail(ex.getMessage());
         }
         return artifactid + ":" + props.getProperty(artifactid);
     }

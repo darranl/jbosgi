@@ -19,24 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example;
+package org.jboss.test.osgi;
 
-import org.jboss.test.osgi.example.RepositorySupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
 /**
  * @author thomas.diesler@jboss.com
- * @since 28-Jan-2012
+ * @since 26-Jan-2012
  */
-public class DeclarativeServicesSupport extends RepositorySupport {
+public final class AriesSupport extends RepositorySupport {
 
-    public static final String APACHE_FELIX_SCR = "org.apache.felix:org.apache.felix.scr";
+    public static final String APACHE_ARIES_PROXY = "org.apache.aries.proxy:org.apache.aries.proxy";
+    public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
 
-    public static void provideDeclarativeServices(BundleContext syscontext, Bundle bundle) throws BundleException {
-        if (syscontext.getServiceReference("org.apache.felix.scr.ScrService") == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_SCR)).start();
+    public static void provideAriesUtil(BundleContext syscontext, Bundle bundle) throws BundleException {
+        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.util", null) == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
+        }
+    }
+
+    public static void provideAriesProxy(BundleContext syscontext, Bundle bundle) throws BundleException {
+        AriesSupport.provideAriesUtil(syscontext, bundle);
+        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.proxy", null) == null) {
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_PROXY)).start();
         }
     }
 }

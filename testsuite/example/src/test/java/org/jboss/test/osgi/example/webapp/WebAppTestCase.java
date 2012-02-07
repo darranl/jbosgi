@@ -28,10 +28,10 @@ import org.jboss.osgi.testing.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.HttpSupport;
-import org.jboss.test.osgi.example.RepositorySupport;
-import org.jboss.test.osgi.example.HttpServiceSupport;
-import org.jboss.test.osgi.example.WebAppSupport;
+import org.jboss.test.osgi.HttpServiceSupport;
+import org.jboss.test.osgi.HttpSupport;
+import org.jboss.test.osgi.RepositorySupport;
+import org.jboss.test.osgi.WebAppSupport;
 import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +50,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
-import static org.jboss.test.osgi.example.WebAppSupport.provideWebappSupport;
+import static org.jboss.test.osgi.WebAppSupport.provideWebappSupport;
 import static org.junit.Assert.assertEquals;
 
 /**

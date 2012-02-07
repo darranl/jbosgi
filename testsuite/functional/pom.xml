@@ -35,10 +35,48 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
-            <groupId>biz.aQute</groupId>
-            <artifactId>bnd</artifactId>
+            <groupId>org.jboss.osgi.testsuite</groupId>
+            <artifactId>jboss-osgi-testsuite-example</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.jboss.osgi.repository</groupId>
+            <artifactId>jbosgi-repository-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.repository</groupId>
+            <artifactId>jbosgi-repository</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundles</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>directory-single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>test-libs</finalName>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-bundles.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <!-- Profiles -->
     <profiles>

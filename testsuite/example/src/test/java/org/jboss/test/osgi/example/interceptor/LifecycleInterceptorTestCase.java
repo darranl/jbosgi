@@ -33,9 +33,9 @@ import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.example.HttpSupport;
-import org.jboss.test.osgi.example.RepositorySupport;
-import org.jboss.test.osgi.example.HttpServiceSupport;
+import org.jboss.test.osgi.HttpServiceSupport;
+import org.jboss.test.osgi.HttpSupport;
+import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.interceptor.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.interceptor.bundle.HttpMetadata;
 import org.jboss.test.osgi.example.interceptor.bundle.InterceptorActivator;
@@ -57,7 +57,7 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.jboss.test.osgi.example.HttpServiceSupport.provideHttpService;
+import static org.jboss.test.osgi.HttpServiceSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 /**

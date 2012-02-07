@@ -45,6 +45,7 @@
         <version.apache.ant>1.7.0</version.apache.ant>
         <version.apache.aries.blueprint>0.4</version.apache.aries.blueprint>
         <version.apache.aries.jmx>0.3</version.apache.aries.jmx>
+        <version.apache.aries.jndi>0.3.1</version.apache.aries.jndi>
         <version.apache.aries.proxy>0.4</version.apache.aries.proxy>
         <version.apache.aries.util>0.4</version.apache.aries.util>
         <version.apache.felix.configadmin>1.2.8</version.apache.felix.configadmin>
@@ -107,6 +108,11 @@
                 <groupId>org.apache.aries.jmx</groupId>
                 <artifactId>org.apache.aries.jmx</artifactId>
                 <version>${version.apache.aries.jmx}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.jndi</groupId>
+                <artifactId>org.apache.aries.jndi</artifactId>
+                <version>${version.apache.aries.jndi}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.aries.proxy</groupId>

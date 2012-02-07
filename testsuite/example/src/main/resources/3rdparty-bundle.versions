@@ -1,5 +1,6 @@
 org.apache.aries.blueprint\:org.apache.aries.blueprint=@version.apache.aries.blueprint@
 org.apache.aries.jmx\:org.apache.aries.jmx=@version.apache.aries.jmx@
+org.apache.aries.jndi\:org.apache.aries.jndi=@version.apache.aries.jndi@
 org.apache.aries.proxy\:org.apache.aries.proxy=@version.apache.aries.proxy@
 org.apache.aries\:org.apache.aries.util=@version.apache.aries.util@
 org.apache.felix\:org.apache.felix.configadmin=@version.apache.felix.configadmin@

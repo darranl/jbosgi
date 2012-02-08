@@ -37,11 +37,12 @@ public class ConfigurationAdminSupport extends RepositorySupport {
     public static final String APACHE_FELIX_CONFIGADMIN = "org.apache.felix:org.apache.felix.configadmin";
 
     public static ConfigurationAdmin provideConfigurationAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference sref = syscontext.getServiceReference(ConfigurationAdmin.class.getName());
+        BundleContext bundlecontext = bundle.getBundleContext();
+        ServiceReference sref = bundlecontext.getServiceReference(ConfigurationAdmin.class.getName());
         if (sref == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_CONFIGADMIN)).start();
-            sref = syscontext.getServiceReference(ConfigurationAdmin.class.getName());
+            sref = bundlecontext.getServiceReference(ConfigurationAdmin.class.getName());
         }
-        return (ConfigurationAdmin) syscontext.getService(sref);
+        return (ConfigurationAdmin) bundlecontext.getService(sref);
     }
 }

@@ -106,7 +106,7 @@ public class JBOSGi508TestCase {
         }
     }
 
-    //@Test
+    @Test
     public void testStartReverse() throws Exception {
         DeclarativeServicesSupport.provideDeclarativeServices(context, bundle);
         InputStream input1 = deployer.getDeployment("service1");

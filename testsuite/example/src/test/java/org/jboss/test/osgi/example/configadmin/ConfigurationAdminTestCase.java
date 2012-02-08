@@ -94,11 +94,11 @@ public class ConfigurationAdminTestCase {
     @Test
     public void testManagedService() throws Exception {
 
-        // Get the {@link ConfigurationAdmin}
-        ConfigurationAdmin configAdmin = provideConfigurationAdmin(context, bundle);
-
         // Start the test bundle
         bundle.start();
+
+        // Get the {@link ConfigurationAdmin}
+        ConfigurationAdmin configAdmin = provideConfigurationAdmin(context, bundle);
 
         final CountDownLatch latch = new CountDownLatch(1);
         ConfigurationListener listener = new ConfigurationListener() {
@@ -123,7 +123,7 @@ public class ConfigurationAdminTestCase {
             // Register a {@link ManagedService}
             Dictionary<String, String> serviceProps = new Hashtable<String, String>();
             serviceProps.put(Constants.SERVICE_PID, ConfiguredService.SERVICE_PID);
-            context.registerService(new String[] { ConfiguredService.class.getName(), ManagedService.class.getName() }, new ConfiguredService(), serviceProps);
+            bundlecontext.registerService(new String[] { ConfiguredService.class.getName(), ManagedService.class.getName() }, new ConfiguredService(), serviceProps);
 
             // Wait a little for the update event
             if (latch.await(5, TimeUnit.SECONDS) == false)

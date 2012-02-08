@@ -59,7 +59,7 @@
         <version.jboss.logmanager>1.2.0.GA</version.jboss.logmanager>
         <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-        <version.jboss.osgi.framework>1.1.1</version.jboss.osgi.framework>
+        <version.jboss.osgi.framework>1.1.2</version.jboss.osgi.framework>
         <version.jboss.osgi.http>1.0.5</version.jboss.osgi.http>
         <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>

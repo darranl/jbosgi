@@ -24,6 +24,7 @@ package org.jboss.test.osgi;
 
 import org.jboss.osgi.resolver.v2.MavenCoordinates;
 import org.jboss.osgi.resolver.v2.XRequirementBuilder;
+import org.jboss.osgi.resolver.v2.XResource;
 import org.junit.Assert;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -65,7 +66,8 @@ public class RepositorySupport {
         if (caps.isEmpty())
             Assert.fail("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();
-        return context.installBundle(coordinates, cap.getResource().getContent());
+        XResource xres = (XResource) cap.getResource();
+        return context.installBundle(coordinates, ((XResource) xres).getContent());
     }
 
     public static String getCoordinates(Bundle bundle, String artifactid) {

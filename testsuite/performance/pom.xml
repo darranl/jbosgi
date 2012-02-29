@@ -60,6 +60,9 @@
                     <value>equinox</value>
                 </property>
             </activation>
+            <properties>
+                <jboss.osgi.framework.properties>jboss-osgi-equinox.properties</jboss.osgi.framework.properties>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.osgi.equinox</groupId>
@@ -101,6 +104,9 @@
                     <value>felix</value>
                 </property>
             </activation>
+            <properties>
+                <jboss.osgi.framework.properties>jboss-osgi-felix.properties</jboss.osgi.framework.properties>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.osgi.felix</groupId>

@@ -30,6 +30,15 @@
     <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-testsuite-performance</artifactId>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.osgi.testing</groupId>
+            <artifactId>jbosgi-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <!-- Profiles -->
     <profiles>
 

@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.service.CreateAndLookupBenchmark;

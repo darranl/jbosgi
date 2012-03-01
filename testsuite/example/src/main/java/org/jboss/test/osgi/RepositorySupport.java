@@ -25,7 +25,6 @@ package org.jboss.test.osgi;
 import org.jboss.osgi.resolver.v2.MavenCoordinates;
 import org.jboss.osgi.resolver.v2.XRequirementBuilder;
 import org.jboss.osgi.resolver.v2.XResource;
-import org.junit.Assert;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -64,7 +63,7 @@ public class RepositorySupport {
         Requirement req = XRequirementBuilder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
         Collection<Capability> caps = repository.findProviders(req);
         if (caps.isEmpty())
-            Assert.fail("Cannot find capability for: " + req);
+            throw new IllegalStateException("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();
         XResource xres = (XResource) cap.getResource();
         return context.installBundle(coordinates, ((XResource) xres).getContent());
@@ -74,13 +73,13 @@ public class RepositorySupport {
         Properties props = new Properties();
         URL entry = bundle.getEntry("META-INF/" + BUNDLE_VERSIONS_FILE);
         if (entry == null)
-            Assert.fail("Cannot find resource: META-INF/" + BUNDLE_VERSIONS_FILE);
+            throw new IllegalStateException("Cannot find resource: META-INF/" + BUNDLE_VERSIONS_FILE);
         try {
             InputStream input = entry.openStream();
             props.load(input);
             input.close();
         } catch (IOException ex) {
-            Assert.fail(ex.getMessage());
+            throw new IllegalStateException(ex);
         }
         return artifactid + ":" + props.getProperty(artifactid);
     }

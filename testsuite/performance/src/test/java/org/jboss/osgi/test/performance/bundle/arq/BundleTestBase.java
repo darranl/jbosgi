@@ -31,7 +31,7 @@ import java.io.InputStream;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
+import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
@@ -74,12 +74,7 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addExportPackages(BundleTestBase.class);
-                builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
-                // builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.spec");
-                builder.addImportPackages("org.junit", "org.junit.runner");
-                builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
-                builder.addImportPackages("javax.inject");
-                builder.addImportPackages("org.jboss.osgi.testing");
+                builder.addImportPackages("org.jboss.logging");
                 return builder.openStream();
             }
         });

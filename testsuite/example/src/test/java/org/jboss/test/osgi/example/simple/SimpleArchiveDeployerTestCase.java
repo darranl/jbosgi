@@ -16,6 +16,7 @@
  */
 package org.jboss.test.osgi.example.simple;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
@@ -26,13 +27,13 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.osgi.testing.OSGiManifestBuilder;
-import org.jboss.osgi.testing.OSGiTestHelper;
+import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.example.simple.bundle.SimpleActivator;
 import org.jboss.test.osgi.example.simple.bundle.SimpleService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -82,14 +83,14 @@ public class SimpleArchiveDeployerTestCase {
 
         // Start the bundle
         bundle.start();
-        OSGiTestHelper.assertBundleState(Bundle.ACTIVE, bundle.getState());
+        assertEquals(Bundle.ACTIVE, bundle.getState());
 
         // Stop the bundle
         bundle.stop();
-        OSGiTestHelper.assertBundleState(Bundle.RESOLVED, bundle.getState());
+        assertEquals(Bundle.RESOLVED, bundle.getState());
 
         bundle.uninstall();
-        OSGiTestHelper.assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+        assertEquals(Bundle.UNINSTALLED, bundle.getState());
     }
 
     @Deployment(name = DEPLOYMENT_NAME, managed = false, testable = false)

@@ -34,11 +34,6 @@
 
     <!-- Dependencies -->
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
         <!-- Provided -->
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
@@ -139,6 +134,12 @@
             <groupId>org.ops4j.pax.web</groupId>
             <artifactId>pax-web-jsp</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <!-- Test -->
+        <dependency>
+            <groupId>org.jboss.osgi.testing</groupId>
+            <artifactId>jbosgi-testing</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

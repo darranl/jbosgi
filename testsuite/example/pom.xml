@@ -232,6 +232,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/jbossas/*TestCase.java</exclude>
+                                <exclude>**/jta/*TestCase.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

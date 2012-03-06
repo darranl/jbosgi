@@ -69,7 +69,7 @@
         <version.jboss.osgi.repository>1.0.5</version.jboss.osgi.repository>
         <version.jboss.osgi.resolver>1.0.13.Final</version.jboss.osgi.resolver>
         <version.jboss.osgi.spi>3.0.1.Final</version.jboss.osgi.spi>
-        <version.jboss.osgi.testing>1.0.3.Final</version.jboss.osgi.testing>
+        <version.jboss.osgi.testing>1.0.2</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>1.0.7.Final</version.jboss.osgi.vfs>
         <version.jboss.osgi.xerces>2.10.0</version.jboss.osgi.xerces>
         <version.jboss.spec.ejb3.api>1.0.1.Final</version.jboss.spec.ejb3.api>

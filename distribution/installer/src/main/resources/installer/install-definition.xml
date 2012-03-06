@@ -9,7 +9,7 @@
     <appversion>@{product.version}</appversion>
     <uninstaller name="remove.task" write="yes" />
   </info>
-  <guiprefs width="600" height="440" resizable="yes">
+  <guiprefs width="500" height="250" resizable="yes">
     <!--
     <laf name="kunststoff">
       <os family="unix" />

@@ -33,17 +33,6 @@
       <scope>compile</scope>
       <unpack>false</unpack>
     </dependencySet>
-    <dependencySet>
-      <outputDirectory>lib</outputDirectory>
-      <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      <useStrictFiltering>true</useStrictFiltering>
-      <includes>
-        <include>*:log4j:jar</include>
-      </includes>
-      <scope>test</scope>
-      <unpack>false</unpack>
-    </dependencySet>
-    
   </dependencySets>
 
   <fileSets>
@@ -55,11 +44,6 @@
         <include>JBossORG-EULA.txt</include>
         <include>ReleaseNotes.html</include>
       </includes>
-    </fileSet>
-    <!-- jbossas -->
-    <fileSet>
-      <directory>src/main/resources/jbossas</directory>
-      <outputDirectory>resources/jbossas</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>

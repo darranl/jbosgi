@@ -1,172 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <name>JBossOSGi Distribution Javadoc</name>
+    <name>JBossOSGi Distribution Javadoc</name>
 
-  <groupId>org.jboss.osgi.distribution</groupId>
-  <artifactId>jboss-osgi-javadoc</artifactId>
-  <packaging>jar</packaging>
-
-  <!-- Parent -->
-  <parent>
     <groupId>org.jboss.osgi.distribution</groupId>
-    <artifactId>jboss-osgi-distribution</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+    <artifactId>jboss-osgi-javadoc</artifactId>
+    <packaging>jar</packaging>
 
-  <!-- Properties -->
-  <properties>
-    <version.javax.inject>1</version.javax.inject>
-  </properties>
-  
-  <!-- Dependencies -->
-  <dependencies>
-    <dependency>
-      <groupId>org.jboss.osgi.spi</groupId>
-      <artifactId>jbosgi-spi</artifactId>
-      <version>${version.jboss.osgi.spi}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.blueprint</groupId>
-      <artifactId>jbosgi-blueprint</artifactId>
-      <version>${version.jboss.osgi.blueprint}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.common</groupId>
-      <artifactId>jboss-osgi-common</artifactId>
-      <version>${version.jboss.osgi.common}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.deployment</groupId>
-      <artifactId>jbosgi-deployment</artifactId>
-      <version>${version.jboss.osgi.deployment}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.hotdeploy</groupId>
-      <artifactId>jbosgi-hotdeploy</artifactId>
-      <version>${version.jboss.osgi.hotdeploy}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx-api</artifactId>
-      <version>${version.jboss.osgi.jmx}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-api</artifactId>
-      <version>${version.jboss.osgi.resolver}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-spi</artifactId>
-      <version>${version.jboss.osgi.resolver}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-metadata</artifactId>
-      <version>${version.jboss.osgi.resolver}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jbosgi-vfs</artifactId>
-      <version>${version.jboss.osgi.vfs}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jbosgi-vfs30</artifactId>
-      <version>${version.jboss.osgi.vfs}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.webapp</groupId>
-      <artifactId>jbosgi-webapp</artifactId>
-      <version>${version.jboss.osgi.webapp}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.webconsole</groupId>
-      <artifactId>jbosgi-webconsole</artifactId>
-      <version>${version.jboss.osgi.webconsole}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.xerces</groupId>
-      <artifactId>jboss-osgi-xerces</artifactId>
-      <version>${version.jboss.osgi.xerces}</version>
-      <classifier>sources</classifier>
-    </dependency>
-  </dependencies>
+    <!-- Parent -->
+    <parent>
+        <groupId>org.jboss.osgi.distribution</groupId>
+        <artifactId>jboss-osgi-distribution</artifactId>
+        <version>1.1.0</version>
+    </parent>
 
-  <!-- Plugins -->
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>javadoc-src</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>directory-single</goal>
-            </goals>
-            <configuration>
-              <finalName>javadoc-src</finalName>
-              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>scripts/assembly-javadoc-src.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <quiet>true</quiet>
-          <sourcepath>target/javadoc-src</sourcepath>
-          <excludePackageNames>*.internal:*.integration:org.jboss.osgi.blueprint:org.osgi.framework</excludePackageNames>
-          <links>
-            <link>http://www.osgi.org/javadoc/r4v42/</link>
-          </links>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-  
+    <!-- Properties -->
+    <properties>
+        <version.javax.inject>1</version.javax.inject>
+    </properties>
+
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.osgi.spi</groupId>
+            <artifactId>jbosgi-spi</artifactId>
+            <version>${version.jboss.osgi.spi}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.deployment</groupId>
+            <artifactId>jbosgi-deployment</artifactId>
+            <version>${version.jboss.osgi.deployment}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-core</artifactId>
+            <version>${version.jboss.osgi.framework}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.jmx</groupId>
+            <artifactId>jbosgi-jmx</artifactId>
+            <version>${version.jboss.osgi.jmx}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.jmx</groupId>
+            <artifactId>jbosgi-jmx-api</artifactId>
+            <version>${version.jboss.osgi.jmx}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.metadata</groupId>
+            <artifactId>jbosgi-metadata</artifactId>
+            <version>${version.jboss.osgi.metadata}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.resolver</groupId>
+            <artifactId>jbosgi-resolver-api</artifactId>
+            <version>${version.jboss.osgi.resolver}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.resolver</groupId>
+            <artifactId>jbosgi-resolver-spi</artifactId>
+            <version>${version.jboss.osgi.resolver}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.vfs</groupId>
+            <artifactId>jbosgi-vfs</artifactId>
+            <version>${version.jboss.osgi.vfs}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.testing</groupId>
+            <artifactId>jbosgi-testing</artifactId>
+            <version>${version.jboss.osgi.testing}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.vfs</groupId>
+            <artifactId>jbosgi-vfs30</artifactId>
+            <version>${version.jboss.osgi.vfs}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.xerces</groupId>
+            <artifactId>jbosgi-xerces</artifactId>
+            <version>${version.jboss.osgi.xerces}</version>
+            <classifier>sources</classifier>
+        </dependency>
+    </dependencies>
+
+    <!-- Plugins -->
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>javadoc-src</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>directory-single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>javadoc-src</finalName>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-javadoc-src.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <quiet>true</quiet>
+                    <sourcepath>target/javadoc-src</sourcepath>
+                    <excludePackageNames>*.internal:*.integration:org.jboss.osgi.blueprint:org.osgi.framework
+                    </excludePackageNames>
+                    <links>
+                        <link>http://www.osgi.org/javadoc/r4v42/</link>
+                    </links>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

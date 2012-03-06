@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.jboss.osgi.testsuite</groupId>
         <artifactId>jboss-osgi-testsuite</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.1.0</version>
     </parent>
 
     <name>JBossOSGi Testsuite Examples</name>

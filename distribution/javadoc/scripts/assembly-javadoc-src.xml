@@ -1,33 +1,31 @@
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
 
-  <id>javadoc-src</id>
-  <formats>
-    <format>dir</format>
-  </formats>
-  <includeBaseDirectory>false</includeBaseDirectory>
+    <id>javadoc-src</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
 
-  <dependencySets>
-    <dependencySet>
-      <outputDirectory>/</outputDirectory>
-      <useStrictFiltering>true</useStrictFiltering>
-      <includes>
-        <include>*:jbosgi-deployment:jar:sources</include>
-        <include>*:jbosgi-hotdeploy:jar:sources</include>
-        <include>*:jbosgi-resolver-api:jar:sources</include>
-        <include>*:jbosgi-resolver-spi:jar:sources</include>
-        <include>*:jbosgi-resolver-metadata:jar:sources</include>
-        <include>*:jbosgi-spi:jar:sources</include>
-        <include>*:jbosgi-blueprint:jar:sources</include>
-        <include>*:jboss-osgi-common:jar:sources</include>
-        <include>*:jboss-osgi-http:jar:sources</include>
-        <include>*:jboss-osgi-jmx-api:jar:sources</include>
-        <include>*:jbosgi-vfs:jar:sources</include>
-        <include>*:jbosgi-webapp:jar:sources</include>
-        <include>*:jboss-osgi-xerces:jar:sources</include>
-      </includes>
-      <unpack>true</unpack>
-    </dependencySet>
-  </dependencySets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+            <includes>
+                <include>*:jbosgi-deployment:jar:sources</include>
+                <include>*:jbosgi-framework-core:jar:sources</include>
+                <include>*:jbosgi-jmx-api:jar:sources</include>
+                <include>*:jbosgi-metadata:jar:sources</include>
+                <include>*:jbosgi-resolver-api:jar:sources</include>
+                <include>*:jbosgi-resolver-spi:jar:sources</include>
+                <include>*:jbosgi-spi:jar:sources</include>
+                <include>*:jbosgi-testing:jar:sources</include>
+                <include>*:jbosgi-vfs:jar:sources</include>
+                <include>*:jbosgi-xerces:jar:sources</include>
+            </includes>
+            <unpack>true</unpack>
+        </dependencySet>
+    </dependencySets>
 
 </assembly>

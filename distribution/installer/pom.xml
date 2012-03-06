@@ -10,230 +10,178 @@
 <!-- ====================================================================== -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <name>JBossOSGi Distribution Installer</name>
+    <name>JBossOSGi Distribution Installer</name>
 
-  <groupId>org.jboss.osgi.distribution</groupId>
-  <artifactId>jboss-osgi-installer</artifactId>
-  <packaging>pom</packaging>
-
-  <!-- Parent -->
-  <parent>
     <groupId>org.jboss.osgi.distribution</groupId>
-    <artifactId>jboss-osgi-distribution</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+    <artifactId>jboss-osgi-installer</artifactId>
+    <packaging>pom</packaging>
 
-  <!-- Dependencies -->
-  <dependencies>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.ant</groupId>
-      <artifactId>ant</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.osgi</groupId>
-      <artifactId>arquillian-osgi-bundle</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.distribution</groupId>
-      <artifactId>jboss-osgi-javadoc</artifactId>
-      <version>${project.version}</version>
-      <classifier>javadoc</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.blueprint</groupId>
-      <artifactId>jbosgi-blueprint</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.common</groupId>
-      <artifactId>jboss-osgi-common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.common</groupId>
-      <artifactId>jboss-osgi-common-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.deployment</groupId>
-      <artifactId>jbosgi-deployment</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.hotdeploy</groupId>
-      <artifactId>jbosgi-hotdeploy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jmx</groupId>
-      <artifactId>jboss-osgi-jmx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.jndi</groupId>
-      <artifactId>jboss-osgi-jndi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.resolver</groupId>
-      <artifactId>jbosgi-resolver-felix</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.spi</groupId>
-      <artifactId>jbosgi-spi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jbosgi-vfs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.vfs</groupId>
-      <artifactId>jbosgi-vfs30</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.webapp</groupId>
-      <artifactId>jbosgi-webapp</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.webconsole</groupId>
-      <artifactId>jbosgi-webconsole</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.testsuite</groupId>
-      <artifactId>jboss-osgi-testsuite-example</artifactId>
-      <version>${project.version}</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.osgi.xerces</groupId>
-      <artifactId>jboss-osgi-xerces</artifactId>
-    </dependency>
+    <!-- Parent -->
+    <parent>
+        <groupId>org.jboss.osgi.distribution</groupId>
+        <artifactId>jboss-osgi-distribution</artifactId>
+        <version>1.1.0</version>
+    </parent>
 
-    <!-- Aries Dependencies -->
-    <dependency>
-      <groupId>org.apache.aries.jmx</groupId>
-      <artifactId>org.apache.aries.jmx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.aries</groupId>
-      <artifactId>org.apache.aries.util</artifactId>
-    </dependency>
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.osgi</groupId>
+            <artifactId>arquillian-osgi-bundle</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.distribution</groupId>
+            <artifactId>jboss-osgi-javadoc</artifactId>
+            <version>${project.version}</version>
+            <classifier>javadoc</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-aggregated</artifactId>
+            <version>${version.jboss.osgi.framework}</version>
+            <classifier>all</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.jmx</groupId>
+            <artifactId>jbosgi-jmx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.testsuite</groupId>
+            <artifactId>jboss-osgi-testsuite-example</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.xerces</groupId>
+            <artifactId>jbosgi-xerces</artifactId>
+        </dependency>
 
-    <!-- Felix Dependencies -->
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.configadmin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.eventadmin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.log</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.metatype</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.scr</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.webconsole</artifactId>
-    </dependency>
+        <!-- Aries Dependencies -->
+        <dependency>
+            <groupId>org.apache.aries.blueprint</groupId>
+            <artifactId>org.apache.aries.blueprint</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries.jmx</groupId>
+            <artifactId>org.apache.aries.jmx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries.jndi</groupId>
+            <artifactId>org.apache.aries.jndi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries.proxy</groupId>
+            <artifactId>org.apache.aries.proxy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries</groupId>
+            <artifactId>org.apache.aries.util</artifactId>
+        </dependency>
 
-    <!-- JBossMSC Dependencies -->
-    <dependency>
-      <groupId>org.jboss.osgi.framework</groupId>
-      <artifactId>jbosgi-framework-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.logging</groupId>
-      <artifactId>jboss-logging</artifactId>
-    </dependency>
+        <!-- Felix Dependencies -->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.eventadmin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+        </dependency>
 
-    <!-- izpack -->
-    <dependency>
-      <groupId>org.codehaus.izpack</groupId>
-      <artifactId>izpack-standalone-compiler</artifactId>
-      <version>${version.izpack}</version>
-    </dependency>
-  </dependencies>
+        <!-- izpack -->
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-standalone-compiler</artifactId>
+            <version>${version.izpack}</version>
+        </dependency>
+    </dependencies>
 
-  <!-- Plugins -->
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>directory-single</goal>
-            </goals>
-            <configuration>
-              <finalName>deploy-artifacts</finalName>
-              <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>izpack</id>
-            <phase>package</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
-                <property name="framework" value="${framework}" />
-                <!-- ${jboss.home} is available in the hudson run -->
-                <property name="product.name" value="${project.name}" />
-                <property name="product.short.name" value="${artifactId}" />
-                <property name="product.version" value="${project.version}" />
-                <property name="target.container" value="${target.container}" />
-                <property name="user.home" value="${user.home}" />
-                <ant antfile="scripts/antrun-installer.xml" target="build-installer" />
-              </tasks>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-artifacts</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>target/jboss-osgi-installer-${project.version}.jar</file>
-                  <classifier>installer</classifier>
-                  <type>jar</type>
-                </artifact>
-              </artifacts>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    <!-- Plugins -->
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>directory-single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>deploy-artifacts</finalName>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>izpack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <property name="maven.runtime.classpath" refid="maven.runtime.classpath"/>
+                                <property name="framework" value="${framework}"/>
+                                <!-- ${jboss.home} is available in the hudson run -->
+                                <property name="product.name" value="${project.name}"/>
+                                <property name="product.short.name" value="${artifactId}"/>
+                                <property name="product.version" value="${project.version}"/>
+                                <property name="target.container" value="${target.container}"/>
+                                <property name="user.home" value="${user.home}"/>
+                                <ant antfile="scripts/antrun-installer.xml" target="build-installer"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>target/jboss-osgi-installer-${project.version}.jar</file>
+                                    <classifier>installer</classifier>
+                                    <type>jar</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

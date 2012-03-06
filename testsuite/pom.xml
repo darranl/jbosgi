@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jboss-osgi</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.1.0</version>
     </parent>
 
     <name>JBossOSGi Testsuite</name>
@@ -128,7 +128,8 @@
                 </property>
             </activation>
             <properties>
-                <jboss.home>${basedir}/target/jboss-as-${version.jbossas.710}</jboss.home>
+                <jboss.home>${basedir}/../../../jboss-as-${version.jbossas.710}/build/target/jboss-as-${version.jbossas.710}</jboss.home>
+                <!--jboss.home>${basedir}/target/jboss-as-${version.jbossas.710}</jboss.home-->
             </properties>
             <dependencies>
                 <dependency>

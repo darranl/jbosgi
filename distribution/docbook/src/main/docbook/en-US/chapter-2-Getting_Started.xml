@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="sid-4784849">
+    
+    <title>Getting Started</title>
+    <section id="sid-4784849_GettingStarted-Content">
+      
+      <title>Content</title>
+      <para>This chapter takes you through the first steps of getting JBoss OSGi and provides the initial pointers to get up and running.</para>
+    </section>
+    <section id="sid-4784849_GettingStarted-DownloadtheDistribution">
+      
+      <title>Download the Distribution</title>
+      <para>
+        JBoss OSGi is distributed as an
+        <ulink url="http://izpack.org">IzPack</ulink>
+        installer archive. The installer is available from the JBoss OSGi
+        <ulink url="http://sourceforge.net/projects/jboss/files/JBossOSGi">download area</ulink>
+        .
+      </para>
+    </section>
+    <section id="sid-4784849_GettingStarted-RunningtheInstaller">
+      
+      <title>Running the Installer</title>
+      <para>To run the installer execute the following command:</para>
+      <informalexample>
+        <programlisting>java -jar jboss-osgi-installer-1.1.0.jar</programlisting>
+      </informalexample>
+      <para>The installer first shows a welcome screen</para>
+      <para>
+        <figure>
+          <title/>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="author/download/attachments/4784849/izpack01-welcome.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </para>
+      <para>Then you select the installation path for the JBoss OSGi distribution. This is the directory where you find the binary build artifacts, the java sources, documentation and the JBoss OSGi Runtime.</para>
+      <para>
+        <figure>
+          <title/>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="author/download/attachments/4784849/izpack05-installpath.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </para>
+      <para>The content of the JBoss OSGi distribution contains a set of documents and example test cases that can be executed against the embedded framework or against an AS7 instance.</para>
+    </section>
+    <section id="sid-4784849_GettingStarted-ActivatingtheSubsystem">
+      
+      <title>Activating the Subsystem</title>
+      <para>By default the OSGi subsystem is activated lazily. It means that the framework will not start up unless you deploy an OSGi bundle. You can activate the OSGi subsystem explicitly by setting the activation property to 'eager'</para>
+      <informalexample>
+        <programlisting>&lt;subsystem xmlns="urn:jboss:domain:osgi:1.2" activation="eager"&gt;</programlisting>
+      </informalexample>
+      <para>When you start up the AS7 you should see something like this</para>
+      <informalexample>
+        <programlisting>[tdiesler@tdvaio jboss-as-7.1.0.Final]$ bin/standalone.sh 
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /home/tdiesler/git/jboss-as-7.1.0.Final/build/target/jboss-as-7.1.0.Final
+
+  JAVA: /usr/java/jdk1.6/bin/java
+
+  JAVA_OPTS:  ...
+
+=========================================================================
+
+13:56:32,414 INFO  [org.jboss.modules] JBoss Modules version 1.1.1.GA
+13:56:32,700 INFO  [org.jboss.msc] JBoss MSC version 1.0.2.GA
+13:56:32,802 INFO  [org.jboss.as] JBAS015899: JBoss AS 7.1.0.Final "Thunder" starting
+...
+13:56:35,357 INFO  JBossOSGi Framework Core - 1.1.5
+13:56:35,628 INFO  Install bundle: system.bundle:0.0.0
+...
+13:56:36,007 INFO  Install bundle: javax.transaction.api:0.0.0
+13:56:36,009 INFO  Install bundle: jboss-osgi-logging:1.0.0
+13:56:36,056 INFO  Install bundle: jboss-as-osgi-configadmin:7.1.0.Final
+13:56:36,124 INFO  Install bundle: org.apache.felix.log:1.0.0
+13:56:36,191 INFO  Install bundle: jbosgi-http-api:1.0.5
+13:56:36,191 INFO  Install bundle: org.apache.felix.configadmin:1.2.8
+13:56:36,490 INFO  Install bundle: osgi.enterprise:4.2.0.201003190513
+13:56:36,683 INFO  Starting bundles for start level: 1
+13:56:36,686 INFO  Bundle started: jbosgi-http-api:1.0.5
+13:56:36,687 INFO  Bundle started: osgi.enterprise:4.2.0.201003190513
+13:56:36,705 INFO  Bundle started: jboss-as-osgi-configadmin:7.1.0.Final
+13:56:36,722 INFO  Bundle started: jboss-osgi-logging:1.0.0
+13:56:36,758 INFO  Bundle started: org.apache.felix.log:1.0.0
+13:56:36,760 INFO  Bundle started: javax.transaction.api:0.0.0
+13:56:36,797 INFO  Bundle started: org.apache.felix.configadmin:1.2.8
+13:56:36,813 INFO  OSGi Framework started
+13:56:36,836 INFO  JBAS015874: JBoss AS 7.1.0.Final "Thunder" started in 4804ms</programlisting>
+      </informalexample>
+    </section>
+    <section id="sid-4784849_GettingStarted-ProvidedExamples">
+      
+      <title>Provided Examples</title>
+      <para>JBoss OSGi comes with a number of examples that you can build and deploy. Each example deployment is verified by an accompanying test case</para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">blueprint</emphasis>
+            - Basic Blueprint Container examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">configadmin</emphasis>
+            - Configuration Admin example
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">ds</emphasis>
+            - Declarative Services examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">eventadmin</emphasis>
+            - Event Admin examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">http</emphasis>
+            - HttpService examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">interceptor</emphasis>
+            - Examples that intercept and process bundle metadata
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">jbossas</emphasis>
+            - Integration examples with non OSGi components (i.e. EJB3, Servlet)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">jmx</emphasis>
+            - Standard and extended JMX examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">jndi</emphasis>
+            - Bind objects to the Naming Service
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">jta</emphasis>
+            - Transaction examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">simple</emphasis>
+            - Simple OSGi examples (start here)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">webapp</emphasis>
+            - WebApplication (WAR) examples
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis role="strong">xml parser</emphasis>
+            - SAX/DOM parser examples
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+        For more information on these examples, see the
+        <xref linkend="sid-4784855"/>
+        section.
+      </para>
+    </section>
+    <section id="sid-4784849_GettingStarted-BundleDeployment">
+      
+      <title>Bundle Deployment</title>
+      <para>
+        Bundle deployment works, as you would probably expect, by dropping your OSGi Bundle into the
+        <emphasis role="strong">deployments</emphasis>
+        folder.
+      </para>
+      <informalexample>
+        <programlisting>$ cp org.apache.felix.eventadmin-1.2.6.jar .../jboss-as-7.1.0.Final/standalone/deployments
+...
+14:35:14,319 INFO  JBAS015876: Starting deployment of "org.apache.felix.eventadmin-1.2.6.jar"
+14:35:14,582 INFO  Install bundle: org.apache.felix.eventadmin:1.2.6
+14:35:14,706 INFO  Bundle started: org.apache.felix.eventadmin:1.2.6
+14:35:14,777 INFO  JBAS018559: Deployed "org.apache.felix.eventadmin-1.2.6.jar"</programlisting>
+      </informalexample>
+    </section>
+    <section id="sid-4784849_GettingStarted-ManaginginstalledBundles">
+      
+      <title>Managing installed Bundles</title>
+      <para>
+        JBoss AS7 comes with a Web Console. After startup you can point your browser to
+        <ulink url="http://localhost:9990/console"/>
+        .
+      </para>
+      <para>
+        <figure>
+          <title/>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="author/download/attachments/4784849/webconsole.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </para>
+      <para>The Web Console can be used to install, start, stop and uninstall bundles.</para>
+    </section>
+  </chapter>

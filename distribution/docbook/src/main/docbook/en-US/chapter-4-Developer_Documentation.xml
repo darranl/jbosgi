@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="sid-4784852">
+    
+    <title>Developer Documentation</title>
+    <section id="sid-4784852_DeveloperDocumentation-Content">
+      
+      <title>Content</title>
+    </section>
+    <section id="sid-4784852_DeveloperDocumentation-BootstrappingJBossOSGi">
+      
+      <title>Bootstrapping JBoss OSGi</title>
+      <para>OSGiBootstrap provides an OSGiFramework through a OSGiBootstrapProvider.</para>
+      <para>A OSGiBootstrapProvider is discovered in two stages</para>
+      <orderedlist>
+        <listitem>
+          <para>Read the bootstrap provider class name from a system property</para>
+        </listitem>
+        <listitem>
+          <para>Read the bootstrap provider class name from a resource file</para>
+        </listitem>
+      </orderedlist>
+      <para>
+        In both cases the key is the fully qualified name of the
+        <code>org.jboss.osgi.spi.framework.OSGiBootstrapProvider</code>
+        interface.
+      </para>
+      <para>
+        The following code shows how to get the default
+        <code>OSGiFramework</code>
+        from the
+        <code>OSGiBootstrapProvider</code>
+        .
+      </para>
+      <informalexample>
+        <programlisting>OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
+    OSGiFramework framework = bootProvider.getFramework();
+    Bundle bundle = framework.getSystemBundle();</programlisting>
+      </informalexample>
+      <para>
+        The
+        <code>OSGiBootstrapProvider</code>
+        can also be configured explicitly. The
+        <code>OSGiFramework</code>
+        is a named object from the configuration.
+      </para>
+      <informalexample>
+        <programlisting>OSGiBootstrapProvider bootProvider = OSGiBootstrap.getBootstrapProvider();
+    bootProvider.configure(configURL);
+    
+    OSGiFramework framework = bootProvider.getFramework();
+    Bundle bundle = framework.getSystemBundle();</programlisting>
+      </informalexample>
+      <para>The JBoss OSGi SPI comes with a default bootstrap provider:</para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <ulink url="http://docs.jboss.org/osgi/apidocs/org/jboss/osgi/spi/framework/PropertiesBootstrapProvider.html">PropertiesBootstrapProvider</ulink>
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>OSGiBootstrapProvider implementations that read their configurtation from some other source are possible, but currently not part of the JBoss OSGi SPI.</para>
+    </section>
+    <section id="sid-4784852_DeveloperDocumentation-ManagementView">
+      
+      <title>Management View</title>
+      <para>
+        JBoss OSGi provides standard
+        <ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/jmx/package-frame.html">org.osgi.jmx</ulink>
+        management. Additional to that we provide an
+        <ulink url="http://java.sun.com/j2se/1.5.0/docs/api/javax/management/MBeanServer.html">MBeanServer</ulink>
+        service.
+      </para>
+      <para>
+        <emphasis role="strong">Configure AS7 to provide OSGi Management</emphasis>
+      </para>
+      <para>OSGi Management can be enabled with these capabilities</para>
+      <informalexample>
+        <programlisting>&lt;capabilities&gt;
+  ...
+  &lt;capability name="org.apache.aries:org.apache.aries.util:0.4"/&gt;
+  &lt;capability name="org.apache.aries.jmx:org.apache.aries.jmx:0.3"/&gt;
+  &lt;capability name="org.jboss.osgi.jmx:jbosgi-jmx:1.0.11"/&gt;
+&lt;/capabilities&gt;</programlisting>
+      </informalexample>
+    </section>
+    <section id="sid-4784852_DeveloperDocumentation-WritingTestCases">
+      
+      <title>Writing Test Cases</title>
+      <section id="sid-4784852_DeveloperDocumentation-SimpleFrameworkTestCase">
+        
+        <title>Simple Framework Test Case</title>
+        <para>The most basic form of OSGi testing can be done with an OSGiFrameworkTest. This would boostrap the framework in the @BeforeClass scope and make the framework instance available through getFramework(). Due to classloading restrictions, you can only share primitive types between the test and the framework.</para>
+        <informalexample>
+          <programlisting>public class SimpleFrameworkTestCase extends OSGiFrameworkTest
+{
+   @Test
+   public void testSimpleBundle() throws Exception
+   {
+      // Get the bundle location
+      URL url = getTestArchiveURL("example-simple.jar");
+      
+      // Install the Bundle
+      BundleContext sysContext = getFramework().getBundleContext();
+      Bundle bundle = sysContext.installBundle(url.toExternalForm());
+      assertBundleState(Bundle.INSTALLED, bundle.getState());
+
+      // Start the bundle
+      bundle.start();
+      assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+      // Stop the bundle
+      bundle.stop();
+      assertBundleState(Bundle.RESOLVED, bundle.getState());
+      
+      // Uninstall the bundle
+      bundle.uninstall();
+      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+   }
+}</programlisting>
+        </informalexample>
+        <para>
+          These tests always work with an embedded OSGi framework. You can use the -Dframework property to run the test against a different framework implemenation (i.e.
+          <ulink url="http://felix.apache.org">Apache Felix</ulink>
+          ).
+        </para>
+      </section>
+      <section id="sid-4784852_DeveloperDocumentation-LifecycleInterceptors">
+        
+        <title>Lifecycle Interceptors</title>
+        <para>
+          A common pattern in OSGi is that a bundle contains some piece of meta data that gets processed by some other infrastructure bundle that is installed in the OSGi Framework. In such cases the well known
+          <ulink url="http://www.osgi.org/blog/2007/02/osgi-extender-model.html">Extender Pattern</ulink>
+          is often being used. JBoss OSGi offeres a differnet approach to address this problem which is covered by the
+          <ulink url="http://jbossosgi.blogspot.com/2009/10/extender-pattern-vs-lifecycle.html">Extender Pattern vs. Lifecycle Interceptor</ulink>
+          post in the
+          <ulink url="http://jbossosgi.blogspot.com/">JBoss OSGi Diary</ulink>
+          .
+        </para>
+        <para>
+          <emphasis role="strong">Extending an OSGi Bundle</emphasis>
+        </para>
+        <orderedlist>
+          <listitem>
+            <para>Extender registers itself as BundleListener</para>
+          </listitem>
+          <listitem>
+            <para>Bundle gets installed/started# Framework fires a BundleEvent</para>
+          </listitem>
+          <listitem>
+            <para>Extender picks up the BundleEvent (e.g. STARTING)</para>
+          </listitem>
+          <listitem>
+            <para>Extender reads metadata from the Bundle and does its work</para>
+          </listitem>
+        </orderedlist>
+        <para>There is no extender specific API. It is a pattern rather than a piece of functionality provided by the Framework. Typical examples of extenders are the Blueprint or Web Application Extender.</para>
+        <para>
+          <figure>
+            <title/>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="author/download/attachments/4784852/extender-approach.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+        </para>
+        <para>Client code that installs, starts and uses the registered endpoint could look like this.</para>
+        <informalexample>
+          <programlisting>// Install and start the Web Application bundle
+Bundle bundle = context.installBundle("mywebapp.war");
+bundle.start();
+
+// Access the Web Application
+String response = getHttpResponse("http://localhost:8090/mywebapp/foo");
+assertEquals("ok", response);</programlisting>
+        </informalexample>
+        <para>This seemingly trivial code snippet has a number of issues that are probably worth looking into in more detail</para>
+        <itemizedlist>
+          <listitem>
+            <para>The WAR might have missing or invalid web metadata (i.e. an invalid WEB-INF/web.xml descriptor)</para>
+          </listitem>
+          <listitem>
+            <para>The WAR Extender might not be present in the system</para>
+          </listitem>
+          <listitem>
+            <para>There might be multiple WAR Extenders present in the system</para>
+          </listitem>
+          <listitem>
+            <para>Code assumes that the endpoint is available on return of bundle.start()</para>
+          </listitem>
+        </itemizedlist>
+        <para>Most Blueprint or WebApp bundles are not useful if their Blueprint/Web metadata is not processed. Even if they are processed but in the "wrong" order a user might see unexpected results (i.e. the webapp processes the first request before the underlying Blueprint app is wired together).</para>
+        <para>As a consequence the extender pattern is useful in some cases but not all. It is mainly useful if a bundle can optionally be extended in the true sense of the word.</para>
+        <para>
+          <emphasis role="strong">Intercepting the Bundle Lifecycle</emphasis>
+        </para>
+        <para>If the use case requires the notion of "interceptor" the extender pattern is less useful. The use case might be such that you would want to intercept the bundle lifecycle at various phases to do mandatory metadata processing.</para>
+        <para>An interceptor could be used for annotation processing, byte code weaving, and other non-optional/optional metadata processing steps. Typically interceptors have a relative order, can communicate with each other, veto progress, etc.</para>
+        <para>Lets look at how multiple interceptors can be used to create Web metadata and publish endpoints on the HttpService based on that metadata.</para>
+        <para>
+          <figure>
+            <title/>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="author/download/attachments/4784852/interceptor-approach.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+        </para>
+        <para>Here is how it works</para>
+        <orderedlist>
+          <listitem>
+            <para>The Wep Application processor registers two LifecycleInterceptors with the LifecycleInterceptorService</para>
+          </listitem>
+          <listitem>
+            <para>The Parser interceptor declares no required input and WebApp metadata as produced output</para>
+          </listitem>
+          <listitem>
+            <para>The Publisher interceptor declares WebApp metadata as required input</para>
+          </listitem>
+          <listitem>
+            <para>The LifecycleInterceptorService reorders all registered interceptors according to their input/output requirements and relative order</para>
+          </listitem>
+          <listitem>
+            <para>The WAR Bundle gets installed and started</para>
+          </listitem>
+          <listitem>
+            <para>The Framework calls the LifecycleInterceptorService prior to the actual state change</para>
+          </listitem>
+          <listitem>
+            <para>The LifecycleInterceptorService calls each interceptor in the chain</para>
+          </listitem>
+          <listitem>
+            <para>The Parser interceptor processes WEB-INF/web.xml in the invoke(int state, InvocationContext context) method and attaches WebApp metadata to the InvocationContext</para>
+          </listitem>
+          <listitem>
+            <para>The Publisher interceptor is only called when the InvocationContext has WebApp metadata attached. If so, it publishes the endpoint from the WebApp metadata</para>
+          </listitem>
+          <listitem>
+            <para>If no interceptor throws an Exception the Framework changes the Bundle state and fires the BundleEvent.</para>
+          </listitem>
+        </orderedlist>
+        <para>Client code is identical to above.</para>
+        <informalexample>
+          <programlisting>// Install and start the Web Application bundle
+Bundle bundle = context.installBundle("mywebapp.war");
+bundle.start();
+
+// Access the Web Application
+String response = getHttpResponse("http://localhost:8090/mywebapp/foo");
+assertEquals("ok", response);</programlisting>
+        </informalexample>
+        <para>The behaviour of that code however, is not only different but also provides a more natural user experience.</para>
+        <itemizedlist>
+          <listitem>
+            <para>Bundle.start() fails if WEB-INF/web.xml is invalid</para>
+          </listitem>
+          <listitem>
+            <para>An interceptor could fail if web.xml is not present</para>
+          </listitem>
+          <listitem>
+            <para>The Publisher interceptor could fail if the HttpService is not present</para>
+          </listitem>
+          <listitem>
+            <para>Multiple Parser interceptors would work mutually exclusiv on the presents of attached WebApp metadata</para>
+          </listitem>
+          <listitem>
+            <para>The endpoint is guaranteed to be available when Bundle.start() returns</para>
+          </listitem>
+        </itemizedlist>
+        <para>The general idea is that each interceptor takes care of a particular aspect of processing during state changes. In the example above WebApp metadata might get provided by an interceptor that scans annotations or by another one that generates the metadata in memory. The Publisher interceptor would not know nor care who attached the WebApp metadata object, its task is to consume the WebApp metadata and publish endpoints from it.</para>
+        <para>For details on howto provide and register liefecycle interceptors have a look at the Lifecycle Interceptor Example.</para>
+      </section>
+    </section>
+  </chapter>

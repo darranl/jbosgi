@@ -1,49 +1,57 @@
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
 
-  <id>deploy-artifacts</id>
-  <formats>
-    <format>dir</format>
-  </formats>
-  <includeBaseDirectory>false</includeBaseDirectory>
+    <id>deploy-artifacts</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
 
-  <!-- Dependency Sets -->
-  <dependencySets>
-  
-    <!-- lib -->
-    <dependencySet>
-      <outputDirectory>lib</outputDirectory>
-      <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      <useStrictFiltering>true</useStrictFiltering>
-      <excludes>
-        <exclude>*:org.osgi.compendium:jar</exclude>
-        <exclude>*:org.osgi.core:jar</exclude>
-      </excludes>
-      <scope>compile</scope>
-      <unpack>false</unpack>
-    </dependencySet>
-    <dependencySet>
-      <outputDirectory>lib/org.osgi</outputDirectory>
-      <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      <useStrictFiltering>true</useStrictFiltering>
-      <includes>
-        <include>org.osgi:org.osgi.compendium:jar</include>
-        <include>org.osgi:org.osgi.core:jar</include>
-      </includes>
-      <scope>compile</scope>
-      <unpack>false</unpack>
-    </dependencySet>
-  </dependencySets>
+    <!-- Dependency Sets -->
+    <dependencySets>
 
-  <fileSets>
-    <!-- etc -->
-    <fileSet>
-      <directory>src/main/etc</directory>
-      <outputDirectory>/etc</outputDirectory>
-      <includes>
-        <include>JBossORG-EULA.txt</include>
-        <include>ReleaseNotes.html</include>
-      </includes>
-    </fileSet>
-  </fileSets>
+        <!-- lib -->
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}
+            </outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <excludes>
+                <exclude>*:org.osgi.compendium:jar</exclude>
+                <exclude>*:org.osgi.core:jar</exclude>
+            </excludes>
+            <scope>compile</scope>
+            <unpack>false</unpack>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib/org.osgi</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}
+            </outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <includes>
+                <include>org.osgi:org.osgi.compendium:jar</include>
+                <include>org.osgi:org.osgi.core:jar</include>
+            </includes>
+            <scope>compile</scope>
+            <unpack>false</unpack>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <!-- etc -->
+        <fileSet>
+            <directory>src/main/etc</directory>
+            <outputDirectory>/etc</outputDirectory>
+            <includes>
+                <include>JBossORG-EULA.txt</include>
+                <include>ReleaseNotes.html</include>
+            </includes>
+        </fileSet>
+        <!-- docbook -->
+        <fileSet>
+            <directory>../docbook/target/docbook/publish/en-US</directory>
+            <outputDirectory>/docs/userguide</outputDirectory>
+        </fileSet>
+    </fileSets>
 </assembly>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book>
+  <xi:include href="Book_Info.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <!--xi:include href="Preface.xml" xmlns:xi="http://www.w3.org/2001/XInclude" /-->
+  <xi:include href="chapter-1-Introduction.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-2-Getting_Started.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-3-Application_Server_Integration.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-4-Developer_Documentation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-5-Arquillian_Test_Framework.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-6-Provided_Examples.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-7-References.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+  <xi:include href="chapter-8-Getting_Support.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+  <xi:include href="Revision_History.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+</book>

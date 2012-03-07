@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="sid-4784855">
+    
+    <title>Provided Examples</title>
+    <section id="sid-4784855_ProvidedExamples-Content">
+      
+      <title>Content</title>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-BuildandRuntheExamples">
+      
+      <title>Build and Run the Examples</title>
+      <para>
+        JBoss OSGi comes with a number of examples that demonstrate supported functionality and show best practices. All examples are part of the binary distribution and tightly integrated in our
+        <ulink url="http://www.jboss.org/community/docs/DOC-13275">Maven Build Process</ulink>
+        .
+      </para>
+      <para>The examples can be either run against an embedded OSGi framework or against the AS7 Runtime. Here is how you build and run the against the embedded framework.</para>
+      <informalexample>
+        <programlisting>[tdiesler@tddell example]$ mvn test
+ 
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.jboss.test.osgi.example.webapp.WebAppInterceptorTestCase
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.417 sec
+...
+
+Tests run: 23, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 37.507s
+[INFO] Finished at: Wed Mar 07 09:15:50 CET 2012
+[INFO] Final Memory: 13M/154M
+[INFO] ------------------------------------------------------------------------</programlisting>
+      </informalexample>
+      <para>
+        To run the examples against AS7, you need to provide the target container that the runtime should connect to. This can be done with the
+        <emphasis role="strong">target.container</emphasis>
+        system property.
+      </para>
+      <informalexample>
+        <programlisting>mvn -Dtarget.container=jboss710 test</programlisting>
+      </informalexample>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-BlueprintContainer">
+      
+      <title>Blueprint Container</title>
+      <para>
+        The
+        <emphasis role="strong">BlueprintTestCase</emphasis>
+        shows how a number of components can be wired together and registered as OSGi service through the Blueprint Container Service.
+      </para>
+      <para>The example uses this simple blueprint descriptor</para>
+      <informalexample>
+        <programlisting>&lt;blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" ...&gt;
+  
+  &lt;bean id="beanA" class="org.jboss.test.osgi.example.blueprint.bundle.BeanA"&gt;
+    &lt;property name="mbeanServer" ref="mbeanService"/&gt;
+  &lt;/bean&gt;
+  
+  &lt;service id="serviceA" ref="beanA" interface="org.jboss.test.osgi.example.blueprint.bundle.ServiceA"&gt;
+  &lt;/service&gt;
+  
+  &lt;service id="serviceB" interface="org.jboss.test.osgi.example.blueprint.bundle.ServiceB"&gt;
+    &lt;bean class="org.jboss.test.osgi.example.blueprint.bundle.BeanB"&gt;
+       &lt;property name="beanA" ref="beanA"/&gt;
+    &lt;/bean&gt;
+  &lt;/service&gt;
+  
+  &lt;reference id="mbeanService" interface="javax.management.MBeanServer"/&gt;
+
+&lt;/blueprint&gt;</programlisting>
+      </informalexample>
+      <para>
+        The Blueprint Container registers two services
+        <emphasis role="strong">ServiceA</emphasis>
+        and
+        <emphasis role="strong">ServiceB</emphasis>
+        . ServiceA is backed up by
+        <emphasis role="strong">BeanA</emphasis>
+        , ServiceB is backed up by the anonymous
+        <emphasis role="strong">BeanB</emphasis>
+        . BeanA is injected into BeanB and the
+        <emphasis role="strong">MBeanServer</emphasis>
+        gets injected into BeanA. Both beans are plain POJOs. There is
+        <emphasis role="strong">no BundleActivator</emphasis>
+        neccessary to register the services.
+      </para>
+      <para>The example test verifies the correct wiring like this</para>
+      <informalexample>
+        <programlisting>@Test
+public void testServiceA() throws Exception
+{
+  ServiceReference sref = context.getServiceReference(ServiceA.class.getName());
+  assertNotNull("ServiceA not null", sref);
+  
+  ServiceA service = (ServiceA)context.getService(sref);
+  MBeanServer mbeanServer = service.getMbeanServer();
+  assertNotNull("MBeanServer not null", mbeanServer);
+}</programlisting>
+      </informalexample>
+      <informalexample>
+        <programlisting>@Test
+public void testServiceB() throws Exception
+{
+  ServiceReference sref = context.getServiceReference(ServiceB.class.getName());
+  assertNotNull("ServiceB not null", sref);
+  
+  ServiceB service = (ServiceB)context.getService(sref);
+  BeanA beanA = service.getBeanA();
+  assertNotNull("BeanA not null", beanA);
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-BlueprintsupportinAS7">
+        
+        <title>Blueprint support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>ManagementSupport.provideMBeanServer(context, bundle);
+   BlueprintSupport.provideBlueprint(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable blueprint support in AS7 you would configure these capabilities</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.apache.aries:org.apache.aries.util:0.4"/&gt;
+&lt;capability name="org.apache.aries.proxy:org.apache.aries.proxy:0.4"/&gt;
+&lt;capability name="org.apache.aries.blueprint:org.apache.aries.blueprint:0.4"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-ConfigurationAdmin">
+      
+      <title>Configuration Admin</title>
+      <para>
+        The
+        <emphasis role="strong">ConfigurationAdminTestCase</emphasis>
+        shows how an OSGi
+        <ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/service/cm/ManagedService.html">ManagedService</ulink>
+        can be configured through the
+        <ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/service/cm/ConfigurationAdmin.html">ConfigurationAdmin</ulink>
+        service.
+      </para>
+      <informalexample>
+        <programlisting>public void testManagedService() throws Exception {
+
+   // Get the {@link Configuration} for the given PID
+   Configuration config = configAdmin.getConfiguration(ConfiguredService.SERVICE_PID);
+   assertNotNull("Config not null", config);
+
+   Dictionary&lt;String, String&gt; configProps = new Hashtable&lt;String, String&gt;();
+   configProps.put("foo", "bar");
+   config.update(configProps);
+
+   // Register a {@link ManagedService}
+   Dictionary&lt;String, String&gt; serviceProps = new Hashtable&lt;String, String&gt;();
+   serviceProps.put(Constants.SERVICE_PID, ConfiguredService.SERVICE_PID);
+   bundlecontext.registerService(new String[] { ConfiguredService.class.getName(), 
+      ManagedService.class.getName() }, new ConfiguredService(), serviceProps);
+
+   // Wait a little for the update event
+   if (latch.await(5, TimeUnit.SECONDS) == false)
+      throw new TimeoutException();
+
+   // Verify service property
+   ServiceReference sref = bundlecontext.getServiceReference(ConfiguredService.class.getName());
+   ConfiguredService service = (ConfiguredService) bundlecontext.getService(sref);
+   assertEquals("bar", service.getValue("foo"));
+
+   config.delete();
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-ConfigurationAdminsupportinAS7">
+        
+        <title>Configuration Admin support in AS7</title>
+        <para>
+          Configuration Admin support is build into the
+          <emphasis role="strong">config admin</emphasis>
+          subsystem and is available by default. The OSGi configurations will appear together with any other configurations that use this service in the AS7 domain model.
+        </para>
+        <para>For the OSGi specific part we use this capability, which is also configured by default</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.apache.felix.configadmin"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-DeclarativeServices">
+      
+      <title>Declarative Services</title>
+      <para>
+        The
+        <emphasis role="strong">DeclarativeServicesTestCase</emphasis>
+        shows how a service can be made available through a Declarative Services descriptor.
+      </para>
+      <informalexample>
+        <programlisting>&lt;component name="sample.component" immediate="true"&gt;
+  &lt;implementation class="org.jboss.test.osgi.example.ds.SampleComparator" /&gt;
+  &lt;property name="service.description" value="Sample Comparator Service" /&gt;
+  &lt;property name="service.vendor" value="Apache Software Foundation" /&gt;
+  &lt;service&gt;
+    &lt;provide interface="java.util.Comparator" /&gt;
+  &lt;/service&gt;
+&lt;/component&gt;</programlisting>
+      </informalexample>
+      <para>The test then verifies that the service becomes available</para>
+      <informalexample>
+        <programlisting>public void testImmediateService() throws Exception {
+
+  // Track the service provided by the test bundle
+  final CountDownLatch latch = new CountDownLatch(1);
+  ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
+     public Object addingService(ServiceReference reference) {
+         Comparator&lt;Object&gt; service = (Comparator&lt;Object&gt;) super.addingService(reference);
+         latch.countDown();
+         return service;
+     }
+  };
+  tracker.open();
+
+  // Wait for the service to become available
+  if (latch.await(2, TimeUnit.SECONDS) == false)
+    throw new TimeoutException("Timeout tracking Comparator service");
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-DeclarativeServicessupportinAS7">
+        
+        <title>Declarative Services support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>DeclarativeServicesSupport.provideDeclarativeServices(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable declarative services support in AS7 you would configure this capability</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.apache.felix:org.apache.felix.scr:1.6.0"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-EventAdmin">
+      
+      <title>Event Admin</title>
+      <para>
+        The
+        <emphasis role="strong">EventAdminTestCase</emphasis>
+        uses the
+        <ulink url="http://www.osgi.org/javadoc/r4v42/org/osgi/service/event/EventAdmin.html">EventAdmin</ulink>
+        service to send/receive events.
+      </para>
+      <informalexample>
+        <programlisting>public void testEventHandler() throws Exception
+{
+  TestEventHandler eventHandler = new TestEventHandler();
+  
+  // Register the EventHandler
+  Dictionary param = new Hashtable();
+  param.put(EventConstants.EVENT_TOPIC, new String[Introduction] { TOPIC });
+  context.registerService(EventHandler.class.getName(), eventHandler, param);
+
+  // Send event through the the EventAdmin
+  EventAdmin eventAdmin = EventAdminSupport.provideEventAdmin(context, bundle);
+  eventAdmin.sendEvent(new Event(TOPIC, null));
+  
+  // Verify received event
+  assertEquals("Event received", 1, eventHandler.received.size());
+  assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-EventAdminsupportinAS7">
+        
+        <title>Event Admin support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>EventAdminSupport.provideEventAdmin(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable event admin support in AS7 you would configure this capability</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.apache.felix:org.apache.felix.eventadmin:1.2.6"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-HttpService">
+      
+      <title>HttpService</title>
+      <para>
+        The
+        <emphasis role="strong">HttpServiceTestCase</emphasis>
+        deploys a Service that registeres a servlet and a resource with the
+        <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/service/http/HttpService.html">HttpService</ulink>
+        .
+      </para>
+      <informalexample>
+        <programlisting>ServiceTracker tracker = new ServiceTracker(context, HttpService.class.getName(), null);
+tracker.open();
+
+HttpService httpService = (HttpService)tracker.getService();
+if (httpService == null)
+   throw new IllegalStateException("HttpService not registered");
+
+Properties initParams = new Properties();
+initParams.setProperty("initProp", "SomeValue");
+httpService.registerServlet("/servlet", new EndpointServlet(context), initParams, null);
+httpService.registerResources("/file", "/res", null);</programlisting>
+      </informalexample>
+      <para>The test then verifies that the registered servlet context and the registered resource can be accessed.</para>
+      <section id="sid-4784855_ProvidedExamples-HttpServicesupportinAS7">
+        
+        <title>HttpService support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>HttpServiceSupport.provideHttpService(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable HttpService support in AS7 you would configure this capability</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.ops4j.pax.web:pax-web-jetty-bundle:1.1.2"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-JMXService">
+      
+      <title>JMX Service</title>
+      <section id="sid-4784855_ProvidedExamples-MBeanServerService">
+        
+        <title>MBeanServer Service</title>
+        <para>
+          The
+          <emphasis role="strong">MBeanServerTestCase</emphasis>
+          tracks the MBeanServer service and registers a pojo with JMX. It then verifies the JMX access.
+        </para>
+        <informalexample>
+          <programlisting>public class MBeanActivator implements BundleActivator
+{
+   public void start(BundleContext context)
+   {
+      ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null)
+      {
+         public Object addingService(ServiceReference reference)
+         {
+            MBeanServer mbeanServer = (MBeanServer)super.addingService(reference);
+            registerMBean(mbeanServer);
+            return mbeanServer;
+         }
+
+         @Override
+         public void removedService(ServiceReference reference, Object service)
+         {
+            unregisterMBean((MBeanServer)service);
+            super.removedService(reference, service);
+         }
+      };
+      tracker.open();
+   }
+
+   public void stop(BundleContext context)
+   {
+      ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+      if (sref != null)
+      {
+         MBeanServer mbeanServer = (MBeanServer)context.getService(sref);
+         unregisterMBean(mbeanServer);
+      }
+   }
+   ...
+}</programlisting>
+        </informalexample>
+        <informalexample>
+          <programlisting>public void testMBeanAccess() throws Exception
+{
+   // Provide MBeanServer support
+   MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
+
+   // Start the test bundle
+   bundle.start();
+
+   ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
+   FooMBean foo = ManagementSupport.getMBeanProxy(server, oname, FooMBean.class);
+   assertEquals("hello", foo.echo("hello"));
+}</programlisting>
+        </informalexample>
+      </section>
+      <section id="sid-4784855_ProvidedExamples-BundleStatecontrolviaBundleStateMBean">
+        
+        <title>Bundle State control via BundleStateMBean</title>
+        <para>
+          The
+          <emphasis role="strong">BundleStateTestCase</emphasis>
+          uses JMX to control the bundle state through the BundleStateMBean.
+        </para>
+        <informalexample>
+          <programlisting>public void testBundleStateMBean() throws Exception
+{
+   MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
+
+   ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
+   BundleStateMBean bundleState =  ManagementSupport.getMBeanProxy(server, oname, BundleStateMBean.class);
+   assertNotNull("BundleStateMBean not null", bundleState);
+
+   TabularData bundleData = bundleState.listBundles();
+   assertNotNull("TabularData not null", bundleData);
+   assertFalse("TabularData not empty", bundleData.isEmpty());
+}</programlisting>
+        </informalexample>
+      </section>
+      <section id="sid-4784855_ProvidedExamples-OSGiJMXsupportinAS7">
+        
+        <title>OSGi JMX support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>ManagementSupport.provideMBeanServer(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable OSGi JMX support in AS7 you would configure these capabilities</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.apache.aries:org.apache.aries.util:0.4"/&gt;
+&lt;capability name="org.apache.aries.jmx:org.apache.aries.jmx:0.3"/&gt;</programlisting>
+        </informalexample>
+        <para>The MBeanServer service is provided by default in AS7.</para>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-JTAService">
+      
+      <title>JTA Service</title>
+      <para>
+        The
+        <emphasis role="strong">TransactionTestCase</emphasis>
+        gets the
+        <ulink url="http://java.sun.com/javaee/5/docs/api/javax/transaction/UserTransaction.html">UserTransaction</ulink>
+        service and registers a transactional user object (i.e. one that implements
+        <ulink url="http://java.sun.com/javaee/5/docs/api/javax/transaction/Synchronization.html">Synchronization</ulink>
+        ) with the
+        <ulink url="http://java.sun.com/javaee/5/docs/api/javax/transaction/TransactionManager.html">TransactionManager</ulink>
+        service. It then verifies that modifications on the user object are transactional.
+      </para>
+      <para>This functionality is only available in the context of AS7.</para>
+      <informalexample>
+        <programlisting>Transactional txObj = new Transactional();
+
+ServiceReference userTxRef = context.getServiceReference(UserTransaction.class.getName());
+assertNotNull("UserTransaction service not null", userTxRef);
+
+UserTransaction userTx = (UserTransaction)context.getService(userTxRef);
+assertNotNull("UserTransaction not null", userTx);
+
+userTx.begin();
+try
+{
+   ServiceReference tmRef = context.getServiceReference(TransactionManager.class.getName());
+   assertNotNull("TransactionManager service not null", tmRef);
+   
+   TransactionManager tm = (TransactionManager)context.getService(tmRef);
+   assertNotNull("TransactionManager not null", tm);
+   
+   Transaction tx = tm.getTransaction();
+   assertNotNull("Transaction not null", tx);
+   
+   tx.registerSynchronization(txObj);
+   
+   txObj.setMessage("Donate $1.000.000");
+   assertNull("Uncommited message null", txObj.getMessage());
+   
+   userTx.commit();
+}
+catch (Exception e)
+{
+   userTx.setRollbackOnly();
+}
+
+assertEquals("Donate $1.000.000", txObj.getMessage());</programlisting>
+      </informalexample>
+      <informalexample>
+        <programlisting>class Transactional implements Synchronization
+{
+  public void afterCompletion(int status)
+  {
+     if (status == Status.STATUS_COMMITTED)
+        message = volatileMessage;
+  }
+  
+  ...      
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-TransactionsupportinAS7">
+        
+        <title>Transaction support in AS7</title>
+        <para>The related services are provided by default in AS7. The transaction APIs are provided by this capability.</para>
+        <informalexample>
+          <programlisting>&lt;capability name="javax.transaction.api"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-LifecycleInterceptor">
+      
+      <title>Lifecycle Interceptor</title>
+      <para>
+        The
+        <emphasis role="strong">LifecycleInterceptorTestCase</emphasis>
+        deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and registeres an http endpoint from it. The idea is that the bundle does not process its own metadata. Instead this work is delegated to some specialized metadata processor (i.e. the interceptor).
+      </para>
+      <para>
+        Each interceptor is itself registered as a service. This is the well known
+        <ulink url="http://www.osgi.org/wiki/uploads/Links/whiteboard.pdf">Whiteboard Pattern</ulink>
+        .
+      </para>
+      <informalexample>
+        <programlisting>public class InterceptorActivator implements BundleActivator
+{
+   public void start(BundleContext context)
+   {
+      LifecycleInterceptor publisher = new PublisherInterceptor();
+      LifecycleInterceptor parser = new ParserInterceptor();
+      
+      // Add the interceptors, the order of which is handles by the service
+      context.registerService(LifecycleInterceptor.class.getName(), publisher, null);
+      context.registerService(LifecycleInterceptor.class.getName(), parser, null);
+   }
+}</programlisting>
+      </informalexample>
+      <informalexample>
+        <programlisting>public class ParserInterceptor extends AbstractLifecycleInterceptor
+{
+   ParserInterceptor()
+   {
+      // Add the provided output
+      addOutput(HttpMetadata.class);
+   }
+
+   public void invoke(int state, InvocationContext context)
+   {
+      // Do nothing if the metadata is already available  
+      HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+      if (metadata != null)
+         return;
+
+      // Parse and create metadta on STARTING
+      if (state == Bundle.STARTING)
+      {
+          VirtualFile root = context.getRoot();
+          VirtualFile propsFile = root.getChild("/http-metadata.properties");
+          if (propsFile != null)
+          {
+             log.info("Create and attach HttpMetadata");
+             metadata = createHttpMetadata(propsFile);
+             context.addAttachment(HttpMetadata.class, metadata);
+          }
+      }
+   }
+   ...
+}</programlisting>
+      </informalexample>
+      <informalexample>
+        <programlisting>public class PublisherInterceptor extends AbstractLifecycleInterceptor
+{
+   PublisherInterceptor()
+   {
+      // Add the required input
+      addInput(HttpMetadata.class);
+   }
+
+   public void invoke(int state, InvocationContext context)
+   {
+      // HttpMetadata is guaratied to be available because we registered
+      // this type as required input
+      HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+
+      // Register HttpMetadata on STARTING 
+      if (state == Bundle.STARTING)
+      {
+         String servletName = metadata.getServletName();
+
+         // Load the endpoint servlet from the bundle
+         Bundle bundle = context.getBundle();
+         Class servletClass = bundle.loadClass(servletName);
+         HttpServlet servlet = (HttpServlet)servletClass.newInstance();
+
+         // Register the servlet with the HttpService
+         HttpService httpService = getHttpService(context, true);
+         httpService.registerServlet("/servlet", servlet, null, null);
+      }
+
+      // Unregister the endpoint on STOPPING 
+      else if (state == Bundle.STOPPING)
+      {
+         log.info("Unpublish HttpMetadata: " + metadata);
+         HttpService httpService = getHttpService(context, false);
+         if (httpService != null)
+            httpService.unregister("/servlet");
+      }
+   }
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-InterceptorsupportinAS7">
+        
+        <title>Interceptor support in AS7</title>
+        <para>This functionality is build into the JBoss OSGi Framework. There is no additional configuration needed in AS7.</para>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-WebApplication">
+      
+      <title>Web Application</title>
+      <para>
+        The
+        <emphasis role="strong">WebAppTestCase</emphasis>
+        deploys an OSGi Web Application Bundle (WAB). Similar to HTTP Service Example it registers a servlet and resources with the WebApp container. This is done through a standard web.xml descriptor.
+      </para>
+      <informalexample>
+        <programlisting>&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" ... version="2.5"&gt;
+
+  &lt;display-name&gt;WebApp Sample&lt;/display-name&gt;
+
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;servlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.jboss.test.osgi.example.webapp.bundle.EndpointServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;initProp&lt;/param-name&gt;
+      &lt;param-value&gt;SomeValue&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  &lt;/servlet&gt;
+
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;servlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/servlet&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;</programlisting>
+      </informalexample>
+      <para>The associated OSGi manifest looks like this.</para>
+      <informalexample>
+        <programlisting>Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: example-webapp
+Bundle-ClassPath: .,WEB-INF/classes
+Web-ContextPath: example-webapp
+Import-Package: javax.servlet,javax.servlet.http,...</programlisting>
+      </informalexample>
+      <para>The test verifies that we can access the servlet and some resources.</para>
+      <informalexample>
+        <programlisting>public void testServletAccess() throws Exception
+{
+   // Provide WebApp support
+   WebAppSupport.provideWebappSupport(context, bundle);
+        
+   // Start the test bundle
+   bundle.start();
+        
+   String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
+   assertEquals("Hello from Servlet", line);
+}</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-OSGiWebApplicationsupportinAS7">
+        
+        <title>OSGi Web Application support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>WebAppSupport.provideWebappSupport(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable OSGi Web Application support in AS7 you would configure these capabilities</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.ops4j.pax.web:pax-web-jetty-bundle:1.1.2"/&gt;
+&lt;capability name="org.ops4j.pax.web:pax-web-jsp:1.1.2"/&gt;
+&lt;capability name="org.ops4j.pax.web:pax-web-extender-war:1.1.2"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+    <section id="sid-4784855_ProvidedExamples-XMLParserServices">
+      
+      <title>XML Parser Services</title>
+      <para>The XML parser test cases get a DocumentBuilderFactory/SAXParserFactory respectivly and unmarshalls an XML document using that parser.</para>
+      <informalexample>
+        <programlisting>DocumentBuilderFactory factory = XMLParserSupport.provideDocumentBuilderFactory(context, bundle);
+factory.setValidating(false);
+
+DocumentBuilder domBuilder = factory.newDocumentBuilder();
+URL resURL = context.getBundle().getResource("example-xml-parser.xml");
+Document dom = domBuilder.parse(resURL.openStream());
+assertNotNull("Document not null", dom);</programlisting>
+      </informalexample>
+      <informalexample>
+        <programlisting>SAXParserFactory factory = XMLParserSupport.provideSAXParserFactory(context, bundle);
+factory.setValidating(false);
+
+SAXParser saxParser = factory.newSAXParser();
+URL resURL = context.getBundle().getResource("example-xml-parser.xml");
+
+SAXHandler saxHandler = new SAXHandler();
+saxParser.parse(resURL.openStream(), saxHandler);
+assertEquals("content", saxHandler.getContent());</programlisting>
+      </informalexample>
+      <section id="sid-4784855_ProvidedExamples-XMLparsersupportinAS7">
+        
+        <title>XML parser support in AS7</title>
+        <para>This test uses the OSGi Repository functionality to provision the runtime with the required support functionality like this</para>
+        <informalexample>
+          <programlisting>XMLParserSupport.provideDocumentBuilderFactory(context, bundle);
+  XMLParserSupport.provideSAXParserFactory(context, bundle);</programlisting>
+        </informalexample>
+        <para>To enable OSGi Web Application support in AS7 you would configure this capability</para>
+        <informalexample>
+          <programlisting>&lt;capability name="org.jboss.osgi.xerces:jbosgi-xerces:2.10.0"/&gt;</programlisting>
+        </informalexample>
+      </section>
+    </section>
+  </chapter>

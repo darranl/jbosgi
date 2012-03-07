@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="sid-4784851">
+    
+    <title>Application Server Integration</title>
+    <section id="sid-4784851_ApplicationServerIntegration-Content">
+      
+      <title>Content</title>
+    </section>
+    <section id="sid-4784851_ApplicationServerIntegration-Overview">
+      
+      <title>Overview</title>
+      <para>
+        The JBoss OSGi framework is fully integrated into the
+        <ulink url="http://jboss.org/jbossas">JBoss Application Server 7</ulink>
+        . OSGi bundles can be deployed like any other deployment that is supported by AS. Hot deployment is supported by dropping an OSGi bundle into the 'deployments' folder. JMX and an OSGi management console is also supported.
+      </para>
+      <para>OSGi components can interact with non OSGi services that are natively provided by AS. This includes, but is not limited to, the Transaction Service and Naming Service (JNDI).</para>
+      <para>Standard OSGi Config Admin functionality is supported and integrated with the general AS management layer.</para>
+      <para>By default the OSGi subsystem is activated on-demand. Only when there is an OSGi bundle deployment the subsystem activates and the respective OSGi services become available.</para>
+    </section>
+    <section id="sid-4784851_ApplicationServerIntegration-Configuration">
+      
+      <title>Configuration</title>
+      <para>The OSGi subsystem is configured like any other subsystem in the standalone/domain XML descriptor. The configuration options are:</para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Subsystem Activation</emphasis>
+            - By default the OSGi subsystem is activated on-demand. The activation attribute can be set to 'eager' to initialize the subsystem on server startup.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Framework Properties</emphasis>
+            - OSGi supports the notion of framework properties. Property values are of type string. A typical configuration includes a set of packages that are provided by the server directly. Please refer to the OSGi core specification for a list of standard OSGi properties.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Module Dependencies</emphasis>
+            - The Framework can export packages from server system modules. The property 'org.jboss.osgi.system.modules.extra' contains a list of module identifiers that are setup as dependencies of the OSGi Framework.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Capabilities</emphasis>
+            - OSGi bundles can be installed by providing coordinates to the OSGi Repository. Supported coordinates include but are not limited to Maven coordinates and module identifiers.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Config Admin properties</emphasis>
+            - Supported are multiple configurations identified by persistent id (PID). Each configuration may contain multiple configuration key/value pairs.Below is a sample configuration for the OSGi subsystem
+          </para>
+        </listitem>
+      </itemizedlist>
+      <informalexample>
+        <programlisting>&lt;subsystem xmlns="urn:jboss:domain:osgi:1.2" activation="lazy"&gt;
+  &lt;properties&gt;
+    &lt;property name="org.jboss.osgi.system.modules.extra"&gt;org.apache.log4j&lt;/property&gt;
+    &lt;property name="org.osgi.framework.system.packages.extra"&gt;org.apache.log4j;version=1.2&lt;/property&gt;
+    &lt;property name="org.osgi.framework.startlevel.beginning"&gt;1&lt;/property&gt;
+  &lt;/properties&gt;
+  &lt;capabilities&gt;
+    &lt;capability name="javax.servlet.api:v25"/&gt;
+    &lt;capability name="javax.transaction.api"/&gt;
+    &lt;capability name="org.apache.felix.log" startlevel="1"/&gt;
+    &lt;capability name="org.jboss.osgi.logging" startlevel="1"/&gt;
+    &lt;capability name="org.apache.felix.configadmin" startlevel="1"/&gt;
+    &lt;capability name="org.jboss.as.osgi.configadmin" startlevel="1"/&gt;
+  &lt;/capabilities&gt;
+&lt;/subsystem&gt;
+...
+&lt;subsystem xmlns="urn:jboss:domain:configadmin:1.0"&gt;
+  &lt;configuration pid="org.apache.felix.webconsole.internal.servlet.OsgiManager"&gt;
+     &lt;property name="manager.root"&gt;jboss-osgi&lt;/property&gt;
+  &lt;/configuration&gt;        
+&lt;/subsystem&gt;</programlisting>
+      </informalexample>
+      <para>
+        For more details on the Application Service integration configuration see
+        <ulink url="https://docs.jboss.org/author/pages/viewpage.action?pageId=8094231">AS7 Subsystem Configuration</ulink>
+        documentation.
+      </para>
+    </section>
+    <section id="sid-4784851_ApplicationServerIntegration-Features">
+      
+      <title>Features</title>
+      <para>The current JBoss OSGi feature set in AS includes</para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Blueprint Container Support</emphasis>
+            - The OSGi
+            <ulink url="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</ulink>
+            allows bundles to contain standard blueprint descriptors, which can be used to create or consume OSGi services. Blueprint components consume OSGi services via injection.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">ConfigAdmin Support</emphasis>
+            - ConfigAdmin support is provided by the
+            <ulink url="http://felix.apache.org/site/apache-felix-config-admin.html">Apache Felix Configuration Admin Service</ulink>
+            .
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Declarative Services Support</emphasis>
+            - Declarative Services support is provided by the
+            <ulink url="http://felix.apache.org/site/apache-felix-service-component-runtime.html">Apache Felix Service Component Runtime</ulink>
+            .
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">EventAdmin Support</emphasis>
+            - EventAdmin support is provided by the
+            <ulink url="http://felix.apache.org/site/apache-felix-event-admin.html">Apache Felix Event Admin Service</ulink>
+            .
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Hot Deployment</emphasis>
+            - Scans the
+            <code>deployments</code>
+            folder for new or removed bundles.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">HttpService and WebApp Support</emphasis>
+            - HttpService and WebApp support is provided by
+            <ulink url="http://team.ops4j.org/wiki/display/paxweb/Pax+Web">Pax Web</ulink>
+            .
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">JMX Support</emphasis>
+            - There is local as well as remote JSR160 support for JMX. The OSGi-JMX MBeans are provided through the
+            <ulink url="http://aries.apache.org">Apache Aries JMX implementation</ulink>
+            .
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">JNDI Support</emphasis>
+            - Components can access the JNDI InitialContext as a service from the registry.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">JTA Support</emphasis>
+            - Components can interact with the JTA TransactionManager and UserTransaction service.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Logging System</emphasis>
+            - The logging bridge writes OSGi Log Service LogEntries to the server log file.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">Repository Support</emphasis>
+            - The OSGi repository can be used to provision the subsystem.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis role="strong">XML Parser Support</emphasis>
+            - The Runtime comes with an implementation of an
+            <ulink url="http://www.osgi.org/javadoc/r4v41/org/osgi/util/xml/XMLParserActivator.html">XMLParserActivator</ulink>
+            which provides access to a SAXParserFactory and DocumentBuilderFactory.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section id="sid-4784851_ApplicationServerIntegration-IntegrationExamples">
+      
+      <title>Integration Examples</title>
+      <para>
+        The
+        <emphasis role="strong">JavaEEIntegrationTestCase</emphasis>
+        deployes two bundles
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>example-javaee-api</para>
+        </listitem>
+        <listitem>
+          <para>example-javaee-service</para>
+        </listitem>
+      </itemizedlist>
+      <para>and two JavaEE archives</para>
+      <itemizedlist>
+        <listitem>
+          <para>example-javaee-ejb3</para>
+        </listitem>
+        <listitem>
+          <para>example-javaee-servlet</para>
+        </listitem>
+      </itemizedlist>
+      <para>It demonstrates how JavaEE components can access OSGi services.</para>
+      <informalexample>
+        <programlisting>public void testServletAccess() throws Exception {
+   deployer.deploy(API_DEPLOYMENT_NAME);
+   deployer.deploy(SERVICE_DEPLOYMENT_NAME);
+   deployer.deploy(EJB3_DEPLOYMENT_NAME);
+   deployer.deploy(SERVLET_DEPLOYMENT_NAME);
+
+   String response = getHttpResponse("/sample/simple?account=kermit&amp;amount=100", 2000);
+   assertEquals("Calling PaymentService: Charged $100.0 to account 'kermit'", response);
+
+   response = getHttpResponse("/sample/ejb?account=kermit&amp;amount=100", 2000);
+   assertEquals("Calling SimpleStatelessSessionBean: Charged $100.0 to account 'kermit'", response);
+
+   deployer.undeploy(SERVLET_DEPLOYMENT_NAME);
+   deployer.undeploy(EJB3_DEPLOYMENT_NAME);
+   deployer.undeploy(SERVICE_DEPLOYMENT_NAME);
+   deployer.undeploy(API_DEPLOYMENT_NAME);
+}</programlisting>
+      </informalexample>
+      <para>The JavaEE components must declare and explicit dependency on OSGi and the API bundle in order to see the service interface.</para>
+      <informalexample>
+        <programlisting>JavaArchive archive = ShrinkWrap.create(JavaArchive.class, EJB3_DEPLOYMENT_NAME);
+archive.addClasses(SimpleStatelessSessionBean.class);
+archive.setManifest(new Asset() {
+  @Override
+  public InputStream openStream() {
+     ManifestBuilder builder = ManifestBuilder.newInstance();
+     String osgidep = "org.osgi.core,org.jboss.osgi.framework";
+     String apidep = ",deployment." + API_DEPLOYMENT_NAME + ":0.0.0";
+     builder.addManifestHeader("Dependencies", osgidep + apidep);
+     return builder.openStream();
+  }
+});</programlisting>
+      </informalexample>
+      <para>Note, how the API bundles is prefixed with 'deployment' and suffixed with its version in the Dependencies header.</para>
+      <para>The JavaEE component itself can get the OSGi system BundleContext injected and use it to track the OSGi service it wants to work with.</para>
+      <informalexample>
+        <programlisting>public class SimpleStatelessSessionBean {
+
+   @Resource
+   private BundleContext context;
+
+   private PaymentService service;
+
+   @PostConstruct
+   public void init() {
+
+        // Track {@link PaymentService} implementations
+        ServiceTracker tracker = new ServiceTracker(context, PaymentService.class.getName(), null) {
+
+           @Override
+           public Object addingService(ServiceReference sref) {
+              service = (PaymentService) super.addingService(sref);
+              return service;
+           }
+
+           @Override
+           public void removedService(ServiceReference sref, Object sinst) {
+              super.removedService(sref, service);
+              service = null;
+           }
+        };
+        tracker.open();
+    }
+
+    public String process(String account, String amount) {
+        if (service == null) {
+            return "PaymentService not available";
+        }
+        return service.process(account, amount != null ? Float.valueOf(amount) : null);
+    }
+}</programlisting>
+      </informalexample>
+    </section>
+  </chapter>

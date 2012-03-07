@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="sid-4784856">
+    
+    <title>References</title>
+    <section id="sid-4784856_References-Resources">
+      
+      <title>Resources</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <ulink url="http://www.osgi.org/Download/Release4V42">OSGi 4.2 Specifications</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://www.osgi.org/javadoc/r4v42/">OSGi 4.2 JavaDoc</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://en.wikipedia.org/wiki/OSGi_Specification_Implementations">OSGi on Wikipedia</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://www.jboss.org/jbossas/osgi">JBoss OSGi Project Page</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="https://docs.jboss.org/author/display/JBOSGI">JBoss OSGi Wiki</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://jbossosgi.blogspot.com">JBoss OSGi Diary</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="https://jira.jboss.org/jira/browse/JBOSGI">Issue Tracking</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://github.com/jbosgi">Source Repository</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=257">User Forum</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=256">Design Forum</ulink>
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section id="sid-4784856_References-Authors">
+      
+      <title>Authors</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            <email>Thomas Diesler</email>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <email>David Bosschaert</email>
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </chapter>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="sid-4784857">
+    
+    <title>Getting Support</title>
+    <para>
+      We offer free support through the
+      <ulink url="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=257">JBoss OSGi User Forum</ulink>
+      .
+    </para>
+    <para>
+      Please note, that posts to this forum will be dealt with at the community's leisure.
+      
+      If your business is such that you need to rely on qualified answers within a known time frame,
+      
+      this forum might not be your preferred support channel.
+    </para>
+    <para>
+      For professional support please go to
+      <ulink url="http://www.jboss.com/services">JBoss Support Services</ulink>
+      .
+    </para>
+  </chapter>

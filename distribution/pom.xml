@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <!-- ====================================================================== -->
-  <!--                                                                        -->
-  <!--  JBoss, the OpenSource J2EE webOS                                      -->
-  <!--                                                                        -->
-  <!--  Distributable under LGPL license.                                     -->
-  <!--  See terms of license at http://www.gnu.org.                           -->
-  <!--                                                                        -->
-  <!-- ====================================================================== -->
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!--  JBoss, the OpenSource J2EE webOS                                      -->
+<!--                                                                        -->
+<!--  Distributable under LGPL license.                                     -->
+<!--  See terms of license at http://www.gnu.org.                           -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
 
-  <!--
-    To copy the release documentation to jbmuc.dyndns.org run:
-    
-    scp -r docbook/target/docbook/publish/en-US/* jbmuc.dyndns.org:/var/www/html/jboss-osgi-1.0.0/userguide
-    scp -r javadoc/target/apidocs/* jbmuc.dyndns.org:/var/www/html/jboss-osgi-1.0.0/apidocs
-     
-    To copy the release to SF run:
-    
-    mv jboss-osgi-installer-1.0.0-src.zip jboss-osgi-1.0.0.Beta3-src.zip 
-    scp jboss-osgi-installer-1.0.0.jar tdiesler@frs.sourceforge.net:uploads
-    scp jboss-osgi-1.0.0-src.zip tdiesler@frs.sourceforge.net:uploads
-  -->
+<!--
+  To copy the release documentation to jbmuc.dyndns.org run:
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+  scp -r docbook/target/docbook/publish/en-US/* jbmuc.dyndns.org:/var/www/html/jboss-osgi-1.0.0/userguide
+  scp -r javadoc/target/apidocs/* jbmuc.dyndns.org:/var/www/html/jboss-osgi-1.0.0/apidocs
 
-  <name>JBossOSGi Distribution</name>
+  To copy the release to SF run:
 
-  <groupId>org.jboss.osgi.distribution</groupId>
-  <artifactId>jboss-osgi-distribution</artifactId>
-  <packaging>pom</packaging>
+  mv jboss-osgi-installer-1.0.0-src.zip jboss-osgi-1.0.0.Beta3-src.zip
+  scp jboss-osgi-installer-1.0.0.jar tdiesler@frs.sourceforge.net:uploads
+  scp jboss-osgi-1.0.0-src.zip tdiesler@frs.sourceforge.net:uploads
+-->
 
-  <!-- Parent -->
-  <parent>
-    <groupId>org.jboss.osgi</groupId>
-    <artifactId>jboss-osgi</artifactId>
-    <version>1.1.0</version>
-  </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <!-- Modules -->
-  <modules>
-    <module>javadoc</module>
-    <module>installer</module>
-  </modules>
+    <name>JBossOSGi Distribution</name>
+
+    <groupId>org.jboss.osgi.distribution</groupId>
+    <artifactId>jboss-osgi-distribution</artifactId>
+    <packaging>pom</packaging>
+
+    <!-- Parent -->
+    <parent>
+        <groupId>org.jboss.osgi</groupId>
+        <artifactId>jboss-osgi</artifactId>
+        <version>1.1.0</version>
+    </parent>
+
+    <!-- Modules -->
+    <modules>
+        <module>docbook</module>
+        <module>javadoc</module>
+        <module>installer</module>
+    </modules>
 
 </project>

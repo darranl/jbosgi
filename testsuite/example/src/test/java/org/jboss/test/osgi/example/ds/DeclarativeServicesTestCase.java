@@ -86,13 +86,16 @@ public class DeclarativeServicesTestCase {
     @Test
     public void testImmediateService() throws Exception {
 
+        // Start the test bundle
         bundle.start();
-        provideDeclarativeServices(context, bundle);
 
+        // Provide Declarative Services support
+        DeclarativeServicesSupport.provideDeclarativeServices(context, bundle);
+
+        // Track the service provided by the test bundle
         final CountDownLatch latch = new CountDownLatch(1);
         ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
             public Object addingService(ServiceReference reference) {
-                @SuppressWarnings("unchecked")
                 Comparator<Object> service = (Comparator<Object>) super.addingService(reference);
                 latch.countDown();
                 return service;
@@ -100,6 +103,7 @@ public class DeclarativeServicesTestCase {
         };
         tracker.open();
 
+        // Wait for the service to become available
         if (latch.await(2, TimeUnit.SECONDS) == false)
             throw new TimeoutException("Timeout tracking Comparator service");
     }

@@ -66,7 +66,7 @@ public class RepositorySupport {
             throw new IllegalStateException("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();
         XResource xres = (XResource) cap.getResource();
-        return context.installBundle(coordinates, ((XResource) xres).getContent());
+        return context.installBundle(coordinates, xres.getContent());
     }
 
     public static String getCoordinates(Bundle bundle, String artifactid) {

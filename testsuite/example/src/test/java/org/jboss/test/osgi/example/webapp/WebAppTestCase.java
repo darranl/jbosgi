@@ -50,7 +50,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
-import static org.jboss.test.osgi.WebAppSupport.provideWebappSupport;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -93,15 +92,20 @@ public class WebAppTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideWebappSupport(context, bundle);
+
+        // Provide WebApp support
+        WebAppSupport.provideWebappSupport(context, bundle);
+
+        // Start the test bundle
         bundle.start();
+
         String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
     }
 
     @Test
     public void testServletInitProps() throws Exception {
-        provideWebappSupport(context, bundle);
+        WebAppSupport.provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -109,7 +113,7 @@ public class WebAppTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
-        provideWebappSupport(context, bundle);
+        WebAppSupport.provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/message.txt", 5000);
         assertEquals("Hello from Resource", line);

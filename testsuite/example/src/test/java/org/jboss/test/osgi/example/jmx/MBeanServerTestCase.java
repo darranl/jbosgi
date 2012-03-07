@@ -89,8 +89,13 @@ public class MBeanServerTestCase {
 
     @Test
     public void testMBeanAccess() throws Exception {
+
+        // Provide MBeanServer support
         MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
+
+        // Start the test bundle
         bundle.start();
+
         ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
         FooMBean foo = ManagementSupport.getMBeanProxy(server, oname, FooMBean.class);
         assertEquals("hello", foo.echo("hello"));

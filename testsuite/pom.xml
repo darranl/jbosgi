@@ -128,8 +128,7 @@
                 </property>
             </activation>
             <properties>
-                <jboss.home>${basedir}/../../../jboss-as-${version.jbossas.710}/build/target/jboss-as-${version.jbossas.710}</jboss.home>
-                <!--jboss.home>${basedir}/target/jboss-as-${version.jbossas.710}</jboss.home-->
+                <jboss.home>${basedir}/target/jboss-as-${version.jbossas.710}</jboss.home>
             </properties>
             <dependencies>
                 <dependency>

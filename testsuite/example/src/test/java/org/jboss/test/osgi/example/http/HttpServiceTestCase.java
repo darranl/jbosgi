@@ -50,7 +50,6 @@ import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.jboss.test.osgi.HttpServiceSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -91,7 +90,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideHttpService(context, bundle);
+        HttpServiceSupport.provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
@@ -99,7 +98,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testServletInitProps() throws Exception {
-        provideHttpService(context, bundle);
+        HttpServiceSupport.provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -107,7 +106,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testServletBundleContext() throws Exception {
-        provideHttpService(context, bundle);
+        HttpServiceSupport.provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/servlet?test=context", 5000);
         assertEquals("example-http", line);
@@ -115,7 +114,7 @@ public class HttpServiceTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
-        provideHttpService(context, bundle);
+        HttpServiceSupport.provideHttpService(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-http/file/message.txt", 5000);
         assertEquals("Hello from Resource", line);

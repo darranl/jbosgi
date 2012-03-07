@@ -49,8 +49,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- * A test that deployes a WAR bundle
+ * A test that deployes two bundles
+ *
+ * - example-javaee-api
+ * - example-javaee-service
+ *
+ * and two JavaEE archives
+ *
+ * - example-javaee-ejb3
+ * - example-javaee-servlet
+ *
+ * It demonstrates how JavaEE components can access OSGi services.
  *
  * @author thomas.diesler@jboss.com
  * @since 01-Feb-2012
@@ -91,11 +103,11 @@ public class JavaEEIntegrationTestCase {
         deployer.deploy(EJB3_DEPLOYMENT_NAME);
         deployer.deploy(SERVLET_DEPLOYMENT_NAME);
 
-        String simplepath = "/sample/simple?account=kermit&amount=100";
-        Assert.assertEquals("Calling PaymentService: Charged $100.0 to account 'kermit'", getHttpResponse(simplepath, 2000));
+        String response = getHttpResponse("/sample/simple?account=kermit&amount=100", 2000);
+        assertEquals("Calling PaymentService: Charged $100.0 to account 'kermit'", response);
 
-        String ejbpath = "/sample/ejb?account=kermit&amount=100";
-        Assert.assertEquals("Calling SimpleStatelessSessionBean: Charged $100.0 to account 'kermit'", getHttpResponse(ejbpath, 2000));
+        response = getHttpResponse("/sample/ejb?account=kermit&amount=100", 2000);
+        assertEquals("Calling SimpleStatelessSessionBean: Charged $100.0 to account 'kermit'", response);
 
         deployer.undeploy(SERVLET_DEPLOYMENT_NAME);
         deployer.undeploy(EJB3_DEPLOYMENT_NAME);

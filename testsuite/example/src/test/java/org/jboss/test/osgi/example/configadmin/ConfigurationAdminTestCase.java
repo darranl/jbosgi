@@ -97,7 +97,7 @@ public class ConfigurationAdminTestCase {
         // Start the test bundle
         bundle.start();
 
-        // Get the {@link ConfigurationAdmin}
+        // Get the {@link ConfigurationAdmin} service
         ConfigurationAdmin configAdmin = provideConfigurationAdmin(context, bundle);
 
         final CountDownLatch latch = new CountDownLatch(1);

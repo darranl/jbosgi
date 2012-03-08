@@ -21,7 +21,6 @@
 
     <name>JBossOSGi Testsuite Functional</name>
 
-    <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-testsuite-functional</artifactId>
     <packaging>jar</packaging>
 

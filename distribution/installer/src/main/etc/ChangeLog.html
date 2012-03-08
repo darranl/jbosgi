@@ -1,6 +1,53 @@
 <html>
 <body>
 
+<h1>JBossOSGi 1.1.0</h1>
+<h2>Bug</h2>
+<ul>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-413'>JBOSGI-413</a>] -         Xerces bundle defines invalid dependency on wutka.dtdparser    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-457'>JBOSGI-457</a>] -         ConcurrentModificationException in UserBundleState.hasActiveWires    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-460'>JBOSGI-460</a>] -         Improve toString() for resolver objects                              </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-486'>JBOSGI-486</a>] -         Revisit system package and boot delegation    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-490'>JBOSGI-490</a>] -         NPE in FelixResolver when creating a XResolverException    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-492'>JBOSGI-492</a>] -         Invalid run.sh with cygwin on windows                      </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-495'>JBOSGI-495</a>] -         Cannot install bundle from URL with non-standard protocol    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-496'>JBOSGI-496</a>] -         Logging-related exception when launching through FrameworkFactory    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-504'>JBOSGI-504</a>] -         DOMWebXmlParser fails if jsp-file is used                            </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-507'>JBOSGI-507</a>] -         NPE in URL.openConnection() for bundle:// protocol    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-508'>JBOSGI-508</a>] -         Declarative Services don&#39;t start if bundles are activated in different order    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-510'>JBOSGI-510</a>] -         StartLevelIntegrationTestCase fails on jdk1.7                                       </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-512'>JBOSGI-512</a>] -         Impossible to load a native library which uses another native library    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-518'>JBOSGI-518</a>] -         NPE in ServiceState.ungetScopedValue()    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-526'>JBOSGI-526</a>] -         Duplicate org.jboss.osgi.metadata types in repository and resolver    </li>
+</ul>
+<h2>Feature Request</h2>
+<ul>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-285'>JBOSGI-285</a>] -         Add JSP support for WebApps    </li>
+</ul>
+<h2>Task</h2>
+<ul>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-72'>JBOSGI-72</a>] -         Setup a bundle repository    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-467'>JBOSGI-467</a>] -         Review concurrent access to collections    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-482'>JBOSGI-482</a>] -         Provide an OSGi FAQ page                   </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-483'>JBOSGI-483</a>] -         Update framework to modules 1.1.0 or later    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-484'>JBOSGI-484</a>] -         Update framework to msc 1.0.0 or later    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-488'>JBOSGI-488</a>] -         Replace jboss-osgi-common by jboss-osgi-logging in distro    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-489'>JBOSGI-489</a>] -         Comprehensive coverage of AS7 / OSGi integration in user guide    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-501'>JBOSGI-501</a>] -         Retire standalone OSGi Runtime                                    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-503'>JBOSGI-503</a>] -         BundleActivator should be called without TCCL association    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-506'>JBOSGI-506</a>] -         Restore AS7 remote testing    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-516'>JBOSGI-516</a>] -         Add default BundleManifestVersion to OSGiManifestBuilder    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-517'>JBOSGI-517</a>] -         Add AS7 integration tests to examples    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-521'>JBOSGI-521</a>] -         Performace tests fail on felix/equino    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-529'>JBOSGI-529</a>] -         Integrate Felix, Aries and Ops4J bundles directly    </li>
+</ul>
+<h2>Sub-task</h2>
+<ul>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-513'>JBOSGI-513</a>] -         Integrate latest Aries Blueprint directly    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-514'>JBOSGI-514</a>] -         Integrate latest Aries JMX directly    </li>
+    <li>[<a href='https://issues.jboss.org/browse/JBOSGI-515'>JBOSGI-515</a>] -         Integrate latest PaxWeb directly    </li>
+</ul>
+
 <h1>JBossOSGi 1.0.0</h1>
 <h2>Bug</h2>
 <ul>

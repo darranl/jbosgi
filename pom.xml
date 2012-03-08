@@ -310,25 +310,12 @@
 
     <!-- Profiles -->
     <profiles>
-
-        <!-- Name: distro Desc: Build the distribution -->
         <profile>
             <id>distro</id>
             <modules>
                 <module>distribution</module>
             </modules>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
-
     </profiles>
 
 </project>

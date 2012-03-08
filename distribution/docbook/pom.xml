@@ -22,7 +22,6 @@
 
     <name>JBossOSGi Distribution Userguide</name>
 
-    <groupId>org.jboss.osgi.distribution</groupId>
     <artifactId>jboss-osgi-userguide</artifactId>
     <packaging>jdocbook</packaging>
 
@@ -33,54 +32,10 @@
 
     <!-- Plugins -->
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
             <!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                        <configuration>
-                            <format>{0,date,dd-MMM-yyyy HH:mm:ss}</format>
-                            <items>
-                                <item>timestamp</item>
-                            </items>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/docbook/resources</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-            <!--
-              Maven JDocbook Plugin
               http://www.jboss.org/maven-jdocbook-plugin
               https://github.com/pressgang/maven-jdocbook-plugin
-
-              mvn jdocbook:generate
-              mvn jdocbook:bundle
             -->
             <plugin>
                 <groupId>org.jboss.maven.plugins</groupId>

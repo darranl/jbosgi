@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ====================================================================== -->
-<!-- -->
-<!-- JBoss, the OpenSource J2EE webOS -->
-<!-- -->
-<!-- Distributable under LGPL license. -->
-<!-- See terms of license at http://www.gnu.org. -->
-<!-- -->
+<!--                                                                        -->
+<!-- JBoss, the OpenSource J2EE webOS                                       -->
+<!--                                                                        -->
+<!-- Distributable under LGPL license.                                      -->
+<!-- See terms of license at http://www.gnu.org.                            -->
+<!--                                                                        -->
 <!-- ====================================================================== -->
 
 <!-- 
 
   Set these VM properties in your IDE debugger 
 
+  -Djava.util.logging.manager=org.jboss.logmanager.LogManager
   -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-example/target}/test-libs 
 -->
 
@@ -27,7 +28,6 @@
 
     <name>JBossOSGi Testsuite Examples</name>
 
-    <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-testsuite-example</artifactId>
     <packaging>jar</packaging>
 
@@ -80,8 +80,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.osgi.http</groupId>
-            <artifactId>jbosgi-http-api</artifactId>
+            <groupId>org.jboss.osgi</groupId>
+            <artifactId>javax.servlet.api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

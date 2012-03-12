@@ -60,13 +60,13 @@
         <version.jboss.osgi.deployment>1.0.12.Final</version.jboss.osgi.deployment>
         <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-        <version.jboss.osgi.framework>1.1.8.Final</version.jboss.osgi.framework>
-        <version.jboss.osgi.http>1.0.5</version.jboss.osgi.http>
+        <version.jboss.osgi.framework>1.2.0-SNAPSHOT</version.jboss.osgi.framework>
+        <version.jboss.osgi.javax.servlet>2.5.Final</version.jboss.osgi.javax.servlet>
         <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.metadata>2.0.3.Final</version.jboss.osgi.metadata>
-        <version.jboss.osgi.repository>1.0.5</version.jboss.osgi.repository>
-        <version.jboss.osgi.resolver>1.0.13.Final</version.jboss.osgi.resolver>
+        <version.jboss.osgi.repository>1.0.6</version.jboss.osgi.repository>
+        <version.jboss.osgi.resolver>2.0.0.Beta4</version.jboss.osgi.resolver>
         <version.jboss.osgi.spi>3.0.1.Final</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>1.0.2</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>1.0.7.Final</version.jboss.osgi.vfs>
@@ -100,6 +100,12 @@
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-osgi-embedded</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
                 <version>${version.jboss.arquillian.osgi}</version>
             </dependency>
             <dependency>
@@ -164,9 +170,9 @@
                 <version>${version.jboss.osgi.framework}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.osgi.http</groupId>
-                <artifactId>jbosgi-http-api</artifactId>
-                <version>${version.jboss.osgi.http}</version>
+                <groupId>org.jboss.osgi</groupId>
+                <artifactId>javax.servlet.api</artifactId>
+                <version>${version.jboss.osgi.javax.servlet}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.jmx</groupId>
@@ -187,6 +193,11 @@
                 <groupId>org.jboss.osgi.repository</groupId>
                 <artifactId>jbosgi-repository</artifactId>
                 <version>${version.jboss.osgi.repository}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.osgi.resolver</groupId>
+                <artifactId>jbosgi-resolver-felix-v2</artifactId>
+                <version>${version.jboss.osgi.resolver}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.testing</groupId>

@@ -65,8 +65,8 @@
         <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.metadata>2.0.3.Final</version.jboss.osgi.metadata>
-        <version.jboss.osgi.repository>1.0.6</version.jboss.osgi.repository>
-        <version.jboss.osgi.resolver>2.0.0.Beta4</version.jboss.osgi.resolver>
+        <version.jboss.osgi.repository>1.0.7-SNAPSHOT</version.jboss.osgi.repository>
+        <version.jboss.osgi.resolver>2.0.0.Beta5-SNAPSHOT</version.jboss.osgi.resolver>
         <version.jboss.osgi.spi>3.0.1.Final</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>1.0.2</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>1.0.7.Final</version.jboss.osgi.vfs>
@@ -196,7 +196,7 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.resolver</groupId>
-                <artifactId>jbosgi-resolver-felix-v2</artifactId>
+                <artifactId>jbosgi-resolver-felix</artifactId>
                 <version>${version.jboss.osgi.resolver}</version>
             </dependency>
             <dependency>

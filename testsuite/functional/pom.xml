@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ====================================================================== -->
-<!-- -->
-<!-- JBoss, the OpenSource J2EE webOS -->
-<!-- -->
-<!-- Distributable under LGPL license. -->
-<!-- See terms of license at http://www.gnu.org. -->
-<!-- -->
+<!--                                                                        -->
+<!-- JBoss, the OpenSource J2EE webOS                                       -->
+<!--                                                                        -->
+<!-- Distributable under LGPL license.                                      -->
+<!-- See terms of license at http://www.gnu.org.                            -->
+<!--                                                                        -->
 <!-- ====================================================================== -->
 
 <!--
@@ -100,44 +100,7 @@
                 </dependency>
             </dependencies>
         </profile>
-        <profile>
-            <id>jboss710-testing</id>
-            <activation>
-                <property>
-                    <name>target.container</name>
-                    <value>jboss710</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>test-compile</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.jboss.as</groupId>
-                                    <artifactId>jboss-as-dist</artifactId>
-                                    <version>${version.jbossas.710}</version>
-                                    <type>zip</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${basedir}/target</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+        <!-- 
         <profile>
             <id>jboss711-testing</id>
             <activation>
@@ -176,5 +139,6 @@
                 </plugins>
             </build>
         </profile>
+        -->
     </profiles>
 </project>

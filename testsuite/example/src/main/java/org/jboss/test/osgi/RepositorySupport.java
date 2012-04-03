@@ -29,8 +29,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.framework.resource.Capability;
-import org.osgi.framework.resource.Requirement;
+import org.osgi.resource.Capability;
+import org.osgi.resource.Requirement;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Properties;
 
 /**
@@ -61,7 +62,7 @@ public class RepositorySupport {
     public static Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
         Repository repository = getRepository(context);
         Requirement req = XRequirementBuilder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
-        Collection<Capability> caps = repository.findProviders(req);
+        Collection<Capability> caps = repository.findProviders(Collections.singleton(req)).get(req);
         if (caps.isEmpty())
             throw new IllegalStateException("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();

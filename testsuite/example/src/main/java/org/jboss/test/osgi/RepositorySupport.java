@@ -33,6 +33,7 @@ import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
+import org.osgi.service.repository.RepositoryContent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +68,8 @@ public class RepositorySupport {
             throw new IllegalStateException("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();
         XResource xres = (XResource) cap.getResource();
-        return context.installBundle(coordinates, xres.getContent());
+        RepositoryContent content = (RepositoryContent) xres;
+        return context.installBundle(coordinates, content.getContent());
     }
 
     public static String getCoordinates(Bundle bundle, String artifactid) {

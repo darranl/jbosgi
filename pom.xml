@@ -61,7 +61,7 @@
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
         <version.jboss.osgi.framework>1.3.0.CR2</version.jboss.osgi.framework>
         <version.jboss.osgi.javax.servlet>2.5.Final</version.jboss.osgi.javax.servlet>
-        <version.jboss.osgi.jmx>1.0.11</version.jboss.osgi.jmx>
+        <version.jboss.osgi.jmx>1.1.0.CR1</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
         <version.jboss.osgi.metadata>2.1.0.CR1</version.jboss.osgi.metadata>
         <version.jboss.osgi.repository>1.2.0.CR2</version.jboss.osgi.repository>
@@ -69,7 +69,7 @@
         <version.jboss.osgi.spi>3.1.0.CR1</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>1.0.4</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>1.1.0.CR1</version.jboss.osgi.vfs>
-        <version.jboss.osgi.xerces>2.10.0</version.jboss.osgi.xerces>
+        <version.jboss.osgi.xerces>3.1.0.CR1</version.jboss.osgi.xerces>
         <version.jboss.spec.ejb3.api>1.0.1.Final</version.jboss.spec.ejb3.api>
         <version.jboss.spec.servlet.api>1.0.0.Final</version.jboss.spec.servlet.api>
         <version.junit>4.10</version.junit>

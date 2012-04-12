@@ -21,11 +21,8 @@
  */
 package org.jboss.test.osgi.example.jbossas.webapp;
 
-import org.jboss.logging.Logger;
-import org.jboss.test.osgi.example.jbossas.api.PaymentService;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-import org.osgi.util.tracker.ServiceTracker;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
@@ -34,8 +31,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import org.jboss.logging.Logger;
+import org.jboss.test.osgi.example.jbossas.api.PaymentService;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A simple servlet.

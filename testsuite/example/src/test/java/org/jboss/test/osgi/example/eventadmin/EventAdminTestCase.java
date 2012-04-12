@@ -21,6 +21,16 @@
  */
 package org.jboss.test.osgi.example.eventadmin;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -40,15 +50,6 @@ import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 import org.osgi.service.repository.Repository;
-
-import javax.inject.Inject;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.

@@ -21,6 +21,17 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.InputStream;
+
+import javax.inject.Inject;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.openmbean.TabularData;
+
+import org.apache.aries.jmx.framework.BundleState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -35,19 +46,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.resource.Resource;
 import org.osgi.jmx.framework.BundleStateMBean;
+import org.osgi.resource.Resource;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
-
-import javax.inject.Inject;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.openmbean.TabularData;
-import java.io.InputStream;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Test {@link BundleState} functionality

@@ -21,13 +21,13 @@
  */
 package org.jboss.test.osgi.example.http.bundle;
 
+import java.util.Properties;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.http.HttpService;
 import org.osgi.util.tracker.ServiceTracker;
-
-import java.util.Properties;
 
 /**
  * A Service Activator

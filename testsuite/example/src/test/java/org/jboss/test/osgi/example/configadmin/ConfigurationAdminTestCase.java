@@ -22,6 +22,19 @@
 
 package org.jboss.test.osgi.example.configadmin;
 
+import static org.jboss.test.osgi.ConfigurationAdminSupport.provideConfigurationAdmin;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.InputStream;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -44,18 +57,6 @@ import org.osgi.service.cm.ConfigurationEvent;
 import org.osgi.service.cm.ConfigurationListener;
 import org.osgi.service.cm.ManagedService;
 import org.osgi.service.repository.Repository;
-
-import javax.inject.Inject;
-import java.io.InputStream;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import static org.jboss.test.osgi.ConfigurationAdminSupport.provideConfigurationAdmin;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * A test that shows how an OSGi {@link org.osgi.service.cm.ManagedService}

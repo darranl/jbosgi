@@ -21,6 +21,14 @@
  */
 package org.jboss.test.osgi.example.jmx;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.InputStream;
+
+import javax.inject.Inject;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -43,13 +51,6 @@ import org.osgi.resource.Resource;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
-
-import javax.inject.Inject;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import java.io.InputStream;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes a bundle that registeres an MBean

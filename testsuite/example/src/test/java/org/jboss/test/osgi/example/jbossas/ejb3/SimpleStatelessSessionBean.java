@@ -21,16 +21,16 @@
  */
 package org.jboss.test.osgi.example.jbossas.ejb3;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
 import org.jboss.logging.Logger;
 import org.jboss.test.osgi.example.jbossas.api.PaymentService;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 
 /**
  * A simple stateless session bean.

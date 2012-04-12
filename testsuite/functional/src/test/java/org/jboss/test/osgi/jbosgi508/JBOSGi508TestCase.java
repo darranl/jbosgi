@@ -21,6 +21,12 @@
  */
 package org.jboss.test.osgi.jbosgi508;
 
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -43,11 +49,6 @@ import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
-
-import javax.inject.Inject;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Declarative Services don't start if bundles are activated in different order
@@ -132,8 +133,8 @@ public class JBOSGi508TestCase {
         ServiceReference[] srefs = context.getAllServiceReferences("org.jboss.test.osgi.jbosgi508.bundle2.Service2", null);
         Object service2 = context.getService(srefs[0]);
         Assert.assertNotNull("Service2 not null", service2);
-        Method method = service2.getClass().getMethod("getService1", null);
-        Object service1 = method.invoke(service2, null);
+        Method method = service2.getClass().getMethod("getService1", (Class<?>[])null);
+        Object service1 = method.invoke(service2, (Object[])null);
         Assert.assertNotNull("Service1 not null", service1);
     }
 

@@ -21,6 +21,14 @@
  */
 package org.jboss.test.osgi.example.jbossas;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.jar.JarFile;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,18 +46,11 @@ import org.jboss.test.osgi.example.jbossas.ejb3.SimpleStatelessSessionBean;
 import org.jboss.test.osgi.example.jbossas.service.PaymentActivator;
 import org.jboss.test.osgi.example.jbossas.webapp.SimpleBeanClientServlet;
 import org.jboss.test.osgi.example.jbossas.webapp.SimpleClientServlet;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-
-import javax.inject.Inject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.jar.JarFile;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes two bundles
@@ -98,20 +99,32 @@ public class JavaEEIntegrationTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
+        
+        // Deploy the bundle that provides the API
         deployer.deploy(API_DEPLOYMENT_NAME);
-        deployer.deploy(SERVICE_DEPLOYMENT_NAME);
-        deployer.deploy(EJB3_DEPLOYMENT_NAME);
-        deployer.deploy(SERVLET_DEPLOYMENT_NAME);
+        
+        // Deploy the bundle that provides the service
+        InputStream input = deployer.getDeployment(SERVICE_DEPLOYMENT_NAME);
+        Bundle bundle = context.installBundle(SERVICE_DEPLOYMENT_NAME, input);
+        try {
+            // Start the service bundle
+            bundle.start();
 
-        String response = getHttpResponse("/sample/simple?account=kermit&amount=100", 2000);
-        assertEquals("Calling PaymentService: Charged $100.0 to account 'kermit'", response);
+            // Deploy the EJB3 and Servlet clients
+            deployer.deploy(EJB3_DEPLOYMENT_NAME);
+            deployer.deploy(SERVLET_DEPLOYMENT_NAME);
+            
+            String response = getHttpResponse("/sample/simple?account=kermit&amount=100", 2000);
+            assertEquals("Calling PaymentService: Charged $100.0 to account 'kermit'", response);
 
-        response = getHttpResponse("/sample/ejb?account=kermit&amount=100", 2000);
-        assertEquals("Calling SimpleStatelessSessionBean: Charged $100.0 to account 'kermit'", response);
-
-        deployer.undeploy(SERVLET_DEPLOYMENT_NAME);
-        deployer.undeploy(EJB3_DEPLOYMENT_NAME);
-        deployer.undeploy(SERVICE_DEPLOYMENT_NAME);
+            response = getHttpResponse("/sample/ejb?account=kermit&amount=100", 2000);
+            assertEquals("Calling SimpleStatelessSessionBean: Charged $100.0 to account 'kermit'", response);
+            
+            deployer.undeploy(SERVLET_DEPLOYMENT_NAME);
+            deployer.undeploy(EJB3_DEPLOYMENT_NAME);
+        } finally {
+            bundle.uninstall();
+        }
         deployer.undeploy(API_DEPLOYMENT_NAME);
     }
 

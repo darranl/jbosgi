@@ -21,6 +21,16 @@
  */
 package org.jboss.test.osgi.example.interceptor;
 
+import static org.jboss.test.osgi.HttpServiceSupport.provideHttpService;
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.inject.Inject;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
+
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -50,15 +60,6 @@ import org.osgi.resource.Resource;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
-
-import javax.inject.Inject;
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServlet;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static org.jboss.test.osgi.HttpServiceSupport.provideHttpService;
-import static org.junit.Assert.assertEquals;
 
 /**
  * A test that deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and

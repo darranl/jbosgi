@@ -21,6 +21,13 @@
  */
 package org.jboss.test.osgi.update;
 
+import static org.jboss.osgi.testing.OSGiTestHelper.assertLoadClass;
+import static org.jboss.osgi.testing.OSGiTestHelper.assertLoadClassFail;
+
+import java.io.InputStream;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,12 +45,6 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Version;
-
-import javax.inject.Inject;
-import java.io.InputStream;
-
-import static org.jboss.osgi.testing.OSGiTestHelper.assertLoadClass;
-import static org.jboss.osgi.testing.OSGiTestHelper.assertLoadClassFail;
 
 /**
  * Test Bundle.update();

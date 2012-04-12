@@ -21,6 +21,17 @@
  */
 package org.jboss.test.osgi.example.webapp;
 
+import static org.jboss.test.osgi.WebAppSupport.provideWebappSupport;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.InputStream;
+import java.util.jar.JarFile;
+
+import javax.inject.Inject;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
@@ -43,16 +54,6 @@ import org.osgi.resource.Resource;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
-
-import javax.inject.Inject;
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServlet;
-import java.io.InputStream;
-import java.util.jar.JarFile;
-
-import static org.jboss.test.osgi.WebAppSupport.provideWebappSupport;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * A test that deployes a WAR bundle that contains no WEB-INF/web.xml

@@ -21,6 +21,14 @@
  */
 package org.jboss.test.osgi.example.ds;
 
+import java.io.InputStream;
+import java.util.Comparator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -38,15 +46,6 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
-
-import javax.inject.Inject;
-import java.io.InputStream;
-import java.util.Comparator;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import static org.jboss.test.osgi.DeclarativeServicesSupport.provideDeclarativeServices;
 
 /**
  * Example for Declarative Services
@@ -96,7 +95,7 @@ public class DeclarativeServicesTestCase {
         final CountDownLatch latch = new CountDownLatch(1);
         ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
             public Object addingService(ServiceReference reference) {
-                Comparator<Object> service = (Comparator<Object>) super.addingService(reference);
+                Comparator<?> service = (Comparator<?>) super.addingService(reference);
                 latch.countDown();
                 return service;
             }

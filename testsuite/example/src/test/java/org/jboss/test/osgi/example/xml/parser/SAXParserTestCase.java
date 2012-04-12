@@ -21,6 +21,15 @@
  */
 package org.jboss.test.osgi.example.xml.parser;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.InputStream;
+import java.net.URL;
+
+import javax.inject.Inject;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.resolver.XRequirementBuilder;
@@ -38,14 +47,6 @@ import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import javax.inject.Inject;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.InputStream;
-import java.net.URL;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * A test that uses a SAX parser to read an XML document.

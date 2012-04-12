@@ -25,8 +25,6 @@
     </parent>
 
     <name>JBossOSGi Testsuite Performance</name>
-
-    <groupId>org.jboss.osgi.testsuite</groupId>
     <artifactId>jboss-osgi-testsuite-performance</artifactId>
 
     <!-- Dependencies -->
@@ -34,6 +32,11 @@
         <dependency>
             <groupId>org.jboss.osgi.testing</groupId>
             <artifactId>jbosgi-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.spi</groupId>
+            <artifactId>jbosgi-spi</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

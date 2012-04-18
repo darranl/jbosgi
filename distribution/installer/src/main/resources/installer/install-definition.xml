@@ -71,6 +71,55 @@
       <!-- JBossOSGi Examples -->
       <file src="@{deploy.artifacts.dir}/lib/jboss-osgi-testsuite-example.zip" targetdir="$INSTALL_PATH" unpack="true" override="true" />
 
+      <!-- JBossOSGi Source -->
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/source" override="true">
+        <include name="jbosgi-deployment-sources.jar" />
+        <include name="jbosgi-framework-core-sources.jar" />
+        <include name="jbosgi-jmx-sources.jar" />
+        <include name="jbosgi-metadata-sources.jar" />
+        <include name="jbosgi-repository-api-sources.jar" />
+        <include name="jbosgi-repository-sources.jar" />
+        <include name="jbosgi-resolver-api-sources.jar" />
+        <include name="jbosgi-resolver-felix-sources.jar" />
+        <include name="jbosgi-spi-sources.jar" />
+        <include name="jbosgi-vfs-sources.jar" />
+        <include name="jbosgi-vfs30-sources.jar" />
+        <include name="jbosgi-xerces-sources.jar" />
+        <include name="jboss-osgi-logging-sources.jar" />
+      </fileset>
+
+      <!-- JBossOSGi Lib -->
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/lib" override="true">
+        <include name="jbosgi-framework-core.jar" />
+        <include name="jbosgi-framework-aggregated-all.jar" />
+        <include name="jbosgi-resolver-api.jar" />
+        <include name="jbosgi-resolver-felix.jar" />
+        <include name="jbosgi-metadata.jar" />
+        <include name="jbosgi-deployment.jar" />
+        <include name="jbosgi-spi.jar" />
+        <include name="jbosgi-vfs.jar" />
+        <include name="jbosgi-vfs30.jar" />
+      </fileset>
+      
+      <!-- Supported Bundles -->
+      <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/bundles" override="true">
+        <include name="jbosgi-jmx.jar" />
+        <include name="jbosgi-repository-api.jar" />
+        <include name="jbosgi-repository.jar" />
+        <include name="jbosgi-xerces.jar" />
+        <include name="jboss-osgi-logging.jar" />
+        <include name="org.apache.aries.blueprint.jar" />
+        <include name="org.apache.aries.jmx.jar" />
+        <include name="org.apache.aries.jndi.jar" />
+        <include name="org.apache.aries.proxy.jar" />
+        <include name="org.apache.aries.util.jar" />
+        <include name="org.apache.felix.configadmin.jar" />
+        <include name="org.apache.felix.eventadmin.jar" />
+        <include name="org.apache.felix.scr.jar" />
+        <include name="pax-web-jsp.jar" />
+        <include name="pax-web-jetty-bundle.jar" />
+      </fileset>
+      
     </pack>
 
   </packs>

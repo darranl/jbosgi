@@ -18,7 +18,7 @@
                 <include>*:jbosgi-jmx-api:jar:sources</include>
                 <include>*:jbosgi-metadata:jar:sources</include>
                 <include>*:jbosgi-resolver-api:jar:sources</include>
-                <include>*:jbosgi-resolver-spi:jar:sources</include>
+                <include>*:jbosgi-repository-api:jar:sources</include>
                 <include>*:jbosgi-spi:jar:sources</include>
                 <include>*:jbosgi-testing:jar:sources</include>
                 <include>*:jbosgi-vfs:jar:sources</include>

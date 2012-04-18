@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ====================================================================== -->
-<!-- -->
-<!-- JBoss, the OpenSource J2EE webOS -->
-<!-- -->
-<!-- Distributable under LGPL license. -->
-<!-- See terms of license at http://www.gnu.org. -->
-<!-- -->
+<!--                                                                        -->
+<!-- JBoss, the OpenSource J2EE webOS                                       -->
+<!--                                                                        -->
+<!-- Distributable under LGPL license.                                      -->
+<!-- See terms of license at http://www.gnu.org.                            -->
+<!--                                                                        -->
 <!-- ====================================================================== -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>JBossOSGi Distribution Installer</name>
+	<name>JBossOSGi Distribution Installer</name>
 
-    <groupId>org.jboss.osgi.distribution</groupId>
-    <artifactId>jboss-osgi-installer</artifactId>
-    <packaging>pom</packaging>
+	<artifactId>jboss-osgi-installer</artifactId>
+	<packaging>pom</packaging>
 
     <!-- Parent -->
     <parent>
@@ -25,90 +24,110 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <!-- Dependencies -->
-    <dependencies>
+	<!-- Dependencies -->
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.distribution</groupId>
+			<artifactId>jboss-osgi-javadoc</artifactId>
+			<version>${project.version}</version>
+			<classifier>javadoc</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.framework</groupId>
+			<artifactId>jbosgi-framework-aggregated</artifactId>
+			<version>${version.jboss.osgi.framework}</version>
+			<classifier>all</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.jmx</groupId>
+			<artifactId>jbosgi-jmx</artifactId>
+		</dependency>
         <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
+            <groupId>org.jboss.osgi.logging</groupId>
+            <artifactId>jboss-osgi-logging</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.repository</groupId>
+			<artifactId>jbosgi-repository-api</artifactId>
+		</dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.osgi</groupId>
-            <artifactId>arquillian-osgi-bundle</artifactId>
+            <groupId>org.jboss.osgi.repository</groupId>
+            <artifactId>jbosgi-repository-api</artifactId>
+            <version>${version.jboss.osgi.repository}</version>
+            <classifier>sources</classifier>
         </dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.repository</groupId>
+			<artifactId>jbosgi-repository</artifactId>
+		</dependency>
         <dependency>
-            <groupId>org.jboss.osgi.distribution</groupId>
-            <artifactId>jboss-osgi-javadoc</artifactId>
-            <version>${project.version}</version>
-            <classifier>javadoc</classifier>
+            <groupId>org.jboss.osgi.repository</groupId>
+            <artifactId>jbosgi-repository</artifactId>
+            <version>${version.jboss.osgi.repository}</version>
+            <classifier>sources</classifier>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.framework</groupId>
-            <artifactId>jbosgi-framework-aggregated</artifactId>
-            <version>${version.jboss.osgi.framework}</version>
-            <classifier>all</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.jmx</groupId>
-            <artifactId>jbosgi-jmx</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.testsuite</groupId>
-            <artifactId>jboss-osgi-testsuite-example</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.xerces</groupId>
-            <artifactId>jbosgi-xerces</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.testsuite</groupId>
+			<artifactId>jboss-osgi-testsuite-example</artifactId>
+			<version>${project.version}</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.osgi.xerces</groupId>
+			<artifactId>jbosgi-xerces</artifactId>
+		</dependency>
 
-        <!-- Aries Dependencies -->
-        <dependency>
-            <groupId>org.apache.aries.blueprint</groupId>
-            <artifactId>org.apache.aries.blueprint</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.aries.jmx</groupId>
-            <artifactId>org.apache.aries.jmx</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.aries.jndi</groupId>
-            <artifactId>org.apache.aries.jndi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.aries.proxy</groupId>
-            <artifactId>org.apache.aries.proxy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.aries</groupId>
-            <artifactId>org.apache.aries.util</artifactId>
-        </dependency>
+		<!-- Aries Dependencies -->
+		<dependency>
+			<groupId>org.apache.aries.blueprint</groupId>
+			<artifactId>org.apache.aries.blueprint</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.aries.jmx</groupId>
+			<artifactId>org.apache.aries.jmx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.aries.jndi</groupId>
+			<artifactId>org.apache.aries.jndi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.aries.proxy</groupId>
+			<artifactId>org.apache.aries.proxy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.aries</groupId>
+			<artifactId>org.apache.aries.util</artifactId>
+		</dependency>
 
-        <!-- Felix Dependencies -->
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.eventadmin</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr</artifactId>
-        </dependency>
+		<!-- Felix Dependencies -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.configadmin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.eventadmin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.log</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr</artifactId>
+		</dependency>
 
-        <!-- izpack -->
-        <dependency>
-            <groupId>org.codehaus.izpack</groupId>
-            <artifactId>izpack-standalone-compiler</artifactId>
-            <version>${version.izpack}</version>
-        </dependency>
-    </dependencies>
+		<!-- izpack -->
+		<dependency>
+			<groupId>org.codehaus.izpack</groupId>
+			<artifactId>izpack-standalone-compiler</artifactId>
+			<version>${version.izpack}</version>
+		</dependency>
+	</dependencies>
 
     <!-- Plugins -->
     <build>

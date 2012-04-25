@@ -80,11 +80,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.osgi</groupId>
-            <artifactId>javax.servlet.api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.osgi.jmx</groupId>
             <artifactId>jbosgi-jmx</artifactId>
             <scope>provided</scope>
@@ -112,6 +107,11 @@
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_2.5_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

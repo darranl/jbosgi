@@ -19,7 +19,7 @@
             <includes>
                 <include>*:org.apache.felix.log:jar</include>
                 <include>*:org.osgi.enterprise:jar</include>
-                <include>*:javax.servlet.api:jar</include>
+                <include>*:jboss-servlet-api_2.5_spec:jar</include>
                 <include>*:jbosgi-repository-api:jar</include>
                 <include>*:jbosgi-repository:jar</include>
                 <include>*:jboss-osgi-logging:jar</include>

@@ -47,7 +47,7 @@
         <version.apache.aries.proxy>0.4</version.apache.aries.proxy>
         <version.apache.aries.util>0.4</version.apache.aries.util>
         <version.apache.felix.configadmin>1.2.8</version.apache.felix.configadmin>
-        <version.apache.felix.eventadmin>1.2.6</version.apache.felix.eventadmin>
+        <version.apache.felix.eventadmin>1.2.14</version.apache.felix.eventadmin>
         <version.apache.felix.log>1.0.0</version.apache.felix.log>
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
         <version.izpack>4.3.1</version.izpack>

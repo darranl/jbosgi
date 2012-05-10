@@ -100,13 +100,13 @@
                 </dependency>
             </dependencies>
         </profile>
-        <!-- 
+        
         <profile>
-            <id>jboss711-testing</id>
+            <id>jboss712-testing</id>
             <activation>
                 <property>
                     <name>target.container</name>
-                    <value>jboss711</value>
+                    <value>jboss712</value>
                 </property>
             </activation>
             <build>
@@ -128,7 +128,7 @@
                                 <artifactItem>
                                     <groupId>org.jboss.as</groupId>
                                     <artifactId>jboss-as-dist</artifactId>
-                                    <version>${version.jbossas.711}</version>
+                                    <version>${version.jbossas.712}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${basedir}/target</outputDirectory>
@@ -139,6 +139,5 @@
                 </plugins>
             </build>
         </profile>
-        -->
     </profiles>
 </project>

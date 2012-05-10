@@ -126,29 +126,6 @@
             </build>
         </profile>
 
-		<!-- 
-        <profile>
-            <id>jboss711-testing</id>
-            <activation>
-                <property>
-                    <name>target.container</name>
-                    <value>jboss711</value>
-                </property>
-            </activation>
-            <properties>
-                <jboss.home>${basedir}/target/jboss-as-${version.jbossas.711}</jboss.home>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${version.jbossas.711}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        -->
-
         <profile>
             <id>jboss712-testing</id>
             <activation>
@@ -158,13 +135,34 @@
                 </property>
             </activation>
             <properties>
-                <jboss.home>${basedir}/../../../jboss-as/build/target/jboss-as-${version.jbossas.712}</jboss.home>
+                <jboss.home>${basedir}/target/jboss-as-${version.jbossas.712}</jboss.home>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
                     <version>${version.jbossas.712}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>jboss720-testing</id>
+            <activation>
+                <property>
+                    <name>target.container</name>
+                    <value>jboss720</value>
+                </property>
+            </activation>
+            <properties>
+                <jboss.home>${basedir}/../../../jboss-as/build/target/jboss-as-${version.jbossas.720}</jboss.home>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>${version.jbossas.720}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

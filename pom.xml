@@ -50,7 +50,8 @@
         <version.apache.felix.log>1.0.0</version.apache.felix.log>
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
         <version.izpack>4.3.1</version.izpack>
-        <version.jbossas.712>7.1.2.Final-SNAPSHOT</version.jbossas.712>
+        <version.jbossas.712>7.1.2.Final</version.jbossas.712>
+        <version.jbossas.720>7.2.0.Alpha1-SNAPSHOT</version.jbossas.720>
         <version.jboss.arquillian.core>1.0.0.CR7</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>1.0.2.Final</version.jboss.arquillian.osgi>
         <version.jboss.logging>3.1.0.GA</version.jboss.logging>

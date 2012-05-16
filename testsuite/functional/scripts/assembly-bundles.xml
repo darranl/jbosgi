@@ -18,7 +18,6 @@
             </outputFileNameMapping>
             <includes>
                 <include>*:org.osgi.enterprise:jar</include>
-                <include>*:jbosgi-repository-api:jar</include>
                 <include>*:jbosgi-repository:jar</include>
             </includes>
             <useStrictFiltering>true</useStrictFiltering>

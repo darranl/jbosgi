@@ -31,7 +31,8 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.repository.XRequirementBuilder;
+import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -75,7 +76,7 @@ public class DeclarativeServicesTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
                 builder.addImportPackages(ServiceTracker.class);
-                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });

@@ -37,7 +37,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.repository.XRequirementBuilder;
+import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -97,7 +98,7 @@ public class LifecycleInterceptorTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(PackageAdmin.class, HttpService.class);
-                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });

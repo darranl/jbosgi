@@ -32,7 +32,8 @@ import javax.servlet.http.HttpServlet;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.repository.XRequirementBuilder;
+import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -82,7 +83,7 @@ public class HttpServiceTestCase {
                 builder.addBundleActivator(HttpExampleActivator.class);
                 builder.addImportPackages(BundleActivator.class, PackageAdmin.class, ServiceTracker.class);
                 builder.addImportPackages(HttpService.class, HttpServlet.class, Servlet.class);
-                builder.addImportPackages(XRequirementBuilder.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });

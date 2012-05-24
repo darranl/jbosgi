@@ -22,8 +22,15 @@
 
 package org.jboss.test.osgi;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Properties;
+
+import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.MavenCoordinates;
-import org.jboss.osgi.resolver.XRequirementBuilder;
 import org.jboss.osgi.resolver.XResource;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -34,13 +41,6 @@ import org.osgi.resource.Requirement;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.service.repository.RepositoryContent;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Properties;
 
 /**
  * @author Thomas.Diesler@jboss.com
@@ -62,7 +62,7 @@ public class RepositorySupport {
 
     public static Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
         Repository repository = getRepository(context);
-        Requirement req = XRequirementBuilder.createArtifactRequirement(MavenCoordinates.parse(coordinates));
+        Requirement req = XRequirementBuilder.create(MavenCoordinates.parse(coordinates)).getRequirement();
         Collection<Capability> caps = repository.findProviders(Collections.singleton(req)).get(req);
         if (caps.isEmpty())
             throw new IllegalStateException("Cannot find capability for: " + req);

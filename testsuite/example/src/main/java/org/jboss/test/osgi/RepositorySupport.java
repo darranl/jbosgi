@@ -26,20 +26,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Properties;
 
+import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.MavenCoordinates;
+import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.resolver.XResource;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Capability;
-import org.osgi.resource.Requirement;
 import org.osgi.service.packageadmin.PackageAdmin;
-import org.osgi.service.repository.Repository;
 import org.osgi.service.repository.RepositoryContent;
 
 /**
@@ -50,9 +49,9 @@ public class RepositorySupport {
 
     public static final String BUNDLE_VERSIONS_FILE = "3rdparty-bundle.versions";
 
-    public static Repository getRepository(BundleContext context) {
-        ServiceReference sref = context.getServiceReference(Repository.class.getName());
-        return (Repository) context.getService(sref);
+    public static XRepository getRepository(BundleContext context) {
+        ServiceReference sref = context.getServiceReference(XRepository.class.getName());
+        return (XRepository) context.getService(sref);
     }
 
     public static PackageAdmin getPackageAdmin(BundleContext syscontext) {
@@ -61,9 +60,9 @@ public class RepositorySupport {
     }
 
     public static Bundle installSupportBundle(BundleContext context, String coordinates) throws BundleException {
-        Repository repository = getRepository(context);
-        Requirement req = XRequirementBuilder.create(MavenCoordinates.parse(coordinates)).getRequirement();
-        Collection<Capability> caps = repository.findProviders(Collections.singleton(req)).get(req);
+        XRepository repository = getRepository(context);
+        XRequirement req = XRequirementBuilder.create(MavenCoordinates.parse(coordinates)).getRequirement();
+        Collection<Capability> caps = repository.findProviders(req);
         if (caps.isEmpty())
             throw new IllegalStateException("Cannot find capability for: " + req);
         Capability cap = caps.iterator().next();

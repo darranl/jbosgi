@@ -52,7 +52,7 @@
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
         <version.izpack>4.3.1</version.izpack>
         <version.jbossas.710>7.1.0.Final</version.jbossas.710>
-        <version.jbossas.71x>7.1.1.Final-SNAPSHOT</version.jbossas.71x>
+        <version.jbossas.711>7.1.1.Final</version.jbossas.711>
         <version.jboss.arquillian.core>1.0.0.CR7</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>1.0.2.Final</version.jboss.arquillian.osgi>
         <version.jboss.logging>3.1.0.GA</version.jboss.logging>

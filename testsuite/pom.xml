@@ -141,21 +141,21 @@
         </profile>
 
         <profile>
-            <id>jboss71x-testing</id>
+            <id>jboss711-testing</id>
             <activation>
                 <property>
                     <name>target.container</name>
-                    <value>jboss71x</value>
+                    <value>jboss711</value>
                 </property>
             </activation>
             <properties>
-                <jboss.home>${basedir}/../../../jboss-as/build/target/jboss-as-${version.jbossas.71x}</jboss.home>
+                <jboss.home>${basedir}/target/jboss-as-${version.jbossas.711}</jboss.home>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${version.jbossas.71x}</version>
+                    <version>${version.jbossas.711}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

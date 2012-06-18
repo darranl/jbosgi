@@ -9,8 +9,7 @@
 <!-- -->
 <!-- ====================================================================== -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <name>JBossOSGi Distribution Installer</name>
@@ -23,7 +22,7 @@
     <parent>
         <groupId>org.jboss.osgi.distribution</groupId>
         <artifactId>jboss-osgi-distribution</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.1</version>
     </parent>
 
     <!-- Dependencies -->
@@ -141,15 +140,15 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <property name="maven.runtime.classpath" refid="maven.runtime.classpath"/>
-                                <property name="framework" value="${framework}"/>
+                                <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
+                                <property name="framework" value="${framework}" />
                                 <!-- ${jboss.home} is available in the hudson run -->
-                                <property name="product.name" value="${project.name}"/>
-                                <property name="product.short.name" value="${artifactId}"/>
-                                <property name="product.version" value="${project.version}"/>
-                                <property name="target.container" value="${target.container}"/>
-                                <property name="user.home" value="${user.home}"/>
-                                <ant antfile="scripts/antrun-installer.xml" target="build-installer"/>
+                                <property name="product.name" value="${project.name}" />
+                                <property name="product.short.name" value="${artifactId}" />
+                                <property name="product.version" value="${project.version}" />
+                                <property name="target.container" value="${target.container}" />
+                                <property name="user.home" value="${user.home}" />
+                                <ant antfile="scripts/antrun-installer.xml" target="build-installer" />
                             </tasks>
                         </configuration>
                     </execution>

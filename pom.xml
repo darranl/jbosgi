@@ -69,11 +69,11 @@
         <version.jboss.osgi.vfs>1.1.2.CR1</version.jboss.osgi.vfs>
         <version.jboss.osgi.xerces>3.1.0.Final</version.jboss.osgi.xerces>
         <version.jboss.spec.ejb3.api>1.0.1.Final</version.jboss.spec.ejb3.api>
-        <version.jboss.spec.servlet25.api>1.0.1.Final</version.jboss.spec.servlet25.api>
-        <version.jboss.spec.servlet30.api>1.0.0.Final</version.jboss.spec.servlet30.api>
+        <version.jboss.spec.servlet30.api>1.0.1.Final</version.jboss.spec.servlet30.api>
+        <version.jboss.spec.transaction11.api>1.0.1.Final</version.jboss.spec.transaction11.api>
         <version.junit>4.10</version.junit>
         <version.ops4j.paxlogging>1.6.4</version.ops4j.paxlogging>
-        <version.ops4j.pax.web>1.1.2</version.ops4j.pax.web>
+        <version.ops4j.pax.web>2.0.0</version.ops4j.pax.web>
         <version.osgi>4.2.0</version.osgi>
         <version.slf4j>1.6.4</version.slf4j>
     </properties>
@@ -152,13 +152,13 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.servlet</groupId>
-                <artifactId>jboss-servlet-api_2.5_spec</artifactId>
-                <version>${version.jboss.spec.servlet25.api}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.spec.javax.servlet</groupId>
                 <artifactId>jboss-servlet-api_3.0_spec</artifactId>
                 <version>${version.jboss.spec.servlet30.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.transaction</groupId>
+                <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                <version>${version.jboss.spec.transaction11.api}</version>
             </dependency>
 
             <!-- JBOSGi -->

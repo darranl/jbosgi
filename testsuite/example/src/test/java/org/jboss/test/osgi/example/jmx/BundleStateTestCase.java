@@ -31,7 +31,6 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.management.openmbean.TabularData;
 
-import org.apache.aries.jmx.framework.BundleState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.osgi.repository.XRequirementBuilder;
@@ -53,7 +52,7 @@ import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 /**
- * Test {@link BundleState} functionality
+ * Test {@link BundleStateMBean} functionality
  *
  * @author thomas.diesler@jboss.com
  * @since 15-Feb-2010
@@ -73,6 +72,7 @@ public class BundleStateTestCase {
         archive.addClasses(RepositorySupport.class, ManagementSupport.class, AriesSupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());

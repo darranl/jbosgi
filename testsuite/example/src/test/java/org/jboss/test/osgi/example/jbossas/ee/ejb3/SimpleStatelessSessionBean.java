@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.jbossas.ejb3;
+package org.jboss.test.osgi.example.jbossas.ee.ejb3;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -27,7 +27,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import org.jboss.logging.Logger;
-import org.jboss.test.osgi.example.jbossas.api.PaymentService;
+import org.jboss.test.osgi.example.jbossas.ee.api.PaymentService;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;

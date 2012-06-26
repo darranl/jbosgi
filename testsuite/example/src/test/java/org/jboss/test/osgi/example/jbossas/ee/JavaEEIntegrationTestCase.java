@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.jbossas;
+package org.jboss.test.osgi.example.jbossas.ee;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,11 +41,11 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.test.osgi.HttpSupport;
-import org.jboss.test.osgi.example.jbossas.api.PaymentService;
-import org.jboss.test.osgi.example.jbossas.ejb3.SimpleStatelessSessionBean;
-import org.jboss.test.osgi.example.jbossas.service.PaymentActivator;
-import org.jboss.test.osgi.example.jbossas.webapp.SimpleBeanClientServlet;
-import org.jboss.test.osgi.example.jbossas.webapp.SimpleClientServlet;
+import org.jboss.test.osgi.example.jbossas.ee.api.PaymentService;
+import org.jboss.test.osgi.example.jbossas.ee.ejb3.SimpleStatelessSessionBean;
+import org.jboss.test.osgi.example.jbossas.ee.service.PaymentActivator;
+import org.jboss.test.osgi.example.jbossas.ee.webapp.SimpleBeanClientServlet;
+import org.jboss.test.osgi.example.jbossas.ee.webapp.SimpleClientServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.jta;
+package org.jboss.test.osgi.example.jbossas.jta;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

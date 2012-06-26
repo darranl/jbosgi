@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.webapp;
+package org.jboss.test.osgi.example.jbossas.webapp;
 
 import static org.junit.Assert.assertEquals;
 
@@ -43,7 +43,7 @@ import org.jboss.test.osgi.HttpServiceSupport;
 import org.jboss.test.osgi.HttpSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.WebAppSupport;
-import org.jboss.test.osgi.example.webapp.bundle.EndpointServlet;
+import org.jboss.test.osgi.example.jbossas.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;

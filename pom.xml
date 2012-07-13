@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.jboss.osgi</groupId>
         <artifactId>jbosgi-parent</artifactId>
-        <version>1.0.22</version>
+        <version>1.0.23</version>
     </parent>
 
     <name>JBossOSGi</name>
@@ -59,19 +59,19 @@
         <version.jboss.osgi.deployment>1.1.1.Final</version.jboss.osgi.deployment>
         <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-        <version.jboss.osgi.framework>2.0.0.CR2</version.jboss.osgi.framework>
+        <version.jboss.osgi.framework>2.0.0.CR6-SNAPSHOT</version.jboss.osgi.framework>
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
-        <version.jboss.osgi.metadata>2.1.1.CR3</version.jboss.osgi.metadata>
-        <version.jboss.osgi.repository>2.0.0.CR1</version.jboss.osgi.repository>
-        <version.jboss.osgi.resolver>3.0.0.CR3</version.jboss.osgi.resolver>
-        <version.jboss.osgi.spi>3.1.1.CR4</version.jboss.osgi.spi>
+        <version.jboss.osgi.metadata>2.1.1.CR7</version.jboss.osgi.metadata>
+        <version.jboss.osgi.repository>2.0.0.CR3</version.jboss.osgi.repository>
+        <version.jboss.osgi.resolver>3.0.0.CR8-SNAPSHOT</version.jboss.osgi.resolver>
+        <version.jboss.osgi.spi>3.1.1.CR6-SNAPSHOT</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>1.0.4</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>1.1.2.CR1</version.jboss.osgi.vfs>
         <version.jboss.osgi.xerces>3.1.0.Final</version.jboss.osgi.xerces>
         <version.jboss.spec.annotations11.api>1.0.1.Final</version.jboss.spec.annotations11.api>
         <version.jboss.spec.ejb3.api>1.0.1.Final</version.jboss.spec.ejb3.api>
-        <version.jboss.spec.servlet30.api>1.0.2.Final-SNAPSHOT</version.jboss.spec.servlet30.api>
+        <version.jboss.spec.servlet30.api>1.0.2.Final</version.jboss.spec.servlet30.api>
         <version.jboss.spec.transaction11.api>1.0.1.Final</version.jboss.spec.transaction11.api>
         <version.junit>4.10</version.junit>
         <version.ops4j.paxlogging>1.6.4</version.ops4j.paxlogging>

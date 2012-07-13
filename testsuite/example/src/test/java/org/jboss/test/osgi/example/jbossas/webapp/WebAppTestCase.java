@@ -39,10 +39,8 @@ import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.HttpServiceSupport;
 import org.jboss.test.osgi.HttpSupport;
 import org.jboss.test.osgi.RepositorySupport;
-import org.jboss.test.osgi.WebAppSupport;
 import org.jboss.test.osgi.example.jbossas.webapp.bundle.EndpointServlet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,7 +70,7 @@ public class WebAppTestCase {
     @Deployment
     public static WebArchive createdeployment() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp");
-        archive.addClasses(EndpointServlet.class, RepositorySupport.class, HttpServiceSupport.class, HttpSupport.class, WebAppSupport.class);
+        archive.addClasses(EndpointServlet.class, RepositorySupport.class, HttpSupport.class);
         archive.addAsWebResource("webapp/message.txt", "message.txt");
         archive.addAsWebInfResource("webapp/web.xml", "web.xml");
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
@@ -94,20 +92,13 @@ public class WebAppTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-
-        // Provide WebApp support
-        WebAppSupport.provideWebappSupport(context, bundle);
-
-        // Start the test bundle
         bundle.start();
-
         String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
     }
 
     @Test
     public void testServletInitProps() throws Exception {
-        WebAppSupport.provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
@@ -115,7 +106,6 @@ public class WebAppTestCase {
 
     @Test
     public void testResourceAccess() throws Exception {
-        WebAppSupport.provideWebappSupport(context, bundle);
         bundle.start();
         String line = getHttpResponse("/example-webapp/message.txt", 5000);
         assertEquals("Hello from Resource", line);

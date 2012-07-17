@@ -76,7 +76,8 @@ public class SimpleBundleTestCase {
         assertEquals("example-bundle", bundle.getSymbolicName());
         assertEquals(Version.emptyVersion, bundle.getVersion());
 
-        // Assert that the bundle is in state ACTIVE
+        // Start the bundle
+        bundle.start();
         assertEquals(Bundle.ACTIVE, bundle.getState());
 
         // Get the service reference

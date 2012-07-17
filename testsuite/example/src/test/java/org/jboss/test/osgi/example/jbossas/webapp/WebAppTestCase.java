@@ -42,6 +42,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.test.osgi.HttpSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jbossas.webapp.bundle.EndpointServlet;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -59,6 +60,7 @@ import org.osgi.service.repository.Repository;
  * @since 06-Oct-2009
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class WebAppTestCase {
 
     @Inject

@@ -16,9 +16,6 @@
  */
 package org.jboss.test.osgi.example.simple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.InputStream;
 
 import javax.inject.Inject;
@@ -29,15 +26,14 @@ import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
- * [ARQ-466] Add support for injected PackageAdmin
- *
- * https://issues.jboss.org/browse/ARQ-466
+ * Add support for injected PackageAdmin
  *
  * @author thomas.diesler@jboss.com
  * @since 07-Jun-2011
@@ -53,7 +49,7 @@ public class SimplePackageAdminTestCase {
 
     @Deployment
     public static JavaArchive create() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "arq466-bundle");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "package-admin-bundle");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -68,14 +64,13 @@ public class SimplePackageAdminTestCase {
     @Test
     public void testPackageAdmin() throws Exception {
 
-        assertNotNull("PackageAdmin injected", packageAdmin);
+        Assert.assertNotNull("PackageAdmin injected", packageAdmin);
 
-        assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
-        assertEquals("arq466-bundle", bundle.getSymbolicName());
+        Bundle[] bundles = packageAdmin.getBundles("package-admin-bundle", null);
+        Assert.assertNotNull("Bundles not null", bundles);
+        Assert.assertEquals("One bundle found", 1, bundles.length);
 
-        Bundle[] bundles = packageAdmin.getBundles("arq466-bundle", null);
-        assertNotNull("Bundles not null", bundles);
-        assertEquals("One bundle found", 1, bundles.length);
-        assertEquals(bundle, bundles[0]);
+        Assert.assertEquals("package-admin-bundle", bundle.getSymbolicName());
+        Assert.assertEquals(bundle, bundles[0]);
     }
 }

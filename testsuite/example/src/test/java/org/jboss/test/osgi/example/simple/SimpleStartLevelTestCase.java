@@ -43,9 +43,7 @@ import org.osgi.framework.FrameworkListener;
 import org.osgi.service.startlevel.StartLevel;
 
 /**
- * [ARQ-465] Add suport for bundle start level
- *
- * https://issues.jboss.org/browse/ARQ-465
+ * Add suport for bundle start level
  *
  * @author thomas.diesler@jboss.com
  * @since 07-Jun-2011
@@ -65,7 +63,7 @@ public class SimpleStartLevelTestCase {
     @Deployment
     @StartLevelAware(startLevel = 3)
     public static JavaArchive create() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "arq465-bundle");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "start-level-bundle");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
@@ -86,7 +84,7 @@ public class SimpleStartLevelTestCase {
         assertEquals("Initial bundle start level", 1, initialStartLevel);
 
         assertEquals("Bundle RESOLVED", Bundle.RESOLVED, bundle.getState());
-        assertEquals("arq465-bundle", bundle.getSymbolicName());
+        assertEquals("start-level-bundle", bundle.getSymbolicName());
 
         int bundleStartLevel = startLevel.getBundleStartLevel(bundle);
         assertEquals("Bundle start level", 3, bundleStartLevel);

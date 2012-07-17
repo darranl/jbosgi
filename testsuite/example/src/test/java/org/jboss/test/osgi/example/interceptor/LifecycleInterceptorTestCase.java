@@ -52,6 +52,7 @@ import org.jboss.test.osgi.example.interceptor.bundle.HttpMetadata;
 import org.jboss.test.osgi.example.interceptor.bundle.InterceptorActivator;
 import org.jboss.test.osgi.example.interceptor.bundle.ParserInterceptor;
 import org.jboss.test.osgi.example.interceptor.bundle.PublisherInterceptor;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -73,6 +74,7 @@ import org.osgi.service.repository.Repository;
  * @since 23-Oct-2009
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class LifecycleInterceptorTestCase {
 
     static final String PROCESSOR_NAME = "interceptor-processor";

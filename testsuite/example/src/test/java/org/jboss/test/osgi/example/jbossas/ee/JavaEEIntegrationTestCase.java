@@ -46,6 +46,7 @@ import org.jboss.test.osgi.example.jbossas.ee.ejb3.SimpleStatelessSessionBean;
 import org.jboss.test.osgi.example.jbossas.ee.service.PaymentActivator;
 import org.jboss.test.osgi.example.jbossas.ee.webapp.SimpleBeanClientServlet;
 import org.jboss.test.osgi.example.jbossas.ee.webapp.SimpleClientServlet;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -69,6 +70,7 @@ import org.osgi.framework.BundleContext;
  * @since 01-Feb-2012
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class JavaEEIntegrationTestCase {
 
     private static final String API_DEPLOYMENT_NAME = "example-javaee-api";
@@ -99,10 +101,10 @@ public class JavaEEIntegrationTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        
+
         // Deploy the bundle that provides the API
         deployer.deploy(API_DEPLOYMENT_NAME);
-        
+
         // Deploy the bundle that provides the service
         InputStream input = deployer.getDeployment(SERVICE_DEPLOYMENT_NAME);
         Bundle bundle = context.installBundle(SERVICE_DEPLOYMENT_NAME, input);
@@ -113,13 +115,13 @@ public class JavaEEIntegrationTestCase {
             // Deploy the EJB3 and Servlet clients
             deployer.deploy(EJB3_DEPLOYMENT_NAME);
             deployer.deploy(SERVLET_DEPLOYMENT_NAME);
-            
+
             String response = getHttpResponse("/sample/simple?account=kermit&amount=100", 2000);
             assertEquals("Calling PaymentService: Charged $100.0 to account 'kermit'", response);
 
             response = getHttpResponse("/sample/ejb?account=kermit&amount=100", 2000);
             assertEquals("Calling SimpleStatelessSessionBean: Charged $100.0 to account 'kermit'", response);
-            
+
             deployer.undeploy(SERVLET_DEPLOYMENT_NAME);
             deployer.undeploy(EJB3_DEPLOYMENT_NAME);
         } finally {

@@ -46,7 +46,6 @@ import org.jboss.test.osgi.example.jbossas.ee.ejb3.SimpleStatelessSessionBean;
 import org.jboss.test.osgi.example.jbossas.ee.service.PaymentActivator;
 import org.jboss.test.osgi.example.jbossas.ee.webapp.SimpleBeanClientServlet;
 import org.jboss.test.osgi.example.jbossas.ee.webapp.SimpleClientServlet;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -70,7 +69,6 @@ import org.osgi.framework.BundleContext;
  * @since 01-Feb-2012
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class JavaEEIntegrationTestCase {
 
     private static final String API_DEPLOYMENT_NAME = "example-javaee-api";
@@ -88,14 +86,6 @@ public class JavaEEIntegrationTestCase {
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-javaee");
         archive.addClasses(HttpSupport.class);
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                ManifestBuilder builder = ManifestBuilder.newInstance();
-                builder.addManifestHeader("Dependencies", "org.osgi.core");
-                return builder.openStream();
-            }
-        });
         return archive;
     }
 
@@ -175,7 +165,7 @@ public class JavaEEIntegrationTestCase {
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
                 String osgidep = "org.osgi.core,org.jboss.osgi.framework";
-                String apidep = ",deployment." + API_DEPLOYMENT_NAME + ":0.0.0";
+                String apidep = ",deployment." + API_DEPLOYMENT_NAME;
                 builder.addManifestHeader("Dependencies", osgidep + apidep);
                 return builder.openStream();
             }
@@ -194,7 +184,7 @@ public class JavaEEIntegrationTestCase {
             public InputStream openStream() {
                 ManifestBuilder builder = ManifestBuilder.newInstance();
                 String osgidep = "org.osgi.core,org.jboss.osgi.framework";
-                String apidep = ",deployment." + API_DEPLOYMENT_NAME + ":0.0.0";
+                String apidep = ",deployment." + API_DEPLOYMENT_NAME;
                 String ejbdep = ",deployment." + EJB3_DEPLOYMENT_NAME;
                 builder.addManifestHeader("Dependencies", osgidep + apidep + ejbdep);
                 return builder.openStream();

@@ -27,31 +27,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.JarFile;
 
-import javax.inject.Inject;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRequirementBuilder;
-import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.test.osgi.HttpSupport;
-import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jbossas.webapp.bundle.EndpointServlet;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
-import org.osgi.resource.Resource;
-import org.osgi.service.http.HttpService;
-import org.osgi.service.packageadmin.PackageAdmin;
-import org.osgi.service.repository.Repository;
 
 /**
  * A test that deployes a WAR bundle
@@ -60,22 +49,14 @@ import org.osgi.service.repository.Repository;
  * @since 06-Oct-2009
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class WebAppTestCase {
-
-    @Inject
-    public BundleContext context;
-
-    @Inject
-    public Bundle bundle;
 
     @Deployment
     public static WebArchive createdeployment() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp");
-        archive.addClasses(EndpointServlet.class, RepositorySupport.class, HttpSupport.class);
+        final WebArchive archive = ShrinkWrap.create(WebArchive.class, "example-webapp.wab");
+        archive.addClasses(EndpointServlet.class, HttpSupport.class);
         archive.addAsWebResource("webapp/message.txt", "message.txt");
         archive.addAsWebInfResource("webapp/web.xml", "web.xml");
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         // [SHRINKWRAP-278] WebArchive.setManifest() results in WEB-INF/classes/META-INF/MANIFEST.MF
         archive.add(new Asset() {
             public InputStream openStream() {
@@ -84,8 +65,7 @@ public class WebAppTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addManifestHeader(Constants.BUNDLE_CLASSPATH, ".,WEB-INF/classes");
                 builder.addManifestHeader("Web-ContextPath", "example-webapp");
-                builder.addImportPackages(PackageAdmin.class, HttpService.class, HttpServlet.class, Servlet.class);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
+                builder.addImportPackages(HttpServlet.class, Servlet.class);
                 return builder.openStream();
             }
         }, JarFile.MANIFEST_NAME);
@@ -94,26 +74,23 @@ public class WebAppTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=plain", 5000);
         assertEquals("Hello from Servlet", line);
     }
 
     @Test
     public void testServletInitProps() throws Exception {
-        bundle.start();
         String line = getHttpResponse("/example-webapp/servlet?test=initProp", 5000);
         assertEquals("initProp=SomeValue", line);
     }
 
     @Test
     public void testResourceAccess() throws Exception {
-        bundle.start();
         String line = getHttpResponse("/example-webapp/message.txt", 5000);
         assertEquals("Hello from Resource", line);
     }
 
     private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+        return HttpSupport.getHttpResponse("localhost", 8080, reqPath, timeout);
     }
 }

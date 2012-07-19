@@ -43,7 +43,6 @@ import org.jboss.test.osgi.HttpSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.http.bundle.EndpointServlet;
 import org.jboss.test.osgi.example.http.bundle.HttpExampleActivator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -62,7 +61,6 @@ import org.osgi.util.tracker.ServiceTracker;
  * @since 23-Jan-2009
  */
 @RunWith(Arquillian.class)
-@Ignore
 public class HttpServiceTestCase {
 
     @Inject

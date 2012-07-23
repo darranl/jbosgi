@@ -49,6 +49,7 @@
         <version.apache.felix.eventadmin>1.2.14</version.apache.felix.eventadmin>
         <version.apache.felix.log>1.0.0</version.apache.felix.log>
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
+        <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
         <version.eclipse.jetty>8.1.4.v20120524</version.eclipse.jetty>
         <version.izpack>4.3.1</version.izpack>
         <version.jbossas.720>7.2.0.Alpha1-SNAPSHOT</version.jbossas.720>
@@ -261,6 +262,11 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.scr</artifactId>
                 <version>${version.apache.felix.scr}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.webconsole</artifactId>
+                <version>${version.apache.felix.webconsole}</version>
             </dependency>
 
             <!-- org.osgi -->

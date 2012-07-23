@@ -116,8 +116,7 @@
         <include name="org.apache.felix.configadmin.jar" />
         <include name="org.apache.felix.eventadmin.jar" />
         <include name="org.apache.felix.scr.jar" />
-        <include name="pax-web-jsp.jar" />
-        <include name="pax-web-jetty-bundle.jar" />
+        <include name="org.apache.felix.webconsole.jar" />
       </fileset>
       
     </pack>

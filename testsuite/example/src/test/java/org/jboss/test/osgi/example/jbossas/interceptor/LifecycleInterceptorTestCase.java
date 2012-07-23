@@ -19,9 +19,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.interceptor;
+package org.jboss.test.osgi.example.jbossas.interceptor;
 
-import static org.jboss.test.osgi.HttpServiceSupport.provideHttpService;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -37,14 +36,11 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
-import org.jboss.osgi.repository.XRequirementBuilder;
-import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.HttpServiceSupport;
 import org.jboss.test.osgi.HttpSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.interceptor.bundle.EndpointServlet;
@@ -57,10 +53,7 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.resource.Resource;
 import org.osgi.service.http.HttpService;
-import org.osgi.service.packageadmin.PackageAdmin;
-import org.osgi.service.repository.Repository;
 
 /**
  * A test that deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and
@@ -90,15 +83,14 @@ public class LifecycleInterceptorTestCase {
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
-        archive.addClasses(RepositorySupport.class, HttpServiceSupport.class, HttpSupport.class);
+        archive.addClasses(HttpSupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(PackageAdmin.class, HttpService.class);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
+                builder.addImportPackages(HttpService.class);
                 return builder.openStream();
             }
         });
@@ -107,7 +99,6 @@ public class LifecycleInterceptorTestCase {
 
     @Test
     public void testServletAccess() throws Exception {
-        provideHttpService(context, bundle);
         Bundle procBundle = context.installBundle(PROCESSOR_NAME, deployer.getDeployment(PROCESSOR_NAME));
         try {
             procBundle.start();
@@ -115,7 +106,7 @@ public class LifecycleInterceptorTestCase {
             Bundle endpointBundle = context.installBundle(ENDPOINT_NAME, deployer.getDeployment(ENDPOINT_NAME));
             try {
                 endpointBundle.start();
-                String line = getHttpResponse("/example-interceptor/servlet", 5000);
+                String line = getHttpResponse("/example-interceptor/servlet");
                 assertEquals("Hello from Servlet", line);
             } finally {
                 endpointBundle.uninstall();
@@ -162,7 +153,7 @@ public class LifecycleInterceptorTestCase {
         return archive;
     }
 
-    private String getHttpResponse(String reqPath, int timeout) throws IOException {
-        return HttpSupport.getHttpResponse("localhost", 8090, reqPath, timeout);
+    private String getHttpResponse(String reqPath) throws IOException {
+        return HttpSupport.getHttpResponse("localhost", 8080, "/httpservice" + reqPath, 5000);
     }
 }

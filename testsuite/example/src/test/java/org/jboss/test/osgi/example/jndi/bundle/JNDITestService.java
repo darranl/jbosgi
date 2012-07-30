@@ -24,6 +24,6 @@ package org.jboss.test.osgi.example.jndi.bundle;
 /**
  * @author David Bosschaert
  */
-public interface MyInterface {
+public interface JNDITestService {
     String getValue();
 }

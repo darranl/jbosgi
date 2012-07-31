@@ -66,7 +66,7 @@ import org.osgi.service.repository.Repository;
 
 /**
  * This test exercises the OSGi-JNDI integration
- * 
+ *
  * @author David Bosschaert
  * @author Thomas.Diesler@jboss.com
  */
@@ -81,7 +81,7 @@ public class JNDITestCase {
 
     @ArquillianResource
     public Deployer deployer;
-    
+
     @Deployment
     public static JavaArchive createdeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-jndi");
@@ -202,13 +202,13 @@ public class JNDITestCase {
         Bundle bundleB = context.installBundle("bundleB", inputB);
         try {
             bundleB.start();
-            
+
             // Access the service directly
             BundleContext contextB = bundleB.getBundleContext();
             ServiceReference sref = contextB.getServiceReference(JNDITestService.class.getName());
             JNDITestService service = (JNDITestService) contextB.getService(sref);
             Assert.assertEquals("jndi-value", service.getValue());
-            
+
             // Get the InitialContext via {@link JNDIContextManager} for bundleB
             JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundleB);
             Context initialContext = contextManager.newInitialContext();
@@ -235,13 +235,13 @@ public class JNDITestCase {
         Bundle bundleC = context.installBundle("bundleC", inputC);
         try {
             bundleC.start();
-            
+
             // Access the service directly
             BundleContext contextC = bundleC.getBundleContext();
             ServiceReference sref = contextC.getServiceReference(JNDITestService.class.getName());
             Assert.assertNull("ServiceReference is null", sref);
-            
-            // Get the InitialContext via {@link JNDIContextManager} for bundleB
+
+            // Get the InitialContext via {@link JNDIContextManager} for bundleC
             JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundleC);
             Context initialContext = contextManager.newInitialContext();
 
@@ -261,7 +261,7 @@ public class JNDITestCase {
             //} catch (NameNotFoundException ex) {
             //    //expected
             //}
-            
+
         } finally {
             bundleC.uninstall();
         }
@@ -360,13 +360,13 @@ public class JNDITestCase {
         Bundle bundleB = context.installBundle("bundleB", inputB);
         try {
             bundleB.start();
-            
+
             // Access the service directly
             BundleContext contextB = bundleB.getBundleContext();
             ServiceReference sref = contextB.getServiceReference(JNDITestService.class.getName());
             JNDITestService service = (JNDITestService) contextB.getService(sref);
             Assert.assertEquals("jndi-value", service.getValue());
-            
+
             // Get the InitialContext via {@link JNDIContextManager} for bundleB
             Hashtable<String, Object> env = new Hashtable<String, Object>();
             env.put(JNDIConstants.BUNDLE_CONTEXT, contextB);
@@ -394,12 +394,12 @@ public class JNDITestCase {
         Bundle bundleC = context.installBundle("bundleC", inputC);
         try {
             bundleC.start();
-            
+
             // Access the service directly
             BundleContext contextC = bundleC.getBundleContext();
             ServiceReference sref = contextC.getServiceReference(JNDITestService.class.getName());
             Assert.assertNull("ServiceReference is null", sref);
-            
+
             // Get the InitialContext via {@link JNDIContextManager} for bundleB
             Hashtable<String, Object> env = new Hashtable<String, Object>();
             env.put(JNDIConstants.BUNDLE_CONTEXT, contextC);
@@ -421,7 +421,7 @@ public class JNDITestCase {
             //} catch (NameNotFoundException ex) {
             //    //expected
             //}
-            
+
         } finally {
             bundleC.uninstall();
         }

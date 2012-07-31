@@ -49,7 +49,7 @@ public class JNDITestActivator implements BundleActivator {
 
     @Override
     public void start(BundleContext context) throws Exception {
-        
+
         // Register a simple service
         Hashtable<String, String> props = new Hashtable<String, String>();
         props.put(JNDIConstants.JNDI_SERVICENAME, "foo");
@@ -60,12 +60,12 @@ public class JNDITestActivator implements BundleActivator {
             }
         };
         context.registerService(JNDITestService.class.getName(), service, props);
-        
+
         // Register a {@link InitialContextFactory} provider
         String[] classes = new String[] {SimpleInitalContextFactory.class.getName(), InitialContextFactory.class.getName()};
         context.registerService(classes, new SimpleInitalContextFactory(), null);
-        
-        // Register a {@link ObjectFactoryBuilder} provider
+
+        // Register a {@link ObjectFactory} provider
         classes = new String[] {StringObjectFactory.class.getName(), ObjectFactory.class.getName()};
         context.registerService(classes, new StringObjectFactory(), null);
     }
@@ -76,23 +76,23 @@ public class JNDITestActivator implements BundleActivator {
 
     @SuppressWarnings("serial")
     public static final class StringReference extends Reference {
-        
+
         private final String value;
-        
+
         public StringReference(String value) {
             super(String.class.getName(), StringObjectFactory.class.getName(), null);
             this.value = value;
         }
-    } 
-    
+    }
+
     public static final class StringObjectFactory implements ObjectFactory {
         @Override
         public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable<?, ?> environment) throws Exception {
             StringReference ref = (StringReference) obj;
             return ref.value;
         }
-    } 
-    
+    }
+
     public static class SimpleInitalContextFactory implements InitialContextFactory {
         @Override
         public Context getInitialContext(Hashtable<?, ?> environment) throws NamingException {

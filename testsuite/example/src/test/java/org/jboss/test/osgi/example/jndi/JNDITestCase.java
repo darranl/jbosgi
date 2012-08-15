@@ -170,6 +170,7 @@ public class JNDITestCase {
     }
 
     @Test
+    @Ignore
     public void testContextManagerReferenceBinding() throws Exception {
 
         // Make sure we have a valid BundleContext
@@ -308,6 +309,7 @@ public class JNDITestCase {
     }
 
     @Test
+    @Ignore
     public void testTraditionalAPIValueBinding() throws Exception {
 
         // Make sure we have a valid BundleContext
@@ -329,6 +331,7 @@ public class JNDITestCase {
     }
 
     @Test
+    @Ignore
     public void testTraditionalAPIReferenceBinding() throws Exception {
 
         // Make sure we have a valid BundleContext

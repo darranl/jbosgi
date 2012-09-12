@@ -31,6 +31,11 @@ public class BeanB implements ServiceB {
     private BeanA beanA;
 
     public BeanB() {
+        System.out.println("new BeanB: " + this);
+    }
+
+    public void init() {
+        System.out.println("BeanB - init");
     }
 
     public BeanA getBeanA() {
@@ -38,6 +43,7 @@ public class BeanB implements ServiceB {
     }
 
     public void setBeanA(BeanA beanA) {
+        System.out.println("BeanB - setBeanA: " + beanA);
         this.beanA = beanA;
     }
 }

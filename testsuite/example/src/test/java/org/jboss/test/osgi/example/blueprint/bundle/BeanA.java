@@ -33,6 +33,11 @@ public class BeanA implements ServiceA {
     private MBeanServer mbeanServer;
 
     public BeanA() {
+        System.out.println("new BeanA: " + this);
+    }
+
+    public void init() {
+        System.out.println("BeanA - init");
     }
 
     public MBeanServer getMbeanServer() {
@@ -40,6 +45,7 @@ public class BeanA implements ServiceA {
     }
 
     public void setMbeanServer(MBeanServer mbeanServer) {
+        System.out.println("BeanA - setMbeanServer: " + mbeanServer);
         this.mbeanServer = mbeanServer;
     }
 }

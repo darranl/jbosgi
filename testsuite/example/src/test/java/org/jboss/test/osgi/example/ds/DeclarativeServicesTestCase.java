@@ -28,9 +28,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import javax.inject.Inject;
-
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
@@ -43,8 +45,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
+import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -57,26 +61,49 @@ import org.osgi.util.tracker.ServiceTracker;
 @RunWith(Arquillian.class)
 public class DeclarativeServicesTestCase {
 
+    static final String DS_PROVIDER = "ds-provider";
+    static final String DS_BUNDLE = "ds-bundle";
+
+    @ArquillianResource
+    Deployer deployer;
+
     @Inject
     public BundleContext context;
 
     @Inject
-    public Bundle bundle;
+    public PackageAdmin packageAdmin;
 
-    @Deployment
-    public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-ds");
-        archive.addClasses(SampleComparator.class, DeclarativeServicesSupport.class, RepositorySupport.class);
-        archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
+    @Deployment(name = DS_PROVIDER)
+    public static JavaArchive dsProvider() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DS_PROVIDER);
+        archive.addClasses(DeclarativeServicesSupport.class, RepositorySupport.class);
+        archive.addClasses(SampleComparator.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
-                builder.addImportPackages(ServiceTracker.class);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
+                builder.addImportPackages(PackageAdmin.class, ServiceTracker.class);
+                builder.addExportPackages(SampleComparator.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
+
+    @Deployment(name = DS_BUNDLE, managed = false, testable = false)
+    public static JavaArchive testBundle() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DS_BUNDLE);
+        archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
+                builder.addImportPackages(SampleComparator.class);
                 return builder.openStream();
             }
         });
@@ -84,27 +111,36 @@ public class DeclarativeServicesTestCase {
     }
 
     @Test
-    public void testImmediateService() throws Exception {
-
-        // Start the test bundle
-        bundle.start();
-
-        // Provide Declarative Services support
+    @InSequence(0)
+    public void addDSSupport() throws BundleException {
+        Bundle bundle = packageAdmin.getBundles(DS_PROVIDER, null)[0];
         DeclarativeServicesSupport.provideDeclarativeServices(context, bundle);
+    }
 
-        // Track the service provided by the test bundle
-        final CountDownLatch latch = new CountDownLatch(1);
-        ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
-            public Object addingService(ServiceReference reference) {
-                Comparator<?> service = (Comparator<?>) super.addingService(reference);
-                latch.countDown();
-                return service;
-            }
-        };
-        tracker.open();
+    @Test
+    @InSequence(1)
+    public void testImmediateService() throws Exception {
+        InputStream input = deployer.getDeployment(DS_BUNDLE);
+        Bundle bundle = context.installBundle(DS_BUNDLE, input);
+        try {
+            bundle.start();
 
-        // Wait for the service to become available
-        if (latch.await(2, TimeUnit.SECONDS) == false)
-            throw new TimeoutException("Timeout tracking Comparator service");
+            // Track the service provided by the test bundle
+            final CountDownLatch latch = new CountDownLatch(1);
+            ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
+                public Object addingService(ServiceReference reference) {
+                    Comparator<?> service = (Comparator<?>) super.addingService(reference);
+                    latch.countDown();
+                    return service;
+                }
+            };
+            tracker.open();
+
+            // Wait for the service to become available
+            if (latch.await(2, TimeUnit.SECONDS) == false)
+                throw new TimeoutException("Timeout tracking Comparator service");
+        } finally {
+            bundle.uninstall();
+        }
     }
 }

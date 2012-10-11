@@ -34,9 +34,7 @@ public class EndpointServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         PrintWriter out = res.getWriter();
-
-        out.println("Hello from Servlet");
-
+        out.print("Hello from Servlet");
         out.close();
     }
 }

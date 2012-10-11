@@ -84,7 +84,6 @@
         <include name="jbosgi-spi-sources.jar" />
         <include name="jbosgi-vfs-sources.jar" />
         <include name="jbosgi-vfs30-sources.jar" />
-        <include name="jbosgi-xerces-sources.jar" />
         <include name="jboss-osgi-logging-sources.jar" />
       </fileset>
 
@@ -106,7 +105,6 @@
         <include name="jbosgi-jmx.jar" />
         <include name="jbosgi-repository-api.jar" />
         <include name="jbosgi-repository.jar" />
-        <include name="jbosgi-xerces.jar" />
         <include name="jboss-osgi-logging.jar" />
         <include name="org.apache.aries.blueprint.jar" />
         <include name="org.apache.aries.jmx.jar" />

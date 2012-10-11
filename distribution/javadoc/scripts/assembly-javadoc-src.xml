@@ -22,7 +22,6 @@
                 <include>*:jbosgi-spi:jar:sources</include>
                 <include>*:jbosgi-testing:jar:sources</include>
                 <include>*:jbosgi-vfs:jar:sources</include>
-                <include>*:jbosgi-xerces:jar:sources</include>
             </includes>
             <unpack>true</unpack>
         </dependencySet>

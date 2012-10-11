@@ -28,11 +28,13 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-
 import javax.inject.Inject;
 
+import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
@@ -45,11 +47,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
+import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 /**
@@ -61,17 +66,23 @@ import org.osgi.service.repository.Repository;
 @RunWith(Arquillian.class)
 public class EventAdminTestCase {
 
-    static String TOPIC = "org/jboss/test/osgi/example/event";
+    static final String EVENT_ADMIN_PROVIDER = "event-admin-provider";
+    static final String EVENT_ADMIN_BUNDLE = "event-admin-bundle";
 
-    @Inject
-    public Bundle bundle;
+    static final String TOPIC = "org/jboss/test/osgi/example/event";
+
+    @ArquillianResource
+    Deployer deployer;
 
     @Inject
     public BundleContext context;
 
-    @Deployment
-    public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-eventadmin");
+    @Inject
+    public PackageAdmin packageAdmin;
+
+    @Deployment(name = EVENT_ADMIN_PROVIDER)
+    public static JavaArchive eventadminProvider() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, EVENT_ADMIN_PROVIDER);
         archive.addClasses(EventAdminSupport.class, RepositorySupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -79,7 +90,6 @@ public class EventAdminTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(EventAdmin.class);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
@@ -87,33 +97,59 @@ public class EventAdminTestCase {
         return archive;
     }
 
+    @Deployment(name = EVENT_ADMIN_BUNDLE, managed = false, testable = false)
+    public static JavaArchive testBundle() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, EVENT_ADMIN_BUNDLE);
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addImportPackages(EventAdmin.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
+    }
+
+    @Test
+    @InSequence(0)
+    public void addEventAdminSupport() throws BundleException {
+        Bundle bundle = packageAdmin.getBundles(EVENT_ADMIN_PROVIDER, null)[0];
+        EventAdminSupport.provideEventAdmin(context, bundle);
+    }
+
     @Test
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void testEventHandler() throws Exception {
+        InputStream input = deployer.getDeployment(EVENT_ADMIN_BUNDLE);
+        Bundle bundle = context.installBundle(EVENT_ADMIN_BUNDLE, input);
+        try {
+            bundle.start();
 
-        bundle.start();
-        assertEquals("Bundle ACTIVE", Bundle.ACTIVE, bundle.getState());
+            BundleContext context = bundle.getBundleContext();
 
-        BundleContext context = bundle.getBundleContext();
+            // Register the EventHandler
+            Dictionary param = new Hashtable();
+            param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
+            TestEventHandler eventHandler = new TestEventHandler();
+            context.registerService(EventHandler.class.getName(), eventHandler, param);
 
-        // Register the EventHandler
-        Dictionary param = new Hashtable();
-        param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
-        TestEventHandler eventHandler = new TestEventHandler();
-        context.registerService(EventHandler.class.getName(), eventHandler, param);
+            // Send event through the the EventAdmin
+            ServiceReference sref = context.getServiceReference(EventAdmin.class.getName());
+            EventAdmin eventAdmin = (EventAdmin) context.getService(sref);
+            eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
 
-        // Send event through the the EventAdmin
-        EventAdmin eventAdmin = EventAdminSupport.provideEventAdmin(context, bundle);
-        eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
-
-        // Verify received event
-        assertEquals("Event received", 1, eventHandler.received.size());
-        assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+            // Verify received event
+            assertEquals("Event received", 1, eventHandler.received.size());
+            assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+        } finally {
+            bundle.uninstall();
+        }
     }
 
     static class TestEventHandler implements EventHandler {
         List<Event> received = new ArrayList<Event>();
-
         public void handleEvent(Event event) {
             received.add(event);
         }

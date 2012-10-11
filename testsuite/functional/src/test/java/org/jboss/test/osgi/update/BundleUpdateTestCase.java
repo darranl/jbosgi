@@ -55,6 +55,9 @@ import org.osgi.framework.Version;
 @RunWith(Arquillian.class)
 public class BundleUpdateTestCase {
 
+    private static final String BUNDLE_REV0 = "bundle-rev0";
+    private static final String BUNDLE_REV1 = "bundle-rev1";
+
     @Inject
     public BundleContext context;
 
@@ -79,14 +82,14 @@ public class BundleUpdateTestCase {
 
     @Test
     public void testUpdateBundle() throws Exception {
-        InputStream input = deployer.getDeployment("initial");
-        Bundle bundle = context.installBundle("initial", input);
+        InputStream input = deployer.getDeployment(BUNDLE_REV0);
+        Bundle bundle = context.installBundle(BUNDLE_REV0, input);
         try {
             bundle.start();
             assertLoadClass(bundle, "org.jboss.test.osgi.update.update1.A1");
             assertLoadClassFail(bundle, "org.jboss.test.osgi.update.update2.A2");
 
-            InputStream is = deployer.getDeployment("updated");
+            InputStream is = deployer.getDeployment(BUNDLE_REV1);
             bundle.update(is);
             assertLoadClass(bundle, "org.jboss.test.osgi.update.update2.A2");
             assertLoadClassFail(bundle, "org.jboss.test.osgi.update.update1.A1");
@@ -95,16 +98,16 @@ public class BundleUpdateTestCase {
         }
     }
 
-    @Deployment(name = "initial", managed = false, testable = false)
+    @Deployment(name = BUNDLE_REV0, managed = false, testable = false)
     public static JavaArchive getInitialBundle() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_REV0);
         archive.addClass(A1.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleManifestVersion(2);
-                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleSymbolicName("update-test");
                 builder.addBundleVersion(Version.parseVersion("1"));
                 builder.addExportPackages(A1.class);
                 return builder.openStream();
@@ -113,16 +116,16 @@ public class BundleUpdateTestCase {
         return archive;
     }
 
-    @Deployment(name = "updated", managed = false, testable = false)
+    @Deployment(name = BUNDLE_REV1, managed = false, testable = false)
     public static JavaArchive getUpdatedBundle() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "update-test");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_REV1);
         archive.addClass(A2.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleManifestVersion(2);
-                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleSymbolicName("update-test");
                 builder.addBundleVersion(Version.parseVersion("2"));
                 builder.addExportPackages(A2.class);
                 return builder.openStream();

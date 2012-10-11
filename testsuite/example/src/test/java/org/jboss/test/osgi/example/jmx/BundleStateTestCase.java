@@ -33,6 +33,7 @@ import javax.management.openmbean.TabularData;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
@@ -40,12 +41,14 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
-import org.jboss.test.osgi.ManagementSupport;
+import org.jboss.test.osgi.JMXSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
 import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.resource.Resource;
 import org.osgi.service.packageadmin.PackageAdmin;
@@ -60,16 +63,18 @@ import org.osgi.service.repository.Repository;
 @RunWith(Arquillian.class)
 public class BundleStateTestCase {
 
+    static final String JMX_PROVIDER = "jmx-provider";
+
     @Inject
     public BundleContext context;
 
     @Inject
-    public Bundle bundle;
+    public PackageAdmin packageAdmin;
 
-    @Deployment
-    public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-bundlestate");
-        archive.addClasses(RepositorySupport.class, ManagementSupport.class, AriesSupport.class);
+    @Deployment(name = JMX_PROVIDER)
+    public static JavaArchive jmxProvider() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_PROVIDER);
+        archive.addClasses(RepositorySupport.class, JMXSupport.class, AriesSupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
@@ -77,7 +82,6 @@ public class BundleStateTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(PackageAdmin.class);
                 builder.addImportPackages(BundleStateMBean.class, MBeanServer.class, TabularData.class);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 return builder.openStream();
@@ -87,12 +91,21 @@ public class BundleStateTestCase {
     }
 
     @Test
+    @InSequence(0)
+    public void addJMXSupport() throws BundleException {
+        Bundle bundle = packageAdmin.getBundles(JMX_PROVIDER, null)[0];
+        JMXSupport.provideMBeanServer(context, bundle);
+    }
+
+    @Test
+    @InSequence(1)
     public void testBundleStateMBean() throws Exception {
 
-        MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
+        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+        MBeanServer server = (MBeanServer) context.getService(sref);
 
         ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
-        BundleStateMBean bundleState =  ManagementSupport.getMBeanProxy(server, oname, BundleStateMBean.class);
+        BundleStateMBean bundleState = JMXSupport.getMBeanProxy(server, oname, BundleStateMBean.class);
         assertNotNull("BundleStateMBean not null", bundleState);
 
         TabularData bundleData = bundleState.listBundles();

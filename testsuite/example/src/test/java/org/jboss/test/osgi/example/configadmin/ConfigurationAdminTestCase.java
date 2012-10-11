@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2012, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -22,71 +22,56 @@
 
 package org.jboss.test.osgi.example.configadmin;
 
-import static org.jboss.test.osgi.ConfigurationAdminSupport.provideConfigurationAdmin;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.InputStream;
 import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.osgi.repository.XRequirementBuilder;
-import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.spi.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.ConfigurationAdminSupport;
-import org.jboss.test.osgi.RepositorySupport;
+import org.jboss.test.osgi.FrameworkUtils;
+import org.jboss.test.osgi.example.api.ConfiguredService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceReference;
-import org.osgi.resource.Resource;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
-import org.osgi.service.cm.ConfigurationEvent;
-import org.osgi.service.cm.ConfigurationListener;
 import org.osgi.service.cm.ManagedService;
-import org.osgi.service.repository.Repository;
 
 /**
- * A test that shows how an OSGi {@link org.osgi.service.cm.ManagedService}
- * can be configured through the {@link org.osgi.service.cm.ConfigurationAdmin}.
+ * A test that shows how an OSGi {@link ManagedService} can be configured through the {@link ConfigurationAdmin}.
  *
  * @author Thomas.Diesler@jboss.com
+ * @author David Bosschaert
  * @since 11-Dec-2010
  */
 @RunWith(Arquillian.class)
 public class ConfigurationAdminTestCase {
 
-    @Inject
-    public BundleContext context;
+    static final String PID_A = ConfigurationAdminTestCase.class.getSimpleName() + "-pid-a";
 
     @Inject
     public Bundle bundle;
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-configadmin");
-        archive.addClasses(ConfiguredService.class, ConfigurationAdminSupport.class, RepositorySupport.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-configadmin");
+        archive.addClasses(FrameworkUtils.class, ConfiguredService.class);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(ConfigurationAdmin.class);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 return builder.openStream();
             }
         });
@@ -96,49 +81,36 @@ public class ConfigurationAdminTestCase {
     @Test
     public void testManagedService() throws Exception {
 
-        // Start the test bundle
-        bundle.start();
-
-        // Get the {@link ConfigurationAdmin} service
-        ConfigurationAdmin configAdmin = provideConfigurationAdmin(context, bundle);
-
-        final CountDownLatch latch = new CountDownLatch(1);
-        ConfigurationListener listener = new ConfigurationListener() {
-            @Override
-            public void configurationEvent(ConfigurationEvent event) {
-                if (ConfiguredService.SERVICE_PID.equals(event.getPid()))
-                    latch.countDown();
-            }
-        };
-        BundleContext bundlecontext = bundle.getBundleContext();
-        bundlecontext.registerService(ConfigurationListener.class.getName(), listener, null);
-
         // Get the {@link Configuration} for the given PID
-        Configuration config = configAdmin.getConfiguration(ConfiguredService.SERVICE_PID);
-        assertNotNull("Config not null", config);
-        try
-        {
+        BundleContext context = bundle.getBundleContext();
+        ConfigurationAdmin configAdmin = getConfigurationAdmin(context);
+        Configuration config = configAdmin.getConfiguration(PID_A);
+        Assert.assertNotNull("Config not null", config);
+        Assert.assertNull("Config is empty, but was: " + config.getProperties(), config.getProperties());
+
+        try {
             Dictionary<String, String> configProps = new Hashtable<String, String>();
             configProps.put("foo", "bar");
             config.update(configProps);
 
             // Register a {@link ManagedService}
+            ConfiguredService service = new ConfiguredService();
             Dictionary<String, String> serviceProps = new Hashtable<String, String>();
-            serviceProps.put(Constants.SERVICE_PID, ConfiguredService.SERVICE_PID);
-            bundlecontext.registerService(new String[] { ConfiguredService.class.getName(), ManagedService.class.getName() }, new ConfiguredService(), serviceProps);
+            serviceProps.put(Constants.SERVICE_PID, PID_A);
+            context.registerService(new String[] { ConfiguredService.class.getName(), ManagedService.class.getName() }, service, serviceProps);
 
             // Wait a little for the update event
-            if (latch.await(5, TimeUnit.SECONDS) == false)
-                throw new TimeoutException();
+            Assert.assertTrue(service.awaitUpdate(3, TimeUnit.SECONDS));
 
             // Verify service property
-            ServiceReference sref = bundlecontext.getServiceReference(ConfiguredService.class.getName());
-            ConfiguredService service = (ConfiguredService) bundlecontext.getService(sref);
-            assertEquals("bar", service.getValue("foo"));
-        }
-        finally
-        {
+            Assert.assertEquals("bar", service.getProperties().get("foo"));
+        } finally {
             config.delete();
         }
+    }
+
+    private ConfigurationAdmin getConfigurationAdmin(BundleContext context) {
+        ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
+        return (ConfigurationAdmin) context.getService(sref);
     }
 }

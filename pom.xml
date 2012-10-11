@@ -23,7 +23,7 @@
     <artifactId>jboss-osgi</artifactId>
     <packaging>pom</packaging>
 
-    <version>2.0.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
 
     <!-- Source Control -->
     <scm>
@@ -53,28 +53,31 @@
         <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
         <version.eclipse.jetty>8.1.4.v20120524</version.eclipse.jetty>
         <version.izpack>4.3.1</version.izpack>
+        <version.javax.annotations.api>1.0.1.Final</version.javax.annotations.api>
+        <version.javax.ejb.api>1.0.1.Final</version.javax.ejb.api>
+        <version.javax.enterprise.api>1.0-SP4</version.javax.enterprise.api>
+        <version.javax.jaxrs.api>1.0.1.Final</version.javax.jaxrs.api>
+        <version.javax.persistence.api>1.0.1.Final</version.javax.persistence.api>
+        <version.javax.servlet.api>1.0.2.Final</version.javax.servlet.api>
+        <version.javax.transaction.api>1.0.1.Final</version.javax.transaction.api>
         <version.jbossas.720>7.2.0.Alpha1-SNAPSHOT</version.jbossas.720>
-        <version.jboss.arquillian.core>1.0.0.CR7</version.jboss.arquillian.core>
+        <version.jboss.arquillian.core>1.0.0.Final</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>1.0.2.Final</version.jboss.arquillian.osgi>
         <version.jboss.logging>3.1.2.GA</version.jboss.logging>
         <version.jboss.logmanager>1.4.0.Beta1</version.jboss.logmanager>
-        <version.jboss.osgi.deployment>1.1.1.Final</version.jboss.osgi.deployment>
+        <version.jboss.osgi.deployment>1.2.0.CR1</version.jboss.osgi.deployment>
         <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix>
-        <version.jboss.osgi.framework>2.0.0.CR27</version.jboss.osgi.framework>
+        <version.jboss.osgi.framework>2.0.0.CR36</version.jboss.osgi.framework>
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging>
-        <version.jboss.osgi.metadata>2.1.1.CR7</version.jboss.osgi.metadata>
+        <version.jboss.osgi.metadata>2.1.1.CR9</version.jboss.osgi.metadata>
         <version.jboss.osgi.repository>2.0.0</version.jboss.osgi.repository>
         <version.jboss.osgi.resolver>3.0.0.CR8</version.jboss.osgi.resolver>
-        <version.jboss.osgi.spi>3.1.1.CR6</version.jboss.osgi.spi>
+        <version.jboss.osgi.spi>3.1.1.CR8</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>1.0.4</version.jboss.osgi.testing>
-        <version.jboss.osgi.vfs>1.1.2.CR2-SNAPSHOT</version.jboss.osgi.vfs>
-        <version.jboss.osgi.xerces>3.1.0.Final</version.jboss.osgi.xerces>
-        <version.jboss.spec.annotations11.api>1.0.1.Final</version.jboss.spec.annotations11.api>
-        <version.jboss.spec.ejb3.api>1.0.1.Final</version.jboss.spec.ejb3.api>
-        <version.jboss.spec.servlet30.api>1.0.2.Final</version.jboss.spec.servlet30.api>
-        <version.jboss.spec.transaction11.api>1.0.1.Final</version.jboss.spec.transaction11.api>
+        <version.jboss.osgi.vfs>1.1.2.CR1</version.jboss.osgi.vfs>
+        <version.jboss.stilts>0.1.26</version.jboss.stilts>
         <version.junit>4.10</version.junit>
         <version.osgi>4.2.0</version.osgi>
         <version.slf4j>1.6.4</version.slf4j>
@@ -91,6 +94,22 @@
                 <version>${version.apache.ant}</version>
             </dependency>
 
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>${version.javax.enterprise.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.ws.rs</groupId>
+                <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+                <version>${version.javax.jaxrs.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>${version.javax.persistence.api}</version>
+            </dependency>
+            
             <!-- Arquillian -->
             <dependency>
                 <groupId>org.jboss.arquillian.junit</groupId>
@@ -143,6 +162,11 @@
 
             <!-- JBoss -->
             <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-controller-client</artifactId>
+                <version>${version.jbossas.720}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.logging</groupId>
                 <artifactId>jboss-logging</artifactId>
                 <version>${version.jboss.logging}</version>
@@ -155,25 +179,40 @@
             <dependency>
                 <groupId>org.jboss.spec.javax.annotation</groupId>
                 <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-                <version>${version.jboss.spec.annotations11.api}</version>
+                <version>${version.javax.annotations.api}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.ejb</groupId>
                 <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-                <version>${version.jboss.spec.ejb3.api}</version>
+                <version>${version.javax.ejb.api}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.servlet</groupId>
                 <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-                <version>${version.jboss.spec.servlet30.api}</version>
+                <version>${version.javax.servlet.api}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.transaction</groupId>
                 <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-                <version>${version.jboss.spec.transaction11.api}</version>
+                <version>${version.javax.transaction.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectodd.stilts</groupId>
+                <artifactId>stilts-stomp-client</artifactId>
+                <version>${version.jboss.stilts}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectodd.stilts</groupId>
+                <artifactId>stilts-stomplet-api</artifactId>
+                <version>${version.jboss.stilts}</version>
             </dependency>
 
             <!-- JBOSGi -->
+            <dependency>
+                <groupId>org.jboss.osgi.deployment</groupId>
+                <artifactId>jbosgi-deployment</artifactId>
+                <version>${version.jboss.osgi.deployment}</version>
+            </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.framework</groupId>
                 <artifactId>jbosgi-framework-core</artifactId>
@@ -189,6 +228,11 @@
                 <artifactId>jboss-osgi-logging</artifactId>
                 <version>${version.jboss.osgi.logging}</version>
             </dependency>
+	        <dependency>
+	            <groupId>org.jboss.osgi.metadata</groupId>
+	            <artifactId>jbosgi-metadata</artifactId>
+                <version>${version.jboss.osgi.metadata}</version>
+	        </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.repository</groupId>
                 <artifactId>jbosgi-repository-api</artifactId>
@@ -201,6 +245,11 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.resolver</groupId>
+                <artifactId>jbosgi-resolver-api</artifactId>
+                <version>${version.jboss.osgi.resolver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.osgi.resolver</groupId>
                 <artifactId>jbosgi-resolver-felix</artifactId>
                 <version>${version.jboss.osgi.resolver}</version>
             </dependency>
@@ -210,14 +259,19 @@
                 <version>${version.jboss.osgi.spi}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.osgi.vfs</groupId>
+                <artifactId>jbosgi-vfs</artifactId>
+                <version>${version.jboss.osgi.vfs}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.osgi.vfs</groupId>
+                <artifactId>jbosgi-vfs30</artifactId>
+                <version>${version.jboss.osgi.vfs}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.osgi.testing</groupId>
                 <artifactId>jbosgi-testing</artifactId>
                 <version>${version.jboss.osgi.testing}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.osgi.xerces</groupId>
-                <artifactId>jbosgi-xerces</artifactId>
-                <version>${version.jboss.osgi.xerces}</version>
             </dependency>
 
             <!-- Equinox -->

@@ -31,7 +31,7 @@ import java.io.InputStream;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.osgi.spi.OSGiManifestBuilder;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.Parameter;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;

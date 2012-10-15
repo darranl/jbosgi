@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import javax.servlet.Servlet;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,9 +58,9 @@ import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Test webapp deployemnts as OSGi bundles
- *
+ * 
  * @author thomas.diesler@jboss.com
- *
+ * 
  * @since 07-Jun-2011
  */
 @RunWith(Arquillian.class)
@@ -83,11 +82,11 @@ public class WebAppTestCase {
     @ArquillianResource
     ManagementClient managementClient;
 
-    @Inject
-    public PackageAdmin packageAdmin;
+    @ArquillianResource
+    PackageAdmin packageAdmin;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static Archive<?> deployment() {
@@ -157,7 +156,6 @@ public class WebAppTestCase {
             deployer.undeploy(BUNDLE_C_WAB);
         }
     }
-
 
     @Test
     public void testBundleWithWebContextPath() throws Exception {

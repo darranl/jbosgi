@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.ManagedBean;
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -59,7 +58,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Tests CDI deployments with OSGi metadata
- *
+ * 
  * @author Thomas.Diesler@jboss.com
  * @since 09-Jul-2012
  */
@@ -76,8 +75,8 @@ public class ManagedBeansTestCase {
     private static final String VISA_PROVIDER_BUNDLE = "visa-bundle.jar";
     private static final String PAYPAL_PROVIDER_BUNDLE = "paypal-bundle.jar";
 
-    @Inject
-    public PackageAdmin packageAdmin;
+    @ArquillianResource
+    PackageAdmin packageAdmin;
 
     @ArquillianResource
     ManagementClient managementClient;

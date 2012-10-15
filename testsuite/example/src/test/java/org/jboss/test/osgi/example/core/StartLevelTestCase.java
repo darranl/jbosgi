@@ -22,8 +22,6 @@ import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -42,7 +40,7 @@ import org.osgi.service.startlevel.StartLevel;
 
 /**
  * Test framework/bundle start level
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 07-Jun-2011
  */
@@ -56,11 +54,11 @@ public class StartLevelTestCase {
     @ArquillianResource
     public Deployer deployer;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
-    @Inject
-    public StartLevel startLevel;
+    @ArquillianResource
+    StartLevel startLevel;
 
     @Deployment
     public static JavaArchive deployment() {
@@ -123,7 +121,7 @@ public class StartLevelTestCase {
         }
     }
 
-    @Deployment(name = BUNDLE_A, managed = false, testable=false)
+    @Deployment(name = BUNDLE_A, managed = false, testable = false)
     public static JavaArchive create() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_A);
         archive.setManifest(new Asset() {

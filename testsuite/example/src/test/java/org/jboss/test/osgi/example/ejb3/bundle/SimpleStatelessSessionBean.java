@@ -36,7 +36,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * A simple stateless session bean.
- *
+ * 
  * @author thomas.diesler@jboss.com
  */
 @Stateless

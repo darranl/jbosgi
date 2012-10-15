@@ -62,11 +62,11 @@ public class JNDITestActivator implements BundleActivator {
         context.registerService(JNDITestService.class.getName(), service, props);
 
         // Register a {@link InitialContextFactory} provider
-        String[] classes = new String[] {SimpleInitalContextFactory.class.getName(), InitialContextFactory.class.getName()};
+        String[] classes = new String[] { SimpleInitalContextFactory.class.getName(), InitialContextFactory.class.getName() };
         context.registerService(classes, new SimpleInitalContextFactory(), null);
 
         // Register a {@link ObjectFactory} provider
-        classes = new String[] {StringObjectFactory.class.getName(), ObjectFactory.class.getName()};
+        classes = new String[] { StringObjectFactory.class.getName(), ObjectFactory.class.getName() };
         context.registerService(classes, new StringObjectFactory(), null);
     }
 

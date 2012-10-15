@@ -35,7 +35,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
-
 /**
  * @author Thomas.Diesler@jboss.com
  * @since 09-Jul-2012

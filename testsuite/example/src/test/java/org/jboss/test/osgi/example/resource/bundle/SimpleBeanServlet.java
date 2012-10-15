@@ -30,13 +30,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * @author thomas.diesler@jboss.com
  * @since 10-Jul-2012
  */
 @SuppressWarnings("serial")
-@WebServlet(name="SimpleBeanServlet", urlPatterns={"/servlet"})
+@WebServlet(name = "SimpleBeanServlet", urlPatterns = { "/servlet" })
 public class SimpleBeanServlet extends HttpServlet {
 
     @Resource

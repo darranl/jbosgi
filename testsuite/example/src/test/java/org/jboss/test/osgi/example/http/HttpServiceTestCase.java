@@ -27,7 +27,6 @@ import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +37,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.logging.Logger;
-import org.jboss.osgi.resolver.XBundle;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.resolver.XBundle;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -56,7 +55,7 @@ import org.osgi.service.http.HttpService;
 
 /**
  * Test the {@link HttpService} on JBossWeb
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 19-Jul-2011
  */
@@ -65,8 +64,8 @@ public class HttpServiceTestCase {
 
     static StringAsset STRING_ASSET = new StringAsset("Hello from Resource");
 
-    @Inject
-    public Bundle bundle;
+    @ArquillianResource
+    Bundle bundle;
 
     @ArquillianResource
     ManagementClient managementClient;

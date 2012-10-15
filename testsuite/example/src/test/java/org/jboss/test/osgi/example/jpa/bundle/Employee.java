@@ -27,7 +27,7 @@ import javax.persistence.Id;
 
 /**
  * Employee entity class
- *
+ * 
  * @author Scott Marlow
  */
 @Entity

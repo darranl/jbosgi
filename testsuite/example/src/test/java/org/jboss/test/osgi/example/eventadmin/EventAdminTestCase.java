@@ -28,16 +28,15 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -59,7 +58,7 @@ import org.osgi.service.repository.Repository;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
@@ -74,11 +73,11 @@ public class EventAdminTestCase {
     @ArquillianResource
     Deployer deployer;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
-    @Inject
-    public PackageAdmin packageAdmin;
+    @ArquillianResource
+    PackageAdmin packageAdmin;
 
     @Deployment(name = EVENT_ADMIN_PROVIDER)
     public static JavaArchive eventadminProvider() {
@@ -150,6 +149,7 @@ public class EventAdminTestCase {
 
     static class TestEventHandler implements EventHandler {
         List<Event> received = new ArrayList<Event>();
+
         public void handleEvent(Event event) {
             received.add(event);
         }

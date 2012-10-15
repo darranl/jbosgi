@@ -16,7 +16,6 @@
 
 package org.jboss.test.osgi.example.stilts.bundle;
 
-
 import static org.jboss.test.osgi.example.stilts.bundle.SimpleStomplet.DESTINATION_QUEUE_ONE;
 
 import java.util.Dictionary;

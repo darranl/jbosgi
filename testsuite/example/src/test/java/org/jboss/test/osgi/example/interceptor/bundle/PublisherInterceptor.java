@@ -34,7 +34,7 @@ import org.osgi.service.http.HttpService;
 
 /**
  * An interceptor that publishes HttpMetadata.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */

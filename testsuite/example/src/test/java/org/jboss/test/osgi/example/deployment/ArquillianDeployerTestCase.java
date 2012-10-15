@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -41,7 +39,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * Test the arquillian callback to a client provided archive and its deployment through the deployer API.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 09-Sep-2010
  */
@@ -53,8 +51,8 @@ public class ArquillianDeployerTestCase {
     @ArquillianResource
     public Deployer deployer;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static JavaArchive createdeployment() {

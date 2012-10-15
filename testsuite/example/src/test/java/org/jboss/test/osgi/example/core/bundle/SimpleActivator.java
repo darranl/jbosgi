@@ -21,25 +21,21 @@
  */
 package org.jboss.test.osgi.example.core.bundle;
 
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
  * A Service Activator
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */
-public class SimpleActivator implements BundleActivator
-{
-   public void start(BundleContext context)
-   {
-      // Register a service
-      context.registerService(SimpleService.class.getName(), new SimpleService(), null);
-   }
+public class SimpleActivator implements BundleActivator {
+    
+    public void start(BundleContext context) {
+        context.registerService(SimpleService.class.getName(), new SimpleService(), null);
+    }
 
-   public void stop(BundleContext context)
-   {
-   }
+    public void stop(BundleContext context) {
+    }
 }

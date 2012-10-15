@@ -26,7 +26,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 @Path("/helloworld")
-@Produces({"text/plain"})
+@Produces({ "text/plain" })
 public class SimpleResource {
     @GET
     public String getMessage() {

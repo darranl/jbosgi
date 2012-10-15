@@ -25,7 +25,7 @@ import javax.management.MBeanServer;
 
 /**
  * A basic service
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 13-May-2009
  */

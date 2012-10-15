@@ -26,7 +26,6 @@ import java.util.List;
 
 import javax.annotation.ManagedBean;
 
-
 /**
  * @author Thomas.Diesler@jboss.com
  * @since 09-Jul-2012

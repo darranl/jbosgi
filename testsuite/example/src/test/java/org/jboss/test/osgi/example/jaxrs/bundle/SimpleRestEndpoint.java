@@ -16,8 +16,8 @@ import org.osgi.framework.BundleReference;
 import org.osgi.framework.ServiceReference;
 
 @Path("/rest")
-@Consumes({"application/json"})
-@Produces({"application/json"})
+@Consumes({ "application/json" })
+@Produces({ "application/json" })
 public class SimpleRestEndpoint {
 
     private static final Logger log = Logger.getLogger(SimpleRestEndpoint.class);

@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test OSGi bundles contained in EARs
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 07-Jun-2011
  */

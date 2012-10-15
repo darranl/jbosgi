@@ -31,7 +31,7 @@ import org.osgi.service.cm.ManagedService;
 
 /**
  * A simple managed service
- *
+ * 
  * @author Thomas.Diesler@jboss.org
  * @since 12-Dec-2010
  */

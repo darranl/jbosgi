@@ -25,7 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
@@ -34,9 +33,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -60,7 +59,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A test that deployes a bundle that registeres an MBean
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
@@ -73,11 +72,11 @@ public class MBeanServerTestCase {
     @ArquillianResource
     Deployer deployer;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
-    @Inject
-    public PackageAdmin packageAdmin;
+    @ArquillianResource
+    PackageAdmin packageAdmin;
 
     @Deployment(name = JMX_PROVIDER)
     public static JavaArchive jmxProvider() {

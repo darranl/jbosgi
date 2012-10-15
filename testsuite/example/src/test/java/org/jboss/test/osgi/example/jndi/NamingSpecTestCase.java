@@ -24,7 +24,6 @@ package org.jboss.test.osgi.example.jndi;
 import java.io.InputStream;
 import java.util.Hashtable;
 
-import javax.inject.Inject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
@@ -35,9 +34,9 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.MavenCoordinates;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -46,9 +45,9 @@ import org.jboss.test.osgi.BlueprintSupport;
 import org.jboss.test.osgi.NamingSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
-import org.jboss.test.osgi.example.jndi.bundle.JNDITestService;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.SimpleInitalContextFactory;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.StringReference;
+import org.jboss.test.osgi.example.jndi.bundle.JNDITestService;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -66,18 +65,18 @@ import org.osgi.service.repository.Repository;
 
 /**
  * This test exercises the OSGi-JNDI integration
- *
+ * 
  * @author David Bosschaert
  * @author Thomas.Diesler@jboss.com
  */
 @RunWith(Arquillian.class)
 public class NamingSpecTestCase {
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
-    @Inject
-    public Bundle bundle;
+    @ArquillianResource
+    Bundle bundle;
 
     @ArquillianResource
     Deployer deployer;
@@ -251,17 +250,17 @@ public class NamingSpecTestCase {
                 initialContext.lookup("osgi:service/" + JNDITestService.class.getName());
                 Assert.fail("NameNotFoundException expected");
             } catch (NameNotFoundException ex) {
-                //expected
+                // expected
             }
 
             // [FIXME] Lookup the {@link JNDITestService} service by name
             // with jndi-0.3.1 we get an IllegalArgumentException
-            //try {
-            //    initialContext.lookup("osgi:service/foo");
-            //    Assert.fail("NameNotFoundException expected");
-            //} catch (NameNotFoundException ex) {
-            //    //expected
-            //}
+            // try {
+            // initialContext.lookup("osgi:service/foo");
+            // Assert.fail("NameNotFoundException expected");
+            // } catch (NameNotFoundException ex) {
+            // //expected
+            // }
 
         } finally {
             bundleC.uninstall();
@@ -413,17 +412,17 @@ public class NamingSpecTestCase {
                 initialContext.lookup("osgi:service/" + JNDITestService.class.getName());
                 Assert.fail("NameNotFoundException expected");
             } catch (NameNotFoundException ex) {
-                //expected
+                // expected
             }
 
             // [FIXME] Lookup the {@link JNDITestService} service by name
             // with jndi-0.3.1 we get an IllegalArgumentException
-            //try {
-            //    initialContext.lookup("osgi:service/foo");
-            //    Assert.fail("NameNotFoundException expected");
-            //} catch (NameNotFoundException ex) {
-            //    //expected
-            //}
+            // try {
+            // initialContext.lookup("osgi:service/foo");
+            // Assert.fail("NameNotFoundException expected");
+            // } catch (NameNotFoundException ex) {
+            // //expected
+            // }
 
         } finally {
             bundleC.uninstall();

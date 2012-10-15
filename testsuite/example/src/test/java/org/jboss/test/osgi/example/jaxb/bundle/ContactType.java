@@ -15,10 +15,10 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>
  * Java class for contactType complex type.
- *
+ * 
  * <p>
  * The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="contactType">
  *   &lt;complexContent>
@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "contactType")
@@ -46,9 +46,9 @@ public class ContactType {
 
     /**
      * Gets the value of the name property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getName() {
         return name;
@@ -56,9 +56,9 @@ public class ContactType {
 
     /**
      * Sets the value of the name property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setName(String value) {
         this.name = value;
@@ -66,9 +66,9 @@ public class ContactType {
 
     /**
      * Gets the value of the telephone property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getTelephone() {
         return telephone;
@@ -76,9 +76,9 @@ public class ContactType {
 
     /**
      * Sets the value of the telephone property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setTelephone(String value) {
         this.telephone = value;
@@ -86,9 +86,9 @@ public class ContactType {
 
     /**
      * Gets the value of the email property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getEmail() {
         return email;
@@ -96,9 +96,9 @@ public class ContactType {
 
     /**
      * Sets the value of the email property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setEmail(String value) {
         this.email = value;

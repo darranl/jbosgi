@@ -23,11 +23,11 @@ package org.jboss.test.osgi.example.resource;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -41,15 +41,15 @@ import org.osgi.framework.BundleActivator;
 
 /**
  * An example of OSGi resource injection.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 02-Feb-2012
  */
 @RunWith(Arquillian.class)
 public class ResourceInjectionTestCase {
 
-    @Inject
-    public Bundle bundle;
+    @ArquillianResource
+    Bundle bundle;
 
     @Deployment
     public static JavaArchive createdeployment() {

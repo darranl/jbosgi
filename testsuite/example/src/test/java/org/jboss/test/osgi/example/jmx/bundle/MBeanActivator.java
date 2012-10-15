@@ -32,7 +32,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A Service Activator
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 24-Apr-2009
  */

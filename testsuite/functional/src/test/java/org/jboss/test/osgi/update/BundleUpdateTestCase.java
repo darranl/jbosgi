@@ -58,11 +58,11 @@ public class BundleUpdateTestCase {
     private static final String BUNDLE_REV0 = "bundle-rev0";
     private static final String BUNDLE_REV1 = "bundle-rev1";
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @ArquillianResource
-    public Deployer deployer;
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive create() {

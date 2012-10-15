@@ -25,15 +25,13 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -58,16 +56,16 @@ import org.osgi.service.repository.Repository;
  * @author Thomas.Diesler@jboss.com
  */
 @RunWith(Arquillian.class)
-public class JBOSGi508TestCase {
-
-    @Inject
-    public BundleContext context;
-
-    @Inject
-    public Bundle bundle;
+public class DeclarativeServicesTestCase {
 
     @ArquillianResource
-    public Deployer deployer;
+    BundleContext context;
+
+    @ArquillianResource
+    Bundle bundle;
+
+    @ArquillianResource
+    Deployer deployer;
 
     @Deployment
     public static JavaArchive create() {

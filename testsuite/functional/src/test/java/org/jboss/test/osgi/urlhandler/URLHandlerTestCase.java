@@ -35,10 +35,9 @@ import java.net.URLConnection;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -57,8 +56,8 @@ import org.osgi.service.url.URLStreamHandlerService;
 @RunWith(Arquillian.class)
 public class URLHandlerTestCase {
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static JavaArchive create() {

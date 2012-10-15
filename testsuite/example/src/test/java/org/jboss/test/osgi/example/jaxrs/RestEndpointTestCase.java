@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 
@@ -56,7 +55,7 @@ import org.osgi.framework.BundleException;
 
 /**
  * Test simple OSGi REST deployment
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 30-Aug-2012
  */
@@ -75,8 +74,8 @@ public class RestEndpointTestCase {
     @ArquillianResource
     ManagementClient managementClient;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static Archive<?> testDeployment() {
@@ -199,7 +198,7 @@ public class RestEndpointTestCase {
     }
 
     @Deployment(name = SIMPLE_WAR, managed = false, testable = false)
-    public static Archive<?> getSimpleWar(){
+    public static Archive<?> getSimpleWar() {
         final WebArchive archive = create(WebArchive.class, SIMPLE_WAR);
         archive.addClasses(SimpleResource.class);
         archive.setWebXML(SimpleResource.class.getPackage(), "rest-web.xml");

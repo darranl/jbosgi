@@ -27,7 +27,6 @@ import static org.junit.Assert.assertNull;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
 import javax.transaction.Status;
 import javax.transaction.Synchronization;
 import javax.transaction.Transaction;
@@ -36,6 +35,7 @@ import javax.transaction.UserTransaction;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -48,15 +48,15 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * An example of OSGi JTA.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
 @RunWith(Arquillian.class)
 public class TransactionTestCase {
 
-    @Inject
-    public Bundle bundle;
+    @ArquillianResource
+    Bundle bundle;
 
     @Deployment
     public static JavaArchive createdeployment() {

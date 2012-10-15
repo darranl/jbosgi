@@ -24,7 +24,6 @@ package org.jboss.test.osgi.example.jpa;
 import java.io.InputStream;
 import java.util.concurrent.Callable;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -55,7 +54,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Test simple OSGi Persistence deployment
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 31-Aug-2012
  */
@@ -68,11 +67,11 @@ public class PersistenceTestCase {
     @ArquillianResource
     Deployer deployer;
 
-    @Inject
-    public PackageAdmin packageAdmin;
+    @ArquillianResource
+    PackageAdmin packageAdmin;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static Archive<?> deployment() {

@@ -27,17 +27,17 @@ import org.jboss.logging.Logger;
 
 /**
  * A simple web service endpoint
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2012
  */
-@WebService(serviceName="EndpointService", portName="EndpointPort", targetNamespace="http://osgi.smoke.test.as.jboss.org", endpointInterface = "org.jboss.test.osgi.example.jaxws.bundle.Endpoint")
+@WebService(serviceName = "EndpointService", portName = "EndpointPort", targetNamespace = "http://osgi.smoke.test.as.jboss.org", endpointInterface = "org.jboss.test.osgi.example.jaxws.bundle.Endpoint")
 public class EndpointImpl {
 
-   private static Logger log = Logger.getLogger(EndpointImpl.class);
+    private static Logger log = Logger.getLogger(EndpointImpl.class);
 
-   public String echo(String input) {
-      log.info("echo: " + input);
-      return input;
-   }
+    public String echo(String input) {
+        log.info("echo: " + input);
+        return input;
+    }
 }

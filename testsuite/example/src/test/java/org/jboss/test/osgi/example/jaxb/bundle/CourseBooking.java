@@ -22,10 +22,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 /**
  * <p>
  * Java class for courseBooking complex type.
- *
+ * 
  * <p>
  * The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="courseBooking">
  *   &lt;complexContent>
@@ -42,8 +42,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "courseBooking", propOrder = { "company", "student" })
@@ -65,9 +65,9 @@ public class CourseBooking {
 
     /**
      * Gets the value of the company property.
-     *
+     * 
      * @return possible object is {@link CompanyType }
-     *
+     * 
      */
     public CompanyType getCompany() {
         return company;
@@ -75,9 +75,9 @@ public class CourseBooking {
 
     /**
      * Sets the value of the company property.
-     *
+     * 
      * @param value allowed object is {@link CompanyType }
-     *
+     * 
      */
     public void setCompany(CompanyType value) {
         this.company = value;
@@ -85,24 +85,23 @@ public class CourseBooking {
 
     /**
      * Gets the value of the student property.
-     *
+     * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the student
-     * property.
-     *
+     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be present inside the
+     * JAXB object. This is why there is not a <CODE>set</CODE> method for the student property.
+     * 
      * <p>
      * For example, to add a new item, do as follows:
-     *
+     * 
      * <pre>
      * getStudent().add(newItem);
      * </pre>
-     *
-     *
+     * 
+     * 
      * <p>
      * Objects of the following type(s) are allowed in the list {@link StudentType }
-     *
-     *
+     * 
+     * 
      */
     public List<StudentType> getStudent() {
         if (student == null) {
@@ -113,9 +112,9 @@ public class CourseBooking {
 
     /**
      * Gets the value of the courseReference property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getCourseReference() {
         return courseReference;
@@ -123,9 +122,9 @@ public class CourseBooking {
 
     /**
      * Sets the value of the courseReference property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setCourseReference(String value) {
         this.courseReference = value;
@@ -133,9 +132,9 @@ public class CourseBooking {
 
     /**
      * Gets the value of the courseDate property.
-     *
+     * 
      * @return possible object is {@link XMLGregorianCalendar }
-     *
+     * 
      */
     public XMLGregorianCalendar getCourseDate() {
         return courseDate;
@@ -143,9 +142,9 @@ public class CourseBooking {
 
     /**
      * Sets the value of the courseDate property.
-     *
+     * 
      * @param value allowed object is {@link XMLGregorianCalendar }
-     *
+     * 
      */
     public void setCourseDate(XMLGregorianCalendar value) {
         this.courseDate = value;
@@ -153,9 +152,9 @@ public class CourseBooking {
 
     /**
      * Gets the value of the invoiceReference property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getInvoiceReference() {
         return invoiceReference;
@@ -163,9 +162,9 @@ public class CourseBooking {
 
     /**
      * Sets the value of the invoiceReference property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setInvoiceReference(String value) {
         this.invoiceReference = value;
@@ -173,9 +172,9 @@ public class CourseBooking {
 
     /**
      * Gets the value of the totalPrice property.
-     *
+     * 
      * @return possible object is {@link BigDecimal }
-     *
+     * 
      */
     public BigDecimal getTotalPrice() {
         return totalPrice;
@@ -183,9 +182,9 @@ public class CourseBooking {
 
     /**
      * Sets the value of the totalPrice property.
-     *
+     * 
      * @param value allowed object is {@link BigDecimal }
-     *
+     * 
      */
     public void setTotalPrice(BigDecimal value) {
         this.totalPrice = value;

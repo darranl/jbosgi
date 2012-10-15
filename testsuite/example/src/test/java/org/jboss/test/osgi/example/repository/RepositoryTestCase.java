@@ -22,17 +22,16 @@ import static org.junit.Assert.assertNotNull;
 import java.io.InputStream;
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.MavenCoordinates;
 import org.jboss.osgi.resolver.XIdentityCapability;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.resolver.XResource;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -50,15 +49,15 @@ import org.osgi.service.repository.RepositoryContent;
 
 /**
  * Test that the EventAdmin can be installed through the Repository bundle.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 19-Jan-2012
  */
 @RunWith(Arquillian.class)
 public class RepositoryTestCase {
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static JavaArchive createdeployment() {
@@ -92,7 +91,7 @@ public class RepositoryTestCase {
         XResource resource = (XResource) cap.getResource();
         XIdentityCapability xcap = resource.getIdentityCapability();
         assertEquals("org.apache.felix.eventadmin", xcap.getSymbolicName());
-        InputStream content = ((RepositoryContent)xcap.getResource()).getContent();
+        InputStream content = ((RepositoryContent) xcap.getResource()).getContent();
         try {
             Bundle bundle = context.installBundle(xcap.getSymbolicName(), content);
             try {

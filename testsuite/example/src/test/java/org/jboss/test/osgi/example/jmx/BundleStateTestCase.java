@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.management.openmbean.TabularData;
@@ -34,9 +33,10 @@ import javax.management.openmbean.TabularData;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -56,7 +56,7 @@ import org.osgi.service.repository.Repository;
 
 /**
  * Test {@link BundleStateMBean} functionality
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 15-Feb-2010
  */
@@ -65,11 +65,11 @@ public class BundleStateTestCase {
 
     static final String JMX_PROVIDER = "jmx-provider";
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
-    @Inject
-    public PackageAdmin packageAdmin;
+    @ArquillianResource
+    PackageAdmin packageAdmin;
 
     @Deployment(name = JMX_PROVIDER)
     public static JavaArchive jmxProvider() {

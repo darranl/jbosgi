@@ -15,10 +15,10 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>
  * Java class for studentType complex type.
- *
+ * 
  * <p>
  * The following schema fragment specifies the expected content contained within this class.
- *
+ * 
  * <pre>
  * &lt;complexType name="studentType">
  *   &lt;complexContent>
@@ -29,8 +29,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
+ * 
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "studentType")
@@ -43,9 +43,9 @@ public class StudentType {
 
     /**
      * Gets the value of the firstName property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getFirstName() {
         return firstName;
@@ -53,9 +53,9 @@ public class StudentType {
 
     /**
      * Sets the value of the firstName property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setFirstName(String value) {
         this.firstName = value;
@@ -63,9 +63,9 @@ public class StudentType {
 
     /**
      * Gets the value of the surname property.
-     *
+     * 
      * @return possible object is {@link String }
-     *
+     * 
      */
     public String getSurname() {
         return surname;
@@ -73,9 +73,9 @@ public class StudentType {
 
     /**
      * Sets the value of the surname property.
-     *
+     * 
      * @param value allowed object is {@link String }
-     *
+     * 
      */
     public void setSurname(String value) {
         this.surname = value;

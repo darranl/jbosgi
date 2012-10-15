@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test web service client functionality
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2011
  */

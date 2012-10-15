@@ -35,9 +35,9 @@ import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper;
 import org.jboss.logging.Logger;
 import org.jboss.modules.ModuleIdentifier;
+import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -64,7 +64,7 @@ import org.projectodd.stilts.stomplet.Stomplet;
 
 /**
  * A simple {@link Stomplet} test case.
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 09-Sep-2010
  */

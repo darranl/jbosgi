@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 
@@ -58,10 +57,10 @@ import org.osgi.service.http.HttpService;
 /**
  * A test that deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and
  * registeres an http endpoint from it.
- *
+ * 
  * The idea is that the bundle does not process its own metadata. Instead this work is delegated to some specialized metadata
  * processor (i.e. the interceptor)
- *
+ * 
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
@@ -77,8 +76,8 @@ public class LifecycleInterceptorTestCase {
     @ArquillianResource
     ManagementClient managementClient;
 
-    @Inject
-    public BundleContext context;
+    @ArquillianResource
+    BundleContext context;
 
     @Deployment
     public static JavaArchive createdeployment() {

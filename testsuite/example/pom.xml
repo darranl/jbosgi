@@ -254,9 +254,9 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
+                            <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
                             <excludes>
                                 <exclude>**/cdi/*TestCase.java</exclude>
-                                <exclude>**/configadmin/*TestCase.java</exclude>
                                 <exclude>**/ear/*TestCase.java</exclude>
                                 <exclude>**/ejb3/*TestCase.java</exclude>
                                 <exclude>**/http/*TestCase.java</exclude>

@@ -25,6 +25,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.service.cm.ConfigurationAdmin;
 
 /**
  * Provide the org.apache.felix.configadmin bundle
@@ -42,5 +43,11 @@ public class ConfigurationAdminSupport extends RepositorySupport {
         if (sref == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_CONFIGURATION_ADMIN)).start();
         }
+    }
+
+    public static ConfigurationAdmin getConfigurationAdmin(Bundle bundle) {
+        BundleContext context = bundle.getBundleContext();
+        ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
+        return (ConfigurationAdmin) context.getService(sref);
     }
 }

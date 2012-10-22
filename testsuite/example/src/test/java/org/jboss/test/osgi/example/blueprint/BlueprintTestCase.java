@@ -40,6 +40,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.BlueprintSupport;
+import org.jboss.test.osgi.ConfigurationAdminSupport;
 import org.jboss.test.osgi.JMXSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
@@ -79,7 +80,7 @@ public class BlueprintTestCase {
     @Deployment(name = BLUEPRINT_PROVIDER)
     public static JavaArchive blueprintProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BLUEPRINT_PROVIDER);
-        archive.addClasses(JMXSupport.class, BlueprintSupport.class, AriesSupport.class, RepositorySupport.class);
+        archive.addClasses(JMXSupport.class, BlueprintSupport.class, AriesSupport.class, ConfigurationAdminSupport.class, RepositorySupport.class);
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {

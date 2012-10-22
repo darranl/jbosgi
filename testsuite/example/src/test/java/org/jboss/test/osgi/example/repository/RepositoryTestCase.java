@@ -48,8 +48,8 @@ import org.osgi.service.repository.Repository;
 import org.osgi.service.repository.RepositoryContent;
 
 /**
- * Test that the EventAdmin can be installed through the Repository bundle.
- * 
+ * Test that a bundle can be installed through the Repository bundle.
+ *
  * @author thomas.diesler@jboss.com
  * @since 19-Jan-2012
  */
@@ -80,7 +80,7 @@ public class RepositoryTestCase {
     public void testRepositoryService() throws Exception {
 
         XRepository repo = getRepository();
-        MavenCoordinates coordinates = MavenCoordinates.parse("org.apache.felix:org.apache.felix.eventadmin:1.2.6");
+        MavenCoordinates coordinates = MavenCoordinates.parse("org.osgi:org.osgi.enterprise:4.2.0");
         XRequirement req = XRequirementBuilder.create(coordinates).getRequirement();
         assertNotNull("Requirement not null", req);
 
@@ -90,15 +90,13 @@ public class RepositoryTestCase {
         Capability cap = caps.iterator().next();
         XResource resource = (XResource) cap.getResource();
         XIdentityCapability xcap = resource.getIdentityCapability();
-        assertEquals("org.apache.felix.eventadmin", xcap.getSymbolicName());
+        assertEquals("osgi.enterprise", xcap.getSymbolicName());
         InputStream content = ((RepositoryContent) xcap.getResource()).getContent();
         try {
             Bundle bundle = context.installBundle(xcap.getSymbolicName(), content);
             try {
                 bundle.start();
                 Assert.assertEquals(Bundle.ACTIVE, bundle.getState());
-                ServiceReference sref = context.getServiceReference("org.osgi.service.event.EventAdmin");
-                assertNotNull("EventAdmin service not null", sref);
             } finally {
                 bundle.uninstall();
             }

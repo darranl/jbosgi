@@ -29,12 +29,16 @@ import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.repository.XRequirementBuilder;
+import org.jboss.osgi.resolver.MavenCoordinates;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.FrameworkUtils;
+import org.jboss.test.osgi.ConfigurationAdminSupport;
+import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.api.ConfiguredService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,14 +46,15 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
-import org.osgi.framework.ServiceReference;
+import org.osgi.resource.Resource;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ManagedService;
+import org.osgi.service.repository.Repository;
 
 /**
  * A test that shows how an OSGi {@link ManagedService} can be configured through the {@link ConfigurationAdmin}.
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @author David Bosschaert
  * @since 11-Dec-2010
@@ -57,21 +62,25 @@ import org.osgi.service.cm.ManagedService;
 @RunWith(Arquillian.class)
 public class ConfigurationAdminTestCase {
 
-    static final String PID_A = ConfigurationAdminTestCase.class.getSimpleName() + "-pid-a";
+    static final String PID_A = "ConfigurationAdmin-PID-A";
 
     @ArquillianResource
-    Bundle bundle;
+    BundleContext context;
 
     @Deployment
-    public static JavaArchive createdeployment() {
+    public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-configadmin");
-        archive.addClasses(FrameworkUtils.class, ConfiguredService.class);
+        archive.addClasses(RepositorySupport.class, ConfigurationAdminSupport.class);
+        archive.addClasses(ConfiguredService.class);
+        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(ConfigurationAdmin.class);
+                builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, Repository.class, Resource.class);
+                builder.addDynamicImportPackages(ConfigurationAdmin.class.getPackage().getName());
                 return builder.openStream();
             }
         });
@@ -79,11 +88,18 @@ public class ConfigurationAdminTestCase {
     }
 
     @Test
-    public void testManagedService() throws Exception {
+    @InSequence(0)
+    public void addConfigurationAdminSupport(@ArquillianResource Bundle bundle) throws Exception {
+        ConfigurationAdminSupport.provideConfigurationAdmin(context, bundle);
+        bundle.start();
+    }
+
+    @Test
+    @InSequence(1)
+    public void testManagedService(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the {@link Configuration} for the given PID
-        BundleContext context = bundle.getBundleContext();
-        ConfigurationAdmin configAdmin = getConfigurationAdmin(context);
+        ConfigurationAdmin configAdmin = ConfigurationAdminSupport.getConfigurationAdmin(bundle);
         Configuration config = configAdmin.getConfiguration(PID_A);
         Assert.assertNotNull("Config not null", config);
         Assert.assertNull("Config is empty, but was: " + config.getProperties(), config.getProperties());
@@ -97,20 +113,16 @@ public class ConfigurationAdminTestCase {
             ConfiguredService service = new ConfiguredService();
             Dictionary<String, String> serviceProps = new Hashtable<String, String>();
             serviceProps.put(Constants.SERVICE_PID, PID_A);
-            context.registerService(new String[] { ConfiguredService.class.getName(), ManagedService.class.getName() }, service, serviceProps);
+            String[] clazzes = new String[] { ConfiguredService.class.getName(), ManagedService.class.getName() };
+            bundle.getBundleContext().registerService(clazzes, service, serviceProps);
 
             // Wait a little for the update event
-            Assert.assertTrue(service.awaitUpdate(3, TimeUnit.SECONDS));
+            Assert.assertTrue("Service updated", service.awaitUpdate(3, TimeUnit.SECONDS));
 
             // Verify service property
             Assert.assertEquals("bar", service.getProperties().get("foo"));
         } finally {
             config.delete();
         }
-    }
-
-    private ConfigurationAdmin getConfigurationAdmin(BundleContext context) {
-        ServiceReference sref = context.getServiceReference(ConfigurationAdmin.class.getName());
-        return (ConfigurationAdmin) context.getService(sref);
     }
 }

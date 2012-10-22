@@ -34,6 +34,7 @@
     <!-- Properties -->
     <properties>
         <surefire.system.args>-ea -Xmx512m</surefire.system.args>
+        <surefire.security.args>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/tst.policy</surefire.security.args>
         <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
     </properties>
 

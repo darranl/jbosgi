@@ -32,7 +32,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Provide the org.apache.aries.blueprint bundle
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @since 28-Jan-2012
  */
@@ -42,6 +42,7 @@ public class BlueprintSupport extends RepositorySupport {
 
     public static void provideBlueprint(BundleContext syscontext, Bundle bundle) throws BundleException {
         AriesSupport.provideAriesProxy(syscontext, bundle);
+        ConfigurationAdminSupport.provideConfigurationAdmin(syscontext, bundle);
         if (getPackageAdmin(syscontext).getBundles("org.apache.aries.blueprint", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_BLUEPRINT)).start();
         }

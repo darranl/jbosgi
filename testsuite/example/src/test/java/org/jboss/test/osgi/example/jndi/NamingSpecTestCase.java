@@ -43,6 +43,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.BlueprintSupport;
+import org.jboss.test.osgi.ConfigurationAdminSupport;
 import org.jboss.test.osgi.NamingSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
@@ -83,7 +84,7 @@ public class NamingSpecTestCase {
     @Deployment(name = JNDI_PROVIDER)
     public static JavaArchive jndiProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JNDI_PROVIDER);
-        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class);
+        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class, ConfigurationAdminSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -92,6 +93,7 @@ public class NamingSpecTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addBundleActivator(JNDITestActivator.class);
                 builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, Repository.class, Resource.class);
                 builder.addImportPackages(PackageAdmin.class, Context.class, InitialContextFactory.class);
                 builder.addDynamicImportPackages(JNDIContextManager.class.getPackage().getName());
@@ -134,7 +136,6 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    @Ignore
     @InSequence(1)
     public void testContextManagerOwnerContext(@ArquillianResource Bundle bundle) throws Exception {
 
@@ -168,7 +169,6 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    @Ignore
     @InSequence(1)
     public void testContextManagerReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
 
@@ -298,7 +298,6 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    @Ignore
     @InSequence(1)
     public void testTraditionalAPIValueBinding(@ArquillianResource Bundle bundle) throws Exception {
 
@@ -318,7 +317,6 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    @Ignore
     @InSequence(1)
     public void testTraditionalAPIReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
 

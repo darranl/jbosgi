@@ -21,17 +21,17 @@
  */
 package org.jboss.test.osgi;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
-
-import javax.management.MBeanServer;
 import javax.management.MBeanServerConnection;
 import javax.management.MBeanServerInvocationHandler;
 import javax.management.ObjectName;
 
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+
 /**
+ * Provide the org.apache.aries.jmx bundle
+ *
  * @author thomas.diesler@jboss.com
  * @since 26-Jan-2012
  */
@@ -40,18 +40,16 @@ public final class JMXSupport extends RepositorySupport {
     public static final String APACHE_ARIES_JMX = "org.apache.aries.jmx:org.apache.aries.jmx";
     public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jbosgi-jmx";
 
-    public static MBeanServer provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
+    public static void provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
         AriesSupport.provideAriesUtil(syscontext, bundle);
         if (getPackageAdmin(syscontext).getBundles("jbosgi-jmx", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
             installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();
         }
-        ServiceReference sref = syscontext.getServiceReference(MBeanServer.class.getName());
-        return (MBeanServer) syscontext.getService(sref);
     }
 
     public static <T> T getMBeanProxy(MBeanServerConnection server, ObjectName name, Class<T> interf)
     {
-        return (T) MBeanServerInvocationHandler.newProxyInstance(server, name, interf, false);
+        return MBeanServerInvocationHandler.newProxyInstance(server, name, interf, false);
     }
 }

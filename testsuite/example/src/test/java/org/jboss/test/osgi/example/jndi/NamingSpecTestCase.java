@@ -33,6 +33,7 @@ import javax.naming.spi.InitialContextFactory;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRequirementBuilder;
@@ -53,7 +54,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
@@ -65,25 +65,24 @@ import org.osgi.service.repository.Repository;
 
 /**
  * This test exercises the OSGi-JNDI integration
- * 
+ *
  * @author David Bosschaert
  * @author Thomas.Diesler@jboss.com
  */
 @RunWith(Arquillian.class)
 public class NamingSpecTestCase {
 
+    private static final String JNDI_PROVIDER = "jndi-provider";
+
     @ArquillianResource
     BundleContext context;
 
     @ArquillianResource
-    Bundle bundle;
-
-    @ArquillianResource
     Deployer deployer;
 
-    @Deployment
-    public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-jndi");
+    @Deployment(name = JNDI_PROVIDER)
+    public static JavaArchive jndiProvider() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JNDI_PROVIDER);
         archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
@@ -93,10 +92,9 @@ public class NamingSpecTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addBundleActivator(JNDITestActivator.class);
-                builder.addImportPackages(PackageAdmin.class, BundleActivator.class);
-                builder.addImportPackages(Context.class, InitialContextFactory.class, JNDIContextManager.class);
                 builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, Repository.class, Resource.class);
+                builder.addImportPackages(PackageAdmin.class, Context.class, InitialContextFactory.class);
+                builder.addDynamicImportPackages(JNDIContextManager.class.getPackage().getName());
                 builder.addExportPackages(JNDITestService.class);
                 return builder.openStream();
             }
@@ -105,13 +103,18 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    public void testContextManager() throws Exception {
-
-        // Make sure we have a valid BundleContext
+    @InSequence(0)
+    public void addNamingSupport(@ArquillianResource Bundle bundle) throws Exception {
+        NamingSupport.provideJNDIIntegration(context, bundle);
         bundle.start();
+    }
+
+    @Test
+    @InSequence(1)
+    public void testContextManager(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via {@link JNDIContextManager}
-        JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundle);
+        JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Context initialContext = contextManager.newInitialContext();
 
         // Lookup the PackageAdmin OSGi service through JNDI
@@ -132,13 +135,11 @@ public class NamingSpecTestCase {
 
     @Test
     @Ignore
-    public void testContextManagerOwnerContext() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testContextManagerOwnerContext(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via {@link JNDIContextManager}
-        JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundle);
+        JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Context initialContext = contextManager.newInitialContext();
 
         // Get the context of the owner bundle
@@ -147,13 +148,11 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    public void testContextManagerValueBinding() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testContextManagerValueBinding(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via {@link JNDIContextManager}
-        JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundle);
+        JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, SimpleInitalContextFactory.class.getName());
         Context initialContext = contextManager.newInitialContext(env);
@@ -170,13 +169,11 @@ public class NamingSpecTestCase {
 
     @Test
     @Ignore
-    public void testContextManagerReferenceBinding() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testContextManagerReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via {@link JNDIContextManager}
-        JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundle);
+        JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, SimpleInitalContextFactory.class.getName());
         Context initialContext = contextManager.newInitialContext(env);
@@ -193,10 +190,8 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    public void testContextManagerValueLookup() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testContextManagerValueLookup(@ArquillianResource Bundle bundle) throws Exception {
 
         InputStream inputB = deployer.getDeployment("bundleB");
         Bundle bundleB = context.installBundle("bundleB", inputB);
@@ -209,8 +204,8 @@ public class NamingSpecTestCase {
             JNDITestService service = (JNDITestService) contextB.getService(sref);
             Assert.assertEquals("jndi-value", service.getValue());
 
-            // Get the InitialContext via {@link JNDIContextManager} for bundleB
-            JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundleB);
+            // Get the InitialContext via {@link JNDIContextManager}
+            JNDIContextManager contextManager = NamingSupport.getContextManager(bundleB);
             Context initialContext = contextManager.newInitialContext();
 
             // Lookup the {@link JNDITestService} service
@@ -226,10 +221,8 @@ public class NamingSpecTestCase {
     }
 
     @Test
+    @InSequence(1)
     public void testContextManagerValueLookupNegative() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
 
         InputStream inputC = deployer.getDeployment("bundleC");
         Bundle bundleC = context.installBundle("bundleC", inputC);
@@ -242,7 +235,8 @@ public class NamingSpecTestCase {
             Assert.assertNull("ServiceReference is null", sref);
 
             // Get the InitialContext via {@link JNDIContextManager} for bundleC
-            JNDIContextManager contextManager = NamingSupport.provideJNDIIntegration(context, bundleC);
+            // Get the InitialContext via {@link JNDIContextManager}
+            JNDIContextManager contextManager = NamingSupport.getContextManager(bundleC);
             Context initialContext = contextManager.newInitialContext();
 
             // Lookup the {@link JNDITestService} service
@@ -268,10 +262,8 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    public void testTraditionalAPI() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testTraditionalAPI(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via API
         Context initialContext = new InitialContext();
@@ -294,10 +286,8 @@ public class NamingSpecTestCase {
 
     @Test
     @Ignore
-    public void testTraditionalAPIOwnerContext() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testTraditionalAPIOwnerContext(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via API
         Context initialContext = new InitialContext();
@@ -309,10 +299,8 @@ public class NamingSpecTestCase {
 
     @Test
     @Ignore
-    public void testTraditionalAPIValueBinding() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testTraditionalAPIValueBinding(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via API
         Hashtable<String, String> env = new Hashtable<String, String>();
@@ -331,10 +319,8 @@ public class NamingSpecTestCase {
 
     @Test
     @Ignore
-    public void testTraditionalAPIReferenceBinding() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testTraditionalAPIReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via API
         Hashtable<String, String> env = new Hashtable<String, String>();
@@ -353,10 +339,8 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    public void testTraditionalAPIValueLookup() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testTraditionalAPIValueLookup(@ArquillianResource Bundle bundle) throws Exception {
 
         InputStream inputB = deployer.getDeployment("bundleB");
         Bundle bundleB = context.installBundle("bundleB", inputB);
@@ -387,10 +371,8 @@ public class NamingSpecTestCase {
     }
 
     @Test
-    public void testTraditionalAPIValueLookupNegative() throws Exception {
-
-        // Make sure we have a valid BundleContext
-        bundle.start();
+    @InSequence(1)
+    public void testTraditionalAPIValueLookupNegative(@ArquillianResource Bundle bundle) throws Exception {
 
         InputStream inputC = deployer.getDeployment("bundleC");
         Bundle bundleC = context.installBundle("bundleC", inputC);
@@ -432,7 +414,6 @@ public class NamingSpecTestCase {
     @Deployment(name = "bundleB", managed = false, testable = false)
     public static JavaArchive getBundleB() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bundleB");
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -451,7 +432,6 @@ public class NamingSpecTestCase {
     public static JavaArchive getBundleC() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "bundleC");
         archive.addClasses(JNDITestService.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

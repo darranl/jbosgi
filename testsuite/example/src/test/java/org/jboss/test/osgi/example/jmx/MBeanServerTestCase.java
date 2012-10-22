@@ -59,7 +59,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * A test that deployes a bundle that registeres an MBean
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 12-Feb-2009
  */
@@ -75,9 +75,6 @@ public class MBeanServerTestCase {
     @ArquillianResource
     BundleContext context;
 
-    @ArquillianResource
-    PackageAdmin packageAdmin;
-
     @Deployment(name = JMX_PROVIDER)
     public static JavaArchive jmxProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_PROVIDER);
@@ -91,7 +88,7 @@ public class MBeanServerTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
-                builder.addImportPackages(MBeanServer.class, ServiceTracker.class);
+                builder.addImportPackages(PackageAdmin.class, MBeanServer.class, ServiceTracker.class);
                 builder.addExportPackages(FooMBean.class);
                 return builder.openStream();
             }
@@ -103,6 +100,7 @@ public class MBeanServerTestCase {
     public static JavaArchive testBundle() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_BUNDLE);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
@@ -118,8 +116,7 @@ public class MBeanServerTestCase {
 
     @Test
     @InSequence(0)
-    public void addJMXSupport() throws BundleException {
-        Bundle bundle = packageAdmin.getBundles(JMX_PROVIDER, null)[0];
+    public void addJMXSupport(@ArquillianResource Bundle bundle) throws BundleException {
         JMXSupport.provideMBeanServer(context, bundle);
     }
 

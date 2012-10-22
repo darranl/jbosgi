@@ -33,27 +33,28 @@ import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Add support for injected PackageAdmin
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 07-Jun-2011
  */
 @RunWith(Arquillian.class)
 public class PackageAdminTestCase {
 
-    @ArquillianResource
-    Bundle bundle;
+    private static final String BUNDLE_A = "packageadmin-bundle";
 
     @ArquillianResource
     PackageAdmin packageAdmin;
 
     @Deployment
     public static JavaArchive create() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "package-admin-bundle");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_A);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addImportPackages(PackageAdmin.class);
                 return builder.openStream();
             }
         });
@@ -61,15 +62,15 @@ public class PackageAdminTestCase {
     }
 
     @Test
-    public void testPackageAdmin() throws Exception {
+    public void testPackageAdmin(@ArquillianResource Bundle bundle) throws Exception {
 
         Assert.assertNotNull("PackageAdmin injected", packageAdmin);
 
-        Bundle[] bundles = packageAdmin.getBundles("package-admin-bundle", null);
+        Bundle[] bundles = packageAdmin.getBundles(BUNDLE_A, null);
         Assert.assertNotNull("Bundles not null", bundles);
         Assert.assertEquals("One bundle found", 1, bundles.length);
 
-        Assert.assertEquals("package-admin-bundle", bundle.getSymbolicName());
+        Assert.assertEquals(BUNDLE_A, bundle.getSymbolicName());
         Assert.assertEquals(bundle, bundles[0]);
     }
 }

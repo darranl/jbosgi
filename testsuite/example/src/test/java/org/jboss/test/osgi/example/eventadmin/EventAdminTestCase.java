@@ -40,7 +40,9 @@ import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.ConfigurationAdminSupport;
 import org.jboss.test.osgi.EventAdminSupport;
+import org.jboss.test.osgi.MetatypeSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,7 +60,7 @@ import org.osgi.service.repository.Repository;
 
 /**
  * A test that deployes the EventAdmin and sends/receives messages on a topic.
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 08-Dec-2009
  */
@@ -76,20 +78,20 @@ public class EventAdminTestCase {
     @ArquillianResource
     BundleContext context;
 
-    @ArquillianResource
-    PackageAdmin packageAdmin;
-
     @Deployment(name = EVENT_ADMIN_PROVIDER)
     public static JavaArchive eventadminProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, EVENT_ADMIN_PROVIDER);
-        archive.addClasses(EventAdminSupport.class, RepositorySupport.class);
+        archive.addClasses(EventAdminSupport.class, ConfigurationAdminSupport.class, MetatypeSupport.class, RepositorySupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
+                builder.addImportPackages(PackageAdmin.class);
+                builder.addDynamicImportPackages(EventAdmin.class.getPackage().getName());
                 return builder.openStream();
             }
         });
@@ -100,6 +102,7 @@ public class EventAdminTestCase {
     public static JavaArchive testBundle() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, EVENT_ADMIN_BUNDLE);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
@@ -113,12 +116,12 @@ public class EventAdminTestCase {
 
     @Test
     @InSequence(0)
-    public void addEventAdminSupport() throws BundleException {
-        Bundle bundle = packageAdmin.getBundles(EVENT_ADMIN_PROVIDER, null)[0];
+    public void addEventAdminSupport(@ArquillianResource Bundle bundle) throws BundleException {
         EventAdminSupport.provideEventAdmin(context, bundle);
     }
 
     @Test
+    @InSequence(1)
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void testEventHandler() throws Exception {
         InputStream input = deployer.getDeployment(EVENT_ADMIN_BUNDLE);
@@ -131,7 +134,13 @@ public class EventAdminTestCase {
             // Register the EventHandler
             Dictionary param = new Hashtable();
             param.put(EventConstants.EVENT_TOPIC, new String[] { TOPIC });
-            TestEventHandler eventHandler = new TestEventHandler();
+            final List<Event> received = new ArrayList<Event>();
+            EventHandler eventHandler = new EventHandler() {
+                @Override
+                public void handleEvent(Event event) {
+                    received.add(event);
+                }
+            };
             context.registerService(EventHandler.class.getName(), eventHandler, param);
 
             // Send event through the the EventAdmin
@@ -140,18 +149,10 @@ public class EventAdminTestCase {
             eventAdmin.sendEvent(new Event(TOPIC, (Dictionary) null));
 
             // Verify received event
-            assertEquals("Event received", 1, eventHandler.received.size());
-            assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+            assertEquals("Event received", 1, received.size());
+            assertEquals(TOPIC, received.get(0).getTopic());
         } finally {
             bundle.uninstall();
-        }
-    }
-
-    static class TestEventHandler implements EventHandler {
-        List<Event> received = new ArrayList<Event>();
-
-        public void handleEvent(Event event) {
-            received.add(event);
         }
     }
 }

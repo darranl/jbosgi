@@ -5,6 +5,7 @@ org.apache.aries.proxy\:org.apache.aries.proxy=@version.apache.aries.proxy@
 org.apache.aries\:org.apache.aries.util=@version.apache.aries.util@
 org.apache.felix\:org.apache.felix.configadmin=@version.apache.felix.configadmin@
 org.apache.felix\:org.apache.felix.eventadmin=@version.apache.felix.eventadmin@
+org.apache.felix\:org.apache.felix.metatype=@version.apache.felix.metatype@
 org.apache.felix\:org.apache.felix.scr=@version.apache.felix.scr@
 org.jboss.osgi.http\:jbosgi-http-api=@version.jboss.osgi.http@
 org.jboss.osgi.jmx\:jbosgi-jmx=@version.jboss.osgi.jmx@

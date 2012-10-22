@@ -49,6 +49,7 @@
         <version.apache.felix.configadmin>1.2.8</version.apache.felix.configadmin>
         <version.apache.felix.eventadmin>1.2.14</version.apache.felix.eventadmin>
         <version.apache.felix.log>1.0.0</version.apache.felix.log>
+        <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
         <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
         <version.eclipse.jetty>8.1.4.v20120524</version.eclipse.jetty>
@@ -291,13 +292,13 @@
             <dependency>
                 <groupId>org.jboss.osgi.felix</groupId>
                 <artifactId>jboss-osgi-felix</artifactId>
-                <version>${version.jboss.osgi.felix}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.jboss.osgi</groupId>
                         <artifactId>jboss-osgi-spi</artifactId>
                     </exclusion>
                 </exclusions>
+                <version>${version.jboss.osgi.felix}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
@@ -312,7 +313,6 @@
             <dependency>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.log</artifactId>
-                <version>${version.apache.felix.log}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.felix</groupId>
@@ -323,6 +323,22 @@
                         <artifactId>org.osgi.compendium</artifactId>
                     </exclusion>
                 </exclusions>
+                <version>${version.apache.felix.log}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.metatype</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>org.osgi.core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>org.osgi.compendium</artifactId>
+                    </exclusion>
+                </exclusions>
+                <version>${version.apache.felix.metatype}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>

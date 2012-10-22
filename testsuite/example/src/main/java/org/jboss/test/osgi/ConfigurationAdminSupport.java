@@ -27,22 +27,20 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 
 /**
- * Provide the org.apache.felix.eventadmin bundle
+ * Provide the org.apache.felix.configadmin bundle
  *
  * @author thomas.diesler@jboss.com
- * @since 28-Jan-2012
+ * @since 22-Oct-2012
  */
-public class EventAdminSupport extends RepositorySupport {
+public class ConfigurationAdminSupport extends RepositorySupport {
 
-    public static final String EVENT_ADMIN_SERVICE = "org.osgi.service.event.EventAdmin";
-    public static final String APACHE_FELIX_EVENTADMIN = "org.apache.felix:org.apache.felix.eventadmin";
+    public static final String CONFIGURATION_ADMIN_SERVICE = "org.osgi.service.cm.ConfigurationAdmin";
+    public static final String APACHE_FELIX_CONFIGURATION_ADMIN = "org.apache.felix:org.apache.felix.configadmin";
 
-    public static void provideEventAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ConfigurationAdminSupport.provideConfigurationAdmin(syscontext, bundle);
-        MetatypeSupport.provideMetatype(syscontext, bundle);
-        ServiceReference sref = syscontext.getServiceReference(EVENT_ADMIN_SERVICE);
+    public static void provideConfigurationAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
+        ServiceReference sref = syscontext.getServiceReference(CONFIGURATION_ADMIN_SERVICE);
         if (sref == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
+            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_CONFIGURATION_ADMIN)).start();
         }
     }
 }

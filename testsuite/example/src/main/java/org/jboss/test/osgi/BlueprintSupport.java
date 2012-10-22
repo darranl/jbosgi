@@ -25,8 +25,14 @@ package org.jboss.test.osgi;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
+import org.osgi.framework.Filter;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.service.blueprint.container.BlueprintContainer;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
+ * Provide the org.apache.aries.blueprint bundle
+ * 
  * @author Thomas.Diesler@jboss.com
  * @since 28-Jan-2012
  */
@@ -39,5 +45,14 @@ public class BlueprintSupport extends RepositorySupport {
         if (getPackageAdmin(syscontext).getBundles("org.apache.aries.blueprint", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_BLUEPRINT)).start();
         }
+    }
+
+    public static BlueprintContainer getBlueprintContainer(Bundle bundle) throws Exception {
+        String objectclass = "(objectclass=" + BlueprintContainer.class.getName() + ")";
+        String symbolicname = "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")";
+        Filter filter = FrameworkUtil.createFilter("(&" + objectclass + symbolicname + ")");
+        ServiceTracker tracker = new ServiceTracker(bundle.getBundleContext(), filter, null);
+        tracker.open();
+        return (BlueprintContainer) tracker.waitForService(10000);
     }
 }

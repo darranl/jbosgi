@@ -63,7 +63,7 @@
         <version.javax.transaction.api>1.0.1.Final</version.javax.transaction.api>
         <version.jbossas.720>7.2.0.Alpha1-SNAPSHOT</version.jbossas.720>
         <version.jboss.arquillian.core>1.0.0.Final</version.jboss.arquillian.core>
-        <version.jboss.arquillian.osgi>1.0.3.CR1</version.jboss.arquillian.osgi>
+        <version.jboss.arquillian.osgi>1.0.3.CR2-SNAPSHOT</version.jboss.arquillian.osgi>
         <version.jboss.logging>3.1.2.GA</version.jboss.logging>
         <version.jboss.logging.processor>1.1.0.Beta1</version.jboss.logging.processor>
         <version.jboss.logmanager>1.4.0.Beta1</version.jboss.logmanager>

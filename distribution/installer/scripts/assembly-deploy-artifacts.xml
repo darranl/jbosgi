@@ -18,7 +18,6 @@
             </outputFileNameMapping>
             <useStrictFiltering>true</useStrictFiltering>
             <excludes>
-                <exclude>*:org.osgi.compendium:jar</exclude>
                 <exclude>*:org.osgi.core:jar</exclude>
             </excludes>
             <scope>compile</scope>
@@ -30,7 +29,6 @@
             </outputFileNameMapping>
             <useStrictFiltering>true</useStrictFiltering>
             <includes>
-                <include>org.osgi:org.osgi.compendium:jar</include>
                 <include>org.osgi:org.osgi.core:jar</include>
             </includes>
             <scope>compile</scope>

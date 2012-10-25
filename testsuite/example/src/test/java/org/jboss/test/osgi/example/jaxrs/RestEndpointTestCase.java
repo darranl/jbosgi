@@ -55,7 +55,7 @@ import org.osgi.framework.BundleException;
 
 /**
  * Test simple OSGi REST deployment
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 30-Aug-2012
  */
@@ -87,6 +87,7 @@ public class RestEndpointTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });

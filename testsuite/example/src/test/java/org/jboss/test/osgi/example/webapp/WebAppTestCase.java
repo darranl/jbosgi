@@ -58,9 +58,9 @@ import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Test webapp deployemnts as OSGi bundles
- * 
+ *
  * @author thomas.diesler@jboss.com
- * 
+ *
  * @since 07-Jun-2011
  */
 @RunWith(Arquillian.class)
@@ -98,6 +98,7 @@ public class WebAppTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addImportPackages(PackageAdmin.class, ManagementClient.class);
                 return builder.openStream();
             }
         });

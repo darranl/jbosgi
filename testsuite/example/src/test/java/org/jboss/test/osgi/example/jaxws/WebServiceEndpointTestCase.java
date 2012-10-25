@@ -57,7 +57,7 @@ import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Test web service endpoint functionality
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2011
  */
@@ -93,6 +93,7 @@ public class WebServiceEndpointTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(WebService.class, SOAPBinding.class, QName.class, Service.class);
+                builder.addImportPackages(PackageAdmin.class, ManagementClient.class);
                 return builder.openStream();
             }
         });

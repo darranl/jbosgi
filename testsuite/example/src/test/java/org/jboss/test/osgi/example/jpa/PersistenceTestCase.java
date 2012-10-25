@@ -54,7 +54,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Test simple OSGi Persistence deployment
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 31-Aug-2012
  */
@@ -83,6 +83,7 @@ public class PersistenceTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(Bundle.class, ServiceTracker.class, EntityManager.class);
+                builder.addImportPackages(PackageAdmin.class);
                 return builder.openStream();
             }
         });

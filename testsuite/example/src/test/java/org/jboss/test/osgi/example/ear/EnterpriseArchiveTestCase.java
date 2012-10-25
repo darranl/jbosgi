@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test OSGi bundles contained in EARs
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 07-Jun-2011
  */
@@ -77,6 +77,7 @@ public class EnterpriseArchiveTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });

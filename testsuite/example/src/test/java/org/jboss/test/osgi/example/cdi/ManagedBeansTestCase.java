@@ -58,7 +58,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Tests CDI deployments with OSGi metadata
- * 
+ *
  * @author Thomas.Diesler@jboss.com
  * @since 09-Jul-2012
  */
@@ -91,6 +91,7 @@ public class ManagedBeansTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addImportPackages(PackageAdmin.class, ManagementClient.class);
                 return builder.openStream();
             }
         });

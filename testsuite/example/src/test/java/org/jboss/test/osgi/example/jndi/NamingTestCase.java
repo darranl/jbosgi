@@ -27,7 +27,6 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
-import javax.naming.Reference;
 import javax.naming.spi.InitialContextFactory;
 
 import org.jboss.arquillian.container.test.api.Deployer;
@@ -48,10 +47,8 @@ import org.jboss.test.osgi.NamingSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.SimpleInitalContextFactory;
-import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.StringReference;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestService;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -71,7 +68,7 @@ import org.osgi.service.repository.Repository;
  * @author Thomas.Diesler@jboss.com
  */
 @RunWith(Arquillian.class)
-public class NamingSpecTestCase {
+public class NamingTestCase {
 
     private static final String JNDI_PROVIDER = "jndi-provider";
 
@@ -137,19 +134,6 @@ public class NamingSpecTestCase {
 
     @Test
     @InSequence(1)
-    public void testContextManagerOwnerContext(@ArquillianResource Bundle bundle) throws Exception {
-
-        // Get the InitialContext via {@link JNDIContextManager}
-        JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
-        Context initialContext = contextManager.newInitialContext();
-
-        // Get the context of the owner bundle
-        BundleContext context = (BundleContext) initialContext.lookup("osgi:framework/bundleContext");
-        Assert.assertEquals(bundle.getBundleContext(), context);
-    }
-
-    @Test
-    @InSequence(1)
     public void testContextManagerValueBinding(@ArquillianResource Bundle bundle) throws Exception {
 
         // Get the InitialContext via {@link JNDIContextManager}
@@ -160,27 +144,6 @@ public class NamingSpecTestCase {
 
         // Bind a some value under some key
         initialContext.bind("test/foo", "bar");
-        try {
-            // Lookup the value
-            Assert.assertEquals("bar", initialContext.lookup("test/foo"));
-        } finally {
-            initialContext.unbind("test/foo");
-        }
-    }
-
-    @Test
-    @InSequence(1)
-    public void testContextManagerReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
-
-        // Get the InitialContext via {@link JNDIContextManager}
-        JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
-        Hashtable<String, String> env = new Hashtable<String, String>();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, SimpleInitalContextFactory.class.getName());
-        Context initialContext = contextManager.newInitialContext(env);
-
-        // Bind a some value reference under some key
-        Reference ref = new StringReference("bar");
-        initialContext.bind("test/foo", ref);
         try {
             // Lookup the value
             Assert.assertEquals("bar", initialContext.lookup("test/foo"));
@@ -282,58 +245,6 @@ public class NamingSpecTestCase {
         // Lookup the {@link JNDITestService} service by name
         service = (JNDITestService) initialContext.lookup("osgi:service/foo");
         Assert.assertEquals("jndi-value", service.getValue());
-    }
-
-    @Test
-    @Ignore
-    @InSequence(1)
-    public void testTraditionalAPIOwnerContext(@ArquillianResource Bundle bundle) throws Exception {
-
-        // Get the InitialContext via API
-        Context initialContext = new InitialContext();
-
-        // Get the context of the owner bundle
-        BundleContext context = (BundleContext) initialContext.lookup("osgi:framework/bundleContext");
-        Assert.assertEquals(bundle.getBundleContext(), context);
-    }
-
-    @Test
-    @InSequence(1)
-    public void testTraditionalAPIValueBinding(@ArquillianResource Bundle bundle) throws Exception {
-
-        // Get the InitialContext via API
-        Hashtable<String, String> env = new Hashtable<String, String>();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, SimpleInitalContextFactory.class.getName());
-        Context initialContext = new InitialContext(env);
-
-        // Bind a some value under some key
-        initialContext.bind("test/foo", "bar");
-        try {
-            // Lookup the value
-            Assert.assertEquals("bar", initialContext.lookup("test/foo"));
-        } finally {
-            initialContext.unbind("test/foo");
-        }
-    }
-
-    @Test
-    @InSequence(1)
-    public void testTraditionalAPIReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
-
-        // Get the InitialContext via API
-        Hashtable<String, String> env = new Hashtable<String, String>();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, SimpleInitalContextFactory.class.getName());
-        Context initialContext = new InitialContext(env);
-
-        // Bind a some value reference under some key
-        Reference ref = new StringReference("bar");
-        initialContext.bind("test/foo", ref);
-        try {
-            // Lookup the value
-            Assert.assertEquals("bar", initialContext.lookup("test/foo"));
-        } finally {
-            initialContext.unbind("test/foo");
-        }
     }
 
     @Test

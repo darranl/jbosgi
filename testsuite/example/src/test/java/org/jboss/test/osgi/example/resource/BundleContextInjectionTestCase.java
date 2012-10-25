@@ -46,7 +46,7 @@ import org.junit.runner.RunWith;
 
 /**
  * An example of OSGi resource injection.
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 10-Jul-2012
  */
@@ -73,6 +73,7 @@ public class BundleContextInjectionTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });

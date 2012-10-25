@@ -36,7 +36,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
-import org.jboss.logging.Logger;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.resolver.XBundle;
 import org.jboss.shrinkwrap.api.Archive;
@@ -55,7 +54,7 @@ import org.osgi.service.http.HttpService;
 
 /**
  * Test the {@link HttpService} on JBossWeb
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 19-Jul-2011
  */
@@ -83,6 +82,7 @@ public class HttpServiceTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(HttpService.class);
                 builder.addImportPackages(Servlet.class, HttpServlet.class);
+                builder.addImportPackages(XBundle.class, ManagementClient.class);
                 return builder.openStream();
             }
         });
@@ -201,8 +201,6 @@ public class HttpServiceTestCase {
     @SuppressWarnings("serial")
     static final class HttpServiceServlet extends HttpServlet {
 
-        static Logger log = Logger.getLogger(HttpServiceServlet.class);
-
         private final XBundle bundle;
 
         // This hides the default ctor and verifies that this instance is used
@@ -210,6 +208,7 @@ public class HttpServiceTestCase {
             this.bundle = (XBundle) bundle;
         }
 
+        @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
             PrintWriter out = res.getWriter();
             String type = req.getParameter("test");

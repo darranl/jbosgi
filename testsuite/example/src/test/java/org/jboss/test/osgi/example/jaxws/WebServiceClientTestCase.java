@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test web service client functionality
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 28-Aug-2011
  */
@@ -80,6 +80,7 @@ public class WebServiceClientTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(WebService.class, SOAPBinding.class, QName.class, Service.class);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });

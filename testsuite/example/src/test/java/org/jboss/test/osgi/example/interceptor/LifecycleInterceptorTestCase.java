@@ -57,10 +57,10 @@ import org.osgi.service.http.HttpService;
 /**
  * A test that deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and
  * registeres an http endpoint from it.
- * 
+ *
  * The idea is that the bundle does not process its own metadata. Instead this work is delegated to some specialized metadata
  * processor (i.e. the interceptor)
- * 
+ *
  * @author thomas.diesler@jboss.com
  * @since 23-Oct-2009
  */
@@ -84,11 +84,12 @@ public class LifecycleInterceptorTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "example-interceptor");
         archive.addClasses(HttpRequest.class);
         archive.setManifest(new Asset() {
+            @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(HttpService.class);
+                builder.addImportPackages(HttpService.class, ManagementClient.class);
                 return builder.openStream();
             }
         });

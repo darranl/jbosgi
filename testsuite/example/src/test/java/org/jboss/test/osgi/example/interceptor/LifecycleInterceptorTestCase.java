@@ -104,7 +104,7 @@ public class LifecycleInterceptorTestCase {
             Bundle endpointBundle = context.installBundle(ENDPOINT_NAME, deployer.getDeployment(ENDPOINT_NAME));
             try {
                 endpointBundle.start();
-                String line = getHttpResponse("/httpservice/example-interceptor/servlet");
+                String line = getHttpResponse("/example-interceptor/servlet");
                 assertEquals("Hello from Servlet", line);
             } finally {
                 endpointBundle.uninstall();

@@ -93,7 +93,7 @@ public class HttpServiceTestCase {
     public void testServletAccess() throws Exception {
         BundleContext context = bundle.getBundleContext();
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
-        String reqspec = "/httpservice/servlet?test=param&param=Kermit";
+        String reqspec = "/servlet?test=param&param=Kermit";
         try {
             HttpService httpService = (HttpService) context.getService(sref);
 
@@ -118,7 +118,7 @@ public class HttpServiceTestCase {
     public void testResourceAccess() throws Exception {
         BundleContext context = bundle.getBundleContext();
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
-        String reqspec = "/httpservice/resource/message.txt";
+        String reqspec = "/resource/message.txt";
         try {
             HttpService httpService = (HttpService) context.getService(sref);
 
@@ -143,7 +143,7 @@ public class HttpServiceTestCase {
     public void testServletInitProps() throws Exception {
         BundleContext context = bundle.getBundleContext();
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
-        String reqspec = "/httpservice/servlet?test=init&init=someKey";
+        String reqspec = "/servlet?test=init&init=someKey";
         try {
             HttpService httpService = (HttpService) context.getService(sref);
 
@@ -167,7 +167,7 @@ public class HttpServiceTestCase {
     public void testServletInstance() throws Exception {
         BundleContext context = bundle.getBundleContext();
         ServiceReference sref = context.getServiceReference(HttpService.class.getName());
-        String reqspec = "/httpservice/servlet?test=instance";
+        String reqspec = "/servlet?test=instance";
         try {
             HttpService httpService = (HttpService) context.getService(sref);
 

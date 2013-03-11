@@ -17,11 +17,13 @@
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}
             </outputFileNameMapping>
             <includes>
+                <include>*:jbosgi-repository:jar</include>
+                <!--  
                 <include>*:org.apache.felix.log:jar</include>
                 <include>*:jboss-annotations-api_1.1_spec:jar</include>
                 <include>*:jboss-servlet-api_3.0_spec:jar</include>
-                <include>*:jbosgi-repository:jar</include>
                 <include>*:jboss-osgi-logging:jar</include>
+                -->
             </includes>
             <useStrictFiltering>true</useStrictFiltering>
             <scope>provided</scope>

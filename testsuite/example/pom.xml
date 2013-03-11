@@ -40,8 +40,33 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-controller-client</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.annotation</groupId>
+            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -49,11 +74,7 @@
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!-- 
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint</artifactId>
@@ -114,44 +135,10 @@
             <artifactId>jboss-osgi-logging</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectodd.stilts</groupId>
-            <artifactId>stilts-stomp-client</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectodd.stilts</groupId>
-            <artifactId>stilts-stomplet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        -->
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.enterprise</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -256,6 +243,13 @@
                         <configuration>
                             <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
                             <excludes>
+                                <exclude>**/blueprint/*TestCase.java</exclude>
+                                <exclude>**/configadmin/*TestCase.java</exclude>
+                                <exclude>**/ds/*TestCase.java</exclude>
+                                <exclude>**/eventadmin/*TestCase.java</exclude>
+                                <exclude>**/jmx/*TestCase.java</exclude>
+                                <exclude>**/jndi/*TestCase.java</exclude>
+                                
                                 <exclude>**/cdi/*TestCase.java</exclude>
                                 <exclude>**/ear/*TestCase.java</exclude>
                                 <exclude>**/ejb3/*TestCase.java</exclude>
@@ -268,7 +262,6 @@
                                 <exclude>**/jpa/*TestCase.java</exclude>
                                 <exclude>**/jta/*TestCase.java</exclude>
                                 <exclude>**/resource/*TestCase.java</exclude>
-                                <exclude>**/stilts/*TestCase.java</exclude>
                                 <exclude>**/webapp/*TestCase.java</exclude>
                             </excludes>
                         </configuration>

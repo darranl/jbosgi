@@ -28,8 +28,7 @@ import java.util.concurrent.TimeoutException;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.FrameworkListener;
-import org.osgi.framework.ServiceReference;
-import org.osgi.service.startlevel.StartLevel;
+import org.osgi.framework.startlevel.FrameworkStartLevel;
 
 
 /**
@@ -48,20 +47,28 @@ public final class FrameworkUtils {
      * Changes the framework start level and waits for the STARTLEVEL_CHANGED event
      * Note, changing the framework start level is an asynchronous operation.
      */
-    public static void changeStartLevel(final BundleContext context, final int level, final long timeout, final TimeUnit units) throws InterruptedException, TimeoutException {
-        final ServiceReference sref = context.getServiceReference(StartLevel.class.getName());
-        final StartLevel startLevel = (StartLevel) context.getService(sref);
-        if (level != startLevel.getStartLevel()) {
+    public static int getFrameworkStartLevel(final BundleContext context)  {
+        FrameworkStartLevel fwkStartLevel = context.getBundle().adapt(FrameworkStartLevel.class);
+        return fwkStartLevel.getStartLevel();
+    }
+
+    /**
+     * Changes the framework start level and waits for the STARTLEVEL_CHANGED event
+     * Note, changing the framework start level is an asynchronous operation.
+     */
+    public static void setFrameworkStartLevel(final BundleContext context, final int level, final long timeout, final TimeUnit units) throws InterruptedException, TimeoutException {
+        final FrameworkStartLevel fwkStartLevel = context.getBundle().adapt(FrameworkStartLevel.class);
+        if (level != fwkStartLevel.getStartLevel()) {
             final CountDownLatch latch = new CountDownLatch(1);
-            context.addFrameworkListener(new FrameworkListener() {
+            FrameworkListener listener = new FrameworkListener() {
                 @Override
                 public void frameworkEvent(FrameworkEvent event) {
-                    if (event.getType() == FrameworkEvent.STARTLEVEL_CHANGED && level == startLevel.getStartLevel()) {
+                    if (event.getType() == FrameworkEvent.STARTLEVEL_CHANGED && level == fwkStartLevel.getStartLevel()) {
                         latch.countDown();
                     }
                 }
-            });
-            startLevel.setStartLevel(level);
+            };
+            fwkStartLevel.setStartLevel(level, listener);
             if (latch.await(timeout, units) == false)
                 throw new TimeoutException("Timeout changing start level");
         }

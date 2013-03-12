@@ -39,6 +39,8 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.DeclarativeServicesSupport;
+import org.jboss.test.osgi.FrameworkUtils;
+import org.jboss.test.osgi.MetatypeSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +49,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -69,13 +70,10 @@ public class DeclarativeServicesTestCase {
     @ArquillianResource
     BundleContext context;
 
-    @ArquillianResource
-    PackageAdmin packageAdmin;
-
     @Deployment(name = DS_PROVIDER)
     public static JavaArchive dsProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DS_PROVIDER);
-        archive.addClasses(DeclarativeServicesSupport.class, RepositorySupport.class);
+        archive.addClasses(DeclarativeServicesSupport.class, MetatypeSupport.class, RepositorySupport.class, FrameworkUtils.class);
         archive.addClasses(SampleComparator.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -84,7 +82,7 @@ public class DeclarativeServicesTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
-                builder.addImportPackages(PackageAdmin.class, ServiceTracker.class);
+                builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(SampleComparator.class);
                 return builder.openStream();
             }
@@ -112,12 +110,13 @@ public class DeclarativeServicesTestCase {
     @Test
     @InSequence(0)
     public void addDSSupport() throws BundleException {
-        Bundle bundle = packageAdmin.getBundles(DS_PROVIDER, null)[0];
+        Bundle bundle = context.getBundle(DS_PROVIDER);
         DeclarativeServicesSupport.provideDeclarativeServices(context, bundle);
     }
 
     @Test
     @InSequence(1)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void testImmediateService() throws Exception {
         InputStream input = deployer.getDeployment(DS_BUNDLE);
         Bundle bundle = context.installBundle(DS_BUNDLE, input);

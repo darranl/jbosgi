@@ -43,7 +43,7 @@ public class BlueprintSupport extends RepositorySupport {
     public static void provideBlueprint(BundleContext syscontext, Bundle bundle) throws BundleException {
         AriesSupport.provideAriesProxy(syscontext, bundle);
         ConfigurationAdminSupport.provideConfigurationAdmin(syscontext, bundle);
-        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.blueprint", null) == null) {
+        if (FrameworkUtils.getBundles(syscontext, "org.apache.aries.blueprint", null).isEmpty()) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_BLUEPRINT)).start();
         }
     }

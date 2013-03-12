@@ -35,14 +35,14 @@ public final class AriesSupport extends RepositorySupport {
     public static final String APACHE_ARIES_UTIL = "org.apache.aries:org.apache.aries.util";
 
     public static void provideAriesUtil(BundleContext syscontext, Bundle bundle) throws BundleException {
-        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.util", null) == null) {
+        if (FrameworkUtils.getBundles(syscontext, "org.apache.aries.util", null).isEmpty()) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_UTIL)).start();
         }
     }
 
     public static void provideAriesProxy(BundleContext syscontext, Bundle bundle) throws BundleException {
         AriesSupport.provideAriesUtil(syscontext, bundle);
-        if (getPackageAdmin(syscontext).getBundles("org.apache.aries.proxy", null) == null) {
+        if (FrameworkUtils.getBundles(syscontext, "org.apache.aries.proxy", null).isEmpty()) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_PROXY)).start();
         }
     }

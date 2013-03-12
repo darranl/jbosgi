@@ -36,6 +36,7 @@ public class DeclarativeServicesSupport extends RepositorySupport {
     public static final String APACHE_FELIX_SCR = "org.apache.felix:org.apache.felix.scr";
 
     public static void provideDeclarativeServices(BundleContext syscontext, Bundle bundle) throws BundleException {
+        MetatypeSupport.provideMetatype(syscontext, bundle);
         if (syscontext.getServiceReference("org.apache.felix.scr.ScrService") == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_SCR)).start();
         }

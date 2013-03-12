@@ -21,13 +21,20 @@
  */
 package org.jboss.test.osgi;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.jboss.osgi.resolver.XBundle;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.FrameworkListener;
+import org.osgi.framework.VersionRange;
 import org.osgi.framework.startlevel.FrameworkStartLevel;
 
 
@@ -44,10 +51,9 @@ public final class FrameworkUtils {
     }
 
     /**
-     * Changes the framework start level and waits for the STARTLEVEL_CHANGED event
-     * Note, changing the framework start level is an asynchronous operation.
+     * Get the current framework start level.
      */
-    public static int getFrameworkStartLevel(final BundleContext context)  {
+    public static int getFrameworkStartLevel(BundleContext context)  {
         FrameworkStartLevel fwkStartLevel = context.getBundle().adapt(FrameworkStartLevel.class);
         return fwkStartLevel.getStartLevel();
     }
@@ -56,7 +62,7 @@ public final class FrameworkUtils {
      * Changes the framework start level and waits for the STARTLEVEL_CHANGED event
      * Note, changing the framework start level is an asynchronous operation.
      */
-    public static void setFrameworkStartLevel(final BundleContext context, final int level, final long timeout, final TimeUnit units) throws InterruptedException, TimeoutException {
+    public static void setFrameworkStartLevel(BundleContext context, final int level, long timeout, TimeUnit units) throws InterruptedException, TimeoutException {
         final FrameworkStartLevel fwkStartLevel = context.getBundle().adapt(FrameworkStartLevel.class);
         if (level != fwkStartLevel.getStartLevel()) {
             final CountDownLatch latch = new CountDownLatch(1);
@@ -72,5 +78,21 @@ public final class FrameworkUtils {
             if (latch.await(timeout, units) == false)
                 throw new TimeoutException("Timeout changing start level");
         }
+    }
+
+    public static Set<XBundle> getBundles(BundleContext context, String symbolicName, VersionRange versionRange) {
+        Set<XBundle> resultSet = new HashSet<XBundle>();
+        if (Constants.SYSTEM_BUNDLE_SYMBOLICNAME.equals(symbolicName) && versionRange == null) {
+            resultSet.add((XBundle) context.getBundle(0));
+        } else {
+            for (Bundle aux : context.getBundles()) {
+                if (symbolicName == null || symbolicName.equals(aux.getSymbolicName())) {
+                    if (versionRange == null || versionRange.includes(aux.getVersion())) {
+                        resultSet.add((XBundle) aux);
+                    }
+                }
+            }
+        }
+        return Collections.unmodifiableSet(resultSet);
     }
 }

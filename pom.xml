@@ -42,6 +42,9 @@
     <properties>
         <version.apache.ant>1.7.0</version.apache.ant>
         <version.apache.felix.configadmin>1.6.0</version.apache.felix.configadmin>
+        <version.apache.felix.log>1.0.1</version.apache.felix.log>
+        <version.apache.felix.metatype>1.0.6</version.apache.felix.metatype>
+        <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <!--
         <version.apache.aries.blueprint>0.4</version.apache.aries.blueprint>
         <version.apache.aries.jmx>0.3</version.apache.aries.jmx>
@@ -49,9 +52,6 @@
         <version.apache.aries.proxy>0.4</version.apache.aries.proxy>
         <version.apache.aries.util>0.4</version.apache.aries.util>
         <version.apache.felix.eventadmin>1.2.14</version.apache.felix.eventadmin>
-        <version.apache.felix.log>1.0.0</version.apache.felix.log>
-        <version.apache.felix.metatype>1.0.4</version.apache.felix.metatype>
-        <version.apache.felix.scr>1.6.0</version.apache.felix.scr>
         <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
         <version.eclipse.jetty>8.1.4.v20120524</version.eclipse.jetty>
         -->
@@ -75,13 +75,13 @@
         <version.jboss.osgi.felix>3.0.4</version.jboss.osgi.felix> 
         -->
         <version.jboss.osgi.framework>3.0.0.CR4</version.jboss.osgi.framework>
+        <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging> 
         <!-- 
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
-        <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging> 
         -->
         <version.jboss.osgi.metadata>3.0.0.Alpha5</version.jboss.osgi.metadata>
-        <version.jboss.osgi.repository>2.1.0.Final</version.jboss.osgi.repository>
-        <version.jboss.osgi.resolver>4.0.0.Alpha6</version.jboss.osgi.resolver>
+        <version.jboss.osgi.repository>3.0.0.CR1-SNAPSHOT</version.jboss.osgi.repository>
+        <version.jboss.osgi.resolver>4.0.0.Alpha7-SNAPSHOT</version.jboss.osgi.resolver>
         <version.jboss.osgi.spi>4.0.0.Alpha2</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>2.0.0.Alpha4</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>2.0.0.Alpha3</version.jboss.osgi.vfs>
@@ -220,11 +220,12 @@
                 <artifactId>jbosgi-jmx</artifactId>
                 <version>${version.jboss.osgi.jmx}</version>
             </dependency>
+            -->
             <dependency>
                 <groupId>org.jboss.osgi.logging</groupId>
                 <artifactId>jboss-osgi-logging</artifactId>
                 <version>${version.jboss.osgi.logging}</version>
-            </dependency-->
+            </dependency>
 	        <dependency>
 	            <groupId>org.jboss.osgi.metadata</groupId>
 	            <artifactId>jbosgi-metadata</artifactId>
@@ -284,22 +285,15 @@
                 <artifactId>org.apache.felix.configadmin</artifactId>
                 <version>${version.apache.felix.configadmin}</version>
             </dependency>
-            <!-- 
             <dependency>
-                <groupId>org.jboss.osgi.felix</groupId>
-                <artifactId>jboss-osgi-felix</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jboss.osgi</groupId>
-                        <artifactId>jboss-osgi-spi</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${version.jboss.osgi.felix}</version>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr</artifactId>
+                <version>${version.apache.felix.scr}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.eventadmin</artifactId>
-                <version>${version.apache.felix.eventadmin}</version>
+                <artifactId>org.apache.felix.metatype</artifactId>
+                <version>${version.apache.felix.metatype}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
@@ -316,25 +310,22 @@
                 </exclusions>
                 <version>${version.apache.felix.log}</version>
             </dependency>
+            <!-- 
             <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.metatype</artifactId>
+                <groupId>org.jboss.osgi.felix</groupId>
+                <artifactId>jboss-osgi-felix</artifactId>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.apache.felix</groupId>
-                        <artifactId>org.osgi.core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.felix</groupId>
-                        <artifactId>org.osgi.compendium</artifactId>
+                        <groupId>org.jboss.osgi</groupId>
+                        <artifactId>jboss-osgi-spi</artifactId>
                     </exclusion>
                 </exclusions>
-                <version>${version.apache.felix.metatype}</version>
+                <version>${version.jboss.osgi.felix}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.scr</artifactId>
-                <version>${version.apache.felix.scr}</version>
+                <artifactId>org.apache.felix.eventadmin</artifactId>
+                <version>${version.apache.felix.eventadmin}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.felix</groupId>

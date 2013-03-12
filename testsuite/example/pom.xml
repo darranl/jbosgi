@@ -79,6 +79,21 @@
             <artifactId>org.apache.felix.configadmin</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.log</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.metatype</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- 
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
@@ -116,26 +131,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.metatype</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.osgi.jmx</groupId>
             <artifactId>jbosgi-jmx</artifactId>
             <scope>provided</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>org.jboss.osgi.logging</groupId>
             <artifactId>jboss-osgi-logging</artifactId>
             <scope>provided</scope>
         </dependency>
-        -->
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
@@ -244,24 +249,9 @@
                             <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
                             <excludes>
                                 <exclude>**/blueprint/*TestCase.java</exclude>
-                                <exclude>**/ds/*TestCase.java</exclude>
                                 <exclude>**/eventadmin/*TestCase.java</exclude>
                                 <exclude>**/jmx/*TestCase.java</exclude>
-                                <exclude>**/jndi/*TestCase.java</exclude>
-                                
-                                <exclude>**/cdi/*TestCase.java</exclude>
-                                <exclude>**/ear/*TestCase.java</exclude>
-                                <exclude>**/ejb3/*TestCase.java</exclude>
-                                <exclude>**/http/*TestCase.java</exclude>
-                                <exclude>**/interceptor/*TestCase.java</exclude>
-                                <exclude>**/jaxb/*TestCase.java</exclude>
-                                <exclude>**/jaxp/*TestCase.java</exclude>
-                                <exclude>**/jaxrs/*TestCase.java</exclude>
-                                <exclude>**/jaxws/*TestCase.java</exclude>
-                                <exclude>**/jpa/*TestCase.java</exclude>
-                                <exclude>**/jta/*TestCase.java</exclude>
                                 <exclude>**/resource/*TestCase.java</exclude>
-                                <exclude>**/webapp/*TestCase.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

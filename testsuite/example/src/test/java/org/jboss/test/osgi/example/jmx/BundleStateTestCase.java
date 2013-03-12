@@ -41,8 +41,10 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.JMXSupport;
 import org.jboss.test.osgi.RepositorySupport;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -60,6 +62,7 @@ import org.osgi.service.repository.Repository;
  * @since 15-Feb-2010
  */
 @RunWith(Arquillian.class)
+@Ignore("[ARIES-1029] Provide a JMX implementation that works with R5")
 public class BundleStateTestCase {
 
     static final String JMX_PROVIDER = "jmx-provider";
@@ -70,7 +73,7 @@ public class BundleStateTestCase {
     @Deployment(name = JMX_PROVIDER)
     public static JavaArchive jmxProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_PROVIDER);
-        archive.addClasses(RepositorySupport.class, JMXSupport.class, AriesSupport.class);
+        archive.addClasses(RepositorySupport.class, JMXSupport.class, AriesSupport.class, FrameworkUtils.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override

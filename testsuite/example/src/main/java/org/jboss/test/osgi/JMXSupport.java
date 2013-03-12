@@ -41,9 +41,9 @@ public final class JMXSupport extends RepositorySupport {
     public static final String JBOSS_OSGI_JMX = "org.jboss.osgi.jmx:jbosgi-jmx";
 
     public static void provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
-        AriesSupport.provideAriesUtil(syscontext, bundle);
+        //AriesSupport.provideAriesUtil(syscontext, bundle);
         if (FrameworkUtils.getBundles(syscontext, "jbosgi-jmx", null).isEmpty()) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
+            //installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
             installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();
         }
     }

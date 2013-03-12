@@ -40,6 +40,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.JMXSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jmx.bundle.Foo;
@@ -78,7 +79,7 @@ public class MBeanServerTestCase {
     public static JavaArchive jmxProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_PROVIDER);
         archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
-        archive.addClasses(RepositorySupport.class, JMXSupport.class, AriesSupport.class);
+        archive.addClasses(RepositorySupport.class, JMXSupport.class, AriesSupport.class, FrameworkUtils.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override

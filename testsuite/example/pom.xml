@@ -106,11 +106,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.aries.jmx</groupId>
-            <artifactId>org.apache.aries.jmx</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.aries.jndi</groupId>
             <artifactId>org.apache.aries.jndi</artifactId>
             <scope>provided</scope>
@@ -125,17 +120,12 @@
             <artifactId>org.apache.aries.util</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.log</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        -->
         <dependency>
             <groupId>org.jboss.osgi.jmx</groupId>
             <artifactId>jbosgi-jmx</artifactId>
             <scope>provided</scope>
         </dependency>
-        -->
         <dependency>
             <groupId>org.jboss.osgi.logging</groupId>
             <artifactId>jboss-osgi-logging</artifactId>
@@ -249,7 +239,6 @@
                             <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
                             <excludes>
                                 <exclude>**/blueprint/*TestCase.java</exclude>
-                                <exclude>**/jmx/*TestCase.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

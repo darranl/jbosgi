@@ -74,6 +74,11 @@
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- 
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
@@ -98,11 +103,6 @@
         <dependency>
             <groupId>org.apache.aries</groupId>
             <artifactId>org.apache.aries.util</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.configadmin</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -244,7 +244,6 @@
                             <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
                             <excludes>
                                 <exclude>**/blueprint/*TestCase.java</exclude>
-                                <exclude>**/configadmin/*TestCase.java</exclude>
                                 <exclude>**/ds/*TestCase.java</exclude>
                                 <exclude>**/eventadmin/*TestCase.java</exclude>
                                 <exclude>**/jmx/*TestCase.java</exclude>

@@ -51,7 +51,6 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.jmx.framework.BundleStateMBean;
 import org.osgi.resource.Resource;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 /**
@@ -80,7 +79,7 @@ public class BundleStateTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
-                builder.addImportPackages(PackageAdmin.class, MBeanServer.class, TabularData.class);
+                builder.addImportPackages(MBeanServer.class, TabularData.class);
                 builder.addDynamicImportPackages(BundleStateMBean.class.getPackage().getName());
                 return builder.openStream();
             }
@@ -98,8 +97,8 @@ public class BundleStateTestCase {
     @InSequence(1)
     public void testBundleStateMBean() throws Exception {
 
-        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-        MBeanServer server = (MBeanServer) context.getService(sref);
+        ServiceReference<MBeanServer> sref = context.getServiceReference(MBeanServer.class);
+        MBeanServer server = context.getService(sref);
 
         ObjectName oname = ObjectName.getInstance("osgi.core:type=bundleState,version=1.5");
         BundleStateMBean bundleState = JMXSupport.getMBeanProxy(server, oname, BundleStateMBean.class);

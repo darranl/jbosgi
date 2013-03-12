@@ -40,7 +40,7 @@ public class EventAdminSupport extends RepositorySupport {
     public static void provideEventAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
         ConfigurationAdminSupport.provideConfigurationAdmin(syscontext, bundle);
         MetatypeSupport.provideMetatype(syscontext, bundle);
-        ServiceReference sref = syscontext.getServiceReference(EVENT_ADMIN_SERVICE);
+        ServiceReference<?> sref = syscontext.getServiceReference(EVENT_ADMIN_SERVICE);
         if (sref == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_EVENTADMIN)).start();
         }

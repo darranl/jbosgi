@@ -55,7 +55,6 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.blueprint.container.BlueprintContainer;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -92,7 +91,7 @@ public class BlueprintTestCase {
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
                 builder.addDynamicImportPackages(BlueprintContainer.class.getPackage().getName());
                 builder.addDynamicImportPackages(MBeanServer.class.getPackage().getName());
-                builder.addImportPackages(PackageAdmin.class, ServiceTracker.class);
+                builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(ServiceA.class);
                 return builder.openStream();
             }

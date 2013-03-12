@@ -53,7 +53,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -88,7 +87,7 @@ public class MBeanServerTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
-                builder.addImportPackages(PackageAdmin.class, MBeanServer.class, ServiceTracker.class);
+                builder.addImportPackages(MBeanServer.class, ServiceTracker.class);
                 builder.addExportPackages(FooMBean.class);
                 return builder.openStream();
             }
@@ -128,8 +127,8 @@ public class MBeanServerTestCase {
         try {
             bundle.start();
 
-            ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
-            MBeanServer server = (MBeanServer) context.getService(sref);
+            ServiceReference<MBeanServer> sref = context.getServiceReference(MBeanServer.class);
+            MBeanServer server = context.getService(sref);
 
             ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
             FooMBean foo = JMXSupport.getMBeanProxy(server, oname, FooMBean.class);

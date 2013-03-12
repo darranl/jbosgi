@@ -42,6 +42,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
 import org.jboss.test.osgi.EventAdminSupport;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.MetatypeSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.junit.Test;
@@ -55,7 +56,6 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 /**
@@ -81,7 +81,7 @@ public class EventAdminTestCase {
     @Deployment(name = EVENT_ADMIN_PROVIDER)
     public static JavaArchive eventadminProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, EVENT_ADMIN_PROVIDER);
-        archive.addClasses(EventAdminSupport.class, ConfigurationAdminSupport.class, MetatypeSupport.class, RepositorySupport.class);
+        archive.addClasses(EventAdminSupport.class, ConfigurationAdminSupport.class, MetatypeSupport.class, FrameworkUtils.class, RepositorySupport.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
@@ -90,7 +90,6 @@ public class EventAdminTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
-                builder.addImportPackages(PackageAdmin.class);
                 builder.addDynamicImportPackages(EventAdmin.class.getPackage().getName());
                 return builder.openStream();
             }

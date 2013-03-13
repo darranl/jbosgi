@@ -43,6 +43,7 @@
         <version.apache.ant>1.7.0</version.apache.ant>
         <version.apache.aries.blueprint>1.0.0</version.apache.aries.blueprint>
         <version.apache.aries.jmx>1.0.0</version.apache.aries.jmx>
+        <version.apache.aries.jndi>1.0.0</version.apache.aries.jndi>
         <version.apache.aries.proxy>1.0.0</version.apache.aries.proxy>
         <version.apache.aries.util>1.0.0</version.apache.aries.util>
         <version.apache.felix.configadmin>1.6.0</version.apache.felix.configadmin>
@@ -51,7 +52,6 @@
         <version.apache.felix.metatype>1.0.6</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <!--
-        <version.apache.aries.jndi>0.3.1</version.apache.aries.jndi>
         <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
         <version.eclipse.jetty>8.1.4.v20120524</version.eclipse.jetty>
         -->
@@ -143,6 +143,11 @@
                 <version>${version.apache.aries.jmx}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.aries.jndi</groupId>
+                <artifactId>org.apache.aries.jndi</artifactId>
+                <version>${version.apache.aries.jndi}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.aries.proxy</groupId>
                 <artifactId>org.apache.aries.proxy</artifactId>
                 <version>${version.apache.aries.proxy}</version>
@@ -152,13 +157,6 @@
                 <artifactId>org.apache.aries.util</artifactId>
                 <version>${version.apache.aries.util}</version>
             </dependency>
-            <!-- 
-            <dependency>
-                <groupId>org.apache.aries.jndi</groupId>
-                <artifactId>org.apache.aries.jndi</artifactId>
-                <version>${version.apache.aries.jndi}</version>
-            </dependency>
-            -->
 
             <!-- JBoss -->
             <dependency>

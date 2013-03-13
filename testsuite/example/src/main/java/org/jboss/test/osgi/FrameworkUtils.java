@@ -91,6 +91,6 @@ public final class FrameworkUtils {
                 }
             }
         }
-        return result.toArray(new Bundle[result.size()]);
+        return !result.isEmpty() ? result.toArray(new Bundle[result.size()]) : null;
     }
 }

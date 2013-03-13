@@ -85,6 +85,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.aries.jndi</groupId>
+            <artifactId>org.apache.aries.jndi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.aries.proxy</groupId>
             <artifactId>org.apache.aries.proxy</artifactId>
             <scope>provided</scope>
@@ -119,13 +124,6 @@
             <artifactId>org.apache.felix.scr</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- 
-        <dependency>
-            <groupId>org.apache.aries.jndi</groupId>
-            <artifactId>org.apache.aries.jndi</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.jboss.osgi.jmx</groupId>
             <artifactId>jbosgi-jmx</artifactId>

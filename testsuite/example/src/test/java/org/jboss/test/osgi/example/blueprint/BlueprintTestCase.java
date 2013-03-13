@@ -41,6 +41,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.BlueprintSupport;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.JMXSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
@@ -79,7 +80,7 @@ public class BlueprintTestCase {
     @Deployment(name = BLUEPRINT_PROVIDER)
     public static JavaArchive blueprintProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BLUEPRINT_PROVIDER);
-        archive.addClasses(JMXSupport.class, BlueprintSupport.class, AriesSupport.class, ConfigurationAdminSupport.class, RepositorySupport.class);
+        archive.addClasses(JMXSupport.class, BlueprintSupport.class, AriesSupport.class, ConfigurationAdminSupport.class, RepositorySupport.class, FrameworkUtils.class);
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -135,15 +136,15 @@ public class BlueprintTestCase {
             BlueprintContainer container = BlueprintSupport.getBlueprintContainer(bundle);
             assertNotNull("BlueprintContainer available", container);
 
-            ServiceReference srefA = context.getServiceReference(ServiceA.class.getName());
+            ServiceReference<ServiceA> srefA = context.getServiceReference(ServiceA.class);
             assertNotNull("ServiceA not null", srefA);
-            ServiceA serviceA = (ServiceA) context.getService(srefA);
+            ServiceA serviceA = context.getService(srefA);
             MBeanServer mbeanServer = serviceA.getMbeanServer();
             assertNotNull("MBeanServer not null", mbeanServer);
 
-            ServiceReference srefB = context.getServiceReference(ServiceB.class.getName());
+            ServiceReference<ServiceB> srefB = context.getServiceReference(ServiceB.class);
             assertNotNull("ServiceB not null", srefB);
-            ServiceB serviceB = (ServiceB) context.getService(srefB);
+            ServiceB serviceB = context.getService(srefB);
             BeanA beanA = serviceB.getBeanA();
             assertNotNull("BeanA not null", beanA);
         } finally {

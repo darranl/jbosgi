@@ -89,7 +89,7 @@ public class URLHandlerTestCase {
 
         Dictionary<String, Object> props = new Hashtable<String, Object>();
         props.put(URLConstants.URL_HANDLER_PROTOCOL, "foobar");
-        ServiceRegistration reg = context.registerService(URLStreamHandlerService.class.getName(), myHandler, props);
+        ServiceRegistration<URLStreamHandlerService> reg = context.registerService(URLStreamHandlerService.class, myHandler, props);
 
         // Give the system a chance to pick up the service
         Thread.sleep(500);

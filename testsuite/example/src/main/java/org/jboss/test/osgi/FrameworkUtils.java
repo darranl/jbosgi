@@ -21,14 +21,12 @@
  */
 package org.jboss.test.osgi;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.jboss.osgi.resolver.XBundle;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -80,19 +78,19 @@ public final class FrameworkUtils {
         }
     }
 
-    public static Set<XBundle> getBundles(BundleContext context, String symbolicName, VersionRange versionRange) {
-        Set<XBundle> resultSet = new HashSet<XBundle>();
+    public static Bundle[] getBundles(BundleContext context, String symbolicName, VersionRange versionRange) {
+        List<Bundle> result = new ArrayList<Bundle>();
         if (Constants.SYSTEM_BUNDLE_SYMBOLICNAME.equals(symbolicName) && versionRange == null) {
-            resultSet.add((XBundle) context.getBundle(0));
+            result.add((Bundle) context.getBundle(0));
         } else {
             for (Bundle aux : context.getBundles()) {
                 if (symbolicName == null || symbolicName.equals(aux.getSymbolicName())) {
                     if (versionRange == null || versionRange.includes(aux.getVersion())) {
-                        resultSet.add((XBundle) aux);
+                        result.add((Bundle) aux);
                     }
                 }
             }
         }
-        return Collections.unmodifiableSet(resultSet);
+        return result.toArray(new Bundle[result.size()]);
     }
 }

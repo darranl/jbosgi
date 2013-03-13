@@ -37,6 +37,8 @@ import org.osgi.util.tracker.ServiceTracker;
  * @since 24-Apr-2009
  */
 public class MBeanActivator implements BundleActivator {
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void start(BundleContext context) {
         ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null) {
             public Object addingService(ServiceReference reference) {
@@ -55,9 +57,9 @@ public class MBeanActivator implements BundleActivator {
     }
 
     public void stop(BundleContext context) {
-        ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+        ServiceReference<MBeanServer> sref = context.getServiceReference(MBeanServer.class);
         if (sref != null) {
-            MBeanServer mbeanServer = (MBeanServer) context.getService(sref);
+            MBeanServer mbeanServer = context.getService(sref);
             unregisterMBean(mbeanServer);
         }
     }

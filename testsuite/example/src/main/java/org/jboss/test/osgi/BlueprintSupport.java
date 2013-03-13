@@ -43,11 +43,12 @@ public class BlueprintSupport extends RepositorySupport {
     public static void provideBlueprint(BundleContext syscontext, Bundle bundle) throws BundleException {
         AriesSupport.provideAriesProxy(syscontext, bundle);
         ConfigurationAdminSupport.provideConfigurationAdmin(syscontext, bundle);
-        if (FrameworkUtils.getBundles(syscontext, "org.apache.aries.blueprint", null).isEmpty()) {
+        if (FrameworkUtils.getBundles(syscontext, "org.apache.aries.blueprint", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_BLUEPRINT)).start();
         }
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static BlueprintContainer getBlueprintContainer(Bundle bundle) throws Exception {
         String objectclass = "(objectclass=" + BlueprintContainer.class.getName() + ")";
         String symbolicname = "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")";

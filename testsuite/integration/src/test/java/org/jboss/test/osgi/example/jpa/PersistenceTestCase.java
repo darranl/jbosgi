@@ -36,6 +36,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.example.jpa.bundle.Employee;
 import org.jboss.test.osgi.example.jpa.bundle.PersistenceActivatorA;
 import org.jboss.test.osgi.example.jpa.bundle.PersistenceActivatorB;
@@ -49,7 +50,6 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -68,14 +68,12 @@ public class PersistenceTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    PackageAdmin packageAdmin;
-
-    @ArquillianResource
     BundleContext context;
 
     @Deployment
     public static Archive<?> deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-jpa-test");
+        archive.addClasses(FrameworkUtils.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -83,7 +81,6 @@ public class PersistenceTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(Bundle.class, ServiceTracker.class, EntityManager.class);
-                builder.addImportPackages(PackageAdmin.class);
                 return builder.openStream();
             }
         });
@@ -95,11 +92,11 @@ public class PersistenceTestCase {
     public void testEntityManagerFactoryService() throws Exception {
         deployer.deploy(PERSISTENCE_BUNDLE_A);
         try {
-            Bundle bundle = packageAdmin.getBundles(PERSISTENCE_BUNDLE_A, null)[0];
+            Bundle bundle = FrameworkUtils.getBundles(context, PERSISTENCE_BUNDLE_A, null)[0];
             Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());
 
             // This service is registered by the {@link PersistenceActivatorA}
-            ServiceReference sref = context.getServiceReference(Callable.class.getName());
+            ServiceReference<?> sref = context.getServiceReference(Callable.class.getName());
             Callable<Boolean> service = (Callable<Boolean>) context.getService(sref);
             Assert.assertTrue(service.call());
 
@@ -120,7 +117,7 @@ public class PersistenceTestCase {
             Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());
 
             // This service is registered by the {@link PersistenceActivatorB}
-            ServiceReference sref = context.getServiceReference(Callable.class.getName());
+            ServiceReference<?> sref = context.getServiceReference(Callable.class.getName());
             Callable<Boolean> service = (Callable<Boolean>) context.getService(sref);
             Assert.assertTrue(service.call());
 
@@ -150,7 +147,7 @@ public class PersistenceTestCase {
             Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());
 
             // This service is registered by the {@link PersistenceActivator}
-            ServiceReference sref = context.getServiceReference(Callable.class.getName());
+            ServiceReference<?> sref = context.getServiceReference(Callable.class.getName());
             Callable<Boolean> service = (Callable<Boolean>) context.getService(sref);
             Assert.assertTrue(service.call());
 

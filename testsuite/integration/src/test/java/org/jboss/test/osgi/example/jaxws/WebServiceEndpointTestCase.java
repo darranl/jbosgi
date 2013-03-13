@@ -42,7 +42,8 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.example.deployment.bundle.DeferredFailActivator;
+import org.jboss.test.osgi.FrameworkUtils;
+import org.jboss.test.osgi.example.api.DeferredFailActivator;
 import org.jboss.test.osgi.example.jaxws.bundle.Endpoint;
 import org.jboss.test.osgi.example.jaxws.bundle.EndpointImpl;
 import org.junit.Assert;
@@ -53,7 +54,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Test web service endpoint functionality
@@ -77,15 +77,12 @@ public class WebServiceEndpointTestCase {
     ManagementClient managementClient;
 
     @ArquillianResource
-    PackageAdmin packageAdmin;
-
-    @ArquillianResource
     BundleContext context;
 
     @Deployment
     public static Archive<?> testDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-ws-test");
-        archive.addClasses(Endpoint.class);
+        archive.addClasses(Endpoint.class, FrameworkUtils.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -93,7 +90,7 @@ public class WebServiceEndpointTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(WebService.class, SOAPBinding.class, QName.class, Service.class);
-                builder.addImportPackages(PackageAdmin.class, ManagementClient.class);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });

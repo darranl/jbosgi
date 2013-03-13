@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2005, JBoss Inc., and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2010, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -19,23 +19,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.core.bundle;
+package org.jboss.test.osgi.example.api;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-/**
- * A Service Activator
- * 
- * @author thomas.diesler@jboss.com
- * @since 24-Apr-2009
- */
-public class SimpleActivator implements BundleActivator {
-    
-    public void start(BundleContext context) {
-        context.registerService(SimpleService.class.getName(), new SimpleService(), null);
+public class DeferredFailActivator implements BundleActivator {
+
+    AtomicInteger callCount = new AtomicInteger();
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        if (callCount.getAndIncrement() == 0) {
+            throw new IllegalStateException("fail in start");
+        }
     }
 
-    public void stop(BundleContext context) {
+    @Override
+    public void stop(BundleContext context) throws Exception {
     }
 }

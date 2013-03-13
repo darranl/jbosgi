@@ -37,7 +37,7 @@ public class MetatypeSupport extends RepositorySupport {
     public static final String APACHE_FELIX_METATYPE = "org.apache.felix:org.apache.felix.metatype";
 
     public static void provideMetatype(BundleContext syscontext, Bundle bundle) throws BundleException {
-        if (FrameworkUtils.getBundles(syscontext, "org.apache.felix.metatype", null).isEmpty()) {
+        if (FrameworkUtils.getBundles(syscontext, "org.apache.felix.metatype", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_METATYPE)).start();
         }
     }

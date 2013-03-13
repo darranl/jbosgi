@@ -63,7 +63,7 @@
         <version.javax.persistence.api>1.0.1.Final</version.javax.persistence.api>
         <version.javax.servlet.api>1.0.2.Final</version.javax.servlet.api>
         <version.javax.transaction.api>1.0.1.Final</version.javax.transaction.api>
-        <version.jbossas.720>7.2.0.Alpha1-SNAPSHOT</version.jbossas.720>
+        <version.jbossas.800>8.0.0.Alpha1-SNAPSHOT</version.jbossas.800>
         <version.jboss.arquillian.core>1.0.0.Final</version.jboss.arquillian.core>
         <version.jboss.arquillian.osgi>2.0.0.Alpha3-SNAPSHOT</version.jboss.arquillian.osgi>
         <version.jboss.logging>3.1.3.GA</version.jboss.logging>
@@ -78,7 +78,7 @@
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
         <version.jboss.osgi.metadata>3.0.0.Alpha5</version.jboss.osgi.metadata>
         <version.jboss.osgi.repository>3.0.0.CR1-SNAPSHOT</version.jboss.osgi.repository>
-        <version.jboss.osgi.resolver>4.0.0.Alpha7-SNAPSHOT</version.jboss.osgi.resolver>
+        <version.jboss.osgi.resolver>4.0.0.Alpha6</version.jboss.osgi.resolver>
         <version.jboss.osgi.spi>4.0.0.Alpha2</version.jboss.osgi.spi>
         <version.jboss.osgi.testing>2.0.0.Alpha4</version.jboss.osgi.testing>
         <version.jboss.osgi.vfs>2.0.0.Alpha3</version.jboss.osgi.vfs>
@@ -164,7 +164,7 @@
             <dependency>
                 <groupId>org.jboss.as</groupId>
                 <artifactId>jboss-as-controller-client</artifactId>
-                <version>${version.jbossas.720}</version>
+                <version>${version.jbossas.800}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.logging</groupId>

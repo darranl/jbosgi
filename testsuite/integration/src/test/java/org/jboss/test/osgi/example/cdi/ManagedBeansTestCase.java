@@ -39,6 +39,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.HttpRequest;
 import org.jboss.test.osgi.example.api.PaymentProvider;
 import org.jboss.test.osgi.example.cdi.impl.ComplexBeanServlet;
@@ -53,7 +54,6 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -76,7 +76,7 @@ public class ManagedBeansTestCase {
     private static final String PAYPAL_PROVIDER_BUNDLE = "paypal-bundle.jar";
 
     @ArquillianResource
-    PackageAdmin packageAdmin;
+    BundleContext context;
 
     @ArquillianResource
     ManagementClient managementClient;
@@ -84,14 +84,14 @@ public class ManagedBeansTestCase {
     @Deployment
     public static Archive<?> deployment() {
         final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "osgi-cdi-test");
-        jar.addClasses(HttpRequest.class);
+        jar.addClasses(HttpRequest.class, FrameworkUtils.class);
         jar.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(PackageAdmin.class, ManagementClient.class);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });
@@ -174,8 +174,8 @@ public class ManagedBeansTestCase {
     public void testComplexEar() throws Exception {
         Assert.assertEquals("[Paypal, Visa]", performCall("/complex/servlet"));
 
-        Bundle visaBundle = packageAdmin.getBundles(VISA_PROVIDER_BUNDLE, null)[0];
-        Bundle paypalBundle = packageAdmin.getBundles(PAYPAL_PROVIDER_BUNDLE, null)[0];
+        Bundle visaBundle = FrameworkUtils.getBundles(context, VISA_PROVIDER_BUNDLE, null)[0];
+        Bundle paypalBundle = FrameworkUtils.getBundles(context, PAYPAL_PROVIDER_BUNDLE, null)[0];
 
         visaBundle.stop();
         Assert.assertEquals("[Paypal]", performCall("/complex/servlet"));

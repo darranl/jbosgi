@@ -26,13 +26,18 @@
         <version>1.2.0-SNAPSHOT</version>
     </parent>
 
-    <name>JBossOSGi Testsuite Examples</name>
+    <name>JBossOSGi Testsuite Integration</name>
 
     <artifactId>jboss-osgi-testsuite-integration</artifactId>
     <packaging>jar</packaging>
 
     <!-- Dependencies -->
     <dependencies>
+    	<dependency>
+	        <groupId>org.jboss.osgi.testsuite</groupId>
+	        <artifactId>jboss-osgi-testsuite-example</artifactId>
+	        <version>${project.version}</version>
+    	</dependency>
         <!-- Provided -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -270,11 +275,11 @@
         </profile>
 
         <profile>
-            <id>jboss720-testing</id>
+            <id>jboss800-testing</id>
             <activation>
                 <property>
                     <name>target.container</name>
-                    <value>jboss720</value>
+                    <value>jboss800</value>
                 </property>
             </activation>
             <build>

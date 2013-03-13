@@ -43,6 +43,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.BlueprintSupport;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.NamingSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
@@ -57,7 +58,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.resource.Resource;
 import org.osgi.service.jndi.JNDIContextManager;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 /**
@@ -80,7 +80,7 @@ public class NamingStandaloneTestCase {
     @Deployment(name = JNDI_PROVIDER)
     public static JavaArchive jndiProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JNDI_PROVIDER);
-        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class, ConfigurationAdminSupport.class);
+        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class, ConfigurationAdminSupport.class, FrameworkUtils.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -91,7 +91,7 @@ public class NamingStandaloneTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(JNDITestActivator.class);
                 builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, Repository.class, Resource.class);
-                builder.addImportPackages(PackageAdmin.class, Context.class, InitialContextFactory.class);
+                builder.addImportPackages(Context.class, InitialContextFactory.class);
                 builder.addDynamicImportPackages(JNDIContextManager.class.getPackage().getName());
                 builder.addExportPackages(JNDITestService.class);
                 return builder.openStream();

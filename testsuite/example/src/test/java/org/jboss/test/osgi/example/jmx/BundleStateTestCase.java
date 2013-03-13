@@ -44,7 +44,6 @@ import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.JMXSupport;
 import org.jboss.test.osgi.RepositorySupport;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;

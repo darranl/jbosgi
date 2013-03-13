@@ -106,7 +106,7 @@ public class RepositoryTestCase {
     }
 
     private XRepository getRepository() {
-        ServiceReference sref = context.getServiceReference(XRepository.class.getName());
-        return (XRepository) context.getService(sref);
+        ServiceReference<XRepository> sref = context.getServiceReference(XRepository.class);
+        return context.getService(sref);
     }
 }

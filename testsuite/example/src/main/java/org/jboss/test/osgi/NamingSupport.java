@@ -39,7 +39,7 @@ public class NamingSupport extends RepositorySupport {
     public static final String APACHE_ARIES_JNDI = "org.apache.aries.jndi:org.apache.aries.jndi";
 
     public static void provideJNDIIntegration(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference sref = syscontext.getServiceReference(CONTEXT_MANAGER_SERVICE);
+        ServiceReference<?> sref = syscontext.getServiceReference(CONTEXT_MANAGER_SERVICE);
         if (sref == null) {
             AriesSupport.provideAriesUtil(syscontext, bundle);
             AriesSupport.provideAriesProxy(syscontext, bundle);
@@ -51,7 +51,7 @@ public class NamingSupport extends RepositorySupport {
 
     public static JNDIContextManager getContextManager(Bundle bundle) {
         BundleContext context = bundle.getBundleContext();
-        ServiceReference sref = context.getServiceReference(JNDIContextManager.class.getName());
-        return (JNDIContextManager) context.getService(sref);
+        ServiceReference<JNDIContextManager> sref = context.getServiceReference(JNDIContextManager.class);
+        return context.getService(sref);
     }
 }

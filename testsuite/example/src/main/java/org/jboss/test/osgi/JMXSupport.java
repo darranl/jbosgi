@@ -42,7 +42,7 @@ public final class JMXSupport extends RepositorySupport {
 
     public static void provideMBeanServer(BundleContext syscontext, Bundle bundle) throws BundleException {
         AriesSupport.provideAriesUtil(syscontext, bundle);
-        if (FrameworkUtils.getBundles(syscontext, "jbosgi-jmx", null).isEmpty()) {
+        if (FrameworkUtils.getBundles(syscontext, "jbosgi-jmx", null) == null) {
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JMX)).start();
             installSupportBundle(syscontext, getCoordinates(bundle, JBOSS_OSGI_JMX)).start();
         }

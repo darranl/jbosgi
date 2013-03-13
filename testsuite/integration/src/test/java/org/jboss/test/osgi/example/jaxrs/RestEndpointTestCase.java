@@ -42,7 +42,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.test.osgi.HttpRequest;
-import org.jboss.test.osgi.example.deployment.bundle.DeferredFailActivator;
+import org.jboss.test.osgi.example.api.DeferredFailActivator;
 import org.jboss.test.osgi.example.jaxrs.bundle.SimpleResource;
 import org.junit.Assert;
 import org.junit.Ignore;

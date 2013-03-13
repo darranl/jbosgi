@@ -42,9 +42,10 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.HttpRequest;
+import org.jboss.test.osgi.example.api.DeferredFailActivator;
 import org.jboss.test.osgi.example.api.Echo;
-import org.jboss.test.osgi.example.deployment.bundle.DeferredFailActivator;
 import org.jboss.test.osgi.example.webapp.bundle.SimpleServlet;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -54,7 +55,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.service.packageadmin.PackageAdmin;
 
 /**
  * Test webapp deployemnts as OSGi bundles
@@ -83,22 +83,19 @@ public class WebAppTestCase {
     ManagementClient managementClient;
 
     @ArquillianResource
-    PackageAdmin packageAdmin;
-
-    @ArquillianResource
     BundleContext context;
 
     @Deployment
     public static Archive<?> deployment() {
         final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "osgi-webapp-test");
-        jar.addClasses(HttpRequest.class);
+        jar.addClasses(HttpRequest.class, FrameworkUtils.class);
         jar.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(PackageAdmin.class, ManagementClient.class);
+                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });
@@ -162,7 +159,7 @@ public class WebAppTestCase {
     public void testBundleWithWebContextPath() throws Exception {
         deployer.deploy(BUNDLE_D_WAB);
         try {
-            Bundle bundle = packageAdmin.getBundles(BUNDLE_D_WAB, null)[0];
+            Bundle bundle = FrameworkUtils.getBundles(context, BUNDLE_D_WAB, null)[0];
 
             String result = performCall("/bundle-d/servlet?input=Hello");
             Assert.assertEquals("Simple Servlet called with input=Hello", result);

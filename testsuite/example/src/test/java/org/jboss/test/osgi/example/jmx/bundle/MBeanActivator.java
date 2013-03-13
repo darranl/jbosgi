@@ -38,7 +38,7 @@ import org.osgi.util.tracker.ServiceTracker;
  */
 public class MBeanActivator implements BundleActivator {
     
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "rawtypes" })
     public void start(BundleContext context) {
         ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null) {
             public Object addingService(ServiceReference reference) {

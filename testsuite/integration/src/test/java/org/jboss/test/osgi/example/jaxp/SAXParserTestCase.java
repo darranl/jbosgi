@@ -84,9 +84,9 @@ public class SAXParserTestCase {
 
     @Test
     public void testSAXParserFactoryService() throws Exception {
-        ServiceReference sref = context.getServiceReference(SAXParserFactory.class.getName());
+        ServiceReference<SAXParserFactory> sref = context.getServiceReference(SAXParserFactory.class);
         assertNotNull("ServiceReference not null");
-        SAXParserFactory factory = (SAXParserFactory) context.getService(sref);
+        SAXParserFactory factory = context.getService(sref);
         parse(factory);
     }
 

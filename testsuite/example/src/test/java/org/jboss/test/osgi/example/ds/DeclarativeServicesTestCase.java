@@ -116,7 +116,7 @@ public class DeclarativeServicesTestCase {
 
     @Test
     @InSequence(1)
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes" })
     public void testImmediateService() throws Exception {
         InputStream input = deployer.getDeployment(DS_BUNDLE);
         Bundle bundle = context.installBundle(DS_BUNDLE, input);

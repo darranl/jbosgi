@@ -85,9 +85,9 @@ public class DocumentBuilderTestCase {
 
     @Test
     public void testDocumentBuilderFactoryService() throws Exception {
-        ServiceReference sref = context.getServiceReference(DocumentBuilderFactory.class.getName());
+        ServiceReference<DocumentBuilderFactory> sref = context.getServiceReference(DocumentBuilderFactory.class);
         assertNotNull("ServiceReference not null");
-        DocumentBuilderFactory factory = (DocumentBuilderFactory) context.getService(sref);
+        DocumentBuilderFactory factory = context.getService(sref);
         parse(factory);
     }
 

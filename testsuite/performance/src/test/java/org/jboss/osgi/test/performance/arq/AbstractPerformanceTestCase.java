@@ -54,6 +54,7 @@ public abstract class AbstractPerformanceTestCase {
         return f;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     protected <T> T getService(BundleContext bc, Class<T> c) throws InterruptedException {
         ServiceTracker st = new ServiceTracker(bc, c.getName(), null);
         st.open();

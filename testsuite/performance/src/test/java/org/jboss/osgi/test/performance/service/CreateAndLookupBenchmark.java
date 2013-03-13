@@ -76,7 +76,7 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
         // Service Registrations
         for (int i = 0; i < numServicesPerThread; i++) {
             SvcCls svc = SvcCls.createInst(CLASSES[i % CLASSES.length], threadName + i);
-            ServiceRegistration reg = bundleContext.registerService(svc.getClass().getName(), svc, null);
+            ServiceRegistration<?> reg = bundleContext.registerService(svc.getClass().getName(), svc, null);
             serviceIDs[i] = (Long) reg.getReference().getProperty(Constants.SERVICE_ID);
         }
         long regEnd = System.currentTimeMillis();
@@ -88,7 +88,7 @@ public class CreateAndLookupBenchmark extends AbstractThreadedBenchmark<Integer>
         for (int i = 0; i < numServicesPerThread; i++) {
             String className = CLASSES[i % CLASSES.length].getName();
             String filter = "(" + Constants.SERVICE_ID + "=" + serviceIDs[i] + ")";
-            ServiceReference[] srs = bundleContext.getServiceReferences(className, filter);
+            ServiceReference<?>[] srs = bundleContext.getServiceReferences(className, filter);
             if (srs.length != 1) {
                 String message = "getServiceReferences(" + className + "," + filter + ") => " + Arrays.toString(srs);
                 throw new IllegalStateException("Invalid return from " + message);

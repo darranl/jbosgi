@@ -48,7 +48,6 @@ public class BlueprintSupport extends RepositorySupport {
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static BlueprintContainer getBlueprintContainer(Bundle bundle) throws Exception {
         String objectclass = "(objectclass=" + BlueprintContainer.class.getName() + ")";
         String symbolicname = "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")";

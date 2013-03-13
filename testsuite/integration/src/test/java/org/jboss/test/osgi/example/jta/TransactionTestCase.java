@@ -80,18 +80,18 @@ public class TransactionTestCase {
 
         Transactional txObj = new Transactional();
 
-        ServiceReference userTxRef = context.getServiceReference(UserTransaction.class.getName());
+        ServiceReference<UserTransaction> userTxRef = context.getServiceReference(UserTransaction.class);
         assertNotNull("UserTransaction service not null", userTxRef);
 
-        UserTransaction userTx = (UserTransaction) context.getService(userTxRef);
+        UserTransaction userTx = context.getService(userTxRef);
         assertNotNull("UserTransaction not null", userTx);
 
         userTx.begin();
         try {
-            ServiceReference tmRef = context.getServiceReference(TransactionManager.class.getName());
+            ServiceReference<TransactionManager> tmRef = context.getServiceReference(TransactionManager.class);
             assertNotNull("TransactionManager service not null", tmRef);
 
-            TransactionManager tm = (TransactionManager) context.getService(tmRef);
+            TransactionManager tm = context.getService(tmRef);
             assertNotNull("TransactionManager not null", tm);
 
             Transaction tx = tm.getTransaction();

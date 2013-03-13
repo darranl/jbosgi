@@ -43,6 +43,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.BlueprintSupport;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
+import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.NamingSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
@@ -79,7 +80,7 @@ public class NamingTestCase {
     @Deployment(name = JNDI_PROVIDER)
     public static JavaArchive jndiProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JNDI_PROVIDER);
-        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class, ConfigurationAdminSupport.class);
+        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class, ConfigurationAdminSupport.class, FrameworkUtils.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
         archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
@@ -154,8 +155,8 @@ public class NamingTestCase {
 
             // Access the service directly
             BundleContext contextB = bundleB.getBundleContext();
-            ServiceReference sref = contextB.getServiceReference(JNDITestService.class.getName());
-            JNDITestService service = (JNDITestService) contextB.getService(sref);
+            ServiceReference<JNDITestService> sref = contextB.getServiceReference(JNDITestService.class);
+            JNDITestService service = contextB.getService(sref);
             Assert.assertEquals("jndi-value", service.getValue());
 
             // Get the InitialContext via {@link JNDIContextManager}
@@ -185,7 +186,7 @@ public class NamingTestCase {
 
             // Access the service directly
             BundleContext contextC = bundleC.getBundleContext();
-            ServiceReference sref = contextC.getServiceReference(JNDITestService.class.getName());
+            ServiceReference<JNDITestService> sref = contextC.getServiceReference(JNDITestService.class);
             Assert.assertNull("ServiceReference is null", sref);
 
             // Get the InitialContext via {@link JNDIContextManager} for bundleC
@@ -242,7 +243,7 @@ public class NamingTestCase {
 
             // Access the service directly
             BundleContext contextB = bundleB.getBundleContext();
-            ServiceReference sref = contextB.getServiceReference(JNDITestService.class.getName());
+            ServiceReference<JNDITestService> sref = contextB.getServiceReference(JNDITestService.class);
             JNDITestService service = (JNDITestService) contextB.getService(sref);
             Assert.assertEquals("jndi-value", service.getValue());
 
@@ -274,7 +275,7 @@ public class NamingTestCase {
 
             // Access the service directly
             BundleContext contextC = bundleC.getBundleContext();
-            ServiceReference sref = contextC.getServiceReference(JNDITestService.class.getName());
+            ServiceReference<JNDITestService> sref = contextC.getServiceReference(JNDITestService.class);
             Assert.assertNull("ServiceReference is null", sref);
 
             // Get the InitialContext via {@link JNDIContextManager} for bundleB

@@ -92,10 +92,10 @@ public class HttpServiceTestCase {
     @Test
     public void testServletAccess() throws Exception {
         BundleContext context = bundle.getBundleContext();
-        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
+        ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/servlet?test=param&param=Kermit";
         try {
-            HttpService httpService = (HttpService) context.getService(sref);
+            HttpService httpService = context.getService(sref);
 
             // Verify that the alias is not yet available
             assertNotAvailable(reqspec);
@@ -117,7 +117,7 @@ public class HttpServiceTestCase {
     @Test
     public void testResourceAccess() throws Exception {
         BundleContext context = bundle.getBundleContext();
-        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
+        ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/resource/message.txt";
         try {
             HttpService httpService = (HttpService) context.getService(sref);
@@ -142,7 +142,7 @@ public class HttpServiceTestCase {
     @Test
     public void testServletInitProps() throws Exception {
         BundleContext context = bundle.getBundleContext();
-        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
+        ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/servlet?test=init&init=someKey";
         try {
             HttpService httpService = (HttpService) context.getService(sref);
@@ -166,7 +166,7 @@ public class HttpServiceTestCase {
     @Test
     public void testServletInstance() throws Exception {
         BundleContext context = bundle.getBundleContext();
-        ServiceReference sref = context.getServiceReference(HttpService.class.getName());
+        ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/servlet?test=instance";
         try {
             HttpService httpService = (HttpService) context.getService(sref);

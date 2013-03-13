@@ -62,7 +62,6 @@ import org.osgi.service.repository.Repository;
  * @since 15-Feb-2010
  */
 @RunWith(Arquillian.class)
-@Ignore("[ARIES-1029] Provide a JMX implementation that works with R5")
 public class BundleStateTestCase {
 
     static final String JMX_PROVIDER = "jmx-provider";

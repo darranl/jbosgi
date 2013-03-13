@@ -57,8 +57,6 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.jndi.JNDIConstants;
 import org.osgi.service.jndi.JNDIContextManager;
-import org.osgi.service.packageadmin.ExportedPackage;
-import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.repository.Repository;
 
 /**
@@ -92,7 +90,7 @@ public class NamingTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(JNDITestActivator.class);
                 builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, Repository.class, Resource.class);
-                builder.addImportPackages(PackageAdmin.class, Context.class, InitialContextFactory.class);
+                builder.addImportPackages(Context.class, InitialContextFactory.class);
                 builder.addDynamicImportPackages(JNDIContextManager.class.getPackage().getName());
                 builder.addExportPackages(JNDITestService.class);
                 return builder.openStream();
@@ -115,13 +113,6 @@ public class NamingTestCase {
         // Get the InitialContext via {@link JNDIContextManager}
         JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Context initialContext = contextManager.newInitialContext();
-
-        // Lookup the PackageAdmin OSGi service through JNDI
-        PackageAdmin pa = (PackageAdmin) initialContext.lookup("osgi:service/" + PackageAdmin.class.getName());
-
-        // Make an invocation on PackageAdmin
-        ExportedPackage ep = pa.getExportedPackage(JNDITestService.class.getPackage().getName());
-        Assert.assertEquals(bundle, ep.getExportingBundle());
 
         // Lookup the {@link JNDITestService} service
         JNDITestService service = (JNDITestService) initialContext.lookup("osgi:service/" + JNDITestService.class.getName());
@@ -230,13 +221,6 @@ public class NamingTestCase {
 
         // Get the InitialContext via API
         Context initialContext = new InitialContext();
-
-        // Lookup the PackageAdmin OSGi service through JNDI
-        PackageAdmin pa = (PackageAdmin) initialContext.lookup("osgi:service/" + PackageAdmin.class.getName());
-
-        // Make an invocation on PackageAdmin
-        ExportedPackage ep = pa.getExportedPackage(JNDITestService.class.getPackage().getName());
-        Assert.assertEquals(bundle, ep.getExportingBundle());
 
         // Lookup the {@link JNDITestService} service
         JNDITestService service = (JNDITestService) initialContext.lookup("osgi:service/" + JNDITestService.class.getName());

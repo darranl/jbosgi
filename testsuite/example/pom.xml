@@ -245,6 +245,29 @@
                 </plugins>
             </build>
         </profile>
+        
+        <profile>
+            <id>jboss800-testing</id>
+            <activation>
+                <property>
+                    <name>target.container</name>
+                    <value>jboss800</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
+                            <excludes>
+                                <exclude>**/*StandaloneTestCase.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <!-- Repositories -->

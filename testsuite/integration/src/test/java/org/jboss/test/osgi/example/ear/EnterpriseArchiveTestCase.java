@@ -144,6 +144,6 @@ public class EnterpriseArchiveTestCase {
 
     private String performCall(String path) throws Exception {
         String urlspec = managementClient.getWebUri() + path;
-        return HttpRequest.get(urlspec, 10, TimeUnit.SECONDS);
+        return HttpRequest.get(urlspec, 5, TimeUnit.SECONDS);
     }
 }

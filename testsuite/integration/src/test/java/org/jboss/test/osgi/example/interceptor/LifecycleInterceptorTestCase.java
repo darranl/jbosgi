@@ -37,6 +37,7 @@ import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.spi.AttachmentKey;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -127,6 +128,7 @@ public class LifecycleInterceptorTestCase {
                 builder.addBundleActivator(InterceptorActivator.class);
                 builder.addImportPackages(BundleActivator.class, LifecycleInterceptor.class, HttpService.class);
                 builder.addImportPackages(HttpServlet.class, Servlet.class, Logger.class, VirtualFile.class);
+                builder.addImportPackages(AttachmentKey.class);
                 return builder.openStream();
             }
         });

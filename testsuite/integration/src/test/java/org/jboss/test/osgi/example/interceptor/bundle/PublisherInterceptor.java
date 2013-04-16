@@ -44,13 +44,13 @@ public class PublisherInterceptor extends AbstractLifecycleInterceptor {
 
     PublisherInterceptor() {
         // Add the required input
-        addInput(HttpMetadata.class);
+        addInput(ParserInterceptor.HTTP_METADATA_KEY);
     }
 
     public void invoke(int state, InvocationContext context) {
         // HttpMetadata is guaratied to be available because we registered
         // this type as required input
-        HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+        HttpMetadata metadata = context.getAttachment(ParserInterceptor.HTTP_METADATA_KEY);
 
         // Register HttpMetadata on STARTING
         if (state == Bundle.STARTING) {

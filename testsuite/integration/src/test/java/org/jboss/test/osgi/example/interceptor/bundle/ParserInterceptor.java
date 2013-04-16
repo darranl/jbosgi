@@ -28,6 +28,7 @@ import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.AbstractLifecycleInterceptor;
 import org.jboss.osgi.deployment.interceptor.InvocationContext;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptorException;
+import org.jboss.osgi.spi.AttachmentKey;
 import org.jboss.osgi.vfs.VirtualFile;
 import org.osgi.framework.Bundle;
 
@@ -38,17 +39,19 @@ import org.osgi.framework.Bundle;
  * @since 23-Oct-2009
  */
 public class ParserInterceptor extends AbstractLifecycleInterceptor {
-    // Provide logging
+    
+    static final AttachmentKey<HttpMetadata> HTTP_METADATA_KEY = AttachmentKey.create(HttpMetadata.class);
+    
     private static final Logger log = Logger.getLogger(ParserInterceptor.class);
 
     ParserInterceptor() {
         // Add the provided output
-        addOutput(HttpMetadata.class);
+        addOutput(HTTP_METADATA_KEY);
     }
 
     public void invoke(int state, InvocationContext context) {
         // Do nothing if the metadata is already available
-        HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+        HttpMetadata metadata = context.getAttachment(HTTP_METADATA_KEY);
         if (metadata != null)
             return;
 
@@ -60,7 +63,7 @@ public class ParserInterceptor extends AbstractLifecycleInterceptor {
                 if (propsFile != null) {
                     log.info("Create and attach HttpMetadata");
                     metadata = createHttpMetadata(propsFile);
-                    context.addAttachment(HttpMetadata.class, metadata);
+                    context.putAttachment(HTTP_METADATA_KEY, metadata);
                 }
             } catch (IOException ex) {
                 throw new LifecycleInterceptorException("Cannot parse metadata", ex);

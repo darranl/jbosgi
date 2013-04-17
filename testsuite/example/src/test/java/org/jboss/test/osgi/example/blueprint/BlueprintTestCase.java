@@ -67,7 +67,6 @@ import org.osgi.util.tracker.ServiceTracker;
  * @since 12-Jul-2009
  */
 @RunWith(Arquillian.class)
-@Ignore("[JBOSGI-638] ClassCircularityError with Aries Blueprint on JDK1.7")
 public class BlueprintTestCase {
 
     static final String BLUEPRINT_PROVIDER = "blueprint-provider";

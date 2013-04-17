@@ -73,7 +73,7 @@
         <!-- 
         <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
         -->
-        <version.jboss.osgi.framework>3.0.0.CR16</version.jboss.osgi.framework>
+        <version.jboss.osgi.framework>3.0.0.CR17-SNAPSHOT</version.jboss.osgi.framework>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging> 
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
         <version.jboss.osgi.metadata>3.0.0.Alpha5</version.jboss.osgi.metadata>

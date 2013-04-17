@@ -48,7 +48,7 @@ public final class HttpRequest {
     }
 
     /**
-     * Execute a HTTP request with a given timeout in milliseconds.
+     * Execute a HTTP request with a given timeout.
      */
     public static String get(String urlspec, long timeout, TimeUnit unit) throws IOException {
         String line = null;

@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2005, JBoss Inc., and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright (c) 2011, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -21,55 +21,85 @@
  */
 package org.jboss.test.osgi;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
+import java.util.concurrent.TimeoutException;
 
 /**
- * HTTP integration test support.
- *
- * @author thomas.diesler@jboss.com
- * @since 26-Jan-2012
+ * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public final class HttpRequest {
-    
-    /**
-     * Execute a HTTP request.
-     */
-    public static String get(String urlspec) throws IOException {
-        URL requrl = new URL(urlspec);
-        BufferedReader br = new BufferedReader(new InputStreamReader(requrl.openStream()));
-        String line = br.readLine();
-        br.close();
-        return line;
+public class HttpRequest {
+
+    public static String get(final String spec, final long timeout, final TimeUnit unit) throws IOException, ExecutionException, TimeoutException {
+        final URL url = new URL(spec);
+        Callable<String> task = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true);
+                return processResponse(conn);
+            }
+        };
+        return execute(task, timeout, unit);
     }
 
-    /**
-     * Execute a HTTP request with a given timeout.
-     */
-    public static String get(String urlspec, long timeout, TimeUnit unit) throws IOException {
-        String line = null;
-        IOException lastException = null;
-        long fraction = 200;
-        long timeoutMillis = unit.toMillis(timeout);
-        while (line == null && 0 < (timeoutMillis -= fraction)) {
+    private static String execute(final Callable<String> task, final long timeout, final TimeUnit unit) throws TimeoutException, IOException {
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
+        final Future<String> result = executor.submit(task);
+        try {
+            return result.get(timeout, unit);
+        } catch (TimeoutException e) {
+            result.cancel(true);
+            throw e;
+        } catch (InterruptedException e) {
+            // should not happen
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            // by virtue of the Callable redefinition above I can cast
+            throw new IOException(e);
+        } finally {
+            executor.shutdownNow();
             try {
-                line = get(urlspec);
-            } catch (IOException ex) {
-                lastException = ex;
-                try {
-                    Thread.sleep(fraction);
-                } catch (InterruptedException ie) {
-                    // ignore
-                }
+                executor.awaitTermination(timeout, unit);
+            } catch (InterruptedException e) {
+                // ignore
             }
         }
-        if (line == null && lastException != null) {
-            throw lastException;
+    }
+
+    private static String read(final InputStream in) throws IOException {
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        int b;
+        while ((b = in.read()) != -1) {
+            out.write(b);
         }
-        return line;
+        return out.toString();
+    }
+
+    private static String processResponse(HttpURLConnection conn) throws IOException {
+        int responseCode = conn.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            final InputStream err = conn.getErrorStream();
+            try {
+                throw new IOException(read(err));
+            } finally {
+                err.close();
+            }
+        }
+        final InputStream in = conn.getInputStream();
+        try {
+            return read(in);
+        } finally {
+            in.close();
+        }
     }
 }

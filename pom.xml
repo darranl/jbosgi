@@ -52,9 +52,6 @@
         <version.apache.felix.metatype>1.0.6</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
-        <!--
-        <version.eclipse.jetty>8.1.4.v20120524</version.eclipse.jetty>
-        -->
         <version.izpack>4.3.1</version.izpack>
         <version.javax.annotations.api>1.0.1.Final</version.javax.annotations.api>
         <version.javax.ejb.api>1.0.1.Final</version.javax.ejb.api>
@@ -70,10 +67,7 @@
         <version.jboss.logging.processor>1.1.0.Final</version.jboss.logging.processor>
         <version.jboss.logmanager>1.4.1.Final</version.jboss.logmanager>
         <version.jboss.osgi.deployment>2.0.0.CR4</version.jboss.osgi.deployment>
-        <!-- 
-        <version.jboss.osgi.equinox>3.5.2.SP1</version.jboss.osgi.equinox>
-        -->
-        <version.jboss.osgi.framework>3.0.0.CR19</version.jboss.osgi.framework>
+        <version.jboss.osgi.framework>3.0.0.CR21-SNAPSHOT</version.jboss.osgi.framework>
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging> 
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
         <version.jboss.osgi.metadata>3.0.0.Alpha5</version.jboss.osgi.metadata>

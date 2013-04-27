@@ -189,7 +189,7 @@
                 </property>
             </activation>
             <properties>
-                <jboss.home>${basedir}/../../../jboss-as/build/target/jboss-as-${version.jbossas.800}</jboss.home>
+                <jboss.home>${basedir}/../../../wildfly/build/target/wildfly-${version.jbossas.800}</jboss.home>
             </properties>
             <dependencies>
                 <dependency>

@@ -67,6 +67,7 @@ import org.osgi.framework.BundleContext;
  * @author <a href="david@redhat.com">David Bosschaert</a>
  */
 public abstract class ServiceTestBase extends AbstractPerformanceTestCase {
+    
     @Deployment
     public static JavaArchive createDeployment() {
         final JavaArchive archive = getTestBundleArchive();
@@ -93,18 +94,16 @@ public abstract class ServiceTestBase extends AbstractPerformanceTestCase {
         return archive;
     }
 
-    abstract Bundle getBundle();
+    void testPerformance(Bundle bundle, int size) throws Exception {
+        bundle.start();
 
-    void testPerformance(int size) throws Exception {
-        getBundle().start();
-
-        BundleContext bc = getBundle().getBundleContext();
+        BundleContext bc = bundle.getBundleContext();
         CreateAndLookupBenchmark tc = getService(bc, CreateAndLookupBenchmark.class);
         int processors = Runtime.getRuntime().availableProcessors();
         tc.run(processors, size / processors);
         File f = new File(getResultsDir(), "testPerformance" + size + "-" + System.currentTimeMillis() + ".xml");
         tc.reportXML(f, new Parameter("Threads", processors), new Parameter("Population", size));
 
-        getBundle().stop();
+        bundle.stop();
     }
 }

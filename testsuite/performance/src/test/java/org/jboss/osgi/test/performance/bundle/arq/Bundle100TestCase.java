@@ -21,14 +21,9 @@
  */
 package org.jboss.osgi.test.performance.bundle.arq;
 
-import javax.inject.Inject;
-
-import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.osgi.framework.BundleContext;
 
 /**
  * Split off in a separate class to enable Maven to run this in a separate VM instance.
@@ -37,22 +32,7 @@ import org.osgi.framework.BundleContext;
  */
 @RunWith(Arquillian.class)
 public class Bundle100TestCase extends BundleTestBase {
-    @ArquillianResource
-    public Deployer deployer;
-
-    @Inject
-    public BundleContext context;
-
-    @Override
-    BundleContext getBundleContext() {
-        return context;
-    }
-
-    @Override
-    Deployer getDeploymentProvider() {
-        return deployer;
-    }
-
+    
     @Test
     public void test100Bundles() throws Exception {
         testPerformance(100);

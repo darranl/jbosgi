@@ -21,9 +21,8 @@
  */
 package org.jboss.osgi.test.performance.service.arq;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -35,15 +34,9 @@ import org.osgi.framework.Bundle;
  */
 @RunWith(Arquillian.class)
 public class Service5000TestCase extends ServiceTestBase {
-    @Inject
-    public Bundle bundle;
-
-    Bundle getBundle() {
-        return bundle;
-    }
 
     @Test
-    public void test5000() throws Exception {
-        testPerformance(5000);
+    public void test5000(@ArquillianResource Bundle bundle) throws Exception {
+        testPerformance(bundle, 5000);
     }
 }

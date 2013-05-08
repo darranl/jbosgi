@@ -23,10 +23,9 @@ package org.jboss.osgi.test.performance.service.arq;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.test.performance.arq.AbstractPerformanceTestCase;
 import org.jboss.osgi.test.performance.service.CreateAndLookupBenchmark;
@@ -67,6 +66,7 @@ import org.osgi.framework.BundleContext;
  */
 @RunWith(Arquillian.class)
 public class ServiceSmokeTestCase extends AbstractPerformanceTestCase {
+    
     @Deployment
     public static JavaArchive createDeployment() {
         final JavaArchive archive = getTestBundleArchive();
@@ -93,21 +93,14 @@ public class ServiceSmokeTestCase extends AbstractPerformanceTestCase {
         return archive;
     }
 
-    @Inject
-    public Bundle bundle;
-
-    Bundle getBundle() {
-        return bundle;
-    }
-
     @Test
-    public void test25() throws Exception {
-        getBundle().start();
+    public void test25(@ArquillianResource Bundle bundle) throws Exception {
+        bundle.start();
 
-        BundleContext bc = getBundle().getBundleContext();
+        BundleContext bc = bundle.getBundleContext();
         CreateAndLookupBenchmark tc = getService(bc, CreateAndLookupBenchmark.class);
         tc.runThread("Main", 25);
 
-        getBundle().stop();
+        bundle.stop();
     }
 }

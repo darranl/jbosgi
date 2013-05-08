@@ -31,6 +31,7 @@ import java.io.InputStream;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.test.common.CommonClass;
 import org.jboss.osgi.test.performance.Parameter;
@@ -65,6 +66,12 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase {
     static final String THREAD_NAME_UNDEFINED = "THREAD_NAME_UNDEFINED";
     static final String VERSION_UNDEFINED = "9999999";
 
+    @ArquillianResource
+    BundleContext context;
+    
+    @ArquillianResource
+    Deployer deployer;
+    
     @Deployment
     public static JavaArchive createDeployment() {
         final JavaArchive archive = getTestBundleArchive();
@@ -86,13 +93,9 @@ public abstract class BundleTestBase extends AbstractPerformanceTestCase {
         return archive;
     }
 
-    abstract Deployer getDeploymentProvider();
-
-    abstract BundleContext getBundleContext();
-
     void testPerformance(int size) throws Exception {
-        TestBundleProviderImpl testBP = new TestBundleProviderImpl(getDeploymentProvider(), getBundleContext());
-        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(testBP, getBundleContext());
+        TestBundleProviderImpl testBP = new TestBundleProviderImpl(deployer, context);
+        BundleInstallAndStartBenchmark bm = new BundleInstallAndStartBenchmark(testBP, context);
 
         // There is a problem with concurrent bundle installs it seems
         // int threads = Runtime.getRuntime().availableProcessors();

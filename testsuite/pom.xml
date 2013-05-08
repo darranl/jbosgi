@@ -64,6 +64,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.osgi.provision</groupId>
+            <artifactId>jbosgi-provision-bundle</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
             <artifactId>jbosgi-repository-api</artifactId>
             <scope>provided</scope>
@@ -83,7 +88,7 @@
         <!-- add this aggregate last -->
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository</artifactId>
+            <artifactId>jbosgi-repository-bundle</artifactId>
             <scope>provided</scope>
         </dependency>
 

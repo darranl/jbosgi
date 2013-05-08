@@ -27,10 +27,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.MavenCoordinates;
 import org.jboss.osgi.resolver.XIdentityCapability;
 import org.jboss.osgi.resolver.XRequirement;
+import org.jboss.osgi.resolver.XRequirementBuilder;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -61,7 +61,7 @@ public class RepositoryTestCase {
 
     @Deployment
     public static JavaArchive createdeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-repository-bundle");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "repository-tests");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -69,7 +69,7 @@ public class RepositoryTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(BundleActivator.class, Repository.class, Resource.class);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class);
+                builder.addImportPackages(XRequirementBuilder.class, XRepository.class, XRequirement.class);
                 return builder.openStream();
             }
         });

@@ -35,8 +35,9 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.repository.XRequirementBuilder;
+import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XRequirement;
+import org.jboss.osgi.resolver.XRequirementBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -89,7 +90,7 @@ public class EventAdminTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, XRepository.class, Repository.class, Resource.class);
                 builder.addDynamicImportPackages(EventAdmin.class.getPackage().getName());
                 return builder.openStream();
             }

@@ -29,9 +29,9 @@ import java.util.Collection;
 import java.util.Properties;
 
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.repository.XRequirementBuilder;
 import org.jboss.osgi.resolver.MavenCoordinates;
 import org.jboss.osgi.resolver.XRequirement;
+import org.jboss.osgi.resolver.XRequirementBuilder;
 import org.jboss.osgi.resolver.XResource;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;

@@ -18,7 +18,8 @@
             </outputFileNameMapping>
             <includes>
                 <include>*:org.apache.felix.log:jar</include>
-                <include>*:jbosgi-repository:jar</include>
+                <include>*:jbosgi-repository-bundle:jar</include>
+                <include>*:jbosgi-provision-bundle:jar</include>
                 <include>*:jboss-osgi-logging:jar</include>
                 <!--  
                 <include>*:jboss-annotations-api_1.1_spec:jar</include>

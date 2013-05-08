@@ -40,16 +40,16 @@ public class MBeanActivator implements BundleActivator {
     
     @SuppressWarnings({ "rawtypes" })
     public void start(BundleContext context) {
-        ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null) {
-            public Object addingService(ServiceReference reference) {
-                MBeanServer mbeanServer = (MBeanServer) super.addingService(reference);
+        ServiceTracker tracker = new ServiceTracker<MBeanServer, MBeanServer>(context, MBeanServer.class.getName(), null) {
+            public MBeanServer addingService(ServiceReference<MBeanServer> reference) {
+                MBeanServer mbeanServer = super.addingService(reference);
                 registerMBean(mbeanServer);
                 return mbeanServer;
             }
 
             @Override
-            public void removedService(ServiceReference reference, Object service) {
-                unregisterMBean((MBeanServer) service);
+            public void removedService(ServiceReference<MBeanServer> reference, MBeanServer service) {
+                unregisterMBean(service);
                 super.removedService(reference, service);
             }
         };

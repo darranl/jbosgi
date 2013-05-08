@@ -33,8 +33,9 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.repository.XRequirementBuilder;
+import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XRequirement;
+import org.jboss.osgi.resolver.XRequirementBuilder;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -81,7 +82,7 @@ public class DeclarativeServicesTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, XRepository.class, Repository.class, Resource.class);
                 builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(SampleComparator.class);
                 return builder.openStream();
@@ -125,9 +126,9 @@ public class DeclarativeServicesTestCase {
 
             // Track the service provided by the test bundle
             final CountDownLatch latch = new CountDownLatch(1);
-            ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
-                public Object addingService(ServiceReference reference) {
-                    Comparator<?> service = (Comparator<?>) super.addingService(reference);
+            ServiceTracker<Comparator, Comparator> tracker = new ServiceTracker<Comparator, Comparator>(context, Comparator.class.getName(), null) {
+                public Comparator addingService(ServiceReference<Comparator> reference) {
+                    Comparator<?> service = super.addingService(reference);
                     latch.countDown();
                     return service;
                 }

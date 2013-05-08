@@ -48,11 +48,12 @@ public class BlueprintSupport extends RepositorySupport {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static BlueprintContainer getBlueprintContainer(Bundle bundle) throws Exception {
         String objectclass = "(objectclass=" + BlueprintContainer.class.getName() + ")";
         String symbolicname = "(osgi.blueprint.container.symbolicname=" + bundle.getSymbolicName() + ")";
         Filter filter = FrameworkUtil.createFilter("(&" + objectclass + symbolicname + ")");
-        ServiceTracker tracker = new ServiceTracker(bundle.getBundleContext(), filter, null);
+        ServiceTracker<?, ?> tracker = new ServiceTracker(bundle.getBundleContext(), filter, null);
         tracker.open();
         return (BlueprintContainer) tracker.waitForService(10000);
     }

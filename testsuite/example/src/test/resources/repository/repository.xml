@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="event.admin.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.eventadmin" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.eventadmin" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.felix:org.apache.felix.eventadmin:jar:1.3.0" />
+    </requirement>
+  </resource>
+</repository>

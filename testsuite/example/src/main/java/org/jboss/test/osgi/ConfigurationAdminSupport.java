@@ -45,7 +45,8 @@ public class ConfigurationAdminSupport extends RepositorySupport {
         }
     }
 
-    public static ConfigurationAdmin getConfigurationAdmin(Bundle bundle) {
+    public static ConfigurationAdmin getConfigurationAdmin(Bundle bundle) throws BundleException {
+        bundle.start();
         BundleContext context = bundle.getBundleContext();
         ServiceReference<ConfigurationAdmin> sref = context.getServiceReference(ConfigurationAdmin.class);
         return context.getService(sref);

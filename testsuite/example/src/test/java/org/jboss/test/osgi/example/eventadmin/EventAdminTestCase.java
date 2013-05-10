@@ -43,7 +43,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.ProvisionServiceSupport;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -76,7 +75,7 @@ public class EventAdminTestCase {
 
     @Deployment
     public static JavaArchive eventadminProvider() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "event-admin-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "eventadmin-tests");
         archive.addClasses(ProvisionServiceSupport.class);
         archive.setManifest(new Asset() {
             @Override
@@ -95,10 +94,7 @@ public class EventAdminTestCase {
     @Test
     @InSequence(0)
     public void addEventAdminSupport() throws Exception {
-        List<Bundle> bundles = ProvisionServiceSupport.installCapabilities(context, "event.admin.feature");
-        Assert.assertEquals(1, bundles.size());
-        Assert.assertEquals("org.apache.felix.eventadmin", bundles.get(0).getSymbolicName());
-        Assert.assertEquals(Bundle.ACTIVE, bundles.get(0).getState());
+        ProvisionServiceSupport.installCapabilities(context, "event.admin.feature");
     }
 
     @Test

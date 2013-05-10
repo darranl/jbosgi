@@ -32,13 +32,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionService;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.MavenCoordinates;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
+import org.jboss.test.osgi.ProvisionServiceSupport;
 import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.api.ConfiguredService;
 import org.junit.Assert;
@@ -70,18 +71,17 @@ public class ConfigurationAdminTestCase {
 
     @Deployment
     public static JavaArchive deployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-configadmin");
-        archive.addClasses(RepositorySupport.class, ConfigurationAdminSupport.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "configadmin-tests");
+        archive.addClasses(ProvisionServiceSupport.class, ConfigurationAdminSupport.class, RepositorySupport.class);
         archive.addClasses(ConfiguredService.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, XRepository.class, Repository.class, Resource.class);
-                builder.addDynamicImportPackages(ConfigurationAdmin.class.getPackage().getName());
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addDynamicImportPackages(ConfigurationAdmin.class);
                 return builder.openStream();
             }
         });
@@ -90,9 +90,8 @@ public class ConfigurationAdminTestCase {
 
     @Test
     @InSequence(0)
-    public void addConfigurationAdminSupport(@ArquillianResource Bundle bundle) throws Exception {
-        ConfigurationAdminSupport.provideConfigurationAdmin(context, bundle);
-        bundle.start();
+    public void addConfigurationAdminSupport() throws Exception {
+        ProvisionServiceSupport.installCapabilities(context, "config.admin.feature");
     }
 
     @Test
@@ -127,3 +126,4 @@ public class ConfigurationAdminTestCase {
         }
     }
 }
+

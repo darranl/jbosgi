@@ -26,6 +26,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.InputStream;
 
 import javax.management.MBeanServer;
+import javax.management.MBeanServerConnection;
+import javax.management.MBeanServerInvocationHandler;
 import javax.management.ObjectName;
 
 import org.jboss.arquillian.container.test.api.Deployer;
@@ -34,16 +36,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionService;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.AriesSupport;
-import org.jboss.test.osgi.FrameworkUtils;
-import org.jboss.test.osgi.JMXSupport;
-import org.jboss.test.osgi.RepositorySupport;
+import org.jboss.test.osgi.ProvisionServiceSupport;
 import org.jboss.test.osgi.example.jmx.bundle.Foo;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.jboss.test.osgi.example.jmx.bundle.MBeanActivator;
@@ -52,7 +51,6 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
@@ -67,7 +65,6 @@ import org.osgi.util.tracker.ServiceTracker;
 @RunWith(Arquillian.class)
 public class MBeanServerTestCase {
 
-    static final String JMX_PROVIDER = "jmx-provider";
     static final String JMX_BUNDLE = "jmx-bundle";
 
     @ArquillianResource
@@ -76,19 +73,18 @@ public class MBeanServerTestCase {
     @ArquillianResource
     BundleContext context;
 
-    @Deployment(name = JMX_PROVIDER)
+    @Deployment
     public static JavaArchive jmxProvider() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_PROVIDER);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-mbean-server-tests");
+        archive.addClasses(ProvisionServiceSupport.class);
         archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
-        archive.addClasses(RepositorySupport.class, JMXSupport.class, AriesSupport.class, FrameworkUtils.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
                 builder.addImportPackages(MBeanServer.class, ServiceTracker.class);
                 builder.addExportPackages(FooMBean.class);
                 return builder.openStream();
@@ -97,6 +93,36 @@ public class MBeanServerTestCase {
         return archive;
     }
 
+    @Test
+    @InSequence(0)
+    public void addJMXSupport(@ArquillianResource Bundle bundle) throws Exception {
+        ProvisionServiceSupport.installCapabilities(context, "jbosgi.jmx.feature");
+    }
+
+    @Test
+    @InSequence(1)
+    public void testMBeanAccess() throws Exception {
+        InputStream input = deployer.getDeployment(JMX_BUNDLE);
+        Bundle bundle = context.installBundle(JMX_BUNDLE, input);
+        try {
+            bundle.start();
+
+            ServiceReference<MBeanServer> sref = context.getServiceReference(MBeanServer.class);
+            MBeanServer server = context.getService(sref);
+
+            ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
+            FooMBean foo = getMBeanProxy(server, oname, FooMBean.class);
+            assertEquals("hello", foo.echo("hello"));
+        } finally {
+            bundle.uninstall();
+        }
+    }
+
+    private <T> T getMBeanProxy(MBeanServerConnection server, ObjectName name, Class<T> interf)
+    {
+        return MBeanServerInvocationHandler.newProxyInstance(server, name, interf, false);
+    }
+    
     @Deployment(name = JMX_BUNDLE, managed = false, testable = false)
     public static JavaArchive testBundle() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_BUNDLE);
@@ -113,30 +139,5 @@ public class MBeanServerTestCase {
             }
         });
         return archive;
-    }
-
-    @Test
-    @InSequence(0)
-    public void addJMXSupport(@ArquillianResource Bundle bundle) throws BundleException {
-        JMXSupport.provideMBeanServer(context, bundle);
-    }
-
-    @Test
-    @InSequence(1)
-    public void testMBeanAccess() throws Exception {
-        InputStream input = deployer.getDeployment(JMX_BUNDLE);
-        Bundle bundle = context.installBundle(JMX_BUNDLE, input);
-        try {
-            bundle.start();
-
-            ServiceReference<MBeanServer> sref = context.getServiceReference(MBeanServer.class);
-            MBeanServer server = context.getService(sref);
-
-            ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
-            FooMBean foo = JMXSupport.getMBeanProxy(server, oname, FooMBean.class);
-            assertEquals("hello", foo.echo("hello"));
-        } finally {
-            bundle.uninstall();
-        }
     }
 }

@@ -94,7 +94,7 @@ public class EventAdminTestCase {
     @Test
     @InSequence(0)
     public void addEventAdminSupport() throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "event.admin.feature");
+        ProvisionServiceSupport.installCapabilities(context, "felix.eventadmin.feature");
     }
 
     @Test

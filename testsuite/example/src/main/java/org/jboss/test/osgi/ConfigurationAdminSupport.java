@@ -33,18 +33,8 @@ import org.osgi.service.cm.ConfigurationAdmin;
  * @author thomas.diesler@jboss.com
  * @since 22-Oct-2012
  */
-public class ConfigurationAdminSupport extends RepositorySupport {
-
-    public static final String CONFIGURATION_ADMIN_SERVICE = "org.osgi.service.cm.ConfigurationAdmin";
-    public static final String APACHE_FELIX_CONFIGURATION_ADMIN = "org.apache.felix:org.apache.felix.configadmin";
-
-    public static void provideConfigurationAdmin(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference<?> sref = syscontext.getServiceReference(CONFIGURATION_ADMIN_SERVICE);
-        if (sref == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_FELIX_CONFIGURATION_ADMIN)).start();
-        }
-    }
-
+public class ConfigurationAdminSupport {
+    
     public static ConfigurationAdmin getConfigurationAdmin(Bundle bundle) throws BundleException {
         bundle.start();
         BundleContext context = bundle.getBundleContext();

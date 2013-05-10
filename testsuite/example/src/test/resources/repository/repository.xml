@@ -1,9 +1,67 @@
 <?xml version="1.0" ?>
 <repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
-  <!-- config.admin.feature -->
+  <!-- 
+    aries.blueprint.feature 
+  -->
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="config.admin.feature" />
+      <attribute name="osgi.identity" value="aries.blueprint.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.configadmin" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.proxy" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.util" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.blueprint" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.blueprint" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries.blueprint:org.apache.aries.blueprint:jar:@version.apache.aries.blueprint@" />
+    </requirement>
+  </resource>
+  
+  <!-- 
+    aries.jmx.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="aries.jmx.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.jmx" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.util" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.jmx" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries.jmx:org.apache.aries.jmx:jar:@version.apache.aries.jmx@" />
+    </requirement>
+  </resource>
+  
+  <!-- 
+    felix.configadmin.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="felix.configadmin.feature" />
       <attribute name="type" value="abstract" />
     </capability>
     <requirement namespace="osgi.identity">
@@ -19,10 +77,13 @@
       <attribute name="maven.identity" value="org.apache.felix:org.apache.felix.configadmin:jar:@version.apache.felix.configadmin@" />
     </requirement>
   </resource>
-  <!-- event.admin.feature -->
+  
+  <!-- 
+    felix.eventadmin.feature 
+  -->
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="event.admin.feature" />
+      <attribute name="osgi.identity" value="felix.eventadmin.feature" />
       <attribute name="type" value="abstract" />
     </capability>
     <requirement namespace="osgi.identity">
@@ -36,6 +97,57 @@
     </capability>
     <requirement namespace="maven.identity">
       <attribute name="maven.identity" value="org.apache.felix:org.apache.felix.eventadmin:jar:@version.apache.felix.eventadmin@" />
+    </requirement>
+  </resource>
+  
+  <!-- 
+    jbosgi.jmx.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jbosgi.jmx.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="aries.jmx.feature" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jbosgi-jmx" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jbosgi-jmx" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.jboss.osgi.jmx:jbosgi-jmx:jar:@version.jboss.osgi.jmx@" />
+    </requirement>
+  </resource>
+  
+  <!--
+    org.apache.aries.proxy
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.proxy" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries.proxy:org.apache.aries.proxy:jar:@version.apache.aries.proxy@" />
+    </requirement>
+  </resource>
+  
+  <!--
+    org.apache.aries.util
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.util" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries:org.apache.aries.util:jar:@version.apache.aries.util@" />
     </requirement>
   </resource>
 </repository>

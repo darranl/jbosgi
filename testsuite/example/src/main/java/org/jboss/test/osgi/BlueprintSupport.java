@@ -23,8 +23,6 @@
 package org.jboss.test.osgi;
 
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.blueprint.container.BlueprintContainer;
@@ -36,17 +34,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author Thomas.Diesler@jboss.com
  * @since 28-Jan-2012
  */
-public class BlueprintSupport extends RepositorySupport {
-
-    public static final String APACHE_ARIES_BLUEPRINT = "org.apache.aries.blueprint:org.apache.aries.blueprint";
-
-    public static void provideBlueprint(BundleContext syscontext, Bundle bundle) throws BundleException {
-        AriesSupport.provideAriesProxy(syscontext, bundle);
-        ConfigurationAdminSupport.provideConfigurationAdmin(syscontext, bundle);
-        if (FrameworkUtils.getBundles(syscontext, "org.apache.aries.blueprint", null) == null) {
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_BLUEPRINT)).start();
-        }
-    }
+public class BlueprintSupport {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public static BlueprintContainer getBlueprintContainer(Bundle bundle) throws Exception {

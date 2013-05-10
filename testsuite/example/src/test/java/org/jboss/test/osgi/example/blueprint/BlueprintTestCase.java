@@ -33,18 +33,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionService;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.AriesSupport;
 import org.jboss.test.osgi.BlueprintSupport;
-import org.jboss.test.osgi.ConfigurationAdminSupport;
-import org.jboss.test.osgi.FrameworkUtils;
-import org.jboss.test.osgi.JMXSupport;
-import org.jboss.test.osgi.RepositorySupport;
+import org.jboss.test.osgi.ProvisionServiceSupport;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceA;
@@ -53,7 +49,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.blueprint.container.BlueprintContainer;
@@ -69,7 +64,6 @@ import org.osgi.util.tracker.ServiceTracker;
 @RunWith(Arquillian.class)
 public class BlueprintTestCase {
 
-    static final String BLUEPRINT_PROVIDER = "blueprint-provider";
     static final String BLUEPRINT_BUNDLE = "blueprint-bundle";
 
     @ArquillianResource
@@ -78,21 +72,19 @@ public class BlueprintTestCase {
     @ArquillianResource
     BundleContext context;
 
-    @Deployment(name = BLUEPRINT_PROVIDER)
+    @Deployment
     public static JavaArchive blueprintProvider() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BLUEPRINT_PROVIDER);
-        archive.addClasses(JMXSupport.class, BlueprintSupport.class, AriesSupport.class, ConfigurationAdminSupport.class, RepositorySupport.class, FrameworkUtils.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "blueprint-tests");
+        archive.addClasses(ProvisionServiceSupport.class, BlueprintSupport.class);
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, XRepository.class, Repository.class, Resource.class);
-                builder.addDynamicImportPackages(BlueprintContainer.class.getPackage().getName());
-                builder.addDynamicImportPackages(MBeanServer.class.getPackage().getName());
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addDynamicImportPackages(BlueprintContainer.class, MBeanServer.class);
                 builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(ServiceA.class);
                 return builder.openStream();
@@ -101,30 +93,10 @@ public class BlueprintTestCase {
         return archive;
     }
 
-    @Deployment(name = BLUEPRINT_BUNDLE, managed = false, testable = false)
-    public static JavaArchive testBundle() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BLUEPRINT_BUNDLE);
-        archive.addAsResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
-        archive.setManifest(new Asset() {
-            @Override
-            public InputStream openStream() {
-                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-                builder.addBundleSymbolicName(archive.getName());
-                builder.addBundleManifestVersion(2);
-                builder.addImportPackages("org.osgi.service.blueprint; version='[1.0.0,2.0.0)'");
-                builder.addImportPackages(BlueprintContainer.class, MBeanServer.class);
-                builder.addImportPackages(ServiceA.class);
-                return builder.openStream();
-            }
-        });
-        return archive;
-    }
-
     @Test
     @InSequence(0)
-    public void addBlueprintSupport(@ArquillianResource Bundle bundle) throws BundleException {
-        JMXSupport.provideMBeanServer(context, bundle);
-        BlueprintSupport.provideBlueprint(context, bundle);
+    public void addBlueprintSupport() throws Exception {
+        ProvisionServiceSupport.installCapabilities(context, "aries.blueprint.feature", "jbosgi.jmx.feature");
     }
 
     @Test
@@ -151,5 +123,24 @@ public class BlueprintTestCase {
         } finally {
             bundle.uninstall();
         }
+    }
+
+    @Deployment(name = BLUEPRINT_BUNDLE, managed = false, testable = false)
+    public static JavaArchive testBundle() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BLUEPRINT_BUNDLE);
+        archive.addAsResource("blueprint/blueprint-example.xml", "OSGI-INF/blueprint/blueprint-example.xml");
+        archive.setManifest(new Asset() {
+            @Override
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addImportPackages("org.osgi.service.blueprint; version='[1.0.0,2.0.0)'");
+                builder.addImportPackages(BlueprintContainer.class, MBeanServer.class);
+                builder.addImportPackages(ServiceA.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
     }
 }

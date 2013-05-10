@@ -40,7 +40,6 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
 import org.jboss.test.osgi.ProvisionServiceSupport;
-import org.jboss.test.osgi.RepositorySupport;
 import org.jboss.test.osgi.example.api.ConfiguredService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -72,7 +71,7 @@ public class ConfigurationAdminTestCase {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "configadmin-tests");
-        archive.addClasses(ProvisionServiceSupport.class, ConfigurationAdminSupport.class, RepositorySupport.class);
+        archive.addClasses(ProvisionServiceSupport.class, ConfigurationAdminSupport.class);
         archive.addClasses(ConfiguredService.class);
         archive.setManifest(new Asset() {
             @Override
@@ -91,7 +90,7 @@ public class ConfigurationAdminTestCase {
     @Test
     @InSequence(0)
     public void addConfigurationAdminSupport() throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "config.admin.feature");
+        ProvisionServiceSupport.installCapabilities(context, "felix.configadmin.feature");
     }
 
     @Test

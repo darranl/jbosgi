@@ -44,7 +44,7 @@ public class NamingSupport extends RepositorySupport {
             AriesSupport.provideAriesUtil(syscontext, bundle);
             AriesSupport.provideAriesProxy(syscontext, bundle);
             // Version 1.0.0 depends on Blueprint
-            BlueprintSupport.provideBlueprint(syscontext, bundle);
+            //BlueprintSupport.provideBlueprint(syscontext, bundle);
             installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JNDI)).start();
         }
    }

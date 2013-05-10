@@ -33,23 +33,9 @@ import org.osgi.service.jndi.JNDIContextManager;
  * @author David Bosschaert
  * @author Thomas.Diesler@jboss.com
  */
-public class NamingSupport extends RepositorySupport {
+public class NamingSupport {
 
-    public static final String CONTEXT_MANAGER_SERVICE = "org.osgi.service.jndi.JNDIContextManager";
-    public static final String APACHE_ARIES_JNDI = "org.apache.aries.jndi:org.apache.aries.jndi";
-
-    public static void provideJNDIIntegration(BundleContext syscontext, Bundle bundle) throws BundleException {
-        ServiceReference<?> sref = syscontext.getServiceReference(CONTEXT_MANAGER_SERVICE);
-        if (sref == null) {
-            AriesSupport.provideAriesUtil(syscontext, bundle);
-            AriesSupport.provideAriesProxy(syscontext, bundle);
-            // Version 1.0.0 depends on Blueprint
-            //BlueprintSupport.provideBlueprint(syscontext, bundle);
-            installSupportBundle(syscontext, getCoordinates(bundle, APACHE_ARIES_JNDI)).start();
-        }
-   }
-
-    public static JNDIContextManager getContextManager(Bundle bundle) {
+    public static JNDIContextManager getContextManager(Bundle bundle) throws BundleException {
         BundleContext context = bundle.getBundleContext();
         ServiceReference<JNDIContextManager> sref = context.getServiceReference(JNDIContextManager.class);
         return context.getService(sref);

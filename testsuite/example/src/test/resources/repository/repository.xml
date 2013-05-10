@@ -57,6 +57,38 @@
   </resource>
   
   <!-- 
+    aries.jndi.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="aries.jndi.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.proxy" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.util" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.jndi" />
+    </requirement>
+    <!-- Version 1.0.0 depends on Blueprint -->
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="aries.blueprint.feature" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.jndi" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries.jndi:org.apache.aries.jndi:jar:@version.apache.aries.jndi@" />
+    </requirement>
+  </resource>
+  
+  <!-- 
     felix.configadmin.feature 
   -->
   <resource>

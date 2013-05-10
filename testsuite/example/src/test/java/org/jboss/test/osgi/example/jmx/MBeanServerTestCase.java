@@ -75,7 +75,7 @@ public class MBeanServerTestCase {
 
     @Deployment
     public static JavaArchive jmxProvider() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-mbean-server-tests");
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-mbeanserver-tests");
         archive.addClasses(ProvisionServiceSupport.class);
         archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
         archive.setManifest(new Asset() {

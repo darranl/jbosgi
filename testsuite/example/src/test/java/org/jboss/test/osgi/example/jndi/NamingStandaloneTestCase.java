@@ -35,18 +35,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionService;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.MavenCoordinates;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.AriesSupport;
-import org.jboss.test.osgi.BlueprintSupport;
-import org.jboss.test.osgi.ConfigurationAdminSupport;
-import org.jboss.test.osgi.FrameworkUtils;
 import org.jboss.test.osgi.NamingSupport;
-import org.jboss.test.osgi.RepositorySupport;
+import org.jboss.test.osgi.ProvisionServiceSupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.SimpleInitalContextFactory;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.StringReference;
@@ -70,20 +66,17 @@ import org.osgi.service.repository.Repository;
 @RunWith(Arquillian.class)
 public class NamingStandaloneTestCase {
 
-    private static final String JNDI_PROVIDER = "jndi-provider";
-
     @ArquillianResource
     BundleContext context;
 
     @ArquillianResource
     Deployer deployer;
 
-    @Deployment(name = JNDI_PROVIDER)
+    @Deployment
     public static JavaArchive jndiProvider() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JNDI_PROVIDER);
-        archive.addClasses(RepositorySupport.class, NamingSupport.class, AriesSupport.class, BlueprintSupport.class, ConfigurationAdminSupport.class, FrameworkUtils.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-tests");
+        archive.addClasses(ProvisionServiceSupport.class, NamingSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -91,9 +84,9 @@ public class NamingStandaloneTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(JNDITestActivator.class);
-                builder.addImportPackages(XRequirementBuilder.class, MavenCoordinates.class, XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
                 builder.addImportPackages(Context.class, InitialContextFactory.class);
-                builder.addDynamicImportPackages(JNDIContextManager.class.getPackage().getName());
+                builder.addDynamicImportPackages(JNDIContextManager.class);
                 builder.addExportPackages(JNDITestService.class);
                 return builder.openStream();
             }
@@ -104,14 +97,15 @@ public class NamingStandaloneTestCase {
     @Test
     @InSequence(0)
     public void addNamingSupport(@ArquillianResource Bundle bundle) throws Exception {
-        NamingSupport.provideJNDIIntegration(context, bundle);
-        bundle.start();
+        ProvisionServiceSupport.installCapabilities(context, "aries.jndi.feature");
     }
 
     @Test
     @InSequence(1)
     public void testContextManagerOwnerContext(@ArquillianResource Bundle bundle) throws Exception {
 
+        bundle.start();
+        
         // Get the InitialContext via {@link JNDIContextManager}
         JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Context initialContext = contextManager.newInitialContext();
@@ -125,6 +119,8 @@ public class NamingStandaloneTestCase {
     @InSequence(1)
     public void testContextManagerReferenceBinding(@ArquillianResource Bundle bundle) throws Exception {
 
+        bundle.start();
+        
         // Get the InitialContext via {@link JNDIContextManager}
         JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Hashtable<String, String> env = new Hashtable<String, String>();

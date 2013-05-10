@@ -97,6 +97,8 @@ public class ConfigurationAdminTestCase {
     @InSequence(1)
     public void testManagedService(@ArquillianResource Bundle bundle) throws Exception {
 
+        bundle.start();
+        
         // Get the {@link Configuration} for the given PID
         ConfigurationAdmin configAdmin = ConfigurationAdminSupport.getConfigurationAdmin(bundle);
         Configuration config = configAdmin.getConfiguration(PID_A);

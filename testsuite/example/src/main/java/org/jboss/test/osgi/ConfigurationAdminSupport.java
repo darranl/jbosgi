@@ -36,7 +36,6 @@ import org.osgi.service.cm.ConfigurationAdmin;
 public class ConfigurationAdminSupport {
     
     public static ConfigurationAdmin getConfigurationAdmin(Bundle bundle) throws BundleException {
-        bundle.start();
         BundleContext context = bundle.getBundleContext();
         ServiceReference<ConfigurationAdmin> sref = context.getServiceReference(ConfigurationAdmin.class);
         return context.getService(sref);

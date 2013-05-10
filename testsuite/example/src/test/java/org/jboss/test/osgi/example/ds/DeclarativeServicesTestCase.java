@@ -33,21 +33,17 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionService;
 import org.jboss.osgi.repository.XRepository;
-import org.jboss.osgi.resolver.XRequirement;
-import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.DeclarativeServicesSupport;
-import org.jboss.test.osgi.FrameworkUtils;
-import org.jboss.test.osgi.MetatypeSupport;
-import org.jboss.test.osgi.RepositorySupport;
+import org.jboss.test.osgi.ProvisionServiceSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
@@ -62,7 +58,6 @@ import org.osgi.util.tracker.ServiceTracker;
 @RunWith(Arquillian.class)
 public class DeclarativeServicesTestCase {
 
-    static final String DS_PROVIDER = "ds-provider";
     static final String DS_BUNDLE = "ds-bundle";
 
     @ArquillianResource
@@ -71,18 +66,17 @@ public class DeclarativeServicesTestCase {
     @ArquillianResource
     BundleContext context;
 
-    @Deployment(name = DS_PROVIDER)
+    @Deployment
     public static JavaArchive dsProvider() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DS_PROVIDER);
-        archive.addClasses(DeclarativeServicesSupport.class, MetatypeSupport.class, RepositorySupport.class, FrameworkUtils.class);
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "declarative-services-tests");
+        archive.addClasses(ProvisionServiceSupport.class);
         archive.addClasses(SampleComparator.class);
-        archive.addAsManifestResource(RepositorySupport.BUNDLE_VERSIONS_FILE);
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRequirementBuilder.class, XRequirement.class, XRepository.class, Repository.class, Resource.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
                 builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(SampleComparator.class);
                 return builder.openStream();
@@ -91,28 +85,10 @@ public class DeclarativeServicesTestCase {
         return archive;
     }
 
-    @Deployment(name = DS_BUNDLE, managed = false, testable = false)
-    public static JavaArchive testBundle() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DS_BUNDLE);
-        archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
-        archive.setManifest(new Asset() {
-            public InputStream openStream() {
-                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-                builder.addBundleSymbolicName(archive.getName());
-                builder.addBundleManifestVersion(2);
-                builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
-                builder.addImportPackages(SampleComparator.class);
-                return builder.openStream();
-            }
-        });
-        return archive;
-    }
-
     @Test
     @InSequence(0)
-    public void addDSSupport() throws BundleException {
-        Bundle bundle = context.getBundle(DS_PROVIDER);
-        DeclarativeServicesSupport.provideDeclarativeServices(context, bundle);
+    public void addDeclarativeServicesSupport() throws Exception {
+        ProvisionServiceSupport.installCapabilities(context, "felix.scr.feature");
     }
 
     @Test
@@ -141,5 +117,22 @@ public class DeclarativeServicesTestCase {
         } finally {
             bundle.uninstall();
         }
+    }
+
+    @Deployment(name = DS_BUNDLE, managed = false, testable = false)
+    public static JavaArchive testBundle() {
+        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, DS_BUNDLE);
+        archive.addAsResource("ds/OSGI-INF/sample.xml", "OSGI-INF/sample.xml");
+        archive.setManifest(new Asset() {
+            public InputStream openStream() {
+                OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleManifestVersion(2);
+                builder.addManifestHeader("Service-Component", "OSGI-INF/sample.xml");
+                builder.addImportPackages(SampleComparator.class);
+                return builder.openStream();
+            }
+        });
+        return archive;
     }
 }

@@ -101,6 +101,31 @@
   </resource>
   
   <!-- 
+    felix.scr.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="felix.scr.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.metatype" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.scr" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.scr" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.felix:org.apache.felix.scr:jar:@version.apache.felix.scr@" />
+    </requirement>
+  </resource>
+  
+  <!-- 
     jbosgi.jmx.feature 
   -->
   <resource>
@@ -148,6 +173,19 @@
     </capability>
     <requirement namespace="maven.identity">
       <attribute name="maven.identity" value="org.apache.aries:org.apache.aries.util:jar:@version.apache.aries.util@" />
+    </requirement>
+  </resource>
+  
+  <!--
+    org.apache.felix.metatype
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.felix.metatype" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.felix:org.apache.felix.metatype:jar:@version.apache.felix.metatype@" />
     </requirement>
   </resource>
 </repository>

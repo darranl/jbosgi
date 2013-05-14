@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="PersistentRepository">
+
+  <!-- 
+    aries.jmx.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="aries.jmx.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.jmx" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.util" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.jmx" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries.jmx:org.apache.aries.jmx:jar:@version.apache.aries.jmx@" />
+    </requirement>
+  </resource>
+  
+  <!-- 
+    jbosgi.jmx.feature 
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jbosgi.jmx.feature" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="aries.jmx.feature" />
+    </requirement>
+    <requirement namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jbosgi-jmx" />
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="jbosgi-jmx" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.jboss.osgi.jmx:jbosgi-jmx:jar:@version.jboss.osgi.jmx@" />
+    </requirement>
+  </resource>
+
+  <!--
+    org.apache.aries.util
+  -->
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.aries.util" />
+      <attribute name="type" value="abstract" />
+    </capability>
+    <requirement namespace="maven.identity">
+      <attribute name="maven.identity" value="org.apache.aries:org.apache.aries.util:jar:@version.apache.aries.util@" />
+    </requirement>
+  </resource>
+  
+</repository>

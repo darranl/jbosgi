@@ -77,6 +77,8 @@ public class NamingStandaloneTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-tests");
         archive.addClasses(ProvisionServiceSupport.class, NamingSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
+        archive.addAsResource("repository/aries.blueprint.feature.xml");
+        archive.addAsResource("repository/aries.jndi.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -97,7 +99,7 @@ public class NamingStandaloneTestCase {
     @Test
     @InSequence(0)
     public void addNamingSupport(@ArquillianResource Bundle bundle) throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "aries.jndi.feature");
+        ProvisionServiceSupport.installCapabilities(context, "aries.blueprint.feature", "aries.jndi.feature");
     }
 
     @Test

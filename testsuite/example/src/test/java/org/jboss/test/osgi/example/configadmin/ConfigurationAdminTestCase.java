@@ -73,6 +73,7 @@ public class ConfigurationAdminTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "configadmin-tests");
         archive.addClasses(ProvisionServiceSupport.class, ConfigurationAdminSupport.class);
         archive.addClasses(ConfiguredService.class);
+        archive.addAsResource("repository/felix.configadmin.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

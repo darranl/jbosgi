@@ -77,6 +77,8 @@ public class BlueprintTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "blueprint-tests");
         archive.addClasses(ProvisionServiceSupport.class, BlueprintSupport.class);
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
+        archive.addAsResource("repository/aries.blueprint.feature.xml");
+        archive.addAsResource("repository/jbosgi.jmx.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

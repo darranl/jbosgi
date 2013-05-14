@@ -71,6 +71,7 @@ public class DeclarativeServicesTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "declarative-services-tests");
         archive.addClasses(ProvisionServiceSupport.class);
         archive.addClasses(SampleComparator.class);
+        archive.addAsResource("repository/felix.scr.feature.xml");
         archive.setManifest(new Asset() {
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();

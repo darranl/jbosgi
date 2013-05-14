@@ -22,6 +22,7 @@
 
 package org.jboss.test.osgi;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -30,9 +31,14 @@ import java.util.Set;
 import org.jboss.osgi.provision.ProvisionException;
 import org.jboss.osgi.provision.ProvisionResult;
 import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.repository.RepositoryReader;
+import org.jboss.osgi.repository.RepositoryXMLReader;
+import org.jboss.osgi.repository.XPersistentRepository;
 import org.jboss.osgi.resolver.XEnvironment;
+import org.jboss.osgi.resolver.XIdentityCapability;
 import org.jboss.osgi.resolver.XRequirement;
 import org.jboss.osgi.resolver.XRequirementBuilder;
+import org.jboss.osgi.resolver.XResource;
 import org.junit.Assert;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -46,16 +52,6 @@ import org.osgi.framework.namespace.IdentityNamespace;
  */
 public class ProvisionServiceSupport {
 
-    public static ProvisionService getProvisionService(BundleContext context) {
-        ServiceReference<ProvisionService> sref = context.getServiceReference(ProvisionService.class);
-        return context.getService(sref);
-    }
-
-    public static XEnvironment getEnvironment(BundleContext context) {
-        ServiceReference<XEnvironment> sref = context.getServiceReference(XEnvironment.class);
-        return context.getService(sref);
-    }
-
     public static List<Bundle> installCapabilities(BundleContext context, String... features) throws ProvisionException, BundleException {
         XRequirement[] reqs = new XRequirement[features.length];
         for (int i = 0; i < features.length; i++) {
@@ -65,9 +61,11 @@ public class ProvisionServiceSupport {
         return installCapabilities(context, reqs);
     }
 
-    public static List<Bundle> installCapabilities(BundleContext context, XRequirement... reqs) throws ProvisionException, BundleException {
+    private static List<Bundle> installCapabilities(BundleContext context, XRequirement... reqs) throws ProvisionException, BundleException {
         XEnvironment env = getEnvironment(context);
         ProvisionService provision = getProvisionService(context);
+        XPersistentRepository repository = provision.getRepository();
+        populateRepository(repository, reqs);
         ProvisionResult result = provision.findResources(env, new HashSet<XRequirement>(Arrays.asList(reqs)));
         Set<XRequirement> unsat = result.getUnsatisfiedRequirements();
         Assert.assertTrue("Nothing unsatisfied: " + unsat, unsat.isEmpty());
@@ -76,5 +74,35 @@ public class ProvisionServiceSupport {
             bundle.start();
         }
         return bundles;
+    }
+    
+    private static void populateRepository(XPersistentRepository repository, XRequirement[] reqs) {
+        for (XRequirement req : reqs) {
+            String nsvalue = (String) req.getAttribute(IdentityNamespace.IDENTITY_NAMESPACE);
+            InputStream input = ProvisionServiceSupport.class.getResourceAsStream("/repository/" + nsvalue + ".xml");
+            if (input != null) {
+                RepositoryReader reader = RepositoryXMLReader.create(input);
+                XResource auxres = reader.nextResource();
+                while (auxres != null) {
+                    XIdentityCapability icap = auxres.getIdentityCapability();
+                    nsvalue = (String) icap.getAttribute(IdentityNamespace.IDENTITY_NAMESPACE);
+                    XRequirement ireq = XRequirementBuilder.create(IdentityNamespace.IDENTITY_NAMESPACE, nsvalue).getRequirement();
+                    if (repository.findProviders(ireq).isEmpty()) {
+                        repository.getRepositoryStorage().addResource(auxres);
+                    }
+                    auxres = reader.nextResource();
+                }
+            }
+        }
+    }
+
+    private static ProvisionService getProvisionService(BundleContext context) {
+        ServiceReference<ProvisionService> sref = context.getServiceReference(ProvisionService.class);
+        return context.getService(sref);
+    }
+
+    private static XEnvironment getEnvironment(BundleContext context) {
+        ServiceReference<XEnvironment> sref = context.getServiceReference(XEnvironment.class);
+        return context.getService(sref);
     }
 }

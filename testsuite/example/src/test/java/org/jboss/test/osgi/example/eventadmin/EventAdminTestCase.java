@@ -77,6 +77,7 @@ public class EventAdminTestCase {
     public static JavaArchive eventadminProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "eventadmin-tests");
         archive.addClasses(ProvisionServiceSupport.class);
+        archive.addAsResource("repository/felix.eventadmin.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {

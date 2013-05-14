@@ -33,14 +33,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.BlueprintSupport;
-import org.jboss.test.osgi.ProvisionServiceSupport;
+import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceA;
@@ -75,7 +75,7 @@ public class BlueprintTestCase {
     @Deployment
     public static JavaArchive blueprintProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "blueprint-tests");
-        archive.addClasses(ProvisionServiceSupport.class, BlueprintSupport.class);
+        archive.addClasses(ProvisionerSupport.class, BlueprintSupport.class);
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
         archive.addAsResource("repository/aries.blueprint.feature.xml");
         archive.addAsResource("repository/jbosgi.jmx.feature.xml");
@@ -85,7 +85,7 @@ public class BlueprintTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, XResourceProvisioner.class);
                 builder.addDynamicImportPackages(BlueprintContainer.class, MBeanServer.class);
                 builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(ServiceA.class);
@@ -98,7 +98,7 @@ public class BlueprintTestCase {
     @Test
     @InSequence(0)
     public void addBlueprintSupport() throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "aries.blueprint.feature", "jbosgi.jmx.feature");
+        ProvisionerSupport.installCapabilities(context, "aries.blueprint.feature", "jbosgi.jmx.feature");
     }
 
     @Test

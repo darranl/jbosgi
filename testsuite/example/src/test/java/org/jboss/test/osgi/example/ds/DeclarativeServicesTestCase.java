@@ -33,13 +33,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.ProvisionServiceSupport;
+import org.jboss.test.osgi.ProvisionerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -69,7 +69,7 @@ public class DeclarativeServicesTestCase {
     @Deployment
     public static JavaArchive dsProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "declarative-services-tests");
-        archive.addClasses(ProvisionServiceSupport.class);
+        archive.addClasses(ProvisionerSupport.class);
         archive.addClasses(SampleComparator.class);
         archive.addAsResource("repository/felix.scr.feature.xml");
         archive.setManifest(new Asset() {
@@ -77,7 +77,7 @@ public class DeclarativeServicesTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, XResourceProvisioner.class);
                 builder.addImportPackages(ServiceTracker.class);
                 builder.addExportPackages(SampleComparator.class);
                 return builder.openStream();
@@ -89,7 +89,7 @@ public class DeclarativeServicesTestCase {
     @Test
     @InSequence(0)
     public void addDeclarativeServicesSupport() throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "felix.scr.feature");
+        ProvisionerSupport.installCapabilities(context, "felix.scr.feature");
     }
 
     @Test

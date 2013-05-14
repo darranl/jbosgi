@@ -36,13 +36,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.ProvisionServiceSupport;
+import org.jboss.test.osgi.ProvisionerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -76,7 +76,7 @@ public class EventAdminTestCase {
     @Deployment
     public static JavaArchive eventadminProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "eventadmin-tests");
-        archive.addClasses(ProvisionServiceSupport.class);
+        archive.addClasses(ProvisionerSupport.class);
         archive.addAsResource("repository/felix.eventadmin.feature.xml");
         archive.setManifest(new Asset() {
             @Override
@@ -84,7 +84,7 @@ public class EventAdminTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, XResourceProvisioner.class);
                 builder.addDynamicImportPackages(EventAdmin.class);
                 return builder.openStream();
             }
@@ -95,7 +95,7 @@ public class EventAdminTestCase {
     @Test
     @InSequence(0)
     public void addEventAdminSupport() throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "felix.eventadmin.feature");
+        ProvisionerSupport.installCapabilities(context, "felix.eventadmin.feature");
     }
 
     @Test

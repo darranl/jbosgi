@@ -32,14 +32,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
-import org.jboss.test.osgi.ProvisionServiceSupport;
+import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.api.ConfiguredService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -71,7 +71,7 @@ public class ConfigurationAdminTestCase {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "configadmin-tests");
-        archive.addClasses(ProvisionServiceSupport.class, ConfigurationAdminSupport.class);
+        archive.addClasses(ProvisionerSupport.class, ConfigurationAdminSupport.class);
         archive.addClasses(ConfiguredService.class);
         archive.addAsResource("repository/felix.configadmin.feature.xml");
         archive.setManifest(new Asset() {
@@ -80,7 +80,7 @@ public class ConfigurationAdminTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, XResourceProvisioner.class);
                 builder.addDynamicImportPackages(ConfigurationAdmin.class);
                 return builder.openStream();
             }
@@ -91,7 +91,7 @@ public class ConfigurationAdminTestCase {
     @Test
     @InSequence(0)
     public void addConfigurationAdminSupport() throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "felix.configadmin.feature");
+        ProvisionerSupport.installCapabilities(context, "felix.configadmin.feature");
     }
 
     @Test

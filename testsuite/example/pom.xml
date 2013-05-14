@@ -34,8 +34,8 @@
     <!-- Dependencies -->
     <dependencies>
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-controller-client</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-controller-client</artifactId>
         </dependency>
         <!-- Provided -->
         <dependency>
@@ -161,11 +161,11 @@
         </profile>
         
         <profile>
-            <id>jboss800-testing</id>
+            <id>wildfly800-testing</id>
             <activation>
                 <property>
                     <name>target.container</name>
-                    <value>jboss800</value>
+                    <value>wildfly800</value>
                 </property>
             </activation>
             <build>

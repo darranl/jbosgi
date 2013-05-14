@@ -30,7 +30,7 @@ import java.util.Set;
 
 import org.jboss.osgi.provision.ProvisionException;
 import org.jboss.osgi.provision.ProvisionResult;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.RepositoryReader;
 import org.jboss.osgi.repository.RepositoryXMLReader;
 import org.jboss.osgi.repository.XPersistentRepository;
@@ -50,7 +50,7 @@ import org.osgi.framework.namespace.IdentityNamespace;
  * @author Thomas.Diesler@jboss.com
  * @since 10-May-2013
  */
-public class ProvisionServiceSupport {
+public class ProvisionerSupport {
 
     public static List<Bundle> installCapabilities(BundleContext context, String... features) throws ProvisionException, BundleException {
         XRequirement[] reqs = new XRequirement[features.length];
@@ -63,7 +63,7 @@ public class ProvisionServiceSupport {
 
     private static List<Bundle> installCapabilities(BundleContext context, XRequirement... reqs) throws ProvisionException, BundleException {
         XEnvironment env = getEnvironment(context);
-        ProvisionService provision = getProvisionService(context);
+        XResourceProvisioner provision = getProvisionService(context);
         XPersistentRepository repository = provision.getRepository();
         populateRepository(repository, reqs);
         ProvisionResult result = provision.findResources(env, new HashSet<XRequirement>(Arrays.asList(reqs)));
@@ -79,7 +79,7 @@ public class ProvisionServiceSupport {
     private static void populateRepository(XPersistentRepository repository, XRequirement[] reqs) {
         for (XRequirement req : reqs) {
             String nsvalue = (String) req.getAttribute(IdentityNamespace.IDENTITY_NAMESPACE);
-            InputStream input = ProvisionServiceSupport.class.getResourceAsStream("/repository/" + nsvalue + ".xml");
+            InputStream input = ProvisionerSupport.class.getResourceAsStream("/repository/" + nsvalue + ".xml");
             if (input != null) {
                 RepositoryReader reader = RepositoryXMLReader.create(input);
                 XResource auxres = reader.nextResource();
@@ -96,8 +96,8 @@ public class ProvisionServiceSupport {
         }
     }
 
-    private static ProvisionService getProvisionService(BundleContext context) {
-        ServiceReference<ProvisionService> sref = context.getServiceReference(ProvisionService.class);
+    private static XResourceProvisioner getProvisionService(BundleContext context) {
+        ServiceReference<XResourceProvisioner> sref = context.getServiceReference(XResourceProvisioner.class);
         return context.getService(sref);
     }
 

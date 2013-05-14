@@ -35,14 +35,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.NamingSupport;
-import org.jboss.test.osgi.ProvisionServiceSupport;
+import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.SimpleInitalContextFactory;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.StringReference;
@@ -75,7 +75,7 @@ public class NamingStandaloneTestCase {
     @Deployment
     public static JavaArchive jndiProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-tests");
-        archive.addClasses(ProvisionServiceSupport.class, NamingSupport.class);
+        archive.addClasses(ProvisionerSupport.class, NamingSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
         archive.addAsResource("repository/aries.blueprint.feature.xml");
         archive.addAsResource("repository/aries.jndi.feature.xml");
@@ -86,7 +86,7 @@ public class NamingStandaloneTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(JNDITestActivator.class);
-                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, XResourceProvisioner.class);
                 builder.addImportPackages(Context.class, InitialContextFactory.class);
                 builder.addDynamicImportPackages(JNDIContextManager.class);
                 builder.addExportPackages(JNDITestService.class);
@@ -99,7 +99,7 @@ public class NamingStandaloneTestCase {
     @Test
     @InSequence(0)
     public void addNamingSupport(@ArquillianResource Bundle bundle) throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "aries.blueprint.feature", "aries.jndi.feature");
+        ProvisionerSupport.installCapabilities(context, "aries.blueprint.feature", "aries.jndi.feature");
     }
 
     @Test

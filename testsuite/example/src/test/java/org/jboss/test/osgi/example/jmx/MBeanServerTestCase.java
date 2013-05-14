@@ -36,13 +36,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
-import org.jboss.osgi.provision.ProvisionService;
+import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.ProvisionServiceSupport;
+import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.jmx.bundle.Foo;
 import org.jboss.test.osgi.example.jmx.bundle.FooMBean;
 import org.jboss.test.osgi.example.jmx.bundle.MBeanActivator;
@@ -76,7 +76,7 @@ public class MBeanServerTestCase {
     @Deployment
     public static JavaArchive jmxProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-mbeanserver-tests");
-        archive.addClasses(ProvisionServiceSupport.class);
+        archive.addClasses(ProvisionerSupport.class);
         archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
         archive.setManifest(new Asset() {
             @Override
@@ -84,7 +84,7 @@ public class MBeanServerTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, ProvisionService.class);
+                builder.addImportPackages(XRepository.class, Repository.class, XResource.class, Resource.class, XResourceProvisioner.class);
                 builder.addImportPackages(MBeanServer.class, ServiceTracker.class);
                 builder.addExportPackages(FooMBean.class);
                 return builder.openStream();
@@ -96,7 +96,7 @@ public class MBeanServerTestCase {
     @Test
     @InSequence(0)
     public void addJMXSupport(@ArquillianResource Bundle bundle) throws Exception {
-        ProvisionServiceSupport.installCapabilities(context, "jbosgi.jmx.feature");
+        ProvisionerSupport.installCapabilities(context, "jbosgi.jmx.feature");
     }
 
     @Test

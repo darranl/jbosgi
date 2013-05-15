@@ -24,6 +24,7 @@ package org.jboss.test.osgi;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +44,7 @@ import org.junit.Assert;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
+import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.namespace.IdentityNamespace;
 
@@ -63,7 +65,7 @@ public class ProvisionerSupport {
 
     private static List<Bundle> installCapabilities(BundleContext context, XRequirement... reqs) throws ProvisionException, BundleException {
         XEnvironment env = getEnvironment(context);
-        XResourceProvisioner provision = getProvisionService(context);
+        XResourceProvisioner<Bundle> provision = getProvisionService(context);
         XPersistentRepository repository = provision.getRepository();
         populateRepository(repository, reqs);
         ProvisionResult result = provision.findResources(env, new HashSet<XRequirement>(Arrays.asList(reqs)));
@@ -96,9 +98,16 @@ public class ProvisionerSupport {
         }
     }
 
-    private static XResourceProvisioner getProvisionService(BundleContext context) {
-        ServiceReference<XResourceProvisioner> sref = context.getServiceReference(XResourceProvisioner.class);
-        return context.getService(sref);
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    private static XResourceProvisioner<Bundle> getProvisionService(BundleContext context) {
+        Collection<ServiceReference<XResourceProvisioner>> srefs;
+        try {
+            srefs = context.getServiceReferences(XResourceProvisioner.class, "(type=" + XResource.TYPE_BUNDLE + ")");
+        } catch (InvalidSyntaxException ex) {
+            throw new IllegalArgumentException(ex);
+        }
+        Assert.assertFalse("XResourceProvisioner service found", srefs.isEmpty());
+        return context.getService(srefs.iterator().next());
     }
 
     private static XEnvironment getEnvironment(BundleContext context) {

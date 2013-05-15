@@ -71,7 +71,7 @@
         <version.jboss.osgi.logging>1.0.0</version.jboss.osgi.logging> 
         <version.jboss.osgi.jmx>1.1.0.Final</version.jboss.osgi.jmx>
         <version.jboss.osgi.metadata>3.0.0.CR1</version.jboss.osgi.metadata>
-        <version.jboss.osgi.provision>1.0.0.CR1</version.jboss.osgi.provision>
+        <version.jboss.osgi.provision>1.0.0.CR2</version.jboss.osgi.provision>
         <version.jboss.osgi.repository>3.0.0.CR5</version.jboss.osgi.repository>
         <version.jboss.osgi.resolver>4.0.0.CR14</version.jboss.osgi.resolver>
         <version.jboss.osgi.spi>4.0.0.CR2</version.jboss.osgi.spi>

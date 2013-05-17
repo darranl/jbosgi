@@ -57,16 +57,15 @@
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
             <artifactId>jbosgi-repository-api</artifactId>
-            <version>${version.jboss.osgi.repository}</version>
             <classifier>sources</classifier>
         </dependency>
 		<dependency>
 			<groupId>org.jboss.osgi.repository</groupId>
-			<artifactId>jbosgi-repository</artifactId>
+			<artifactId>jbosgi-repository-bundle</artifactId>
 		</dependency>
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository</artifactId>
+            <artifactId>jbosgi-repository-api</artifactId>
             <version>${version.jboss.osgi.repository}</version>
             <classifier>sources</classifier>
         </dependency>

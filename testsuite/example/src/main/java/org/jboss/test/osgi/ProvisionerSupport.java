@@ -65,19 +65,19 @@ public class ProvisionerSupport {
 
     private static List<Bundle> installCapabilities(BundleContext context, XRequirement... reqs) throws ProvisionException, BundleException {
         XEnvironment env = getEnvironment(context);
-        XResourceProvisioner<Bundle> provision = getProvisionService(context);
+        XResourceProvisioner provision = getProvisionService(context);
         XPersistentRepository repository = provision.getRepository();
         populateRepository(repository, reqs);
         ProvisionResult result = provision.findResources(env, new HashSet<XRequirement>(Arrays.asList(reqs)));
         Set<XRequirement> unsat = result.getUnsatisfiedRequirements();
         Assert.assertTrue("Nothing unsatisfied: " + unsat, unsat.isEmpty());
-        List<Bundle> bundles = provision.installResources(result.getResources());
+        List<Bundle> bundles = provision.installResources(result.getResources(), Bundle.class);
         for (Bundle bundle : bundles) {
             bundle.start();
         }
         return bundles;
     }
-    
+
     private static void populateRepository(XPersistentRepository repository, XRequirement[] reqs) {
         for (XRequirement req : reqs) {
             String nsvalue = (String) req.getAttribute(IdentityNamespace.IDENTITY_NAMESPACE);
@@ -98,8 +98,7 @@ public class ProvisionerSupport {
         }
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static XResourceProvisioner<Bundle> getProvisionService(BundleContext context) {
+    private static XResourceProvisioner getProvisionService(BundleContext context) {
         Collection<ServiceReference<XResourceProvisioner>> srefs;
         try {
             srefs = context.getServiceReferences(XResourceProvisioner.class, "(type=" + XResource.TYPE_BUNDLE + ")");

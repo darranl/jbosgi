@@ -78,6 +78,7 @@ public class MBeanServerTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-mbeanserver-tests");
         archive.addClasses(ProvisionerSupport.class);
         archive.addClasses(Foo.class, FooMBean.class, MBeanActivator.class);
+        archive.addAsResource("repository/jbosgi.jmx.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -95,7 +96,7 @@ public class MBeanServerTestCase {
 
     @Test
     @InSequence(0)
-    public void addJMXSupport(@ArquillianResource Bundle bundle) throws Exception {
+    public void addJMXSupport() throws Exception {
         ProvisionerSupport.installCapabilities(context, "jbosgi.jmx.feature");
     }
 
@@ -122,7 +123,7 @@ public class MBeanServerTestCase {
     {
         return MBeanServerInvocationHandler.newProxyInstance(server, name, interf, false);
     }
-    
+
     @Deployment(name = JMX_BUNDLE, managed = false, testable = false)
     public static JavaArchive testBundle() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, JMX_BUNDLE);

@@ -105,7 +105,7 @@ public class NamingTestCase {
     public void testContextManager(@ArquillianResource Bundle bundle) throws Exception {
 
         bundle.start();
-        
+
         // Get the InitialContext via {@link JNDIContextManager}
         JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Context initialContext = contextManager.newInitialContext();
@@ -124,7 +124,7 @@ public class NamingTestCase {
     public void testContextManagerValueBinding(@ArquillianResource Bundle bundle) throws Exception {
 
         bundle.start();
-        
+
         // Get the InitialContext via {@link JNDIContextManager}
         JNDIContextManager contextManager = NamingSupport.getContextManager(bundle);
         Hashtable<String, String> env = new Hashtable<String, String>();
@@ -143,7 +143,7 @@ public class NamingTestCase {
 
     @Test
     @InSequence(1)
-    public void testContextManagerValueLookup(@ArquillianResource Bundle bundle) throws Exception {
+    public void testContextManagerValueLookup() throws Exception {
 
         InputStream inputB = deployer.getDeployment("bundleB");
         Bundle bundleB = context.installBundle("bundleB", inputB);
@@ -215,7 +215,7 @@ public class NamingTestCase {
 
     @Test
     @InSequence(1)
-    public void testTraditionalAPI(@ArquillianResource Bundle bundle) throws Exception {
+    public void testTraditionalAPI() throws Exception {
 
         // Get the InitialContext via API
         Context initialContext = new InitialContext();
@@ -231,7 +231,7 @@ public class NamingTestCase {
 
     @Test
     @InSequence(1)
-    public void testTraditionalAPIValueLookup(@ArquillianResource Bundle bundle) throws Exception {
+    public void testTraditionalAPIValueLookup() throws Exception {
 
         InputStream inputB = deployer.getDeployment("bundleB");
         Bundle bundleB = context.installBundle("bundleB", inputB);
@@ -263,7 +263,7 @@ public class NamingTestCase {
 
     @Test
     @InSequence(1)
-    public void testTraditionalAPIValueLookupNegative(@ArquillianResource Bundle bundle) throws Exception {
+    public void testTraditionalAPIValueLookupNegative() throws Exception {
 
         InputStream inputC = deployer.getDeployment("bundleC");
         Bundle bundleC = context.installBundle("bundleC", inputC);

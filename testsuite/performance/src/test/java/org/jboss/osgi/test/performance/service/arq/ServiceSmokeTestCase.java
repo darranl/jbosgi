@@ -77,11 +77,7 @@ public class ServiceSmokeTestCase extends AbstractPerformanceTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(CreateAndLookupTestActivator.class.getName());
                 builder.addExportPackages(ServiceSmokeTestCase.class);
-                builder.addImportPackages("org.jboss.arquillian.junit", "org.jboss.logging");
-                builder.addImportPackages("org.jboss.shrinkwrap.api", "org.jboss.shrinkwrap.api.asset", "org.jboss.shrinkwrap.api.spec");
-                builder.addImportPackages("org.junit", "org.junit.runner");
-                builder.addImportPackages("org.osgi.framework", "org.osgi.util.tracker");
-                builder.addImportPackages("javax.inject");
+                builder.addImportPackages("org.jboss.logging", "org.osgi.util.tracker");
                 return builder.openStream();
             }
         });

@@ -1,6 +1,89 @@
 <html>
 <body>
 
+<h1>JBossOSGi 2.0.0</h1>    
+<h2>Bug</h2>
+<ul>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-530'>JBOSGI-530</a>] -         No logging messages from org.jboss.modules</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-533'>JBOSGI-533</a>] -         OSGiMetaData returns non-stable value from toString()</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-534'>JBOSGI-534</a>] -         Invalid canonical name for legacy bundles</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-542'>JBOSGI-542</a>] -         DynamicImport-Package doesn&#39;t work with system bundle packages</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-543'>JBOSGI-543</a>] -         Bundle start level not persistently recorded</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-545'>JBOSGI-545</a>] -         Uninstalling persistent user bundle stops Framework.INIT service</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-547'>JBOSGI-547</a>] -         ClassNotFoundException: org.osgi.service.log.LogService in org.apache.felix.eventadmin:1.2.6</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-553'>JBOSGI-553</a>] -         Start Level change does not report intermediate levels</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-571'>JBOSGI-571</a>] -         Package exported by fragment not visible through PackageAdmin.getExportedPackage()</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-576'>JBOSGI-576</a>] -         IllegalStateException on ServiceEvent to uninstalled bundle</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-577'>JBOSGI-577</a>] -         Invalid recursive module creation triggered by bundle event</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-580'>JBOSGI-580</a>] -         Service not guaranteed to be available on return of BundleContext.registerService(...)</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-588'>JBOSGI-588</a>] -         ConcurrentModificationException with services using the same class name</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-599'>JBOSGI-599</a>] -         The system bundle only support very simple syntax for the system packages</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-600'>JBOSGI-600</a>] -         Installing bundle from streams does not work</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-602'>JBOSGI-602</a>] -         No bundle notifications on shutdown</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-609'>JBOSGI-609</a>] -         Timeout getting: jbosgi.framework.INIT</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-612'>JBOSGI-612</a>] -         Race condition may prevent Framework startup</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-613'>JBOSGI-613</a>] -         Bundle.uninstall() may not remove it from persistent storage</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-615'>JBOSGI-615</a>] -         VFSAdaptor30 uses non-thread-safe Map, which may result in deadlock</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-618'>JBOSGI-618</a>] -         Bundle refresh or reinstall may lead to DuplicateServiceException</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-619'>JBOSGI-619</a>] -         Bundle.RESOLVED service has invalid dependency on Bundle.MODULE service after refresh</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-625'>JBOSGI-625</a>] -         Improve log message when bundle start level not valid for start</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-627'>JBOSGI-627</a>] -         Misspelled system property FRAMEWORK_VENDOR</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-632'>JBOSGI-632</a>] -         ConcurrentModificationException in BundleContext.getServiceReferences()</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-639'>JBOSGI-639</a>] -         Bundle update fails in AS8</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-643'>JBOSGI-643</a>] -         NPE on unregister service during shutdown</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-645'>JBOSGI-645</a>] -         Cannot resolve Import-Package: org.acme.foo;version=&quot;0&quot;</li>
+</ul>
+                        
+<h2>Feature Request</h2>
+<ul>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-605'>JBOSGI-605</a>] -         Assign implementation specific values for system bundle symbolic name/version</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-606'>JBOSGI-606</a>] -         Add support for systemBundle.stop()</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-614'>JBOSGI-614</a>] -         Allow Maven URLs to be configured to resolve external bundles</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-616'>JBOSGI-616</a>] -         Compliant R5 Core Framework</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-620'>JBOSGI-620</a>] -         Add ability to lock a set of Bundles </li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-644'>JBOSGI-644</a>] -         Add support for execution environment [JavaSE-1.7]</li>
+</ul>
+                            
+<h2>Task</h2>
+<ul>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-493'>JBOSGI-493</a>] -         Add support for weaving hooks</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-497'>JBOSGI-497</a>] -         Initial Core R5 support</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-502'>JBOSGI-502</a>] -         Setup R5 core TCK</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-524'>JBOSGI-524</a>] -         Relicense repository code base to ASL2.0</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-525'>JBOSGI-525</a>] -         Define and implement a repository content exchange format</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-527'>JBOSGI-527</a>] -         Unique error and warning message codes for all jbosgi projects</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-531'>JBOSGI-531</a>] -         Integrate standalone resolver with Framework</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-532'>JBOSGI-532</a>] -         Externalize notion of OSGi Environment</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-535'>JBOSGI-535</a>] -         Update resource, wiring, resolver, repository APIs to R5 </li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-544'>JBOSGI-544</a>] -         String.toUpperCase(Locale) and tring.toLowerCase(Locale) in all components</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-549'>JBOSGI-549</a>] -         Provide API that allows add/remove of repository artefacts</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-552'>JBOSGI-552</a>] -         Add license information to all jbosgi projects</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-557'>JBOSGI-557</a>] -         Add support for repository XML writer</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-558'>JBOSGI-558</a>] -         Provide repository dependencies as part of the bundle</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-570'>JBOSGI-570</a>] -         Verify that resolved packagers from fragments show up in PackageAdmin</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-581'>JBOSGI-581</a>] -         Update Aries Blueprint to 1.0.0</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-585'>JBOSGI-585</a>] -         Separate maven project.version from bundle.version and package version</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-601'>JBOSGI-601</a>] -         Log remote maven repository access at info level</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-607'>JBOSGI-607</a>] -         Add support for start/stop APIs on Module adaptors</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-608'>JBOSGI-608</a>] -         Integrate StartLevel with Module adaptors</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-630'>JBOSGI-630</a>] -         Update Felix Configuration Admin to 1.6.0</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-631'>JBOSGI-631</a>] -         Update Felix Declarative Services to 1.6.2</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-634'>JBOSGI-634</a>] -         Update Felix EventAdmin to 1.3.0</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-635'>JBOSGI-635</a>] -         Update Aries JMX to 1.0.0</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-636'>JBOSGI-636</a>] -         Restore PackageAdmin compatible with Aries JMX</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-638'>JBOSGI-638</a>] -         ClassCircularityError with Aries Blueprint on JDK1.7</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-640'>JBOSGI-640</a>] -         Update Aries JNDI to 1.0.0</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-641'>JBOSGI-641</a>] -         Verify that Felix Web Console works with R5</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-642'>JBOSGI-642</a>] -         Consolidate attachments API</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-648'>JBOSGI-648</a>] -         Release final R5 framework version</li>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-650'>JBOSGI-650</a>] -         Update WildFly dependency to 8.0.0.Alpha2</li>
+</ul>
+            
+<h2>Sub-task</h2>
+<ul>
+<li>[<a href='https://issues.jboss.org/browse/JBOSGI-498'>JBOSGI-498</a>] -         R5 compliant Resolver</li>
+</ul>
+    
 <h1>JBossOSGi 1.1.1</h1>
 <h2>Task</h2>
 <ul>

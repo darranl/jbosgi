@@ -50,6 +50,7 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Resource;
 import org.osgi.service.blueprint.container.BlueprintContainer;
 import org.osgi.service.repository.Repository;
@@ -98,7 +99,8 @@ public class BlueprintTestCase {
     @Test
     @InSequence(0)
     public void addBlueprintSupport() throws Exception {
-        ProvisionerSupport.installCapabilities(context, "aries.blueprint.feature", "jbosgi.jmx.feature");
+        ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "aries.blueprint.feature", "jbosgi.jmx.feature");
     }
 
     @Test

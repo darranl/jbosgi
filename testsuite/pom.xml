@@ -201,7 +201,8 @@
                 </property>
             </activation>
             <properties>
-                <jboss.home>${basedir}/../../../wildfly/build/target/wildfly-${version.wildfly.800}</jboss.home>
+                <!-- jboss.home>${user.home}/git/wildfly/build/target/wildfly-${version.wildfly.800}</jboss.home-->
+                <jboss.home>${project.build.directory}/wildfly-${version.wildfly.800}</jboss.home>
             </properties>
             <dependencies>
                 <dependency>
@@ -211,6 +212,34 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>${version.wildfly.800}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

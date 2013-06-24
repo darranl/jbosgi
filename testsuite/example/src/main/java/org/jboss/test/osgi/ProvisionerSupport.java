@@ -22,14 +22,16 @@
 
 package org.jboss.test.osgi;
 
+import static org.jboss.osgi.provision.ProvisionLogger.LOGGER;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.osgi.provision.ProvisionException;
 import org.jboss.osgi.provision.ProvisionResult;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.RepositoryReader;
@@ -43,10 +45,8 @@ import org.jboss.osgi.resolver.XResource;
 import org.junit.Assert;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.namespace.IdentityNamespace;
+import org.osgi.service.repository.RepositoryContent;
 
 /**
  * @author Thomas.Diesler@jboss.com
@@ -54,41 +54,102 @@ import org.osgi.framework.namespace.IdentityNamespace;
  */
 public class ProvisionerSupport {
 
-    public static List<Bundle> installCapabilities(BundleContext context, String... features) throws ProvisionException, BundleException {
+    private final BundleContext syscontext;
+    private final XResourceProvisioner provision;
+    private final XEnvironment environment;
+
+    public interface ResourceHandle {
+
+        <T> T adapt(Class<T> type);
+
+        void uninstall();
+    }
+
+    public ProvisionerSupport(BundleContext syscontext) {
+        this.syscontext = syscontext;
+        this.provision = syscontext.getService(syscontext.getServiceReference(XResourceProvisioner.class));
+        this.environment = syscontext.getService(syscontext.getServiceReference(XEnvironment.class));
+    }
+
+    public XEnvironment getEnvironment() {
+        return environment;
+    }
+
+    public XResourceProvisioner getResourceProvisioner() {
+        return provision;
+    }
+
+    public XPersistentRepository getPersistentRepository() {
+        return provision.getRepository();
+    }
+
+    public List<ResourceHandle> installCapabilities(String namespace, String... features) throws Exception {
         XRequirement[] reqs = new XRequirement[features.length];
-        for (int i = 0; i < features.length; i++) {
-            XRequirementBuilder reqbuilder = XRequirementBuilder.create(IdentityNamespace.IDENTITY_NAMESPACE, features[i]);
-            reqs[i] = reqbuilder.getRequirement();
+        for (int i=0; i < features.length; i++) {
+            reqs[i] = XRequirementBuilder.create(namespace, features[i]).getRequirement();
         }
-        return installCapabilities(context, reqs);
+        return installCapabilities(reqs);
     }
 
-    private static List<Bundle> installCapabilities(BundleContext context, XRequirement... reqs) throws ProvisionException, BundleException {
-        XEnvironment env = getEnvironment(context);
-        XResourceProvisioner provision = getProvisionService(context);
-        XPersistentRepository repository = provision.getRepository();
-        populateRepository(repository, reqs);
-        ProvisionResult result = provision.findResources(env, new HashSet<XRequirement>(Arrays.asList(reqs)));
-        Set<XRequirement> unsat = result.getUnsatisfiedRequirements();
-        Assert.assertTrue("Nothing unsatisfied: " + unsat, unsat.isEmpty());
-        List<Bundle> bundles = provision.installResources(result.getResources(), Bundle.class);
-        for (Bundle bundle : bundles) {
-            bundle.start();
-        }
-        return bundles;
-    }
+    public List<ResourceHandle> installCapabilities(XRequirement... reqs) throws Exception {
 
-    private static void populateRepository(XPersistentRepository repository, XRequirement[] reqs) {
         for (XRequirement req : reqs) {
             String nsvalue = (String) req.getAttribute(IdentityNamespace.IDENTITY_NAMESPACE);
-            InputStream input = ProvisionerSupport.class.getResourceAsStream("/repository/" + nsvalue + ".xml");
-            if (input != null) {
-                RepositoryReader reader = RepositoryXMLReader.create(input);
+            populateRepository(nsvalue);
+        }
+        
+        // Obtain provisioner result
+        ProvisionResult result = provision.findResources(environment, new HashSet<XRequirement>(Arrays.asList(reqs)));
+        Set<XRequirement> unsat = result.getUnsatisfiedRequirements();
+        Assert.assertTrue("Nothing unsatisfied: " + unsat, unsat.isEmpty());
+
+        // Install the provision result
+        List<ResourceHandle> reshandles = new ArrayList<ResourceHandle>();
+        for (XResource res : result.getResources()) {
+            XIdentityCapability icap = res.getIdentityCapability();
+            if (!icap.getNamespace().equals(IdentityNamespace.IDENTITY_NAMESPACE))
+                throw new IllegalArgumentException("Unsupported type: " + icap);
+
+            final InputStream input = ((RepositoryContent) res).getContent();
+            final Bundle bundle = syscontext.installBundle(icap.getName(), input);
+            ResourceHandle handle = new ResourceHandle() {
+
+                @Override
+                @SuppressWarnings("unchecked")
+                public <T> T adapt(Class<T> type) {
+                    return (T) (type == Bundle.class ? bundle : null);
+                }
+
+                @Override
+                public void uninstall() {
+                    try {
+                        bundle.uninstall();
+                    } catch (Exception ex) {
+                        LOGGER.warnf(ex, "Cannot uninstall bundle: %s", bundle);
+                    }
+                }
+            };
+            reshandles.add(handle);
+        }
+        // Start the provisioned bundles
+        for (ResourceHandle handle : reshandles) {
+            Bundle bundle = handle.adapt(Bundle.class);
+            bundle.start();
+        }
+        return reshandles;
+    }
+
+    public void populateRepository(String... features) throws IOException {
+        XPersistentRepository repository = getPersistentRepository();
+        for (String feature : features) {
+            URL resourceURL = getResource(feature + ".xml");
+            if (resourceURL != null) {
+                RepositoryReader reader = RepositoryXMLReader.create(resourceURL.openStream());
                 XResource auxres = reader.nextResource();
                 while (auxres != null) {
                     XIdentityCapability icap = auxres.getIdentityCapability();
-                    nsvalue = (String) icap.getAttribute(IdentityNamespace.IDENTITY_NAMESPACE);
-                    XRequirement ireq = XRequirementBuilder.create(IdentityNamespace.IDENTITY_NAMESPACE, nsvalue).getRequirement();
+                    String nsvalue = (String) icap.getAttribute(icap.getNamespace());
+                    XRequirement ireq = XRequirementBuilder.create(icap.getNamespace(), nsvalue).getRequirement();
                     if (repository.findProviders(ireq).isEmpty()) {
                         repository.getRepositoryStorage().addResource(auxres);
                     }
@@ -98,19 +159,7 @@ public class ProvisionerSupport {
         }
     }
 
-    private static XResourceProvisioner getProvisionService(BundleContext context) {
-        Collection<ServiceReference<XResourceProvisioner>> srefs;
-        try {
-            srefs = context.getServiceReferences(XResourceProvisioner.class, "(type=" + XResource.TYPE_BUNDLE + ")");
-        } catch (InvalidSyntaxException ex) {
-            throw new IllegalArgumentException(ex);
-        }
-        Assert.assertFalse("XResourceProvisioner service found", srefs.isEmpty());
-        return context.getService(srefs.iterator().next());
-    }
-
-    private static XEnvironment getEnvironment(BundleContext context) {
-        ServiceReference<XEnvironment> sref = context.getServiceReference(XEnvironment.class);
-        return context.getService(sref);
+    private URL getResource(String resname) {
+        return ProvisionerSupport.class.getResource("/repository/" + resname);
     }
 }

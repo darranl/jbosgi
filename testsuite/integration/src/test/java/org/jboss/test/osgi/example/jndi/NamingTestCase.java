@@ -52,6 +52,7 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Resource;
 import org.osgi.service.jndi.JNDIConstants;
 import org.osgi.service.jndi.JNDIContextManager;
@@ -77,6 +78,8 @@ public class NamingTestCase {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-tests");
         archive.addClasses(ProvisionerSupport.class, NamingSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
+        archive.addAsResource("repository/aries.blueprint.feature.xml");
+        archive.addAsResource("repository/aries.jndi.feature.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -97,7 +100,8 @@ public class NamingTestCase {
     @Test
     @InSequence(0)
     public void addNamingSupport() throws Exception {
-        ProvisionerSupport.installCapabilities(context, "aries.jndi.feature");
+        ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "aries.blueprint.feature", "aries.jndi.feature");
     }
 
     @Test

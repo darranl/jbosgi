@@ -47,6 +47,7 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Resource;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
@@ -91,7 +92,8 @@ public class ConfigurationAdminTestCase {
     @Test
     @InSequence(0)
     public void addConfigurationAdminSupport() throws Exception {
-        ProvisionerSupport.installCapabilities(context, "felix.configadmin.feature");
+        ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "felix.configadmin.feature");
     }
 
     @Test

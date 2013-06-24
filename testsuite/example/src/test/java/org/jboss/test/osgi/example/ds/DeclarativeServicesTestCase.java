@@ -45,6 +45,7 @@ import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.namespace.IdentityNamespace;
 import org.osgi.resource.Resource;
 import org.osgi.service.repository.Repository;
 import org.osgi.util.tracker.ServiceTracker;
@@ -89,7 +90,8 @@ public class DeclarativeServicesTestCase {
     @Test
     @InSequence(0)
     public void addDeclarativeServicesSupport() throws Exception {
-        ProvisionerSupport.installCapabilities(context, "felix.scr.feature");
+        ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "felix.scr.feature");
     }
 
     @Test

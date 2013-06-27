@@ -36,13 +36,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.ProvisionerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -77,7 +77,6 @@ public class EventAdminTestCase {
     @Deployment
     public static JavaArchive eventadminProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "eventadmin-tests");
-        archive.addClasses(ProvisionerSupport.class);
         archive.addAsResource("repository/felix.eventadmin.feature.xml");
         archive.setManifest(new Asset() {
             @Override
@@ -97,6 +96,7 @@ public class EventAdminTestCase {
     @InSequence(0)
     public void addEventAdminSupport() throws Exception {
         ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.populateRepository(getClass().getClassLoader(), "felix.eventadmin.feature");
         provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "felix.eventadmin.feature");
     }
 

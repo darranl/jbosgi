@@ -32,6 +32,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
@@ -39,7 +40,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.ConfigurationAdminSupport;
-import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.api.ConfiguredService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -72,7 +72,7 @@ public class ConfigurationAdminTestCase {
     @Deployment
     public static JavaArchive deployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "configadmin-tests");
-        archive.addClasses(ProvisionerSupport.class, ConfigurationAdminSupport.class);
+        archive.addClasses(ConfigurationAdminSupport.class);
         archive.addClasses(ConfiguredService.class);
         archive.addAsResource("repository/felix.configadmin.feature.xml");
         archive.setManifest(new Asset() {
@@ -93,6 +93,7 @@ public class ConfigurationAdminTestCase {
     @InSequence(0)
     public void addConfigurationAdminSupport() throws Exception {
         ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.populateRepository(getClass().getClassLoader(), "felix.configadmin.feature");
         provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "felix.configadmin.feature");
     }
 

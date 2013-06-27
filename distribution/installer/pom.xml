@@ -52,11 +52,11 @@
         </dependency>
 		<dependency>
 			<groupId>org.jboss.osgi.repository</groupId>
-			<artifactId>jbosgi-repository-api</artifactId>
+			<artifactId>jbosgi-repository-core</artifactId>
 		</dependency>
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository-api</artifactId>
+            <artifactId>jbosgi-repository-core</artifactId>
             <classifier>sources</classifier>
         </dependency>
 		<dependency>
@@ -65,7 +65,7 @@
 		</dependency>
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository-api</artifactId>
+            <artifactId>jbosgi-repository-core</artifactId>
             <version>${version.jboss.osgi.repository}</version>
             <classifier>sources</classifier>
         </dependency>

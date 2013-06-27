@@ -35,6 +35,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
@@ -42,7 +43,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.NamingSupport;
-import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.SimpleInitalContextFactory;
 import org.jboss.test.osgi.example.jndi.bundle.JNDITestActivator.StringReference;
@@ -76,7 +76,7 @@ public class NamingStandaloneTestCase {
     @Deployment
     public static JavaArchive jndiProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jndi-tests");
-        archive.addClasses(ProvisionerSupport.class, NamingSupport.class);
+        archive.addClasses(NamingSupport.class);
         archive.addClasses(JNDITestService.class, JNDITestActivator.class);
         archive.addAsResource("repository/aries.blueprint.feature.xml");
         archive.addAsResource("repository/aries.jndi.feature.xml");
@@ -101,6 +101,7 @@ public class NamingStandaloneTestCase {
     @InSequence(0)
     public void addNamingSupport(@ArquillianResource Bundle bundle) throws Exception {
         ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.populateRepository(getClass().getClassLoader(), "aries.blueprint.feature", "aries.jndi.feature");
         provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "aries.blueprint.feature", "aries.jndi.feature");
     }
 

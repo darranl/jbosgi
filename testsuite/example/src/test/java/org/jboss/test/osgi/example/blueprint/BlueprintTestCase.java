@@ -33,6 +33,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
@@ -40,7 +41,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.test.osgi.BlueprintSupport;
-import org.jboss.test.osgi.ProvisionerSupport;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanA;
 import org.jboss.test.osgi.example.blueprint.bundle.BeanB;
 import org.jboss.test.osgi.example.blueprint.bundle.ServiceA;
@@ -76,7 +76,7 @@ public class BlueprintTestCase {
     @Deployment
     public static JavaArchive blueprintProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "blueprint-tests");
-        archive.addClasses(ProvisionerSupport.class, BlueprintSupport.class);
+        archive.addClasses(BlueprintSupport.class);
         archive.addClasses(BeanA.class, ServiceA.class, BeanB.class, ServiceB.class);
         archive.addAsResource("repository/aries.blueprint.feature.xml");
         archive.addAsResource("repository/jbosgi.jmx.feature.xml");
@@ -100,6 +100,7 @@ public class BlueprintTestCase {
     @InSequence(0)
     public void addBlueprintSupport() throws Exception {
         ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.populateRepository(getClass().getClassLoader(), "aries.blueprint.feature", "jbosgi.jmx.feature");
         provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "aries.blueprint.feature", "jbosgi.jmx.feature");
     }
 

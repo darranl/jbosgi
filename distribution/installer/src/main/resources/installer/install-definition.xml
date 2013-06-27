@@ -77,7 +77,7 @@
         <include name="jbosgi-framework-core-sources.jar" />
         <include name="jbosgi-jmx-sources.jar" />
         <include name="jbosgi-metadata-sources.jar" />
-        <include name="jbosgi-repository-api-sources.jar" />
+        <include name="jbosgi-repository-core-sources.jar" />
         <include name="jbosgi-repository-sources.jar" />
         <include name="jbosgi-resolver-api-sources.jar" />
         <include name="jbosgi-resolver-felix-sources.jar" />
@@ -103,7 +103,7 @@
       <!-- Supported Bundles -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/bundles" override="true">
         <include name="jbosgi-jmx.jar" />
-        <include name="jbosgi-repository-api.jar" />
+        <include name="jbosgi-repository-core.jar" />
         <include name="jbosgi-repository.jar" />
         <include name="jboss-osgi-logging.jar" />
         <include name="org.apache.aries.blueprint.jar" />

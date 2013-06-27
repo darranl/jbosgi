@@ -75,7 +75,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository-api</artifactId>
+            <artifactId>jbosgi-repository-core</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -201,8 +201,8 @@
                 </property>
             </activation>
             <properties>
-                <!-- jboss.home>${user.home}/git/wildfly/build/target/wildfly-${version.wildfly.800}</jboss.home-->
-                <jboss.home>${project.build.directory}/wildfly-${version.wildfly.800}</jboss.home>
+                <jboss.home>${user.home}/git/wildfly/build/target/wildfly-${version.wildfly.800}</jboss.home>
+                <!--  jboss.home>${project.build.directory}/wildfly-${version.wildfly.800}</jboss.home -->
             </properties>
             <dependencies>
                 <dependency>
@@ -214,6 +214,7 @@
             </dependencies>
             <build>
                 <plugins>
+                    <!--  
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
@@ -238,6 +239,7 @@
                             </execution>
                         </executions>
                     </plugin>
+                    -->
                 </plugins>
             </build>
         </profile>

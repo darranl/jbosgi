@@ -37,13 +37,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
+import org.jboss.osgi.provision.ProvisionerSupport;
 import org.jboss.osgi.provision.XResourceProvisioner;
 import org.jboss.osgi.repository.XRepository;
 import org.jboss.osgi.resolver.XResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.test.osgi.ProvisionerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.Bundle;
@@ -69,7 +69,6 @@ public class BundleStateTestCase {
     @Deployment
     public static JavaArchive jmxProvider() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "jmx-bundle-state-tests");
-        archive.addClasses(ProvisionerSupport.class);
         archive.addAsResource("repository/jbosgi.jmx.feature.xml");
         archive.setManifest(new Asset() {
             @Override
@@ -90,6 +89,7 @@ public class BundleStateTestCase {
     @InSequence(0)
     public void addJMXSupport(@ArquillianResource Bundle bundle) throws Exception {
         ProvisionerSupport provisioner = new ProvisionerSupport(context);
+        provisioner.populateRepository(getClass().getClassLoader(), "jbosgi.jmx.feature");
         provisioner.installCapabilities(IdentityNamespace.IDENTITY_NAMESPACE, "jbosgi.jmx.feature");
     }
 

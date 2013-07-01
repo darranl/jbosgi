@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Application Server Integration - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                                                  <li class="previous"><a accesskey="p" href="Getting_Started.html"><strong>Prev</strong></a></li>
+                                                                                                                                                                                                                        <li class="next"><a accesskey="n" href="Command_Line_Interface_Console.html"><strong>Next</strong></a></li>
+                                                                                                                                                      </ul>
+                    <div>
+            <h1>Application Server Integration</h1>
+          </div>          
+          </div>
+
+        <div class="block content">
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="Application_Server_Integration.html#4784851_ApplicationServerIntegration-Overview">Overview</a>    </p>
+</li><li class=" ">    <p>
+<a href="Application_Server_Integration.html#4784851_ApplicationServerIntegration-Configuration">Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="Application_Server_Integration.html#4784851_ApplicationServerIntegration-Features">Features</a>    </p>
+</li><li class=" ">    <p>
+<a href="Application_Server_Integration.html#4784851_ApplicationServerIntegration-CompatibilityMatrix">Compatibility Matrix</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Overview"  >
+        <h2>Overview</h2>
+    
+    <p>
+The JBoss OSGi framework is fully integrated into the <a href="http://www.wildfly.org">WildFly</a> Application Server. OSGi bundles can be deployed like any other deployment that is supported by WildFly. Hot deployment is supported by dropping an OSGi bundle into the 'deployments' folder. Management is supported through the <a href="Command_Line_Interface_Console.html">Command Line Console</a> or the web-based <a href="Management_Console.html">Management Console</a>.    </p>
+    <p>
+OSGi components can interact with non OSGi services that are natively provided by WildFly. This includes, but is not limited to, the Transaction Service and Naming Service (JNDI).    </p>
+    <p>
+Standard OSGi Config Admin functionality is supported and integrated with the WildFly domain management layer.    </p>
+    <p>
+By default the OSGi subsystem is activated on-demand and not part of the standard configuration. When configured and when there is an OSGi bundle deployment the subsystem activates and the respective OSGi services become available.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Configuration"  >
+        <h2>Configuration</h2>
+    
+    <p>
+The OSGi subsystem is configured like any other subsystem in the standalone/domain XML descriptor. The configuration options are:    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">Subsystem Activation</strong> - By default the OSGi subsystem is activated on-demand. The activation attribute can be set to 'eager' to initialize the subsystem on server startup.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Framework Properties</strong> - OSGi supports the notion of framework properties. Property values are of type string. A typical configuration includes a set of packages that are provided by the server directly. Please refer to the OSGi core specification for a list of standard OSGi properties.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Module Dependencies</strong> - The Framework can export packages from server system modules. The property 'org.jboss.osgi.system.modules.extra' contains a list of module identifiers that are setup as dependencies of the OSGi Framework.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Capabilities</strong> - OSGi bundles can be installed by providing coordinates to the OSGi Repository. Supported coordinates include but are not limited to Maven coordinates and module identifiers.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Config Admin properties</strong> - Supported are multiple configurations identified by persistent id (PID). Each configuration may contain multiple configuration key/value pairs.Below is a sample configuration for the OSGi subsystem    </p>
+</li></ul>    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;subsystem xmlns=&quot;urn:jboss:domain:osgi:1.2&quot; activation=&quot;lazy&quot;&gt;
+  &lt;properties&gt;
+    &lt;property name=&quot;org.jboss.osgi.system.modules.extra&quot;&gt;org.apache.log4j&lt;/property&gt;
+    &lt;property name=&quot;org.osgi.framework.system.packages.extra&quot;&gt;org.apache.log4j;version=1.2&lt;/property&gt;
+    &lt;property name=&quot;org.osgi.framework.startlevel.beginning&quot;&gt;1&lt;/property&gt;
+  &lt;/properties&gt;
+  &lt;capabilities&gt;
+    &lt;capability name=&quot;javax.servlet.api:v25&quot;/&gt;
+    &lt;capability name=&quot;javax.transaction.api&quot;/&gt;
+    &lt;capability name=&quot;org.apache.felix.log&quot; startlevel=&quot;1&quot;/&gt;
+    &lt;capability name=&quot;org.jboss.osgi.logging&quot; startlevel=&quot;1&quot;/&gt;
+    &lt;capability name=&quot;org.apache.felix.configadmin&quot; startlevel=&quot;1&quot;/&gt;
+    &lt;capability name=&quot;org.jboss.as.osgi.configadmin&quot; startlevel=&quot;1&quot;/&gt;
+  &lt;/capabilities&gt;
+&lt;/subsystem&gt;
+...
+&lt;subsystem xmlns=&quot;urn:jboss:domain:configadmin:1.0&quot;&gt;
+  &lt;configuration pid=&quot;org.apache.felix.webconsole.internal.servlet.OsgiManager&quot;&gt;
+     &lt;property name=&quot;manager.root&quot;&gt;jboss-osgi&lt;/property&gt;
+  &lt;/configuration&gt;
+&lt;/subsystem&gt;</pre>
+        </div>
+    </div>
+    <p>
+For more details on WildFly configuration see <a href="https://docs.jboss.org/author/display/WFLY8/Documentation">WildFly8 Documentation</a>.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Features"  >
+        <h2>Features</h2>
+    
+    <p>
+The current JBoss OSGi feature set in AS includes    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">Blueprint Container Support</strong> - The OSGi <a href="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</a> allows bundles to contain standard blueprint descriptors, which can be used to create or consume OSGi services. Blueprint components consume OSGi services via injection.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">ConfigAdmin Support</strong> - ConfigAdmin support is provided by the <a href="http://felix.apache.org/site/apache-felix-config-admin.html">Apache Felix Configuration Admin Service</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Declarative Services Support</strong> - Declarative Services support is provided by the <a href="http://felix.apache.org/site/apache-felix-service-component-runtime.html">Apache Felix Service Component Runtime</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">EventAdmin Support</strong> - EventAdmin support is provided by the <a href="http://felix.apache.org/site/apache-felix-event-admin.html">Apache Felix Event Admin Service</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Hot Deployment</strong> - Scans the <tt class=" ">deployments</tt> folder for new or removed bundles.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">HttpService and WebApp Support</strong> - HttpService and WebApp support is provided by <a href="http://team.ops4j.org/wiki/display/paxweb/Pax+Web">Pax Web</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">JMX Support</strong> - There is local as well as remote JSR160 support for JMX. The OSGi-JMX MBeans are provided through the <a href="http://aries.apache.org">Apache Aries JMX implementation</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">JNDI Support</strong> - Components can access the JNDI InitialContext as a service from the registry.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">JTA Support</strong> - Components can interact with the JTA TransactionManager and UserTransaction service.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Logging System</strong> - The logging bridge writes OSGi Log Service LogEntries to the server log file.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Repository Support</strong> - The OSGi repository can be used to provision the subsystem.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">XML Parser Support</strong> - The Runtime comes with an implementation of an <a href="http://www.osgi.org/javadoc/r4v41/org/osgi/util/xml/XMLParserActivator.html">XMLParserActivator</a> which provides access to a SAXParserFactory and DocumentBuilderFactory.    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-CompatibilityMatrix"  >
+        <h2>Compatibility Matrix</h2>
+    
+    <div class="tablewrap">
+        <table>
+<thead class=" "></thead><tfoot class=" "></tfoot><tbody class=" ">    <tr>
+            <td rowspan="1" colspan="1">
+        <p>
+&nbsp;    </p>
+            </td>
+                <td rowspan="1" colspan="1">
+        <p>
+WildFly-8.0.0.Alpha2    </p>
+            </td>
+        </tr>
+    <tr>
+            <td rowspan="1" colspan="1">
+        <p>
+JBOSGi-2.0.0    </p>
+            </td>
+                <td rowspan="1" colspan="1">
+        <p>
+yes    </p>
+            </td>
+        </tr>
+</tbody>        </table>
+            </div>
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                                                                <li class="previous"><a accesskey="p" href="Getting_Started.html"><strong>Prev</strong>Getting Started</a></li>
+                                                                                                                                <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                                                                                                <li class="next"><a accesskey="n" href="Command_Line_Interface_Console.html"><strong>Next</strong>Command Line Interface Console</a></li>
+                                                                                                                                                    </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

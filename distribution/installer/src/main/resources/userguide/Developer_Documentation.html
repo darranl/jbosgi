@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Developer Documentation - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                                                                                                  <li class="previous"><a accesskey="p" href="Management_Console.html"><strong>Prev</strong></a></li>
+                                                                                                                                                                                                                                          <li class="next"><a accesskey="n" href="Arquillian_Test_Framework.html"><strong>Next</strong></a></li>
+                                                                                    </ul>
+                    <div>
+            <h1>Developer Documentation</h1>
+          </div>          
+          </div>
+
+        <div class="block content">
+    <div class="section-2"  id="4784852_DeveloperDocumentation-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="Developer_Documentation.html#4784852_DeveloperDocumentation-ManagementView">Management View</a>    </p>
+</li><li class=" ">    <p>
+<a href="Developer_Documentation.html#4784852_DeveloperDocumentation-WritingTestCases">Writing Test Cases</a>    </p>
+</li><li class=" ">    <p>
+<a href="Developer_Documentation.html#4784852_DeveloperDocumentation-LifecycleInterceptors">Lifecycle Interceptors</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-ManagementView"  >
+        <h2>Management View</h2>
+    
+    <p>
+JBoss OSGi provides standard <a href="http://www.osgi.org/javadoc/r4v42/org/osgi/jmx/package-frame.html">org.osgi.jmx</a> management. Additional to that we provide an <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/management/MBeanServer.html">MBeanServer</a> service.    </p>
+    <p>
+<strong class=" ">Configure WildFly to provide OSGi Management</strong>    </p>
+    <p>
+OSGi Management can be enabled with these capabilities    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;capabilities&gt;
+  ...
+  &lt;capability name=&quot;org.apache.aries:org.apache.aries.util:1.0.0&quot;/&gt;
+  &lt;capability name=&quot;org.apache.aries.jmx:org.apache.aries.jmx:1.0.0&quot; startlevel=&quot;1&quot;/&gt;
+  &lt;capability name=&quot;org.jboss.osgi.jmx:jbosgi-jmx:1.1.0.Final&quot; startlevel=&quot;1&quot;/&gt;
+&lt;/capabilities&gt;</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-WritingTestCases"  >
+        <h2>Writing Test Cases</h2>
+    
+    <div class="section-3"  id="4784852_DeveloperDocumentation-SimpleFrameworkTestCase"  >
+        <h3>Simple Framework Test Case</h3>
+    
+    <p>
+The most basic form of OSGi testing can be done with an OSGiFrameworkTest. This would boostrap the framework in the @BeforeClass scope and make the framework instance available through getFramework(). Due to classloading restrictions, you can only share primitive types between the test and the framework.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class SimpleFrameworkTestCase extends OSGiFrameworkTest
+{
+   @Test
+   public void testSimpleBundle() throws Exception
+   {
+      // Get the bundle location
+      URL url = getTestArchiveURL(&quot;example-simple.jar&quot;);
+      
+      // Install the Bundle
+      BundleContext sysContext = getFramework().getBundleContext();
+      Bundle bundle = sysContext.installBundle(url.toExternalForm());
+      assertBundleState(Bundle.INSTALLED, bundle.getState());
+
+      // Start the bundle
+      bundle.start();
+      assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+      // Stop the bundle
+      bundle.stop();
+      assertBundleState(Bundle.RESOLVED, bundle.getState());
+      
+      // Uninstall the bundle
+      bundle.uninstall();
+      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+   }
+}</pre>
+        </div>
+    </div>
+    <p>
+These tests always work with an embedded OSGi framework. You can use the -Dframework property to run the test against a different framework implemenation (i.e. <a href="http://felix.apache.org">Apache Felix</a>).    </p>
+    </div>
+    
+    <div class="section-3"  id="4784852_DeveloperDocumentation-ArquillianTestCase"  >
+        <h3>Arquillian Test Case</h3>
+    
+    <p>
+The <a href="Arquillian_Test_Framework.html">Arquillian Test Framework</a> is covered in a dedicated chapter.    </p>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-LifecycleInterceptors"  >
+        <h2>Lifecycle Interceptors</h2>
+    
+    <p>
+A common pattern in OSGi is that a bundle contains some piece of meta data that gets processed by some other infrastructure bundle that is installed in the OSGi Framework. In such cases the well known <a href="http://www.osgi.org/blog/2007/02/osgi-extender-model.html">Extender Pattern</a> is often being used. JBoss OSGi offeres a differnet approach to address this problem which is covered by the <a href="http://jbossosgi.blogspot.com/2009/10/extender-pattern-vs-lifecycle.html">Extender Pattern vs. Lifecycle Interceptor</a> post in the <a href="http://jbossosgi.blogspot.com/">JBoss OSGi Diary</a>.    </p>
+    <p>
+<strong class=" ">Extending an OSGi Bundle</strong>    </p>
+<ol class=" "><li class=" ">    <p>
+Extender registers itself as BundleListener    </p>
+</li><li class=" ">    <p>
+Bundle gets installed/started# Framework fires a BundleEvent    </p>
+</li><li class=" ">    <p>
+Extender picks up the BundleEvent (e.g. STARTING)    </p>
+</li><li class=" ">    <p>
+Extender reads metadata from the Bundle and does its work    </p>
+</li></ol>    <p>
+There is no extender specific API. It is a pattern rather than a piece of functionality provided by the Framework. Typical examples of extenders are the Blueprint or Web Application Extender.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784852/extender-approach.png" alt="images/author/download/attachments/4784852/extender-approach.png" />
+        </p>
+    <p>
+Client code that installs, starts and uses the registered endpoint could look like this.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">// Install and start the Web Application bundle
+Bundle bundle = context.installBundle(&quot;mywebapp.war&quot;);
+bundle.start();
+
+// Access the Web Application
+String response = getHttpResponse(&quot;http://localhost:8080/mywebapp/foo&quot;);
+assertEquals(&quot;ok&quot;, response);</pre>
+        </div>
+    </div>
+    <p>
+This seemingly trivial code snippet has a number of issues that are probably worth looking into in more detail    </p>
+<ul class=" "><li class=" ">    <p>
+The WAR might have missing or invalid web metadata (i.e. an invalid WEB-INF/web.xml descriptor)    </p>
+</li><li class=" ">    <p>
+The WAR Extender might not be present in the system    </p>
+</li><li class=" ">    <p>
+There might be multiple WAR Extenders present in the system    </p>
+</li><li class=" ">    <p>
+Code assumes that the endpoint is available on return of bundle.start()    </p>
+</li></ul>    <p>
+Most Blueprint or WebApp bundles are not useful if their Blueprint/Web metadata is not processed. Even if they are processed but in the &quot;wrong&quot; order a user might see unexpected results (i.e. the webapp processes the first request before the underlying Blueprint app is wired together).    </p>
+    <p>
+As a consequence the extender pattern is useful in some cases but not all. It is mainly useful if a bundle can optionally be extended in the true sense of the word.    </p>
+    <p>
+<strong class=" ">Intercepting the Bundle Lifecycle</strong>    </p>
+    <p>
+If the use case requires the notion of &quot;interceptor&quot; the extender pattern is less useful. The use case might be such that you would want to intercept the bundle lifecycle at various phases to do mandatory metadata processing.    </p>
+    <p>
+An interceptor could be used for annotation processing, byte code weaving, and other non-optional/optional metadata processing steps. Typically interceptors have a relative order, can communicate with each other, veto progress, etc.    </p>
+    <p>
+Lets look at how multiple interceptors can be used to create Web metadata and publish endpoints on the HttpService based on that metadata.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784852/interceptor-approach.png" alt="images/author/download/attachments/4784852/interceptor-approach.png" />
+        </p>
+    <p>
+Here is how it works    </p>
+<ol class=" "><li class=" ">    <p>
+The Wep Application processor registers two LifecycleInterceptors with the LifecycleInterceptorService    </p>
+</li><li class=" ">    <p>
+The Parser interceptor declares no required input and WebApp metadata as produced output    </p>
+</li><li class=" ">    <p>
+The Publisher interceptor declares WebApp metadata as required input    </p>
+</li><li class=" ">    <p>
+The LifecycleInterceptorService reorders all registered interceptors according to their input/output requirements and relative order    </p>
+</li><li class=" ">    <p>
+The WAR Bundle gets installed and started    </p>
+</li><li class=" ">    <p>
+The Framework calls the LifecycleInterceptorService prior to the actual state change    </p>
+</li><li class=" ">    <p>
+The LifecycleInterceptorService calls each interceptor in the chain    </p>
+</li><li class=" ">    <p>
+The Parser interceptor processes WEB-INF/web.xml in the invoke(int state, InvocationContext context) method and attaches WebApp metadata to the InvocationContext    </p>
+</li><li class=" ">    <p>
+The Publisher interceptor is only called when the InvocationContext has WebApp metadata attached. If so, it publishes the endpoint from the WebApp metadata    </p>
+</li><li class=" ">    <p>
+If no interceptor throws an Exception the Framework changes the Bundle state and fires the BundleEvent.    </p>
+</li></ol>    <p>
+Client code is identical to above.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">// Install and start the Web Application bundle
+Bundle bundle = context.installBundle(&quot;mywebapp.war&quot;);
+bundle.start();
+
+// Access the Web Application
+String response = getHttpResponse(&quot;http://localhost:8080/mywebapp/foo&quot;);
+assertEquals(&quot;ok&quot;, response);</pre>
+        </div>
+    </div>
+    <p>
+The behaviour of that code however, is not only different but also provides a more natural user experience.    </p>
+<ul class=" "><li class=" ">    <p>
+Bundle.start() fails if WEB-INF/web.xml is invalid    </p>
+</li><li class=" ">    <p>
+An interceptor could fail if web.xml is not present    </p>
+</li><li class=" ">    <p>
+The Publisher interceptor could fail if the HttpService is not present    </p>
+</li><li class=" ">    <p>
+Multiple Parser interceptors would work mutually exclusiv on the presents of attached WebApp metadata    </p>
+</li><li class=" ">    <p>
+The endpoint is guaranteed to be available when Bundle.start() returns    </p>
+</li></ul>    <p>
+The general idea is that each interceptor takes care of a particular aspect of processing during state changes. In the example above WebApp metadata might get provided by an interceptor that scans annotations or by another one that generates the metadata in memory. The Publisher interceptor would not know nor care who attached the WebApp metadata object, its task is to consume the WebApp metadata and publish endpoints from it.    </p>
+    <p>
+For details on howto provide and register liefecycle interceptors have a look at the Lifecycle Interceptor Example.    </p>
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                                                                                                                <li class="previous"><a accesskey="p" href="Management_Console.html"><strong>Prev</strong>Management Console</a></li>
+                                                                                <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                                                                                                                                                                  <li class="next"><a accesskey="n" href="Arquillian_Test_Framework.html"><strong>Next</strong>Arquillian Test Framework</a></li>
+                                                                                  </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

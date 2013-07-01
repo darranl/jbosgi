@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Command Line Interface Console - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                                                                <li class="previous"><a accesskey="p" href="Application_Server_Integration.html"><strong>Prev</strong></a></li>
+                                                                                                                                                                                                                              <li class="next"><a accesskey="n" href="Management_Console.html"><strong>Next</strong></a></li>
+                                                                                                                                  </ul>
+                    <div>
+            <h1>Command Line Interface Console</h1>
+          </div>          
+          </div>
+
+        <div class="block content">
+    <p>
+The JBoss OSGi Framework in JBoss AS 7 can be controlled via the AS 7 Command Line Interface (CLI).    </p>
+    <p>
+The CLI supports an interactive mode as well as a scripted mode, for more information on using and launching the CLI, see the <a href="https://docs.jboss.org/author/display/AS71/Management+Clients">Command Line Interface documentation</a>.    </p>
+    <p>
+Supported operations:    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-FrameworkConfiguration">Framework Configuration</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-SettingtheSubsystemActivationMode">Setting the Subsystem Activation Mode</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-FrameworkProperties">Framework Properties</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-Capabilities">Capabilities</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-FrameworkManagement">Framework Management</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-Activatetheframework">Activate the framework</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-ManagetheStartLevel">Manage the Start Level</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-BundleManagement">Bundle Management</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-DeployingandUndeploying">Deploying and Un-deploying</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-Starting%2CStoppingandInspectingBundles">Starting, Stopping and Inspecting Bundles</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-ListingBundles">Listing Bundles</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-ConfigurationAdmin">Configuration Admin</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-AddingConfiguration">Adding Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-ListingConfigurations">Listing Configurations</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-InspectingConfiguration">Inspecting Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="Command_Line_Interface_Console.html#25821373_CommandLineInterfaceConsole-RemovingConfiguration">Removing Configuration</a>    </p>
+</li></ul></li></ul>    <div class="section-2"  id="25821373_CommandLineInterfaceConsole-FrameworkConfiguration"  >
+        <h2>Framework Configuration</h2>
+    
+    <p>
+Framework configuration is stored in the AS 7 XML configuration file (e.g. <tt class=" ">standalone.xml</tt>). The CLI provides a management interface to this configuration.    </p>
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-SettingtheSubsystemActivationMode"  >
+        <h3>Setting the Subsystem Activation Mode</h3>
+    
+    <p>
+The activation mode of the OSGi subsystem within AS 7 is specified in the <tt class=" ">activation</tt> attribute. It specifies whether the OSGi subsystem is activated on startup of the Application Server (eager) or only once the first bundle is deployed (lazy). By default the activation mode is set to <tt class=" ">lazy</tt>.    </p>
+    <p>
+To read the current activation mode:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:read-attribute(name=activation)
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; &quot;lazy&quot;
+}</pre>
+        </div>
+    </div>
+    <p>
+To change the activation mode to <tt class=" ">eager</tt>    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:write-attribute(name=activation,value=eager) 
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-FrameworkProperties"  >
+        <h3>Framework Properties</h3>
+    
+    <p>
+Framework properties are stored as resources in the <tt class=" ">/subsystem=osgi/property</tt> location. Note that any changes to OSGi framework properties require a framework restart in order to become effective.    </p>
+    <p>
+Adding a property: the following command adds the <tt class=" ">org.osgi.framework.system.packages.extra</tt> framework property with value <tt class=" ">org.foo.bar;version=1.2</tt>.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/property=org.osgi.framework.system.packages.extra:add(value=org.foo.bar;version=1.2)                  
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    <p>
+To list the framework properties use the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=osgi/property
+org.osgi.framework.startlevel.beginning
+org.osgi.framework.system.packages.extra</pre>
+        </div>
+    </div>
+    <p>
+To read the value of an individual framework property:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/property=org.osgi.framework.startlevel.beginning:read-resource
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {&quot;value&quot; =&gt; &quot;1&quot;}
+}</pre>
+        </div>
+    </div>
+    <p>
+To remove a framework property:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/property=org.osgi.framework.system.packages.extra:remove
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-Capabilities"  >
+        <h3>Capabilities</h3>
+    
+    <p>
+The capability name is an abstract identifier for some functional capability. We currently support module identifiers (i.e. a pointer to some bundle or module available in the AS 7 product repository) and maven coordinates (i.e. a maven artifact identifier availbale in the public jboss nexus repository). Capabilities are automatically loaded when the OSGi framework is launched. In the case of bundle capabilities, these can also be started as part of this process. The modules repository can be found in the <tt class=" ">modules/</tt> subdirectory of the AS 7 installation, while the bundles repository can be found in the <tt class=" ">bundles/</tt> subdirectory.    </p>
+    <p>
+The example command below adds a bundle capability <tt class=" ">org.projectodd.stilts</tt>. The system will look for capabilities at startup in the <tt class=" ">modules/</tt> and <tt class=" ">bundles/</tt> directories. In this example the org.projectodd.stilts module/bundle jar is searched in the <tt class=" ">modules/org/projectodd/stilts/main/</tt> and <tt class=" ">bundles/org/projectodd/stilts/main/</tt> locations.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/capability=org.projectodd.stilts:add(startlevel=2)
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    <p>
+Note that only bundles can be started, so specifying the <tt class=" ">startlevel</tt> as is done in this example does not apply to modules.    </p>
+    <p>
+To list configured capabilities use the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=osgi/capability 
+javax.servlet.api:v25           javax.transaction.api
+org.apache.felix.configadmin    org.apache.felix.log
+org.jboss.as.osgi.configadmin   org.jboss.osgi.logging
+org.projectodd.stilts</pre>
+        </div>
+    </div>
+    <p>
+To inspect a capability, use the <tt class=" ">read-resource</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/capability=org.projectodd.stilts:read-resource
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {&quot;startlevel&quot; =&gt; 2}
+}</pre>
+        </div>
+    </div>
+    <p>
+Removing a capability can be done with the <tt class=" ">remove</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/capability=org.projectodd.stilts:remove       
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="25821373_CommandLineInterfaceConsole-FrameworkManagement"  >
+        <h2>Framework Management</h2>
+    
+    <p>
+Framework management refers to the monitoring and manipulating the OSGi Framework runtime state.    </p>
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-Activatetheframework"  >
+        <h3>Activate the framework</h3>
+    
+    <p>
+The framework can be activated using the activate command.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:activate
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-ManagetheStartLevel"  >
+        <h3>Manage the Start Level</h3>
+    
+    <p>
+The current framework start level can be in found in the <tt class=" ">startlevel</tt> attribute in the <tt class=" ">osgi</tt> subsystem. For example:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls subsystem=osgi
+bundle            capability        property          activation=lazy
+startlevel=1</pre>
+        </div>
+    </div>
+    <p>
+To change the start level, write the desired new value to the <tt class=" ">startlevel</tt> attribute:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:write-attribute(name=startlevel,value=3)
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="25821373_CommandLineInterfaceConsole-BundleManagement"  >
+        <h2>Bundle Management</h2>
+    
+    <p>
+The CLI can be used to deploy, undeploy, start and stop bundles and to inspect the current bundle state.    </p>
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-DeployingandUndeploying"  >
+        <h3>Deploying and Un-deploying</h3>
+    
+    <p>
+Deployment and un-deployment of bundles is done through the regular deployment channels in AS 7. To deploy a bundle:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] deploy /home/someuser/test-osgi-bundle.jar</pre>
+        </div>
+    </div>
+    <p>
+    </p>
+    <p>
+Undeploying is done with the <tt class=" ">undeploy</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] undeploy test-osgi-bundle.jar</pre>
+        </div>
+    </div>
+    <p>
+Note that deploying a bundle will place it in the INSTALLED state, to become functional OSGi bundles need to be started.    </p>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-Starting%2CStoppingandInspectingBundles"  >
+        <h3>Starting, Stopping and Inspecting Bundles</h3>
+    
+    <p>
+To start the <tt class=" ">test-osgi-bundle.jar</tt> as deployed above, use the following command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/bundle=test-osgi-bundle.jar:start
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    <p>
+To inspect the bundle state:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/bundle=test-osgi-bundle.jar:read-resource(include-runtime=true)
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {
+        &quot;id&quot; =&gt; 8L,
+        &quot;location&quot; =&gt; &quot;test-osgi-bundle.jar&quot;,
+        &quot;startlevel&quot; =&gt; 1,
+        &quot;state&quot; =&gt; &quot;ACTIVE&quot;,
+        &quot;symbolic-name&quot; =&gt; &quot;TestOSGiBundle&quot;,
+        &quot;type&quot; =&gt; &quot;bundle&quot;,
+        &quot;version&quot; =&gt; &quot;1.0.0&quot;
+    }
+}</pre>
+        </div>
+    </div>
+    <p>
+To stop the bundle, issue one of the following commands:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/bundle=8:stop
+{&quot;outcome&quot; =&gt; &quot;success&quot;}
+or
+[standalone@localhost:9999 /] /subsystem=osgi/bundle=test-osgi-bundle.jar:stop
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-ListingBundles"  >
+        <h3>Listing Bundles</h3>
+    
+    <p>
+Bundles can be listed by bundle ID using the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=osgi/bundle
+0   1   2   3   4   5   6   8</pre>
+        </div>
+    </div>
+    <p>
+or in more detail using the <tt class=" ">read-children-resources</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:read-children-resources(child-type=bundle,include-runtime=true)
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {
+        &quot;0&quot; =&gt; {
+            &quot;id&quot; =&gt; 0L,
+            &quot;location&quot; =&gt; &quot;System Bundle&quot;,
+            &quot;startlevel&quot; =&gt; 0,
+            &quot;state&quot; =&gt; &quot;ACTIVE&quot;,
+            &quot;symbolic-name&quot; =&gt; &quot;system.bundle&quot;,
+            &quot;type&quot; =&gt; &quot;bundle&quot;,
+            &quot;version&quot; =&gt; &quot;0.0.0&quot;
+        },
+        &quot;1&quot; =&gt; {
+            &quot;id&quot; =&gt; 1L,
+...and so on...</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="25821373_CommandLineInterfaceConsole-ConfigurationAdmin"  >
+        <h2>Configuration Admin</h2>
+    
+    <p>
+OSGi Configuration Admin support is provided through the <tt class=" ">configadmin</tt> subsystem. By default the JBoss OSGi runtime in AS 7 provides the Configuration Admin Service. For more information on the OSGi Configuration Admin Service see chapter 104 in the <a href="http://www.osgi.org/Download/Release4V42">OSGi Compendium Specification</a>.    </p>
+    <p>
+Configuration Admin is a dynamic system that supports re-configuration during operation, therefore all the related management operations take effect immediately and value changes will be propagated to the relevant configuration consumers without the need for a restart.    </p>
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-AddingConfiguration"  >
+        <h3>Adding Configuration</h3>
+    
+    <p>
+Configuration Admin configurations objects are identified by a Persistent Identified (PID) and carry an associated map of configuration values. Create a <tt class=" ">configuration</tt> using the <tt class=" ">add</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=configadmin/configuration=org.example.myPid:add(entries={&quot;key&quot;=&gt;&quot;value&quot;,&quot;anotherkey&quot;=&gt;&quot;another value&quot;})
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-ListingConfigurations"  >
+        <h3>Listing Configurations</h3>
+    
+    <p>
+List all the available configurations with the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=configadmin/configuration
+org.example.myPid</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-InspectingConfiguration"  >
+        <h3>Inspecting Configuration</h3>
+    
+    <p>
+Read the configuration data with the <tt class=" ">read-resource</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=configadmin/configuration=org.example.myPid:read-resource
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {&quot;entries&quot; =&gt; {
+        &quot;key&quot; =&gt; &quot;value&quot;,
+        &quot;anotherkey&quot; =&gt; &quot;another value&quot;
+    }}
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-RemovingConfiguration"  >
+        <h3>Removing Configuration</h3>
+    
+    <p>
+Configuration objects can be removed by issuing the <tt class=" ">remove</tt> command on the configuration pid resource:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=configadmin/configuration=org.example.myPid:remove       
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                                                                              <li class="previous"><a accesskey="p" href="Application_Server_Integration.html"><strong>Prev</strong>Application Server Integration</a></li>
+                                                                                                                  <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                                                                                                                    <li class="next"><a accesskey="n" href="Management_Console.html"><strong>Next</strong>Management Console</a></li>
+                                                                                                                                </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

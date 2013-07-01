@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Introduction - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                      <li class="previous"><a accesskey="p" href="User_Guide.html"><strong>Prev</strong></a></li>
+                                                                                                                                                                                                            <li class="next"><a accesskey="n" href="Getting_Started.html"><strong>Next</strong></a></li>
+                                                                                                                                                                                              </ul>
+                    <div>
+            <h1>Introduction</h1>
+          </div>          
+          </div>
+
+        <div class="block content">
+    <div class="section-2"  id="4784847_Introduction-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="Introduction.html#4784847_Introduction-WhatisOSGi">What is OSGi</a>    </p>
+</li><li class=" ">    <p>
+<a href="Introduction.html#4784847_Introduction-OSGiFrameworkOverview">OSGi Framework Overview</a>    </p>
+</li><li class=" ">    <p>
+<a href="Introduction.html#4784847_Introduction-OSGiServiceCompendium">OSGi Service Compendium</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784847_Introduction-WhatisOSGi"  >
+        <h2>What is OSGi</h2>
+    
+    <p>
+The <a href="http://www2.osgi.org/Release4/HomePage">OSGi specifications</a> define a standardized, component-oriented, computing environment for networked services that is the foundation of an enhanced service-oriented architecture.    </p>
+    <p>
+Developing on the OSGi platform means first creating your OSGi bundles, then deploying them in an OSGi Framework.    </p>
+    <p>
+<strong class=" ">What does OSGi offer to Java developers?</strong>    </p>
+    <p>
+OSGi modules provide classloader semantics to partially expose code that can then be consumed by other modules. The implementation details of a module, although scoped public by the Java programming language, remain private to the module. On top of that you can install multiple versions of the same code and resolve dependencies by version and other criteria. OSGi also offers advanced lifecycle and services layers, which are explained in more detail further down.    </p>
+    <p>
+<strong class=" ">What kind of applications benefit from OSGi?</strong>    </p>
+    <p>
+Any application that is designed in a modular fashion where it is necessary to start, stop, update individual modules with minimal impact on other modules. Modules can define their own transitive dependencies without the need to resolve these dependencies at the container level.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784847_Introduction-OSGiFrameworkOverview"  >
+        <h2>OSGi Framework Overview</h2>
+    
+    <p>
+The functionality of the Framework is divided in the following layers:    </p>
+<ul class=" "><li class=" ">    <p>
+Security Layer (optional)    </p>
+</li><li class=" ">    <p>
+Module Layer    </p>
+</li><li class=" ">    <p>
+Life Cycle Layer    </p>
+</li><li class=" ">    <p>
+Service Layer    </p>
+</li><li class=" ">    <p>
+Actual Services    </p>
+</li></ul>    <p>
+    <img src="images/author/download/attachments/4784847/osgi-layers.png" alt="images/author/download/attachments/4784847/osgi-layers.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+<strong class=" ">OSGi Security Layer</strong>    </p>
+    <p>
+The OSGi Security Layer is an optional layer that underlies the OSGi Service Platform. The layer is based on the Java 2 security architecture. It provides the infrastructure to deploy and manage applications that must run in fine grained controlled environments.    </p>
+    <p>
+The OSGi Service Platform can authenticate code in the following ways:    </p>
+<ul class=" "><li class=" ">    <p>
+By location    </p>
+</li><li class=" ">    <p>
+By signer    </p>
+</li></ul>    <p>
+For example, an Operator can grant the ACME company the right to use networking on their devices. The ACME company can then use networking in every bundle they digitally sign and deploy on the Operator&rsquo;s device. Also, a specific bundle can be granted permission to only manage the life cycle of bundles that are signed by the ACME company.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-delegation.png" alt="images/author/download/attachments/4784847/osgi-delegation.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+The current version of JBoss OSGi does not provide this optional layer. If you would like to see this implemented, let us know on the forums: <a href="http://community.jboss.org/en/jbossosgi">http://community.jboss.org/en/jbossosgi</a>.    </p>
+    <p>
+<strong class=" ">OSGi Module Layer</strong>    </p>
+    <p>
+The OSGi Module Layer provides a generic and standardized solution for Java modularization. The Framework defines a unit of modularization, called a bundle. A bundle is comprised of Java classes and other resources, which together can provide functions to end users. Bundles can share Java packages among an exporter bundle and an importer bundle in a well-defined way.    </p>
+    <p>
+Once a Bundle is started, its functionality is provided and services are exposed to other bundles installed in the OSGi Service Platform. A bundle carries descriptive information about itself in the manifest file that is contained in its JAR file. Here are a few important Manifest Headers defined by the OSGi Framework:    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">Bundle-Activator</strong> - class used to start, stop the bundle    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Bundle-SymbolicName</strong> - identifies the bundle    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Bundle-Version</strong> - specifies the version of the bundle    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Export-Package</strong> - declaration of exported packages    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Import-Package</strong> - declaration of imported packages    </p>
+</li></ul>    <p>
+The notion of OSGi Version Range describes a range of versions using a mathematical interval notation. For example    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    Import-Package: com.acme.foo;version=&quot;[1.23, 2)&quot;, com.acme.bar;version=&quot;[4.0, 5.0)&quot;</pre>
+        </div>
+    </div>
+    <p>
+With the OSGi Class Loading Architecture many bundles can share a single virtual machine (VM). Within this VM, bundles can hide packages and classes from other bundles, as well as share packages with other bundles.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-classloader.png" alt="images/author/download/attachments/4784847/osgi-classloader.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+For example, the following import and export definition resolve correctly because the version range in the import definition matches the version in the export definition:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    A: Import-Package: p; version=&quot;[1,2)&quot;
+    B: Export-Package: p; version=1.5.1</pre>
+        </div>
+    </div>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-version-constraint.png" alt="images/author/download/attachments/4784847/osgi-version-constraint.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+Apart from bundle versions, OSGi Attribute Matching is a generic mechanism to allow the importer and exporter to influence the matching process in a declarative way. For example, the following statements will match.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    A: Import-Package: com.acme.foo;company=ACME
+    B: Export-Package: com.acme.foo;company=ACME; security=false</pre>
+        </div>
+    </div>
+    <p>
+An exporter can limit the visibility of the classes in a package with the include and exclude directives on the export definition.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    Export-Package: com.acme.foo; include:=&quot;Qux*,BarImpl&quot;; exclude:=QuxImpl</pre>
+        </div>
+    </div>
+    <p>
+<strong class=" ">OSGi Life Cycle Layer</strong>    </p>
+    <p>
+The Life Cycle Layer provides an API to control the security and life cycle operations of bundles.    </p>
+    <p>
+A bundle can be in one of the following states:    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-life-cycle.png" alt="images/author/download/attachments/4784847/osgi-life-cycle.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+A bundle is activated by calling its Bundle Activator object, if one exists. The BundleActivator interface defines methods that the Framework invokes when it starts and stops the bundle.    </p>
+    <p>
+A Bundle Context object represents the execution context of a single bundle within the OSGi Service Platform, and acts as a proxy to the underlying Framework. A <i class=" ">Bundle Context</i> object is created by the Framework when a bundle is started. The bundle can use this private BundleContext object for the following purposes:    </p>
+<ul class=" "><li class=" ">    <p>
+Installing new bundles into the OSGi environment    </p>
+</li><li class=" ">    <p>
+Interrogating other bundles installed in the OSGi environment    </p>
+</li><li class=" ">    <p>
+Obtaining a persistent storage area    </p>
+</li><li class=" ">    <p>
+Retrieving service objects of registered services    </p>
+</li><li class=" ">    <p>
+Registering services in the Framework service    </p>
+</li><li class=" ">    <p>
+Subscribing or unsubscribing to Framework events    </p>
+</li></ul>    <p>
+<strong class=" ">OSGi Service Layer</strong>    </p>
+    <p>
+The OSGi Service Layer defines a dynamic collaborative model that is highly integrated with the Life Cycle Layer. The service model is a publish, find and bind model. A service is a normal Java object that is registered under one or more Java interfaces with the service registry. OSGi services are dynamic, they can come and go at any time. OSGi service consumers, when written correctly, can deal with this dynamicity. This means that OSGi services provide the capability to create a highly adaptive application which, when written using services, can even be updated at runtime without taking the service consumers down.    </p>
+    <p>
+The <a href="Introduction.html#4784847_Introduction-DS">OSGi Declarative Services</a> and <a href="Introduction.html#4784847_Introduction-blueprint">OSGi Blueprint</a> specifications significantly simplify the use of OSGi Services which means that a consumer gets the benefits of a dynamic services model for very little effort.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/OSGi-Services.png" alt="images/author/download/attachments/4784847/OSGi-Services.png" />
+        <br/><span class="caption">OSGi Services</span>
+        </p>
+    </div>
+    
+    <div class="section-2"  id="4784847_Introduction-OSGiServiceCompendium"  >
+        <h2>OSGi Service Compendium</h2>
+    
+    <p>
+The OSGi Service Compendium is described in the <a href="http://www.osgi.org/Specifications/HomePage">OSGi Compendium and Enterprise specifications</a>. It specifies a number of services that may be available in an OSGi runtime environment. Although the OSGi Core Framework specification is useful in itself already, it only defines the OSGi core infrastructure. The services defined in the compendium specification define the scope and functionality of some common services that bundle developers might want to use. Here is a quick summary of the popular ones:    </p>
+    <p>
+<strong class=" ">Log Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 101 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Log Service provides a general purpose message logger for the OSGi Service Platform. It consists of two services, one for logging information and another for retrieving current or previously recorded log information.    </p>
+    <p>
+The JBoss OSGi Framework provides an implementation of the Log Service which channels logging information through to the currently configured system logger.    </p>
+    <p>
+<strong class=" ">Http Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 102 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Http Service supports a standard mechanism for registering servlets and resources from inside an OSGi Framework. This can be used to develop communication and user interface solutions for standard technologies such as HTTP, HTML, XML, etc.    </p>
+    <p>
+<strong class=" ">Configuration Admin Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 104 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Configuration Admin service allows an operator to set the configuration information of deployed bundles.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-config-service.png" alt="images/author/download/attachments/4784847/osgi-config-service.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+The JBoss OSGi Framework provides an implementation of the Configuration Admin Service which obtains its configuration information from the JBoss Application Server configuration data, for instance the <tt class=" ">standalone.xml</tt> file.    </p>
+    <p>
+<strong class=" ">Metatype Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 105 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Metatype Service specification defines interfaces that allow bundle developers to describe attribute types in a computer readable form using so-called metadata. This service is mostly used to define the attributes and datatypes used by Configuration Admin Service information.    </p>
+    <p>
+<strong class=" ">User Admin Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 107 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+Bundles can use the User Admin Service to authenticate an initiator and represent this authentication as an Authorization object. Bundles that execute actions on behalf of this user can use the Authorization object to verify if that user is authorized.    </p>
+    <p>
+    <span id="4784847_Introduction-DS"><a name="4784847_Introduction-DS"></a></span>
+<strong class=" ">Declarative Services Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 112 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Declarative Services (DS) specification describes a component model to be used with OSGi services. It enables the creation and consumption of OSGi services without directly using any OSGi APIs. Service consumers are informed of their services through injection. The handling of the OSGi service dynamics is done by DS. See also the <a href="Introduction.html#4784847_Introduction-blueprint">Blueprint Specification</a>.    </p>
+    <p>
+<strong class=" ">Event Admin Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 113 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Event Admin Service provides an asynchronous inter-bundle communication mechanism. It is based on a event publish and subscribe model, popular in many message based systems.    </p>
+    <p>
+    <span id="4784847_Introduction-blueprint"><a name="4784847_Introduction-blueprint"></a></span>
+<strong class=" ">Blueprint Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 121 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi Blueprint Specification describes a component framework which simplifies working with OSGi services significantly. To a certain extent, Blueprint and <a href="Introduction.html#4784847_Introduction-DS">DS</a> have goals in common, but the realization is different. One of the main differences between Blueprint and DS is in the way service-consumer components react to a change in the availability of required services. In the case of DS the service-consumer will disappear when its required dependencies disappear, while in Blueprint the component stays around and waits for a replacement service to appear. Each model has its uses and it can be safely said that both Blueprint as well as DS each have their supporters. The Blueprint specification was heavily influenced by the Spring framework.    </p>
+    <p>
+<strong class=" ">Remote Services Specifications</strong>    </p>
+    <p>
+<i class=" ">Chapters 13 and 122 in the Enterprise specification.</i>    </p>
+    <p>
+OSGi Remote Services add distributed computing to the OSGi service programming model. Where in an ordinary OSGi Framework services are strictly local to the Java VM, with Remote Services the services can be remote. Services are registered and looked up just like local OSGi services, the Remote Services specifications define standard service properties to indicate that a service is suitable for remoting and to find out whether a service reference is a local one or a remote one.    </p>
+    <p>
+<strong class=" ">JTA Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 123 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JTA specification describes how JTA can be used from an OSGi environment. It includes standard JTA-related services that can be obtained from the OSGi registry if an OSGi application needs to make use of JTA.    </p>
+    <p>
+<strong class=" ">JMX Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 124 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JMX specification defines a number of MBeans that provide management and control over the OSGi Framework.    </p>
+    <p>
+<strong class=" ">JDBC Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 125 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JDBC specification makes using JDBC drivers from within OSGi easy. Rather than loading a database driver by class-name (the traditional approach, which causes issues with modularity in general and often requires external access to internal implementation classes), this specification registers the available JDBC drivers under a standard interface in the Service Registry from where they can be obtained by other Bundles without the need to expose internal implementation packages of the drivers.    </p>
+    <p>
+<strong class=" ">JNDI Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 126 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JNDI specification provides access to JNDI through the OSGi Service Registry. Additionally, it provides access to the OSGi Service Registry through JNDI. The special <tt class=" ">osgi:</tt> namespace can be used to look up OSGi services via JNDI.    </p>
+    <p>
+<strong class=" ">JPA Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 127 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JPA specification describes how JPA works from within an OSGi framework.    </p>
+    <p>
+<strong class=" ">Web Applications Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 128 in the Enterprise specification.</i>    </p>
+    <p>
+The Web Applications specification describes Web Application Bundles. A WAB is a <tt class=" ">.WAR</tt> file which is effectively turned into a bundle. The specification describes how Servlets can interact with the OSGi Service Registry and also how to find all the available Web Applications in an OSGi Framework.    </p>
+    <p>
+Additionally, the Web Applications spec defines a mechanism to automatically turn an ordinary <tt class=" ">.WAR</tt> file into a Web Application Bundle.    </p>
+    <p>
+<strong class=" ">Service Tracker Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 701 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Service Tracker specification defines a utility class, ServiceTracker. The ServiceTracker API makes tracking the registration, modification, and unregistration of services much easier.    </p>
+    <p>
+<i class=" ">Images courtesy of the <a href="http://www.osgi.org">OSGi Alliance</a>.</i>    </p>
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                                    <li class="previous"><a accesskey="p" href="User_Guide.html"><strong>Prev</strong>User Guide</a></li>
+                                                                                                                                                            <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                                                        <li class="next"><a accesskey="n" href="Getting_Started.html"><strong>Next</strong>Getting Started</a></li>
+                                                                                                                                                                                            </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

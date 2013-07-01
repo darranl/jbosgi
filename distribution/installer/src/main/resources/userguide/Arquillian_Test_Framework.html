@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Arquillian Test Framework - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                                                                                                                <li class="previous"><a accesskey="p" href="Developer_Documentation.html"><strong>Prev</strong></a></li>
+                                                                                                                                                                                                                                                <li class="next"><a accesskey="n" href="Provided_Examples.html"><strong>Next</strong></a></li>
+                                                                </ul>
+                    <div>
+            <h1>Arquillian Test Framework</h1>
+          </div>          
+          </div>
+
+        <div class="block content">
+    <div class="section-2"  id="4784853_ArquillianTestFramework-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="Arquillian_Test_Framework.html#4784853_ArquillianTestFramework-Overview">Overview</a>    </p>
+</li><li class=" ">    <p>
+<a href="Arquillian_Test_Framework.html#4784853_ArquillianTestFramework-Configuration">Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="Arquillian_Test_Framework.html#4784853_ArquillianTestFramework-WritingArquillianTests">Writing Arquillian Tests</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-Overview"  >
+        <h2>Overview</h2>
+    
+    <p>
+<a href="http://jboss.org/arquillian">Arquillian</a> is a Test Framework that allows you to run plain JUnit4 test cases from within an OSGi Framework. That the test is actually executed in the the OSGi Framework is transparent to your test case. There is no requirement to extend a specific base class. Your OSGi tests execute along side with all your other (non OSGi specific) test cases in Maven, Ant, or Eclipse.    </p>
+    <p>
+Some time ago I was looking for ways to test bundles that are deployed to a remote instance of the JBoss OSGi Runtime. I wanted the solution to also work with an OSGi Framework that is bootstrapped from within a JUnit test case.    </p>
+    <p>
+The basic problem is of course that you cannot access the artefacts that you deploy in a bundle directly from your test case, because they are loaded from different classloaders.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784853/arquillian-problem.png" alt="images/author/download/attachments/4784853/arquillian-problem.png" />
+        </p>
+    <p>
+For this release, we extended the <a href="http://jboss.org/arquillian">Arquillian Test Framework</a> to provide support for these requirements.    </p>
+<ul class=" "><li class=" ">    <p>
+Test cases SHOULD be plain JUnit4 POJOs    </p>
+</li><li class=" ">    <p>
+There SHOULD be no requirement to extend a specific test base class    </p>
+</li><li class=" ">    <p>
+There MUST be no requirement on a specific test runner (i.e. MUST run with Maven)    </p>
+</li><li class=" ">    <p>
+There SHOULD be a minimum test framework leakage into the test case    </p>
+</li><li class=" ">    <p>
+The test framework MUST support embedded and remote OSGi runtimes with no change required to the test    </p>
+</li><li class=" ">    <p>
+The same test case MUST be executable from outside as well as from within the OSGi Framework    </p>
+</li><li class=" ">    <p>
+There SHOULD be a pluggable communication layer from the test runner to the OSGi Framework    </p>
+</li><li class=" ">    <p>
+The test framework MUST NOT depend on OSGi Framework specific features    </p>
+</li><li class=" ">    <p>
+There MUST be no automated creation of test bundles required by the test framework    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-Configuration"  >
+        <h2>Configuration</h2>
+    
+    <p>
+In the target OSGi Framework, you need to have the <strong class=" ">arquillian-osgi-bundle.jar</strong> up and running. For remote testing you also need <strong class=" ">jboss-osgi-jmx.jar</strong> because Arquillian uses the a standard <a href="http://jcp.org/aboutJava/communityprocess/final/jsr160">JSR-160</a> to communicate between the test client and the remote OSGi Framework.    </p>
+    <p>
+See jboss-osgi-jmx on how the JMX protocol can be configured.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-WritingArquillianTests"  >
+        <h2>Writing Arquillian Tests</h2>
+    
+    <p>
+In an Arquillian test you    </p>
+<ul class=" "><li class=" ">    <p>
+need to use the <strong class=" ">@RunWith(Arquillian.class)</strong> test runner    </p>
+</li><li class=" ">    <p>
+may have a <strong class=" ">@Deployment</strong> method that generates the test bundle    </p>
+</li><li class=" ">    <p>
+may have <strong class=" ">@Inject BundleContext</strong> to get the system BundleContext injected    </p>
+</li><li class=" ">    <p>
+may have <strong class=" ">@Inject Bundle</strong> to get the test bundle injected    </p>
+</li></ul>    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">@RunWith(Arquillian.class)
+public class SimpleArquillianTestCase
+{
+   @Inject
+   public Bundle bundle;
+   
+   @Deployment
+   public static JavaArchive createdeployment()
+   {
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, &quot;example-arquillian&quot;);
+      archive.addClasses(SimpleActivator.class, SimpleService.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addBundleActivator(SimpleActivator.class.getName());
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
+   @Test
+   public void testBundleInjection() throws Exception
+   {
+      // Assert that the bundle is injected
+      assertNotNull(&quot;Bundle injected&quot;, bundle);
+      
+      // Assert that the bundle is in state RESOLVED
+      // Note when the test bundle contains the test case it 
+      // must be resolved already when this test method is called
+      assertEquals(&quot;Bundle RESOLVED&quot;, Bundle.RESOLVED, bundle.getState());
+      
+      // Start the bundle
+      bundle.start();
+      assertEquals(&quot;Bundle ACTIVE&quot;, Bundle.ACTIVE, bundle.getState());
+      
+      // Get the service reference
+      BundleContext context = bundle.getBundleContext();
+      ServiceReference sref = context.getServiceReference(SimpleService.class.getName());
+      assertNotNull(&quot;ServiceReference not null&quot;, sref);
+      
+      // Get the service for the reference
+      SimpleService service = (SimpleService)context.getService(sref);
+      assertNotNull(&quot;Service not null&quot;, service);
+      
+      // Invoke the service 
+      int sum = service.sum(1, 2, 3);
+      assertEquals(6, sum);
+      
+      // Stop the bundle
+      bundle.stop();
+      assertEquals(&quot;Bundle RESOLVED&quot;, Bundle.RESOLVED, bundle.getState());
+   }
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                                                                                                                              <li class="previous"><a accesskey="p" href="Developer_Documentation.html"><strong>Prev</strong>Developer Documentation</a></li>
+                                                                  <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                                                                                                                                                                                      <li class="next"><a accesskey="n" href="Provided_Examples.html"><strong>Next</strong>Provided Examples</a></li>
+                                                              </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

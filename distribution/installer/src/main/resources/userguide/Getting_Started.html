@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Getting Started - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                  <ul class="docnav">
+                                                    <li class="previous"><a accesskey="p" href="Introduction.html"><strong>Prev</strong></a></li>
+                                                                                                                                                                                                                  <li class="next"><a accesskey="n" href="Application_Server_Integration.html"><strong>Next</strong></a></li>
+                                                                                                                                                                          </ul>
+                    <div>
+            <h1>Getting Started</h1>
+          </div>          
+          </div>
+
+        <div class="block content">
+    <div class="section-2"  id="4784849_GettingStarted-Content"  >
+        <h2>Content</h2>
+    
+    <p>
+This chapter takes you through the first steps of getting JBoss OSGi and provides the initial pointers to get up and running.    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-DownloadtheDistribution">Download the Distribution</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-TheJBossOSGiProjectDistribution">The JBoss OSGi Project Distribution</a>    </p>
+</li><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-RunningtheInstaller">Running the Installer</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-ActivatingtheSubsystem">Activating the Subsystem</a>    </p>
+</li><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-ProvidedExamples">Provided Examples</a>    </p>
+</li><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-BundleDeployment">Bundle Deployment</a>    </p>
+</li><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-ManaginginstalledBundles">Managing installed Bundles</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="Getting_Started.html#4784849_GettingStarted-FelixWebConsole">Felix Web Console</a>    </p>
+</li></ul></li></ul>    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-DownloadtheDistribution"  >
+        <h2>Download the Distribution</h2>
+    
+    <p>
+JBoss OSGi is shipped as part of WildFly, which can be downloaded from the <a href="http://www.wildfly.org/download">WildFly download area</a>.    </p>
+    <div class="section-3"  id="4784849_GettingStarted-TheJBossOSGiProjectDistribution"  >
+        <h3>The JBoss OSGi Project Distribution</h3>
+    
+    <p>
+While WildFly has OSGi support built-in, the JBoss OSGi project also provides an installer which contains examples and documentation and can in some cases provide more recent releases of the OSGi project than can be found in WildFly.    </p>
+    <p>
+JBoss OSGi is distributed as an <a href="http://izpack.org">IzPack</a> installer archive. The installer is available from the JBoss OSGi <a href="http://sourceforge.net/projects/jboss/files/JBossOSGi">download area</a>.    </p>
+    </div>
+    
+    <div class="section-3"  id="4784849_GettingStarted-RunningtheInstaller"  >
+        <h3>Running the Installer</h3>
+    
+    <p>
+To run the Project Distribution installer execute the following command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">java -jar jboss-osgi-installer-2.0.0.jar</pre>
+        </div>
+    </div>
+    <p>
+The installer first shows a welcome screen    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/izpack01-welcome.png" alt="images/author/download/attachments/4784849/izpack01-welcome.png" />
+        </p>
+    <p>
+Then you select the installation path for the JBoss OSGi distribution. This is the directory where you find binaries, sources, examples and documentation.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/izpack05-installpath.png" alt="images/author/download/attachments/4784849/izpack05-installpath.png" />
+        </p>
+    <p>
+The content of the JBoss OSGi distribution contains a set of documents and example test cases that can be executed against the embedded framework or against a WildFly instance.    </p>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-ActivatingtheSubsystem"  >
+        <h2>Activating the Subsystem</h2>
+    
+    <p>
+By default the OSGi subsystem is activated lazily. It means that the framework will not start up unless you deploy an OSGi bundle. You can activate the OSGi subsystem explicitly by setting the activation property to 'eager'    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;subsystem xmlns=&quot;urn:jboss:domain:osgi:1.2&quot; activation=&quot;eager&quot;&gt;</pre>
+        </div>
+    </div>
+    <p>
+It is also not part of the default configuration. Instead you can use the provided standalone-osgi.xml configuration.    </p>
+    <p>
+When you start up WildFly you should see something like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[tdiesler@localhost wildfly-8.0.0.Alpha2]$ bin/standalone.sh -c standalone-osgi.xml
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /Users/tdiesler/git/wildfly-8.0.0.Alpha2/build/target/wildfly-8.0.0.Alpha2
+
+  JAVA: /Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/bin/java
+
+  JAVA_OPTS:  ...
+
+=========================================================================
+
+12:56:31,829 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.2.Final
+12:56:32,081 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta1
+12:56:32,160 INFO  [org.jboss.as] JBAS015899: WildFly 8.0.0.Alpha2 &quot;WildFly&quot; starting
+...
+12:56:34,741 INFO  [org.jboss.osgi.framework] JBOSGI011006: OSGi Framework - 3.0.0.CR28
+12:56:34,991 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.log:1.0.0
+12:56:34,994 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: jboss-osgi-logging:1.0.0
+12:56:34,998 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.configadmin:1.2.8
+...
+12:56:35,303 INFO  [org.jboss.osgi.framework] JBOSGI011011: Starting bundles for start level: 1
+12:56:35,328 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.log:1.0.0
+12:56:35,342 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: jboss-osgi-logging:1.0.0
+12:56:35,377 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.configadmin:1.2.8
+...
+12:56:35,709 INFO  [org.jboss.osgi.framework] JBOSGI011000: OSGi Framework started
+12:56:35,769 INFO  [org.jboss.as] JBAS015874: WildFly 8.0.0.Alpha2 &quot;WildFly&quot; started in 4379ms</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-ProvidedExamples"  >
+        <h2>Provided Examples</h2>
+    
+    <p>
+The JBoss OSGi project distribution comes with a number of examples that you can build and run in an OSGi standalone environment (i.e. without WildFly integration).    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">blueprint</strong> - Basic Blueprint Container examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">configadmin</strong> - Configuration Admin example    </p>
+</li><li class=" ">    <p>
+<strong class=" ">core</strong> - Simple OSGi examples (start here)    </p>
+</li><li class=" ">    <p>
+<strong class=" ">ds</strong> - Declarative Services examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">eventadmin</strong> - Event Admin examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jmx</strong> - Standard and extended JMX examples    </p>
+</li></ul>    <p>
+Additional to that there are a number of integration examples that document and verify the WildFly integration    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">cdi</strong> - CDI integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">ear</strong> - Bundles in enterprise archives examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">ejb3</strong> - EJB3 integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">http</strong> - HttpService examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">interceptor</strong> - Intercept and process bundle metadata    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxb</strong> - XML binding examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxp</strong> - SAX/DOM parser examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxrs</strong> - REST integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxws</strong> - WebService integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jndi</strong> - Naming integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jpa</strong> - Persistence integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jta</strong> - Transaction integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">resource</strong> - Resource injection examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">webapp</strong> - WebApplication (WAR) examples    </p>
+</li></ul>    <p>
+For more information on these examples, see the <a href="Provided_Examples.html">Provided Examples</a> section.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-BundleDeployment"  >
+        <h2>Bundle Deployment</h2>
+    
+    <p>
+Bundle Deployment from the command-line is supported through the <a href="Command_Line_Interface_Console.html">CLI console</a> and through the web-based <a href="Management_Console.html">Management Console</a>.    </p>
+    <p>
+It is also possible to deploy bundles by dropping them in the <tt class=" ">deployments</tt> folder. This will automatically resolve and start the bundle when possible. Bundles can be started explicitly through the CLI or the web console.    </p>
+    <p>
+When a bundle is installed and started, messages like the following can be seen from the server console.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">$ bin/standalone.sh -c standalone-osgi.xml
+...
+13:53:53,742 INFO  [org.jboss.as.server.deployment] JBAS015876: Starting deployment of &quot;org.apache.felix.eventadmin.jar&quot;
+13:53:54,196 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.eventadmin:1.3.0
+13:53:54,309 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.eventadmin:1.3.0
+13:53:54,354 INFO  [org.jboss.as.server] JBAS018559: Deployed &quot;org.apache.felix.eventadmin.jar&quot; </pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-ManaginginstalledBundles"  >
+        <h2>Managing installed Bundles</h2>
+    
+    <p>
+WildFly comes with a Web Console. After startup you can point your browser to <a href="http://localhost:9990/console">http://localhost:9990/console</a>.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/webconsole.png" alt="images/author/download/attachments/4784849/webconsole.png" />
+        </p>
+    <p>
+The Web Console can be used to install, start, stop and uninstall bundles. Additionally, the web console can be used to activate the framework and manage the current framework Start Level.    </p>
+    <div class="section-3"  id="4784849_GettingStarted-FelixWebConsole"  >
+        <h3>Felix Web Console</h3>
+    
+    <p>
+For more detailed management operations you can also install the <a href="http://felix.apache.org/site/apache-felix-web-console.html">Felix Web Console</a>    </p>
+    <p>
+In WildFly <strong class=" ">8.0.0.Alpha2</strong> you add this capability    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;capability name=&quot;org.apache.felix:org.apache.felix.webconsole:3.1.8&quot; startlevel=&quot;1&quot;/&gt;</pre>
+        </div>
+    </div>
+    <p>
+The console is then accessible on: <a href="http://localhost:8080/system/console">http://localhost:8080/system/console</a>    </p>
+    </div>
+    
+    </div>
+    
+        </div>
+              <ul class="docnav">
+                                                  <li class="previous"><a accesskey="p" href="Introduction.html"><strong>Prev</strong>Introduction</a></li>
+                                                                                                                                              <li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li>
+          <li class="home"><a accesskey="h" href="User_Guide.html"><strong>Front page</strong></a></li>
+                                                                            <li class="next"><a accesskey="n" href="Application_Server_Integration.html"><strong>Next</strong>Application Server Integration</a></li>
+                                                                                                                                                                        </ul>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

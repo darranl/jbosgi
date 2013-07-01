@@ -46,9 +46,9 @@
                 <include>ReleaseNotes.html</include>
             </includes>
         </fileSet>
-        <!-- docbook -->
+        <!-- userguide -->
         <fileSet>
-            <directory>../docbook/target/docbook/publish/en-US</directory>
+            <directory>src/main/resources/userguide</directory>
             <outputDirectory>/docs/userguide</outputDirectory>
         </fileSet>
     </fileSets>

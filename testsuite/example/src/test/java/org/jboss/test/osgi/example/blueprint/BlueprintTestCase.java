@@ -105,7 +105,7 @@ public class BlueprintTestCase {
 
     @Test
     @InSequence(1)
-    public void testBlueprintContainerAvailable() throws Exception {
+    public void testBlueprintContainer() throws Exception {
         InputStream input = deployer.getDeployment(BLUEPRINT_BUNDLE);
         Bundle bundle = context.installBundle(BLUEPRINT_BUNDLE, input);
         try {

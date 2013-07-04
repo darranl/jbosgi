@@ -34,7 +34,6 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -80,9 +79,6 @@ public class WebAppTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    ManagementClient managementClient;
-
-    @ArquillianResource
     BundleContext context;
 
     @Deployment
@@ -95,7 +91,6 @@ public class WebAppTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });
@@ -274,7 +269,7 @@ public class WebAppTestCase {
     }
 
     private String performCall(String path) throws Exception {
-        String urlspec = managementClient.getWebUri() + path;
+        String urlspec = "http://localhost:8080" + path;
         return HttpRequest.get(urlspec, 5, TimeUnit.SECONDS);
     }
 

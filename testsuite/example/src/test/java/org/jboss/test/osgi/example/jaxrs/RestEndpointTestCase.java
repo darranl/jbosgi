@@ -19,33 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.osgi.example.jaxws;
+package org.jboss.test.osgi.example.jaxrs;
 
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+
+import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Application;
 
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.test.osgi.FrameworkUtils;
+import org.jboss.test.osgi.HttpRequest;
 import org.jboss.test.osgi.example.api.DeferredFailActivator;
-import org.jboss.test.osgi.example.jaxws.bundle.Endpoint;
-import org.jboss.test.osgi.example.jaxws.bundle.EndpointImpl;
+import org.jboss.test.osgi.example.jaxrs.bundle.SimpleResource;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -56,15 +53,15 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
 /**
- * Test web service endpoint functionality
+ * Test simple OSGi REST deployment
  *
  * @author thomas.diesler@jboss.com
- * @since 28-Aug-2011
+ * @since 30-Aug-2012
  */
 @RunWith(Arquillian.class)
-public class WebServiceEndpointTestCase {
+public class RestEndpointTestCase {
 
-    static final String SIMPLE_WAR = "simple.war";
+    private static final String SIMPLE_WAR = "simple.war";
     static final String BUNDLE_A_WAR = "bundle-a.war";
     static final String BUNDLE_B_WAR = "bundle-b.war";
     static final String BUNDLE_C_WAB = "bundle-c.wab";
@@ -74,37 +71,29 @@ public class WebServiceEndpointTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    ManagementClient managementClient;
-
-    @ArquillianResource
     BundleContext context;
 
     @Deployment
     public static Archive<?> testDeployment() {
-        final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "osgi-ws-test");
-        archive.addClasses(Endpoint.class, FrameworkUtils.class);
-        archive.setManifest(new Asset() {
+        final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "osgi-rest-test");
+        jar.addClasses(HttpRequest.class);
+        jar.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
-                builder.addBundleSymbolicName(archive.getName());
+                builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(WebService.class, SOAPBinding.class, QName.class, Service.class);
-                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });
-        return archive;
+        return jar;
     }
 
     @Test
     public void testSimpleWar() throws Exception {
         deployer.deploy(SIMPLE_WAR);
         try {
-            QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-            Service service = Service.create(getWsdl("/simple"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello World!", performCall("/simple/helloworld"));
         } finally {
             deployer.undeploy(SIMPLE_WAR);
         }
@@ -114,10 +103,7 @@ public class WebServiceEndpointTestCase {
     public void testSimpleWarAsBundle() throws Exception {
         deployer.deploy(BUNDLE_A_WAR);
         try {
-            QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-            Service service = Service.create(getWsdl("/bundle-a"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello World!", performCall("/bundle-a/helloworld"));
         } finally {
             deployer.undeploy(BUNDLE_A_WAR);
         }
@@ -127,10 +113,7 @@ public class WebServiceEndpointTestCase {
     public void testBundleWithWarExtension() throws Exception {
         deployer.deploy(BUNDLE_B_WAR);
         try {
-            QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-            Service service = Service.create(getWsdl("/bundle-b"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello World!", performCall("/bundle-b/helloworld"));
         } finally {
             deployer.undeploy(BUNDLE_B_WAR);
         }
@@ -140,10 +123,7 @@ public class WebServiceEndpointTestCase {
     public void testBundleWithWabExtension() throws Exception {
         deployer.deploy(BUNDLE_C_WAB);
         try {
-            QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-            Service service = Service.create(getWsdl("/bundle-c"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello World!", performCall("/bundle-c/helloworld"));
         } finally {
             deployer.undeploy(BUNDLE_C_WAB);
         }
@@ -156,22 +136,16 @@ public class WebServiceEndpointTestCase {
         try {
             Assert.assertEquals("INSTALLED", Bundle.INSTALLED, bundle.getState());
             try {
-                QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-                Service service = Service.create(getWsdl("/bundle-c"), serviceName);
-                Endpoint port = service.getPort(Endpoint.class);
-                port.echo("Foo");
-                Assert.fail("WebServiceException expected");
-            } catch (WebServiceException ex) {
+                performCall("/bundle-c/helloworld");
+                Assert.fail("IOException expected");
+            } catch (IOException ex) {
                 // expected
             }
 
             bundle.start();
             Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-            QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-            Service service = Service.create(getWsdl("/bundle-c"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello World!", performCall("/bundle-c/helloworld"));
         } finally {
             bundle.uninstall();
         }
@@ -185,12 +159,9 @@ public class WebServiceEndpointTestCase {
         try {
             Assert.assertEquals("INSTALLED", Bundle.INSTALLED, bundle.getState());
             try {
-                QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-                Service service = Service.create(getWsdl("/bundle-d"), serviceName);
-                Endpoint port = service.getPort(Endpoint.class);
-                port.echo("Foo");
-                Assert.fail("WebServiceException expected");
-            } catch (WebServiceException ex) {
+                performCall("/bundle-d/helloworld");
+                Assert.fail("IOException expected");
+            } catch (IOException ex) {
                 // expected
             }
 
@@ -202,49 +173,46 @@ public class WebServiceEndpointTestCase {
             }
             Assert.assertEquals("RESOLVED", Bundle.RESOLVED, bundle.getState());
             try {
-                QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-                Service service = Service.create(getWsdl("/bundle-d"), serviceName);
-                Endpoint port = service.getPort(Endpoint.class);
-                port.echo("Foo");
-                Assert.fail("WebServiceException expected");
-            } catch (WebServiceException ex) {
+                performCall("/bundle-d/helloworld");
+                Assert.fail("IOException expected");
+            } catch (IOException ex) {
                 // expected
             }
 
             bundle.start();
             Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());
 
-            QName serviceName = new QName("http://osgi.smoke.test.as.jboss.org", "EndpointService");
-            Service service = Service.create(getWsdl("/bundle-d"), serviceName);
-            Endpoint port = service.getPort(Endpoint.class);
-            Assert.assertEquals("Foo", port.echo("Foo"));
+            Assert.assertEquals("Hello World!", performCall("/bundle-d/helloworld"));
         } finally {
             bundle.uninstall();
         }
     }
 
-    private URL getWsdl(String contextPath) throws MalformedURLException {
-        return new URL(managementClient.getWebUri() + contextPath + "/EndpointService?wsdl");
+    private String performCall(String path) throws Exception {
+        String urlspec = "http://localhost:8080" + path;
+        return HttpRequest.get(urlspec, 5, TimeUnit.SECONDS);
     }
 
     @Deployment(name = SIMPLE_WAR, managed = false, testable = false)
     public static Archive<?> getSimpleWar() {
-        final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_WAR);
-        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        final WebArchive archive = create(WebArchive.class, SIMPLE_WAR);
+        archive.addClasses(SimpleResource.class);
+        archive.setWebXML(SimpleResource.class.getPackage(), "rest-web.xml");
         return archive;
     }
 
     @Deployment(name = BUNDLE_A_WAR, managed = false, testable = false)
     public static Archive<?> getSimpleWarAsBundle() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, BUNDLE_A_WAR);
-        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        archive.addClasses(SimpleResource.class);
+        archive.setWebXML(SimpleResource.class.getPackage(), "rest-web.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(WebService.class, SOAPBinding.class);
+                builder.addImportPackages(Produces.class, Application.class);
                 builder.addBundleClasspath("WEB-INF/classes");
                 return builder.openStream();
             }
@@ -255,14 +223,15 @@ public class WebServiceEndpointTestCase {
     @Deployment(name = BUNDLE_B_WAR, managed = false, testable = false)
     public static Archive<?> getBundleWithWarExtension() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_B_WAR);
-        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        archive.addClasses(SimpleResource.class);
+        archive.addAsResource(SimpleResource.class.getPackage(), "rest-web.xml", "WEB-INF/web.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(WebService.class, SOAPBinding.class);
+                builder.addImportPackages(Produces.class, Application.class);
                 return builder.openStream();
             }
         });
@@ -272,14 +241,15 @@ public class WebServiceEndpointTestCase {
     @Deployment(name = BUNDLE_C_WAB, managed = false, testable = false)
     public static Archive<?> getBundleWithWabExtension() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_C_WAB);
-        archive.addClasses(Endpoint.class, EndpointImpl.class);
+        archive.addClasses(SimpleResource.class);
+        archive.addAsResource(SimpleResource.class.getPackage(), "rest-web.xml", "WEB-INF/web.xml");
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(WebService.class, SOAPBinding.class);
+                builder.addImportPackages(Produces.class, Application.class);
                 return builder.openStream();
             }
         });
@@ -289,7 +259,7 @@ public class WebServiceEndpointTestCase {
     @Deployment(name = BUNDLE_D_WAB, managed = false, testable = false)
     public static Archive<?> getBundleD() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, BUNDLE_D_WAB);
-        archive.addClasses(Endpoint.class, EndpointImpl.class, DeferredFailActivator.class);
+        archive.addClasses(SimpleResource.class, DeferredFailActivator.class);
         archive.setManifest(new Asset() {
             @Override
             public InputStream openStream() {
@@ -297,7 +267,7 @@ public class WebServiceEndpointTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addBundleActivator(DeferredFailActivator.class);
-                builder.addImportPackages(WebService.class, SOAPBinding.class);
+                builder.addImportPackages(Produces.class, Application.class);
                 builder.addImportPackages(BundleActivator.class);
                 return builder.openStream();
             }

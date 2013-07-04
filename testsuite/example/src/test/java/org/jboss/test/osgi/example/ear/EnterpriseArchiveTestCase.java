@@ -31,8 +31,6 @@ import javax.servlet.http.HttpServlet;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -64,9 +62,6 @@ public class EnterpriseArchiveTestCase {
 
     private static final String ECHO_BUNDLE = "echo-bundle.jar";
 
-    @ArquillianResource
-    ManagementClient managementClient;
-
     @Deployment
     public static Archive<?> testDeployment() {
         final JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "osgi-ear-test");
@@ -77,7 +72,6 @@ public class EnterpriseArchiveTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(jar.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });
@@ -143,7 +137,7 @@ public class EnterpriseArchiveTestCase {
     }
 
     private String performCall(String path) throws Exception {
-        String urlspec = managementClient.getWebUri() + path;
+        String urlspec = "http://localhost:8080" + path;
         return HttpRequest.get(urlspec, 5, TimeUnit.SECONDS);
     }
 }

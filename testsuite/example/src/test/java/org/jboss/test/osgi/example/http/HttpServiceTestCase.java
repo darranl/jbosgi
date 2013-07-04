@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.osgi.resolver.XBundle;
 import org.jboss.shrinkwrap.api.Archive;
@@ -66,9 +65,6 @@ public class HttpServiceTestCase {
     @ArquillianResource
     Bundle bundle;
 
-    @ArquillianResource
-    ManagementClient managementClient;
-
     @Deployment
     public static Archive<?> getDeployment() {
         final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "http-service-example");
@@ -82,7 +78,7 @@ public class HttpServiceTestCase {
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(HttpService.class);
                 builder.addImportPackages(Servlet.class, HttpServlet.class);
-                builder.addImportPackages(XBundle.class, ManagementClient.class);
+                builder.addImportPackages(XBundle.class);
                 return builder.openStream();
             }
         });
@@ -120,7 +116,7 @@ public class HttpServiceTestCase {
         ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/resource/message.txt";
         try {
-            HttpService httpService = (HttpService) context.getService(sref);
+            HttpService httpService = context.getService(sref);
 
             // Verify that the alias is not yet available
             assertNotAvailable(reqspec);
@@ -145,7 +141,7 @@ public class HttpServiceTestCase {
         ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/servlet?test=init&init=someKey";
         try {
-            HttpService httpService = (HttpService) context.getService(sref);
+            HttpService httpService = context.getService(sref);
 
             // Verify that the alias is not yet available
             assertNotAvailable(reqspec);
@@ -169,7 +165,7 @@ public class HttpServiceTestCase {
         ServiceReference<HttpService> sref = context.getServiceReference(HttpService.class);
         String reqspec = "/servlet?test=instance";
         try {
-            HttpService httpService = (HttpService) context.getService(sref);
+            HttpService httpService = context.getService(sref);
 
             // Verify that the alias is not yet available
             assertNotAvailable(reqspec);
@@ -194,7 +190,7 @@ public class HttpServiceTestCase {
     }
 
     private String performCall(String path) throws Exception {
-        String urlspec = managementClient.getWebUri() + path;
+        String urlspec = "http://localhost:8080" + path;
         return HttpRequest.get(urlspec, 5, TimeUnit.SECONDS);
     }
 

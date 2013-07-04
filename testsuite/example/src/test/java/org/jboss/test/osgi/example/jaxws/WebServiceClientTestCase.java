@@ -33,8 +33,6 @@ import javax.xml.ws.Service;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -59,9 +57,6 @@ public class WebServiceClientTestCase {
     static final String SIMPLE_ENDPOINT_WAR = "simple-endpoint.war";
     static final String CLIENT_BUNDLE = "simple-client.jar";
 
-    @ArquillianResource
-    ManagementClient managementClient;
-
     @Deployment(name = SIMPLE_ENDPOINT_WAR, testable = false)
     public static Archive<?> getSimpleWar() {
         final WebArchive archive = ShrinkWrap.create(WebArchive.class, SIMPLE_ENDPOINT_WAR);
@@ -80,7 +75,6 @@ public class WebServiceClientTestCase {
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
                 builder.addImportPackages(WebService.class, SOAPBinding.class, QName.class, Service.class);
-                builder.addImportPackages(ManagementClient.class);
                 return builder.openStream();
             }
         });
@@ -97,6 +91,6 @@ public class WebServiceClientTestCase {
     }
 
     private URL getWsdl() throws MalformedURLException {
-        return new URL(managementClient.getWebUri() + "/simple-endpoint/EndpointService?wsdl");
+        return new URL("http://localhost:8080/simple-endpoint/EndpointService?wsdl");
     }
 }

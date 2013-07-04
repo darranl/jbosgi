@@ -33,7 +33,6 @@ import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.logging.Logger;
 import org.jboss.osgi.deployment.interceptor.LifecycleInterceptor;
 import org.jboss.osgi.metadata.OSGiManifestBuilder;
@@ -75,9 +74,6 @@ public class LifecycleInterceptorTestCase {
     Deployer deployer;
 
     @ArquillianResource
-    ManagementClient managementClient;
-
-    @ArquillianResource
     BundleContext context;
 
     @Deployment
@@ -90,7 +86,7 @@ public class LifecycleInterceptorTestCase {
                 OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
                 builder.addBundleSymbolicName(archive.getName());
                 builder.addBundleManifestVersion(2);
-                builder.addImportPackages(HttpService.class, ManagementClient.class);
+                builder.addImportPackages(HttpService.class);
                 return builder.openStream();
             }
         });
@@ -154,7 +150,7 @@ public class LifecycleInterceptorTestCase {
     }
 
     private String getHttpResponse(String path) throws Exception {
-        String urlspec = managementClient.getWebUri() + path;
+        String urlspec = "http://localhost:8080" + path;
         return HttpRequest.get(urlspec, 5, TimeUnit.SECONDS);
     }
 }

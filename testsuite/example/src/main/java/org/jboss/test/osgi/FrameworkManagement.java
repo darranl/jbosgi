@@ -23,6 +23,9 @@
 package org.jboss.test.osgi;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.Property;
@@ -41,22 +44,83 @@ public final class FrameworkManagement {
     }
 
     interface ModelConstants {
+        String ACTIVATE = "activate";
+        String ACTIVATION = "activation";
         String BUNDLE = "bundle";
+        String CAPABILITY = "capability";
+        String PROPERTY = "property";
         String START = "start";
+        String STARTLEVEL = "startlevel";
         String STATE = "state";
         String STOP = "stop";
         String SYMBOLIC_NAME = "symbolic-name";
+        String VALUE = "value";
         String VERSION = "version";
     }
 
     interface ModelDescriptionConstants {
+        String ADD = "add";
+        String CHILD_TYPE = "child-type";
         String FAILURE_DESCRIPTION = "failure-description";
         String INCLUDE_RUNTIME = "include-runtime";
+        String NAME = "name";
+        String OUTCOME = "outcome";
+        String READ_ATTRIBUTE_OPERATION = "read-attribute";
+        String READ_CHILDREN_NAMES_OPERATION = "read-children-names";
         String READ_RESOURCE_OPERATION = "read-resource";
         String RECURSIVE = "recursive";
-        String OUTCOME = "outcome";
+        String REMOVE = "remove";
         String RESULT = "result";
         String SUCCESS = "success";
+        String VALUE = "value";
+        String WRITE_ATTRIBUTE_OPERATION = "write-attribute";
+    }
+
+    public static void activateFramework(ModelControllerClient client) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi", ModelConstants.ACTIVATE);
+        executeOperation(client, op);
+    }
+
+    public static String getActivationMode(ModelControllerClient client) throws Exception {
+        return readAttribute(client, ModelConstants.ACTIVATION);
+    }
+
+    public static void setActivationMode(ModelControllerClient client, String mode) throws Exception {
+        writeAttribute(client, ModelConstants.ACTIVATION, mode);
+    }
+
+    public static Integer getFrameworkStartLevel(ModelControllerClient client) throws Exception {
+        String sl = readAttribute(client, ModelConstants.STARTLEVEL);
+        if (sl.trim().length() == 0)
+            return null;
+
+        return Integer.parseInt(sl);
+    }
+
+    public static void setFrameworkStartLevel(ModelControllerClient client, int i) throws Exception {
+        writeAttribute(client, ModelConstants.STARTLEVEL, "" + i);
+    }
+
+    public static void bundleStart(ModelControllerClient client, Object resId) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi/bundle=" + resId, ModelConstants.START);
+        executeOperation(client, op, true);
+    }
+
+    public static void bundleStop(ModelControllerClient client, Object resId) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi/bundle=" + resId, ModelConstants.STOP);
+        executeOperation(client, op, true);
+    }
+
+    public static List<Long> listBundleIDs(ModelControllerClient client) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi", ModelDescriptionConstants.READ_CHILDREN_NAMES_OPERATION);
+        op.get(ModelDescriptionConstants.CHILD_TYPE).set(ModelConstants.BUNDLE);
+        ModelNode result = executeOperation(client, op, true);
+
+        List<Long> ids = new ArrayList<Long>();
+        for (ModelNode s : result.asList()) {
+            ids.add(Long.parseLong(s.asString()));
+        }
+        return ids;
     }
 
     public static Long getBundleId(ModelControllerClient client, String symbolicName, Version version) throws Exception {
@@ -102,16 +166,69 @@ public final class FrameworkManagement {
         return executeOperation(client, op);
     }
 
-    public static boolean bundleStart(ModelControllerClient client, Object resId) throws Exception {
-        ModelNode op = createOpNode("subsystem=osgi/bundle=" + resId, ModelConstants.START);
-        ModelNode result = executeOperation(client, op, false);
-        return ModelDescriptionConstants.SUCCESS.equals(result.get(ModelDescriptionConstants.OUTCOME).asString());
+    public static void addCapability(ModelControllerClient client, String name, Integer startLevel) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi/capability=" + name, ModelDescriptionConstants.ADD);
+        op.get(ModelConstants.STARTLEVEL).set(startLevel.toString());
+        executeOperation(client, op, true);
     }
 
-    public static boolean bundleStop(ModelControllerClient client, Object resId) throws Exception {
-        ModelNode op = createOpNode("subsystem=osgi/bundle=" + resId, ModelConstants.STOP);
-        ModelNode result = executeOperation(client, op, false);
-        return ModelDescriptionConstants.SUCCESS.equals(result.get(ModelDescriptionConstants.OUTCOME).asString());
+    public static List<String> listCapabilities(ModelControllerClient client) throws Exception {
+        return listChildrenNames(client, ModelConstants.CAPABILITY);
+    }
+
+    public static void removeCapability(ModelControllerClient client, String name) throws Exception {
+        removeResource(client, ModelConstants.CAPABILITY, name);
+    }
+
+    public static void addProperty(ModelControllerClient client, String name, String value) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi/property=" + name, ModelDescriptionConstants.ADD);
+        op.get(ModelDescriptionConstants.VALUE).set(value);
+        executeOperation(client, op, true);
+    }
+
+    public static List<String> listProperties(ModelControllerClient client) throws Exception {
+        return listChildrenNames(client, ModelConstants.PROPERTY);
+    }
+
+    public static String readProperty(ModelControllerClient client, String name) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi/property=" + name, ModelDescriptionConstants.READ_RESOURCE_OPERATION);
+        ModelNode result = executeOperation(client, op);
+        return result.get(ModelConstants.VALUE).asString();
+    }
+
+    public static void removeProperty(ModelControllerClient client, String name) throws Exception {
+        removeResource(client, ModelConstants.PROPERTY, name);
+    }
+
+    private static List<String> listChildrenNames(ModelControllerClient client, String type) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi", ModelDescriptionConstants.READ_CHILDREN_NAMES_OPERATION);
+        op.get(ModelDescriptionConstants.CHILD_TYPE).set(type);
+        ModelNode result = executeOperation(client, op);
+
+        List<String> names = new ArrayList<String>();
+        for (ModelNode n : result.asList()) {
+            names.add(n.asString());
+        }
+        return names;
+    }
+
+    private static void removeResource(ModelControllerClient client, String type, String name) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi/" + type + "=" + name, ModelDescriptionConstants.REMOVE);
+        executeOperation(client, op, true);
+    }
+
+    private static String readAttribute(ModelControllerClient client, String attributeName) throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi", ModelDescriptionConstants.READ_ATTRIBUTE_OPERATION);
+        op.get(ModelDescriptionConstants.NAME).set(attributeName);
+        ModelNode result = executeOperation(client, op);
+        return result.asString();
+    }
+
+    private static void writeAttribute(ModelControllerClient client, String attributeName, String value)  throws Exception {
+        ModelNode op = createOpNode("subsystem=osgi", ModelDescriptionConstants.WRITE_ATTRIBUTE_OPERATION);
+        op.get(ModelDescriptionConstants.NAME).set(attributeName);
+        op.get(ModelDescriptionConstants.VALUE).set(value);
+        executeOperation(client, op, true);
     }
 
     private static ModelNode createOpNode(String address, String operation) {

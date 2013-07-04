@@ -317,6 +317,38 @@
                 <version>${version.apache.felix.webconsole}</version>
             </dependency>
 
+			<!-- WildFly -->
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-arquillian-common</artifactId>
+	            <version>${version.wildfly.800}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-configadmin</artifactId>
+	            <version>${version.wildfly.800}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-ejb3</artifactId>
+	            <version>${version.wildfly.800}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-osgi-launcher</artifactId>
+	            <version>${version.wildfly.800}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-osgi-web</artifactId>
+	            <version>${version.wildfly.800}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.wildfly</groupId>
+	            <artifactId>wildfly-testsuite-shared</artifactId>
+	            <version>${version.wildfly.800}</version>
+	        </dependency>
+	        
             <!-- org.osgi -->
             <dependency>
                 <groupId>org.osgi</groupId>

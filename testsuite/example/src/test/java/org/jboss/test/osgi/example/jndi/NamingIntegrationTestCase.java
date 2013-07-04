@@ -65,7 +65,7 @@ import org.osgi.service.repository.Repository;
  * @author Thomas.Diesler@jboss.com
  */
 @RunWith(Arquillian.class)
-public class NamingTestCase {
+public class NamingIntegrationTestCase {
 
     @ArquillianResource
     BundleContext context;

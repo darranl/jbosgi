@@ -39,6 +39,11 @@
         </dependency>
         <!-- Provided -->
         <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.log</artifactId>
             <scope>provided</scope>
@@ -51,6 +56,36 @@
         <dependency>
             <groupId>org.jboss.osgi.logging</groupId>
             <artifactId>jboss-osgi-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.annotation</groupId>
+            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -152,6 +187,22 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <argLine>${surefire.system.args} ${surefire.security.args}</argLine>
+                            <excludes>
+                                <exclude>**/cdi/*TestCase.java</exclude>
+                                <exclude>**/ear/*TestCase.java</exclude>
+                                <exclude>**/ejb3/*TestCase.java</exclude>
+                                <exclude>**/http/*TestCase.java</exclude>
+                                <exclude>**/interceptor/*TestCase.java</exclude>
+                                <exclude>**/jaxb/*TestCase.java</exclude>
+                                <exclude>**/jaxp/*TestCase.java</exclude>
+                                <exclude>**/jaxrs/*TestCase.java</exclude>
+                                <exclude>**/jaxws/*TestCase.java</exclude>
+                                <exclude>**/jpa/*TestCase.java</exclude>
+                                <exclude>**/jta/*TestCase.java</exclude>
+                                <exclude>**/resource/*TestCase.java</exclude>
+                                <exclude>**/webapp/*TestCase.java</exclude>
+                                <exclude>**/*IntegrationTestCase.java</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -28,8 +28,6 @@
     <modules>
         <module>example</module>
         <module>functional</module>
-        <module>integration</module>
-        <module>performance</module>
     </modules>
 
     <!-- Properties -->
@@ -163,33 +161,9 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-        </profile>
-
-        <profile>
-            <id>remote-testing</id>
-            <activation>
-                <property>
-                    <name>target.container</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-common</artifactId>
-                    <version>${version.wildfly.800}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-            	<plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                        </configuration>
-                    </plugin>
-            	</plugins>
-            </build>
+		    <modules>
+		        <module>performance</module>
+		    </modules>
         </profile>
 
         <profile>
@@ -205,6 +179,11 @@
                 <!--  jboss.home>${project.build.directory}/wildfly-${version.wildfly.800}</jboss.home -->
             </properties>
             <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-common</artifactId>
+                    <scope>test</scope>
+                </dependency>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
@@ -240,8 +219,17 @@
                         </executions>
                     </plugin>
                     -->
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
+		    <modules>
+		        <module>integration</module>
+		    </modules>
         </profile>
     </profiles>
 </project>

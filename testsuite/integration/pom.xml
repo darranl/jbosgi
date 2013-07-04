@@ -66,6 +66,14 @@
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-configadmin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-testsuite-shared</artifactId>
+        </dependency>
         <!-- Provided -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -78,6 +86,11 @@
             <scope>provided</scope>
         </dependency>
         <!-- Test -->
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-arquillian-common</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <!-- Build -->

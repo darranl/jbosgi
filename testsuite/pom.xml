@@ -175,7 +175,7 @@
                 </property>
             </activation>
             <properties>
-                <jboss.home>${user.home}/git/wildfly/build/target/wildfly-${version.wildfly.800}</jboss.home>
+                <jboss.home>${basedir}/../../../wildfly/build/target/wildfly-${version.wildfly.800}</jboss.home>
                 <!--  jboss.home>${project.build.directory}/wildfly-${version.wildfly.800}</jboss.home -->
             </properties>
             <dependencies>

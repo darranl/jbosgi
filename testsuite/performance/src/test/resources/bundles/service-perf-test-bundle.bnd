@@ -1,5 +1,0 @@
-Bundle-SymbolicName: service-perf-test
-Private-Package: org.jboss.osgi.test.performance, org.jboss.osgi.test.performance.service
-Import-Package: org.osgi.framework, org.jboss.logging
-Bundle-Activator: org.jboss.osgi.test.performance.service.StandaloneActivator
-

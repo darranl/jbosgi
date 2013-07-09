@@ -31,6 +31,11 @@
     <artifactId>jboss-osgi-testsuite-integration</artifactId>
     <packaging>jar</packaging>
 
+    <!-- Properties -->
+    <properties>
+        <project.root.dir>${basedir}/../..</project.root.dir>
+    </properties>
+    
     <!-- Dependencies -->
     <dependencies>
     	<dependency>
@@ -38,6 +43,14 @@
 	        <artifactId>jboss-osgi-testsuite-example</artifactId>
 	        <version>${project.version}</version>
     	</dependency>
+        <dependency>
+		    <groupId>org.jboss.osgi.wildfly</groupId>
+		    <artifactId>wildfly-osgi-web</artifactId>
+    	</dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -60,7 +73,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!--                                                                        -->
+<!-- JBoss, the OpenSource J2EE webOS                                       -->
+<!--                                                                        -->
+<!-- Distributable under LGPL license.                                      -->
+<!-- See terms of license at http://www.gnu.org.                            -->
+<!--                                                                        -->
+<!-- ====================================================================== -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.osgi</groupId>
+        <artifactId>jboss-osgi</artifactId>
+        <version>2.1.0-SNAPSHOT</version>
+    </parent>
+
+    <name>JBossOSGi WildFly Build</name>
+    <artifactId>jboss-osgi-build</artifactId>
+
+    <!-- Properties -->    
+    <properties>
+        <wildfly.dist.dir>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
+        <wildfly.patch.file>${project.build.directory}/${project.artifactId}-${project.version}-patch.zip</wildfly.patch.file>
+        <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
+    </properties>
+    
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.framework</groupId>
+            <artifactId>jbosgi-framework-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.logging</groupId>
+            <artifactId>jboss-osgi-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-configadmin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-jmx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-jta</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-naming</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>wildfly-osgi-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+        </dependency>
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.jboss.logmanager</groupId>
+            <artifactId>jboss-logmanager</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-impl-base</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-arquillian-container-managed</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Build -->
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>directory-single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>deploy-artifacts</finalName>
+                            <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>scripts/assembly-deploy-artifacts.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>build-wildfly-patch</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <target>
+                                <ant antfile="${basedir}/scripts/antrun-wildfly-patch.xml" inheritRefs="true"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>build-wildfly-osgi</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>process-test-resources</phase>
+                          <configuration>
+                            <target>
+                                <mkdir dir="${jboss.home}/standalone/deployments"/>
+                                <copy todir="${jboss.home}" failonerror="false" overwrite="true">
+                                    <fileset dir="${wildfly.dist.dir}">
+                                        <include name="bin/**"/>
+                                        <include name="modules/**"/>
+                                        <include name="standalone/configuration/**"/>
+                                        <include name="standalone/lib/**"/>
+                                        <include name="jboss-modules.jar"/>
+                                    </fileset>
+                                </copy>
+                                <chmod dir="${jboss.home}/bin" includes="*.sh" perm="+x"/>
+                                <unzip src="${wildfly.patch.file}" dest="${jboss.home}"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${wildfly.patch.file}</file>
+                                    <classifier>patch</classifier>
+                                    <type>zip</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <systemPropertyVariables>
+                        <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

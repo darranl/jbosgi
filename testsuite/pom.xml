@@ -35,23 +35,10 @@
         <surefire.system.args>-ea -Xmx512m</surefire.system.args>
         <surefire.security.args>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/tst.policy</surefire.security.args>
         <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
-        <jboss.dist.dir>${basedir}/../../../wildfly/build/target/wildfly-${version.wildfly.800}</jboss.dist.dir>
     </properties>
 
     <!-- Dependencies -->
     <dependencies>
-        <dependency>
-            <groupId>org.jboss.osgi.deployment</groupId>
-            <artifactId>jbosgi-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.metadata</groupId>
-            <artifactId>jbosgi-metadata</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.spi</groupId>
-            <artifactId>jbosgi-spi</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
@@ -81,14 +68,6 @@
             <groupId>org.jboss.osgi.resolver</groupId>
             <artifactId>jbosgi-resolver-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.vfs</groupId>
-            <artifactId>jbosgi-vfs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.vfs</groupId>
-            <artifactId>jbosgi-vfs30</artifactId>
-        </dependency>
         <!-- add this aggregate last -->
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
@@ -105,6 +84,11 @@
         <dependency>
             <groupId>org.jboss.logmanager</groupId>
             <artifactId>jboss-logmanager</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-impl-base</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -128,21 +112,6 @@
                 </excludes>
             </testResource>
         </testResources>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <argLine>${surefire.system.args}</argLine>
-                    <systemPropertyVariables>
-                        <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <jboss.osgi.framework.properties>${jboss.osgi.framework.properties}</jboss.osgi.framework.properties>
-                        <jboss.osgi.vfs.leakDebugging>true</jboss.osgi.vfs.leakDebugging>
-                        <test.archive.directory>${project.build.directory}/test-libs</test.archive.directory>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
     <!-- Profiles -->
@@ -162,9 +131,23 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-		    <modules>
-		        <module>performance</module>
-		    </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>${surefire.system.args}</argLine>
+                            <systemPropertyVariables>
+                                <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <jboss.osgi.framework.properties>${jboss.osgi.framework.properties}</jboss.osgi.framework.properties>
+                                <jboss.osgi.vfs.leakDebugging>true</jboss.osgi.vfs.leakDebugging>
+                                <test.archive.directory>${project.build.directory}/test-libs</test.archive.directory>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>
@@ -176,19 +159,15 @@
                 </property>
             </activation>
             <properties>
-		        <jboss.dist.dir>${basedir}/../../../wildfly/build/target/wildfly-${version.wildfly.800}</jboss.dist.dir>
-                <jboss.home>${project.build.directory}/wildfly-${version.wildfly.800}</jboss.home>
+                <project.root.dir>${basedir}/..</project.root.dir>
+		        <wildfly.dist.dir>${project.root.dir}/../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
+                <wildfly.patch.file>${project.root.dir}/build/target/jboss-osgi-build-${project.version}-patch.zip</wildfly.patch.file>
+                <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
-                    <artifactId>wildfly-arquillian-common</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly.800}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -203,20 +182,21 @@
 		                        <goals>
 		                            <goal>run</goal>
 		                        </goals>
-		                        <phase>generate-test-resources</phase>
+		                        <phase>process-test-resources</phase>
 		                          <configuration>
 		                            <target>
 		                                <mkdir dir="${jboss.home}/standalone/deployments"/>
 		                                <copy todir="${jboss.home}" failonerror="false" overwrite="true">
-		                                    <fileset dir="${jboss.dist.dir}">
+		                                    <fileset dir="${wildfly.dist.dir}">
 		                                    	<include name="bin/**"/>
-		                                    	<include name="bundles/**"/>
 		                                    	<include name="modules/**"/>
 		                                    	<include name="standalone/configuration/**"/>
 		                                    	<include name="standalone/lib/**"/>
 		                                    	<include name="jboss-modules.jar"/>
 		                                    </fileset>
 		                                </copy>
+                                        <chmod dir="${jboss.home}/bin" includes="*.sh" perm="+x"/>
+                                        <unzip src="${wildfly.patch.file}" dest="${jboss.home}"/>
 		                            </target>
 		                        </configuration>
 		                    </execution>
@@ -237,7 +217,7 @@
                                         <artifactItem>
                                             <groupId>org.wildfly</groupId>
                                             <artifactId>wildfly-dist</artifactId>
-                                            <version>${version.wildfly.800}</version>
+                                            <version>${version.jboss.wildfly}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>${project.build.directory}</outputDirectory>

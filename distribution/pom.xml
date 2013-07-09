@@ -40,7 +40,6 @@
 
     <!-- Modules -->
     <modules>
-        <module>javadoc</module>
         <module>installer</module>
     </modules>
 

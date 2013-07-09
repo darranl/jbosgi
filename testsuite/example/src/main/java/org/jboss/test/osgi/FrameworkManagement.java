@@ -22,7 +22,6 @@
 
 package org.jboss.test.osgi;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +31,11 @@ import org.jboss.dmr.Property;
 import org.osgi.framework.Version;
 
 /**
- * OSGi management operations
+ * Abstract OSGi management operations
  *
  * @author thomas.diesler@jboss.com
- * @since 25-Sep-2012
+ * @author David Bosschaert
+ * @since 06-Mar-2012
  */
 public final class FrameworkManagement {
 

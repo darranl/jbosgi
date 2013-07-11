@@ -38,25 +38,25 @@
         <dependency>
             <groupId>org.jboss.osgi.spi</groupId>
             <artifactId>jbosgi-spi</artifactId>
-            <version>${version.jboss.osgi.spi}</version>
+            <version>${version.jboss.osgi.spi}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.deployment</groupId>
             <artifactId>jbosgi-deployment</artifactId>
-            <version>${version.jboss.osgi.deployment}</version>
+            <version>${version.jboss.osgi.deployment}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.framework</groupId>
             <artifactId>jbosgi-framework-core</artifactId>
-            <version>${version.jboss.osgi.framework}</version>
+            <version>${version.jboss.osgi.framework}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.jmx</groupId>
             <artifactId>jbosgi-jmx</artifactId>
-            <version>${version.jboss.osgi.jmx}</version>
+            <version>${version.jboss.osgi.jmx}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
@@ -68,43 +68,43 @@
         <dependency>
             <groupId>org.jboss.osgi.logging</groupId>
             <artifactId>jboss-osgi-logging</artifactId>
-            <version>${version.jboss.osgi.logging}</version>
+            <version>${version.jboss.osgi.logging}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.metadata</groupId>
             <artifactId>jbosgi-metadata</artifactId>
-            <version>${version.jboss.osgi.metadata}</version>
+            <version>${version.jboss.osgi.metadata}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.resolver</groupId>
             <artifactId>jbosgi-resolver-api</artifactId>
-            <version>${version.jboss.osgi.resolver}</version>
+            <version>${version.jboss.osgi.resolver}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
             <artifactId>jbosgi-repository-core</artifactId>
-            <version>${version.jboss.osgi.repository}</version>
+            <version>${version.jboss.osgi.repository}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.vfs</groupId>
             <artifactId>jbosgi-vfs</artifactId>
-            <version>${version.jboss.osgi.vfs}</version>
+            <version>${version.jboss.osgi.vfs}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.testing</groupId>
             <artifactId>jbosgi-testing</artifactId>
-            <version>${version.jboss.osgi.testing}</version>
+            <version>${version.jboss.osgi.testing}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.vfs</groupId>
             <artifactId>jbosgi-vfs30</artifactId>
-            <version>${version.jboss.osgi.vfs}</version>
+            <version>${version.jboss.osgi.vfs}</version><!--$NO-MVN-MAN-VER$-->
             <classifier>sources</classifier>
         </dependency>
     </dependencies>

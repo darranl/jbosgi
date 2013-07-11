@@ -130,7 +130,7 @@ public final class FrameworkUtils {
     }
 
     public static <T> ServiceReference<T> waitForServiceReference(BundleContext context, Class<T> clazz, long timeout, TimeUnit unit) {
-        ServiceTracker tracker = new ServiceTracker(context, clazz.getName(), null);
+        ServiceTracker<T, T> tracker = new ServiceTracker<T, T>(context, clazz.getName(), null);
         tracker.open();
 
         ServiceReference<T> sref = null;

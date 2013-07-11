@@ -28,7 +28,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-osgi-jpa-@project.version@.jar"/>
+        <resource-root path="jbosgi-wildfly-jpa-@project.version@.jar"/>
     </resources>
 
     <dependencies>

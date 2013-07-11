@@ -69,7 +69,7 @@
     
     <!-- Run installer build -->
     <echo message="Running IzPack to build the installer..." />
-    <izpack input="${resources.dir}/installer/install-definition.xml" output="${output.dir}/jboss-osgi-installer-${product.version}.jar"
+    <izpack input="${resources.dir}/installer/install-definition.xml" output="${output.dir}/jbosgi-installer-${product.version}.jar"
       installerType="standard" inheritAll="true" basedir="${izpack.temp.dir}" />
 
     <!-- Clean working directory -->

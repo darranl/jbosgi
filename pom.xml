@@ -20,7 +20,7 @@
 
     <name>JBossOSGi</name>
 
-    <artifactId>jboss-osgi</artifactId>
+    <artifactId>jbosgi</artifactId>
     <packaging>pom</packaging>
 
     <version>2.1.0-SNAPSHOT</version>
@@ -289,42 +289,42 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-configadmin</artifactId>
+                <artifactId>jbosgi-wildfly-configadmin</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-http</artifactId>
+                <artifactId>jbosgi-wildfly-http</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-jmx</artifactId>
+                <artifactId>jbosgi-wildfly-jmx</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-jpa</artifactId>
+                <artifactId>jbosgi-wildfly-jpa</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-jta</artifactId>
+                <artifactId>jbosgi-wildfly-jta</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-naming</artifactId>
+                <artifactId>jbosgi-wildfly-naming</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-service</artifactId>
+                <artifactId>jbosgi-wildfly-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.osgi.wildfly</groupId>
-                <artifactId>wildfly-osgi-web</artifactId>
+                <artifactId>jbosgi-wildfly-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

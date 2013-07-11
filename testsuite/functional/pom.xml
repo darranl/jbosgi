@@ -12,7 +12,7 @@
 <!--
     Set these VM properties in your IDE debugger
 
-    -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-functional/target}/test-libs
+    -Dtest.archive.directory=${workspace_loc:jbosgi-testsuite-functional/target}/test-libs
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -20,13 +20,13 @@
 
     <parent>
         <groupId>org.jboss.osgi.testsuite</groupId>
-        <artifactId>jboss-osgi-testsuite</artifactId>
+        <artifactId>jbosgi-testsuite</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
     
     <name>JBossOSGi Testsuite Functional</name>
     
-    <artifactId>jboss-osgi-testsuite-functional</artifactId>
+    <artifactId>jbosgi-testsuite-functional</artifactId>
     <packaging>jar</packaging>
 
     <!-- Properties -->
@@ -38,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.osgi.testsuite</groupId>
-            <artifactId>jboss-osgi-testsuite-example</artifactId>
+            <artifactId>jbosgi-testsuite-example</artifactId>
             <version>${project.version}</version>
         </dependency>
 

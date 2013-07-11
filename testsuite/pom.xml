@@ -14,14 +14,14 @@
 
     <parent>
         <groupId>org.jboss.osgi</groupId>
-        <artifactId>jboss-osgi</artifactId>
+        <artifactId>jbosgi</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
     <name>JBossOSGi Testsuite</name>
 
     <groupId>org.jboss.osgi.testsuite</groupId>
-    <artifactId>jboss-osgi-testsuite</artifactId>
+    <artifactId>jbosgi-testsuite</artifactId>
     <packaging>pom</packaging>
 
     <!-- Modules -->
@@ -34,7 +34,7 @@
     <properties>
         <surefire.system.args>-ea -Xmx512m</surefire.system.args>
         <surefire.security.args>-Djava.security.manager -Djava.security.policy=${basedir}/src/test/resources/tst.policy</surefire.security.args>
-        <jboss.osgi.framework.properties>jboss-osgi-framework.properties</jboss.osgi.framework.properties>
+        <jboss.osgi.framework.properties>jbosgi-framework.properties</jboss.osgi.framework.properties>
     </properties>
 
     <!-- Dependencies -->
@@ -161,7 +161,7 @@
             <properties>
                 <project.root.dir>${basedir}/..</project.root.dir>
 		        <wildfly.dist.dir>${project.root.dir}/../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
-                <wildfly.patch.file>${project.root.dir}/build/target/jboss-osgi-build-${project.version}-patch.zip</wildfly.patch.file>
+                <wildfly.patch.file>${project.root.dir}/build/target/jbosgi-build-${project.version}-patch.zip</wildfly.patch.file>
                 <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
             </properties>
             <dependencies>

@@ -66,10 +66,10 @@
 
       <!-- JBossOSGi Docs -->
       <fileset dir="@{deploy.artifacts.dir}/docs/userguide" targetdir="$INSTALL_PATH/docs/userguide" override="true" />
-      <file src="@{deploy.artifacts.dir}/lib/jboss-osgi-javadoc-javadoc.jar" targetdir="$INSTALL_PATH/docs/apidocs" unpack="true" override="true" />
+      <file src="@{deploy.artifacts.dir}/lib/jbosgi-javadoc-javadoc.jar" targetdir="$INSTALL_PATH/docs/apidocs" unpack="true" override="true" />
 
       <!-- JBossOSGi Examples -->
-      <file src="@{deploy.artifacts.dir}/lib/jboss-osgi-testsuite-example.zip" targetdir="$INSTALL_PATH" unpack="true" override="true" />
+      <file src="@{deploy.artifacts.dir}/lib/jbosgi-testsuite-example.zip" targetdir="$INSTALL_PATH" unpack="true" override="true" />
 
       <!-- JBossOSGi Source -->
       <fileset dir="@{deploy.artifacts.dir}/lib" targetdir="$INSTALL_PATH/source" override="true">

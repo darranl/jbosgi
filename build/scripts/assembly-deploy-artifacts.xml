@@ -19,7 +19,6 @@
                 <include>*:jbosgi-*:jar</include>
                 <include>*:jboss-osgi-*:jar</include>
                 <include>*:org.apache.felix*:jar</include>
-                <include>*:wildfly-osgi-*:jar</include>
             </includes>
             <scope>compile</scope>
             <unpack>false</unpack>

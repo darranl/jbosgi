@@ -14,12 +14,12 @@
 
     <parent>
         <groupId>org.jboss.osgi</groupId>
-        <artifactId>jboss-osgi</artifactId>
+        <artifactId>jbosgi</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
     <name>JBossOSGi WildFly Build</name>
-    <artifactId>jboss-osgi-build</artifactId>
+    <artifactId>jbosgi-build</artifactId>
 
     <!-- Properties -->    
     <properties>
@@ -48,35 +48,35 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-configadmin</artifactId>
+            <artifactId>jbosgi-wildfly-configadmin</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-http</artifactId>
+            <artifactId>jbosgi-wildfly-http</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-jmx</artifactId>
+            <artifactId>jbosgi-wildfly-jmx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-jpa</artifactId>
+            <artifactId>jbosgi-wildfly-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-jta</artifactId>
+            <artifactId>jbosgi-wildfly-jta</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-naming</artifactId>
+            <artifactId>jbosgi-wildfly-naming</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-service</artifactId>
+            <artifactId>jbosgi-wildfly-service</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-web</artifactId>
+            <artifactId>jbosgi-wildfly-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>

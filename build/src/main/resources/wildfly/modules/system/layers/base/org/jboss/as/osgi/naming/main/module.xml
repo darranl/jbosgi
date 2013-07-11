@@ -28,7 +28,7 @@
     </properties>
 
     <resources>
-        <resource-root path="wildfly-osgi-naming-@project.version@.jar"/>
+        <resource-root path="jbosgi-wildfly-naming-@project.version@.jar"/>
     </resources>
 
     <dependencies>

@@ -29,18 +29,18 @@
 
     <parent>
 	    <groupId>org.jboss.osgi.wildfly</groupId>
-	    <artifactId>wildfly-osgi-integration</artifactId>
+	    <artifactId>jbosgi-wildfly-integration</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
     <name>JBossOSGi WildFly Integration: JTA</name>
     
-    <artifactId>wildfly-osgi-jta</artifactId>
+    <artifactId>jbosgi-wildfly-jta</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.jboss.osgi.wildfly</groupId>
-            <artifactId>wildfly-osgi-service</artifactId>
+            <artifactId>jbosgi-wildfly-service</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

@@ -50,25 +50,25 @@
   	
   	<!-- Copy module resources-->
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/http/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-http-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-http-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/jmx/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-jmx-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-jmx-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/jpa/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-jpa-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-jpa-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/jta/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-jta-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-jta-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-service-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-service-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/naming/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-naming-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-naming-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/as/osgi/web/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-web-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-web-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/modules/system/layers/base/org/jboss/osgi/deployment/main" overwrite="true">
         <fileset file="${deploy.artifacts.lib}/jbosgi-deployment-*.jar" />
@@ -103,7 +103,7 @@
         <fileset file="${deploy.artifacts.lib}/jboss-osgi-logging-*.jar" />
     </copy>
     <copy todir="${wildfly.patch.dir}/bundles/org/jboss/as/osgi/configadmin/main" overwrite="true">
-        <fileset file="${deploy.artifacts.lib}/wildfly-osgi-configadmin-*.jar" />
+        <fileset file="${deploy.artifacts.lib}/jbosgi-wildfly-configadmin-*.jar" />
     </copy>
 	
   	<!-- Zip the wildfly patch -->

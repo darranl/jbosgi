@@ -14,7 +14,7 @@
   Set these VM properties in your IDE debugger 
 
   -Djava.util.logging.manager=org.jboss.logmanager.LogManager
-  -Dtest.archive.directory=${workspace_loc:jboss-osgi-testsuite-example/target}/test-libs 
+  -Dtest.archive.directory=${workspace_loc:jbosgi-testsuite-example/target}/test-libs 
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -22,13 +22,13 @@
 
     <parent>
         <groupId>org.jboss.osgi.testsuite</groupId>
-        <artifactId>jboss-osgi-testsuite</artifactId>
+        <artifactId>jbosgi-testsuite</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
     <name>JBossOSGi Testsuite Integration</name>
 
-    <artifactId>jboss-osgi-testsuite-integration</artifactId>
+    <artifactId>jbosgi-testsuite-integration</artifactId>
     <packaging>jar</packaging>
 
     <!-- Properties -->
@@ -40,12 +40,12 @@
     <dependencies>
     	<dependency>
 	        <groupId>org.jboss.osgi.testsuite</groupId>
-	        <artifactId>jboss-osgi-testsuite-example</artifactId>
+	        <artifactId>jbosgi-testsuite-example</artifactId>
 	        <version>${project.version}</version>
     	</dependency>
         <dependency>
 		    <groupId>org.jboss.osgi.wildfly</groupId>
-		    <artifactId>wildfly-osgi-web</artifactId>
+		    <artifactId>jbosgi-wildfly-web</artifactId>
     	</dependency>
         <dependency>
             <groupId>org.jboss.osgi.framework</groupId>

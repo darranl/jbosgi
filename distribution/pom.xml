@@ -41,6 +41,7 @@
     <!-- Modules -->
     <modules>
         <module>installer</module>
+        <module>javadoc</module>
     </modules>
 
 </project>

@@ -31,9 +31,14 @@
 			<artifactId>ant</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.osgi.distribution</groupId>
+			<artifactId>jbosgi-javadoc</artifactId>
+			<version>${project.version}</version>
+			<classifier>javadoc</classifier>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.osgi.framework</groupId>
 			<artifactId>jbosgi-framework-aggregated</artifactId>
-			<version>${version.jboss.osgi.framework}</version>
 			<classifier>all</classifier>
 		</dependency>
 		<dependency>
@@ -51,18 +56,13 @@
         <dependency>
             <groupId>org.jboss.osgi.repository</groupId>
             <artifactId>jbosgi-repository-core</artifactId>
+            <version>${version.jboss.osgi.repository}</version>
             <classifier>sources</classifier>
         </dependency>
 		<dependency>
 			<groupId>org.jboss.osgi.repository</groupId>
 			<artifactId>jbosgi-repository-bundle</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository-core</artifactId>
-            <version>${version.jboss.osgi.repository}</version>
-            <classifier>sources</classifier>
-        </dependency>
 		<dependency>
 			<groupId>org.jboss.osgi.testsuite</groupId>
 			<artifactId>jbosgi-testsuite-example</artifactId>

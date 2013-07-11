@@ -228,6 +228,12 @@
                 <version>${version.jboss.osgi.framework}</version>
             </dependency>
             <dependency>
+                <groupId>org.jboss.osgi.framework</groupId>
+                <artifactId>jbosgi-framework-aggregated</artifactId>
+                <version>${version.jboss.osgi.framework}</version>
+                <classifier>all</classifier>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.osgi.jmx</groupId>
                 <artifactId>jbosgi-jmx</artifactId>
                 <version>${version.jboss.osgi.jmx}</version>

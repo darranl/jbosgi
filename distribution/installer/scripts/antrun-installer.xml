@@ -20,7 +20,7 @@
   <property name="filtered.resources.dir" value="${output.dir}/resources" />
   <property name="deploy.artifacts.dir" value="${output.dir}/deploy-artifacts" />
   <property name="deploy.artifacts.lib" value="${deploy.artifacts.dir}/lib" />
-  <property name="deploy.artifacts.resources" value="${deploy.artifacts.dir}/resources" />
+  <property name="wildfly.patch.dir" value="${output.dir}/wildfly-patch" />
 
   <!-- ================================================================== -->
   <!-- Initialization                                                     -->
@@ -42,11 +42,7 @@
     <copy todir="${filtered.resources.dir}" filtering="true" overwrite="true">
       <fileset dir="${resources.dir}/installer" />
       <filterset>
-        <filter token="framework" value="${framework}" />
-        <filter token="jboss.home" value="${jboss.home}" />
-        <filter token="jboss.integration" value="${jboss.integration}" />
         <filter token="product.version" value="${product.version}" />
-        <filter token="target.container" value="${target.container}" />
         <filter token="installpath" value="${output.dir}/auto-install-dest" />
       </filterset>
     </copy>

@@ -161,7 +161,6 @@
             <properties>
                 <project.root.dir>${basedir}/..</project.root.dir>
 		        <wildfly.dist.dir>${project.root.dir}/../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
-                <wildfly.patch.file>${project.root.dir}/build/target/jbosgi-build-${project.version}-patch.zip</wildfly.patch.file>
                 <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
             </properties>
             <dependencies>
@@ -196,7 +195,6 @@
 		                                    </fileset>
 		                                </copy>
                                         <chmod dir="${jboss.home}/bin" includes="*.sh" perm="+x"/>
-                                        <unzip src="${wildfly.patch.file}" dest="${jboss.home}"/>
 		                            </target>
 		                        </configuration>
 		                    </execution>
@@ -228,6 +226,30 @@
                         </executions>
                     </plugin>
                     -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.jboss.osgi</groupId>
+                                            <artifactId>jbosgi-build</artifactId>
+                                            <version>${project.version}</version>
+                                            <classifier>patch</classifier>
+                                            <type>zip</type>
+                                            <outputDirectory>${jboss.home}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>

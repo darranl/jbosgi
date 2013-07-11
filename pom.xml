@@ -53,7 +53,7 @@
         <version.apache.felix.metatype>1.0.6</version.apache.felix.metatype>
         <version.apache.felix.scr>1.6.2</version.apache.felix.scr>
         <version.apache.felix.webconsole>3.1.8</version.apache.felix.webconsole>
-        <version.codehaus.izpack>4.3.1</version.codehaus.izpack>
+        <version.codehaus.izpack>4.3.5</version.codehaus.izpack>
         <version.javax.annotations.api>1.0.1.Final</version.javax.annotations.api>
         <version.javax.ejb.api>1.0.1.Final</version.javax.ejb.api>
         <version.javax.enterprise.api>1.0-SP4</version.javax.enterprise.api>

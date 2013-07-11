@@ -1,0 +1,8 @@
+<userInput>
+  <panel order="0" id="wildfly.home.select">
+    <createForPack name="WildFly OSGi Integration" />
+    <field type="dir" align="left" variable="wildFlyInstallPath">
+      <spec txt="WildFly Home:" size="20" set="${jboss.home}" />
+    </field>
+  </panel>
+</userInput>

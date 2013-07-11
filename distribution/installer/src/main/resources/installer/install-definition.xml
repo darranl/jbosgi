@@ -5,11 +5,11 @@
     otherwise use variables below in installer files with ${} 
   -->
   <info>
-    <appname>JBoss OSGi</appname>
+    <appname>JBossOSGi</appname>
     <appversion>@{product.version}</appversion>
     <uninstaller name="remove.task" write="yes" />
   </info>
-  <guiprefs width="500" height="250" resizable="yes">
+  <guiprefs width="550" height="300" resizable="yes">
     <!--
     <laf name="kunststoff">
       <os family="unix" />
@@ -32,17 +32,25 @@
   <!-- Resources -->
   <resources>
     <res id="TargetPanel.dir" src="@{filtered.resources.dir}/target-panel-dir.txt" />
+    <res id="userInputSpec.xml" src="@{filtered.resources.dir}/user-input-spec.xml" />
   </resources>
 
   <!-- Panels -->
   <panels>
     <panel classname="HelloPanel" />
     <panel classname="TargetPanel" />
+    <panel classname="TreePacksPanel" />
+    <panel classname="UserInputPanel" id="jboss.home.select" />
     <panel classname="SummaryPanel" />
     <panel classname="InstallPanel" />
     <panel classname="FinishPanel" />
   </panels>
 
+  <!-- Variables -->
+  <variables>
+    <variable name="jboss.home" value="@{jboss.home}" />
+  </variables>
+  
   <!-- Packs -->
   <packs>
 
@@ -54,7 +62,7 @@
       ********************************
     -->
 
-    <pack name="JBoss OSGi Distribution" required="yes">
+    <pack name="JBossOSGi Distribution" required="yes">
 
       <description>Documentation, Binary Artifacts and Sources</description>
 
@@ -119,5 +127,20 @@
       
     </pack>
 
+    <!--
+      ********************************* 
+      *                               *
+      * WildFly OSGi Integration      *
+      *                               *
+      *********************************
+    -->
+
+    <pack name="WildFly OSGi Integration" required="no" preselected="yes">
+
+      <description>Integration with an existing WildFly instance</description>
+
+      <fileset dir="@{wildfly.patch.dir}" targetdir="$jboss.home" override="true"/>
+    </pack>
+    
   </packs>
 </installation>

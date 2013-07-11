@@ -53,12 +53,6 @@
 			<groupId>org.jboss.osgi.repository</groupId>
 			<artifactId>jbosgi-repository-core</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.jboss.osgi.repository</groupId>
-            <artifactId>jbosgi-repository-core</artifactId>
-            <version>${version.jboss.osgi.repository}</version>
-            <classifier>sources</classifier>
-        </dependency>
 		<dependency>
 			<groupId>org.jboss.osgi.repository</groupId>
 			<artifactId>jbosgi-repository-bundle</artifactId>
@@ -145,6 +139,30 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jboss.osgi</groupId>
+                                    <artifactId>jbosgi-build</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>patch</classifier>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}/wildfly-patch</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -156,12 +174,9 @@
                         <configuration>
                             <tasks>
                                 <property name="maven.runtime.classpath" refid="maven.runtime.classpath" />
-                                <property name="framework" value="${framework}" />
-                                <!-- ${jboss.home} is available in the hudson run -->
-                                <property name="product.name" value="${project.name}" />
-                                <property name="product.short.name" value="${artifactId}" />
                                 <property name="product.version" value="${project.version}" />
-                                <property name="target.container" value="${target.container}" />
+                                <property name="wildfly.version" value="${version.jboss.wildfly}" />
+                                <property name="jboss.home" value="${user.home}/git/wildfly/build/target/wildfly-${version.jboss.wildfly}" />
                                 <property name="user.home" value="${user.home}" />
                                 <ant antfile="scripts/antrun-installer.xml" target="build-installer" />
                             </tasks>

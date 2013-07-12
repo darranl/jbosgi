@@ -45,8 +45,6 @@ public class TestServletContext extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("GET " + req);
-
         String testValue = "set on " + System.currentTimeMillis();
         PrintWriter writer = resp.getWriter();
         ServletContext servletContext = getServletContext();

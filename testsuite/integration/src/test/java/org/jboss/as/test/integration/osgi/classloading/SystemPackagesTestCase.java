@@ -79,7 +79,6 @@ public class SystemPackagesTestCase {
         for (BundleCapability cap : revision.getDeclaredCapabilities(PackageNamespace.PACKAGE_NAMESPACE)) {
             XPackageCapability pcap = ((XCapability) cap).adapt(XPackageCapability.class);
             Package definedPackage = classLoader.getPackage(pcap.getPackageName());
-            System.out.println(pcap.getPackageName() + ": " + definedPackage);
             if (definedPackage == null && pcap.getPackageName().startsWith("javax.")) {
                 inaccessible.add(pcap.getPackageName());
             }

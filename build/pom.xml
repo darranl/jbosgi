@@ -19,7 +19,7 @@
     </parent>
 
     <name>JBossOSGi WildFly Build</name>
-    <artifactId>jbosgi-build</artifactId>
+    <artifactId>jbosgi-wildfly-build</artifactId>
 
     <!-- Properties -->    
     <properties>

@@ -38,6 +38,16 @@
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.osgi.wildfly</groupId>
+            <artifactId>jbosgi-wildfly-build</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+    
     <!-- Modules -->
     <modules>
         <module>installer</module>

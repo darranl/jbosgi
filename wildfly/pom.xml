@@ -97,7 +97,8 @@
 	</dependencyManagement>
 	
     <modules>
-        <module>service</module>
+        <module>build</module>
+        <module>subsystem</module>
         <module>integration</module>
     </modules>
 </project>

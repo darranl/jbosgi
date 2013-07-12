@@ -13,8 +13,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.osgi</groupId>
-        <artifactId>jbosgi</artifactId>
+        <groupId>org.jboss.osgi.wildfly</groupId>
+        <artifactId>jbosgi-wildfly</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
@@ -23,7 +23,7 @@
 
     <!-- Properties -->    
     <properties>
-        <wildfly.dist.dir>${basedir}/../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
+        <wildfly.dist.dir>${basedir}/../../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
         <wildfly.patch.file>${project.build.directory}/${project.artifactId}-${project.version}-patch.zip</wildfly.patch.file>
         <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
     </properties>

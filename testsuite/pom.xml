@@ -169,6 +169,12 @@
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
                     <scope>test</scope>
                 </dependency>
+                <dependency>
+                    <groupId>org.jboss.osgi.wildfly</groupId>
+                    <artifactId>jbosgi-wildfly-build</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -238,7 +244,7 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.jboss.osgi</groupId>
+                                            <groupId>org.jboss.osgi.wildfly</groupId>
                                             <artifactId>jbosgi-wildfly-build</artifactId>
                                             <version>${project.version}</version>
                                             <classifier>patch</classifier>

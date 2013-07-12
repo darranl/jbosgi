@@ -34,8 +34,6 @@
 
     <!-- Modules -->
     <modules>
-        <module>build</module>
-        <module>subsystem</module>
         <module>testsuite</module>
     </modules>
 
@@ -482,6 +480,19 @@
             <id>distro</id>
             <modules>
                 <module>distribution</module>
+            </modules>
+        </profile>
+        
+        <profile>
+            <id>wildfly800</id>
+            <activation>
+                <property>
+                    <name>target.container</name>
+                    <value>wildfly800</value>
+                </property>
+            </activation>
+            <modules>
+                <module>wildfly</module>
             </modules>
         </profile>
     </profiles>

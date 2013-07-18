@@ -135,7 +135,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Enabled when working with a WildFly release -->
+            <!-- Enabled when working with a WildFly release - ->
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -160,6 +160,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -185,7 +186,7 @@
                         <phase>process-test-resources</phase>
                           <configuration>
                             <target>
-                                <!-- Enabled when working with a WildFly SNAPSHOT - ->
+                                <!-- Enabled when working with a WildFly SNAPSHOT -->
                                 <mkdir dir="${jboss.home}/standalone/deployments"/>
                                 <copy todir="${jboss.home}" failonerror="false" overwrite="true">
                                     <fileset dir="${wildfly.dist.dir}">
@@ -197,7 +198,6 @@
                                     </fileset>
                                 </copy>
                                 <chmod dir="${jboss.home}/bin" includes="*.sh" perm="+x"/>
-                                -->
                                 <unzip src="${wildfly.patch.file}" dest="${jboss.home}"/>
                             </target>
                         </configuration>

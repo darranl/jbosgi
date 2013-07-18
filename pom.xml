@@ -81,9 +81,12 @@
         <version.mockito>1.9.5</version.mockito>
         <version.osgi>5.0.0</version.osgi>
         <version.slf4j>1.6.4</version.slf4j>
-        <version.jboss.wildfly>8.0.0.Alpha4-SNAPSHOT</version.jboss.wildfly>
+        <version.jboss.wildfly>8.0.0.Alpha3</version.jboss.wildfly>
         <version.jboss.wildfly.stable>8.0.0.Alpha3</version.jboss.wildfly.stable>
+        
+        <!-- Enabled when working with a WildFly SNAPSHOT - ->
         <wildfly.dist.dir>${project.root.dir}/../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
+        -->
     </properties>
 
     <!-- DependencyManagement -->

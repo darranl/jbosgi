@@ -160,7 +160,6 @@
             </activation>
             <properties>
                 <project.root.dir>${basedir}/..</project.root.dir>
-		        <wildfly.dist.dir>${project.root.dir}/../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
                 <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
             </properties>
             <dependencies>

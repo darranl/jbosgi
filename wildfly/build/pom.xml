@@ -23,7 +23,7 @@
 
     <!-- Properties -->    
     <properties>
-        <wildfly.dist.dir>${basedir}/../../../wildfly/build/target/wildfly-${version.jboss.wildfly}</wildfly.dist.dir>
+        <project.root.dir>${basedir}/../..</project.root.dir>
         <wildfly.patch.file>${project.build.directory}/${project.artifactId}-${project.version}-patch.zip</wildfly.patch.file>
         <jboss.home>${project.build.directory}/wildfly-${version.jboss.wildfly}</jboss.home>
     </properties>

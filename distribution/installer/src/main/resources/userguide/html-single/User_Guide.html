@@ -1,0 +1,2458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>User Guide - JBoss OSGi</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta content="Scroll Wiki Publisher" name="generator"/>
+
+    <link type="text/css" rel="stylesheet" href="css/blueprint/liquid.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/blueprint/print.css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <link type="text/css" rel="stylesheet" href="css/content-style.css" media="screen, projection, print"/>
+    <link type="text/css" rel="stylesheet" href="css/screen.css" media="screen, projection"/>
+    <link type="text/css" rel="stylesheet" href="css/print.css" media="print"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/jbossorg.css"/>
+    <link type="text/css" rel="stylesheet" href="css/docnav.css"/>    
+    
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shCoreDefault.css"/>
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushAppleScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushAS3.js"></script>
+    <script type="text/javascript" src="sh/shBrushBash.js"></script>
+    <script type="text/javascript" src="sh/shBrushCpp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCSharp.js"></script>
+    <script type="text/javascript" src="sh/shBrushCss.js"></script>
+    <script type="text/javascript" src="sh/shBrushDiff.js"></script>
+    <script type="text/javascript" src="sh/shBrushErlang.js"></script>
+    <script type="text/javascript" src="sh/shBrushGroovy.js"></script>
+    <script type="text/javascript" src="sh/shBrushJava.js"></script>
+    <script type="text/javascript" src="sh/shBrushJavaFX.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <script type="text/javascript" src="sh/shBrushPerl.js"></script>
+    <script type="text/javascript" src="sh/shBrushPhp.js"></script>
+    <script type="text/javascript" src="sh/shBrushPlain.js"></script>
+    <script type="text/javascript" src="sh/shBrushPython.js"></script>
+    <script type="text/javascript" src="sh/shBrushRuby.js"></script>
+    <script type="text/javascript" src="sh/shBrushScala.js"></script>
+    <script type="text/javascript" src="sh/shBrushSql.js"></script>
+    <script type="text/javascript" src="sh/shBrushVb.js"></script>
+    <script type="text/javascript" src="sh/shBrushXml.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="min-width: 760px;">
+        <div class="block header">
+          <p id="title">
+            <a class="site_href" href="http://www.jboss.org"><strong>JBoss.org</strong></a>
+            <a class="doc_href" href="http://docs.jboss.org"><strong>Community Documentation</strong></a>
+          </p>
+                    <div>
+            <h1 class="title"><img src="spacelogo.png" /> JBoss OSGi</h1>
+          </div>
+          <div>
+            <h1>User Guide</h1>
+          </div>
+          <div>
+            <div class="authorgroup">
+              <div>
+               <p class="releaseinfo">Exported from <a href="https://docs.jboss.org/author/display/JBOSGI">JBoss Community Documentation Editor</a> at 2013-07-29 07:27:10 EDT.</p>
+              </div>
+              <div>
+                <p class="copyright">Copyright 2013 JBoss Community contributors.</p>
+              </div>  
+            </div>
+            <hr/>
+          </div>
+          <div class="toc">
+            <ul class="toc">
+                                                            <li><p><a href="#4784847">Introduction</a></p>
+      <ul>
+            </ul>
+    </li>
+                                      <li><p><a href="#4784849">Getting Started</a></p>
+      <ul>
+            </ul>
+    </li>
+                                      <li><p><a href="#4784851">Application Server Integration</a></p>
+      <ul>
+                    <li><p><a href="#25821373">Command Line Interface Console</a></p>
+      <ul>
+            </ul>
+    </li>
+                      <li><p><a href="#25821399">Management Console</a></p>
+      <ul>
+            </ul>
+    </li>
+              </ul>
+    </li>
+                                      <li><p><a href="#4784852">Developer Documentation</a></p>
+      <ul>
+            </ul>
+    </li>
+                                      <li><p><a href="#4784853">Arquillian Test Framework</a></p>
+      <ul>
+            </ul>
+    </li>
+                                      <li><p><a href="#4784855">Provided Examples</a></p>
+      <ul>
+            </ul>
+    </li>
+                                      <li><p><a href="#4784856">References</a></p>
+      <ul>
+            </ul>
+    </li>
+                                      <li><p><a href="#4784857">Getting Support</a></p>
+      <ul>
+            </ul>
+    </li>
+                                        </ul>
+          </div>
+          </div>
+
+        <div class="block content">
+<ol class=" "><li class=" ">    <p>
+<a href="#4784847">Introduction</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784849">Getting Started</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784851">Application Server Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784852">Developer Documentation</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784853">Arquillian Test Framework</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855">Provided Examples</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784856">References</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784857">Getting Support</a>    </p>
+</li></ol>    <div class="section-1"  id="4784847"  >
+        <h1>Introduction</h1>
+    
+    <div class="section-2"  id="4784847_Introduction-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="#4784847_Introduction-WhatisOSGi">What is OSGi</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784847_Introduction-OSGiFrameworkOverview">OSGi Framework Overview</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784847_Introduction-OSGiServiceCompendium">OSGi Service Compendium</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784847_Introduction-WhatisOSGi"  >
+        <h2>What is OSGi</h2>
+    
+    <p>
+The <a href="http://www2.osgi.org/Release4/HomePage">OSGi specifications</a> define a standardized, component-oriented, computing environment for networked services that is the foundation of an enhanced service-oriented architecture.    </p>
+    <p>
+Developing on the OSGi platform means first creating your OSGi bundles, then deploying them in an OSGi Framework.    </p>
+    <p>
+<strong class=" ">What does OSGi offer to Java developers?</strong>    </p>
+    <p>
+OSGi modules provide classloader semantics to partially expose code that can then be consumed by other modules. The implementation details of a module, although scoped public by the Java programming language, remain private to the module. On top of that you can install multiple versions of the same code and resolve dependencies by version and other criteria. OSGi also offers advanced lifecycle and services layers, which are explained in more detail further down.    </p>
+    <p>
+<strong class=" ">What kind of applications benefit from OSGi?</strong>    </p>
+    <p>
+Any application that is designed in a modular fashion where it is necessary to start, stop, update individual modules with minimal impact on other modules. Modules can define their own transitive dependencies without the need to resolve these dependencies at the container level.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784847_Introduction-OSGiFrameworkOverview"  >
+        <h2>OSGi Framework Overview</h2>
+    
+    <p>
+The functionality of the Framework is divided in the following layers:    </p>
+<ul class=" "><li class=" ">    <p>
+Security Layer (optional)    </p>
+</li><li class=" ">    <p>
+Module Layer    </p>
+</li><li class=" ">    <p>
+Life Cycle Layer    </p>
+</li><li class=" ">    <p>
+Service Layer    </p>
+</li><li class=" ">    <p>
+Actual Services    </p>
+</li></ul>    <p>
+    <img src="images/author/download/attachments/4784847/osgi-layers.png" alt="images/author/download/attachments/4784847/osgi-layers.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+<strong class=" ">OSGi Security Layer</strong>    </p>
+    <p>
+The OSGi Security Layer is an optional layer that underlies the OSGi Service Platform. The layer is based on the Java 2 security architecture. It provides the infrastructure to deploy and manage applications that must run in fine grained controlled environments.    </p>
+    <p>
+The OSGi Service Platform can authenticate code in the following ways:    </p>
+<ul class=" "><li class=" ">    <p>
+By location    </p>
+</li><li class=" ">    <p>
+By signer    </p>
+</li></ul>    <p>
+For example, an Operator can grant the ACME company the right to use networking on their devices. The ACME company can then use networking in every bundle they digitally sign and deploy on the Operator&rsquo;s device. Also, a specific bundle can be granted permission to only manage the life cycle of bundles that are signed by the ACME company.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-delegation.png" alt="images/author/download/attachments/4784847/osgi-delegation.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+The current version of JBoss OSGi does not provide this optional layer. If you would like to see this implemented, let us know on the forums: <a href="http://community.jboss.org/en/jbossosgi">http://community.jboss.org/en/jbossosgi</a>.    </p>
+    <p>
+<strong class=" ">OSGi Module Layer</strong>    </p>
+    <p>
+The OSGi Module Layer provides a generic and standardized solution for Java modularization. The Framework defines a unit of modularization, called a bundle. A bundle is comprised of Java classes and other resources, which together can provide functions to end users. Bundles can share Java packages among an exporter bundle and an importer bundle in a well-defined way.    </p>
+    <p>
+Once a Bundle is started, its functionality is provided and services are exposed to other bundles installed in the OSGi Service Platform. A bundle carries descriptive information about itself in the manifest file that is contained in its JAR file. Here are a few important Manifest Headers defined by the OSGi Framework:    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">Bundle-Activator</strong> - class used to start, stop the bundle    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Bundle-SymbolicName</strong> - identifies the bundle    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Bundle-Version</strong> - specifies the version of the bundle    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Export-Package</strong> - declaration of exported packages    </p>
+</li><li class=" ">    <p>
+<strong class=" ">Import-Package</strong> - declaration of imported packages    </p>
+</li></ul>    <p>
+The notion of OSGi Version Range describes a range of versions using a mathematical interval notation. For example    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    Import-Package: com.acme.foo;version=&quot;[1.23, 2)&quot;, com.acme.bar;version=&quot;[4.0, 5.0)&quot;</pre>
+        </div>
+    </div>
+    <p>
+With the OSGi Class Loading Architecture many bundles can share a single virtual machine (VM). Within this VM, bundles can hide packages and classes from other bundles, as well as share packages with other bundles.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-classloader.png" alt="images/author/download/attachments/4784847/osgi-classloader.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+For example, the following import and export definition resolve correctly because the version range in the import definition matches the version in the export definition:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    A: Import-Package: p; version=&quot;[1,2)&quot;
+    B: Export-Package: p; version=1.5.1</pre>
+        </div>
+    </div>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-version-constraint.png" alt="images/author/download/attachments/4784847/osgi-version-constraint.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+Apart from bundle versions, OSGi Attribute Matching is a generic mechanism to allow the importer and exporter to influence the matching process in a declarative way. For example, the following statements will match.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    A: Import-Package: com.acme.foo;company=ACME
+    B: Export-Package: com.acme.foo;company=ACME; security=false</pre>
+        </div>
+    </div>
+    <p>
+An exporter can limit the visibility of the classes in a package with the include and exclude directives on the export definition.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    Export-Package: com.acme.foo; include:=&quot;Qux*,BarImpl&quot;; exclude:=QuxImpl</pre>
+        </div>
+    </div>
+    <p>
+<strong class=" ">OSGi Life Cycle Layer</strong>    </p>
+    <p>
+The Life Cycle Layer provides an API to control the security and life cycle operations of bundles.    </p>
+    <p>
+A bundle can be in one of the following states:    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-life-cycle.png" alt="images/author/download/attachments/4784847/osgi-life-cycle.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+A bundle is activated by calling its Bundle Activator object, if one exists. The BundleActivator interface defines methods that the Framework invokes when it starts and stops the bundle.    </p>
+    <p>
+A Bundle Context object represents the execution context of a single bundle within the OSGi Service Platform, and acts as a proxy to the underlying Framework. A <i class=" ">Bundle Context</i> object is created by the Framework when a bundle is started. The bundle can use this private BundleContext object for the following purposes:    </p>
+<ul class=" "><li class=" ">    <p>
+Installing new bundles into the OSGi environment    </p>
+</li><li class=" ">    <p>
+Interrogating other bundles installed in the OSGi environment    </p>
+</li><li class=" ">    <p>
+Obtaining a persistent storage area    </p>
+</li><li class=" ">    <p>
+Retrieving service objects of registered services    </p>
+</li><li class=" ">    <p>
+Registering services in the Framework service    </p>
+</li><li class=" ">    <p>
+Subscribing or unsubscribing to Framework events    </p>
+</li></ul>    <p>
+<strong class=" ">OSGi Service Layer</strong>    </p>
+    <p>
+The OSGi Service Layer defines a dynamic collaborative model that is highly integrated with the Life Cycle Layer. The service model is a publish, find and bind model. A service is a normal Java object that is registered under one or more Java interfaces with the service registry. OSGi services are dynamic, they can come and go at any time. OSGi service consumers, when written correctly, can deal with this dynamicity. This means that OSGi services provide the capability to create a highly adaptive application which, when written using services, can even be updated at runtime without taking the service consumers down.    </p>
+    <p>
+The <a href="#4784847_Introduction-DS">OSGi Declarative Services</a> and <a href="#4784847_Introduction-blueprint">OSGi Blueprint</a> specifications significantly simplify the use of OSGi Services which means that a consumer gets the benefits of a dynamic services model for very little effort.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/OSGi-Services.png" alt="images/author/download/attachments/4784847/OSGi-Services.png" />
+        <br/><span class="caption">OSGi Services</span>
+        </p>
+    </div>
+    
+    <div class="section-2"  id="4784847_Introduction-OSGiServiceCompendium"  >
+        <h2>OSGi Service Compendium</h2>
+    
+    <p>
+The OSGi Service Compendium is described in the <a href="http://www.osgi.org/Specifications/HomePage">OSGi Compendium and Enterprise specifications</a>. It specifies a number of services that may be available in an OSGi runtime environment. Although the OSGi Core Framework specification is useful in itself already, it only defines the OSGi core infrastructure. The services defined in the compendium specification define the scope and functionality of some common services that bundle developers might want to use. Here is a quick summary of the popular ones:    </p>
+    <p>
+<strong class=" ">Log Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 101 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Log Service provides a general purpose message logger for the OSGi Service Platform. It consists of two services, one for logging information and another for retrieving current or previously recorded log information.    </p>
+    <p>
+The JBoss OSGi Framework provides an implementation of the Log Service which channels logging information through to the currently configured system logger.    </p>
+    <p>
+<strong class=" ">Http Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 102 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Http Service supports a standard mechanism for registering servlets and resources from inside an OSGi Framework. This can be used to develop communication and user interface solutions for standard technologies such as HTTP, HTML, XML, etc.    </p>
+    <p>
+<strong class=" ">Configuration Admin Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 104 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Configuration Admin service allows an operator to set the configuration information of deployed bundles.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784847/osgi-config-service.png" alt="images/author/download/attachments/4784847/osgi-config-service.png" />
+        <br/><span class="caption">Source: OSGi Alliance</span>
+        </p>
+    <p>
+The JBoss OSGi Framework provides an implementation of the Configuration Admin Service which obtains its configuration information from the JBoss Application Server configuration data, for instance the <tt class=" ">standalone.xml</tt> file.    </p>
+    <p>
+<strong class=" ">Metatype Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 105 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Metatype Service specification defines interfaces that allow bundle developers to describe attribute types in a computer readable form using so-called metadata. This service is mostly used to define the attributes and datatypes used by Configuration Admin Service information.    </p>
+    <p>
+<strong class=" ">User Admin Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 107 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+Bundles can use the User Admin Service to authenticate an initiator and represent this authentication as an Authorization object. Bundles that execute actions on behalf of this user can use the Authorization object to verify if that user is authorized.    </p>
+    <p>
+    <span id="4784847_Introduction-DS"><a name="4784847_Introduction-DS"></a></span>
+<strong class=" ">Declarative Services Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 112 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Declarative Services (DS) specification describes a component model to be used with OSGi services. It enables the creation and consumption of OSGi services without directly using any OSGi APIs. Service consumers are informed of their services through injection. The handling of the OSGi service dynamics is done by DS. See also the <a href="#4784847_Introduction-blueprint">Blueprint Specification</a>.    </p>
+    <p>
+<strong class=" ">Event Admin Service</strong>    </p>
+    <p>
+<i class=" ">Chapter 113 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Event Admin Service provides an asynchronous inter-bundle communication mechanism. It is based on a event publish and subscribe model, popular in many message based systems.    </p>
+    <p>
+    <span id="4784847_Introduction-blueprint"><a name="4784847_Introduction-blueprint"></a></span>
+<strong class=" ">Blueprint Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 121 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi Blueprint Specification describes a component framework which simplifies working with OSGi services significantly. To a certain extent, Blueprint and <a href="#4784847_Introduction-DS">DS</a> have goals in common, but the realization is different. One of the main differences between Blueprint and DS is in the way service-consumer components react to a change in the availability of required services. In the case of DS the service-consumer will disappear when its required dependencies disappear, while in Blueprint the component stays around and waits for a replacement service to appear. Each model has its uses and it can be safely said that both Blueprint as well as DS each have their supporters. The Blueprint specification was heavily influenced by the Spring framework.    </p>
+    <p>
+<strong class=" ">Remote Services Specifications</strong>    </p>
+    <p>
+<i class=" ">Chapters 13 and 122 in the Enterprise specification.</i>    </p>
+    <p>
+OSGi Remote Services add distributed computing to the OSGi service programming model. Where in an ordinary OSGi Framework services are strictly local to the Java VM, with Remote Services the services can be remote. Services are registered and looked up just like local OSGi services, the Remote Services specifications define standard service properties to indicate that a service is suitable for remoting and to find out whether a service reference is a local one or a remote one.    </p>
+    <p>
+<strong class=" ">JTA Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 123 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JTA specification describes how JTA can be used from an OSGi environment. It includes standard JTA-related services that can be obtained from the OSGi registry if an OSGi application needs to make use of JTA.    </p>
+    <p>
+<strong class=" ">JMX Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 124 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JMX specification defines a number of MBeans that provide management and control over the OSGi Framework.    </p>
+    <p>
+<strong class=" ">JDBC Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 125 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JDBC specification makes using JDBC drivers from within OSGi easy. Rather than loading a database driver by class-name (the traditional approach, which causes issues with modularity in general and often requires external access to internal implementation classes), this specification registers the available JDBC drivers under a standard interface in the Service Registry from where they can be obtained by other Bundles without the need to expose internal implementation packages of the drivers.    </p>
+    <p>
+<strong class=" ">JNDI Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 126 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JNDI specification provides access to JNDI through the OSGi Service Registry. Additionally, it provides access to the OSGi Service Registry through JNDI. The special <tt class=" ">osgi:</tt> namespace can be used to look up OSGi services via JNDI.    </p>
+    <p>
+<strong class=" ">JPA Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 127 in the Enterprise specification.</i>    </p>
+    <p>
+The OSGi-JPA specification describes how JPA works from within an OSGi framework.    </p>
+    <p>
+<strong class=" ">Web Applications Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 128 in the Enterprise specification.</i>    </p>
+    <p>
+The Web Applications specification describes Web Application Bundles. A WAB is a <tt class=" ">.WAR</tt> file which is effectively turned into a bundle. The specification describes how Servlets can interact with the OSGi Service Registry and also how to find all the available Web Applications in an OSGi Framework.    </p>
+    <p>
+Additionally, the Web Applications spec defines a mechanism to automatically turn an ordinary <tt class=" ">.WAR</tt> file into a Web Application Bundle.    </p>
+    <p>
+<strong class=" ">Service Tracker Specification</strong>    </p>
+    <p>
+<i class=" ">Chapter 701 in the Compendium and Enterprise specifications.</i>    </p>
+    <p>
+The Service Tracker specification defines a utility class, ServiceTracker. The ServiceTracker API makes tracking the registration, modification, and unregistration of services much easier.    </p>
+    <p>
+<i class=" ">Images courtesy of the <a href="http://www.osgi.org">OSGi Alliance</a>.</i>    </p>
+    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784849"  >
+        <h1>Getting Started</h1>
+    
+    <div class="section-2"  id="4784849_GettingStarted-Content"  >
+        <h2>Content</h2>
+    
+    <p>
+This chapter takes you through the first steps of getting JBoss OSGi and provides the initial pointers to get up and running.    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#4784849_GettingStarted-DownloadtheDistribution">Download the Distribution</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#4784849_GettingStarted-TheJBossOSGiProjectDistribution">The JBoss OSGi Project Distribution</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784849_GettingStarted-RunningtheInstaller">Running the Installer</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="#4784849_GettingStarted-ActivatingtheSubsystem">Activating the Subsystem</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784849_GettingStarted-ProvidedExamples">Provided Examples</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784849_GettingStarted-BundleDeployment">Bundle Deployment</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784849_GettingStarted-ManaginginstalledBundles">Managing installed Bundles</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#4784849_GettingStarted-FelixWebConsole">Felix Web Console</a>    </p>
+</li></ul></li></ul>    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-DownloadtheDistribution"  >
+        <h2>Download the Distribution</h2>
+    
+    <p>
+JBoss OSGi is shipped as part of WildFly, which can be downloaded from the <a href="http://www.wildfly.org/download">WildFly download area</a>.    </p>
+    <div class="section-3"  id="4784849_GettingStarted-TheJBossOSGiProjectDistribution"  >
+        <h3>The JBoss OSGi Project Distribution</h3>
+    
+    <p>
+While WildFly has OSGi support built-in, the JBoss OSGi project also provides an installer which contains examples and documentation and can in some cases provide more recent releases of the OSGi project than can be found in WildFly.    </p>
+    <p>
+JBoss OSGi is distributed as an <a href="http://izpack.org">IzPack</a> installer archive. The installer is available from the JBoss OSGi <a href="http://sourceforge.net/projects/jboss/files/JBossOSGi">download area</a>.    </p>
+    </div>
+    
+    <div class="section-3"  id="4784849_GettingStarted-RunningtheInstaller"  >
+        <h3>Running the Installer</h3>
+    
+    <p>
+To run the Project Distribution installer execute the following command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">java -jar jboss-osgi-installer-2.1.0.jar</pre>
+        </div>
+    </div>
+    <p>
+The installer first shows a welcome screen    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/izpack01-welcome.png" alt="images/author/download/attachments/4784849/izpack01-welcome.png" />
+        </p>
+    <p>
+Then you select the installation path for the JBoss OSGi distribution. This is the directory where you find binaries, sources, examples and documentation.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/izpack05-installpath.png" alt="images/author/download/attachments/4784849/izpack05-installpath.png" />
+        </p>
+    <p>
+You can then select whether you want to install the OSGi subsystem into an existing WildFly build    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/izpack06-selectpack.png" alt="images/author/download/attachments/4784849/izpack06-selectpack.png" />
+        </p>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-ActivatingtheSubsystem"  >
+        <h2>Activating the Subsystem</h2>
+    
+    <p>
+By default the OSGi subsystem is activated lazily. It means that the framework will not start up unless you deploy an OSGi bundle. You can activate the OSGi subsystem explicitly by setting the activation property to 'eager'    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;subsystem xmlns=&quot;urn:jboss:domain:osgi:1.2&quot; activation=&quot;eager&quot;&gt;</pre>
+        </div>
+    </div>
+    <p>
+It is also not part of the default configuration. Instead you can use the provided standalone-osgi.xml configuration.    </p>
+    <p>
+When you start up WildFly you should see something like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[tdiesler@localhost wildfly-8.0.0.Alpha3]$ bin/standalone.sh -c standalone-osgi.xml
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /Users/tdiesler/git/wildfly-8.0.0.Alpha3/build/target/wildfly-8.0.0.Alpha3
+
+  JAVA: /Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home/bin/java
+
+  JAVA_OPTS:  ...
+
+=========================================================================
+
+12:56:31,829 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.4.Final
+12:56:32,081 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta1
+12:56:32,160 INFO  [org.jboss.as] JBAS015899: WildFly 8.0.0.Alpha3 &quot;WildFly&quot; starting
+...
+12:56:34,741 INFO  [org.jboss.osgi.framework] JBOSGI011006: OSGi Framework - 3.0.2.Final
+12:56:34,991 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.log:1.0.1
+12:56:34,994 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: jboss-osgi-logging:1.0.0
+12:56:34,998 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.configadmin:1.6.0
+...
+12:56:35,303 INFO  [org.jboss.osgi.framework] JBOSGI011011: Starting bundles for start level: 1
+12:56:35,328 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.log:1.0.0
+12:56:35,342 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: jboss-osgi-logging:1.0.0
+12:56:35,377 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.configadmin:1.2.8
+...
+12:56:35,709 INFO  [org.jboss.osgi.framework] JBOSGI011000: OSGi Framework started
+12:56:35,769 INFO  [org.jboss.as] JBAS015874: WildFly 8.0.0.Alpha2 &quot;WildFly&quot; started in 4379ms
+
+12:46:39,491 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.4.Final
+12:46:39,714 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta2
+...
+12:46:41,417 INFO  [org.jboss.osgi.framework] (MSC service thread 1-1) JBOSGI011006: OSGi Framework - 3.0.2.Final
+12:46:42,153 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: org.apache.felix.log:1.0.1
+12:46:42,157 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: jboss-osgi-logging:1.0.0
+12:46:42,161 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: org.apache.felix.configadmin:1.6.0
+12:46:42,164 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: jbosgi-wildfly-configadmin:2.1.0
+...
+12:46:42,255 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011011: Starting bundles for start level: 1
+12:46:42,258 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jbosgi-wildfly-http:2.1.0
+12:46:42,258 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jbosgi-wildfly-jpa:2.1.0
+12:46:42,270 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: org.apache.felix.log:1.0.1
+12:46:42,283 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jboss-osgi-logging:1.0.0
+12:46:42,308 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: org.apache.felix.configadmin:1.6.0
+12:46:42,319 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jbosgi-wildfly-configadmin:2.1.0
+12:46:42,320 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011000: OSGi Framework started
+...
+12:46:42,373 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Alpha3 &quot;WildFly&quot; started in 3197ms</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-ProvidedExamples"  >
+        <h2>Provided Examples</h2>
+    
+    <p>
+The JBoss OSGi project distribution comes with a number of examples that you can build and run in an OSGi standalone environment (i.e. without WildFly integration).    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">blueprint</strong> - Basic Blueprint Container examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">configadmin</strong> - Configuration Admin example    </p>
+</li><li class=" ">    <p>
+<strong class=" ">core</strong> - Simple OSGi examples (start here)    </p>
+</li><li class=" ">    <p>
+<strong class=" ">ds</strong> - Declarative Services examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">eventadmin</strong> - Event Admin examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jmx</strong> - Standard and extended JMX examples    </p>
+</li></ul>    <p>
+Additional to that there are a number of integration examples that document and verify the WildFly integration    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">cdi</strong> - CDI integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">ear</strong> - Bundles in enterprise archives examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">ejb3</strong> - EJB3 integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">http</strong> - HttpService examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">interceptor</strong> - Intercept and process bundle metadata    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxb</strong> - XML binding examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxp</strong> - SAX/DOM parser examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxrs</strong> - REST integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jaxws</strong> - WebService integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jndi</strong> - Naming integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jpa</strong> - Persistence integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">jta</strong> - Transaction integration examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">resource</strong> - Resource injection examples    </p>
+</li><li class=" ">    <p>
+<strong class=" ">webapp</strong> - WebApplication (WAR) examples    </p>
+</li></ul>    <p>
+For more information on these examples, see the <a href="#4784855">Provided Examples</a> section.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-BundleDeployment"  >
+        <h2>Bundle Deployment</h2>
+    
+    <p>
+Bundle Deployment from the command-line is supported through the <a href="#25821373">CLI console</a> and through the web-based <a href="#25821399">Management Console</a>.    </p>
+    <p>
+It is also possible to deploy bundles by dropping them in the <tt class=" ">deployments</tt> folder. This will automatically resolve and start the bundle when possible. Bundles can be started explicitly through the CLI or the web console.    </p>
+    <p>
+When a bundle is installed and started, messages like the following can be seen from the server console.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">$ bin/standalone.sh -c standalone-osgi.xml
+...
+13:53:53,742 INFO  [org.jboss.as.server.deployment] JBAS015876: Starting deployment of &quot;org.apache.felix.eventadmin.jar&quot;
+13:53:54,196 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.eventadmin:1.3.0
+13:53:54,309 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.eventadmin:1.3.0
+13:53:54,354 INFO  [org.jboss.as.server] JBAS018559: Deployed &quot;org.apache.felix.eventadmin.jar&quot; </pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784849_GettingStarted-ManaginginstalledBundles"  >
+        <h2>Managing installed Bundles</h2>
+    
+    <p>
+WildFly comes with a Web Console. After startup you can point your browser to <a href="http://localhost:9990/console">http://localhost:9990/console</a>.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/webconsole.png" alt="images/author/download/attachments/4784849/webconsole.png" />
+        </p>
+    <p>
+The Web Console can be used to install, start, stop and uninstall bundles. Additionally, the web console can be used to activate the framework and manage the current framework Start Level.    </p>
+    <div class="section-3"  id="4784849_GettingStarted-FelixWebConsole"  >
+        <h3>Felix Web Console</h3>
+    
+    <p>
+For more detailed management operations you can also install the <a href="http://felix.apache.org/site/apache-felix-web-console.html">Felix Web Console</a>    </p>
+    <p>
+In WildFly 8.x you add this capability    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;capability name=&quot;org.apache.felix:org.apache.felix.webconsole:3.1.8&quot; startlevel=&quot;1&quot;/&gt;</pre>
+        </div>
+    </div>
+    <p>
+The console is then accessible on: <a href="http://localhost:8080/system/console">http://localhost:8080/system/console</a>    </p>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784851"  >
+        <h1>Application Server Integration</h1>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="#4784851_ApplicationServerIntegration-Overview">Overview</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784851_ApplicationServerIntegration-Configuration">Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784851_ApplicationServerIntegration-Features">Features</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784851_ApplicationServerIntegration-CompatibilityMatrix">Compatibility Matrix</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Overview"  >
+        <h2>Overview</h2>
+    
+    <p>
+The JBoss OSGi framework is fully integrated into the <a href="http://www.wildfly.org">WildFly</a> Application Server. OSGi bundles can be deployed like any other deployment that is supported by WildFly. Hot deployment is supported by dropping an OSGi bundle into the 'deployments' folder. Management is supported through the <a href="#25821373">Command Line Console</a> or the web-based <a href="#25821399">Management Console</a>.    </p>
+    <p>
+OSGi components can interact with non OSGi services that are natively provided by WildFly. This includes, but is not limited to, the Transaction Service and Naming Service (JNDI).    </p>
+    <p>
+Standard OSGi Config Admin functionality is supported and integrated with the WildFly domain management layer.    </p>
+    <p>
+By default the OSGi subsystem is activated on-demand and not part of the standard configuration. When configured and when there is an OSGi bundle deployment the subsystem activates and the respective OSGi services become available.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Configuration"  >
+        <h2>Configuration</h2>
+    
+    <p>
+The OSGi subsystem is configured like any other subsystem in the standalone/domain XML descriptor. The configuration options are:    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">Subsystem Activation</strong> - By default the OSGi subsystem is activated on-demand. The activation attribute can be set to 'eager' to initialize the subsystem on server startup.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Framework Properties</strong> - OSGi supports the notion of framework properties. Property values are of type string. A typical configuration includes a set of packages that are provided by the server directly. Please refer to the OSGi core specification for a list of standard OSGi properties.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Module Dependencies</strong> - The Framework can export packages from server system modules. The property 'org.jboss.osgi.system.modules.extra' contains a list of module identifiers that are setup as dependencies of the OSGi Framework.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Capabilities</strong> - OSGi bundles can be installed by providing coordinates to the OSGi Repository. Supported coordinates include but are not limited to Maven coordinates and module identifiers.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Config Admin properties</strong> - Supported are multiple configurations identified by persistent id (PID). Each configuration may contain multiple configuration key/value pairs.Below is a sample configuration for the OSGi subsystem    </p>
+</li></ul>    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;subsystem xmlns=&quot;urn:jboss:domain:osgi:1.2&quot; activation=&quot;lazy&quot;&gt;
+  &lt;properties&gt;
+    &lt;property name=&quot;org.jboss.osgi.system.modules.extra&quot;&gt;org.apache.log4j&lt;/property&gt;
+    &lt;property name=&quot;org.osgi.framework.system.packages.extra&quot;&gt;org.apache.log4j;version=1.2&lt;/property&gt;
+    &lt;property name=&quot;org.osgi.framework.startlevel.beginning&quot;&gt;1&lt;/property&gt;
+  &lt;/properties&gt;
+  &lt;capabilities&gt;
+    &lt;capability name=&quot;javax.servlet.api:v25&quot;/&gt;
+    &lt;capability name=&quot;javax.transaction.api&quot;/&gt;
+    &lt;capability name=&quot;org.apache.felix.log&quot; startlevel=&quot;1&quot;/&gt;
+    &lt;capability name=&quot;org.jboss.osgi.logging&quot; startlevel=&quot;1&quot;/&gt;
+    &lt;capability name=&quot;org.apache.felix.configadmin&quot; startlevel=&quot;1&quot;/&gt;
+    &lt;capability name=&quot;org.jboss.as.osgi.configadmin&quot; startlevel=&quot;1&quot;/&gt;
+  &lt;/capabilities&gt;
+&lt;/subsystem&gt;
+...
+&lt;subsystem xmlns=&quot;urn:jboss:domain:configadmin:1.0&quot;&gt;
+  &lt;configuration pid=&quot;org.apache.felix.webconsole.internal.servlet.OsgiManager&quot;&gt;
+     &lt;property name=&quot;manager.root&quot;&gt;jboss-osgi&lt;/property&gt;
+  &lt;/configuration&gt;
+&lt;/subsystem&gt;</pre>
+        </div>
+    </div>
+    <p>
+For more details on WildFly configuration see <a href="https://docs.jboss.org/author/display/WFLY8/Documentation">WildFly8 Documentation</a>.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-Features"  >
+        <h2>Features</h2>
+    
+    <p>
+The current JBoss OSGi feature set in AS includes    </p>
+<ul class=" "><li class=" ">    <p>
+<strong class=" ">Blueprint Container Support</strong> - The OSGi <a href="http://jbossosgi.blogspot.com/2009/04/osgi-blueprint-service-rfc-124.html">Blueprint Container</a> allows bundles to contain standard blueprint descriptors, which can be used to create or consume OSGi services. Blueprint components consume OSGi services via injection.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">ConfigAdmin Support</strong> - ConfigAdmin support is provided by the <a href="http://felix.apache.org/site/apache-felix-config-admin.html">Apache Felix Configuration Admin Service</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Declarative Services Support</strong> - Declarative Services support is provided by the <a href="http://felix.apache.org/site/apache-felix-service-component-runtime.html">Apache Felix Service Component Runtime</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">EventAdmin Support</strong> - EventAdmin support is provided by the <a href="http://felix.apache.org/site/apache-felix-event-admin.html">Apache Felix Event Admin Service</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Hot Deployment</strong> - Scans the <tt class=" ">deployments</tt> folder for new or removed bundles.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">HttpService and WebApp Support</strong> - HttpService and WebApp support is provided by <a href="http://team.ops4j.org/wiki/display/paxweb/Pax+Web">Pax Web</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">JMX Support</strong> - There is local as well as remote JSR160 support for JMX. The OSGi-JMX MBeans are provided through the <a href="http://aries.apache.org">Apache Aries JMX implementation</a>.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">JNDI Support</strong> - Components can access the JNDI InitialContext as a service from the registry.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">JTA Support</strong> - Components can interact with the JTA TransactionManager and UserTransaction service.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Logging System</strong> - The logging bridge writes OSGi Log Service LogEntries to the server log file.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">Repository Support</strong> - The OSGi repository can be used to provision the subsystem.    </p>
+</li></ul><ul class=" "><li class=" ">    <p>
+<strong class=" ">XML Parser Support</strong> - The Runtime comes with an implementation of an <a href="http://www.osgi.org/javadoc/r4v41/org/osgi/util/xml/XMLParserActivator.html">XMLParserActivator</a> which provides access to a SAXParserFactory and DocumentBuilderFactory.    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784851_ApplicationServerIntegration-CompatibilityMatrix"  >
+        <h2>Compatibility Matrix</h2>
+    
+    <div class="tablewrap">
+        <table>
+<thead class=" "></thead><tfoot class=" "></tfoot><tbody class=" ">    <tr>
+            <td rowspan="1" colspan="1">
+        <p>
+&nbsp;    </p>
+            </td>
+                <td rowspan="1" colspan="1">
+        <p>
+WildFly-8.0.0.Alpha2    </p>
+            </td>
+        </tr>
+    <tr>
+            <td rowspan="1" colspan="1">
+        <p>
+JBOSGi-2.0.0    </p>
+            </td>
+                <td rowspan="1" colspan="1">
+        <p>
+yes    </p>
+            </td>
+        </tr>
+</tbody>        </table>
+            </div>
+    </div>
+    
+    <div class="section-2"  id="25821373"  >
+        <h2>Command Line Interface Console</h2>
+    
+    <p>
+The JBoss OSGi Framework in JBoss AS 7 can be controlled via the AS 7 Command Line Interface (CLI).    </p>
+    <p>
+The CLI supports an interactive mode as well as a scripted mode, for more information on using and launching the CLI, see the <a href="https://docs.jboss.org/author/display/AS71/Management+Clients">Command Line Interface documentation</a>.    </p>
+    <p>
+Supported operations:    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-FrameworkConfiguration">Framework Configuration</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-SettingtheSubsystemActivationMode">Setting the Subsystem Activation Mode</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-FrameworkProperties">Framework Properties</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-Capabilities">Capabilities</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-FrameworkManagement">Framework Management</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-Activatetheframework">Activate the framework</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-ManagetheStartLevel">Manage the Start Level</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-BundleManagement">Bundle Management</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-DeployingandUndeploying">Deploying and Un-deploying</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-Starting%2CStoppingandInspectingBundles">Starting, Stopping and Inspecting Bundles</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-ListingBundles">Listing Bundles</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-ConfigurationAdmin">Configuration Admin</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-AddingConfiguration">Adding Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-ListingConfigurations">Listing Configurations</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-InspectingConfiguration">Inspecting Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821373_CommandLineInterfaceConsole-RemovingConfiguration">Removing Configuration</a>    </p>
+</li></ul></li></ul>    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-FrameworkConfiguration"  >
+        <h3>Framework Configuration</h3>
+    
+    <p>
+Framework configuration is stored in the AS 7 XML configuration file (e.g. <tt class=" ">standalone.xml</tt>). The CLI provides a management interface to this configuration.    </p>
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-SettingtheSubsystemActivationMode"  >
+        <h4>Setting the Subsystem Activation Mode</h4>
+    
+    <p>
+The activation mode of the OSGi subsystem within AS 7 is specified in the <tt class=" ">activation</tt> attribute. It specifies whether the OSGi subsystem is activated on startup of the Application Server (eager) or only once the first bundle is deployed (lazy). By default the activation mode is set to <tt class=" ">lazy</tt>.    </p>
+    <p>
+To read the current activation mode:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:read-attribute(name=activation)
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; &quot;lazy&quot;
+}</pre>
+        </div>
+    </div>
+    <p>
+To change the activation mode to <tt class=" ">eager</tt>    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:write-attribute(name=activation,value=eager) 
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-FrameworkProperties"  >
+        <h4>Framework Properties</h4>
+    
+    <p>
+Framework properties are stored as resources in the <tt class=" ">/subsystem=osgi/property</tt> location. Note that any changes to OSGi framework properties require a framework restart in order to become effective.    </p>
+    <p>
+Adding a property: the following command adds the <tt class=" ">org.osgi.framework.system.packages.extra</tt> framework property with value <tt class=" ">org.foo.bar;version=1.2</tt>.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/property=org.osgi.framework.system.packages.extra:add(value=org.foo.bar;version=1.2)                  
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    <p>
+To list the framework properties use the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=osgi/property
+org.osgi.framework.startlevel.beginning
+org.osgi.framework.system.packages.extra</pre>
+        </div>
+    </div>
+    <p>
+To read the value of an individual framework property:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/property=org.osgi.framework.startlevel.beginning:read-resource
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {&quot;value&quot; =&gt; &quot;1&quot;}
+}</pre>
+        </div>
+    </div>
+    <p>
+To remove a framework property:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/property=org.osgi.framework.system.packages.extra:remove
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-Capabilities"  >
+        <h4>Capabilities</h4>
+    
+    <p>
+The capability name is an abstract identifier for some functional capability. We currently support module identifiers (i.e. a pointer to some bundle or module available in the AS 7 product repository) and maven coordinates (i.e. a maven artifact identifier availbale in the public jboss nexus repository). Capabilities are automatically loaded when the OSGi framework is launched. In the case of bundle capabilities, these can also be started as part of this process. The modules repository can be found in the <tt class=" ">modules/</tt> subdirectory of the AS 7 installation, while the bundles repository can be found in the <tt class=" ">bundles/</tt> subdirectory.    </p>
+    <p>
+The example command below adds a bundle capability <tt class=" ">org.projectodd.stilts</tt>. The system will look for capabilities at startup in the <tt class=" ">modules/</tt> and <tt class=" ">bundles/</tt> directories. In this example the org.projectodd.stilts module/bundle jar is searched in the <tt class=" ">modules/org/projectodd/stilts/main/</tt> and <tt class=" ">bundles/org/projectodd/stilts/main/</tt> locations.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/capability=org.projectodd.stilts:add(startlevel=2)
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    <p>
+Note that only bundles can be started, so specifying the <tt class=" ">startlevel</tt> as is done in this example does not apply to modules.    </p>
+    <p>
+To list configured capabilities use the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=osgi/capability 
+javax.servlet.api:v25           javax.transaction.api
+org.apache.felix.configadmin    org.apache.felix.log
+org.jboss.as.osgi.configadmin   org.jboss.osgi.logging
+org.projectodd.stilts</pre>
+        </div>
+    </div>
+    <p>
+To inspect a capability, use the <tt class=" ">read-resource</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/capability=org.projectodd.stilts:read-resource
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {&quot;startlevel&quot; =&gt; 2}
+}</pre>
+        </div>
+    </div>
+    <p>
+Removing a capability can be done with the <tt class=" ">remove</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/capability=org.projectodd.stilts:remove       
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-FrameworkManagement"  >
+        <h3>Framework Management</h3>
+    
+    <p>
+Framework management refers to the monitoring and manipulating the OSGi Framework runtime state.    </p>
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-Activatetheframework"  >
+        <h4>Activate the framework</h4>
+    
+    <p>
+The framework can be activated using the activate command.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:activate
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-ManagetheStartLevel"  >
+        <h4>Manage the Start Level</h4>
+    
+    <p>
+The current framework start level can be in found in the <tt class=" ">startlevel</tt> attribute in the <tt class=" ">osgi</tt> subsystem. For example:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls subsystem=osgi
+bundle            capability        property          activation=lazy
+startlevel=1</pre>
+        </div>
+    </div>
+    <p>
+To change the start level, write the desired new value to the <tt class=" ">startlevel</tt> attribute:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:write-attribute(name=startlevel,value=3)
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-BundleManagement"  >
+        <h3>Bundle Management</h3>
+    
+    <p>
+The CLI can be used to deploy, undeploy, start and stop bundles and to inspect the current bundle state.    </p>
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-DeployingandUndeploying"  >
+        <h4>Deploying and Un-deploying</h4>
+    
+    <p>
+Deployment and un-deployment of bundles is done through the regular deployment channels in AS 7. To deploy a bundle:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] deploy /home/someuser/test-osgi-bundle.jar</pre>
+        </div>
+    </div>
+    <p>
+    </p>
+    <p>
+Undeploying is done with the <tt class=" ">undeploy</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] undeploy test-osgi-bundle.jar</pre>
+        </div>
+    </div>
+    <p>
+Note that deploying a bundle will place it in the INSTALLED state, to become functional OSGi bundles need to be started.    </p>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-Starting%2CStoppingandInspectingBundles"  >
+        <h4>Starting, Stopping and Inspecting Bundles</h4>
+    
+    <p>
+To start the <tt class=" ">test-osgi-bundle.jar</tt> as deployed above, use the following command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/bundle=test-osgi-bundle.jar:start
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    <p>
+To inspect the bundle state:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/bundle=test-osgi-bundle.jar:read-resource(include-runtime=true)
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {
+        &quot;id&quot; =&gt; 8L,
+        &quot;location&quot; =&gt; &quot;test-osgi-bundle.jar&quot;,
+        &quot;startlevel&quot; =&gt; 1,
+        &quot;state&quot; =&gt; &quot;ACTIVE&quot;,
+        &quot;symbolic-name&quot; =&gt; &quot;TestOSGiBundle&quot;,
+        &quot;type&quot; =&gt; &quot;bundle&quot;,
+        &quot;version&quot; =&gt; &quot;1.0.0&quot;
+    }
+}</pre>
+        </div>
+    </div>
+    <p>
+To stop the bundle, issue one of the following commands:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi/bundle=8:stop
+{&quot;outcome&quot; =&gt; &quot;success&quot;}
+or
+[standalone@localhost:9999 /] /subsystem=osgi/bundle=test-osgi-bundle.jar:stop
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-ListingBundles"  >
+        <h4>Listing Bundles</h4>
+    
+    <p>
+Bundles can be listed by bundle ID using the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=osgi/bundle
+0   1   2   3   4   5   6   8</pre>
+        </div>
+    </div>
+    <p>
+or in more detail using the <tt class=" ">read-children-resources</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=osgi:read-children-resources(child-type=bundle,include-runtime=true)
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {
+        &quot;0&quot; =&gt; {
+            &quot;id&quot; =&gt; 0L,
+            &quot;location&quot; =&gt; &quot;System Bundle&quot;,
+            &quot;startlevel&quot; =&gt; 0,
+            &quot;state&quot; =&gt; &quot;ACTIVE&quot;,
+            &quot;symbolic-name&quot; =&gt; &quot;system.bundle&quot;,
+            &quot;type&quot; =&gt; &quot;bundle&quot;,
+            &quot;version&quot; =&gt; &quot;0.0.0&quot;
+        },
+        &quot;1&quot; =&gt; {
+            &quot;id&quot; =&gt; 1L,
+...and so on...</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-3"  id="25821373_CommandLineInterfaceConsole-ConfigurationAdmin"  >
+        <h3>Configuration Admin</h3>
+    
+    <p>
+OSGi Configuration Admin support is provided through the <tt class=" ">configadmin</tt> subsystem. By default the JBoss OSGi runtime in AS 7 provides the Configuration Admin Service. For more information on the OSGi Configuration Admin Service see chapter 104 in the <a href="http://www.osgi.org/Download/Release4V42">OSGi Compendium Specification</a>.    </p>
+    <p>
+Configuration Admin is a dynamic system that supports re-configuration during operation, therefore all the related management operations take effect immediately and value changes will be propagated to the relevant configuration consumers without the need for a restart.    </p>
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-AddingConfiguration"  >
+        <h4>Adding Configuration</h4>
+    
+    <p>
+Configuration Admin configurations objects are identified by a Persistent Identified (PID) and carry an associated map of configuration values. Create a <tt class=" ">configuration</tt> using the <tt class=" ">add</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=configadmin/configuration=org.example.myPid:add(entries={&quot;key&quot;=&gt;&quot;value&quot;,&quot;anotherkey&quot;=&gt;&quot;another value&quot;})
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-ListingConfigurations"  >
+        <h4>Listing Configurations</h4>
+    
+    <p>
+List all the available configurations with the <tt class=" ">ls</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] ls /subsystem=configadmin/configuration
+org.example.myPid</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-InspectingConfiguration"  >
+        <h4>Inspecting Configuration</h4>
+    
+    <p>
+Read the configuration data with the <tt class=" ">read-resource</tt> command:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=configadmin/configuration=org.example.myPid:read-resource
+{
+    &quot;outcome&quot; =&gt; &quot;success&quot;,
+    &quot;result&quot; =&gt; {&quot;entries&quot; =&gt; {
+        &quot;key&quot; =&gt; &quot;value&quot;,
+        &quot;anotherkey&quot; =&gt; &quot;another value&quot;
+    }}
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-4"  id="25821373_CommandLineInterfaceConsole-RemovingConfiguration"  >
+        <h4>Removing Configuration</h4>
+    
+    <p>
+Configuration objects can be removed by issuing the <tt class=" ">remove</tt> command on the configuration pid resource:    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[standalone@localhost:9999 /] /subsystem=configadmin/configuration=org.example.myPid:remove       
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="25821399"  >
+        <h2>Management Console</h2>
+    
+    <p>
+JBoss Application Server 7 comes with a web-based management console. The console can be launched by opening a browser at <a href="http://localhost:9990/console">http://localhost:9990/console</a>.    </p>
+    <p>
+Supported operations:    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#25821399_ManagementConsole-FrameworkConfiguration">Framework Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821399_ManagementConsole-FrameworkManagement">Framework Management</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821399_ManagementConsole-BundleManagement">Bundle Management</a>    </p>
+</li><li class=" ">    <p>
+<a href="#25821399_ManagementConsole-ConfigurationAdmin">Configuration Admin</a>    </p>
+</li></ul>    <div class="section-3"  id="25821399_ManagementConsole-FrameworkConfiguration"  >
+        <h3>Framework Configuration</h3>
+    
+    <p>
+The OSGi framework can be configured via the <strong class=" ">OSGi -&gt; Framework</strong> panels on the <strong class=" ">Profile</strong> section.<br/>    <img src="images/author/download/attachments/25821399/framework_config.png" alt="images/author/download/attachments/25821399/framework_config.png" />
+        </p>
+    </div>
+    
+    <div class="section-3"  id="25821399_ManagementConsole-FrameworkManagement"  >
+        <h3>Framework Management</h3>
+    
+    <p>
+The OSGi Framework can be activated through the <strong class=" ">Runtime Operations -&gt; OSGi -&gt; Framework</strong> panel in the <strong class=" ">Runtime</strong> section. Additionally, the current framework start level can be managed here.<br/>    <img src="images/author/download/attachments/25821399/framework_mgmt.png" alt="images/author/download/attachments/25821399/framework_mgmt.png" />
+        </p>
+    </div>
+    
+    <div class="section-3"  id="25821399_ManagementConsole-BundleManagement"  >
+        <h3>Bundle Management</h3>
+    
+    <p>
+Bundles can be deployed through the general AS 7 Management Console Deployment mechanism.<br/>    <img src="images/author/download/attachments/25821399/deployment.png" alt="images/author/download/attachments/25821399/deployment.png" />
+        </p>
+    <p>
+After deploying and enabling the deployment, the bundle needs to be started, which can be done from the <strong class=" ">Runtime Operations -&gt; OSGi -&gt; Bundles</strong> panel in the <strong class=" ">Runtime</strong> section. Other information about bundles deployed in the Framework is available here too.<br/>    <img src="images/author/download/attachments/25821399/bundle_mgmt.png" alt="images/author/download/attachments/25821399/bundle_mgmt.png" />
+        </p>
+    </div>
+    
+    <div class="section-3"  id="25821399_ManagementConsole-ConfigurationAdmin"  >
+        <h3>Configuration Admin</h3>
+    
+    <p>
+The JBoss OSGi runtime in AS 7 provides the Configuration Admin Service. For more information on the OSGi Configuration Admin Service see chapter 104 in the OSGi <a href="http://www.osgi.org/Download/Release4V42">Compendium Specification</a>.    </p>
+    <p>
+Configuration Admin is a dynamic system that supports re-configuration during operation, therefore all the related management operations take effect immediately and value changes will be propagated to the relevant configuration consumers without the need for a restart.    </p>
+    <p>
+The Configuration Admin subsystem can be managed through the <strong class=" ">Core -&gt; Config Admin</strong> panel in the <strong class=" ">Profile</strong> section.    </p>
+    <p>
+    <img src="images/author/download/attachments/25821399/configadmin.png" alt="images/author/download/attachments/25821399/configadmin.png" />
+        </p>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784852"  >
+        <h1>Developer Documentation</h1>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="#4784852_DeveloperDocumentation-ManagementView">Management View</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784852_DeveloperDocumentation-WritingTestCases">Writing Test Cases</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784852_DeveloperDocumentation-LifecycleInterceptors">Lifecycle Interceptors</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-ManagementView"  >
+        <h2>Management View</h2>
+    
+    <p>
+JBoss OSGi provides standard <a href="http://www.osgi.org/javadoc/r4v42/org/osgi/jmx/package-frame.html">org.osgi.jmx</a> management. Additional to that we provide an <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/management/MBeanServer.html">MBeanServer</a> service.    </p>
+    <p>
+<strong class=" ">Configure WildFly to provide OSGi Management</strong>    </p>
+    <p>
+OSGi Management can be enabled with these capabilities    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;capabilities&gt;
+  ...
+  &lt;capability name=&quot;org.apache.aries:org.apache.aries.util:1.0.0&quot;/&gt;
+  &lt;capability name=&quot;org.apache.aries.jmx:org.apache.aries.jmx:1.0.0&quot; startlevel=&quot;1&quot;/&gt;
+  &lt;capability name=&quot;org.jboss.osgi.jmx:jbosgi-jmx:1.1.0.Final&quot; startlevel=&quot;1&quot;/&gt;
+&lt;/capabilities&gt;</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-WritingTestCases"  >
+        <h2>Writing Test Cases</h2>
+    
+    <div class="section-3"  id="4784852_DeveloperDocumentation-SimpleFrameworkTestCase"  >
+        <h3>Simple Framework Test Case</h3>
+    
+    <p>
+The most basic form of OSGi testing can be done with an OSGiFrameworkTest. This would boostrap the framework in the @BeforeClass scope and make the framework instance available through getFramework(). Due to classloading restrictions, you can only share primitive types between the test and the framework.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class SimpleFrameworkTestCase extends OSGiFrameworkTest
+{
+   @Test
+   public void testSimpleBundle() throws Exception
+   {
+      // Get the bundle location
+      URL url = getTestArchiveURL(&quot;example-simple.jar&quot;);
+      
+      // Install the Bundle
+      BundleContext sysContext = getFramework().getBundleContext();
+      Bundle bundle = sysContext.installBundle(url.toExternalForm());
+      assertBundleState(Bundle.INSTALLED, bundle.getState());
+
+      // Start the bundle
+      bundle.start();
+      assertBundleState(Bundle.ACTIVE, bundle.getState());
+
+      // Stop the bundle
+      bundle.stop();
+      assertBundleState(Bundle.RESOLVED, bundle.getState());
+      
+      // Uninstall the bundle
+      bundle.uninstall();
+      assertBundleState(Bundle.UNINSTALLED, bundle.getState());
+   }
+}</pre>
+        </div>
+    </div>
+    <p>
+These tests always work with an embedded OSGi framework. You can use the -Dframework property to run the test against a different framework implemenation (i.e. <a href="http://felix.apache.org">Apache Felix</a>).    </p>
+    </div>
+    
+    <div class="section-3"  id="4784852_DeveloperDocumentation-ArquillianTestCase"  >
+        <h3>Arquillian Test Case</h3>
+    
+    <p>
+The <a href="#4784853">Arquillian Test Framework</a> is covered in a dedicated chapter.    </p>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="4784852_DeveloperDocumentation-LifecycleInterceptors"  >
+        <h2>Lifecycle Interceptors</h2>
+    
+    <p>
+A common pattern in OSGi is that a bundle contains some piece of meta data that gets processed by some other infrastructure bundle that is installed in the OSGi Framework. In such cases the well known <a href="http://www.osgi.org/blog/2007/02/osgi-extender-model.html">Extender Pattern</a> is often being used. JBoss OSGi offeres a differnet approach to address this problem which is covered by the <a href="http://jbossosgi.blogspot.com/2009/10/extender-pattern-vs-lifecycle.html">Extender Pattern vs. Lifecycle Interceptor</a> post in the <a href="http://jbossosgi.blogspot.com/">JBoss OSGi Diary</a>.    </p>
+    <p>
+<strong class=" ">Extending an OSGi Bundle</strong>    </p>
+<ol class=" "><li class=" ">    <p>
+Extender registers itself as BundleListener    </p>
+</li><li class=" ">    <p>
+Bundle gets installed/started# Framework fires a BundleEvent    </p>
+</li><li class=" ">    <p>
+Extender picks up the BundleEvent (e.g. STARTING)    </p>
+</li><li class=" ">    <p>
+Extender reads metadata from the Bundle and does its work    </p>
+</li></ol>    <p>
+There is no extender specific API. It is a pattern rather than a piece of functionality provided by the Framework. Typical examples of extenders are the Blueprint or Web Application Extender.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784852/extender-approach.png" alt="images/author/download/attachments/4784852/extender-approach.png" />
+        </p>
+    <p>
+Client code that installs, starts and uses the registered endpoint could look like this.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">// Install and start the Web Application bundle
+Bundle bundle = context.installBundle(&quot;mywebapp.war&quot;);
+bundle.start();
+
+// Access the Web Application
+String response = getHttpResponse(&quot;http://localhost:8080/mywebapp/foo&quot;);
+assertEquals(&quot;ok&quot;, response);</pre>
+        </div>
+    </div>
+    <p>
+This seemingly trivial code snippet has a number of issues that are probably worth looking into in more detail    </p>
+<ul class=" "><li class=" ">    <p>
+The WAR might have missing or invalid web metadata (i.e. an invalid WEB-INF/web.xml descriptor)    </p>
+</li><li class=" ">    <p>
+The WAR Extender might not be present in the system    </p>
+</li><li class=" ">    <p>
+There might be multiple WAR Extenders present in the system    </p>
+</li><li class=" ">    <p>
+Code assumes that the endpoint is available on return of bundle.start()    </p>
+</li></ul>    <p>
+Most Blueprint or WebApp bundles are not useful if their Blueprint/Web metadata is not processed. Even if they are processed but in the &quot;wrong&quot; order a user might see unexpected results (i.e. the webapp processes the first request before the underlying Blueprint app is wired together).    </p>
+    <p>
+As a consequence the extender pattern is useful in some cases but not all. It is mainly useful if a bundle can optionally be extended in the true sense of the word.    </p>
+    <p>
+<strong class=" ">Intercepting the Bundle Lifecycle</strong>    </p>
+    <p>
+If the use case requires the notion of &quot;interceptor&quot; the extender pattern is less useful. The use case might be such that you would want to intercept the bundle lifecycle at various phases to do mandatory metadata processing.    </p>
+    <p>
+An interceptor could be used for annotation processing, byte code weaving, and other non-optional/optional metadata processing steps. Typically interceptors have a relative order, can communicate with each other, veto progress, etc.    </p>
+    <p>
+Lets look at how multiple interceptors can be used to create Web metadata and publish endpoints on the HttpService based on that metadata.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784852/interceptor-approach.png" alt="images/author/download/attachments/4784852/interceptor-approach.png" />
+        </p>
+    <p>
+Here is how it works    </p>
+<ol class=" "><li class=" ">    <p>
+The Wep Application processor registers two LifecycleInterceptors with the LifecycleInterceptorService    </p>
+</li><li class=" ">    <p>
+The Parser interceptor declares no required input and WebApp metadata as produced output    </p>
+</li><li class=" ">    <p>
+The Publisher interceptor declares WebApp metadata as required input    </p>
+</li><li class=" ">    <p>
+The LifecycleInterceptorService reorders all registered interceptors according to their input/output requirements and relative order    </p>
+</li><li class=" ">    <p>
+The WAR Bundle gets installed and started    </p>
+</li><li class=" ">    <p>
+The Framework calls the LifecycleInterceptorService prior to the actual state change    </p>
+</li><li class=" ">    <p>
+The LifecycleInterceptorService calls each interceptor in the chain    </p>
+</li><li class=" ">    <p>
+The Parser interceptor processes WEB-INF/web.xml in the invoke(int state, InvocationContext context) method and attaches WebApp metadata to the InvocationContext    </p>
+</li><li class=" ">    <p>
+The Publisher interceptor is only called when the InvocationContext has WebApp metadata attached. If so, it publishes the endpoint from the WebApp metadata    </p>
+</li><li class=" ">    <p>
+If no interceptor throws an Exception the Framework changes the Bundle state and fires the BundleEvent.    </p>
+</li></ol>    <p>
+Client code is identical to above.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">// Install and start the Web Application bundle
+Bundle bundle = context.installBundle(&quot;mywebapp.war&quot;);
+bundle.start();
+
+// Access the Web Application
+String response = getHttpResponse(&quot;http://localhost:8080/mywebapp/foo&quot;);
+assertEquals(&quot;ok&quot;, response);</pre>
+        </div>
+    </div>
+    <p>
+The behaviour of that code however, is not only different but also provides a more natural user experience.    </p>
+<ul class=" "><li class=" ">    <p>
+Bundle.start() fails if WEB-INF/web.xml is invalid    </p>
+</li><li class=" ">    <p>
+An interceptor could fail if web.xml is not present    </p>
+</li><li class=" ">    <p>
+The Publisher interceptor could fail if the HttpService is not present    </p>
+</li><li class=" ">    <p>
+Multiple Parser interceptors would work mutually exclusiv on the presents of attached WebApp metadata    </p>
+</li><li class=" ">    <p>
+The endpoint is guaranteed to be available when Bundle.start() returns    </p>
+</li></ul>    <p>
+The general idea is that each interceptor takes care of a particular aspect of processing during state changes. In the example above WebApp metadata might get provided by an interceptor that scans annotations or by another one that generates the metadata in memory. The Publisher interceptor would not know nor care who attached the WebApp metadata object, its task is to consume the WebApp metadata and publish endpoints from it.    </p>
+    <p>
+For details on howto provide and register liefecycle interceptors have a look at the Lifecycle Interceptor Example.    </p>
+    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784853"  >
+        <h1>Arquillian Test Framework</h1>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="#4784853_ArquillianTestFramework-Overview">Overview</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784853_ArquillianTestFramework-Configuration">Configuration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784853_ArquillianTestFramework-WritingArquillianTests">Writing Arquillian Tests</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-Overview"  >
+        <h2>Overview</h2>
+    
+    <p>
+<a href="http://jboss.org/arquillian">Arquillian</a> is a Test Framework that allows you to run plain JUnit4 test cases from within an OSGi Framework. That the test is actually executed in the the OSGi Framework is transparent to your test case. There is no requirement to extend a specific base class. Your OSGi tests execute along side with all your other (non OSGi specific) test cases in Maven, Ant, or Eclipse.    </p>
+    <p>
+Some time ago I was looking for ways to test bundles that are deployed to a remote instance of the JBoss OSGi Runtime. I wanted the solution to also work with an OSGi Framework that is bootstrapped from within a JUnit test case.    </p>
+    <p>
+The basic problem is of course that you cannot access the artefacts that you deploy in a bundle directly from your test case, because they are loaded from different classloaders.    </p>
+    <p>
+    <img src="images/author/download/attachments/4784853/arquillian-problem.png" alt="images/author/download/attachments/4784853/arquillian-problem.png" />
+        </p>
+    <p>
+For this release, we extended the <a href="http://jboss.org/arquillian">Arquillian Test Framework</a> to provide support for these requirements.    </p>
+<ul class=" "><li class=" ">    <p>
+Test cases SHOULD be plain JUnit4 POJOs    </p>
+</li><li class=" ">    <p>
+There SHOULD be no requirement to extend a specific test base class    </p>
+</li><li class=" ">    <p>
+There MUST be no requirement on a specific test runner (i.e. MUST run with Maven)    </p>
+</li><li class=" ">    <p>
+There SHOULD be a minimum test framework leakage into the test case    </p>
+</li><li class=" ">    <p>
+The test framework MUST support embedded and remote OSGi runtimes with no change required to the test    </p>
+</li><li class=" ">    <p>
+The same test case MUST be executable from outside as well as from within the OSGi Framework    </p>
+</li><li class=" ">    <p>
+There SHOULD be a pluggable communication layer from the test runner to the OSGi Framework    </p>
+</li><li class=" ">    <p>
+The test framework MUST NOT depend on OSGi Framework specific features    </p>
+</li><li class=" ">    <p>
+There MUST be no automated creation of test bundles required by the test framework    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-Configuration"  >
+        <h2>Configuration</h2>
+    
+    <p>
+In the target OSGi Framework, you need to have the <strong class=" ">arquillian-osgi-bundle.jar</strong> up and running. For remote testing you also need <strong class=" ">jboss-osgi-jmx.jar</strong> because Arquillian uses the a standard <a href="http://jcp.org/aboutJava/communityprocess/final/jsr160">JSR-160</a> to communicate between the test client and the remote OSGi Framework.    </p>
+    <p>
+See jboss-osgi-jmx on how the JMX protocol can be configured.    </p>
+    </div>
+    
+    <div class="section-2"  id="4784853_ArquillianTestFramework-WritingArquillianTests"  >
+        <h2>Writing Arquillian Tests</h2>
+    
+    <p>
+In an Arquillian test you    </p>
+<ul class=" "><li class=" ">    <p>
+need to use the <strong class=" ">@RunWith(Arquillian.class)</strong> test runner    </p>
+</li><li class=" ">    <p>
+may have a <strong class=" ">@Deployment</strong> method that generates the test bundle    </p>
+</li><li class=" ">    <p>
+may have <strong class=" ">@Inject BundleContext</strong> to get the system BundleContext injected    </p>
+</li><li class=" ">    <p>
+may have <strong class=" ">@Inject Bundle</strong> to get the test bundle injected    </p>
+</li></ul>    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">@RunWith(Arquillian.class)
+public class SimpleArquillianTestCase
+{
+   @Inject
+   public Bundle bundle;
+   
+   @Deployment
+   public static JavaArchive createdeployment()
+   {
+      final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, &quot;example-arquillian&quot;);
+      archive.addClasses(SimpleActivator.class, SimpleService.class);
+      archive.setManifest(new Asset()
+      {
+         public InputStream openStream()
+         {
+            OSGiManifestBuilder builder = OSGiManifestBuilder.newInstance();
+            builder.addBundleSymbolicName(archive.getName());
+            builder.addBundleManifestVersion(2);
+            builder.addBundleActivator(SimpleActivator.class.getName());
+            return builder.openStream();
+         }
+      });
+      return archive;
+   }
+   
+   @Test
+   public void testBundleInjection() throws Exception
+   {
+      // Assert that the bundle is injected
+      assertNotNull(&quot;Bundle injected&quot;, bundle);
+      
+      // Assert that the bundle is in state RESOLVED
+      // Note when the test bundle contains the test case it 
+      // must be resolved already when this test method is called
+      assertEquals(&quot;Bundle RESOLVED&quot;, Bundle.RESOLVED, bundle.getState());
+      
+      // Start the bundle
+      bundle.start();
+      assertEquals(&quot;Bundle ACTIVE&quot;, Bundle.ACTIVE, bundle.getState());
+      
+      // Get the service reference
+      BundleContext context = bundle.getBundleContext();
+      ServiceReference sref = context.getServiceReference(SimpleService.class.getName());
+      assertNotNull(&quot;ServiceReference not null&quot;, sref);
+      
+      // Get the service for the reference
+      SimpleService service = (SimpleService)context.getService(sref);
+      assertNotNull(&quot;Service not null&quot;, service);
+      
+      // Invoke the service 
+      int sum = service.sum(1, 2, 3);
+      assertEquals(6, sum);
+      
+      // Stop the bundle
+      bundle.stop();
+      assertEquals(&quot;Bundle RESOLVED&quot;, Bundle.RESOLVED, bundle.getState());
+   }
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784855"  >
+        <h1>Provided Examples</h1>
+    
+    <div class="section-2"  id="4784855_ProvidedExamples-Content"  >
+        <h2>Content</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-BuildandRuntheExamples">Build and Run the Examples</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-ExamplesforStandalone%26RemoteWildFly">Examples for Standalone &amp; Remote WildFly</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-BlueprintContainer">Blueprint Container</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-ConfigurationAdmin">Configuration Admin</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-DeclarativeServices">Declarative Services</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-EventAdmin">Event Admin</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-JNDIService">JNDI Service</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-JMXService">JMX Service</a>    </p>
+</li></ul></li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-ExamplesforWildFlyIntegration">Examples for WildFly Integration</a>    </p>
+<ul class=" "><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-CDIIntegration">CDI Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-EARDeployments">EAR Deployments</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-EJB3Integration">EJB3 Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-HttpService">HttpService</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-JAXBIntegration">JAXB Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-JPAIntegration">JPA Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-JTAService">JTA Service</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-LifecycleInterceptor">Lifecycle Interceptor</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-ResourceInjection">Resource Injection</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-RESTIntegration">REST Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-WebServicesIntegration">Web Services Integration</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-WebApplication">Web Application</a>    </p>
+</li><li class=" ">    <p>
+<a href="#4784855_ProvidedExamples-XMLParserServices">XML Parser Services</a>    </p>
+</li></ul></li></ul>    </div>
+    
+    <div class="section-2"  id="4784855_ProvidedExamples-BuildandRuntheExamples"  >
+        <h2>Build and Run the Examples</h2>
+    
+    <p>
+JBoss OSGi comes with a number of examples that demonstrate supported functionality and show best practices. All examples are part of the binary distribution and tightly integrated in our <a href="http://www.jboss.org/community/docs/DOC-13275">Maven Build Process</a>.    </p>
+    <p>
+The examples can be either run against an embedded OSGi framework or against WildFly. Here is how you build and run the standalone framework tests.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">[tdiesler@localhost example]$ mvn clean test
+ 
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.jboss.test.osgi.example.blueprint.BlueprintTestCase
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.225 sec
+...
+
+Tests run: 22, Failures: 0, Errors: 0, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 13.846s
+[INFO] Finished at: Fri Jun 28 10:24:25 CEST 2013
+[INFO] Final Memory: 25M/202M
+[INFO] ------------------------------------------------------------------------</pre>
+        </div>
+    </div>
+    <p>
+To run the examples against WildFly, you need to provide the target container that the runtime should connect to. This can be done with the <strong class=" ">target.container</strong> system property.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    mvn -Dtarget.container=wildfly800 test</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-2"  id="4784855_ProvidedExamples-ExamplesforStandalone%26RemoteWildFly"  >
+        <h2>Examples for Standalone &amp; Remote WildFly</h2>
+    
+    <p>
+This section covers example tests that run both in the standalone and remote WildFly runtimes.    </p>
+    <div class="section-3"  id="4784855_ProvidedExamples-BlueprintContainer"  >
+        <h3>Blueprint Container</h3>
+    
+    <p>
+The <strong class=" ">BlueprintTestCase</strong> shows how a number of components can be wired together and registered as OSGi service through the Blueprint Container Service.    </p>
+    <p>
+The example uses this simple blueprint descriptor    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot; ...&gt;
+  
+  &lt;bean id=&quot;beanA&quot; class=&quot;org.jboss.test.osgi.example.blueprint.bundle.BeanA&quot;&gt;
+    &lt;property name=&quot;mbeanServer&quot; ref=&quot;mbeanService&quot;/&gt;
+  &lt;/bean&gt;
+  
+  &lt;service id=&quot;serviceA&quot; ref=&quot;beanA&quot; interface=&quot;org.jboss.test.osgi.example.blueprint.bundle.ServiceA&quot;&gt;
+  &lt;/service&gt;
+  
+  &lt;service id=&quot;serviceB&quot; interface=&quot;org.jboss.test.osgi.example.blueprint.bundle.ServiceB&quot;&gt;
+    &lt;bean class=&quot;org.jboss.test.osgi.example.blueprint.bundle.BeanB&quot;&gt;
+       &lt;property name=&quot;beanA&quot; ref=&quot;beanA&quot;/&gt;
+    &lt;/bean&gt;
+  &lt;/service&gt;
+  
+  &lt;reference id=&quot;mbeanService&quot; interface=&quot;javax.management.MBeanServer&quot;/&gt;
+
+&lt;/blueprint&gt;</pre>
+        </div>
+    </div>
+    <p>
+The Blueprint Container registers two services <strong class=" ">ServiceA</strong> and <strong class=" ">ServiceB</strong>. ServiceA is backed up by <strong class=" ">BeanA</strong>, ServiceB is backed up by the anonymous <strong class=" ">BeanB</strong>. BeanA is injected into BeanB and the <strong class=" ">MBeanServer</strong> gets injected into BeanA. Both beans are plain POJOs. There is <strong class=" ">no BundleActivator</strong> neccessary to register the services.    </p>
+    <p>
+The example test verifies the correct wiring like this    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">@Test
+public void testServiceA() throws Exception
+{
+  ServiceReference&lt;ServiceA&gt; srefA = context.getServiceReference(ServiceA.class);
+  assertNotNull(&quot;ServiceA not null&quot;, srefA);
+  
+  ServiceA serviceA = context.getService(srefA);
+  MBeanServer mbeanServer = serviceA.getMbeanServer();
+  assertNotNull(&quot;MBeanServer not null&quot;, mbeanServer);
+
+  ServiceReference&lt;ServiceB&gt; srefB = context.getServiceReference(ServiceB.class);
+  assertNotNull(&quot;ServiceB not null&quot;, srefB);
+  
+  ServiceB serviceB = context.getService(sref);
+  BeanA beanA = serviceB.getBeanA();
+  assertNotNull(&quot;BeanA not null&quot;, beanA);
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-ConfigurationAdmin"  >
+        <h3>Configuration Admin</h3>
+    
+    <p>
+The <strong class=" ">ConfigurationAdminTestCase</strong> shows how an OSGi <a href="http://www.osgi.org/javadoc/r4v42/org/osgi/service/cm/ManagedService.html">ManagedService</a> can be configured through the <a href="http://www.osgi.org/javadoc/r4v42/org/osgi/service/cm/ConfigurationAdmin.html">ConfigurationAdmin</a> service.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public void testManagedService() throws Exception {
+
+   // Get the {@link Configuration} for the given PID
+   Configuration config = configAdmin.getConfiguration(ConfiguredService.SERVICE_PID);
+   assertNotNull(&quot;Config not null&quot;, config);
+
+   Dictionary&lt;String, String&gt; configProps = new Hashtable&lt;String, String&gt;();
+   configProps.put(&quot;foo&quot;, &quot;bar&quot;);
+   config.update(configProps);
+
+   // Register a {@link ManagedService}
+   Dictionary&lt;String, String&gt; serviceProps = new Hashtable&lt;String, String&gt;();
+   serviceProps.put(Constants.SERVICE_PID, ConfiguredService.SERVICE_PID);
+   bundlecontext.registerService(new String[] { ConfiguredService.class.getName(), 
+      ManagedService.class.getName() }, new ConfiguredService(), serviceProps);
+
+   // Wait a little for the update event
+   if (latch.await(5, TimeUnit.SECONDS) == false)
+      throw new TimeoutException();
+
+   // Verify service property
+   ServiceReference sref = bundlecontext.getServiceReference(ConfiguredService.class.getName());
+   ConfiguredService service = (ConfiguredService) bundlecontext.getService(sref);
+   assertEquals(&quot;bar&quot;, service.getValue(&quot;foo&quot;));
+
+   config.delete();
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-DeclarativeServices"  >
+        <h3>Declarative Services</h3>
+    
+    <p>
+The <strong class=" ">DeclarativeServicesTestCase</strong> shows how a service can be made available through a Declarative Services descriptor.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;component name=&quot;sample.component&quot; immediate=&quot;true&quot;&gt;
+  &lt;implementation class=&quot;org.jboss.test.osgi.example.ds.SampleComparator&quot; /&gt;
+  &lt;property name=&quot;service.description&quot; value=&quot;Sample Comparator Service&quot; /&gt;
+  &lt;property name=&quot;service.vendor&quot; value=&quot;Apache Software Foundation&quot; /&gt;
+  &lt;service&gt;
+    &lt;provide interface=&quot;java.util.Comparator&quot; /&gt;
+  &lt;/service&gt;
+&lt;/component&gt;</pre>
+        </div>
+    </div>
+    <p>
+The test then verifies that the service becomes available    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public void testImmediateService() throws Exception {
+
+  // Track the service provided by the test bundle
+  final CountDownLatch latch = new CountDownLatch(1);
+  ServiceTracker tracker = new ServiceTracker(context, Comparator.class.getName(), null) {
+     public Object addingService(ServiceReference reference) {
+         Comparator&lt;Object&gt; service = (Comparator&lt;Object&gt;) super.addingService(reference);
+         latch.countDown();
+         return service;
+     }
+  };
+  tracker.open();
+
+  // Wait for the service to become available
+  if (latch.await(2, TimeUnit.SECONDS) == false)
+    throw new TimeoutException(&quot;Timeout tracking Comparator service&quot;);
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-EventAdmin"  >
+        <h3>Event Admin</h3>
+    
+    <p>
+The <strong class=" ">EventAdminTestCase</strong> uses the <a href="http://www.osgi.org/javadoc/r4v42/org/osgi/service/event/EventAdmin.html">EventAdmin</a> service to send/receive events.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public void testEventHandler() throws Exception
+{
+  TestEventHandler eventHandler = new TestEventHandler();
+  
+  // Register the EventHandler
+  Dictionary param = new Hashtable();
+  param.put(EventConstants.EVENT_TOPIC, new String[Introduction] { TOPIC });
+  context.registerService(EventHandler.class.getName(), eventHandler, param);
+
+  // Send event through the the EventAdmin
+  EventAdmin eventAdmin = EventAdminSupport.provideEventAdmin(context, bundle);
+  eventAdmin.sendEvent(new Event(TOPIC, null));
+  
+  // Verify received event
+  assertEquals(&quot;Event received&quot;, 1, eventHandler.received.size());
+  assertEquals(TOPIC, eventHandler.received.get(0).getTopic());
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-JNDIService"  >
+        <h3>JNDI Service</h3>
+    
+    <p>
+The <strong class=" ">NamingStandaloneTestCase</strong> gets the <strong class=" ">JNDIContextManager</strong> service and verifies JNDI access.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">ServiceReference&lt;JNDIContextManager&gt; sref = context.getServiceReference(JNDIContextManager.class);
+JNDIContextManager contextManager = context.getService(sref);</pre>
+        </div>
+    </div>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">Context initialContext = contextManager.newInitialContext();
+BundleContext context = (BundleContext) initialContext.lookup(&quot;osgi:framework/bundleContext&quot;);
+Assert.assertEquals(bundle.getBundleContext(), context);</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-JMXService"  >
+        <h3>JMX Service</h3>
+    
+    <p>
+The <strong class=" ">MBeanServerTestCase</strong> tracks the MBeanServer service and registers a pojo with JMX. It then verifies the JMX access.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class MBeanActivator implements BundleActivator
+{
+   public void start(BundleContext context)
+   {
+      ServiceTracker tracker = new ServiceTracker(context, MBeanServer.class.getName(), null)
+      {
+         public Object addingService(ServiceReference reference)
+         {
+            MBeanServer mbeanServer = (MBeanServer)super.addingService(reference);
+            registerMBean(mbeanServer);
+            return mbeanServer;
+         }
+
+         @Override
+         public void removedService(ServiceReference reference, Object service)
+         {
+            unregisterMBean((MBeanServer)service);
+            super.removedService(reference, service);
+         }
+      };
+      tracker.open();
+   }
+
+   public void stop(BundleContext context)
+   {
+      ServiceReference sref = context.getServiceReference(MBeanServer.class.getName());
+      if (sref != null)
+      {
+         MBeanServer mbeanServer = (MBeanServer)context.getService(sref);
+         unregisterMBean(mbeanServer);
+      }
+   }
+   ...
+}</pre>
+        </div>
+    </div>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public void testMBeanAccess() throws Exception
+{
+   // Provide MBeanServer support
+   MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
+
+   // Start the test bundle
+   bundle.start();
+
+   ObjectName oname = ObjectName.getInstance(FooMBean.MBEAN_NAME);
+   FooMBean foo = ManagementSupport.getMBeanProxy(server, oname, FooMBean.class);
+   assertEquals(&quot;hello&quot;, foo.echo(&quot;hello&quot;));
+}</pre>
+        </div>
+    </div>
+    <p>
+The <strong class=" ">BundleStateTestCase</strong> uses JMX to control the bundle state through the BundleStateMBean.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public void testBundleStateMBean() throws Exception
+{
+   MBeanServer server = ManagementSupport.provideMBeanServer(context, bundle);
+
+   ObjectName oname = ObjectName.getInstance(BundleStateMBean.OBJECTNAME);
+   BundleStateMBean bundleState =  ManagementSupport.getMBeanProxy(server, oname, BundleStateMBean.class);
+   assertNotNull(&quot;BundleStateMBean not null&quot;, bundleState);
+
+   TabularData bundleData = bundleState.listBundles();
+   assertNotNull(&quot;TabularData not null&quot;, bundleData);
+   assertFalse(&quot;TabularData not empty&quot;, bundleData.isEmpty());
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="section-2"  id="4784855_ProvidedExamples-ExamplesforWildFlyIntegration"  >
+        <h2>Examples for WildFly Integration</h2>
+    
+    <p>
+This section covers example tests that only run both in the remote WildFly integration.    </p>
+    <div class="section-3"  id="4784855_ProvidedExamples-CDIIntegration"  >
+        <h3>CDI Integration</h3>
+    
+    <p>
+The <strong class=" ">ManagedBeansTestCase</strong> deploys and EAR file that contains a WAR and three bundles. The first bundle tracks payment service providers    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">    private BundleContext context;
+
+    @Resource
+    public void setContext(BundleContext context) {
+        this.context = context;
+    }
+
+    private List&lt;PaymentProvider&gt; providers = new ArrayList&lt;PaymentProvider&gt;();
+
+    @PostConstruct
+    @SuppressWarnings({ &quot;unchecked&quot;, &quot;rawtypes&quot; })
+    public void start() {
+        ServiceTracker tracker = new ServiceTracker(context, PaymentProvider.class.getName(), null) {
+
+            @Override
+            public Object addingService(ServiceReference reference) {
+                PaymentProvider service = (PaymentProvider) super.addingService(reference);
+                providers.add(service);
+                return service;
+            }
+
+            @Override
+            public void removedService(ServiceReference reference, Object service) {
+                providers.remove(service);
+                super.removedService(reference, service);
+            }
+        };
+        tracker.open();
+    }</pre>
+        </div>
+    </div>
+    <p>
+The other two bundles each provide an OSGi payment service, which gets injected into the webapp via CDI. The advantage of this approach is that we can construct modular web applications from independent components (i.e. bundles) which have lifecyle. We can therefore easily add/remove/start/stop/update payment service providers.    </p>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-EARDeployments"  >
+        <h3>EAR Deployments</h3>
+    
+    <p>
+The <strong class=" ">EnterpriseArchiveTestCase</strong> shows that OSGi bundles can be deployed as part on an EAR. It is guaranteed the contained bundles all get 'installed' before they get 'resolved' and 'started'. With a large set of individual bundle deployments that have complex interdependencies it would be hard to deploy the bundles in the correct order. EAR deployments fix that ordering issue.    </p>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-EJB3Integration"  >
+        <h3>EJB3 Integration</h3>
+    
+    <p>
+The <strong class=" ">StatelessBeanTestCase</strong> verifies that an EJB can be deployed as OSGi bundle. The stateless session bean then accesses on OSGi services    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">@Stateless
+@LocalBean
+public class SimpleStatelessSessionBean implements Echo {
+
+    @Resource
+    BundleContext context;
+
+    public String echo(String message) {
+        if (context == null) 
+           throw new IllegalStateException(&quot;BundleContext not injected&quot;);
+
+        if (BUNDLE_SYMBOLICNAME.equals(message)) {
+            Bundle bundle = getTargetBundle();
+            return bundle.getSymbolicName();
+        }
+        ...
+    }
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-HttpService"  >
+        <h3>HttpService</h3>
+    
+    <p>
+The <strong class=" ">HttpServiceTestCase</strong> deploys a Service that registeres a servlet and a resource with the <a href="http://www.osgi.org/javadoc/r4v41/org/osgi/service/http/HttpService.html">HttpService</a>.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">ServiceTracker tracker = new ServiceTracker(context, HttpService.class.getName(), null);
+tracker.open();
+
+HttpService httpService = (HttpService)tracker.getService();
+if (httpService == null)
+   throw new IllegalStateException(&quot;HttpService not registered&quot;);
+
+Properties initParams = new Properties();
+initParams.setProperty(&quot;initProp&quot;, &quot;SomeValue&quot;);
+httpService.registerServlet(&quot;/servlet&quot;, new EndpointServlet(context), initParams, null);
+httpService.registerResources(&quot;/file&quot;, &quot;/res&quot;, null);</pre>
+        </div>
+    </div>
+    <p>
+The test then verifies that the registered servlet context and the registered resource can be accessed.    </p>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-JAXBIntegration"  >
+        <h3>JAXB Integration</h3>
+    
+    <p>
+The <strong class=" ">XMLBindingTestCase</strong> verifies that an OSGi bundle can use the JAXB integration that is available in WildFly    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">        builder.addImportPackages(&quot;javax.xml.bind&quot;, &quot;javax.xml.bind.annotation&quot;);
+        builder.addImportPackages(&quot;javax.xml.datatype&quot;, &quot;javax.xml.namespace&quot;);
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(ObjectFactory.class...);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        URL resURL = bundle.getResource(&quot;booking.xml&quot;);
+        JAXBElement&lt;CourseBooking&gt; rootElement = unmarshaller.unmarshal(resURL.openStream());
+        assertNotNull(&quot;root element not null&quot;, rootElement);</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-JPAIntegration"  >
+        <h3>JPA Integration</h3>
+    
+    <p>
+The <strong class=" ">PersistenceTestCase</strong> verifies that an OSGi bundle can use the Hibernate JPA integration in WildFly    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">        EntityManagerFactory emf = null;
+        try {
+            ServiceReference&lt;EntityManagerFactory&gt; sref = context.getServiceReference(EntityManagerFactory.class);
+            emf = context.getService(sref);
+
+            Employee emp = new Employee();
+            emp.setId(100);
+            emp.setAddress(&quot;Sesame Street&quot;);
+            emp.setName(&quot;Kermit&quot;);
+
+            EntityManager em = emf.createEntityManager();
+            em.persist(emp);
+
+            emp = em.find(Employee.class, 100);
+            Assert.assertNotNull(&quot;Employee not null&quot;, emp);
+
+            em.remove(emp);
+
+        } finally {
+            if (emf != null) {
+                emf.close();
+            }
+        }</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-JTAService"  >
+        <h3>JTA Service</h3>
+    
+    <p>
+The <strong class=" ">TransactionTestCase</strong> gets the <a href="http://java.sun.com/javaee/5/docs/api/javax/transaction/UserTransaction.html">UserTransaction</a> service and registers a transactional user object (i.e. one that implements <a href="http://java.sun.com/javaee/5/docs/api/javax/transaction/Synchronization.html">Synchronization</a>) with the <a href="http://java.sun.com/javaee/5/docs/api/javax/transaction/TransactionManager.html">TransactionManager</a> service. It then verifies that modifications on the user object are transactional.    </p>
+    <p>
+This functionality is only available in the context of AS7.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">Transactional txObj = new Transactional();
+
+ServiceReference userTxRef = context.getServiceReference(UserTransaction.class.getName());
+assertNotNull(&quot;UserTransaction service not null&quot;, userTxRef);
+
+UserTransaction userTx = (UserTransaction)context.getService(userTxRef);
+assertNotNull(&quot;UserTransaction not null&quot;, userTx);
+
+userTx.begin();
+try
+{
+   ServiceReference tmRef = context.getServiceReference(TransactionManager.class.getName());
+   assertNotNull(&quot;TransactionManager service not null&quot;, tmRef);
+   
+   TransactionManager tm = (TransactionManager)context.getService(tmRef);
+   assertNotNull(&quot;TransactionManager not null&quot;, tm);
+   
+   Transaction tx = tm.getTransaction();
+   assertNotNull(&quot;Transaction not null&quot;, tx);
+   
+   tx.registerSynchronization(txObj);
+   
+   txObj.setMessage(&quot;Donate $1.000.000&quot;);
+   assertNull(&quot;Uncommited message null&quot;, txObj.getMessage());
+   
+   userTx.commit();
+}
+catch (Exception e)
+{
+   userTx.setRollbackOnly();
+}
+
+assertEquals(&quot;Donate $1.000.000&quot;, txObj.getMessage());</pre>
+        </div>
+    </div>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">class Transactional implements Synchronization
+{
+  public void afterCompletion(int status)
+  {
+     if (status == Status.STATUS_COMMITTED)
+        message = volatileMessage;
+  }
+  
+  ...      
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-LifecycleInterceptor"  >
+        <h3>Lifecycle Interceptor</h3>
+    
+    <p>
+The <strong class=" ">LifecycleInterceptorTestCase</strong> deployes a bundle that contains some metadata and an interceptor bundle that processes the metadata and registeres an http endpoint from it. The idea is that the bundle does not process its own metadata. Instead this work is delegated to some specialized metadata processor (i.e. the interceptor).    </p>
+    <p>
+Each interceptor is itself registered as a service. This is the well known <a href="http://www.osgi.org/wiki/uploads/Links/whiteboard.pdf">Whiteboard Pattern</a>.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class InterceptorActivator implements BundleActivator
+{
+   public void start(BundleContext context)
+   {
+      LifecycleInterceptor publisher = new PublisherInterceptor();
+      LifecycleInterceptor parser = new ParserInterceptor();
+      
+      // Add the interceptors, the order of which is handles by the service
+      context.registerService(LifecycleInterceptor.class.getName(), publisher, null);
+      context.registerService(LifecycleInterceptor.class.getName(), parser, null);
+   }
+}</pre>
+        </div>
+    </div>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class ParserInterceptor extends AbstractLifecycleInterceptor
+{
+   ParserInterceptor()
+   {
+      // Add the provided output
+      addOutput(HttpMetadata.class);
+   }
+
+   public void invoke(int state, InvocationContext context)
+   {
+      // Do nothing if the metadata is already available  
+      HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+      if (metadata != null)
+         return;
+
+      // Parse and create metadta on STARTING
+      if (state == Bundle.STARTING)
+      {
+          VirtualFile root = context.getRoot();
+          VirtualFile propsFile = root.getChild(&quot;/http-metadata.properties&quot;);
+          if (propsFile != null)
+          {
+             log.info(&quot;Create and attach HttpMetadata&quot;);
+             metadata = createHttpMetadata(propsFile);
+             context.addAttachment(HttpMetadata.class, metadata);
+          }
+      }
+   }
+   ...
+}</pre>
+        </div>
+    </div>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class PublisherInterceptor extends AbstractLifecycleInterceptor
+{
+   PublisherInterceptor()
+   {
+      // Add the required input
+      addInput(HttpMetadata.class);
+   }
+
+   public void invoke(int state, InvocationContext context)
+   {
+      // HttpMetadata is guaratied to be available because we registered
+      // this type as required input
+      HttpMetadata metadata = context.getAttachment(HttpMetadata.class);
+
+      // Register HttpMetadata on STARTING 
+      if (state == Bundle.STARTING)
+      {
+         String servletName = metadata.getServletName();
+
+         // Load the endpoint servlet from the bundle
+         Bundle bundle = context.getBundle();
+         Class servletClass = bundle.loadClass(servletName);
+         HttpServlet servlet = (HttpServlet)servletClass.newInstance();
+
+         // Register the servlet with the HttpService
+         HttpService httpService = getHttpService(context, true);
+         httpService.registerServlet(&quot;/servlet&quot;, servlet, null, null);
+      }
+
+      // Unregister the endpoint on STOPPING 
+      else if (state == Bundle.STOPPING)
+      {
+         log.info(&quot;Unpublish HttpMetadata: &quot; + metadata);
+         HttpService httpService = getHttpService(context, false);
+         if (httpService != null)
+            httpService.unregister(&quot;/servlet&quot;);
+      }
+   }
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-ResourceInjection"  >
+        <h3>Resource Injection</h3>
+    
+    <p>
+The <strong class=" ">ResourceInjectionTestCase</strong> verifies that resources can be injected in OSGi bundle activators.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public class ResourceInjectionActivator implements BundleActivator {
+
+    @Resource(name = &quot;java:jboss/datasources/ExampleDS&quot;)
+    public DataSource ds;
+
+    public void start(BundleContext context) throws Exception {
+        String productName = ds.getConnection().getMetaData().getDatabaseProductName();
+        ...
+    }
+}</pre>
+        </div>
+    </div>
+    <p>
+    </p>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-RESTIntegration"  >
+        <h3>REST Integration</h3>
+    
+    <p>
+The <strong class=" ">RestEndpointTestCase</strong> verifies that OSGi bundles can provide REST endpoints. REST endpoints can therefore be part of larger modular applications and have lifecycle - they can be started/stopped/updated, etc. REST endpoints can access OSGi services.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">@Path(&quot;/rest&quot;)
+@Consumes({ &quot;application/json&quot; })
+@Produces({ &quot;application/json&quot; })
+public class SimpleRestEndpoint {
+
+    private static final Logger log = Logger.getLogger(SimpleRestEndpoint.class);
+
+    @Resource
+    private BundleContext context;
+
+    @GET
+    @Path(&quot;/echo/{message}&quot;)
+    public String echo(@PathParam(&quot;message&quot;) String message) {
+        ServiceReference&lt;Echo&gt; sref = context.getServiceReference(Echo.class);
+        return context.getService(sref).echo(message);
+    }
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-WebServicesIntegration"  >
+        <h3>Web Services Integration</h3>
+    
+    <p>
+The <strong class=" ">WebServiceEndpointTestCase</strong> verifies that OSGi bundles can provide WebService endpoints. WebService endpoints can therefore be part of larger modular applications and have lifecycle - they can be started/stopped/updated, etc. WebService endpoints can access OSGi services.    </p>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-WebApplication"  >
+        <h3>Web Application</h3>
+    
+    <p>
+The <strong class=" ">WebAppTestCase</strong> deploys an OSGi Web Application Bundle (WAB). Similar to HTTP Service Example it registers a servlet and resources with the WebApp container. This is done through a standard web.xml descriptor.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; ... version=&quot;2.5&quot;&gt;
+
+  &lt;display-name&gt;WebApp Sample&lt;/display-name&gt;
+
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;servlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.jboss.test.osgi.example.webapp.bundle.EndpointServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;initProp&lt;/param-name&gt;
+      &lt;param-value&gt;SomeValue&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  &lt;/servlet&gt;
+
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;servlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/servlet&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;</pre>
+        </div>
+    </div>
+    <p>
+The associated OSGi manifest looks like this.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: example-webapp
+Bundle-ClassPath: .,WEB-INF/classes
+Web-ContextPath: example-webapp
+Import-Package: javax.servlet,javax.servlet.http,...</pre>
+        </div>
+    </div>
+    <p>
+The test verifies that we can access the servlet and some resources.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">public void testServletAccess() throws Exception
+{
+   // Provide WebApp support
+   WebAppSupport.provideWebappSupport(context, bundle);
+        
+   // Start the test bundle
+   bundle.start();
+        
+   String line = getHttpResponse(&quot;/example-webapp/servlet?test=plain&quot;, 5000);
+   assertEquals(&quot;Hello from Servlet&quot;, line);
+}</pre>
+        </div>
+    </div>
+    </div>
+    
+    <div class="section-3"  id="4784855_ProvidedExamples-XMLParserServices"  >
+        <h3>XML Parser Services</h3>
+    
+    <p>
+The XML parser test cases get a DocumentBuilderFactory/SAXParserFactory respectivly and unmarshalls an XML document using that parser.    </p>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">DocumentBuilderFactory factory = XMLParserSupport.provideDocumentBuilderFactory(context, bundle);
+factory.setValidating(false);
+
+DocumentBuilder domBuilder = factory.newDocumentBuilder();
+URL resURL = context.getBundle().getResource(&quot;example-xml-parser.xml&quot;);
+Document dom = domBuilder.parse(resURL.openStream());
+assertNotNull(&quot;Document not null&quot;, dom);</pre>
+        </div>
+    </div>
+    <div class="confbox programlisting">
+                <div class="content">
+        <pre class="brush: java; gutter: false;">SAXParserFactory factory = XMLParserSupport.provideSAXParserFactory(context, bundle);
+factory.setValidating(false);
+
+SAXParser saxParser = factory.newSAXParser();
+URL resURL = context.getBundle().getResource(&quot;example-xml-parser.xml&quot;);
+
+SAXHandler saxHandler = new SAXHandler();
+saxParser.parse(resURL.openStream(), saxHandler);
+assertEquals(&quot;content&quot;, saxHandler.getContent());</pre>
+        </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784856"  >
+        <h1>References</h1>
+    
+    <div class="section-2"  id="4784856_References-Resources"  >
+        <h2>Resources</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="http://www.osgi.org/Download/Release4V42">OSGi 4.2 Specifications</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://www.osgi.org/javadoc/r4v42/">OSGi 4.2 JavaDoc</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://en.wikipedia.org/wiki/OSGi_Specification_Implementations">OSGi on Wikipedia</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://www.jboss.org/jbossas/osgi">JBoss OSGi Project Page</a>    </p>
+</li><li class=" ">    <p>
+<a href="https://docs.jboss.org/author/display/JBOSGI">JBoss OSGi Wiki</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://jbossosgi.blogspot.com">JBoss OSGi Diary</a>    </p>
+</li><li class=" ">    <p>
+<a href="https://jira.jboss.org/jira/browse/JBOSGI">Issue Tracking</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://github.com/jbosgi">Source Repository</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=257">User Forum</a>    </p>
+</li><li class=" ">    <p>
+<a href="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=256">Design Forum</a>    </p>
+</li></ul>    </div>
+    
+    <div class="section-2"  id="4784856_References-Authors"  >
+        <h2>Authors</h2>
+    
+<ul class=" "><li class=" ">    <p>
+<a href="mailto:thomas.diesler@jboss.com">Thomas Diesler</a>    </p>
+</li><li class=" ">    <p>
+<a href="mailto:david@redhat.com">David Bosschaert</a>    </p>
+</li></ul>    </div>
+    
+    </div>
+    
+    <div class="section-1"  id="4784857"  >
+        <h1>Getting Support</h1>
+    
+    <p>
+We offer free support through the <a href="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=257">JBoss OSGi User Forum</a>.    </p>
+    <p>
+Please note, that posts to this forum will be dealt with at the community's leisure.<br/>If your business is such that you need to rely on qualified answers within a known time frame,<br/>this forum might not be your preferred support channel.    </p>
+    <p>
+For professional support please go to <a href="http://www.jboss.com/services">JBoss Support Services</a>.    </p>
+    </div>
+    
+        </div>
+          </div>
+    <script type="text/javascript">
+      SyntaxHighlighter.all()
+    </script>
+</body>
+</html>

@@ -107,7 +107,7 @@ JBoss OSGi is distributed as an <a href="http://izpack.org">IzPack</a> installer
 To run the Project Distribution installer execute the following command:    </p>
     <div class="confbox programlisting">
                 <div class="content">
-        <pre class="brush: java; gutter: false;">java -jar jboss-osgi-installer-2.0.0.jar</pre>
+        <pre class="brush: java; gutter: false;">java -jar jboss-osgi-installer-2.1.0.jar</pre>
         </div>
     </div>
     <p>
@@ -121,7 +121,10 @@ Then you select the installation path for the JBoss OSGi distribution. This is t
     <img src="images/author/download/attachments/4784849/izpack05-installpath.png" alt="images/author/download/attachments/4784849/izpack05-installpath.png" />
         </p>
     <p>
-The content of the JBoss OSGi distribution contains a set of documents and example test cases that can be executed against the embedded framework or against a WildFly instance.    </p>
+You can then select whether you want to install the OSGi subsystem into an existing WildFly build    </p>
+    <p>
+    <img src="images/author/download/attachments/4784849/izpack06-selectpack.png" alt="images/author/download/attachments/4784849/izpack06-selectpack.png" />
+        </p>
     </div>
     
     </div>
@@ -142,27 +145,27 @@ It is also not part of the default configuration. Instead you can use the provid
 When you start up WildFly you should see something like this    </p>
     <div class="confbox programlisting">
                 <div class="content">
-        <pre class="brush: java; gutter: false;">[tdiesler@localhost wildfly-8.0.0.Alpha2]$ bin/standalone.sh -c standalone-osgi.xml
+        <pre class="brush: java; gutter: false;">[tdiesler@localhost wildfly-8.0.0.Alpha3]$ bin/standalone.sh -c standalone-osgi.xml
 =========================================================================
 
   JBoss Bootstrap Environment
 
-  JBOSS_HOME: /Users/tdiesler/git/wildfly-8.0.0.Alpha2/build/target/wildfly-8.0.0.Alpha2
+  JBOSS_HOME: /Users/tdiesler/git/wildfly-8.0.0.Alpha3/build/target/wildfly-8.0.0.Alpha3
 
-  JAVA: /Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home/bin/java
+  JAVA: /Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home/bin/java
 
   JAVA_OPTS:  ...
 
 =========================================================================
 
-12:56:31,829 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.2.Final
+12:56:31,829 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.4.Final
 12:56:32,081 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta1
-12:56:32,160 INFO  [org.jboss.as] JBAS015899: WildFly 8.0.0.Alpha2 &quot;WildFly&quot; starting
+12:56:32,160 INFO  [org.jboss.as] JBAS015899: WildFly 8.0.0.Alpha3 &quot;WildFly&quot; starting
 ...
-12:56:34,741 INFO  [org.jboss.osgi.framework] JBOSGI011006: OSGi Framework - 3.0.0.CR28
-12:56:34,991 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.log:1.0.0
+12:56:34,741 INFO  [org.jboss.osgi.framework] JBOSGI011006: OSGi Framework - 3.0.2.Final
+12:56:34,991 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.log:1.0.1
 12:56:34,994 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: jboss-osgi-logging:1.0.0
-12:56:34,998 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.configadmin:1.2.8
+12:56:34,998 INFO  [org.jboss.osgi.framework] JBOSGI011001: Bundle installed: org.apache.felix.configadmin:1.6.0
 ...
 12:56:35,303 INFO  [org.jboss.osgi.framework] JBOSGI011011: Starting bundles for start level: 1
 12:56:35,328 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.log:1.0.0
@@ -170,7 +173,27 @@ When you start up WildFly you should see something like this    </p>
 12:56:35,377 INFO  [org.jboss.osgi.framework] JBOSGI011002: Bundle started: org.apache.felix.configadmin:1.2.8
 ...
 12:56:35,709 INFO  [org.jboss.osgi.framework] JBOSGI011000: OSGi Framework started
-12:56:35,769 INFO  [org.jboss.as] JBAS015874: WildFly 8.0.0.Alpha2 &quot;WildFly&quot; started in 4379ms</pre>
+12:56:35,769 INFO  [org.jboss.as] JBAS015874: WildFly 8.0.0.Alpha2 &quot;WildFly&quot; started in 4379ms
+
+12:46:39,491 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.4.Final
+12:46:39,714 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta2
+...
+12:46:41,417 INFO  [org.jboss.osgi.framework] (MSC service thread 1-1) JBOSGI011006: OSGi Framework - 3.0.2.Final
+12:46:42,153 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: org.apache.felix.log:1.0.1
+12:46:42,157 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: jboss-osgi-logging:1.0.0
+12:46:42,161 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: org.apache.felix.configadmin:1.6.0
+12:46:42,164 INFO  [org.jboss.osgi.framework] (MSC service thread 1-3) JBOSGI011001: Bundle installed: jbosgi-wildfly-configadmin:2.1.0
+...
+12:46:42,255 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011011: Starting bundles for start level: 1
+12:46:42,258 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jbosgi-wildfly-http:2.1.0
+12:46:42,258 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jbosgi-wildfly-jpa:2.1.0
+12:46:42,270 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: org.apache.felix.log:1.0.1
+12:46:42,283 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jboss-osgi-logging:1.0.0
+12:46:42,308 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: org.apache.felix.configadmin:1.6.0
+12:46:42,319 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011002: Bundle started: jbosgi-wildfly-configadmin:2.1.0
+12:46:42,320 INFO  [org.jboss.osgi.framework] (MSC service thread 1-6) JBOSGI011000: OSGi Framework started
+...
+12:46:42,373 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Alpha3 &quot;WildFly&quot; started in 3197ms</pre>
         </div>
     </div>
     </div>
@@ -263,7 +286,7 @@ The Web Console can be used to install, start, stop and uninstall bundles. Addit
     <p>
 For more detailed management operations you can also install the <a href="http://felix.apache.org/site/apache-felix-web-console.html">Felix Web Console</a>    </p>
     <p>
-In WildFly <strong class=" ">8.0.0.Alpha2</strong> you add this capability    </p>
+In WildFly 8.x you add this capability    </p>
     <div class="confbox programlisting">
                 <div class="content">
         <pre class="brush: java; gutter: false;">&lt;capability name=&quot;org.apache.felix:org.apache.felix.webconsole:3.1.8&quot; startlevel=&quot;1&quot;/&gt;</pre>

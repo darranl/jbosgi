@@ -213,6 +213,39 @@ public class WebAppTestCase {
             } catch (IOException ex) {
                 // expected
             }
+        } finally {
+            deployer.undeploy(BUNDLE_D_WAB);
+        }
+    }
+
+    @Test
+    @Ignore("[JBOSGI-743] Cannot restart webapp bundle")
+    public void testRestartBundleWithWebContextPath() throws Exception {
+        deployer.deploy(BUNDLE_D_WAB);
+        try {
+            Bundle bundle = context.getBundle(BUNDLE_D_WAB);
+
+            String result = performCall("/bundle-d/servlet?input=Hello");
+            Assert.assertEquals("bundle-d.wab called with: Hello", result);
+            result = performCall("/bundle-d/message.txt");
+            Assert.assertEquals("Hello from Resource", result);
+
+            bundle.stop();
+            Assert.assertEquals("RESOLVED", Bundle.RESOLVED, bundle.getState());
+
+            try {
+                performCall("/bundle-d/servlet?input=Hello");
+                Assert.fail("IOException expected");
+            } catch (IOException ex) {
+                // expected
+            }
+
+            try {
+                performCall("/bundle-d/message.txt");
+                Assert.fail("IOException expected");
+            } catch (IOException ex) {
+                // expected
+            }
 
             bundle.start();
             Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());

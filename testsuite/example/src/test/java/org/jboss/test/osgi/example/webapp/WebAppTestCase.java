@@ -177,14 +177,6 @@ public class WebAppTestCase {
             } catch (IOException ex) {
                 // expected
             }
-
-            bundle.start();
-            Assert.assertEquals("ACTIVE", Bundle.ACTIVE, bundle.getState());
-
-            result = performCall("/bundle-d/servlet?input=Hello");
-            Assert.assertEquals("Simple Servlet called with input=Hello", result);
-            result = performCall("/bundle-d/message.txt");
-            Assert.assertEquals("Hello from Resource", result);
         } finally {
             deployer.undeploy(BUNDLE_D_WAB);
         }

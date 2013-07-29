@@ -139,7 +139,7 @@
 
       <description>Integration with an existing WildFly instance</description>
 
-      <fileset dir="@{wildfly.patch.dir}" targetdir="$jboss.home" override="true"/>
+      <fileset dir="@{wildfly.patch.dir}" targetdir="$wildFlyInstallPath" override="true"/>
     </pack>
     
   </packs>
